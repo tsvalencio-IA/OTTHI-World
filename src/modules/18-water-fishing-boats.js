@@ -13,7 +13,7 @@
   function waterAt(x,z){return(world.hazards||[]).find(h=>h.type==='water'&&insideWater(x,z,h));}
   function isInsideLakeNavigable(x,z){return (x>=-113&&x<=-29&&z>=44&&z<=60)||(x>=-116&&x<=-82&&z>=55&&z<=84);}
   function isNearFishingArea(){return player.boating||Math.hypot(player.x+28,player.z-45)<9||Math.hypot(player.x+27,player.z-57)<9;}
-  function resolveWaterWalking(prevX,prevZ){if(player.boating||player.vehicle||currentHouse)return;const h=waterAt(player.x,player.z);if(!h||groundHeightAt(player.x,player.z)>.24)return;player.x=prevX;player.z=prevZ;player.vx=player.vz=0;if(performance.now()-waterWarningAt>1700){waterWarningAt=performance.now();toast('A água é funda. Use o píer e o barco.','warn',1900);}}
+  function resolveWaterWalking(prevX,prevZ){if(player.boating||player.vehicle||currentHouse){player.swimming=false;return;}const h=waterAt(player.x,player.z);const nowSwimming=!!h&&groundHeightAt(player.x,player.z)<=.24;if(nowSwimming&&!player.swimming&&performance.now()-waterWarningAt>900){waterWarningAt=performance.now();toast('Você entrou na água. Use o joystick para nadar e PULAR para uma braçada.','good',2400);}if(!nowSwimming&&player.swimming&&performance.now()-waterWarningAt>700){waterWarningAt=performance.now();toast('Você saiu da água.','good',1100);}player.swimming=nowSwimming;if(player.swimming){player.vx*=.985;player.vz*=.985;}}
 
   const BOAT_DOCK={minX:-36,maxX:-24,minZ:50.5,maxZ:53.5,exitX:-23.25,touchDistance:4.4};
   function distanceToBoatDock(x=player.x,z=player.z){const nx=clamp(x,BOAT_DOCK.minX,BOAT_DOCK.maxX),nz=clamp(z,BOAT_DOCK.minZ,BOAT_DOCK.maxZ);return Math.hypot(x-nx,z-nz);}
@@ -61,7 +61,7 @@
   function pullFishingVisual(success,fishData){const v=fishingVisual;if(!v?.active)return;v.phase=success?'pulling':'escaping';v.phaseAt=performance.now();v.fishSize=clamp(.8+Number(fishData?.size||.5)*.08,.82,1.35);v.fish.scale.setScalar(v.fishSize);v.fish.visible=!!success;}
   function restoreFishingCamera(){
     if(!fishingCameraState)return;
-    cameraYaw=Number(fishingCameraState.yaw||0);cameraPitch=clamp(Number(fishingCameraState.pitch||.38),.05,.9);cameraZoom=Number(fishingCameraState.zoom||0);fishingCameraState=null;input.cameraDrag=null;
+    cameraYaw=Number(fishingCameraState.yaw||0);cameraPitch=clamp(Number(fishingCameraState.pitch||.28),-.55,1.35);cameraZoom=Number(fishingCameraState.zoom||0);state.settings.cameraPitch=+cameraPitch.toFixed(3);fishingCameraState=null;input.cameraDrag=null;
   }
   function stopFishingVisual(delay=0){
     const v=fishingVisual;

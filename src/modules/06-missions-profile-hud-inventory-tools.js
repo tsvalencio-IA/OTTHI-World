@@ -107,21 +107,23 @@
     const inv = state.inventory;
     openModal('Inventário', `<div class="inventory-grid">
       <div class="inventory-item"><b>🪵 ${inv.wood}</b><span>Madeira</span></div><div class="inventory-item"><b>🪨 ${inv.stone}</b><span>Pedra</span></div><div class="inventory-item"><b>🟨 ${inv.goldOre||0}</b><span>Minério de ouro</span></div><div class="inventory-item"><b>🏅 ${inv.goldBar||0}</b><span>Barra de ouro</span></div><div class="inventory-item"><b>🍎 ${inv.food}</b><span>Comida</span></div><div class="inventory-item"><b>💧 ${inv.water}</b><span>Água</span></div><div class="inventory-item"><b>💎 ${inv.crystals}</b><span>Cristais</span></div><div class="inventory-item"><b>🧱 ${inv.blocks}</b><span>Blocos</span></div><div class="inventory-item"><b>🪵 ${inv.fences}</b><span>Cercas</span></div><div class="inventory-item"><b>🪙 ${state.profile.coins}</b><span>Moedas</span></div>
-      <div class="inventory-item"><b>🎣 ${inv.fishingRod||0}</b><span>Vara de pesca</span></div><div class="inventory-item"><b>🪱 ${inv.bait||0}</b><span>Iscas</span></div><div class="inventory-item"><b>🐟 ${inv.rawFish||0}</b><span>Peixe cru</span></div><div class="inventory-item"><b>🍽️ ${inv.cookedFish||0}</b><span>Peixe assado</span></div><div class="inventory-item"><b>🌿 ${inv.forestResources||0}</b><span>Recursos da floresta</span></div>
+      <div class="inventory-item"><b>🎣 ${inv.fishingRod||0}</b><span>Vara de pesca</span></div><div class="inventory-item"><b>🪱 ${inv.bait||0}</b><span>Iscas</span></div><div class="inventory-item"><b>🌱 ${inv.seeds||0}</b><span>Sementes</span></div><div class="inventory-item"><b>🌾 ${inv.wheat||0}</b><span>Trigo</span></div><div class="inventory-item"><b>🥕 ${inv.carrots||0}</b><span>Cenouras</span></div><div class="inventory-item"><b>🟫 ${inv.clay||0}</b><span>Argila</span></div><div class="inventory-item"><b>🐟 ${inv.rawFish||0}</b><span>Peixe cru</span></div><div class="inventory-item"><b>🍽️ ${inv.cookedFish||0}</b><span>Peixe assado</span></div><div class="inventory-item"><b>🌿 ${inv.forestResources||0}</b><span>Recursos da floresta</span></div>
     </div><div class="modal-actions"><button class="btn primary" data-open-tools>Ferramentas</button>${inv.cookedFish>0?'<button class="btn" data-eat-cooked>Comer peixe assado</button>':''}</div>`,root=>{$('[data-open-tools]',root)?.addEventListener('click',openToolbelt);$('[data-eat-cooked]',root)?.addEventListener('click',()=>{if((state.inventory.cookedFish||0)<1)return;state.inventory.cookedFish--;state.needs.hunger=clamp(state.needs.hunger+32,0,100);state.needs.energy=clamp(state.needs.energy+6,0,100);saveState(true);updateHUD();toast('Peixe assado consumido.','good');openInventory();});});
   }
 
   const TOOL_DEFS={
     axe:{icon:'🪓',name:'Machado',description:'Corta árvores e coleta madeira.'},
     pickaxe:{icon:'⛏️',name:'Picareta',description:'Extrai pedra e minério de ouro.'},
-    bucket:{icon:'🪣',name:'Balde',description:'Retira água limpa do poço.'}
+    bucket:{icon:'🪣',name:'Balde',description:'Retira água limpa do poço.'},
+    hoe:{icon:'🧑‍🌾',name:'Enxada',description:'Prepara a terra, planta e procura iscas.'},
+    shovel:{icon:'🪏',name:'Pá',description:'Escava terra, areia, argila e iscas.'}
   };
   function equippedTool(){return TOOL_DEFS[state.tools?.equipped]||TOOL_DEFS.axe;}
   function equipTool(id){
     if(!TOOL_DEFS[id]||!state.tools.owned.includes(id))return false;state.tools.equipped=id;saveState(true);refreshEquippedToolVisual();if(els.toolsBtn){els.toolsBtn.firstChild.textContent=TOOL_DEFS[id].icon;$('span',els.toolsBtn).textContent=TOOL_DEFS[id].name;}toast(`${TOOL_DEFS[id].name} equipado.`,'good',1200);return true;
   }
   function openToolbelt(){
-    openModal('Ferramentas',`<div class="tool-grid">${Object.entries(TOOL_DEFS).map(([id,tool])=>`<button class="tool-card ${state.tools.equipped===id?'active':''}" data-equip-tool="${id}"><span>${tool.icon}</span><b>${tool.name}</b><small>${tool.description}</small><em>${state.tools.equipped===id?'Em uso':'Equipar'}</em></button>`).join('')}</div><div class="resource-summary"><span>🪵 ${state.tools.harvested.wood||0}</span><span>🪨 ${state.tools.harvested.stone||0}</span><span>🟨 ${state.tools.harvested.gold||0}</span><span>💧 ${state.tools.harvested.water||0}</span></div>`,root=>{$$('[data-equip-tool]',root).forEach(btn=>btn.onclick=()=>{equipTool(btn.dataset.equipTool);closeModal();});});
+    openModal('Ferramentas',`<div class="tool-grid">${Object.entries(TOOL_DEFS).map(([id,tool])=>`<button class="tool-card ${state.tools.equipped===id?'active':''}" data-equip-tool="${id}"><span>${tool.icon}</span><b>${tool.name}</b><small>${tool.description}</small><em>${state.tools.equipped===id?'Em uso':'Equipar'}</em></button>`).join('')}</div><div class="resource-summary"><span>🪵 ${state.tools.harvested.wood||0}</span><span>🪨 ${state.tools.harvested.stone||0}</span><span>🟨 ${state.tools.harvested.gold||0}</span><span>💧 ${state.tools.harvested.water||0}</span><span>🪱 ${state.tools.harvested.bait||0}</span><span>🌾 ${state.tools.harvested.crops||0}</span><span>🟫 ${state.tools.harvested.clay||0}</span></div>`,root=>{$$('[data-equip-tool]',root).forEach(btn=>btn.onclick=()=>{equipTool(btn.dataset.equipTool);closeModal();});});
   }
   function refreshEquippedToolVisual(){
     if(!playerModel?.userData?.parts?.rightArm)return;
@@ -133,11 +135,13 @@
     }else{
       box(.11,.92,.11,wood,0,-.16,0,toolVisual);
       if(type==='axe'){box(.48,.3,.14,metal,.17,.25,0,toolVisual);box(.18,.18,.17,metal,-.13,.25,0,toolVisual);}
+      else if(type==='hoe'){box(.68,.11,.12,metal,.18,.25,0,toolVisual);box(.12,.35,.12,metal,-.12,.09,0,toolVisual);}
+      else if(type==='shovel'){const blade=new THREE.Mesh(new THREE.CylinderGeometry(.24,.31,.34,6),metal);blade.position.set(0,.28,0);blade.scale.z=.45;toolVisual.add(blade);}
       else{box(.72,.16,.16,metal,0,.25,0,toolVisual);box(.16,.28,.16,metal,-.3,.14,0,toolVisual);box(.16,.28,.16,metal,.3,.14,0,toolVisual);}
     }
     toolVisual.visible=!player.vehicle&&!player.boating&&!player.transit.mode;
   }
-  function playToolAnimation(){player.emoteType='tool';player.emoteUntil=performance.now()+620;player.emoteSeq=(player.emoteSeq||0)+1;beep(state.tools.equipped==='pickaxe'?180:260,55,'triangle');vibrate(16);}
+  function playToolAnimation(){player.emoteType='tool';player.emoteUntil=performance.now()+620;player.emoteSeq=(player.emoteSeq||0)+1;const low=['pickaxe','hoe','shovel'].includes(state.tools.equipped);beep(low?180:260,55,'triangle');vibrate(16);}
 
   const WORLD_MAP_ROADS=[{x:0,z:0,w:18,d:210},{x:0,z:0,w:210,d:18},{x:-55,z:-55,w:9,d:105},{x:55,z:48,w:9,d:92},{x:55,z:-55,w:9,d:105},{x:-55,z:22,w:9,d:44},{x:27.5,z:78,w:55,d:9}];
   const NAV_BASE_NODES={

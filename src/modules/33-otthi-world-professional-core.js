@@ -7,8 +7,8 @@
  * Não deve ser carregado diretamente por index.html.
  */
 // @otthi-module-body
-  const OTTHI_WORLD_VERSION = 701;
-  const OTTHI_WORLD_BUILD = '701.0-secure-gm-panel';
+  const OTTHI_WORLD_VERSION = 702;
+  const OTTHI_WORLD_BUILD = '702.0-world-evolution-complete';
   const OTTHI_WORLD_STAGES = Object.freeze({
     foundation:Object.freeze({id:'foundation',number:1,title:'Fundação profissional',status:'implemented'}),
     avatar:Object.freeze({id:'avatar',number:2,title:'Personagem modular',status:'implemented'}),
@@ -17,7 +17,7 @@
     adventure:Object.freeze({id:'adventure',number:5,title:'Aventura, plataforma e poderes',status:'implemented'})
   });
   const OTTHI_WORLD_PBR_PACKS=Object.freeze({
-    grass:'grass',road:'road',sidewalk:'sidewalk',water:'water',wood:'wood',brick:'brick',stone:'stone',roof:'roof',fabric:'fabric',schoolWall:'school-wall',policeWall:'police-wall',goldOre:'gold-ore',interiorFloor:'interior-floor',interiorWall:'interior-wall',marketFloor:'market-floor',marketWall:'market-wall',schoolFloor:'school-floor',fireWall:'fire-wall',concrete:'concrete',cityGlass:'city-glass',emergencyMetal:'emergency-metal',toyPlastic:'toy-plastic',vehicleTire:'vehicle-tire',heroEnergy:'hero-energy',mushroom:'mushroom',foliage:'foliage'
+    grass:'grass',road:'road',sidewalk:'sidewalk',water:'water',wood:'wood',brick:'brick',stone:'stone',roof:'roof',fabric:'fabric',schoolWall:'school-wall',policeWall:'police-wall',goldOre:'gold-ore',interiorFloor:'interior-floor',interiorWall:'interior-wall',marketFloor:'market-floor',marketWall:'market-wall',schoolFloor:'school-floor',fireWall:'fire-wall',concrete:'concrete',cityGlass:'city-glass',emergencyMetal:'emergency-metal',toyPlastic:'toy-plastic',vehicleTire:'vehicle-tire',heroEnergy:'hero-energy',mushroom:'mushroom',foliage:'foliage',dirt:'dirt',sand:'sand',farmland:'farmland',cliff:'cliff',deepWater:'deep-water',shore:'shore',mud:'mud'
   });
   const otthiWorldRuntime={
     initialized:false,

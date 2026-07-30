@@ -37,9 +37,30 @@
     updateHUD();
   }
   function openShop(){
-    const items=[['Comida',15,'food',2,'🍎'],['Água',8,'water',2,'💧'],['Blocos',25,'blocks',4,'🧱'],['Cercas',20,'fences',3,'🪵']];
-    openModal('Mercadinho da Vila',`<p>Moedas: <b>${state.profile.coins}</b></p><div class="choice-grid">${items.map(([name,price,key,amount,icon],i)=>`<button class="choice" data-buy="${i}"><b>${icon} ${name}</b><span>${price} moedas — +${amount}</span></button>`).join('')}</div>`,root=>{
-      $$('[data-buy]',root).forEach(btn=>btn.onclick=()=>{const [name,price,key,amount]=items[Number(btn.dataset.buy)];if(state.profile.coins<price){toast('Moedas insuficientes.','warn');return;}addCoins(-price);state.inventory[key]+=amount;addXP(5);saveState();closeModal();toast(`${name} comprado!`,'good');});
+    ensureWorldEvolutionState?.();
+    const items=[
+      {name:'Comida',price:15,key:'food',amount:2,icon:'🍎',group:'Consumíveis'},
+      {name:'Água',price:8,key:'water',amount:2,icon:'💧',group:'Consumíveis'},
+      {name:'Iscas',price:12,key:'bait',amount:5,icon:'🪱',group:'Pesca'},
+      {name:'Sementes',price:10,key:'seeds',amount:6,icon:'🌱',group:'Fazenda'},
+      {name:'Trigo',price:14,key:'wheat',amount:2,icon:'🌾',group:'Fazenda'},
+      {name:'Cenouras',price:14,key:'carrots',amount:2,icon:'🥕',group:'Fazenda'},
+      {name:'Argila',price:20,key:'clay',amount:2,icon:'🟫',group:'Materiais'},
+      {name:'Cristal',price:80,key:'crystals',amount:1,icon:'💎',group:'Especial'},
+      {name:'Vara de pesca',price:65,key:'fishingRod',amount:1,icon:'🎣',group:'Pesca',unique:true},
+      {name:'Madeira',price:18,key:'wood',amount:3,icon:'🪵',group:'Materiais'},
+      {name:'Pedra',price:18,key:'stone',amount:3,icon:'🪨',group:'Materiais'},
+      {name:'Blocos',price:25,key:'blocks',amount:4,icon:'🧱',group:'Construção'},
+      {name:'Cercas',price:20,key:'fences',amount:3,icon:'🪵',group:'Construção'},
+      {name:'Machado',price:45,tool:'axe',icon:'🪓',group:'Ferramentas'},
+      {name:'Picareta',price:48,tool:'pickaxe',icon:'⛏️',group:'Ferramentas'},
+      {name:'Balde',price:32,tool:'bucket',icon:'🪣',group:'Ferramentas'},
+      {name:'Enxada',price:38,tool:'hoe',icon:'🧑‍🌾',group:'Ferramentas'},
+      {name:'Pá',price:35,tool:'shovel',icon:'🪏',group:'Ferramentas'}
+    ];
+    const cards=items.map((item,i)=>{const owned=item.tool&&state.tools.owned.includes(item.tool);const unique=item.unique&&(state.inventory[item.key]||0)>0;return `<button class="choice shop-choice ${owned||unique?'owned':''}" data-buy="${i}" ${owned||unique?'disabled':''}><b>${item.icon} ${item.name}</b><span>${owned||unique?'Já possui':`${item.price} moedas — ${item.tool?'ferramenta':`+${item.amount}`}`}</span><small>${item.group}</small></button>`;}).join('');
+    openModal('Mercadinho da Vila',`<div class="shop-wallet"><span>🪙 Moedas</span><b>${state.profile.coins}</b></div><p class="shop-help">Todos os itens essenciais podem ser comprados aqui, mas também podem ser obtidos jogando, coletando, cavando, plantando e pescando.</p><div class="choice-grid shop-complete-grid">${cards}</div>`,root=>{
+      $$('[data-buy]',root).forEach(btn=>btn.onclick=()=>{const item=items[Number(btn.dataset.buy)];if(!item||btn.disabled)return;if(state.profile.coins<item.price){toast('Moedas insuficientes.','warn');return;}addCoins(-item.price);if(item.tool){state.tools.owned=[...new Set([...(state.tools.owned||[]),item.tool])];state.tools.equipped=item.tool;refreshEquippedToolVisual();}else state.inventory[item.key]=(state.inventory[item.key]||0)+item.amount;addXP(5);saveState(true);updateHUD();closeModal();toast(`${item.name} adquirido!`,'good');});
     });
   }
   function openWorkshop(){

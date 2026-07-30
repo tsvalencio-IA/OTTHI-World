@@ -1,13 +1,13 @@
 {
-  "version": 701,
-  "build": "701.0-secure-gm-panel",
+  "version": 702,
+  "build": "702.0-world-evolution-complete",
   "javascript": [
     {
       "file": "src/modules/00-runtime-foundation.js",
       "startLine": 4,
       "endLine": 49,
       "description": "Runtime, utilitários, versão, storage e chaves de migração",
-      "sha256Body": "e47ad1c1bb307ce9db796109deffddd0c1fb774873b3018ec5c894891d0d0c5f"
+      "sha256Body": "2c3f602c0468771bfad79d20add668ca4b4f96d6ac869dda6689ac69f4e4ec25"
     },
     {
       "file": "src/modules/00a-visual-foundation-avatar-v2.js",
@@ -21,14 +21,14 @@
       "startLine": 369,
       "endLine": 488,
       "description": "Normalização, merge, tombstones e persistência das construções",
-      "sha256Body": "17105289d179a71a2bf0fbf22a551321790f17abc1dac2731f6d36315f94c7d7"
+      "sha256Body": "a4102196b4a308ab8779c6f9505c7c054e0d2a261a4d60dcca0b88e29d7f3bdf"
     },
     {
       "file": "src/modules/02-state-save-cloud-account.js",
       "startLine": 490,
       "endLine": 756,
       "description": "Estado, save local, IndexedDB, nuvem e conta",
-      "sha256Body": "ff6d7b8db3a07e7dac50993235eda71b039d994ec4e89b2813d9ffa4f7555e75"
+      "sha256Body": "2203a92065490d6b0ad77013a98b85568dc39eaec2a540827226def050b8ad2a"
     },
     {
       "file": "src/modules/03-ui-modal-install-pwa.js",
@@ -56,7 +56,7 @@
       "startLine": 1316,
       "endLine": 1454,
       "description": "Missões, objetivos, perfil, HUD, inventário e ferramentas",
-      "sha256Body": "178d197114587ed9c603698409a36cd437f1b95ecd2a9e7b126d80f9c77c313b"
+      "sha256Body": "5df8566ee771d21108b1d3c3f615f59c98b670e5d75a313a9d6e71629e6dca1c"
     },
     {
       "file": "src/modules/07-navigation-traffic-routes.js",
@@ -77,7 +77,7 @@
       "startLine": 1808,
       "endLine": 2074,
       "description": "Responsividade, AR, modos, qualidade, LOD e diagnóstico",
-      "sha256Body": "02f3ee0fbe99a0b0d29b6475539f70b347af22a541b12232cc99fe2371e736f1"
+      "sha256Body": "4bf052224af00a5488c9ded850349e9063aae26bc703dcb73cf3304131fecef1"
     },
     {
       "file": "src/modules/10-player-skills.js",
@@ -140,7 +140,7 @@
       "startLine": 3559,
       "endLine": 3717,
       "description": "Água, câmera e animação da pesca, barco e física náutica",
-      "sha256Body": "4c9c1581d29146594327bfbc15acb7643bd715f85c1a35f32dc1032a86e19afb"
+      "sha256Body": "f81fdb6bdde4e190b8f744440adaf644b890f4fc7c715495433d1c4ddf026166"
     },
     {
       "file": "src/modules/19-campfire-hunting-house-extensions.js",
@@ -161,7 +161,7 @@
       "startLine": 3950,
       "endLine": 4126,
       "description": "Atividades, mercado, oficina, amizades, NPCs e corridas",
-      "sha256Body": "8350f48f0306b34a20fa2a13eec7e48e88724dd06524117896d97dfe64176b8e"
+      "sha256Body": "7f219d03a2a5879ad9b3c236baa8515acc66d5f215a99bbc45694168415b0eaf"
     },
     {
       "file": "src/modules/22-careers-jobs-uniforms.js",
@@ -189,21 +189,21 @@
       "startLine": 4495,
       "endLine": 4635,
       "description": "Three.js, qualidade, viewport, resize, posição segura e colisões",
-      "sha256Body": "530244db62e871e89f980499a3898a09034eac47ab606ad03877f1ee28542c12"
+      "sha256Body": "d89730724976c3160bad166f2b94dc54fb9c75bce7b74d58306bc61f7218a73c"
     },
     {
       "file": "src/modules/26-input-player-physics.js",
       "startLine": 4637,
       "endLine": 4765,
       "description": "Entrada, corrida, pulo, física do jogador/veículo e animação",
-      "sha256Body": "9ac178393a9f2f438bc629e0b980681ee21e4c98adbd6ba476ffc3e9649bc5f7"
+      "sha256Body": "73dbbd53e34e13a2e7d5b7c8fc809b2642b4398c50d15c30f9b87314c0906bbd"
     },
     {
       "file": "src/modules/27-npc-enemies-combat-camera-action.js",
       "startLine": 4767,
       "endLine": 4928,
       "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
-      "sha256Body": "e93543bd683176e6db4f61bb1e30723964b945757c79df0d22b2099f51547f58"
+      "sha256Body": "9bd86324345b8efcabc96eaca8678fb4346a7888ae81e9f8b7f371c88d8abfbf"
     },
     {
       "file": "src/modules/28-multiplayer-social-online.js",
@@ -217,7 +217,7 @@
       "startLine": 5124,
       "endLine": 5238,
       "description": "Loop principal, controles, gamepad e início do jogo",
-      "sha256Body": "9671825c0b7600bd99b597ad62cb3736928e99d28f27b8134ec709fdab26ff4d"
+      "sha256Body": "e1bbb0de13ec5399a666fe5e8d2cb35c04267c526ba43e6fd3b41d7077fc930b"
     },
     {
       "file": "src/modules/30-pause-tests-public-api-bootstrap.js",
@@ -245,14 +245,14 @@
       "startLine": 5680,
       "endLine": 5801,
       "description": "Fundação OTTHI World, PBR local, diagnóstico e painel das cinco etapas",
-      "sha256Body": "d97cea51b3ef638a85a7f5e95a15cee145ec25d7f253709321bf7a0eeb49593a"
+      "sha256Body": "3ea42f806142e7655996b7b1708a1d784e9bcec0df28428bb62076d582f3d1d7"
     },
     {
       "file": "src/modules/34-avatar-studio-professional-v3.js",
       "startLine": 5803,
       "endLine": 5897,
       "description": "Avatar modular V3 sobre o rig procedural preservado",
-      "sha256Body": "756ec5ef4c5dc016dce652a80d4bc896c768ab214b0412470f092b7dc60870dd"
+      "sha256Body": "c2c84662078c210debf030c665875f368d004c8c079107e8a6e82e06fdea0584"
     },
     {
       "file": "src/modules/35-world-render-pbr-environment.js",
@@ -280,7 +280,7 @@
       "startLine": 6124,
       "endLine": 6152,
       "description": "Integração, fallbacks e bootstrap das cinco etapas",
-      "sha256Body": "40062dc02fe4bd75199653dd0cb91d75e9ad90b02d88ba02a7fe1af96dff2524"
+      "sha256Body": "6ea150470c494ed27900673045a87288bb453368c7f9e740b289acb7e869395c"
     },
     {
       "file": "src/modules/39-gm-admin-panel.js",
@@ -288,6 +288,13 @@
       "endLine": 0,
       "description": "Painel GM oculto, concessões positivas, usuários e aplicação idempotente",
       "sha256Body": "3e2f85c595bc2f1f9fe13db95573e4d35b17c88728fecf74d3d53f9700cf7a7b"
+    },
+    {
+      "file": "src/modules/40-world-evolution-v702.js",
+      "startLine": 0,
+      "endLine": 0,
+      "description": "Evolução integral V702: HUD, câmera, terreno, água, natação, fazenda, escavação e cidadãos temáticos",
+      "sha256Body": "35a805dd6de3e967f4e8c5e2c4111086a44350ae4f5a75dc5ede09c749c2571b"
     }
   ],
   "styles": [
@@ -416,6 +423,13 @@
       "endLine": 0,
       "description": "Interface responsiva e isolada do painel administrativo GM",
       "sha256Body": "13fa79fd8d6feac9813c3f7451aca87712927bf1ac978f3f043f63b416a88f68"
+    },
+    {
+      "file": "src/styles/18-world-evolution-v702.css",
+      "startLine": 0,
+      "endLine": 0,
+      "description": "HUD paisagem e interface de mundo evoluído V702",
+      "sha256Body": "ea2595137c241f91b896cba1d62b4e63ce94c78c69193f5ff74f968f194f7526"
     }
   ]
 }

@@ -54,7 +54,7 @@
         npc.group.position.x=lerp(npc.group.position.x,tx,dt*.45);npc.group.position.z=lerp(npc.group.position.z,tz,dt*.45);
         npc.group.rotation.y=lerpAngle(npc.group.rotation.y,Math.atan2(tx-npc.group.position.x,tz-npc.group.position.z),Math.min(1,dt*5));
       }
-      if(!npc.passengerMode)npc.group.position.y=lerp(npc.group.position.y,0,Math.min(1,dt*8));
+      if(!npc.passengerMode)npc.group.position.y=lerp(npc.group.position.y,groundHeightAt(npc.group.position.x,npc.group.position.z),Math.min(1,dt*8));
       const moved=Math.hypot(npc.group.position.x-oldX,npc.group.position.z-oldZ);
       const riding=!!npc.mobility&&!npc.passengerMode&&!npc.following,walk=moved>.001&&!riding?Math.sin(animTime*8+npc.phase)*.52:0;
       const gesture=near?Math.sin(animTime*2.4+npc.phase)*.12:0,emote=performance.now()<npc.emoteUntil?npc.emoteType:'';
@@ -119,10 +119,12 @@
     }else if(!desiredPos){
       const portrait=innerHeight>innerWidth;const speed=Math.hypot(player.vx,player.vz);
       if((player.vehicle||player.boating)&&!input.cameraDrag){const heading=player.vehicle?player.car.heading:player.boat.heading;cameraYaw=lerpAngle(cameraYaw,Math.PI-heading,Math.min(1,dt*3.2));}
-      const speedKick=clamp(Math.abs(player.vehicle?player.car.speed:speed)/9,0,1.6);
-      const dist=clamp((portrait?12.5:10.2)+(player.vehicle?3.4:player.boating?2.2:0)+speedKick*1.6+cameraZoom,6.5,24);const height=clamp((portrait?6.6:5.4)+(player.vehicle?.4:player.boating?.25:0)+cameraPitch*2.2+cameraZoom*.16,3.5,12);
-      desiredPos=new THREE.Vector3(player.x-Math.sin(cameraYaw)*dist,player.y+height,player.z+Math.cos(cameraYaw)*dist);const visualHeight=1.4*playerScaleValue()*(player.crouched?.72:1);look=new THREE.Vector3(player.x+Math.sin(cameraYaw)*3.5,player.y+visualHeight,player.z-Math.cos(cameraYaw)*3.5);
-      camera.fov=(portrait?57:60)+speedKick*(player.vehicle?7:player.boating?4:2);
+      const speedKick=clamp(Math.abs(player.vehicle?player.car.speed:speed)/9,0,1.6),pitch=clamp(cameraPitch,-.55,1.35);
+      const dist=clamp((portrait?12.5:10.2)+(player.vehicle?3.4:player.boating?2.2:0)+speedKick*1.6+cameraZoom,5.3,27);
+      const normalized=(pitch+.55)/1.9,height=clamp((portrait?2.35:1.75)+normalized*(portrait?11.8:10.4)+(player.vehicle?.55:player.boating?.32:0)+cameraZoom*.12,1.35,15.8);
+      const forwardLook=lerp(7.0,1.6,normalized),visualHeight=1.35*playerScaleValue()*(player.crouched?.72:1)+(player.swimming?-.2:0);
+      desiredPos=new THREE.Vector3(player.x-Math.sin(cameraYaw)*dist,player.y+height,player.z+Math.cos(cameraYaw)*dist);look=new THREE.Vector3(player.x+Math.sin(cameraYaw)*forwardLook,player.y+visualHeight+lerp(.9,-.25,normalized),player.z-Math.cos(cameraYaw)*forwardLook);
+      camera.fov=(portrait?55:58)+speedKick*(player.vehicle?7:player.boating?4:2)+lerp(4,-2,normalized);
     }
     const t=1-Math.exp(-dt*7.5);camera.position.lerp(desiredPos,t);camera.lookAt(look);camera.updateProjectionMatrix();
   }
