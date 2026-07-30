@@ -1,4 +1,4 @@
-name: Gerar APK OTTHI World V701
+name: Gerar APK OTTHI World V702
 
 on:
   workflow_dispatch:
@@ -105,12 +105,12 @@ jobs:
       - name: Renomear APK
         run: |
           mkdir -p apk-pronto
-          cp android-app/app/build/outputs/apk/debug/app-debug.apk apk-pronto/OTTHI-WORLD-V701-TESTE.apk
+          cp android-app/app/build/outputs/apk/debug/app-debug.apk apk-pronto/OTTHI-WORLD-V702-TESTE.apk
 
       - name: Disponibilizar APK
         uses: actions/upload-artifact@v4
         with:
-          name: OTTHI-WORLD-V701-APK-TESTE
-          path: apk-pronto/OTTHI-WORLD-V701-TESTE.apk
+          name: OTTHI-WORLD-V702-APK-TESTE
+          path: apk-pronto/OTTHI-WORLD-V702-TESTE.apk
           if-no-files-found: error
           retention-days: 30

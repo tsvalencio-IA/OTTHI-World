@@ -1,4 +1,4 @@
-name: Build modular OTTHI World V701
+name: Build modular OTTHI World V702
 
 on:
   workflow_dispatch:
