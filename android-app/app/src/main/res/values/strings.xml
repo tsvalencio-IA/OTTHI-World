@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">OTTHI World</string>
+    <string name="app_url">__APP_URL__</string>
+    <string name="loading_message">Abrindo OTTHI World…</string>
+    <string name="offline_message">Não foi possível abrir o jogo. Confira a internet e tente novamente.</string>
+</resources>

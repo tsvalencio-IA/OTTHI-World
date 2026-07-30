@@ -1,0 +1,116 @@
+name: Gerar APK OTTHI World V700
+
+on:
+  workflow_dispatch:
+    inputs:
+      app_url:
+        description: "URL do GitHub Pages (deixe vazio para detectar automaticamente)"
+        required: false
+        default: ""
+
+permissions:
+  contents: read
+
+jobs:
+  build-apk:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+
+    steps:
+      - name: Baixar projeto
+        uses: actions/checkout@v4
+
+      - name: Configurar Java 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      - name: Configurar Android SDK
+        uses: android-actions/setup-android@v3
+
+      - name: Instalar componentes Android
+        run: |
+          yes | sdkmanager --licenses >/dev/null || true
+          sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
+      - name: Configurar Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.7"
+
+      - name: Validar release e definir endereco do jogo
+        shell: bash
+        env:
+          INPUT_APP_URL: ${{ inputs.app_url }}
+          REPOSITORY: ${{ github.repository }}
+          OWNER: ${{ github.repository_owner }}
+        run: |
+          set -euo pipefail
+          repo_name="${REPOSITORY#*/}"
+          if [ -n "${INPUT_APP_URL}" ]; then
+            app_url="${INPUT_APP_URL}"
+          elif [ "${repo_name,,}" = "${OWNER,,}.github.io" ]; then
+            app_url="https://${OWNER}.github.io/"
+          else
+            app_url="https://${OWNER}.github.io/${repo_name}/"
+          fi
+          case "$app_url" in
+            http://*|https://*) ;;
+            *) echo "URL invalida: $app_url"; exit 1 ;;
+          esac
+          [[ "$app_url" == */ ]] || app_url="$app_url/"
+          echo "APP_URL=$app_url" >> "$GITHUB_ENV"
+          export APP_URL="$app_url"
+          python3 - <<'PY'
+          import json
+          import os
+          import urllib.parse
+          import urllib.request
+          from pathlib import Path
+
+          version = json.loads(Path('VERSION.json').read_text(encoding='utf-8'))
+          manifest_url = urllib.parse.urljoin(os.environ['APP_URL'], 'release-manifest.json')
+          request = urllib.request.Request(
+              manifest_url + '?apk_check=' + str(version['version']),
+              headers={'Cache-Control': 'no-cache'},
+          )
+          with urllib.request.urlopen(request, timeout=30) as response:
+              remote = json.load(response)
+          if remote.get('version') != version['version'] or remote.get('build') != version['build']:
+              raise SystemExit(
+                  f"GitHub Pages ainda nao esta na V{version['version']} "
+                  f"({version['build']}). Recebido: {remote.get('version')} / {remote.get('build')}"
+              )
+
+          gradle = Path('android-app/app/build.gradle').read_text(encoding='utf-8')
+          if f"versionCode {version['androidVersionCode']}" not in gradle:
+              raise SystemExit('versionCode do Android diverge de VERSION.json')
+          if f"versionName '{version['androidVersionName']}'" not in gradle:
+              raise SystemExit('versionName do Android diverge de VERSION.json')
+
+          strings = Path('android-app/app/src/main/res/values/strings.xml')
+          text = strings.read_text(encoding='utf-8').replace('__APP_URL__', os.environ['APP_URL'])
+          strings.write_text(text, encoding='utf-8')
+          print('Release remota validada:', remote['build'], remote.get('revision', 'sem-revisao'))
+          print('APK apontara para:', os.environ['APP_URL'])
+          PY
+
+      - name: Copiar icone oficial
+        run: cp icons/icon-512.png android-app/app/src/main/res/drawable/icon_otthos.png
+
+      - name: Compilar APK de teste instalavel
+        run: gradle -p android-app --no-daemon assembleDebug
+
+      - name: Renomear APK
+        run: |
+          mkdir -p apk-pronto
+          cp android-app/app/build/outputs/apk/debug/app-debug.apk apk-pronto/OTTHI-WORLD-V700-TESTE.apk
+
+      - name: Disponibilizar APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: OTTHI-WORLD-V700-APK-TESTE
+          path: apk-pronto/OTTHI-WORLD-V700-TESTE.apk
+          if-no-files-found: error
+          retention-days: 30

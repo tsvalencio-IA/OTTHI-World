@@ -1,0 +1,42 @@
+name: Build modular OTTHI World V700
+
+on:
+  workflow_dispatch:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Gerar bundles e inventarios
+        run: |
+          python tools/build_project.py
+          python tools/audit_source.py
+          python tools/deep_inventory.py
+          python tools/verify_equivalence.py
+          node tools/test_v643_mobility.js
+          python tools/test_v643_world_systems.py
+          python tools/test_v644_neighborhoods.py
+          python tools/test_v646_professional_services.py
+          python tools/test_v6462_commercial_polish.py
+          python tools/test_v6463_coop_responsive.py
+          node tools/test_v646_runtime.js
+          node tools/test_v6466_permissions_buttons.js
+          python tools/test_v647_multiplayer_missions.py
+          python tools/test_v700_otthi_world.py
+          python tools/validate_project.py
+      - name: Validar JavaScript
+        run: node --check app.js
+      - name: Confirmar bundles versionados
+        run: git diff --exit-code -- app.js style.css src/module-order.json release-manifest.json index.html sw.js
