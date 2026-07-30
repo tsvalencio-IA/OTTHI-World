@@ -1,0 +1,24 @@
+OTTHI WORLD V700 — CINCO ETAPAS PROFISSIONAIS
+
+Este pacote deve ser enviado COMPLETO para um novo repositório chamado OTTHI-World.
+
+O mesmo Firebase Realtime Database foi preservado. Não troque firebase-config.js e não crie outro banco.
+
+COMECE POR:
+1. COMO-SUBIR-NOVO-REPOSITORIO.txt
+2. docs/RELATORIO-ENTREGA-OTTHI-WORLD-V700.md
+3. docs/GUIA-NOVO-REPOSITORIO-OTTHI-WORLD.md
+
+TESTES AUTOMATIZADOS:
+- OTTHI World V700: 61/61
+- Estrutural: 170/170
+- Permissões e botões: 60/60
+- Bairros/mapa: 87/87
+- Mundo: 34/34
+- Mobilidade: 12/12
+- Multiplayer e missões: 31/31
+- Serviços, polimento e cooperativo: 18/18
+
+Ainda são obrigatórios testes em Android real, Firebase remoto, dois aparelhos, PWA e APK.
+
+Powered by thIAguinho Soluções Digitais

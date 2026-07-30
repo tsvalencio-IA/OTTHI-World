@@ -1,0 +1,91 @@
+{
+  "version": 700,
+  "build": "700.0-five-stages-professional",
+  "name": "OTTHI World",
+  "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
+  "runtimeBundle": "app.js",
+  "styleBundle": "style.css",
+  "androidVersionCode": 7000,
+  "androidVersionName": "7.0.0",
+  "stages": {
+    "1": {
+      "name": "Fundação profissional",
+      "status": "implemented"
+    },
+    "2": {
+      "name": "Personagem modular",
+      "status": "implemented"
+    },
+    "3": {
+      "name": "Mundo, texturas e render",
+      "status": "implemented"
+    },
+    "4": {
+      "name": "Construção e máquinas modulares",
+      "status": "implemented"
+    },
+    "5": {
+      "name": "Aventura, plataforma e poderes",
+      "status": "implemented"
+    }
+  },
+  "changes": [
+    "nova identidade OTTHI World preservando a base completa da V646.7",
+    "26 pacotes locais de materiais PBR estilizados com base color, normal, roughness, ambient occlusion, height e emissive",
+    "avatar modular V3 com estilos próprios Blocks, Toys e Heroes, roupas, rosto, cabelo, calçados, mochila, capa e cores",
+    "personagem procedural e Avatar V2 mantidos como fallback automático",
+    "vegetação instanciada, cogumelos, atmosfera, ciclo de luz opcional, detalhes de casas e marcos visuais",
+    "novas peças de construção: telhado, porta, janela, escada, mesa, cadeira, caixote, cogumelo, plataforma de energia e bancada",
+    "veículos modulares com carroceria, capô, teto, rodas, traseira, luzes, cores e durabilidade persistente",
+    "garagem modular integrada aos veículos existentes sem substituir direção, física ou missões",
+    "cinco poderes originais OTTHI com energia, recarga, domínio, desbloqueio e HUD próprio",
+    "Circuito das Nuvens com plataformas, cristais, checkpoints, melhor tempo, recompensas e progressão",
+    "centro OTTHI World com diagnóstico, controles gráficos e acesso às novas áreas",
+    "qualidade adaptativa, LOD, culling, caches e fallbacks da fundação V646.7 preservados",
+    "mesmo Firebase Realtime Database, mesmas salas, regras, contas, multiplayer e raiz otthosWorld",
+    "migração automática do save local V646 para V700 sem apagar progresso antigo",
+    "PWA, projeto Android, retrato e paisagem preservados"
+  ],
+  "preserves": [
+    "roupas",
+    "texturas",
+    "skills",
+    "bombeiros",
+    "ambulancias",
+    "policia",
+    "casas",
+    "interiores",
+    "construcao",
+    "pescaria",
+    "barcos",
+    "onibus",
+    "metro",
+    "missoes",
+    "multiplayer",
+    "educacao adaptativa",
+    "firebase",
+    "save V646",
+    "Realtime Database existente",
+    "controles mobile",
+    "física original",
+    "fallback procedural"
+  ],
+  "validation": {
+    "structuralApproved": true,
+    "browserHarnessApproved": true,
+    "browserSmokeApproved": false,
+    "physicalDeviceApproved": false,
+    "firebaseRemoteApproved": false,
+    "multiplayerTwoDevicesApproved": false,
+    "pwaInstalledApproved": false,
+    "arApproved": false,
+    "apkApproved": false
+  },
+  "hotfix": "700.0",
+  "notes": [
+    "O Firebase Realtime Database não foi trocado: firebase-config.js, firebase-database.rules.json e assets/js/multiplayer-rtdb.js permanecem preservados.",
+    "Os conceitos de blocos, brinquedos, heróis e plataforma usam identidade original OTTHI; nenhum personagem, logotipo ou ativo de terceiros foi incluído.",
+    "Os testes automatizados não substituem validação em celulares Android reais, multiplayer entre aparelhos, Firebase remoto, PWA instalada e APK.",
+    "A arquitetura mantém fallback para a jogabilidade e os renders anteriores caso uma camada profissional não inicialize."
+  ]
+}

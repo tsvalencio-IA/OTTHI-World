@@ -1,0 +1,359 @@
+{
+  "rules": {
+    "otthosWorld": {
+      "users": {
+        "$uid": {
+          "profile": {
+            ".read": "auth != null && auth.uid === $uid",
+            ".write": "auth != null && auth.uid === $uid"
+          },
+          "progress": {
+            ".read": "auth != null && auth.uid === $uid",
+            ".write": "auth != null && auth.uid === $uid"
+          },
+          "inbox": {
+            "$giftId": {
+              ".read": "auth != null && auth.uid === $uid",
+              "senderUid": {},
+              "senderName": {},
+              "type": {},
+              "amount": {},
+              "createdAt": {},
+              "$other": {},
+              ".write": "auth != null"
+            },
+            ".read": "auth != null && auth.uid === $uid"
+          },
+          "interactions": {
+            "$eventId": {
+              ".read": "auth != null && auth.uid === $uid",
+              "senderUid": {},
+              "senderName": {},
+              "type": {},
+              "requestId": {},
+              "actionType": {},
+              "status": {},
+              "createdAt": {},
+              "$other": {},
+              ".write": "auth != null"
+            },
+            ".read": "auth != null && auth.uid === $uid"
+          },
+          "challenges": {
+            ".read": "auth != null && auth.uid === $uid",
+            "$challengeId": {
+              "fromUid": {},
+              "fromName": {},
+              "toUid": {},
+              "toName": {},
+              "type": {},
+              "level": {},
+              "seed": {},
+              "rounds": {},
+              "status": {},
+              "createdAt": {},
+              "respondedAt": {},
+              "$other": {},
+              ".write": "auth != null"
+            }
+          },
+          "socialRequests": {
+            "$requestId": {
+              ".read": "auth != null && auth.uid === $uid",
+              "fromUid": {},
+              "fromName": {},
+              "toUid": {},
+              "toName": {},
+              "actionType": {},
+              "room": {},
+              "status": {},
+              "createdAt": {},
+              "createdAtClient": {},
+              "expiresAt": {},
+              "respondedAt": {},
+              "respondedAtClient": {},
+              "completedAt": {},
+              "$other": {},
+              "extra": {
+                "boatId": {},
+                "vehicleId": {},
+                "campfireId": {},
+                "fromX": {},
+                "fromZ": {},
+                "$other": {}
+              },
+              ".write": "auth != null"
+            },
+            ".read": "auth != null && auth.uid === $uid"
+          },
+          "guardianSettings": {
+            ".read": "auth != null && auth.uid === $uid",
+            ".write": "auth != null && auth.uid === $uid && auth.token.email != null && auth.token.auth_time != null && auth.token.auth_time * 1000 >= now - 300000",
+            ".validate": "!newData.exists() || (newData.hasChildren(['sessionLimitMinutes','updatedAt','updatedByUid']) && (newData.child('sessionLimitMinutes').val() === 0 || newData.child('sessionLimitMinutes').val() === 15 || newData.child('sessionLimitMinutes').val() === 30 || newData.child('sessionLimitMinutes').val() === 45 || newData.child('sessionLimitMinutes').val() === 60) && newData.child('updatedAt').isNumber() && newData.child('updatedAt').val() <= now && newData.child('updatedAt').val() >= now - 10000 && newData.child('updatedByUid').val() === $uid)"
+          },
+          "blocks": {
+            ".read": "auth != null && auth.uid === $uid",
+            "$blockedUid": {
+              ".write": "auth != null && auth.uid === $uid && $blockedUid !== auth.uid"
+            }
+          },
+          "learning": {
+            ".read": "auth != null && auth.uid === $uid",
+            ".write": "auth != null && auth.uid === $uid"
+          },
+          "activityAudit": {
+            ".read": "auth != null && auth.uid === $uid",
+            "$eventId": {
+              ".write": "auth != null && auth.uid === $uid",
+              "actorUid": {},
+              "direction": {},
+              "category": {},
+              "action": {},
+              "peerUid": {},
+              "peerName": {},
+              "room": {},
+              "text": {},
+              "createdAt": {},
+              "createdAtClient": {},
+              "$other": {}
+            },
+            ".indexOn": [
+              "createdAtClient",
+              "category"
+            ]
+          }
+        }
+      },
+      "gameAccounts": {
+        "$uid": {
+          ".read": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && auth.uid === $uid",
+          ".validate": "!newData.exists() || (newData.hasChildren(['schema','ownerUid','accountId','username','iv','ciphertext','updatedAt','updatedAtClient']) && newData.child('schema').val() === 2 && newData.child('ownerUid').val() === $uid && newData.child('accountId').isString() && newData.child('accountId').val().matches(/^[a-f0-9]{64}$/) && newData.child('username').isString() && newData.child('username').val().length >= 3 && newData.child('username').val().length <= 20 && newData.child('iv').isString() && newData.child('iv').val().length >= 16 && newData.child('iv').val().length <= 64 && newData.child('ciphertext').isString() && newData.child('ciphertext').val().length >= 32 && newData.child('ciphertext').val().length <= 450000 && newData.child('updatedAt').isNumber() && newData.child('updatedAtClient').isNumber())"
+        }
+      },
+      "reports": {
+        ".read": false,
+        "$reportId": {
+          "reporterUid": {},
+          "targetUid": {},
+          "reason": {},
+          "room": {},
+          "createdAt": {},
+          "$other": {},
+          ".write": "auth != null"
+        }
+      },
+      "rooms": {
+        "$roomId": {
+          ".read": false,
+          ".validate": "$roomId === 'bairro-central' || $roomId === 'bairro-floresta' || $roomId === 'bairro-lago' || $roomId === 'bairro-montanha' || $roomId === 'bairro-escola'",
+          "presence": {
+            ".read": "auth != null",
+            "$uid": {
+              "name": {},
+              "room": {},
+              "x": {},
+              "y": {},
+              "z": {},
+              "r": {},
+              "updatedAt": {},
+              "type": {},
+              "id": {},
+              "color": {},
+              "vehicle": {},
+              "vehicleId": {},
+              "vehicleRole": {},
+              "vehiclePassengerOf": {},
+              "vehiclePassengerUid": {},
+              "vehiclePassengerBotId": {},
+              "boating": {},
+              "boatId": {},
+              "boatRole": {},
+              "passengerOf": {},
+              "boatPassengerUid": {},
+              "boatPassengerBotId": {},
+              "transitMode": {},
+              "scaleMode": {},
+              "crouched": {},
+              "emoteType": {},
+              "emoteSeq": {},
+              "$other": {},
+              ".write": "auth != null"
+            },
+            ".indexOn": [
+              "updatedAt",
+              "room"
+            ]
+          },
+          "chat": {
+            ".read": "auth != null",
+            "$messageId": {
+              "senderUid": {},
+              "name": {},
+              "text": {},
+              "createdAt": {},
+              "$other": {},
+              ".write": "auth != null"
+            },
+            ".indexOn": [
+              "senderUid",
+              "createdAt"
+            ]
+          },
+          "houses": {
+            ".read": "auth != null",
+            "$houseId": {
+              "houseId": {},
+              "ownerUid": {},
+              "ownerName": {},
+              "name": {},
+              "price": {},
+              "x": {},
+              "z": {},
+              "locked": {},
+              "updatedAt": {},
+              "$other": {},
+              ".write": "auth != null"
+            },
+            ".indexOn": [
+              "ownerUid",
+              "updatedAt"
+            ]
+          },
+          "gameSessions": {
+            ".read": "auth != null",
+            "$sessionId": {
+              ".read": "auth != null && (data.child('fromUid').val() === auth.uid || data.child('toUid').val() === auth.uid)",
+              "players": {
+                "$playerUid": {
+                  "name": {},
+                  "score": {},
+                  "total": {},
+                  "elapsed": {},
+                  "finished": {},
+                  "updatedAt": {},
+                  "$other": {}
+                }
+              },
+              "result": {
+                "finalized": {},
+                "draw": {},
+                "winnerUid": {},
+                "winnerName": {},
+                "loserUid": {},
+                "loserName": {},
+                "winnerScore": {},
+                "loserScore": {},
+                "winnerElapsed": {},
+                "loserElapsed": {},
+                "type": {},
+                "completedAt": {},
+                "$other": {}
+              },
+              "$other": {},
+              ".write": "auth != null"
+            },
+            ".indexOn": [
+              "fromUid",
+              "toUid",
+              "createdAt"
+            ]
+          },
+          "boats": {
+            ".read": "auth != null",
+            "$boatId": {
+              "boatId": {},
+              "driverUid": {},
+              "driverName": {},
+              "room": {},
+              "claimedAt": {},
+              "updatedAt": {},
+              "updatedAtClient": {},
+              "$other": {},
+              ".write": "auth != null"
+            }
+          },
+          "campfires": {
+            ".read": "auth != null",
+            "$ownerUid": {
+              "$campfireId": {},
+              ".write": "auth != null"
+            }
+          },
+          "houseExtensions": {
+            ".read": "auth != null",
+            "$ownerUid": {
+              "$extensionId": {},
+              ".write": "auth != null"
+            }
+          },
+          "slots": {
+            ".read": "auth != null",
+            "$slotId": {
+              "slot": {},
+              "uid": {},
+              "name": {},
+              "room": {},
+              "joinedAt": {},
+              "joinedAtClient": {},
+              "updatedAt": {},
+              "updatedAtClient": {},
+              "$other": {},
+              ".write": "auth != null"
+            }
+          },
+          "coopMissions": {
+            ".read": "auth != null",
+            ".indexOn": [
+              "updatedAtClient",
+              "status",
+              "type"
+            ],
+            "$missionId": {
+              "participants": {
+                "$participantUid": {
+                  "uid": {},
+                  "name": {},
+                  "role": {},
+                  "ready": {},
+                  "joinedAt": {},
+                  "joinedAtClient": {},
+                  "updatedAtClient": {},
+                  "$other": {}
+                }
+              },
+              "progress": {
+                "phase": {},
+                "counter": {},
+                "target": {},
+                "updatedAt": {},
+                "updatedAtClient": {},
+                "events": {
+                  "$eventId": {}
+                }
+              },
+              "id": {},
+              "type": {},
+              "title": {},
+              "icon": {},
+              "hostUid": {},
+              "room": {},
+              "status": {},
+              "mode": {},
+              "minPlayers": {},
+              "maxPlayers": {},
+              "createdAt": {},
+              "createdAtClient": {},
+              "updatedAt": {},
+              "updatedAtClient": {},
+              "startedAt": {},
+              "completedAt": {},
+              "$other": {},
+              ".write": "auth != null"
+            }
+          }
+        }
+      }
+    }
+  }
+}

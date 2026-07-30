@@ -1,0 +1,24 @@
+OTTHI WORLD EDU V646.7
+ETAPA 1 — FUNDACAO VISUAL E PREPARACAO DO AVATAR V2
+
+RESULTADO:
+- pacote completo atualizado;
+- personagem procedural atual preservado;
+- nenhuma atualizacao do Three.js;
+- Firebase, regras, multiplayer, athos.glb e CSS preservados;
+- 208/208 verificacoes estruturais aprovadas;
+- 44/44 verificacoes especificas aprovadas.
+
+IMPORTANTE:
+- extraia o ZIP inteiro, preservando as pastas;
+- publique todos os arquivos juntos;
+- nao envie somente app.js;
+- use ?v=6467 para evitar cache antigo;
+- a aprovacao em celular fisico ainda esta pendente.
+
+RELATORIOS:
+- docs/AUDITORIA-ETAPA-1-V6467.md
+- docs/RELATORIO-ENTREGA-V6467.md
+- docs/RELATORIO-PRESERVACAO-V6466-V6467.md
+- docs/VALIDACAO-ESTRUTURAL-V646.md
+- docs/ARQUIVOS-ALTERADOS-V6467.txt

@@ -1,0 +1,74 @@
+OTTHI WORLD V700 — COMO SUBIR AO NOVO REPOSITÓRIO PELO CELULAR OU COMPUTADOR
+
+NOME EXATO RECOMENDADO DO REPOSITÓRIO:
+OTTHI-World
+
+IMPORTANTE:
+- NÃO crie outro Firebase Realtime Database.
+- NÃO substitua firebase-config.js.
+- NÃO copie somente app.js.
+- Envie TODO o conteúdo da pasta OTTHI-World para a RAIZ do repositório.
+- Preserve as pastas .github, android-app, assets, docs, icons, moldes, src e tools.
+
+PASSO A PASSO NO GITHUB:
+
+1. Entre na sua conta do GitHub.
+2. Toque em “New repository”.
+3. Digite o nome: OTTHI-World
+4. Escolha público ou privado conforme seu uso.
+5. NÃO marque para criar README, .gitignore ou licença, porque o ZIP já contém a estrutura.
+6. Crie o repositório vazio.
+7. Abra o repositório e use “uploading an existing file” / “Add file > Upload files”.
+8. Extraia o ZIP recebido antes do envio.
+9. Abra a pasta OTTHI-World extraída.
+10. Selecione e envie o CONTEÚDO da pasta, não a pasta externa duplicada.
+11. Confirme que index.html aparece diretamente na raiz do repositório.
+12. Confirme também VERSION.json, app.js, style.css, sw.js, firebase-config.js e as pastas src e assets.
+13. Faça o commit na branch main.
+
+ATIVAR GITHUB PAGES:
+
+1. Abra Settings > Pages.
+2. Em “Build and deployment”, escolha “Deploy from a branch”.
+3. Selecione branch main e pasta / (root).
+4. Salve.
+5. Aguarde o GitHub mostrar a URL publicada.
+
+PRIMEIRA ABERTURA:
+
+- Abra a URL com ?v=7000 no final.
+- Exemplo: https://SEU-USUARIO.github.io/OTTHI-World/?v=7000
+- Em PWA já instalada, feche, abra novamente e aceite/force a atualização quando solicitado.
+
+FIREBASE E MULTIPLAYER:
+
+- Esta versão já usa a mesma configuração do projeto anterior.
+- As mesmas salas e a raiz otthosWorld foram preservadas.
+- Não é necessário cadastrar novamente o banco.
+- Só publique firebase-database.rules.json se você souber que as regras do banco remoto ainda não são as mesmas da base atual.
+- Faça primeiro um teste com dois usuários/aparelhos antes de liberar como versão final.
+
+GERAR APK:
+
+1. Abra a aba Actions do repositório.
+2. Escolha “Gerar APK OTTHI World V700”.
+3. Toque em “Run workflow”.
+4. Deixe a URL vazia para detectar o GitHub Pages automaticamente, ou informe a URL publicada.
+5. Aguarde concluir.
+6. Baixe o artefato OTTHI-WORLD-V700-APK-TESTE.
+
+VALIDAÇÃO OBRIGATÓRIA ANTES DE PRODUÇÃO:
+
+- abrir em Android real;
+- testar retrato e paisagem;
+- caminhar, correr, pular e usar poderes;
+- entrar/sair e dirigir todos os veículos;
+- testar casas, interiores e construção;
+- testar profissões e missões;
+- testar texturas e desempenho;
+- testar Firebase remoto;
+- testar dois aparelhos na mesma sala;
+- instalar e atualizar a PWA;
+- gerar e instalar o APK.
+
+Powered by thIAguinho Soluções Digitais
