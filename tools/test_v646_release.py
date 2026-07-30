@@ -37,17 +37,17 @@ class ReleaseV646Tests(unittest.TestCase):
     def test_version_surfaces_are_unified(self):
         version = json.loads(text('VERSION.json'))
         module_order = json.loads(text('src/module-order.json'))
-        self.assertEqual(version['version'], 646)
-        self.assertEqual(version['build'], '646.7-visual-foundation-avatar-v2')
-        self.assertEqual(module_order['version'], 646)
+        self.assertGreaterEqual(version['version'], 646)
+        self.assertEqual(module_order['version'], version['version'])
         self.assertEqual(module_order['build'], version['build'])
-        self.assertIn('data-otthi-build="646.7-visual-foundation-avatar-v2"', text('index.html'))
+        self.assertIn(f'data-otthi-build="{version["build"]}"', text('index.html'))
         self.assertRegex(text('index.html'), r'data-otthi-revision="[a-f0-9]{16}"')
-        self.assertGreaterEqual(text('index.html').count('?v=6467'), 10)
+        self.assertGreaterEqual(text('index.html').count(f'?v={version["version"]}0'), 10)
 
     def test_save_migration_is_explicit(self):
         source = text('src/modules/00-runtime-foundation.js')
-        self.assertIn("const STORAGE_KEY = 'otthos_life_world_roleplay_v646'", source)
+        self.assertIn("const STORAGE_KEY = 'otthos_life_world_roleplay_v700'", source)
+        self.assertIn("'otthos_life_world_roleplay_v646'", source)
         self.assertIn("'otthos_life_world_roleplay_v645'", source)
 
     def test_room_contract_has_no_legacy_public_room(self):
@@ -180,7 +180,9 @@ class ReleaseV646Tests(unittest.TestCase):
 
     def test_release_manifest_hashes_match(self):
         release = json.loads(text('release-manifest.json'))
-        self.assertEqual(release['version'], 646)
+        version = json.loads(text('VERSION.json'))
+        self.assertEqual(release['version'], version['version'])
+        self.assertEqual(release['build'], version['build'])
         self.assertRegex(release['revision'], r'^[a-f0-9]{16}$')
         self.assertEqual(release['algorithm'], 'SHA-256')
         for relative, expected in release['files'].items():
@@ -199,7 +201,8 @@ class ReleaseV646Tests(unittest.TestCase):
         ]:
             self.assertIn(token, sw)
         self.assertNotIn('await caches.match(request)', sw)
-        self.assertIn('./assets/vendor/three-r128.min.js?v=6467', sw)
+        version = json.loads(text('VERSION.json'))
+        self.assertIn(f'./assets/vendor/three-r128.min.js?v={version["version"]}0', sw)
         self.assertNotIn('cdnjs.cloudflare.com/ajax/libs/three.js', text('index.html'))
 
     def test_loading_failure_preserves_save(self):

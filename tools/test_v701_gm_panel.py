@@ -31,12 +31,12 @@ source='\n'.join(text(f'src/modules/{name}') for name in [
     '35-world-render-pbr-environment.js','36-modular-build-machines.js',
     '37-hero-platform-gameplay.js','38-otthi-world-integration-bootstrap.js'])
 
-add('Versão V701 unificada',version.get('version')==701 and version.get('build')=='701.0-secure-gm-panel' and order.get('version')==701 and order.get('build')==version.get('build'))
+add('Painel GM V701 preservado na versão atual',version.get('version',0)>=701 and order.get('version')==version.get('version') and order.get('build')==version.get('build'))
 add('Nome do repositório preservado',version.get('name')=='OTTHI World' and "const repo = 'OTTHI-World'" in text('assets/js/core/runtime-config.js'))
-add('41 módulos JavaScript',len(order.get('javascript',[]))==41,len(order.get('javascript',[])))
-add('18 módulos CSS',len(order.get('styles',[]))==18,len(order.get('styles',[])))
-add('Painel GM é a última camada JS',order['javascript'][-1]['file']=='src/modules/39-gm-admin-panel.js')
-add('CSS GM é a última camada visual',order['styles'][-1]['file']=='src/styles/17-gm-admin-panel-v701.css')
+add('Módulos JavaScript preservados e ampliados',len(order.get('javascript',[]))>=41,len(order.get('javascript',[])))
+add('Módulos CSS preservados e ampliados',len(order.get('styles',[]))>=18,len(order.get('styles',[])))
+add('Painel GM permanece no build',any(x.get('file')=='src/modules/39-gm-admin-panel.js' for x in order['javascript']))
+add('CSS GM permanece no build',any(x.get('file')=='src/styles/17-gm-admin-panel-v701.css' for x in order['styles']))
 
 baseline=json.loads(text('docs/BASELINE-V6466-VISUAL-FOUNDATION.json'))
 functions=re.findall(r'^  (?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(',app,re.M)
@@ -52,11 +52,11 @@ critical={
 for rel,expected in critical.items(): add(f'Arquivo crítico preservado: {rel}',sha(rel)==expected,sha(rel))
 add('Mesmo Realtime Database e mesma raiz',"firebaseRoot: 'otthosWorld'" in text('assets/js/core/runtime-config.js') and "ROOT=window.OTTHI_CONFIG?.firebaseRoot||'otthosWorld'" in rtdb)
 add('Save V700 preservado sem reset',"const STORAGE_KEY = 'otthos_life_world_roleplay_v700'" in app and "'otthos_life_world_roleplay_v646'" in app)
-add('Three.js r128 local preservado','./assets/vendor/three-r128.min.js?v=7010' in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
+add('Three.js r128 local preservado',f"./assets/vendor/three-r128.min.js?v={version.get('version')}0" in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
 
 packs=assets.get('packs',{})
 channels={'baseColor','normal','roughness','ao','height','emissive'}
-add('26 pacotes PBR locais',len(packs)==26,len(packs))
+add('Ao menos 26 pacotes PBR locais',len(packs)>=26,len(packs))
 add('Todos os pacotes PBR completos',all(channels.issubset(data.keys()) and all((ROOT/path.removeprefix('./')).is_file() for path in data.values()) for data in packs.values()))
 stage_tokens={
  'Etapa 1 — fundação':['OTTHI_WORLD_STAGES','applyPbrPack','otthiWorldDiagnostics','openOtthiWorldCenter'],
@@ -100,10 +100,12 @@ add('Recibo exige concessão real e dono correto',"gmGrants" in receipt_rule and
 add('Recibo aplicado não pode ser reaberto',"data.child('state').val() !== 'applied'" in receipt_rule)
 add('Auditoria é imutável e exclusiva do GM','!data.exists()' in root_rules['gmAudit']['$grantId']['.write'] and 'admins' in root_rules['gmAudit']['$grantId']['.write'])
 
-add('Index V701 versionado',index.count('?v=7010')>=10,index.count('?v=7010'))
-add('Service Worker V701',"const CACHE = `otthi-v7010-${REVISION}`" in sw and "const BUILD = '701.0-secure-gm-panel'" in sw)
-add('Manifesto PWA V701',json.loads(text('manifest.webmanifest')).get('name')=='OTTHI World V701')
-add('Android V701',"versionCode 7010" in text('android-app/app/build.gradle') and "versionName '7.0.1'" in text('android-app/app/build.gradle'))
+cache_token=f"?v={version.get('version')}0"
+add('Index versionado na release atual',index.count(cache_token)>=10,index.count(cache_token))
+add('Service Worker na release atual',f"const CACHE = `otthi-v{version.get('version')}0-${{REVISION}}`" in sw and f"const BUILD = '{version.get('build')}';" in sw)
+add('Manifesto PWA preservado',json.loads(text('manifest.webmanifest')).get('name')=='OTTHI World' and cache_token in json.loads(text('manifest.webmanifest')).get('start_url',''))
+gradle=text('android-app/app/build.gradle')
+add('Android na release atual',f"versionCode {version.get('androidVersionCode')}" in gradle and f"versionName \"{version.get('androidVersionName')}\"" in gradle)
 add('Aprovação física permanece pendente',version.get('validation',{}).get('physicalDeviceApproved') is False)
 add('Firebase remoto permanece pendente',version.get('validation',{}).get('firebaseRemoteApproved') is False)
 
@@ -111,17 +113,17 @@ bad=[]
 for rel,expected in release.get('files',{}).items():
     path=ROOT/rel
     if not path.is_file() or sha(rel)!=expected: bad.append(rel)
-add('Manifesto de release coerente',release.get('version')==701 and release.get('build')==version.get('build') and release.get('algorithm')=='SHA-256')
+add('Manifesto de release coerente',release.get('version')==version.get('version') and release.get('build')==version.get('build') and release.get('algorithm')=='SHA-256')
 add('Hashes de release conferem',not bad,bad)
 rev_html=re.search(r'data-otthi-revision="([a-f0-9]{16})"',index)
 rev_sw=re.search(r"const REVISION = '([a-f0-9]{16})';",sw)
 add('Revisão PWA coerente',bool(rev_html and rev_sw) and release.get('revision')==rev_html.group(1)==rev_sw.group(1))
 
 failed=[x for x in checks if not x['passed']]
-report={'version':701,'build':version.get('build'),'passed':not failed,'counts':{'checks':len(checks),'passed':len(checks)-len(failed),'failed':len(failed),'functionsIncludingAsync':len(functions),'pbrPacks':len(packs)},'checks':checks,'limits':['Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado.']}
+report={'version':version.get('version'),'build':version.get('build'),'passed':not failed,'counts':{'checks':len(checks),'passed':len(checks)-len(failed),'failed':len(failed),'functionsIncludingAsync':len(functions),'pbrPacks':len(packs)},'checks':checks,'limits':['Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado.']}
 DOCS.mkdir(exist_ok=True)
-(DOCS/'VALIDACAO-OTTHI-WORLD-V701.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8')
-md=['# Validação OTTHI World V701 — Painel GM seguro','',f"- Resultado: **{'APROVADO' if report['passed'] else 'REPROVADO'}**",f"- Verificações: **{report['counts']['passed']} aprovadas / {report['counts']['failed']} falhas**",f"- Funções incluindo async: **{len(functions)}**",'', '## Verificações','']+[f"- [{'x' if c['passed'] else ' '}] {c['name']}{' — '+c['detail'] if c['detail'] else ''}" for c in checks]+['','## Limites','',*['- '+x for x in report['limits']]]
-(DOCS/'VALIDACAO-OTTHI-WORLD-V701.md').write_text('\n'.join(md)+'\n','utf-8')
+(DOCS/'VALIDACAO-PAINEL-GM-PRESERVADO-V702.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8')
+md=['# Validação OTTHI World V702 — painel GM V701 preservado','',f"- Resultado: **{'APROVADO' if report['passed'] else 'REPROVADO'}**",f"- Verificações: **{report['counts']['passed']} aprovadas / {report['counts']['failed']} falhas**",f"- Funções incluindo async: **{len(functions)}**",'', '## Verificações','']+[f"- [{'x' if c['passed'] else ' '}] {c['name']}{' — '+c['detail'] if c['detail'] else ''}" for c in checks]+['','## Limites','',*['- '+x for x in report['limits']]]
+(DOCS/'VALIDACAO-PAINEL-GM-PRESERVADO-V702.md').write_text('\n'.join(md)+'\n','utf-8')
 print(json.dumps(report,ensure_ascii=False,indent=2))
 sys.exit(0 if report['passed'] else 1)

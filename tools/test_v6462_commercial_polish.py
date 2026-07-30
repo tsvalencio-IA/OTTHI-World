@@ -75,7 +75,8 @@ class CommercialPolishTests(unittest.TestCase):
         self.assertIn('src/styles/14-commercial-responsive-map-missions-furniture.css', [item['file'] for item in order['styles']])
         self.assertLess([item['file'] for item in order['styles']].index('src/styles/15-coop-map-responsive-v6463.css'), [item['file'] for item in order['styles']].index('src/styles/16-otthi-world-professional-v700.css'))
         self.assertLess([item['file'] for item in order['styles']].index('src/styles/16-otthi-world-professional-v700.css'), [item['file'] for item in order['styles']].index('src/styles/17-gm-admin-panel-v701.css'))
-        self.assertEqual(order['styles'][-1]['file'], 'src/styles/17-gm-admin-panel-v701.css')
+        self.assertLess([item['file'] for item in order['styles']].index('src/styles/17-gm-admin-panel-v701.css'), [item['file'] for item in order['styles']].index('src/styles/18-world-evolution-v702.css'))
+        self.assertEqual(order['styles'][-1]['file'], 'src/styles/18-world-evolution-v702.css')
         app = text('app.js')
         style = text('style.css')
         for token in ['serviceVehicleMapLocation', 'openFurnitureManager', 'dressAnimatedAvatar']:

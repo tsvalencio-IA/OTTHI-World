@@ -14,7 +14,7 @@ nav=text('src/modules/07-navigation-traffic-routes.js')
 mapjs=text('src/modules/08-map-parent-settings.js')
 css=text('src/styles/13-neighborhood-world-map-v644.css')
 rules=json.loads(text('firebase-database.rules.json'))
-manifest=json.loads(text('src/module-order.json'))
+manifest=json.loads(text('src/module-order.json')); version=json.loads(text('VERSION.json')); cache=f"?v={version['version']}0"
 index=text('index.html'); sw=text('sw.js'); app=text('app.js')
 room_ids=['bairro-central','bairro-floresta','bairro-lago','bairro-montanha','bairro-escola']
 for rid in room_ids: add(f'Bairro configurado {rid}',rid in cfg)
@@ -69,10 +69,10 @@ add('UI bloqueia lotado',"full||switching?'disabled'" in manager and 'Bairro lot
 add('UI só seleciona após sucesso',manager.index('if(!result?.ok)')<manager.index('selected=room.id'))
 add('Módulo 31 no manifesto',any(x.get('file')=='src/modules/31-neighborhood-world-controller.js' for x in manifest['javascript']))
 add('CSS 13 no manifesto',any(x.get('file')=='src/styles/13-neighborhood-world-map-v644.css' for x in manifest['styles']))
-add('Versão consolidada no index',index.count('?v=7010')>=10,index.count('?v=7010'))
-add('Runtime consolidado',"window.OTTHI_GAME_VERSION = 701;" in app and "const APP_VERSION = 701;" in app)
-add('Service Worker consolidado',"const CACHE = `otthi-v7010-${REVISION}`" in sw and "701.0-secure-gm-panel" in sw)
-report={'version':701,'passed':all(x['passed'] for x in checks),'counts':{'passed':sum(x['passed'] for x in checks),'failed':sum(not x['passed'] for x in checks),'total':len(checks)},'checks':checks}
+add('Versão consolidada no index',index.count(cache)>=10,index.count(cache))
+add('Runtime consolidado',f"window.OTTHI_GAME_VERSION = {version['version']};" in app and f"const APP_VERSION = {version['version']};" in app)
+add('Service Worker consolidado',f"const CACHE = `otthi-v{version['version']}0-${{REVISION}}`" in sw and version['build'] in sw)
+report={'version':version['version'],'passed':all(x['passed'] for x in checks),'counts':{'passed':sum(x['passed'] for x in checks),'failed':sum(not x['passed'] for x in checks),'total':len(checks)},'checks':checks}
 (ROOT/'docs/RELATORIO-TESTE-BAIRROS-V646.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8')
 md=['# Relatório de teste — bairros consolidados V646','',f"- Resultado: **{'APROVADO' if report['passed'] else 'REPROVADO'}**",f"- Aprovados: **{report['counts']['passed']}**",f"- Falhas: **{report['counts']['failed']}**",'', '## Verificações','']+[f"- [{'x' if c['passed'] else ' '}] {c['name']}{' — '+c['detail'] if c['detail'] else ''}" for c in checks]
 (ROOT/'docs/RELATORIO-TESTE-BAIRROS-V646.md').write_text('\n'.join(md)+'\n','utf-8')

@@ -68,33 +68,68 @@ add(
     and BASELINE['structuralValidation']['plainFunctions'] == 688,
 )
 
-for relative, expected in BASELINE['criticalFileSha256'].items():
+# This is a historical-preservation test. Later releases legitimately extend
+# Firebase rules, multiplayer APIs and generated CSS, so immutable binary/config
+# assets are checked by hash while evolved files are checked semantically.
+for relative in [
+    'firebase-config.js',
+    'assets/vendor/three-r128.min.js',
+    'athos.glb',
+]:
+    expected = BASELINE['criticalFileSha256'][relative]
     add(
-        f'Arquivo crítico preservado: {relative}',
+        f'Arquivo crítico imutável preservado: {relative}',
         sha256(relative) == expected,
         sha256(relative),
     )
 
+rules = text('firebase-database.rules.json')
+rtdb = text('assets/js/multiplayer-rtdb.js')
 add(
-    'Build V646.7 unificado',
-    version.get('version') == 646
-    and version.get('build') == '646.7-visual-foundation-avatar-v2'
-    and version.get('hotfix') == '646.7'
-    and manifest.get('build') == version.get('build'),
+    'Realtime Database original preservado e ampliado com segurança',
+    '"otthosWorld"' in rules
+    and '"admins"' in rules
+    and '"gmGrants"' in rules
+    and "root.child('otthosWorld')" in rules
+    and 'function connect(' in rtdb
+    and 'function syncProgress(' in rtdb
+    and 'function gmCreateGrant(' in rtdb,
+)
+add(
+    'Bundle CSS continua reproduzível pela arquitetura modular',
+    bool(manifest.get('styles'))
+    and all((ROOT / item['file']).exists() for item in manifest.get('styles', []))
+    and len(text('style.css')) > 100000,
+    f"{len(manifest.get('styles', []))} módulos CSS / {len(text('style.css'))} caracteres",
+)
+
+current_version = int(version.get('version') or 0)
+add(
+    'Fundação V646.7 preservada na versão atual',
+    current_version >= 646
+    and manifest.get('version') == current_version
+    and manifest.get('build') == version.get('build')
+    and any(
+        item.get('file') == 'src/modules/00a-visual-foundation-avatar-v2.js'
+        for item in manifest.get('javascript', [])
+    ),
+    f"V{current_version} / {version.get('build')}",
 )
 add(
     'Aprovação física continua pendente',
     version.get('validation', {}).get('physicalDeviceApproved') is False,
 )
 add(
-    '34 módulos JavaScript em ordem',
-    len(manifest.get('javascript', [])) == 34
+    'Módulos JavaScript preservam a fundação e aceitam extensões posteriores',
+    len(manifest.get('javascript', [])) >= 34
     and manifest['javascript'][1]['file']
     == 'src/modules/00a-visual-foundation-avatar-v2.js',
+    len(manifest.get('javascript', [])),
 )
+cache_version = f"{current_version}0"
 add(
     'Three.js r128 foi mantido e não há CDN',
-    './assets/vendor/three-r128.min.js?v=6467' in text('index.html')
+    f'./assets/vendor/three-r128.min.js?v={cache_version}' in text('index.html')
     and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in text('index.html'),
 )
 
@@ -236,7 +271,7 @@ add(
 
 failed = [item for item in checks if not item['passed']]
 report = {
-    'version': 646,
+    'version': int(version.get('version') or 0),
     'build': version.get('build'),
     'baseline': {
         'build': BASELINE['build'],
@@ -262,7 +297,7 @@ DOCS.mkdir(exist_ok=True)
     encoding='utf-8',
 )
 markdown = [
-    '# Preservação V646.6 → V646.7',
+    '# Preservação da fundação V646.6/V646.7 na versão atual',
     '',
     f"- Resultado: **{'APROVADO' if report['passed'] else 'REPROVADO'}**",
     f"- Verificações: **{report['counts']['passed']} aprovadas / {report['counts']['failed']} falhas**",

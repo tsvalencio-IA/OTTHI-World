@@ -1,12 +1,12 @@
 {
-  "version": 701,
-  "build": "701.0-secure-gm-panel",
+  "version": 702,
+  "build": "702.0-world-evolution-complete",
   "name": "OTTHI World",
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 7010,
-  "androidVersionName": "7.0.1",
+  "androidVersionCode": 7020,
+  "androidVersionName": "7.0.2",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -30,6 +30,18 @@
     }
   },
   "changes": [
+    "HUD responsivo reconstruído para modo paisagem sem sobreposição entre missão, mapa, câmera, joystick e ações",
+    "câmera orbital ampliada com inclinação vertical real, visão baixa, visão alta, zoom e botões de elevação",
+    "gramado de segurança renderizado continuamente para eliminar áreas pretas ou vazias do terreno",
+    "biomas jogáveis com grama, terra, plantação, areia, deserto, margem, penhasco e montanha com subida e descida",
+    "lago com fundo visível, camadas de profundidade, margem rasa, reflexo, ondulação e vegetação aquática",
+    "natação funcional com entrada e saída automáticas, velocidade própria, braçadas, gasto de energia e pulo de superfície",
+    "mercadinho completo com iscas, sementes, materiais, ferramentas, vara, água, comida e kits de construção",
+    "sistema de escavação para obter iscas, sementes, argila e recursos usando enxada, pá ou picareta",
+    "fazenda persistente com preparo da terra, plantio, crescimento por tempo, colheita, sementes e alimentos",
+    "estúdio universal para todos os jogadores com estilos Blocks, Toys, Heroes e Adventure e temas originais combináveis",
+    "novos cidadãos temáticos originais andando no mundo com visual de bloco, brinquedo, herói e aventura",
+    "mesmo Realtime Database, raiz otthosWorld, painel GM V701, saves, multiplayer, física, missões e fallbacks preservados",
     "painel administrativo GM oculto por cinco toques na assinatura e código *177",
     "autorização real por UID no nó otthosWorld/admins do mesmo Realtime Database",
     "listagem de usuários, contas, moedas, itens, nível, XP, reputação e presença online",
@@ -38,7 +50,6 @@
     "recibos idempotentes para impedir aplicação repetida da mesma concessão",
     "histórico administrativo imutável com autor, jogador, motivo, itens e data",
     "layout responsivo do painel GM para celular, tablet e computador",
-    "nova identidade OTTHI World preservando a base completa da V646.7",
     "26 pacotes locais de materiais PBR estilizados com base color, normal, roughness, ambient occlusion, height e emissive",
     "avatar modular V3 com estilos próprios Blocks, Toys e Heroes, roupas, rosto, cabelo, calçados, mochila, capa e cores",
     "personagem procedural e Avatar V2 mantidos como fallback automático",
@@ -51,8 +62,7 @@
     "centro OTTHI World com diagnóstico, controles gráficos e acesso às novas áreas",
     "qualidade adaptativa, LOD, culling, caches e fallbacks da fundação V646.7 preservados",
     "mesmo Firebase Realtime Database, mesmas salas, regras, contas, multiplayer e raiz otthosWorld",
-    "migração automática do save local V646 para V700 sem apagar progresso antigo",
-    "PWA, projeto Android, retrato e paisagem preservados"
+    "migração automática do save local V646 para V700 sem apagar progresso antigo"
   ],
   "preserves": [
     "roupas",
@@ -76,7 +86,12 @@
     "Realtime Database existente",
     "controles mobile",
     "física original",
-    "fallback procedural"
+    "fallback procedural",
+    "painel GM V701",
+    "mesmo Realtime Database",
+    "saves anteriores",
+    "todas as missões e profissões",
+    "controles retrato e paisagem"
   ],
   "validation": {
     "structuralApproved": true,
@@ -89,12 +104,15 @@
     "arApproved": false,
     "apkApproved": false
   },
-  "hotfix": "701.0",
+  "hotfix": "702.0",
   "notes": [
+    "Os estilos Blocks, Toys, Heroes e Adventure são criações originais OTTHI com linguagem visual de blocos, brinquedos, superaventura e plataforma; nenhum personagem, nome, logotipo ou ativo protegido de terceiros foi incluído.",
+    "O estúdio de personagem é o mesmo para todos os usuários. O painel GM continua separado e protegido por UID no Firebase.",
+    "O lago permite natação, mas a posição dentro da água não é usada como ponto de retorno para evitar o jogador nascer preso no lago.",
+    "O Firebase Realtime Database não foi trocado e a raiz permanece otthosWorld.",
     "Para ativar a primeira conta GM, crie manualmente no Firebase Realtime Database o caminho otthosWorld/admins/UID_DA_CONTA com o valor booleano true. O painel mostra o UID quando a conta ainda não está autorizada.",
     "O código *177 apenas revela a interface; as regras do Firebase exigem o UID autorizado e impedem que um usuário comum liste jogadores ou crie concessões.",
     "O Firebase Realtime Database não foi trocado: firebase-config.js, firebase-database.rules.json e assets/js/multiplayer-rtdb.js permanecem preservados.",
-    "Os conceitos de blocos, brinquedos, heróis e plataforma usam identidade original OTTHI; nenhum personagem, logotipo ou ativo de terceiros foi incluído.",
     "Os testes automatizados não substituem validação em celulares Android reais, multiplayer entre aparelhos, Firebase remoto, PWA instalada e APK.",
     "A arquitetura mantém fallback para a jogabilidade e os renders anteriores caso uma camada profissional não inicialize."
   ]

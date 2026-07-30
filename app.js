@@ -4,8 +4,8 @@
   'use strict';
 
   const OTTHI_GAME_LIVE_BASE = new URL('./', window.location.href).href;
-  const OTTHI_GAME_WEB_BUILD = '701.0-secure-gm-panel';
-  window.OTTHI_GAME_VERSION = 701;
+  const OTTHI_GAME_WEB_BUILD = '702.0-world-evolution-complete';
+  window.OTTHI_GAME_VERSION = 702;
   window.OTTHI_GAME_BUILD = OTTHI_GAME_WEB_BUILD;
   const OTTHI_INDEX_BUILD = document.documentElement?.dataset?.otthiBuild || '';
   const OTTHI_RELEASE_REVISION = document.documentElement?.dataset?.otthiRevision || '';
@@ -24,7 +24,7 @@
   const uid = () => (crypto.randomUUID ? crypto.randomUUID() : `p-${Date.now()}-${Math.random().toString(16).slice(2)}`);
   const safePointerCapture=(element,pointerId)=>{try{if(element?.setPointerCapture&&Number.isInteger(pointerId))element.setPointerCapture(pointerId);return true;}catch{return false;}};
   const safePointerRelease=(element,pointerId)=>{try{if(element?.hasPointerCapture?.(pointerId))element.releasePointerCapture(pointerId);return true;}catch{return false;}};
-  const APP_VERSION = 701;
+  const APP_VERSION = 702;
   const STORAGE_KEY = 'otthos_life_world_roleplay_v700';
   const LEGACY_STORAGE_KEYS = ['otthos_life_world_roleplay_v646','otthos_life_world_roleplay_v645','otthos_life_world_roleplay_v644','otthos_life_world_roleplay_v643','otthos_life_world_roleplay_v642','otthos_life_world_roleplay_v641','otthos_life_world_roleplay_v640','otthos_life_world_roleplay_v639','otthos_life_world_roleplay_v638','otthos_life_world_roleplay_v637','otthos_life_world_roleplay_v636','otthos_life_world_roleplay_v635','otthos_life_world_roleplay_v634','otthos_life_world_roleplay_v633','otthos_life_world_roleplay_v632','otthos_life_world_roleplay_v631','otthos_life_world_roleplay_v630','otthos_life_world_roleplay_v629','otthos_life_world_roleplay_v628','otthos_life_world_roleplay_v627','otthos_life_world_roleplay_v626','otthos_life_world_roleplay_v625','otthos_life_world_roleplay_v624','otthos_life_world_roleplay_v623','otthos_life_world_roleplay_v622','otthos_life_world_roleplay_v621','otthos_life_world_roleplay_v620','otthos_life_world_roleplay_v619','otthos_life_world_roleplay_v618','otthos_life_world_roleplay_v617','otthos_life_world_roleplay_v616','otthos_life_world_roleplay_v615','otthos_life_world_roleplay_v614','otthos_life_world_roleplay_v613','otthos_life_world_roleplay_v612','otthos_life_world_roleplay_v611','otthos_life_world_roleplay_v610','otthos_life_world_roleplay_v609','otthos_life_world_roleplay_v608','otthos_life_world_roleplay_v607','otthos_life_world_roleplay_v606','otthos_life_world_roleplay_v605','otthos_life_world_roleplay_v604','otthos_life_world_roleplay_v603','otthos_life_world_roleplay_v602','otthos_life_world_roleplay_v601','otthos_life_world_complete_v600'];
   const safeLocalGet = key => { try { return window.localStorage?.getItem(key) ?? null; } catch { return null; } };
@@ -436,7 +436,7 @@
     version: APP_VERSION,
     profile: { playerId: uid(), name: '', nameConfirmed: false, level: 1, xp: 0, coins: 500, reputation: 0 },
     needs: { hunger: 92, energy: 92, fun: 86, hygiene: 88 },
-    inventory: { wood: 0, stone: 0, goldOre: 0, goldBar: 0, food: 2, water: 2, crystals: 0, blocks: 4, fences: 2, keys: 0, fishingRod: 1, bait: 5, rawFish: 0, cookedFish: 0, forestResources: 0 },
+    inventory: { wood: 0, stone: 0, goldOre: 0, goldBar: 0, food: 2, water: 2, crystals: 0, blocks: 4, fences: 2, keys: 0, fishingRod: 1, bait: 5, seeds: 6, wheat: 0, carrots: 0, clay: 0, rawFish: 0, cookedFish: 0, forestResources: 0 },
     homeStorage: { wood: 0, stone: 0, goldOre: 0, goldBar: 0, food: 0, water: 0, crystals: 0 },
     houses: {
       home: { owned: true, locked: false, home: true },
@@ -449,7 +449,7 @@
     career: { title: 'Morador da Vila', level: 1, xp: 0, completed: 0, activeJob: null, lastMission:null, completedMissionTokens:[] },
     social: { invited: [], gifts: 0, jokes: 0, arguments: 0, chatHiddenBefore:0 },
     abilities: { scaleMode: 'normal', crouched: false, mastery: { miniDash:0, superJump:0, giantSlam:0, stealth:0, magnetSpin:0 } },
-    tools: { owned: ['axe','pickaxe','bucket'], equipped: 'axe', harvested: { wood:0, stone:0, gold:0, water:0 } },
+    tools: { owned: ['axe','pickaxe','bucket','hoe','shovel'], equipped: 'axe', harvested: { wood:0, stone:0, gold:0, water:0, bait:0, crops:0, clay:0 } },
     account: { linked:false, accountId:'', username:'', lastCloudSync:0 },
     gm: { appliedGrantIds: [], lastGrantAt: 0 },
     safety: { incidents:0, safeStops:0, lessons:0, lastIncident:0 },
@@ -464,14 +464,15 @@
     buildTombstones: [],
     defeated: 0,
     position: { x: 0, y: 0, z: 8, yaw: 0 },
-    settings: { sound: true, quality: 'auto', autoTier: 'balanced', vibration: true, cameraZoom: 0, joystickNatural: true },
+    settings: { sound: true, quality: 'auto', autoTier: 'balanced', vibration: true, cameraZoom: 0, cameraPitch: .28, cameraYawAssist: true, joystickNatural: true },
     guardian: { multiplayerEnabled:true, communicationEnabled:true, chatEnabled:true, sessionLimitMinutes:0, updatedAt:0 },
     usage: { totalSeconds:0, sessionSeconds:0, sessionStartedAt:0, lastPlayedAt:0, sessionLockedAt:0 },
-    stats: { walked:0, driven:0, jumps:0, collected:0, talks:0, cooked:0, races:0, actions:0, metroTrips:0, busStops:0, skillCombos:0, jobsCompleted:0, firesHelped:0, classesTaught:0, patrols:0, accidentsHelped:0, paramedicCalls:0 },
+    stats: { walked:0, swum:0, driven:0, jumps:0, collected:0, talks:0, cooked:0, planted:0, harvestedCrops:0, dugBait:0, races:0, actions:0, metroTrips:0, busStops:0, skillCombos:0, jobsCompleted:0, firesHelped:0, classesTaught:0, patrols:0, accidentsHelped:0, paramedicCalls:0 },
     daily: { date:'', streak:0, lastDate:'', quests:[] },
     learning: { crowns:0, totalCorrect:0, lessons:{}, lastLesson:'', perfectLessons:0, subjectXP:{math:0,portuguese:0,english:0}, multiplayerWins:0, multiplayerPlayed:0, matchHistory:[] },
     multiplayer: { enabled:true, room:normalizeRoomId(window.OTTHI_CONFIG?.defaultRoom), displayName:'', cloudUid:'', cloudReady:false },
     fishing: { catches: [], species: {}, lastAttempt: 0, cooperativeRewards: [] },
+    farming: { plots: {}, digSites: {}, planted: 0, harvested: 0, lastActionAt: 0 },
     campfires: [],
     boats: { activeBoatId: '', passengerOf: '', lastPosition: { x:-38, z:52, heading:0 } },
     transport: { metroTrips:0, metroDestinations:[], busStops:[], busTrips:0, busWaiting:null },
@@ -517,6 +518,7 @@
       learning: { ...fresh.learning, ...(saved.learning || {}), subjectXP:{...fresh.learning.subjectXP,...(saved.learning?.subjectXP||{})}, lessons:{...fresh.learning.lessons,...(saved.learning?.lessons||{})}, matchHistory:Array.isArray(saved.learning?.matchHistory)?saved.learning.matchHistory:[] },
       multiplayer: { ...fresh.multiplayer, ...(saved.multiplayer || {}), room:normalizeRoomId(saved.multiplayer?.room || fresh.multiplayer.room) },
       fishing: { ...fresh.fishing, ...(saved.fishing || {}), catches:Array.isArray(saved.fishing?.catches)?saved.fishing.catches:[], species:{...fresh.fishing.species,...(saved.fishing?.species||{})}, cooperativeRewards:Array.isArray(saved.fishing?.cooperativeRewards)?saved.fishing.cooperativeRewards:[] },
+      farming: { ...fresh.farming, ...(saved.farming || {}), plots:{...fresh.farming.plots,...(saved.farming?.plots||{})}, digSites:{...fresh.farming.digSites,...(saved.farming?.digSites||{})} },
       campfires: Array.isArray(saved.campfires) ? saved.campfires : [],
       boats: { ...fresh.boats, ...(saved.boats || {}), lastPosition:{...fresh.boats.lastPosition,...(saved.boats?.lastPosition||{})} },
       hunting: { ...fresh.hunting, ...(saved.hunting || {}), cooperativeRewards:Array.isArray(saved.hunting?.cooperativeRewards)?saved.hunting.cooperativeRewards:[] },
@@ -626,7 +628,7 @@
       version: APP_VERSION,lastSaved:Number(state.lastSaved||Date.now()),
       profile:{name:state.profile.name||'Jogador',coins:state.profile.coins||0,xp:state.profile.xp||0,level:state.profile.level||1,reputation:state.profile.reputation||0},
       inventory:{...state.inventory},gm:{appliedGrantIds:[...new Set((state.gm?.appliedGrantIds||[]).map(String).filter(Boolean))].slice(-500),lastGrantAt:Math.max(0,Number(state.gm?.lastGrantAt||0))},medals:[...(state.medals||[])],flags:{...state.flags},houses:{...state.houses},races:{...state.races},
-      avatar:{...state.avatar},abilities:{...state.abilities,mastery:{...(state.abilities?.mastery||{})}},tools:{...state.tools,owned:[...(state.tools?.owned||[])],harvested:{...(state.tools?.harvested||{})}},safety:{...state.safety},cityServices:{...state.cityServices},career:{...state.career,activeJob:state.career?.activeJob?{...state.career.activeJob}:null},cooperative:{...state.cooperative,active:state.cooperative?.active?{...state.cooperative.active}:null,completed:[...(state.cooperative?.completed||[])],history:[...(state.cooperative?.history||[])]},friendship:{...state.friendship},completedChapters:[...(state.completedChapters||[])],builds:[...(state.builds||[])],buildTombstones:[...(state.buildTombstones||[])],homeStorage:{...state.homeStorage},fishing:{...state.fishing,catches:[...(state.fishing?.catches||[])],species:{...(state.fishing?.species||{})}},campfires:[...(state.campfires||[])],boats:{...state.boats,lastPosition:{...(state.boats?.lastPosition||{})}},transport:{...state.transport,metroDestinations:[...(state.transport?.metroDestinations||[])],busStops:[...(state.transport?.busStops||[])]},vehicles:{...state.vehicles,parked:{...(state.vehicles?.parked||{})}},objectives:{...state.objectives,history:[...(state.objectives?.history||[])]},adventures:{...state.adventures,completed:[...(state.adventures?.completed||[])],bestTimes:{...(state.adventures?.bestTimes||{})}},hunting:{...state.hunting},houseExtensions:[...(state.houseExtensions||[])],roomFurniture:[...(state.roomFurniture||[])],
+      avatar:{...state.avatar},abilities:{...state.abilities,mastery:{...(state.abilities?.mastery||{})}},tools:{...state.tools,owned:[...(state.tools?.owned||[])],harvested:{...(state.tools?.harvested||{})}},safety:{...state.safety},cityServices:{...state.cityServices},career:{...state.career,activeJob:state.career?.activeJob?{...state.career.activeJob}:null},cooperative:{...state.cooperative,active:state.cooperative?.active?{...state.cooperative.active}:null,completed:[...(state.cooperative?.completed||[])],history:[...(state.cooperative?.history||[])]},friendship:{...state.friendship},completedChapters:[...(state.completedChapters||[])],builds:[...(state.builds||[])],buildTombstones:[...(state.buildTombstones||[])],homeStorage:{...state.homeStorage},fishing:{...state.fishing,catches:[...(state.fishing?.catches||[])],species:{...(state.fishing?.species||{})}},farming:{...state.farming,plots:{...(state.farming?.plots||{})},digSites:{...(state.farming?.digSites||{})}},campfires:[...(state.campfires||[])],boats:{...state.boats,lastPosition:{...(state.boats?.lastPosition||{})}},transport:{...state.transport,metroDestinations:[...(state.transport?.metroDestinations||[])],busStops:[...(state.transport?.busStops||[])]},vehicles:{...state.vehicles,parked:{...(state.vehicles?.parked||{})}},objectives:{...state.objectives,history:[...(state.objectives?.history||[])]},adventures:{...state.adventures,completed:[...(state.adventures?.completed||[])],bestTimes:{...(state.adventures?.bestTimes||{})}},hunting:{...state.hunting},houseExtensions:[...(state.houseExtensions||[])],roomFurniture:[...(state.roomFurniture||[])],
       achievements:{stats:{...state.stats},daily:{...state.daily,quests:[...(state.daily?.quests||[])]},learning:{...state.learning,subjectXP:{...state.learning.subjectXP},lessons:{...state.learning.lessons}}},position:{...state.position}
     };
   }
@@ -647,7 +649,7 @@
       inventory:{...state.inventory,...(remote.inventory||{})},gm:{...state.gm,...(remote.gm||{}),appliedGrantIds:[...new Set([...(state.gm?.appliedGrantIds||[]),...(remote.gm?.appliedGrantIds||[])].map(String).filter(Boolean))].slice(-500),lastGrantAt:Math.max(Number(state.gm?.lastGrantAt||0),Number(remote.gm?.lastGrantAt||0))},medals:Array.isArray(remote.medals)?remote.medals:state.medals,
       flags:{...state.flags,...(remote.flags||{})},houses:{...state.houses,...(remote.houses||{})},races:{...state.races,...(remote.races||{})},
       avatar:normalizeAvatarV2({...state.avatar,...(remote.avatar||{})}),abilities:{...state.abilities,...(remote.abilities||{}),mastery:{...state.abilities.mastery,...(remote.abilities?.mastery||{})}},tools:{...state.tools,...(remote.tools||{}),owned:Array.isArray(remote.tools?.owned)?remote.tools.owned:state.tools.owned,harvested:{...state.tools.harvested,...(remote.tools?.harvested||{})}},safety:{...state.safety,...(remote.safety||{})},cityServices:{...state.cityServices,...(remote.cityServices||{})},career:{...state.career,...(remote.career||{}),activeJob:remote.career?.activeJob?{...remote.career.activeJob}:state.career.activeJob},cooperative:{...state.cooperative,...(remote.cooperative||{}),active:remote.cooperative?.active?{...remote.cooperative.active}:state.cooperative.active,completed:Array.isArray(remote.cooperative?.completed)?remote.cooperative.completed:state.cooperative.completed,history:Array.isArray(remote.cooperative?.history)?remote.cooperative.history:state.cooperative.history},friendship:{...state.friendship,...(remote.friendship||{})},completedChapters:Array.isArray(remote.completedChapters)?remote.completedChapters:state.completedChapters,
-      builds:mergedBuilds,buildTombstones:mergedBuildTombstones,homeStorage:{...state.homeStorage,...(remote.homeStorage||{})},fishing:{...state.fishing,...(remote.fishing||{}),catches:Array.isArray(remote.fishing?.catches)?remote.fishing.catches:state.fishing.catches,species:{...state.fishing.species,...(remote.fishing?.species||{})}},campfires:Array.isArray(remote.campfires)?remote.campfires:state.campfires,boats:{...state.boats,...(remote.boats||{}),lastPosition:{...state.boats.lastPosition,...(remote.boats?.lastPosition||{})}},transport:{...state.transport,...(remote.transport||{}),metroDestinations:Array.isArray(remote.transport?.metroDestinations)?remote.transport.metroDestinations:state.transport.metroDestinations,busStops:Array.isArray(remote.transport?.busStops)?remote.transport.busStops:state.transport.busStops},vehicles:{...state.vehicles,...(remote.vehicles||{}),parked:{...state.vehicles.parked,...(remote.vehicles?.parked||{})}},objectives:{...state.objectives,...(remote.objectives||{}),history:Array.isArray(remote.objectives?.history)?remote.objectives.history:state.objectives.history},adventures:{...state.adventures,...(remote.adventures||{}),completed:Array.isArray(remote.adventures?.completed)?remote.adventures.completed:state.adventures.completed,bestTimes:{...state.adventures.bestTimes,...(remote.adventures?.bestTimes||{})}},hunting:{...state.hunting,...(remote.hunting||{})},houseExtensions:mergedExtensions,roomFurniture:mergedFurniture,
+      builds:mergedBuilds,buildTombstones:mergedBuildTombstones,homeStorage:{...state.homeStorage,...(remote.homeStorage||{})},fishing:{...state.fishing,...(remote.fishing||{}),catches:Array.isArray(remote.fishing?.catches)?remote.fishing.catches:state.fishing.catches,species:{...state.fishing.species,...(remote.fishing?.species||{})}},farming:{...state.farming,...(remote.farming||{}),plots:{...state.farming.plots,...(remote.farming?.plots||{})},digSites:{...state.farming.digSites,...(remote.farming?.digSites||{})}},campfires:Array.isArray(remote.campfires)?remote.campfires:state.campfires,boats:{...state.boats,...(remote.boats||{}),lastPosition:{...state.boats.lastPosition,...(remote.boats?.lastPosition||{})}},transport:{...state.transport,...(remote.transport||{}),metroDestinations:Array.isArray(remote.transport?.metroDestinations)?remote.transport.metroDestinations:state.transport.metroDestinations,busStops:Array.isArray(remote.transport?.busStops)?remote.transport.busStops:state.transport.busStops},vehicles:{...state.vehicles,...(remote.vehicles||{}),parked:{...state.vehicles.parked,...(remote.vehicles?.parked||{})}},objectives:{...state.objectives,...(remote.objectives||{}),history:Array.isArray(remote.objectives?.history)?remote.objectives.history:state.objectives.history},adventures:{...state.adventures,...(remote.adventures||{}),completed:Array.isArray(remote.adventures?.completed)?remote.adventures.completed:state.adventures.completed,bestTimes:{...state.adventures.bestTimes,...(remote.adventures?.bestTimes||{})}},hunting:{...state.hunting,...(remote.hunting||{})},houseExtensions:mergedExtensions,roomFurniture:mergedFurniture,
       stats:{...state.stats,...(remote.achievements?.stats||{})},daily:{...state.daily,...(remote.achievements?.daily||{})},learning:{...state.learning,...(remote.achievements?.learning||{}),subjectXP:{...state.learning.subjectXP,...(remote.achievements?.learning?.subjectXP||{})},lessons:{...state.learning.lessons,...(remote.achievements?.learning?.lessons||{})}},
       position:{...state.position,...(remote.position||{})},lastSaved:remoteSaved,version: APP_VERSION
     };
@@ -1421,21 +1423,23 @@
     const inv = state.inventory;
     openModal('Inventário', `<div class="inventory-grid">
       <div class="inventory-item"><b>🪵 ${inv.wood}</b><span>Madeira</span></div><div class="inventory-item"><b>🪨 ${inv.stone}</b><span>Pedra</span></div><div class="inventory-item"><b>🟨 ${inv.goldOre||0}</b><span>Minério de ouro</span></div><div class="inventory-item"><b>🏅 ${inv.goldBar||0}</b><span>Barra de ouro</span></div><div class="inventory-item"><b>🍎 ${inv.food}</b><span>Comida</span></div><div class="inventory-item"><b>💧 ${inv.water}</b><span>Água</span></div><div class="inventory-item"><b>💎 ${inv.crystals}</b><span>Cristais</span></div><div class="inventory-item"><b>🧱 ${inv.blocks}</b><span>Blocos</span></div><div class="inventory-item"><b>🪵 ${inv.fences}</b><span>Cercas</span></div><div class="inventory-item"><b>🪙 ${state.profile.coins}</b><span>Moedas</span></div>
-      <div class="inventory-item"><b>🎣 ${inv.fishingRod||0}</b><span>Vara de pesca</span></div><div class="inventory-item"><b>🪱 ${inv.bait||0}</b><span>Iscas</span></div><div class="inventory-item"><b>🐟 ${inv.rawFish||0}</b><span>Peixe cru</span></div><div class="inventory-item"><b>🍽️ ${inv.cookedFish||0}</b><span>Peixe assado</span></div><div class="inventory-item"><b>🌿 ${inv.forestResources||0}</b><span>Recursos da floresta</span></div>
+      <div class="inventory-item"><b>🎣 ${inv.fishingRod||0}</b><span>Vara de pesca</span></div><div class="inventory-item"><b>🪱 ${inv.bait||0}</b><span>Iscas</span></div><div class="inventory-item"><b>🌱 ${inv.seeds||0}</b><span>Sementes</span></div><div class="inventory-item"><b>🌾 ${inv.wheat||0}</b><span>Trigo</span></div><div class="inventory-item"><b>🥕 ${inv.carrots||0}</b><span>Cenouras</span></div><div class="inventory-item"><b>🟫 ${inv.clay||0}</b><span>Argila</span></div><div class="inventory-item"><b>🐟 ${inv.rawFish||0}</b><span>Peixe cru</span></div><div class="inventory-item"><b>🍽️ ${inv.cookedFish||0}</b><span>Peixe assado</span></div><div class="inventory-item"><b>🌿 ${inv.forestResources||0}</b><span>Recursos da floresta</span></div>
     </div><div class="modal-actions"><button class="btn primary" data-open-tools>Ferramentas</button>${inv.cookedFish>0?'<button class="btn" data-eat-cooked>Comer peixe assado</button>':''}</div>`,root=>{$('[data-open-tools]',root)?.addEventListener('click',openToolbelt);$('[data-eat-cooked]',root)?.addEventListener('click',()=>{if((state.inventory.cookedFish||0)<1)return;state.inventory.cookedFish--;state.needs.hunger=clamp(state.needs.hunger+32,0,100);state.needs.energy=clamp(state.needs.energy+6,0,100);saveState(true);updateHUD();toast('Peixe assado consumido.','good');openInventory();});});
   }
 
   const TOOL_DEFS={
     axe:{icon:'🪓',name:'Machado',description:'Corta árvores e coleta madeira.'},
     pickaxe:{icon:'⛏️',name:'Picareta',description:'Extrai pedra e minério de ouro.'},
-    bucket:{icon:'🪣',name:'Balde',description:'Retira água limpa do poço.'}
+    bucket:{icon:'🪣',name:'Balde',description:'Retira água limpa do poço.'},
+    hoe:{icon:'🧑‍🌾',name:'Enxada',description:'Prepara a terra, planta e procura iscas.'},
+    shovel:{icon:'🪏',name:'Pá',description:'Escava terra, areia, argila e iscas.'}
   };
   function equippedTool(){return TOOL_DEFS[state.tools?.equipped]||TOOL_DEFS.axe;}
   function equipTool(id){
     if(!TOOL_DEFS[id]||!state.tools.owned.includes(id))return false;state.tools.equipped=id;saveState(true);refreshEquippedToolVisual();if(els.toolsBtn){els.toolsBtn.firstChild.textContent=TOOL_DEFS[id].icon;$('span',els.toolsBtn).textContent=TOOL_DEFS[id].name;}toast(`${TOOL_DEFS[id].name} equipado.`,'good',1200);return true;
   }
   function openToolbelt(){
-    openModal('Ferramentas',`<div class="tool-grid">${Object.entries(TOOL_DEFS).map(([id,tool])=>`<button class="tool-card ${state.tools.equipped===id?'active':''}" data-equip-tool="${id}"><span>${tool.icon}</span><b>${tool.name}</b><small>${tool.description}</small><em>${state.tools.equipped===id?'Em uso':'Equipar'}</em></button>`).join('')}</div><div class="resource-summary"><span>🪵 ${state.tools.harvested.wood||0}</span><span>🪨 ${state.tools.harvested.stone||0}</span><span>🟨 ${state.tools.harvested.gold||0}</span><span>💧 ${state.tools.harvested.water||0}</span></div>`,root=>{$$('[data-equip-tool]',root).forEach(btn=>btn.onclick=()=>{equipTool(btn.dataset.equipTool);closeModal();});});
+    openModal('Ferramentas',`<div class="tool-grid">${Object.entries(TOOL_DEFS).map(([id,tool])=>`<button class="tool-card ${state.tools.equipped===id?'active':''}" data-equip-tool="${id}"><span>${tool.icon}</span><b>${tool.name}</b><small>${tool.description}</small><em>${state.tools.equipped===id?'Em uso':'Equipar'}</em></button>`).join('')}</div><div class="resource-summary"><span>🪵 ${state.tools.harvested.wood||0}</span><span>🪨 ${state.tools.harvested.stone||0}</span><span>🟨 ${state.tools.harvested.gold||0}</span><span>💧 ${state.tools.harvested.water||0}</span><span>🪱 ${state.tools.harvested.bait||0}</span><span>🌾 ${state.tools.harvested.crops||0}</span><span>🟫 ${state.tools.harvested.clay||0}</span></div>`,root=>{$$('[data-equip-tool]',root).forEach(btn=>btn.onclick=()=>{equipTool(btn.dataset.equipTool);closeModal();});});
   }
   function refreshEquippedToolVisual(){
     if(!playerModel?.userData?.parts?.rightArm)return;
@@ -1447,11 +1451,13 @@
     }else{
       box(.11,.92,.11,wood,0,-.16,0,toolVisual);
       if(type==='axe'){box(.48,.3,.14,metal,.17,.25,0,toolVisual);box(.18,.18,.17,metal,-.13,.25,0,toolVisual);}
+      else if(type==='hoe'){box(.68,.11,.12,metal,.18,.25,0,toolVisual);box(.12,.35,.12,metal,-.12,.09,0,toolVisual);}
+      else if(type==='shovel'){const blade=new THREE.Mesh(new THREE.CylinderGeometry(.24,.31,.34,6),metal);blade.position.set(0,.28,0);blade.scale.z=.45;toolVisual.add(blade);}
       else{box(.72,.16,.16,metal,0,.25,0,toolVisual);box(.16,.28,.16,metal,-.3,.14,0,toolVisual);box(.16,.28,.16,metal,.3,.14,0,toolVisual);}
     }
     toolVisual.visible=!player.vehicle&&!player.boating&&!player.transit.mode;
   }
-  function playToolAnimation(){player.emoteType='tool';player.emoteUntil=performance.now()+620;player.emoteSeq=(player.emoteSeq||0)+1;beep(state.tools.equipped==='pickaxe'?180:260,55,'triangle');vibrate(16);}
+  function playToolAnimation(){player.emoteType='tool';player.emoteUntil=performance.now()+620;player.emoteSeq=(player.emoteSeq||0)+1;const low=['pickaxe','hoe','shovel'].includes(state.tools.equipped);beep(low?180:260,55,'triangle');vibrate(16);}
 
   const WORLD_MAP_ROADS=[{x:0,z:0,w:18,d:210},{x:0,z:0,w:210,d:18},{x:-55,z:-55,w:9,d:105},{x:55,z:48,w:9,d:92},{x:55,z:-55,w:9,d:105},{x:-55,z:22,w:9,d:44},{x:27.5,z:78,w:55,d:9}];
   const NAV_BASE_NODES={
@@ -1903,7 +1909,7 @@
   /* THREE.JS GAME */
   let scene, camera, renderer, clock, worldGroup, playerGroup, playerModel, playerMixer, avatarLayer, contactShadow, vehicleVisual, toolVisual, sunLight;
   let activeVehicleRef = null;
-  let running = false, paused = false, pauseMenuOpen = false, raf = 0, cameraYaw = 0, cameraPitch = .38, cameraZoom = Number(state.settings?.cameraZoom || 0), cameraMode = 'openworld';
+  let running = false, paused = false, pauseMenuOpen = false, raf = 0, cameraYaw = 0, cameraPitch = clamp(Number(state.settings?.cameraPitch ?? .28),-.55,1.35), cameraZoom = Number(state.settings?.cameraZoom || 0), cameraMode = 'openworld';
   let currentHouse = null, buildMode = null, buildPreview = null, buildPanel = null, buildRotation = 0, buildPlacement = null, currentContext = null, lastContextId = '', lastActionSource = 'none', actionLockedUntil = 0, activeRace = null, lastContextScanAt = 0, lastContextScanX = Infinity, lastContextScanZ = Infinity;
   const player = { x: 0, y: 0, z: 8, vx: 0, vy: 0, vz: 0, facing: Math.PI, grounded: true, vehicle: false, sitUntil: 0, lastGrounded: 0, lastSafeX: 0, lastSafeY: 0, lastSafeZ: 8, lastSafeAt: 0, invalidSince: 0, jumpBuffer: 0, attackUntil: 0, damageUntil: 0, shieldUntil:0, skillDashUntil:0, scaleMode: state.abilities?.scaleMode || 'normal', crouched: !!state.abilities?.crouched, spinUntil: 0, preVehicleAbilities: null, hornUntil: 0, emoteUntil:0, emoteType:'', emoteSeq:0, boating:false, transit:{mode:'',busId:'',requestStop:false,metroUntil:0}, boat:{heading:0,speed:0,steerVisual:0,passengerOf:'',passengerUid:'',passengerBotId:'',hostMissingAt:0}, car: { id:'', kind:'car', label:'Carro', heading: Math.PI, speed: 0, steerVisual: 0, drift: 0, _prevSpeed: 0, passengerOf:'', passengerUid:'', passengerBotId:'', hostMissingAt:0 } };
   const input = {
@@ -2072,7 +2078,7 @@
     return{version:APP_VERSION,running,paused,mode:mode.state,modeValid:mode.valid,modeConflicts:mode.conflicts,fps:+perf.fps.toFixed(1),frameMs:+(1000/Math.max(1,perf.fps)).toFixed(1),drawCalls:Number(render.calls||0),triangles:Number(render.triangles||0),geometries:Number(memory.geometries||0),textures:Number(memory.textures||0),npcs:world.npcs.length,vehicles:activeVehicleCount(),aiTicks:perf.aiTicks,trafficTicks:perf.trafficTicks,culling:{enabled:perf.cullingEnabled,bypassed:perf.cullingBypassed,total:world.staticRenderObjects||0},visual:visualFoundationDiagnostics(),avatar:avatarFoundationDiagnostics(),pwaInstalled:pwaInstalled(),online:navigator.onLine,browser:navigator.userAgent,save:{version:state.version,lastSaved:Number(state.lastSaved||0),database:window.OTTHOS_DB?.name||'',schema:window.OTTHOS_DB?.schema||0},multiplayer:window.OTTHOS_RTDB?.status?.()||{configured:false,connected:false}};
   }
   function ensureTechnicalPanel(){
-    if(technicalPanel)return technicalPanel;const style=document.createElement('style');style.id='otthosTechnicalPanelStyle';style.textContent='.otthos-tech-panel{position:fixed;z-index:100000;right:max(8px,env(safe-area-inset-right));top:max(8px,env(safe-area-inset-top));width:min(330px,calc(100vw - 16px));max-height:calc(100vh - 16px);overflow:auto;padding:12px;border:1px solid rgba(116,220,255,.65);border-radius:14px;background:rgba(4,13,25,.94);color:#eaf8ff;font:700 12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;box-shadow:0 16px 45px rgba(0,0,0,.45);backdrop-filter:blur(10px)}.otthos-tech-panel[hidden]{display:none!important}.otthos-tech-panel header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.otthos-tech-panel h2{font:900 14px/1.2 system-ui,sans-serif;margin:0}.otthos-tech-panel button{border:0;border-radius:8px;background:#dff7ff;color:#082032;padding:5px 9px;font-weight:900}.otthos-tech-panel pre{white-space:pre-wrap;word-break:break-word;margin:0;color:#c9edff}';document.head.appendChild(style);technicalPanel=document.createElement('aside');technicalPanel.className='otthos-tech-panel';technicalPanel.hidden=true;technicalPanel.setAttribute('aria-label','Painel técnico OTTHOS');technicalPanel.innerHTML='<header><h2>OTTHI • diagnóstico V701</h2><button type="button" data-tech-close>Fechar</button></header><pre data-tech-data></pre>';document.body.appendChild(technicalPanel);technicalPanel.querySelector('[data-tech-close]').onclick=()=>toggleTechnicalPanel(false);return technicalPanel;
+    if(technicalPanel)return technicalPanel;const style=document.createElement('style');style.id='otthosTechnicalPanelStyle';style.textContent='.otthos-tech-panel{position:fixed;z-index:100000;right:max(8px,env(safe-area-inset-right));top:max(8px,env(safe-area-inset-top));width:min(330px,calc(100vw - 16px));max-height:calc(100vh - 16px);overflow:auto;padding:12px;border:1px solid rgba(116,220,255,.65);border-radius:14px;background:rgba(4,13,25,.94);color:#eaf8ff;font:700 12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;box-shadow:0 16px 45px rgba(0,0,0,.45);backdrop-filter:blur(10px)}.otthos-tech-panel[hidden]{display:none!important}.otthos-tech-panel header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.otthos-tech-panel h2{font:900 14px/1.2 system-ui,sans-serif;margin:0}.otthos-tech-panel button{border:0;border-radius:8px;background:#dff7ff;color:#082032;padding:5px 9px;font-weight:900}.otthos-tech-panel pre{white-space:pre-wrap;word-break:break-word;margin:0;color:#c9edff}';document.head.appendChild(style);technicalPanel=document.createElement('aside');technicalPanel.className='otthos-tech-panel';technicalPanel.hidden=true;technicalPanel.setAttribute('aria-label','Painel técnico OTTHOS');technicalPanel.innerHTML='<header><h2>OTTHI • diagnóstico V702</h2><button type="button" data-tech-close>Fechar</button></header><pre data-tech-data></pre>';document.body.appendChild(technicalPanel);technicalPanel.querySelector('[data-tech-close]').onclick=()=>toggleTechnicalPanel(false);return technicalPanel;
   }
   function refreshTechnicalPanel(){if(!technicalPanelVisible)return;const panel=ensureTechnicalPanel(),d=runtimeDiagnostics();panel.querySelector('[data-tech-data]').textContent=[`FPS: ${d.fps} • frame: ${d.frameMs} ms`,`Draw calls: ${d.drawCalls} • triângulos: ${d.triangles}`,`Geometrias: ${d.geometries} • texturas: ${d.textures}`,`Materiais cache: ${d.visual.materials.immutable} • acertos: ${d.visual.materials.hits}`,`LOD: ${d.visual.lod.registered} • perto: ${d.visual.lod.near} • longe: ${d.visual.lod.far}`,`Contornos: ${d.visual.outlines.visible} visíveis • ${d.visual.outlines.hidden} distantes`,`NPCs: ${d.npcs} • veículos ativos: ${d.vehicles}`,`IA: ${d.aiTicks} ticks • trânsito: ${d.trafficTicks} ticks`,`Culling: ${d.culling.enabled} ativo • ${d.culling.bypassed} protegido`,`Avatar: schema V${d.avatar.stateVersion} • fallback ${d.avatar.fallbackActive?'ativo':'inativo'}`,`Modo: ${d.mode}${d.modeValid?'':' • CONFLITO '+d.modeConflicts.join(', ')}`,`Qualidade: ${qualityTier()} • DPR: ${renderer?.getPixelRatio?.().toFixed?.(2)||0}`,`PWA instalada: ${d.pwaInstalled?'sim':'não'} • online: ${d.online?'sim':'não'}`,`Save: schema ${d.save.schema||'n/d'} • V${d.save.version}`,`Multiplayer: ${d.multiplayer.connected?'conectado':d.multiplayer.configured?'configurado/offline':'não configurado'}`,`Navegador: ${navigator.userAgent}`].join('\n');}
   function toggleTechnicalPanel(force){technicalPanelVisible=typeof force==='boolean'?force:!technicalPanelVisible;const panel=ensureTechnicalPanel();panel.hidden=!technicalPanelVisible;if(technicalPanelVisible)refreshTechnicalPanel();}
@@ -3570,7 +3576,7 @@
   function waterAt(x,z){return(world.hazards||[]).find(h=>h.type==='water'&&insideWater(x,z,h));}
   function isInsideLakeNavigable(x,z){return (x>=-113&&x<=-29&&z>=44&&z<=60)||(x>=-116&&x<=-82&&z>=55&&z<=84);}
   function isNearFishingArea(){return player.boating||Math.hypot(player.x+28,player.z-45)<9||Math.hypot(player.x+27,player.z-57)<9;}
-  function resolveWaterWalking(prevX,prevZ){if(player.boating||player.vehicle||currentHouse)return;const h=waterAt(player.x,player.z);if(!h||groundHeightAt(player.x,player.z)>.24)return;player.x=prevX;player.z=prevZ;player.vx=player.vz=0;if(performance.now()-waterWarningAt>1700){waterWarningAt=performance.now();toast('A água é funda. Use o píer e o barco.','warn',1900);}}
+  function resolveWaterWalking(prevX,prevZ){if(player.boating||player.vehicle||currentHouse){player.swimming=false;return;}const h=waterAt(player.x,player.z);const nowSwimming=!!h&&groundHeightAt(player.x,player.z)<=.24;if(nowSwimming&&!player.swimming&&performance.now()-waterWarningAt>900){waterWarningAt=performance.now();toast('Você entrou na água. Use o joystick para nadar e PULAR para uma braçada.','good',2400);}if(!nowSwimming&&player.swimming&&performance.now()-waterWarningAt>700){waterWarningAt=performance.now();toast('Você saiu da água.','good',1100);}player.swimming=nowSwimming;if(player.swimming){player.vx*=.985;player.vz*=.985;}}
 
   const BOAT_DOCK={minX:-36,maxX:-24,minZ:50.5,maxZ:53.5,exitX:-23.25,touchDistance:4.4};
   function distanceToBoatDock(x=player.x,z=player.z){const nx=clamp(x,BOAT_DOCK.minX,BOAT_DOCK.maxX),nz=clamp(z,BOAT_DOCK.minZ,BOAT_DOCK.maxZ);return Math.hypot(x-nx,z-nz);}
@@ -3618,7 +3624,7 @@
   function pullFishingVisual(success,fishData){const v=fishingVisual;if(!v?.active)return;v.phase=success?'pulling':'escaping';v.phaseAt=performance.now();v.fishSize=clamp(.8+Number(fishData?.size||.5)*.08,.82,1.35);v.fish.scale.setScalar(v.fishSize);v.fish.visible=!!success;}
   function restoreFishingCamera(){
     if(!fishingCameraState)return;
-    cameraYaw=Number(fishingCameraState.yaw||0);cameraPitch=clamp(Number(fishingCameraState.pitch||.38),.05,.9);cameraZoom=Number(fishingCameraState.zoom||0);fishingCameraState=null;input.cameraDrag=null;
+    cameraYaw=Number(fishingCameraState.yaw||0);cameraPitch=clamp(Number(fishingCameraState.pitch||.28),-.55,1.35);cameraZoom=Number(fishingCameraState.zoom||0);state.settings.cameraPitch=+cameraPitch.toFixed(3);fishingCameraState=null;input.cameraDrag=null;
   }
   function stopFishingVisual(delay=0){
     const v=fishingVisual;
@@ -3985,9 +3991,30 @@
     updateHUD();
   }
   function openShop(){
-    const items=[['Comida',15,'food',2,'🍎'],['Água',8,'water',2,'💧'],['Blocos',25,'blocks',4,'🧱'],['Cercas',20,'fences',3,'🪵']];
-    openModal('Mercadinho da Vila',`<p>Moedas: <b>${state.profile.coins}</b></p><div class="choice-grid">${items.map(([name,price,key,amount,icon],i)=>`<button class="choice" data-buy="${i}"><b>${icon} ${name}</b><span>${price} moedas — +${amount}</span></button>`).join('')}</div>`,root=>{
-      $$('[data-buy]',root).forEach(btn=>btn.onclick=()=>{const [name,price,key,amount]=items[Number(btn.dataset.buy)];if(state.profile.coins<price){toast('Moedas insuficientes.','warn');return;}addCoins(-price);state.inventory[key]+=amount;addXP(5);saveState();closeModal();toast(`${name} comprado!`,'good');});
+    ensureWorldEvolutionState?.();
+    const items=[
+      {name:'Comida',price:15,key:'food',amount:2,icon:'🍎',group:'Consumíveis'},
+      {name:'Água',price:8,key:'water',amount:2,icon:'💧',group:'Consumíveis'},
+      {name:'Iscas',price:12,key:'bait',amount:5,icon:'🪱',group:'Pesca'},
+      {name:'Sementes',price:10,key:'seeds',amount:6,icon:'🌱',group:'Fazenda'},
+      {name:'Trigo',price:14,key:'wheat',amount:2,icon:'🌾',group:'Fazenda'},
+      {name:'Cenouras',price:14,key:'carrots',amount:2,icon:'🥕',group:'Fazenda'},
+      {name:'Argila',price:20,key:'clay',amount:2,icon:'🟫',group:'Materiais'},
+      {name:'Cristal',price:80,key:'crystals',amount:1,icon:'💎',group:'Especial'},
+      {name:'Vara de pesca',price:65,key:'fishingRod',amount:1,icon:'🎣',group:'Pesca',unique:true},
+      {name:'Madeira',price:18,key:'wood',amount:3,icon:'🪵',group:'Materiais'},
+      {name:'Pedra',price:18,key:'stone',amount:3,icon:'🪨',group:'Materiais'},
+      {name:'Blocos',price:25,key:'blocks',amount:4,icon:'🧱',group:'Construção'},
+      {name:'Cercas',price:20,key:'fences',amount:3,icon:'🪵',group:'Construção'},
+      {name:'Machado',price:45,tool:'axe',icon:'🪓',group:'Ferramentas'},
+      {name:'Picareta',price:48,tool:'pickaxe',icon:'⛏️',group:'Ferramentas'},
+      {name:'Balde',price:32,tool:'bucket',icon:'🪣',group:'Ferramentas'},
+      {name:'Enxada',price:38,tool:'hoe',icon:'🧑‍🌾',group:'Ferramentas'},
+      {name:'Pá',price:35,tool:'shovel',icon:'🪏',group:'Ferramentas'}
+    ];
+    const cards=items.map((item,i)=>{const owned=item.tool&&state.tools.owned.includes(item.tool);const unique=item.unique&&(state.inventory[item.key]||0)>0;return `<button class="choice shop-choice ${owned||unique?'owned':''}" data-buy="${i}" ${owned||unique?'disabled':''}><b>${item.icon} ${item.name}</b><span>${owned||unique?'Já possui':`${item.price} moedas — ${item.tool?'ferramenta':`+${item.amount}`}`}</span><small>${item.group}</small></button>`;}).join('');
+    openModal('Mercadinho da Vila',`<div class="shop-wallet"><span>🪙 Moedas</span><b>${state.profile.coins}</b></div><p class="shop-help">Todos os itens essenciais podem ser comprados aqui, mas também podem ser obtidos jogando, coletando, cavando, plantando e pescando.</p><div class="choice-grid shop-complete-grid">${cards}</div>`,root=>{
+      $$('[data-buy]',root).forEach(btn=>btn.onclick=()=>{const item=items[Number(btn.dataset.buy)];if(!item||btn.disabled)return;if(state.profile.coins<item.price){toast('Moedas insuficientes.','warn');return;}addCoins(-item.price);if(item.tool){state.tools.owned=[...new Set([...(state.tools.owned||[]),item.tool])];state.tools.equipped=item.tool;refreshEquippedToolVisual();}else state.inventory[item.key]=(state.inventory[item.key]||0)+item.amount;addXP(5);saveState(true);updateHUD();closeModal();toast(`${item.name} adquirido!`,'good');});
     });
   }
   function openWorkshop(){
@@ -4574,7 +4601,7 @@
   document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='hidden'){if(running)savePlayerPosition(true);else commitState();}});
 
   function groundHeightAt(x,z){
-    let top=0;for(const p of world.platforms){if(p.bridgePart!==undefined&&!state.flags.bridgeFixed&&p.bridgePart%2===1)continue;if(Math.abs(x-p.x)<=p.w/2+.35&&Math.abs(z-p.z)<=p.d/2+.35&&p.top>top&&player.y>=p.top-.75)top=p.top;}return top;
+    let top=typeof professionalTerrainHeightAt==='function'?professionalTerrainHeightAt(x,z):0;for(const p of world.platforms){if(p.bridgePart!==undefined&&!state.flags.bridgeFixed&&p.bridgePart%2===1)continue;if(Math.abs(x-p.x)<=p.w/2+.35&&Math.abs(z-p.z)<=p.d/2+.35&&p.top>top&&player.y>=p.top-.75)top=p.top;}return top;
   }
   function positionBlockedForPlayer(x,z,radius=.48,options={}){
     if(!Number.isFinite(x)||!Number.isFinite(z)||Math.abs(x)>116||Math.abs(z)>116)return true;
@@ -4600,12 +4627,12 @@
   }
   function rememberSafePlayerPosition(force=false){
     const now=performance.now();if(!force&&now-Number(player.lastSafeAt||0)<450)return false;
-    if(!player.grounded||player.vehicle||player.boating||player.transit.mode||positionBlockedForPlayer(player.x,player.z,.38,{ignoreTraffic:true}))return false;
+    if(!player.grounded||player.swimming||player.vehicle||player.boating||player.transit.mode||positionBlockedForPlayer(player.x,player.z,.38,{ignoreTraffic:true}))return false;
     player.lastSafeX=player.x;player.lastSafeY=player.y;player.lastSafeZ=player.z;player.lastSafeAt=now;player.invalidSince=0;return true;
   }
   function recoverPlayerIfInvalid(){
     const impossible=!Number.isFinite(player.x)||!Number.isFinite(player.y)||!Number.isFinite(player.z)||Math.abs(player.x)>130||Math.abs(player.z)>130||player.y<-12||player.y>80;
-    const penetrated=!player.vehicle&&!player.boating&&!player.transit.mode&&positionBlockedForPlayer(player.x,player.z,.24,{ignoreTraffic:true,allowWater:!!currentHouse});
+    const penetrated=!player.vehicle&&!player.boating&&!player.transit.mode&&positionBlockedForPlayer(player.x,player.z,.24,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming});
     if(!impossible&&!penetrated){player.invalidSince=0;rememberSafePlayerPosition();return false;}
     player.invalidSince=player.invalidSince||performance.now();if(!impossible&&performance.now()-player.invalidSince<1100)return false;
     const safe=safePointNear(Number(player.lastSafeX)||0,Number(player.lastSafeZ)||8,{ignoreTraffic:true,allowWater:false});player.x=safe.x;player.z=safe.z;player.y=safe.y;player.vx=player.vy=player.vz=0;player.grounded=true;player.invalidSince=0;console.warn('[OTTHOS] Posição impossível recuperada para o último ponto seguro.');return true;
@@ -4672,9 +4699,9 @@
     input.x=0;input.z=0;input.targetX=0;input.targetZ=0;updateRunUI();
     if(els.joystickKnob)els.joystickKnob.style.transform='translate(-50%,-50%)';
   }
-  function canJump(){return !player.vehicle&&!player.boating&&!player.transit.mode&&(player.grounded||performance.now()-player.lastGrounded<125);}
+  function canJump(){return !player.vehicle&&!player.boating&&!player.transit.mode&&(player.swimming||player.grounded||performance.now()-player.lastGrounded<125);}
   function requestJump(){if(!els.modal.hidden||paused||player.vehicle||player.boating||player.transit.mode)return;player.jumpBuffer=performance.now()+150;if(canJump())doJump();}
-  function doJump(){if(!canJump())return;state.stats.jumps++;trackDaily('jump',1);player.vy=10.2;player.grounded=false;player.jumpBuffer=0;beep(540);vibrate(18);}
+  function doJump(){if(!canJump())return;state.stats.jumps++;trackDaily('jump',1);player.vy=player.swimming?3.1:10.2;player.grounded=false;player.jumpBuffer=0;beep(player.swimming?420:540);vibrate(18);}
   function updatePlayer(dt){
     // Entrada é atualizada em todos os estados. O veículo tem prioridade absoluta:
     // uma animação anterior de sofá/cama/TV nunca pode bloquear aceleração ou direção.
@@ -4695,18 +4722,18 @@
       const wantsSprint=sprintRequested()&&mag>.14&&!player.crouched&&state.needs.energy>4;input.isSprinting=wantsSprint;
       const needsPenalty=state.needs.energy<15?.72:state.needs.hunger<15?.82:1;const sizeSpeed=player.scaleMode==='mini'?1.12:player.scaleMode==='giant'?.84:1;
       const skillBoost=performance.now()<player.skillDashUntil?1.82:1;
-      const speed=(wantsSprint?11.4:7.35)*needsPenalty*sizeSpeed*(player.crouched?.54:1)*skillBoost;
-      const targetVx=worldMove.x*speed,targetVz=worldMove.z*speed;const accel=player.grounded?(wantsSprint?34:29):10;
-      player.vx=lerp(player.vx,targetVx,Math.min(1,dt*accel));player.vz=lerp(player.vz,targetVz,Math.min(1,dt*accel));if(mag<.03){player.vx*=Math.pow(.0008,dt);player.vz*=Math.pow(.0008,dt);}
+      const speed=player.swimming?(wantsSprint?6.2:4.25):(wantsSprint?11.4:7.35)*needsPenalty*sizeSpeed*(player.crouched?.54:1)*skillBoost;
+      const targetVx=worldMove.x*speed,targetVz=worldMove.z*speed;const accel=player.swimming?12:player.grounded?(wantsSprint?34:29):10;
+      player.vx=lerp(player.vx,targetVx,Math.min(1,dt*accel));player.vz=lerp(player.vz,targetVz,Math.min(1,dt*accel));if(mag<.03){player.vx*=Math.pow(player.swimming?.06:.0008,dt);player.vz*=Math.pow(player.swimming?.06:.0008,dt);}
     }
     const prevX=player.x,prevZ=player.z;player.x+=player.vx*dt;player.z+=player.vz*dt;player.x=clamp(player.x,-116,116);player.z=clamp(player.z,-116,116);if(player.boating)constrainBoat(prevX,prevZ);else if(!(player.vehicle&&player.car.passengerOf)){resolveCollisions(prevX,prevZ);resolveWaterWalking(prevX,prevZ);}
-    const movedNow=Math.hypot(player.x-prevX,player.z-prevZ);if(movedNow>.001){if(player.vehicle||player.boating){state.stats.driven+=movedNow;trackDaily('drive',movedNow);}else{state.stats.walked+=movedNow;trackDaily('walk',movedNow);}}
-    const ground=player.boating?.78:groundHeightAt(player.x,player.z);if(!player.grounded)player.vy-=31*dt;player.y+=player.vy*dt;
-    if(player.y<=ground&&player.vy<=0){const landed=!player.grounded&&player.vy<-4;player.y=ground;player.vy=0;player.grounded=true;player.lastGrounded=performance.now();if(landed){vibrate(20);beep(180,35,'sine');}}
-    else if(player.y>ground+.03)player.grounded=false;
+    const movedNow=Math.hypot(player.x-prevX,player.z-prevZ);if(movedNow>.001){if(player.vehicle||player.boating){state.stats.driven+=movedNow;trackDaily('drive',movedNow);}else if(player.swimming){state.stats.swum=(state.stats.swum||0)+movedNow;trackDaily('walk',movedNow*.5);}else{state.stats.walked+=movedNow;trackDaily('walk',movedNow);}}
+    const ground=player.boating?.78:groundHeightAt(player.x,player.z);
+    if(player.swimming){const waterLevel=.02,targetY=-.62+Math.sin(animTime*2.6)*.035;player.vy=lerp(player.vy,0,Math.min(1,dt*4));player.y=lerp(player.y,targetY,Math.min(1,dt*5.5));player.grounded=true;player.lastGrounded=performance.now();state.needs.energy=clamp(state.needs.energy-dt*(input.isSprinting?.22:.08),0,100);}
+    else{if(!player.grounded)player.vy-=31*dt;player.y+=player.vy*dt;if(player.y<=ground&&player.vy<=0){const landed=!player.grounded&&player.vy<-4;player.y=ground;player.vy=0;player.grounded=true;player.lastGrounded=performance.now();if(landed){vibrate(20);beep(180,35,'sine');}}else if(player.y>ground+.03)player.grounded=false;}
     if(player.jumpBuffer&&player.jumpBuffer>performance.now()&&canJump())doJump();
     if(!player.vehicle&&!player.boating&&Math.hypot(player.vx,player.vz)>.15)player.facing=Math.atan2(player.vx,player.vz);
-    playerGroup.position.set(player.x,player.y,player.z);playerGroup.rotation.y=performance.now()<player.spinUntil?player.facing+(1-(player.spinUntil-performance.now())/980)*Math.PI*4:player.facing;syncPlayerRootScale();contactShadow.position.set(player.x,ground+.025,player.z);const air=Math.max(0,player.y-ground);const ss=clamp(1-air*.08,.48,1);contactShadow.scale.setScalar(ss);contactShadow.material.opacity=clamp(.27-air*.035,.06,.27);vehicleVisual.visible=player.vehicle&&!player.car.passengerOf;if(world.boat)world.boat.group.visible=true;updateBoatPanel();
+    playerGroup.position.set(player.x,player.y,player.z);playerGroup.rotation.y=performance.now()<player.spinUntil?player.facing+(1-(player.spinUntil-performance.now())/980)*Math.PI*4:player.facing;syncPlayerRootScale();contactShadow.position.set(player.x,ground+.025,player.z);contactShadow.visible=!player.swimming&&!player.boating&&!player.transit.mode;const air=Math.max(0,player.y-ground);const ss=clamp(1-air*.08,.48,1);contactShadow.scale.setScalar(ss);contactShadow.material.opacity=clamp(.27-air*.035,.06,.27);vehicleVisual.visible=player.vehicle&&!player.car.passengerOf;if(world.boat)world.boat.group.visible=true;updateBoatPanel();
     if(!recoverPlayerIfInvalid())rememberSafePlayerPosition();
     animatePlayer(dt);checkHazards();collectNearbyCrystals();updateContext();
   }
@@ -4741,10 +4768,11 @@
   function animatePlayer(dt){
     if (!playerModel) return;
     animTime+=dt; playerMixer?.update(dt);
-    const parts=playerModel.userData.parts;const speed=Math.hypot(player.vx,player.vz);const walking=speed>.25&&player.grounded&&!player.vehicle;const swing=walking?Math.sin(animTime*(8+speed*.45))*.62:0;
+    const parts=playerModel.userData.parts;const speed=Math.hypot(player.vx,player.vz);const swimming=!!player.swimming;const walking=speed>.25&&player.grounded&&!player.vehicle&&!swimming;const swing=walking?Math.sin(animTime*(8+speed*.45))*.62:0;
     if(parts){
-      parts.leftArm.rotation.x=lerp(parts.leftArm.rotation.x,player.grounded?swing:-.65,.22);parts.rightArm.rotation.x=lerp(parts.rightArm.rotation.x,player.grounded?-swing:-.65,.22);parts.leftLeg.rotation.x=lerp(parts.leftLeg.rotation.x,player.grounded?-swing*.8:.38,.22);parts.rightLeg.rotation.x=lerp(parts.rightLeg.rotation.x,player.grounded?swing*.8:.38,.22);
-      if(performance.now()<player.emoteUntil){if(player.emoteType==='wave'){parts.rightArm.rotation.x=-2.25;parts.rightArm.rotation.z=Math.sin(animTime*10)*.55;}else if(player.emoteType==='dance'){parts.leftArm.rotation.z=1.1;parts.rightArm.rotation.z=-1.1;playerModel.rotation.y=Math.sin(animTime*4)*.35;}else if(player.emoteType==='selfie'){parts.leftArm.rotation.x=-1.7;parts.rightArm.rotation.x=-.9;playerModel.rotation.z=.08;}else if(player.emoteType==='highfive'){parts.rightArm.rotation.x=-2.6;}else if(player.emoteType==='play'){parts.leftArm.rotation.x=-1.9;parts.rightArm.rotation.x=-1.9;parts.leftArm.rotation.z=.55;parts.rightArm.rotation.z=-.55;playerModel.position.y+=(Math.sin(animTime*10)+1)*.09;playerModel.rotation.y+=Math.sin(animTime*5)*.08;}else if(player.emoteType==='hug'){parts.leftArm.rotation.x=-1.45;parts.rightArm.rotation.x=-1.45;parts.leftArm.rotation.z=-.48;parts.rightArm.rotation.z=.48;}else if(player.emoteType==='tool'){parts.rightArm.rotation.x=-1.25-Math.sin(animTime*18)*1.0;parts.rightArm.rotation.z=-.22;parts.leftArm.rotation.x=-.45;}}else{parts.leftArm.rotation.z=lerp(parts.leftArm.rotation.z,0,.2);parts.rightArm.rotation.z=lerp(parts.rightArm.rotation.z,0,.2);playerModel.rotation.y=lerp(playerModel.rotation.y,0,.18);}
+      if(swimming){const stroke=Math.sin(animTime*5.2);parts.leftArm.rotation.x=lerp(parts.leftArm.rotation.x,-1.3+stroke*.85,.28);parts.rightArm.rotation.x=lerp(parts.rightArm.rotation.x,-1.3-stroke*.85,.28);parts.leftArm.rotation.z=lerp(parts.leftArm.rotation.z,.42,.2);parts.rightArm.rotation.z=lerp(parts.rightArm.rotation.z,-.42,.2);parts.leftLeg.rotation.x=lerp(parts.leftLeg.rotation.x,stroke*.38,.24);parts.rightLeg.rotation.x=lerp(parts.rightLeg.rotation.x,-stroke*.38,.24);playerModel.rotation.x=lerp(playerModel.rotation.x,-.12,.18);}
+      else{parts.leftArm.rotation.x=lerp(parts.leftArm.rotation.x,player.grounded?swing:-.65,.22);parts.rightArm.rotation.x=lerp(parts.rightArm.rotation.x,player.grounded?-swing:-.65,.22);parts.leftLeg.rotation.x=lerp(parts.leftLeg.rotation.x,player.grounded?-swing*.8:.38,.22);parts.rightLeg.rotation.x=lerp(parts.rightLeg.rotation.x,player.grounded?swing*.8:.38,.22);}
+      if(!swimming&&performance.now()<player.emoteUntil){if(player.emoteType==='wave'){parts.rightArm.rotation.x=-2.25;parts.rightArm.rotation.z=Math.sin(animTime*10)*.55;}else if(player.emoteType==='dance'){parts.leftArm.rotation.z=1.1;parts.rightArm.rotation.z=-1.1;playerModel.rotation.y=Math.sin(animTime*4)*.35;}else if(player.emoteType==='selfie'){parts.leftArm.rotation.x=-1.7;parts.rightArm.rotation.x=-.9;playerModel.rotation.z=.08;}else if(player.emoteType==='highfive'){parts.rightArm.rotation.x=-2.6;}else if(player.emoteType==='play'){parts.leftArm.rotation.x=-1.9;parts.rightArm.rotation.x=-1.9;parts.leftArm.rotation.z=.55;parts.rightArm.rotation.z=-.55;playerModel.position.y+=(Math.sin(animTime*10)+1)*.09;playerModel.rotation.y+=Math.sin(animTime*5)*.08;}else if(player.emoteType==='hug'){parts.leftArm.rotation.x=-1.45;parts.rightArm.rotation.x=-1.45;parts.leftArm.rotation.z=-.48;parts.rightArm.rotation.z=.48;}else if(player.emoteType==='tool'){parts.rightArm.rotation.x=-1.25-Math.sin(animTime*18)*1.0;parts.rightArm.rotation.z=-.22;parts.leftArm.rotation.x=-.45;}}else{parts.leftArm.rotation.z=lerp(parts.leftArm.rotation.z,0,.2);parts.rightArm.rotation.z=lerp(parts.rightArm.rotation.z,0,.2);playerModel.rotation.y=lerp(playerModel.rotation.y,0,.18);}
       if(fishingVisual?.active){const phase=fishingVisual.phase,cast=phase==='casting',pull=phase==='hooked'||phase==='pulling'||phase==='caught';parts.rightArm.rotation.x=lerp(parts.rightArm.rotation.x,pull?-2.35:cast?-1.95:-1.45,.38);parts.leftArm.rotation.x=lerp(parts.leftArm.rotation.x,pull?-1.85:cast?-1.35:-1.1,.38);parts.rightArm.rotation.z=lerp(parts.rightArm.rotation.z,-.22,.3);parts.leftArm.rotation.z=lerp(parts.leftArm.rotation.z,.28,.3);playerModel.rotation.z=lerp(playerModel.rotation.z,pull?-.08:.03,.2);}
       const breathe=Math.sin(animTime*2.2)*.02;parts.body.scale.y=(player.crouched?.78:1)+breathe;
       const visualBase=playerModel.userData.baseY??.24;
@@ -4819,7 +4847,7 @@
         npc.group.position.x=lerp(npc.group.position.x,tx,dt*.45);npc.group.position.z=lerp(npc.group.position.z,tz,dt*.45);
         npc.group.rotation.y=lerpAngle(npc.group.rotation.y,Math.atan2(tx-npc.group.position.x,tz-npc.group.position.z),Math.min(1,dt*5));
       }
-      if(!npc.passengerMode)npc.group.position.y=lerp(npc.group.position.y,0,Math.min(1,dt*8));
+      if(!npc.passengerMode)npc.group.position.y=lerp(npc.group.position.y,groundHeightAt(npc.group.position.x,npc.group.position.z),Math.min(1,dt*8));
       const moved=Math.hypot(npc.group.position.x-oldX,npc.group.position.z-oldZ);
       const riding=!!npc.mobility&&!npc.passengerMode&&!npc.following,walk=moved>.001&&!riding?Math.sin(animTime*8+npc.phase)*.52:0;
       const gesture=near?Math.sin(animTime*2.4+npc.phase)*.12:0,emote=performance.now()<npc.emoteUntil?npc.emoteType:'';
@@ -4884,10 +4912,12 @@
     }else if(!desiredPos){
       const portrait=innerHeight>innerWidth;const speed=Math.hypot(player.vx,player.vz);
       if((player.vehicle||player.boating)&&!input.cameraDrag){const heading=player.vehicle?player.car.heading:player.boat.heading;cameraYaw=lerpAngle(cameraYaw,Math.PI-heading,Math.min(1,dt*3.2));}
-      const speedKick=clamp(Math.abs(player.vehicle?player.car.speed:speed)/9,0,1.6);
-      const dist=clamp((portrait?12.5:10.2)+(player.vehicle?3.4:player.boating?2.2:0)+speedKick*1.6+cameraZoom,6.5,24);const height=clamp((portrait?6.6:5.4)+(player.vehicle?.4:player.boating?.25:0)+cameraPitch*2.2+cameraZoom*.16,3.5,12);
-      desiredPos=new THREE.Vector3(player.x-Math.sin(cameraYaw)*dist,player.y+height,player.z+Math.cos(cameraYaw)*dist);const visualHeight=1.4*playerScaleValue()*(player.crouched?.72:1);look=new THREE.Vector3(player.x+Math.sin(cameraYaw)*3.5,player.y+visualHeight,player.z-Math.cos(cameraYaw)*3.5);
-      camera.fov=(portrait?57:60)+speedKick*(player.vehicle?7:player.boating?4:2);
+      const speedKick=clamp(Math.abs(player.vehicle?player.car.speed:speed)/9,0,1.6),pitch=clamp(cameraPitch,-.55,1.35);
+      const dist=clamp((portrait?12.5:10.2)+(player.vehicle?3.4:player.boating?2.2:0)+speedKick*1.6+cameraZoom,5.3,27);
+      const normalized=(pitch+.55)/1.9,height=clamp((portrait?2.35:1.75)+normalized*(portrait?11.8:10.4)+(player.vehicle?.55:player.boating?.32:0)+cameraZoom*.12,1.35,15.8);
+      const forwardLook=lerp(7.0,1.6,normalized),visualHeight=1.35*playerScaleValue()*(player.crouched?.72:1)+(player.swimming?-.2:0);
+      desiredPos=new THREE.Vector3(player.x-Math.sin(cameraYaw)*dist,player.y+height,player.z+Math.cos(cameraYaw)*dist);look=new THREE.Vector3(player.x+Math.sin(cameraYaw)*forwardLook,player.y+visualHeight+lerp(.9,-.25,normalized),player.z-Math.cos(cameraYaw)*forwardLook);
+      camera.fov=(portrait?55:58)+speedKick*(player.vehicle?7:player.boating?4:2)+lerp(4,-2,normalized);
     }
     const t=1-Math.exp(-dt*7.5);camera.position.lerp(desiredPos,t);camera.lookAt(look);camera.updateProjectionMatrix();
   }
@@ -5210,12 +5240,12 @@
     els.jumpBtn?.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();setBrake(true);safePointerCapture(els.jumpBtn,e.pointerId);},{passive:false});
     ['pointerup','pointercancel','lostpointercapture'].forEach(type=>els.jumpBtn?.addEventListener(type,()=>setBrake(false)));
     const adjustCamera=delta=>{cameraZoom=clamp(cameraZoom+delta,-4.5,9);state.settings.cameraZoom=+cameraZoom.toFixed(2);saveState();};
-    press(els.cameraNearBtn,()=>adjustCamera(-1.6));press(els.cameraFarBtn,()=>adjustCamera(1.6));press(els.cameraResetBtn,()=>{cameraZoom=0;cameraPitch=.38;cameraYaw=currentHouse?0:player.facing;state.settings.cameraZoom=0;saveState();toast('Câmera centralizada.','good',900);});
+    press(els.cameraNearBtn,()=>adjustCamera(-1.6));press(els.cameraFarBtn,()=>adjustCamera(1.6));press(els.cameraResetBtn,()=>{cameraZoom=0;cameraPitch=.28;cameraYaw=currentHouse?0:player.facing;state.settings.cameraZoom=0;state.settings.cameraPitch=.28;saveState();toast('Câmera centralizada.','good',900);});
     els.miniNav?.addEventListener('click',openMap);press(els.specialBtn,firePower);press(els.crouchBtn,()=>toggleCrouch());press(els.miniBtn,()=>setScaleMode('mini'));press(els.normalBtn,()=>setScaleMode('normal'));press(els.giantBtn,()=>setScaleMode('giant'));press(els.spinBtn,spinPlayer);
     [els.quickBar,els.inventoryBtn,els.buildBtn,els.mapBtn,els.gameSettingsBtn].forEach(el=>el?.addEventListener('pointerdown',e=>e.stopPropagation()));
     window.addEventListener('keydown',e=>{input.keys.add(e.code);if(['Space','KeyE','KeyF','KeyC','Digit1','Digit2','Digit3','KeyR','KeyQ','ShiftLeft','ShiftRight'].includes(e.code))e.preventDefault();if(mobilityDriverActive()&&e.code==='ShiftLeft'){input.mobilityAccelerate=true;input.mobilityBrake=false;}if(mobilityDriverActive()&&e.code==='Space'){input.mobilityBrake=true;input.mobilityAccelerate=false;}updateRunUI();updateMobilityControlLabels();if(e.code==='Space'&&!mobilityDriverActive())requestJump();if(e.code==='KeyE')doAction();if(e.code==='KeyF')firePower();if(e.code==='KeyC')toggleCrouch();if(e.code==='Digit1')setScaleMode('mini');if(e.code==='Digit2')setScaleMode('normal');if(e.code==='Digit3')setScaleMode('giant');if(e.code==='KeyR')spinPlayer();if(e.code==='KeyQ'&&buildMode)rotateBuildPreview();if(e.code==='Escape'){e.preventDefault();if(!running)return;if(buildMode){endBuildMode('cancelled');return;}if(pauseMenuOpen)closeModal();else if(!els.modal.hidden)closeModal();else openPauseMenu();}});window.addEventListener('keyup',e=>{input.keys.delete(e.code);if(e.code==='ShiftLeft'||e.code==='ShiftRight')input.mobilityAccelerate=false;if(e.code==='Space')input.mobilityBrake=false;updateRunUI();updateMobilityControlLabels();});
     els.stage.addEventListener('pointerdown',e=>{if(e.target!==renderer?.domElement)return;input.cameraDrag={id:e.pointerId,x:e.clientX,y:e.clientY};safePointerCapture(els.stage,e.pointerId);});
-    els.stage.addEventListener('pointermove',e=>{const d=input.cameraDrag;if(!d||d.id!==e.pointerId)return;const dx=e.clientX-d.x,dy=e.clientY-d.y;cameraYaw-=dx*.006;cameraPitch=clamp(cameraPitch+dy*.003,.05,.9);d.x=e.clientX;d.y=e.clientY;});
+    els.stage.addEventListener('pointermove',e=>{const d=input.cameraDrag;if(!d||d.id!==e.pointerId)return;const dx=e.clientX-d.x,dy=e.clientY-d.y;cameraYaw-=dx*.006;cameraPitch=clamp(cameraPitch+dy*.0042,-.55,1.35);state.settings.cameraPitch=+cameraPitch.toFixed(3);d.x=e.clientX;d.y=e.clientY;});
     const endDrag=e=>{if(input.cameraDrag?.id===e.pointerId)input.cameraDrag=null;};els.stage.addEventListener('pointerup',endDrag);els.stage.addEventListener('pointercancel',endDrag);
     els.stage.addEventListener('wheel',e=>{if(!running||!els.modal.hidden)return;e.preventDefault();cameraZoom=clamp(cameraZoom+Math.sign(e.deltaY)*.9,-4.5,9);state.settings.cameraZoom=+cameraZoom.toFixed(2);},{passive:false});
   }
@@ -5228,7 +5258,7 @@
     const jump=!!gp.buttons[0]?.pressed,action=!!gp.buttons[2]?.pressed,power=!!gp.buttons[1]?.pressed,crouch=!!gp.buttons[4]?.pressed,size=!!gp.buttons[5]?.pressed;
     if(jump&&!gamepadJump)requestJump();if(action&&!gamepadAction)doAction();if(power&&!gamepadPower)firePower();if(crouch&&!gamepadCrouch)toggleCrouch();if(size&&!gamepadSize)setScaleMode(player.scaleMode==='normal'?'mini':player.scaleMode==='mini'?'giant':'normal');
     gamepadJump=jump;gamepadAction=action;gamepadPower=power;gamepadCrouch=crouch;gamepadSize=size;
-    const camX=gp.axes[2]||0;if(Math.abs(camX)>.18)cameraYaw-=camX*.035;const camY=gp.axes[3]||0;if(Math.abs(camY)>.18)cameraPitch=clamp(cameraPitch+camY*.018,.05,.9);
+    const camX=gp.axes[2]||0;if(Math.abs(camX)>.18)cameraYaw-=camX*.035;const camY=gp.axes[3]||0;if(Math.abs(camY)>.18)cameraPitch=clamp(cameraPitch+camY*.022,-.55,1.35);state.settings.cameraPitch=+cameraPitch.toFixed(3);
   }
 
   async function startGame(resetPosition=false){
@@ -5686,8 +5716,8 @@
   window.OTTHI_COOP={open:openCoopMissionCenter,templates:()=>COOP_MISSION_TEMPLATES,active:activeCoopMission,performAction:performCoopMissionAction,mapLocations:coopMissionMapLocations};
 
   // ===== MODULE: 33-otthi-world-professional-core.js =====
-  const OTTHI_WORLD_VERSION = 701;
-  const OTTHI_WORLD_BUILD = '701.0-secure-gm-panel';
+  const OTTHI_WORLD_VERSION = 702;
+  const OTTHI_WORLD_BUILD = '702.0-world-evolution-complete';
   const OTTHI_WORLD_STAGES = Object.freeze({
     foundation:Object.freeze({id:'foundation',number:1,title:'Fundação profissional',status:'implemented'}),
     avatar:Object.freeze({id:'avatar',number:2,title:'Personagem modular',status:'implemented'}),
@@ -5696,7 +5726,7 @@
     adventure:Object.freeze({id:'adventure',number:5,title:'Aventura, plataforma e poderes',status:'implemented'})
   });
   const OTTHI_WORLD_PBR_PACKS=Object.freeze({
-    grass:'grass',road:'road',sidewalk:'sidewalk',water:'water',wood:'wood',brick:'brick',stone:'stone',roof:'roof',fabric:'fabric',schoolWall:'school-wall',policeWall:'police-wall',goldOre:'gold-ore',interiorFloor:'interior-floor',interiorWall:'interior-wall',marketFloor:'market-floor',marketWall:'market-wall',schoolFloor:'school-floor',fireWall:'fire-wall',concrete:'concrete',cityGlass:'city-glass',emergencyMetal:'emergency-metal',toyPlastic:'toy-plastic',vehicleTire:'vehicle-tire',heroEnergy:'hero-energy',mushroom:'mushroom',foliage:'foliage'
+    grass:'grass',road:'road',sidewalk:'sidewalk',water:'water',wood:'wood',brick:'brick',stone:'stone',roof:'roof',fabric:'fabric',schoolWall:'school-wall',policeWall:'police-wall',goldOre:'gold-ore',interiorFloor:'interior-floor',interiorWall:'interior-wall',marketFloor:'market-floor',marketWall:'market-wall',schoolFloor:'school-floor',fireWall:'fire-wall',concrete:'concrete',cityGlass:'city-glass',emergencyMetal:'emergency-metal',toyPlastic:'toy-plastic',vehicleTire:'vehicle-tire',heroEnergy:'hero-energy',mushroom:'mushroom',foliage:'foliage',dirt:'dirt',sand:'sand',farmland:'farmland',cliff:'cliff',deepWater:'deep-water',shore:'shore',mud:'mud'
   });
   const otthiWorldRuntime={
     initialized:false,
@@ -5810,10 +5840,10 @@
 
   // ===== MODULE: 34-avatar-studio-professional-v3.js =====
   const OTTHI_WORLD_AVATAR_CATALOG=Object.freeze({
-    bodyStyle:Object.freeze([['block','Blocos OTTHI','▣'],['toy','Brinquedo articulado','●'],['hero','Aventura heroica','◆']]),
+    bodyStyle:Object.freeze([['block','OTTHI Blocks','▣'],['toy','OTTHI Toys','●'],['hero','OTTHI Heroes','◆'],['adventure','OTTHI Adventure','★']]),
     face:Object.freeze([['face-happy-01','Feliz','🙂'],['face-brave-01','Corajoso','😎'],['face-curious-01','Curioso','🤔'],['face-focus-01','Concentrado','🎯']]),
     hair:Object.freeze([['hair-none','Sem cabelo','◯'],['hair-short-01','Curto','✂'],['hair-spikes-01','Espetado','⚡'],['hair-curls-01','Cacheado','〰']]),
-    torso:Object.freeze([['world-jacket-01','Jaqueta World','🧥'],['world-hoodie-01','Moletom','👕'],['world-explorer-01','Explorador','🧭'],['world-hero-01','Herói OTTHI','⚡']]),
+    torso:Object.freeze([['world-jacket-01','Jaqueta World','🧥'],['world-hoodie-01','Moletom','👕'],['world-explorer-01','Explorador','🧭'],['world-hero-01','Herói OTTHI','⚡'],['world-shadow-guardian','Guardião Noturno','🌙'],['world-web-runner','Corredor de Fios','🕸️'],['world-mushroom-adventurer','Aventureiro Cogumelo','🍄'],['world-toy-rescuer','Resgatista Brinquedo','🧸']]),
     legs:Object.freeze([['world-pants-01','Calça urbana','👖'],['world-shorts-01','Bermuda','🩳'],['world-armor-01','Proteção de aventura','🛡']]),
     shoes:Object.freeze([['world-sneakers-01','Tênis','👟'],['world-boots-01','Botas','🥾'],['world-energy-01','Tênis de energia','✨']]),
     back:Object.freeze([['none','Sem item','—'],['world-backpack-01','Mochila modular','🎒'],['world-cape-01','Capa OTTHI','🦸'],['world-jetpack-01','Propulsor de brinquedo','🚀']]),
@@ -5850,6 +5880,8 @@
       avatarV3Sphere(leftArm,.22,skin,0,-.99,.02);avatarV3Sphere(rightArm,.22,skin,0,-.99,.02);avatarV3Sphere(leftLeg,.21,secondary,0,-.62,0);avatarV3Sphere(rightLeg,.21,secondary,0,-.62,0);avatarV3Sphere(headLayer,.55,worldAvatarMaterial(0x11151d,{roughness:.5}),0,0,0,1.04,1.02,1.04);
     }else if(avatar.bodyStyle==='hero'){
       avatarV3Box(leftArm,.47,.26,.48,accent,0,-.15,0);avatarV3Box(rightArm,.47,.26,.48,accent,0,-.15,0);avatarV3Box(bodyLayer,1.16,.18,.78,secondary,0,.62,0);avatarV3Box(leftLeg,.45,.2,.45,accent,0,-.7,0);avatarV3Box(rightLeg,.45,.2,.45,accent,0,-.7,0);
+    }else if(avatar.bodyStyle==='adventure'){
+      avatarV3Sphere(headLayer,.58,skin,0,0,0,1.03,1.02,1.03);avatarV3Box(bodyLayer,1.12,.23,.82,accent,0,.55,0);avatarV3Sphere(leftArm,.23,skin,0,-.98,.02);avatarV3Sphere(rightArm,.23,skin,0,-.98,.02);avatarV3Box(leftLeg,.47,.18,.5,primary,0,-.72,0);avatarV3Box(rightLeg,.47,.18,.5,primary,0,-.72,0);
     }
     if(avatar.torso==='world-jacket-01'){
       avatarV3Box(bodyLayer,1.12,.96,.08,primary,0,.02,.405);avatarV3Box(bodyLayer,.08,.92,.10,accent,0,.02,.46);avatarV3Box(leftArm,.41,.44,.41,primary,0,-.33,0);avatarV3Box(rightArm,.41,.44,.41,primary,0,-.33,0);
@@ -5857,6 +5889,14 @@
       avatarV3Box(bodyLayer,1.13,.98,.09,primary,0,.01,.41);avatarV3Box(bodyLayer,.58,.32,.13,secondary,0,-.28,.47);avatarV3Box(headLayer,1.18,.34,.34,primary,0,.31,-.38);
     }else if(avatar.torso==='world-explorer-01'){
       avatarV3Box(bodyLayer,1.14,1.0,.09,primary,0,0,.42);avatarV3Box(bodyLayer,.20,.92,.12,accent,-.28,0,.47);avatarV3Box(bodyLayer,.20,.92,.12,accent,.28,0,.47);avatarV3Box(bodyLayer,.34,.24,.14,secondary,-.29,-.23,.49);avatarV3Box(bodyLayer,.34,.24,.14,secondary,.29,-.23,.49);
+    }else if(avatar.torso==='world-shadow-guardian'){
+      avatarV3Box(bodyLayer,1.16,1.02,.09,worldAvatarMaterial(0x18243b,{roughness:.42}),0,0,.42);avatarV3Box(bodyLayer,.38,.24,.11,accent,0,.12,.49);avatarV3Box(leftArm,.44,.52,.44,worldAvatarMaterial(0x22334f,{roughness:.5}),0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,worldAvatarMaterial(0x22334f,{roughness:.5}),0,-.36,0);const cape=worldAvatarLayer(parts.body,'SHADOW_CAPE');avatarV3Box(cape,1.02,1.48,.06,worldAvatarMaterial(0x101827,{roughness:.58}),0,-.18,-.5).rotation.x=-.09;
+    }else if(avatar.torso==='world-web-runner'){
+      const red=worldAvatarMaterial(0xd93645,{roughness:.42}),blue=worldAvatarMaterial(0x1e5fae,{roughness:.5});avatarV3Box(bodyLayer,1.16,1.02,.09,red,0,0,.42);avatarV3Box(bodyLayer,.48,.82,.11,blue,0,-.05,.48);for(const y of[-.25,0,.25])avatarV3Box(bodyLayer,1.08,.035,.12,accent,0,y,.495);avatarV3Box(leftArm,.44,.52,.44,red,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,red,0,-.36,0);
+    }else if(avatar.torso==='world-mushroom-adventurer'){
+      const overalls=worldAvatarMaterial(0x236ac7,{roughness:.55}),shirt=worldAvatarMaterial(0xd94236,{roughness:.48});avatarV3Box(bodyLayer,1.16,1.02,.09,shirt,0,0,.42);avatarV3Box(bodyLayer,.72,.72,.11,overalls,0,-.15,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,-.28,.02,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,.28,.02,.49);avatarV3Box(leftArm,.44,.52,.44,shirt,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,shirt,0,-.36,0);const cap=worldAvatarLayer(parts.head,'ADVENTURE_CAP');avatarV3Sphere(cap,.64,shirt,0,.44,0,1.15,.35,1.15);avatarV3Box(cap,.72,.10,.34,shirt,0,.38,.42);
+    }else if(avatar.torso==='world-toy-rescuer'){
+      avatarV3Box(bodyLayer,1.18,1.04,.10,primary,0,0,.42);avatarV3Box(bodyLayer,.76,.68,.12,secondary,0,-.10,.49);avatarV3Box(bodyLayer,.18,.90,.12,accent,-.32,.02,.49);avatarV3Box(bodyLayer,.18,.90,.12,accent,.32,.02,.49);avatarV3Box(leftArm,.46,.55,.46,primary,0,-.36,0);avatarV3Box(rightArm,.46,.55,.46,primary,0,-.36,0);
     }else{
       avatarV3Box(bodyLayer,1.16,1.02,.09,primary,0,0,.42);const emblem=new THREE.Mesh(new THREE.CircleGeometry(.23,12),worldAvatarMaterial(avatarPatternColor(),{roughness:.25,emissive:avatarPatternColor(),emissiveIntensity:.20}));emblem.position.set(0,.12,.49);bodyLayer.add(emblem);avatarV3Box(leftArm,.44,.52,.44,primary,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,primary,0,-.36,0);
     }
@@ -5895,11 +5935,11 @@
   const legacyOpenAvatarStudio=openAvatarStudio;
   openAvatarStudio=function openAvatarStudioWorld(){
     ensureOtthiWorldState();
-    openModal(`Estúdio profissional de ${playerDisplayName()}`,`<div class="avatar-summary world-avatar-summary"><div class="avatar-face"><i></i><i></i></div><div><b>OTTHI Avatar Modular V3</b><span>O rig, as skills, os uniformes e o fallback atual permanecem preservados.</span></div></div>${worldAvatarOptions('bodyStyle','Estilo do corpo')}${worldAvatarOptions('face','Expressão')}${worldAvatarOptions('hair','Cabelo')}${worldAvatarOptions('torso','Parte superior')}${worldAvatarOptions('legs','Parte inferior')}${worldAvatarOptions('shoes','Calçados')}${worldAvatarOptions('back','Costas')}${worldAvatarOptions('pattern','Estampa')}<section class="avatar-section"><h3>Cores</h3><div class="world-color-grid"><label>Cor principal<input type="color" data-world-avatar-color="primaryColor" value="${state.avatar.primaryColor}"></label><label>Cor secundária<input type="color" data-world-avatar-color="secondaryColor" value="${state.avatar.secondaryColor}"></label><label>Cabelo<input type="color" data-world-avatar-color="hairColor" value="${state.avatar.hairColor}"></label></div></section>${avatarChoiceGroup('uniform','Uniforme profissional preservado')}${avatarChoiceGroup('hat','Chapéu clássico preservado')}${avatarChoiceGroup('accessory','Acessório clássico preservado')}<div class="modal-actions"><button class="btn primary" data-world-avatar-save>Salvar personagem completo</button><button class="btn" data-world-avatar-legacy>Ver estúdio clássico</button></div>`,root=>{
+    openModal(`Estúdio de Personagem — ${playerDisplayName()}`,`<div class="avatar-summary world-avatar-summary"><div class="avatar-face"><i></i><i></i></div><div><b>Mesmo estúdio para todos os jogadores</b><span>Misture Blocks, Toys, Heroes e Adventure. O rig, as skills, o multiplayer e o progresso permanecem preservados.</span></div></div>${worldAvatarOptions('bodyStyle','Estilo do corpo')}${worldAvatarOptions('face','Expressão')}${worldAvatarOptions('hair','Cabelo')}${worldAvatarOptions('torso','Parte superior')}${worldAvatarOptions('legs','Parte inferior')}${worldAvatarOptions('shoes','Calçados')}${worldAvatarOptions('back','Costas')}${worldAvatarOptions('pattern','Estampa')}<section class="avatar-section"><h3>Cores</h3><div class="world-color-grid"><label>Cor principal<input type="color" data-world-avatar-color="primaryColor" value="${state.avatar.primaryColor}"></label><label>Cor secundária<input type="color" data-world-avatar-color="secondaryColor" value="${state.avatar.secondaryColor}"></label><label>Cabelo<input type="color" data-world-avatar-color="hairColor" value="${state.avatar.hairColor}"></label></div></section>${avatarChoiceGroup('uniform','Uniforme profissional preservado')}${avatarChoiceGroup('hat','Chapéu clássico preservado')}${avatarChoiceGroup('accessory','Acessório clássico preservado')}<div class="modal-actions"><button class="btn primary" data-world-avatar-save>Salvar personagem completo</button><button class="btn" data-world-avatar-legacy>Ver estúdio clássico</button></div>`,root=>{
       $$('[data-world-avatar-field]',root).forEach(button=>button.onclick=()=>{const field=button.dataset.worldAvatarField,value=button.dataset.worldAvatarValue;state.avatar={...state.avatar,[field]:worldAvatarSafeChoice(field,value),renderMode:'otthi-world-v3'};$$(`[data-world-avatar-field="${field}"]`,root).forEach(item=>item.classList.toggle('selected',item===button));applyAvatarCustomization();});
       $$('[data-world-avatar-color]',root).forEach(input=>input.oninput=()=>{state.avatar={...state.avatar,[input.dataset.worldAvatarColor]:safeAvatarColor(input.value,state.avatar[input.dataset.worldAvatarColor])};applyAvatarCustomization();});
       $$('[data-avatar-type]',root).forEach(button=>button.onclick=()=>{state.avatar=updateAvatarV2LegacyChoice(state.avatar,button.dataset.avatarType,button.dataset.avatarId);$$(`[data-avatar-type="${button.dataset.avatarType}"]`,root).forEach(item=>item.classList.toggle('selected',item===button));applyAvatarCustomization();});
-      $('[data-world-avatar-save]',root).onclick=()=>{state.avatar=normalizeAvatarV2({...state.avatar,renderMode:'otthi-world-v3'});setFlag('customizedAvatar');setFlag('otthiWorldAvatarV3');saveState(true);closeModal();toast('Personagem profissional salvo sem alterar o rig de jogabilidade.','good',2400);};
+      $('[data-world-avatar-save]',root).onclick=()=>{state.avatar=normalizeAvatarV2({...state.avatar,renderMode:'otthi-world-v3'});setFlag('customizedAvatar');setFlag('otthiWorldAvatarV3');saveState(true);closeModal();toast('Personagem salvo e sincronizado sem alterar o rig de jogabilidade.','good',2400);};
       $('[data-world-avatar-legacy]',root).onclick=legacyOpenAvatarStudio;
     });
   };
@@ -6141,7 +6181,7 @@
   };
   function bootstrapOtthiWorldShell(){
     ensureOtthiWorldState();injectOtthiWorldButtons();ensureWorldHeroHud();if(els.avatarBtn)els.avatarBtn.onclick=openAvatarStudio;
-    document.documentElement.dataset.otthiWorld='701';document.body.classList.add('otthi-world-shell');
+    document.documentElement.dataset.otthiWorld='702';document.body.classList.add('otthi-world-shell');
   }
   bootstrapOtthiWorldShell();
   dbReady.then(()=>{ensureOtthiWorldState();bootstrapOtthiWorldShell();updateWorldHeroHud();}).catch(()=>{});
@@ -6301,5 +6341,118 @@
   }
   ensureGMState();registerGMHiddenTrigger();dbReady.then(()=>ensureGMState()).catch(()=>{});
   window.OTTHI_GM_PANEL=Object.freeze({openAccess:openGMAccessGate,close:closeGMPanel,refresh:gmRefreshPanel,queueGrant:queueGMGrant,state:()=>({users:gmUsers.length,selectedUid:gmSelectedUid,open:!!gmPanel&&!gmPanel.hidden})});
+
+  // ===== MODULE: 40-world-evolution-v702.js =====
+  const OTTHI_WORLD_EVOLUTION_VERSION=702;
+  const WORLD_V702={initialized:false,terrain:null,waterLayers:[],farmPlots:new Map(),digSites:new Map(),citizens:[],cameraButtonsReady:false,waterTime:0};
+  const FARM_GROW_MS=90000; // 90 segundos por ciclo completo, persistente
+  const V702_DIG_COOLDOWN=22000;
+
+  function ensureWorldEvolutionState(){
+    state.inventory={wood:0,stone:0,goldOre:0,goldBar:0,food:0,water:0,crystals:0,blocks:0,fences:0,keys:0,fishingRod:0,bait:0,seeds:0,wheat:0,carrots:0,clay:0,rawFish:0,cookedFish:0,forestResources:0,...(state.inventory||{})};
+    state.tools={owned:[],equipped:'axe',harvested:{},...(state.tools||{})};state.tools.owned=[...new Set([...(state.tools.owned||[]),'axe','pickaxe','bucket','hoe','shovel'])];
+    state.tools.harvested={wood:0,stone:0,gold:0,water:0,bait:0,crops:0,clay:0,...(state.tools.harvested||{})};
+    state.farming={plots:{},digSites:{},planted:0,harvested:0,lastActionAt:0,...(state.farming||{})};state.farming.plots={...(state.farming.plots||{})};state.farming.digSites={...(state.farming.digSites||{})};
+    state.settings={cameraPitch:.28,cameraZoom:0,cameraYawAssist:true,...(state.settings||{})};
+    return state;
+  }
+
+  function professionalTerrainHeightAt(x,z){
+    if(!Number.isFinite(x)||!Number.isFinite(z))return 0;
+    // Montanha nordeste: começa depois do castelo e cresce de forma suave.
+    const nx=(x-91)/24,nz=(z-98)/24,r=Math.hypot(nx,nz);let mountain=0;
+    if(r<1.12&&z>77){const dome=Math.pow(Math.max(0,1-r/1.12),1.55)*15.5;const ridges=(Math.sin(x*.22)+Math.cos(z*.18))*1.05*Math.max(0,1-r);mountain=Math.max(0,dome+ridges);}
+    // Colinas do deserto, baixas o suficiente para não cobrir prédios ou vias.
+    let dune=0;if(x>70&&z>-61&&z<-24){const a=Math.max(0,1-Math.hypot((x-91)/25,(z+42)/20));dune=Math.max(0,Math.sin((x+z)*.12)*.45+.55)*a*2.1;}
+    return Math.max(0,mountain,dune);
+  }
+  function v702TextureMaterial(pack,color,options={}){
+    const repeat=options.repeat||[6,6],material=new THREE.MeshStandardMaterial({color,roughness:options.roughness??.86,metalness:options.metalness??0,transparent:!!options.transparent,opacity:options.opacity??1,side:options.side||THREE.FrontSide});
+    try{material.map=loadWorldTexture(pack,'basecolor',{repeat,color:true,nearest:!!options.nearest});material.normalMap=loadWorldTexture(pack,'normal',{repeat});material.roughnessMap=loadWorldTexture(pack,'roughness',{repeat});material.normalScale.set(options.normalScale??.45,options.normalScale??.45);}catch(error){material.userData.textureFallback=true;}
+    material.userData={...(material.userData||{}),otthiV702Pack:pack};return material;
+  }
+  function createV702GroundRecovery(){
+    if(world.worldEvolution?.groundRecovery)return false;
+    const material=v702TextureMaterial('grass',0x5fae4d,{repeat:[42,42],roughness:.94,normalScale:.28});
+    const ground=new THREE.Mesh(new THREE.BoxGeometry(249,.04,249),material);ground.position.set(0,.025,0);ground.receiveShadow=true;ground.frustumCulled=false;ground.renderOrder=0;ground.userData.criticalSurface=true;ground.name='OTTHI_V702_GRASS_RECOVERY';worldGroup.add(ground);world.criticalSurfaces.push(ground);
+    world.worldEvolution={...(world.worldEvolution||{}),groundRecovery:ground};return true;
+  }
+  function terrainVertexColor(height,kind){if(kind==='mountain')return new THREE.Color(height>9?0xd5d8cf:height>4?0x75825f:0x5d9949);return new THREE.Color(0xd9ae5f);}
+  function createMountainTerrain(){
+    const geometry=new THREE.PlaneGeometry(54,48,36,32);geometry.rotateX(-Math.PI/2);const position=geometry.attributes.position,colors=[];
+    for(let i=0;i<position.count;i++){const wx=91+position.getX(i),wz=98+position.getZ(i),h=professionalTerrainHeightAt(wx,wz);position.setY(i,h-.02);const c=terrainVertexColor(h,'mountain');colors.push(c.r,c.g,c.b);}
+    geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geometry.computeVertexNormals();geometry.computeBoundingSphere();
+    const material=v702TextureMaterial('cliff',0xffffff,{repeat:[10,9],roughness:.92,normalScale:.65});material.vertexColors=true;
+    const mesh=new THREE.Mesh(geometry,material);mesh.position.set(91,0,98);mesh.receiveShadow=true;mesh.castShadow=qualityTier()==='high'&&!perf.mobile;mesh.name='OTTHI_V702_MOUNTAIN';worldGroup.add(mesh);
+    for(const [x,z]of[[82,86],[88,92],[96,101],[102,108]]){const tree=createTree(x,z,.72,false);tree.position.y=professionalTerrainHeightAt(x,z);}
+    createSignpost(73,82,'Montanha OTTHI',Math.PI/2);
+    world.worldEvolution.mountain=mesh;return mesh;
+  }
+  function createDesertBiome(){
+    const matSand=v702TextureMaterial('sand',0xe3ba6c,{repeat:[12,9],roughness:.95,normalScale:.48}),group=new THREE.Group();group.name='OTTHI_V702_DESERT';worldGroup.add(group);
+    const patch=new THREE.Mesh(new THREE.BoxGeometry(48,.08,36),matSand);patch.position.set(91,.01,-42);patch.receiveShadow=true;group.add(patch);
+    const duneMat=v702TextureMaterial('sand',0xe9c579,{repeat:[3,3],roughness:.96,normalScale:.32});
+    for(const [x,z,s]of[[78,-34,1],[87,-50,1.2],[101,-38,.9],[107,-52,1.1]]){const dune=new THREE.Mesh(new THREE.SphereGeometry(3.6*s,14,8,0,Math.PI*2,0,Math.PI/2),duneMat);dune.scale.y=.38;dune.position.set(x,.05,z);dune.receiveShadow=true;group.add(dune);}
+    createSignpost(72,-24,'Deserto dos Brinquedos',Math.PI/2);world.worldEvolution.desert=group;return group;
+  }
+  function createLakeDepthLayers(){
+    if(world.worldEvolution?.lakeDepth)return false;const group=new THREE.Group();group.name='OTTHI_V702_LAKE_DEPTH';worldGroup.add(group);
+    for(const hazard of(world.hazards||[]).filter(h=>h.type==='water')){
+      const bottomMat=v702TextureMaterial('deep-water',0x0b5578,{repeat:[8,4],roughness:.72,normalScale:.18});const bottom=new THREE.Mesh(new THREE.BoxGeometry(hazard.w-.8,.12,hazard.d-.8),bottomMat);bottom.position.set(hazard.x,-1.58,hazard.z);bottom.receiveShadow=true;group.add(bottom);
+      const deepMat=v702TextureMaterial('deep-water',0x137ca3,{repeat:[9,5],roughness:.2,normalScale:.36,transparent:true,opacity:.56});deepMat.depthWrite=false;const deep=new THREE.Mesh(new THREE.BoxGeometry(hazard.w-.45,.04,hazard.d-.45),deepMat);deep.position.set(hazard.x,.105,hazard.z);deep.renderOrder=4;group.add(deep);WORLD_V702.waterLayers.push(deep);
+      const shoreMat=v702TextureMaterial('shore',0xd7c888,{repeat:[12,2],roughness:.9,normalScale:.35});
+      const north=new THREE.Mesh(new THREE.BoxGeometry(hazard.w+2.8,.06,2.2),shoreMat),south=north.clone();north.position.set(hazard.x,.01,hazard.z-hazard.d/2-1.12);south.position.set(hazard.x,.01,hazard.z+hazard.d/2+1.12);group.add(north,south);
+      for(let ix=-hazard.w/2+3;ix<hazard.w/2-2;ix+=8){const reeds=new THREE.Group();reeds.position.set(hazard.x+ix,.1,hazard.z-hazard.d/2-.35);group.add(reeds);for(const dx of[-.22,0,.22])premiumBox(.05,.72+Math.abs(dx),.05,0x4f8b43,dx,.36,0,reeds);}
+    }
+    world.worldEvolution.lakeDepth=group;return true;
+  }
+  function farmPlotRecord(id){return state.farming.plots[id]||{status:'empty',plantedAt:0,crop:'wheat'};}
+  function cropStage(record){if(record.status!=='growing')return record.status==='ready'?3:0;return clamp(Math.floor((Date.now()-Number(record.plantedAt||0))/FARM_GROW_MS*3)+1,1,3);}
+  function updateFarmPlotVisual(plot){const record=farmPlotRecord(plot.id),stage=cropStage(record);plot.soil.material=record.status==='empty'?plot.soilMaterials.empty:plot.soilMaterials.wet;plot.crop.visible=stage>0;plot.crop.scale.y=stage===1?.32:stage===2?.68:1;plot.crop.position.y=.16+plot.crop.scale.y*.35;plot.interactable.label=record.status==='ready'||stage>=3?'Colher plantação':record.status==='growing'?`Plantação crescendo (${Math.min(99,Math.floor((Date.now()-record.plantedAt)/FARM_GROW_MS*100))}%)`:'Preparar e plantar';if(record.status==='growing'&&stage>=3){state.farming.plots[plot.id]={...record,status:'ready'};plot.interactable.label='Colher plantação';}}
+  function useFarmPlot(plot){ensureWorldEvolutionState();const record=farmPlotRecord(plot.id);if(record.status==='empty'){
+      if(state.tools.equipped!=='hoe'){toast('Equipe a Enxada para preparar e plantar.','warn',1800);return;}if((state.inventory.seeds||0)<1){toast('Você precisa de sementes. Compre no mercadinho ou cave a terra.','warn',2200);return;}state.inventory.seeds--;state.farming.plots[plot.id]={status:'growing',plantedAt:Date.now(),crop:Math.random()<.45?'carrot':'wheat'};state.farming.planted++;state.stats.planted=(state.stats.planted||0)+1;playToolAnimation();addXP(8);toast('Semente plantada. Ela cresce mesmo com o jogo fechado.','good',2200);
+    }else if(record.status==='ready'||cropStage(record)>=3){const crop=record.crop||'wheat',food=2+Math.floor(Math.random()*2);state.inventory[crop==='carrot'?'carrots':'wheat']=(state.inventory[crop==='carrot'?'carrots':'wheat']||0)+2;state.inventory.food=(state.inventory.food||0)+food;state.inventory.seeds=(state.inventory.seeds||0)+1;state.farming.plots[plot.id]={status:'empty',plantedAt:0,crop};state.farming.harvested++;state.stats.harvestedCrops=(state.stats.harvestedCrops||0)+1;state.tools.harvested.crops=(state.tools.harvested.crops||0)+2;addXP(22);addCoins(8);toast(`Colheita concluída: +2 ${crop==='carrot'?'cenouras':'trigos'}, +${food} comida e +1 semente.`,'good',2600);
+    }else{toast('A plantação ainda está crescendo.','warn',1400);return;}saveState(true);updateHUD();updateFarmPlotVisual(plot);}
+  function createFarmingSystem(){
+    if(world.worldEvolution?.farming)return false;const group=new THREE.Group();group.name='OTTHI_V702_FARM';worldGroup.add(group);const empty=v702TextureMaterial('farmland',0x79502e,{repeat:[2,2],roughness:.96,normalScale:.52}),wet=v702TextureMaterial('mud',0x543522,{repeat:[2,2],roughness:.88,normalScale:.48});
+    const positions=[];for(let x=42;x<=62;x+=4)for(let z=27;z<=39;z+=4)positions.push([x,z]);
+    positions.forEach(([x,z],index)=>{const id=`farm-${index}`,soil=new THREE.Mesh(new THREE.BoxGeometry(3.25,.12,3.25),empty);soil.position.set(x,.13,z);soil.receiveShadow=true;group.add(soil);const crop=new THREE.Group();crop.position.set(x,.2,z);group.add(crop);for(const dx of[-.72,-.24,.24,.72])for(const dz of[-.72,0,.72]){premiumBox(.07,.72,.07,0x4b9f3e,dx,.36,dz,crop);premiumBox(.25,.19,.25,(index+Math.round(dx*10))%2?0xf0c84c:0x6fc44e,dx,.76,dz,crop);}const interactable={id:`farm-plot-${id}`,type:'farm',icon:'🌱',label:'Preparar e plantar',x,z,radius:2.25,priority:178,action:null};const plot={id,x,z,soil,crop,interactable,soilMaterials:{empty,wet}};interactable.action=()=>useFarmPlot(plot);registerInteractable(interactable);WORLD_V702.farmPlots.set(id,plot);updateFarmPlotVisual(plot);});
+    createSignpost(52,23,'Fazenda Comunitária',Math.PI);world.worldEvolution.farming=group;return true;
+  }
+  function useDigSite(site){ensureWorldEvolutionState();if(!['hoe','shovel','pickaxe'].includes(state.tools.equipped)){toast('Equipe Enxada, Pá ou Picareta para cavar.','warn',1900);return;}const previous=Number(state.farming.digSites[site.id]||0),remaining=V702_DIG_COOLDOWN-(Date.now()-previous);if(remaining>0){toast(`A terra precisa descansar por ${Math.ceil(remaining/1000)} s.`,'warn',1300);return;}state.farming.digSites[site.id]=Date.now();playToolAnimation();const bait=1+Math.floor(Math.random()*3),seeds=Math.random()<.46?1:0,clay=site.biome==='shore'||site.biome==='farm'?(Math.random()<.55?1:0):0;state.inventory.bait=(state.inventory.bait||0)+bait;state.inventory.seeds=(state.inventory.seeds||0)+seeds;state.inventory.clay=(state.inventory.clay||0)+clay;state.tools.harvested.bait=(state.tools.harvested.bait||0)+bait;state.tools.harvested.clay=(state.tools.harvested.clay||0)+clay;state.stats.dugBait=(state.stats.dugBait||0)+bait;addXP(7+bait*2);saveState(true);updateHUD();toast(`Escavação: +${bait} isca${bait>1?'s':''}${seeds?`, +${seeds} semente`:''}${clay?', +1 argila':''}.`,'good',2200);}
+  function createDigSites(){
+    if(world.worldEvolution?.digSites)return false;const sites=[[-47,-45,'forest'],[-62,-34,'forest'],[40,29,'farm'],[63,38,'farm'],[-55,43,'shore'],[-91,76,'shore'],[81,-36,'desert'],[104,-48,'desert']];
+    for(const [x,z,biome]of sites){const id=`dig-${biome}-${x}-${z}`,mat=v702TextureMaterial(biome==='desert'?'sand':biome==='shore'?'shore':'dirt',biome==='desert'?0xdcb266:0x795333,{repeat:[2,2],roughness:.95});const patch=new THREE.Mesh(new THREE.CylinderGeometry(1.35,1.55,.08,16),mat);patch.position.set(x,groundHeightAt(x,z)+.05,z);worldGroup.add(patch);const site={id,x,z,biome,mesh:patch};WORLD_V702.digSites.set(id,site);registerInteractable({id,type:'dig',icon:'🪱',label:'Cavar por iscas e recursos',x,z,radius:2.35,priority:165,action:()=>useDigSite(site)});}
+    world.worldEvolution.digSites=true;return true;
+  }
+  function decorateThemedCitizen(npc,theme){
+    const g=npc.group,front=.34;if(theme==='shadow'){premiumBox(.78,.98,.06,0x111827,0,1.18,-.34,g);premiumBox(.82,.18,.72,0x202b45,0,2.42,0,g);premiumBox(.12,.16,.04,0x78d7ff,-.16,2.08,front+.04,g);premiumBox(.12,.16,.04,0x78d7ff,.16,2.08,front+.04,g);}
+    if(theme==='web'){for(const y of[.82,1.08,1.34])premiumBox(.77,.035,.05,0xeaf5ff,0,y,.31,g);premiumBox(.18,1.0,.05,0x1e65b1,0,1.14,.33,g);}
+    if(theme==='adventure'){const cap=worldAvatarMaterial(0xd84235,{roughness:.48});avatarV3Sphere(g,.58,cap,0,2.48,0,1.08,.34,1.08);premiumBox(.72,.1,.32,cap,0,2.43,.38,g);premiumBox(.58,.72,.05,0x256ac5,0,1.05,.33,g);}
+    if(theme==='toy'){for(const p of[[-.48,1.2,0],[.48,1.2,0],[-.2,.62,0],[.2,.62,0]])avatarV3Sphere(g,.16,worldAvatarMaterial(0xffd39a,{roughness:.38}),...p);premiumBox(.42,.3,.14,0xffdc4d,0,1.32,.35,g);}
+    if(theme==='block'){g.scale.set(1.06,1.02,1.06);premiumBox(.34,.34,.08,0x62e86b,0,1.15,.35,g);}
+    npc.theme=theme;return npc;
+  }
+  function createThemedCitizens(){
+    if(world.worldEvolution?.citizens)return false;const specs=[['nox','Nox',-8,-28,0x25365f,'shadow',3.2],['arani','Arani',16,-34,0xd9454d,'web',3.2],['tico','Tico',38,34,0xe44739,'adventure',2.8],['plim','Plim',82,-39,0xf0c743,'toy',3],['byte','Byte',76,86,0x45b7da,'block',2.8],['flora','Flora',-46,44,0x6bbf55,'toy',3.2]];
+    for(const [id,name,x,z,color,theme,radius]of specs){if(world.npcs.some(n=>n.id===id))continue;const npc=decorateThemedCitizen(createNPC(id,name,x,z,color,radius),theme);WORLD_V702.citizens.push(npc);}world.worldEvolution.citizens=true;return true;
+  }
+  function createCameraPitchButtons(){
+    if(WORLD_V702.cameraButtonsReady||!els.cameraControls)return;const add=(id,text,label)=>{let b=document.getElementById(id);if(!b){b=document.createElement('button');b.id=id;b.type='button';b.textContent=text;b.setAttribute('aria-label',label);els.cameraControls.insertBefore(b,els.cameraResetBtn||null);}return b;};
+    const up=add('cameraPitchUpBtn','↑','Levantar câmera e olhar mais para baixo'),down=add('cameraPitchDownBtn','↓','Abaixar câmera e olhar para o horizonte');const change=delta=>{cameraPitch=clamp(cameraPitch+delta,-.55,1.35);state.settings.cameraPitch=+cameraPitch.toFixed(3);saveState();toast(cameraPitch<-.15?'Câmera baixa: visão do horizonte.':cameraPitch>.85?'Câmera alta: visão geral.':'Inclinação da câmera ajustada.','good',850);};
+    up.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();change(.18);},{passive:false});down.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();change(-.18);},{passive:false});WORLD_V702.cameraButtonsReady=true;
+  }
+  function initializeWorldEvolution(){
+    if(WORLD_V702.initialized||!worldGroup)return false;ensureWorldEvolutionState();createV702GroundRecovery();world.worldEvolution=world.worldEvolution||{};createDesertBiome();createMountainTerrain();createLakeDepthLayers();createFarmingSystem();createDigSites();createThemedCitizens();createCameraPitchButtons();WORLD_V702.initialized=true;document.documentElement.dataset.otthiWorld='702';document.body.classList.add('otthi-v702-world');return true;
+  }
+  function updateWorldEvolution(dt){
+    if(!WORLD_V702.initialized)return;WORLD_V702.waterTime+=dt;for(const layer of WORLD_V702.waterLayers){if(layer.material?.normalMap){layer.material.normalMap.offset.x=(layer.material.normalMap.offset.x+dt*.012)%1;layer.material.normalMap.offset.y=(layer.material.normalMap.offset.y+dt*.007)%1;}layer.position.y=.105+Math.sin(WORLD_V702.waterTime*1.45+layer.position.x*.01)*.018;}
+    updateWorldEvolution.farmAcc=(updateWorldEvolution.farmAcc||0)+dt;if(updateWorldEvolution.farmAcc>.9){updateWorldEvolution.farmAcc=0;for(const plot of WORLD_V702.farmPlots.values())updateFarmPlotVisual(plot);}
+  }
+  const legacyV702InitThree=initThree;initThree=function initThreeV702(){const ok=legacyV702InitThree();if(ok)try{initializeWorldEvolution();}catch(error){console.error('[OTTHI V702] evolução em fallback',error);toast('O mundo principal foi preservado; uma melhoria visual iniciou em fallback.','warn',2600);}return ok;};
+  const legacyV702Environment=updateOtthiWorldEnvironment;updateOtthiWorldEnvironment=function updateOtthiWorldEnvironmentV702(dt){legacyV702Environment(dt);updateWorldEvolution(dt);};
+  createCameraPitchButtons();dbReady.then(()=>{ensureWorldEvolutionState();createCameraPitchButtons();}).catch(()=>{});
+  window.OTTHI_WORLD_V702={state:()=>ensureWorldEvolutionState(),initialize:initializeWorldEvolution,terrainHeight:professionalTerrainHeightAt,farm:()=>[...WORLD_V702.farmPlots.values()].map(p=>({id:p.id,...farmPlotRecord(p.id)})),dig:()=>[...WORLD_V702.digSites.keys()],citizens:()=>WORLD_V702.citizens.map(n=>({id:n.id,name:n.name,theme:n.theme})),diagnostics:()=>({version:702,initialized:WORLD_V702.initialized,swimming:!!player.swimming,farmPlots:WORLD_V702.farmPlots.size,digSites:WORLD_V702.digSites.size,citizens:WORLD_V702.citizens.length,waterLayers:WORLD_V702.waterLayers.length})};
+  if(window.OTTHI_TEST_API)window.OTTHI_TEST_API.worldEvolution=window.OTTHI_WORLD_V702;
 
 })();
