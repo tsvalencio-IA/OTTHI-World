@@ -11,7 +11,7 @@
   })();
   window.OTTHI_CONFIG = {
     version: 701,
-    build: '701.0-secure-gm-panel',
+    build: '702.0-world-evolution-complete',
     repository: repo,
     baseUrl,
     firebaseRoot: 'otthosWorld',
