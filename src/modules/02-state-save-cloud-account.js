@@ -51,6 +51,7 @@
       abilities: { ...fresh.abilities, ...(saved.abilities || {}), mastery:{...fresh.abilities.mastery,...(saved.abilities?.mastery||{})} },
       tools: { ...fresh.tools, ...(saved.tools || {}), owned:Array.isArray(saved.tools?.owned)?saved.tools.owned:fresh.tools.owned, harvested:{...fresh.tools.harvested,...(saved.tools?.harvested||{})} },
       account: { ...fresh.account, ...(saved.account || {}) },
+      gm: { ...fresh.gm, ...(saved.gm || {}), appliedGrantIds:[...new Set((Array.isArray(saved.gm?.appliedGrantIds)?saved.gm.appliedGrantIds:[]).map(String).filter(Boolean))].slice(-500), lastGrantAt:Math.max(0,Number(saved.gm?.lastGrantAt||0)) },
       safety: { ...fresh.safety, ...(saved.safety || {}) },
       cityServices: { ...fresh.cityServices, ...(saved.cityServices || {}) },
       transport: { ...fresh.transport, ...(saved.transport || {}), metroDestinations:Array.isArray(saved.transport?.metroDestinations)?saved.transport.metroDestinations:[], busStops:Array.isArray(saved.transport?.busStops)?saved.transport.busStops:[] },
@@ -144,7 +145,7 @@
     return {
       version: APP_VERSION,lastSaved:Number(state.lastSaved||Date.now()),
       profile:{name:state.profile.name||'Jogador',coins:state.profile.coins||0,xp:state.profile.xp||0,level:state.profile.level||1,reputation:state.profile.reputation||0},
-      inventory:{...state.inventory},medals:[...(state.medals||[])],flags:{...state.flags},houses:{...state.houses},races:{...state.races},
+      inventory:{...state.inventory},gm:{appliedGrantIds:[...new Set((state.gm?.appliedGrantIds||[]).map(String).filter(Boolean))].slice(-500),lastGrantAt:Math.max(0,Number(state.gm?.lastGrantAt||0))},medals:[...(state.medals||[])],flags:{...state.flags},houses:{...state.houses},races:{...state.races},
       avatar:{...state.avatar},abilities:{...state.abilities,mastery:{...(state.abilities?.mastery||{})}},tools:{...state.tools,owned:[...(state.tools?.owned||[])],harvested:{...(state.tools?.harvested||{})}},safety:{...state.safety},cityServices:{...state.cityServices},career:{...state.career,activeJob:state.career?.activeJob?{...state.career.activeJob}:null},cooperative:{...state.cooperative,active:state.cooperative?.active?{...state.cooperative.active}:null,completed:[...(state.cooperative?.completed||[])],history:[...(state.cooperative?.history||[])]},friendship:{...state.friendship},completedChapters:[...(state.completedChapters||[])],builds:[...(state.builds||[])],buildTombstones:[...(state.buildTombstones||[])],homeStorage:{...state.homeStorage},fishing:{...state.fishing,catches:[...(state.fishing?.catches||[])],species:{...(state.fishing?.species||{})}},campfires:[...(state.campfires||[])],boats:{...state.boats,lastPosition:{...(state.boats?.lastPosition||{})}},transport:{...state.transport,metroDestinations:[...(state.transport?.metroDestinations||[])],busStops:[...(state.transport?.busStops||[])]},vehicles:{...state.vehicles,parked:{...(state.vehicles?.parked||{})}},objectives:{...state.objectives,history:[...(state.objectives?.history||[])]},adventures:{...state.adventures,completed:[...(state.adventures?.completed||[])],bestTimes:{...(state.adventures?.bestTimes||{})}},hunting:{...state.hunting},houseExtensions:[...(state.houseExtensions||[])],roomFurniture:[...(state.roomFurniture||[])],
       achievements:{stats:{...state.stats},daily:{...state.daily,quests:[...(state.daily?.quests||[])]},learning:{...state.learning,subjectXP:{...state.learning.subjectXP},lessons:{...state.learning.lessons}}},position:{...state.position}
     };
@@ -163,7 +164,7 @@
     const mergedFurniture=mergeEntityCollections(state.roomFurniture,remote.roomFurniture);
     const merged={...state,
       profile:{...state.profile,...(remote.profile||{}),name:state.profile.name||remote.profile?.name||'Jogador',nameConfirmed:true},
-      inventory:{...state.inventory,...(remote.inventory||{})},medals:Array.isArray(remote.medals)?remote.medals:state.medals,
+      inventory:{...state.inventory,...(remote.inventory||{})},gm:{...state.gm,...(remote.gm||{}),appliedGrantIds:[...new Set([...(state.gm?.appliedGrantIds||[]),...(remote.gm?.appliedGrantIds||[])].map(String).filter(Boolean))].slice(-500),lastGrantAt:Math.max(Number(state.gm?.lastGrantAt||0),Number(remote.gm?.lastGrantAt||0))},medals:Array.isArray(remote.medals)?remote.medals:state.medals,
       flags:{...state.flags,...(remote.flags||{})},houses:{...state.houses,...(remote.houses||{})},races:{...state.races,...(remote.races||{})},
       avatar:normalizeAvatarV2({...state.avatar,...(remote.avatar||{})}),abilities:{...state.abilities,...(remote.abilities||{}),mastery:{...state.abilities.mastery,...(remote.abilities?.mastery||{})}},tools:{...state.tools,...(remote.tools||{}),owned:Array.isArray(remote.tools?.owned)?remote.tools.owned:state.tools.owned,harvested:{...state.tools.harvested,...(remote.tools?.harvested||{})}},safety:{...state.safety,...(remote.safety||{})},cityServices:{...state.cityServices,...(remote.cityServices||{})},career:{...state.career,...(remote.career||{}),activeJob:remote.career?.activeJob?{...remote.career.activeJob}:state.career.activeJob},cooperative:{...state.cooperative,...(remote.cooperative||{}),active:remote.cooperative?.active?{...remote.cooperative.active}:state.cooperative.active,completed:Array.isArray(remote.cooperative?.completed)?remote.cooperative.completed:state.cooperative.completed,history:Array.isArray(remote.cooperative?.history)?remote.cooperative.history:state.cooperative.history},friendship:{...state.friendship,...(remote.friendship||{})},completedChapters:Array.isArray(remote.completedChapters)?remote.completedChapters:state.completedChapters,
       builds:mergedBuilds,buildTombstones:mergedBuildTombstones,homeStorage:{...state.homeStorage,...(remote.homeStorage||{})},fishing:{...state.fishing,...(remote.fishing||{}),catches:Array.isArray(remote.fishing?.catches)?remote.fishing.catches:state.fishing.catches,species:{...state.fishing.species,...(remote.fishing?.species||{})}},campfires:Array.isArray(remote.campfires)?remote.campfires:state.campfires,boats:{...state.boats,...(remote.boats||{}),lastPosition:{...state.boats.lastPosition,...(remote.boats?.lastPosition||{})}},transport:{...state.transport,...(remote.transport||{}),metroDestinations:Array.isArray(remote.transport?.metroDestinations)?remote.transport.metroDestinations:state.transport.metroDestinations,busStops:Array.isArray(remote.transport?.busStops)?remote.transport.busStops:state.transport.busStops},vehicles:{...state.vehicles,...(remote.vehicles||{}),parked:{...state.vehicles.parked,...(remote.vehicles?.parked||{})}},objectives:{...state.objectives,...(remote.objectives||{}),history:Array.isArray(remote.objectives?.history)?remote.objectives.history:state.objectives.history},adventures:{...state.adventures,...(remote.adventures||{}),completed:Array.isArray(remote.adventures?.completed)?remote.adventures.completed:state.adventures.completed,bestTimes:{...state.adventures.bestTimes,...(remote.adventures?.bestTimes||{})}},hunting:{...state.hunting,...(remote.hunting||{})},houseExtensions:mergedExtensions,roomFurniture:mergedFurniture,
@@ -230,19 +231,26 @@
   }
   async function loginGameAccount(username,password){
     if(!window.OTTHOS_ACCOUNT)throw new Error('Proteção de conta indisponível neste navegador.');
-    const credentials=await window.OTTHOS_ACCOUNT.deriveCredentials(username,password),connection=await ensureAccountConnection();
-    if(!connection.ok)throw new Error(connection.error);
-    const authResult=await connection.backend.signInPlayerAccount?.(credentials.username,password,state.profile.name||credentials.username);
-    if(!authResult?.ok)throw new Error(authResult?.error||'Nome ou senha incorretos.');
-    const result=await connection.backend.loadGameAccount(credentials.accountId);
-    if(!result?.ok)throw new Error(result?.error||'Não foi possível consultar a conta.');
-    if(!result.exists)throw new Error('A conta existe, mas ainda não possui uma cópia de progresso. Entre no aparelho onde ela foi criada e toque em “Sincronizar agora”.');
-    const recovered=await window.OTTHOS_ACCOUNT.decryptState(result.record,credentials);
-    accountSession=window.OTTHOS_ACCOUNT.rememberSession(credentials);
-    state=normalizeState(recovered);state.account={...(state.account||{}),linked:true,accountId:credentials.accountId,username:credentials.username,lastCloudSync:Date.now()};
-    state.profile.nameConfirmed=!!sanitizePlayerName(state.profile.name);
-    safeLocalSet(STORAGE_KEY,JSON.stringify(state));await window.OTTHOS_DB?.save?.(state);window.OTTHOS_RTDB?.setDisplayName?.(publicPlayerName());
-    updatePlayerNameUI();updateHUD();updateLobbyStats();return true;
+    window.__OTTHI_ACCOUNT_RECOVERING=true;
+    window.dispatchEvent(new CustomEvent('otthi:account-state-loading'));
+    try{
+      const credentials=await window.OTTHOS_ACCOUNT.deriveCredentials(username,password),connection=await ensureAccountConnection();
+      if(!connection.ok)throw new Error(connection.error);
+      const authResult=await connection.backend.signInPlayerAccount?.(credentials.username,password,state.profile.name||credentials.username);
+      if(!authResult?.ok)throw new Error(authResult?.error||'Nome ou senha incorretos.');
+      const result=await connection.backend.loadGameAccount(credentials.accountId);
+      if(!result?.ok)throw new Error(result?.error||'Não foi possível consultar a conta.');
+      if(!result.exists)throw new Error('A conta existe, mas ainda não possui uma cópia de progresso. Entre no aparelho onde ela foi criada e toque em “Sincronizar agora”.');
+      const recovered=await window.OTTHOS_ACCOUNT.decryptState(result.record,credentials);
+      accountSession=window.OTTHOS_ACCOUNT.rememberSession(credentials);
+      state=normalizeState(recovered);state.account={...(state.account||{}),linked:true,accountId:credentials.accountId,username:credentials.username,lastCloudSync:Date.now()};
+      state.profile.nameConfirmed=!!sanitizePlayerName(state.profile.name);
+      safeLocalSet(STORAGE_KEY,JSON.stringify(state));await window.OTTHOS_DB?.save?.(state);window.OTTHOS_RTDB?.setDisplayName?.(publicPlayerName());
+      updatePlayerNameUI();updateHUD();updateLobbyStats();return true;
+    }finally{
+      window.__OTTHI_ACCOUNT_RECOVERING=false;
+      window.dispatchEvent(new CustomEvent('otthi:account-state-ready'));
+    }
   }
   async function unlinkGameAccount(password=''){
     const result=await window.OTTHOS_RTDB?.signOutPlayerAccount?.(password);if(!result?.ok)return result||{ok:false,error:'Não foi possível confirmar a saída.'};

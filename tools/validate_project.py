@@ -54,16 +54,16 @@ def expected_bundles(order):
     return ''.join(js),''.join(css).lstrip()
 
 def main():
-    required=['index.html','app.js','style.css','sw.js','manifest.webmanifest','release-manifest.json','VERSION.json','firebase-config.js','firebase-database.rules.json','athos.glb','src/module-order.json','assets/world/pbr-manifest.json','tools/build_project.py','tools/test_v700_otthi_world.py','src/modules/33-otthi-world-professional-core.js','src/modules/34-avatar-studio-professional-v3.js','src/modules/35-world-render-pbr-environment.js','src/modules/36-modular-build-machines.js','src/modules/37-hero-platform-gameplay.js','src/modules/38-otthi-world-integration-bootstrap.js','src/styles/16-otthi-world-professional-v700.css','.github/workflows/build-modular-app.yml','.github/workflows/gerar-apk.yml']
+    required=['index.html','app.js','style.css','sw.js','manifest.webmanifest','release-manifest.json','VERSION.json','firebase-config.js','firebase-database.rules.json','athos.glb','src/module-order.json','assets/world/pbr-manifest.json','tools/build_project.py','tools/test_v701_gm_panel.py','src/modules/33-otthi-world-professional-core.js','src/modules/34-avatar-studio-professional-v3.js','src/modules/35-world-render-pbr-environment.js','src/modules/36-modular-build-machines.js','src/modules/37-hero-platform-gameplay.js','src/modules/38-otthi-world-integration-bootstrap.js','src/modules/39-gm-admin-panel.js','src/styles/16-otthi-world-professional-v700.css','src/styles/17-gm-admin-panel-v701.css','.github/workflows/build-modular-app.yml','.github/workflows/gerar-apk.yml']
     for rel in required: add(f'Arquivo obrigatório {rel}',(ROOT/rel).is_file())
     version=read_json('VERSION.json'); order=read_json('src/module-order.json'); webmanifest=read_json('manifest.webmanifest'); release=read_json('release-manifest.json'); read_json('firebase-database.rules.json'); read_json('assets/world/pbr-manifest.json')
     js_modules=sorted((ROOT/'src/modules').glob('*.js')); css_modules=sorted((ROOT/'src/styles').glob('*.css'))
-    add('40 módulos JavaScript',len(js_modules)==40,len(js_modules)); add('17 módulos CSS',len(css_modules)==17,len(css_modules))
-    add('Manifesto JS completo',len(order.get('javascript',[]))==len(js_modules)==40)
-    add('Manifesto CSS completo',len(order.get('styles',[]))==len(css_modules)==17)
+    add('41 módulos JavaScript',len(js_modules)==41,len(js_modules)); add('18 módulos CSS',len(css_modules)==18,len(css_modules))
+    add('Manifesto JS completo',len(order.get('javascript',[]))==len(js_modules)==41)
+    add('Manifesto CSS completo',len(order.get('styles',[]))==len(css_modules)==18)
     add('Ordem JS corresponde aos arquivos',[Path(x['file']).name for x in order.get('javascript',[])]==[p.name for p in js_modules])
     add('Ordem CSS corresponde aos arquivos',[Path(x['file']).name for x in order.get('styles',[])]==[p.name for p in css_modules])
-    add('Versão central V700',version.get('version')==700 and version.get('build')=='700.0-five-stages-professional' and order.get('build')==version.get('build'))
+    add('Versão central V701',version.get('version')==701 and version.get('build')=='701.0-secure-gm-panel' and order.get('build')==version.get('build'))
 
     run([NODE,'--check','app.js'],'Sintaxe app.js'); run([NODE,'--check','sw.js'],'Sintaxe sw.js')
     for path in js_modules: run([NODE,'--check',str(path.relative_to(ROOT))],f'Sintaxe {path.relative_to(ROOT)}')
@@ -79,35 +79,35 @@ def main():
       ([PYTHON,'tools/test_v646_professional_services.py'],'Serviços profissionais'),
       ([PYTHON,'tools/test_v6462_commercial_polish.py'],'Mapa, móveis e roupas'),
       ([PYTHON,'tools/test_v6463_coop_responsive.py'],'Cooperativo e responsividade'),
-      ([PYTHON,'tools/test_v700_otthi_world.py'],'Cinco etapas OTTHI World V700')]
+      ([PYTHON,'tools/test_v701_gm_panel.py'],'Cinco etapas OTTHI World V701')]
     for command,name in suites: run(command,name)
 
     index=(ROOT/'index.html').read_text('utf-8'); app=(ROOT/'app.js').read_text('utf-8'); style=(ROOT/'style.css').read_text('utf-8'); sw=(ROOT/'sw.js').read_text('utf-8')
     audit=HtmlAudit(); audit.feed(index)
     duplicates=sorted({x for x in audit.ids if audit.ids.count(x)>1}); missing=sorted(x for x in audit.local if not (ROOT/x).exists())
     add('IDs HTML únicos',not duplicates,duplicates); add('Referências locais existem',not missing,missing)
-    add('Cache-busting V700',index.count('?v=7000')>=10,index.count('?v=7000'))
-    add('Three.js local','./assets/vendor/three-r128.min.js?v=7000' in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
-    add('Manifesto PWA V700',webmanifest.get('name')=='OTTHI World V700' and 'v=7000' in webmanifest.get('start_url',''))
-    add('Service Worker V700',"const CACHE = `otthi-v7000-${REVISION}`" in sw and "const BUILD = '700.0-five-stages-professional'" in sw)
+    add('Cache-busting V701',index.count('?v=7010')>=10,index.count('?v=7010'))
+    add('Three.js local','./assets/vendor/three-r128.min.js?v=7010' in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
+    add('Manifesto PWA V701',webmanifest.get('name')=='OTTHI World V701' and 'v=7010' in webmanifest.get('start_url',''))
+    add('Service Worker V701',"const CACHE = `otthi-v7010-${REVISION}`" in sw and "const BUILD = '701.0-secure-gm-panel'" in sw)
 
     expected_app,expected_style=expected_bundles(order)
     add('app.js sincronizado com fontes',app==expected_app); add('style.css sincronizado com fontes',style==expected_style)
     functions=re.findall(r'^  (?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(',app,re.M)
     add('Funções preservadas e ampliadas',len(functions)>=800,len(functions))
     bad=[rel for rel,digest in release.get('files',{}).items() if not (ROOT/rel).is_file() or hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()!=digest]
-    add('Release V700 coerente',release.get('version')==700 and release.get('build')==version.get('build') and release.get('algorithm')=='SHA-256')
+    add('Release V701 coerente',release.get('version')==701 and release.get('build')==version.get('build') and release.get('algorithm')=='SHA-256')
     add('Hashes da release conferem',not bad,bad)
     rev_i=re.search(r'data-otthi-revision="([a-f0-9]{16})"',index); rev_s=re.search(r"const REVISION = '([a-f0-9]{16})';",sw)
     add('Revisão HTML/SW/manifesto coerente',bool(rev_i and rev_s) and release.get('revision')==rev_i.group(1)==rev_s.group(1))
     add('Firebase remoto ainda não declarado aprovado',version.get('validation',{}).get('firebaseRemoteApproved') is False)
     add('Dispositivo físico ainda não declarado aprovado',version.get('validation',{}).get('physicalDeviceApproved') is False)
 
-    report={'version':700,'build':version.get('build'),'passed':not errors,'counts':{'checks':len(checks),'passed':sum(x['passed'] for x in checks),'failed':sum(not x['passed'] for x in checks),'functionsIncludingAsync':len(functions),'javascriptModules':len(js_modules),'styleModules':len(css_modules),'htmlIds':len(audit.ids)},'checks':checks,'errors':errors,'hashes':{rel:hashlib.sha256((ROOT/rel).read_bytes()).hexdigest() for rel in ['app.js','style.css','src/module-order.json','release-manifest.json','firebase-config.js','firebase-database.rules.json']},'limits':['Não substitui teste em Android físico, Firebase remoto, multiplayer entre dois aparelhos, PWA instalada, AR ou APK assinado.']}
+    report={'version':701,'build':version.get('build'),'passed':not errors,'counts':{'checks':len(checks),'passed':sum(x['passed'] for x in checks),'failed':sum(not x['passed'] for x in checks),'functionsIncludingAsync':len(functions),'javascriptModules':len(js_modules),'styleModules':len(css_modules),'htmlIds':len(audit.ids)},'checks':checks,'errors':errors,'hashes':{rel:hashlib.sha256((ROOT/rel).read_bytes()).hexdigest() for rel in ['app.js','style.css','src/module-order.json','release-manifest.json','firebase-config.js','firebase-database.rules.json']},'limits':['Não substitui teste em Android físico, Firebase remoto, multiplayer entre dois aparelhos, PWA instalada, AR ou APK assinado.']}
     DOCS.mkdir(exist_ok=True)
-    (DOCS/'VALIDACAO-ESTRUTURAL-V700.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8')
-    md=['# Validação estrutural automática — OTTHI World V700','',f"- Resultado: **{'APROVADO' if report['passed'] else 'REPROVADO'}**",f"- Verificações: **{report['counts']['passed']} aprovadas / {report['counts']['failed']} falhas**",f"- Funções incluindo async: **{len(functions)}**",'', '## Verificações','']+[f"- [{'x' if x['passed'] else ' '}] {x['name']}{' — '+x['detail'] if x['detail'] else ''}" for x in checks]+['','## Limites','',*['- '+x for x in report['limits']]]
-    (DOCS/'VALIDACAO-ESTRUTURAL-V700.md').write_text('\n'.join(md)+'\n','utf-8')
+    (DOCS/'VALIDACAO-ESTRUTURAL-V701.json').write_text(json.dumps(report,ensure_ascii=False,indent=2)+'\n','utf-8')
+    md=['# Validação estrutural automática — OTTHI World V701','',f"- Resultado: **{'APROVADO' if report['passed'] else 'REPROVADO'}**",f"- Verificações: **{report['counts']['passed']} aprovadas / {report['counts']['failed']} falhas**",f"- Funções incluindo async: **{len(functions)}**",'', '## Verificações','']+[f"- [{'x' if x['passed'] else ' '}] {x['name']}{' — '+x['detail'] if x['detail'] else ''}" for x in checks]+['','## Limites','',*['- '+x for x in report['limits']]]
+    (DOCS/'VALIDACAO-ESTRUTURAL-V701.md').write_text('\n'.join(md)+'\n','utf-8')
     print(json.dumps(report,ensure_ascii=False,indent=2)); return 0 if report['passed'] else 1
 
 if __name__=='__main__': sys.exit(main())

@@ -80,9 +80,11 @@ class CoopResponsiveTests(unittest.TestCase):
         js_files=[item['file'] for item in order['javascript']]
         css_files=[item['file'] for item in order['styles']]
         self.assertLess(js_files.index('src/modules/32-cooperative-missions.js'), js_files.index('src/modules/33-otthi-world-professional-core.js'))
-        self.assertEqual(js_files[-1], 'src/modules/38-otthi-world-integration-bootstrap.js')
+        self.assertLess(js_files.index('src/modules/38-otthi-world-integration-bootstrap.js'), js_files.index('src/modules/39-gm-admin-panel.js'))
+        self.assertEqual(js_files[-1], 'src/modules/39-gm-admin-panel.js')
         self.assertLess(css_files.index('src/styles/15-coop-map-responsive-v6463.css'), css_files.index('src/styles/16-otthi-world-professional-v700.css'))
-        self.assertEqual(css_files[-1], 'src/styles/16-otthi-world-professional-v700.css')
+        self.assertLess(css_files.index('src/styles/16-otthi-world-professional-v700.css'), css_files.index('src/styles/17-gm-admin-panel-v701.css'))
+        self.assertEqual(css_files[-1], 'src/styles/17-gm-admin-panel-v701.css')
         app = text('app.js')
         style = text('style.css')
         for token in ['COOP_MISSION_TEMPLATES','createCooperativeMissionWorld','mapClusterLookup']:

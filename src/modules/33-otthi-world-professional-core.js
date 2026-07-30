@@ -7,8 +7,8 @@
  * Não deve ser carregado diretamente por index.html.
  */
 // @otthi-module-body
-  const OTTHI_WORLD_VERSION = 700;
-  const OTTHI_WORLD_BUILD = '700.0-five-stages-professional';
+  const OTTHI_WORLD_VERSION = 701;
+  const OTTHI_WORLD_BUILD = '701.0-secure-gm-panel';
   const OTTHI_WORLD_STAGES = Object.freeze({
     foundation:Object.freeze({id:'foundation',number:1,title:'Fundação profissional',status:'implemented'}),
     avatar:Object.freeze({id:'avatar',number:2,title:'Personagem modular',status:'implemented'}),

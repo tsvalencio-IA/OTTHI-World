@@ -1,12 +1,12 @@
 {
-  "version": 700,
-  "build": "700.0-five-stages-professional",
+  "version": 701,
+  "build": "701.0-secure-gm-panel",
   "name": "OTTHI World",
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 7000,
-  "androidVersionName": "7.0.0",
+  "androidVersionCode": 7010,
+  "androidVersionName": "7.0.1",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -30,6 +30,14 @@
     }
   },
   "changes": [
+    "painel administrativo GM oculto por cinco toques na assinatura e código *177",
+    "autorização real por UID no nó otthosWorld/admins do mesmo Realtime Database",
+    "listagem de usuários, contas, moedas, itens, nível, XP, reputação e presença online",
+    "concessões exclusivamente positivas de moedas e itens, sem função de diminuir ou substituir saldos",
+    "fila de concessões para entrega imediata online ou automática na próxima conexão",
+    "recibos idempotentes para impedir aplicação repetida da mesma concessão",
+    "histórico administrativo imutável com autor, jogador, motivo, itens e data",
+    "layout responsivo do painel GM para celular, tablet e computador",
     "nova identidade OTTHI World preservando a base completa da V646.7",
     "26 pacotes locais de materiais PBR estilizados com base color, normal, roughness, ambient occlusion, height e emissive",
     "avatar modular V3 com estilos próprios Blocks, Toys e Heroes, roupas, rosto, cabelo, calçados, mochila, capa e cores",
@@ -81,8 +89,10 @@
     "arApproved": false,
     "apkApproved": false
   },
-  "hotfix": "700.0",
+  "hotfix": "701.0",
   "notes": [
+    "Para ativar a primeira conta GM, crie manualmente no Firebase Realtime Database o caminho otthosWorld/admins/UID_DA_CONTA com o valor booleano true. O painel mostra o UID quando a conta ainda não está autorizada.",
+    "O código *177 apenas revela a interface; as regras do Firebase exigem o UID autorizado e impedem que um usuário comum liste jogadores ou crie concessões.",
     "O Firebase Realtime Database não foi trocado: firebase-config.js, firebase-database.rules.json e assets/js/multiplayer-rtdb.js permanecem preservados.",
     "Os conceitos de blocos, brinquedos, heróis e plataforma usam identidade original OTTHI; nenhum personagem, logotipo ou ativo de terceiros foi incluído.",
     "Os testes automatizados não substituem validação em celulares Android reais, multiplayer entre aparelhos, Firebase remoto, PWA instalada e APK.",

@@ -93,6 +93,7 @@
     abilities: { scaleMode: 'normal', crouched: false, mastery: { miniDash:0, superJump:0, giantSlam:0, stealth:0, magnetSpin:0 } },
     tools: { owned: ['axe','pickaxe','bucket'], equipped: 'axe', harvested: { wood:0, stone:0, gold:0, water:0 } },
     account: { linked:false, accountId:'', username:'', lastCloudSync:0 },
+    gm: { appliedGrantIds: [], lastGrantAt: 0 },
     safety: { incidents:0, safeStops:0, lessons:0, lastIncident:0 },
     cityServices: { firesExtinguished:0, policePatrols:0, lessonsTaught:0, deliveries:0, emergencyCalls:0, accidentsResolved:0, rescuesCompleted:0, paramedicRescues:0, lastFireAt:0 },
     races: { wins: 0, losses: 0, coinWins: 0, houseWins: 0, bestTime: 0 },

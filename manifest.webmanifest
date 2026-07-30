@@ -1,8 +1,8 @@
 {
-  "name": "OTTHI World V700",
+  "name": "OTTHI World V701",
   "short_name": "OTTHI World",
   "description": "Mundo aberto infantil original com vida social, construção modular, veículos montáveis, poderes, plataforma, profissões e aprendizado adaptativo.",
-  "start_url": "./?source=pwa&v=7000",
+  "start_url": "./?source=pwa&v=7010",
   "scope": "./",
   "display": "standalone",
   "orientation": "any",

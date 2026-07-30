@@ -10,8 +10,8 @@
     } catch { return ''; }
   })();
   window.OTTHI_CONFIG = {
-    version: 700,
-    build: '700.0-five-stages-professional',
+    version: 701,
+    build: '701.0-secure-gm-panel',
     repository: repo,
     baseUrl,
     firebaseRoot: 'otthosWorld',
