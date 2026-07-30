@@ -1,0 +1,256 @@
+OTTHI WORLD V700 — ARQUIVOS ALTERADOS
+
+Comparação: base V646.7 (fundação visual) → OTTHI World V700.
+O relatório lista alterações reais por SHA-256; nenhum arquivo removido é ocultado.
+
+Resumo:
+- Adicionados: 179
+- Modificados: 45
+- Removidos: 0
+- Inalterados: 197
+
+ARQUIVOS CRÍTICOS CONFIRMADOS COMO INALTERADOS:
+- firebase-config.js | 72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd
+- firebase-database.rules.json | 2e61ee7bb249d1056691dafb6f352a291f39fb39ca79880255f2d7fd11b4c79f
+- assets/js/multiplayer-rtdb.js | 087294b5292e368ce7f8df47b2c7d75354349219a059605fa1a0cea0a514a906
+- assets/vendor/three-r128.min.js | 9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2
+- athos.glb | 98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb
+
+ADICIONADOS:
++ LEIA-ME-OTTHI-WORLD-V700.txt | 753 bytes | 4653a873896cb3df4314ef3afe2ef2af63cee0b92575852118105bc349280a3f
++ assets/world/pbr-manifest.json | 10894 bytes | cc15ff9aca4c2c51e8bf90455c736069ad5889b00c3aa2d7540eb81b61205f04
++ assets/world/textures/brick-ao.png | 54480 bytes | fd824927583fd563c813a76d74c5ea52a6e535fdb07a75732150ccd7ab6aed0b
++ assets/world/textures/brick-basecolor.png | 160518 bytes | 259eeed76a160d2fbe07c593fee457e1931cf5b3676bcb229bc0f5ea8dc7b606
++ assets/world/textures/brick-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/brick-height.png | 65848 bytes | ede93663e342c594e62622df8fb69e72dc669f5972d38eb3fb557c5b55ecbd76
++ assets/world/textures/brick-normal.png | 104890 bytes | 67dba394cc9140d98939b2afdec5c860739422f1ee6034bda15f199090a78550
++ assets/world/textures/brick-roughness.png | 167988 bytes | 61b5cf2b335f4239d0787863cda75d95708e3fe2fe798ac54e9a92659f1beabe
++ assets/world/textures/city-glass-ao.png | 108606 bytes | 4df670bd56036571b170e04c309e5f7c73f844c85a551b9714c491772d72bd0a
++ assets/world/textures/city-glass-basecolor.png | 425986 bytes | 0f22d6c13b5d6601dcbddaaa858d1cc871c25c09c73270fc3eb359517e91e7f2
++ assets/world/textures/city-glass-emissive.png | 263924 bytes | 15d30f04931b0f84c2ca69fe949d7f53e1b87475339243ca2cada1e6f8b92f6f
++ assets/world/textures/city-glass-height.png | 161085 bytes | bec56fdd621ca3a6ebe26632345e7f8028f490f25771300b7b958da0c162227f
++ assets/world/textures/city-glass-normal.png | 203674 bytes | 26934482e71b5c5e319be1a095470c8d6c7ebda85c0af1416e232c8259ab2c0e
++ assets/world/textures/city-glass-roughness.png | 167631 bytes | cc4bcc97037a672317a36380701053ad96e33385c7597e2f9eae8ce78357e56f
++ assets/world/textures/concrete-ao.png | 138852 bytes | 9af266307f5694b8c85767f091c75119cebe7d6fc9850e461f1f65080c5638e4
++ assets/world/textures/concrete-basecolor.png | 498128 bytes | b36ba6873b6b01ed082b3ca71e68f214c81c710729d364a99101901a98ee095c
++ assets/world/textures/concrete-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/concrete-height.png | 194128 bytes | e3d20398d7a5c6b94daba9e3fb0e523ffec8499a57f8c0db87440d16dfdef3a2
++ assets/world/textures/concrete-normal.png | 346089 bytes | dbaaf8858270cb0f11fbeca2e39a30be12795220dcbf2469aa8f7d6b4f06bfff
++ assets/world/textures/concrete-roughness.png | 169260 bytes | e88e2391d9bc640d6cfd1cbad94842632b89528e957d986e0d02670efd5b2ecd
++ assets/world/textures/emergency-metal-ao.png | 125961 bytes | d43fc84875cc5a80b032c85e70b963ae7b68548d8b0db5c01d771f39145b1a2e
++ assets/world/textures/emergency-metal-basecolor.png | 460586 bytes | 5926ca4281b9fd4a57ebd92b4bfa482c437d341ce6787dd1279edab00903ddf3
++ assets/world/textures/emergency-metal-emissive.png | 262910 bytes | ec3688248db435948528b206d4feb8129c98c80f2a9f1858625a9076003855f0
++ assets/world/textures/emergency-metal-height.png | 172979 bytes | 74c3df9de8cc257767a95a5b80064f655ee0ebd9beda34821acb0146c59973fd
++ assets/world/textures/emergency-metal-normal.png | 266856 bytes | 2b3d40ee01693767497784feceb3c7ba4599a21310ce272f712be55e2eea7ed4
++ assets/world/textures/emergency-metal-roughness.png | 168211 bytes | a3f7bc1a481128a5572afbf085fbbda6105651b0db90b8ab10a2133bae050b25
++ assets/world/textures/fabric-ao.png | 170497 bytes | a7eec3e1b2dfdfd3ba1bdbc981abda3b12b5f612941ddfadbe76e9b5bbf06f3d
++ assets/world/textures/fabric-basecolor.png | 546896 bytes | f251234d4173d702b43814b5f155581f9bd343745db4ae22849eb431797cd081
++ assets/world/textures/fabric-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/fabric-height.png | 199567 bytes | fe7d69aa3f570ba45d60774cecbb9a86a9ecd5ff1c5834d01394e9da260ea2e6
++ assets/world/textures/fabric-normal.png | 274291 bytes | 2f7541fe57d4ddddc0355661cb700efc0d60455c804826adb6492fec0583bb78
++ assets/world/textures/fabric-roughness.png | 161866 bytes | 7ab81e267f97a2542f2f11227c82ede1c2b2c4f09b4b87ae60cccc4d9ab96319
++ assets/world/textures/fire-wall-ao.png | 39190 bytes | f0952c0f6238dc310188cb19a388b6e182a42037c956d8bfb907b8217c2eae69
++ assets/world/textures/fire-wall-basecolor.png | 199159 bytes | 1efbecf45aaa5a1a5f7e7c75d5c051b9cf44e905bb94c5a3925ffcc07eff4adf
++ assets/world/textures/fire-wall-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/fire-wall-height.png | 75162 bytes | 43034d5c872b160d3878169f0463d2135d2d5961e5816899d1770c0e98f40e23
++ assets/world/textures/fire-wall-normal.png | 140928 bytes | 19d270d14290459a02b51d96ce065428ffbab09e0cd8276239b7c5715e3b4951
++ assets/world/textures/fire-wall-roughness.png | 167996 bytes | c179ab8503526feda8fb1ac2f0a193f7949378f2d623df86a1f4f7bbe178cf91
++ assets/world/textures/foliage-ao.png | 65257 bytes | 4071742221965d17a345cdcba616c06671dca4345edc01d8be452f1f704e5c31
++ assets/world/textures/foliage-basecolor.png | 143888 bytes | cfccf3b34ae37a07dcd53040e3abda684b9d2a2df21f6a1784f543f9a6493c15
++ assets/world/textures/foliage-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/foliage-height.png | 72974 bytes | 76582d314b4f625212fdb58968cb6a065d7730757da36b8cc61d0de745c8045f
++ assets/world/textures/foliage-normal.png | 112671 bytes | f4a59d513ae47e36bc358ea5e4211553b2a81d490e26eb0b780046e60acd4954
++ assets/world/textures/foliage-roughness.png | 165982 bytes | 4cfdaa64f13f91dd26733dfef185022bf12a79dbee9918b855ad46870790f4c8
++ assets/world/textures/gold-ore-ao.png | 147495 bytes | b561f769aa0bed8e4d86cb5f68cb189c9a2c2686a7d7735d56b79aca9f4efa60
++ assets/world/textures/gold-ore-basecolor.png | 695568 bytes | f7cdc2ddbb4fd408d3d558ed09e81e76854535286ac2013566a6568646cb4b4b
++ assets/world/textures/gold-ore-emissive.png | 14152 bytes | 74331fba69e0138084ead9731fe0c86095bfe1e9fb6006653c0324dbb1c8e05e
++ assets/world/textures/gold-ore-height.png | 243757 bytes | 6c00f843a51001768d1d35133dce972a7358050f381e3cfecd5b2346590c4cc5
++ assets/world/textures/gold-ore-normal.png | 558826 bytes | b63f7567f9b7e2e88f90854b52e457ad635758dcfc8536fe13cef09792a94122
++ assets/world/textures/gold-ore-roughness.png | 172580 bytes | cd87ca6b589f1896f155e777142c3cb1d0daa89b08fd14880fd7f1c445ca6209
++ assets/world/textures/grass-ao.png | 184224 bytes | dd3bd1f2e3748cc7c11a7402792bd4dd91c6475c9f8e44ce787c1c6067155def
++ assets/world/textures/grass-basecolor.png | 629714 bytes | fff008c558950c5d88f9fe600dc08555b743cc441baf18abd7bb547444a40c7d
++ assets/world/textures/grass-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/grass-height.png | 229076 bytes | f36a790f7029438df4a4fe6444d57060d53f6d33ff99546f92c51c5433151665
++ assets/world/textures/grass-normal.png | 395193 bytes | a33ff136e53982c310147c187e2f915ec419629e6e5692bc9f73ecac6affa745
++ assets/world/textures/grass-roughness.png | 170943 bytes | b7e6042ad16b509f85590c3e1bad3297082c675719a976c16967898aa48fe639
++ assets/world/textures/hero-energy-ao.png | 53167 bytes | fa974fa479e73174dca826770432d2bb51947a53ea3504d907976505052a4b21
++ assets/world/textures/hero-energy-basecolor.png | 150679 bytes | e9e4bd53784dc5b95be3dd5d2eda72847e5e8cecb9cbfb4b2389e2081aa575bd
++ assets/world/textures/hero-energy-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/hero-energy-height.png | 67638 bytes | e1f45d2eabd7f0a8c66626595e21cd5dc969db10e0a249ee5100048d3ca6e7e6
++ assets/world/textures/hero-energy-normal.png | 70137 bytes | 578da2d9a6289165017d54400bce23da4698f99d5f34a36c056efeeb585bd24f
++ assets/world/textures/hero-energy-roughness.png | 167015 bytes | 6e5ca3e68dd9836da354220a3ee366f600b60c07675d11017e2d50aeb1ee5099
++ assets/world/textures/interior-floor-ao.png | 35757 bytes | ab60ab2cc0e1dc609e57a3a5af705bb14a00b2433bc3836c1a67249263ff0b84
++ assets/world/textures/interior-floor-basecolor.png | 226186 bytes | 0370ba7310ea778bab52977193fe2c0e825cd9fd66d91448c65be1ca7eb1b7ae
++ assets/world/textures/interior-floor-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/interior-floor-height.png | 90837 bytes | 3a397afd0663a50151de4eeb7a1f7046e5b526e87024f48c8bf08806590e5d84
++ assets/world/textures/interior-floor-normal.png | 164088 bytes | 97408c4c1e6eae0ca32971897b3b45a8d99e8638354cbc8c96e15738f76eb6e2
++ assets/world/textures/interior-floor-roughness.png | 168891 bytes | 2490bf97e12f8d3f180c7c50afe8c17c0f1181dd64671bfbcbfba4f60c6d525f
++ assets/world/textures/interior-wall-ao.png | 118080 bytes | cdeb3a83f4c8566c7fa874af9f446a509adbdc57a9a2b64770eced660ba9848b
++ assets/world/textures/interior-wall-basecolor.png | 557871 bytes | 96bc5277acd8d7f563f439e852a5b7e8e94517a4982a0c575979f9987807ae02
++ assets/world/textures/interior-wall-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/interior-wall-height.png | 206917 bytes | 282b5ac2142c89477c816b461f03658d35a0c2506dc89ea1b94ac42912aebde8
++ assets/world/textures/interior-wall-normal.png | 303573 bytes | 17596975132e1ce9888454e9bccd0f93aa146b0d5452fda2e759351d522eb893
++ assets/world/textures/interior-wall-roughness.png | 168507 bytes | 7cc6d88c6e0dd6151d0cb625ed0082f73de47ce7dfb586212227db7ba2c75e09
++ assets/world/textures/market-floor-ao.png | 22538 bytes | 469c965767046ea0d197b102de2f90fbe4f3dc2d833ac5cf014db3fb98cfbe83
++ assets/world/textures/market-floor-basecolor.png | 268032 bytes | 1abdd03238be0947d139db6dde757013270df57a414817aa122ee03981caf7ae
++ assets/world/textures/market-floor-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/market-floor-height.png | 83879 bytes | 08b552c02dc651de9d979937701a4bf1ae9eace35c03d5fed64f7376782a95ca
++ assets/world/textures/market-floor-normal.png | 158147 bytes | 7dd9ffadabb516e0fb651ad67da4317f0d28e157e1615ca9ee09f7a46b8ae746
++ assets/world/textures/market-floor-roughness.png | 170481 bytes | 4c06e79edfa42d9ef91a6a40e2e124f0fa3a3b6021d58accbfa01a249944fc4a
++ assets/world/textures/market-wall-ao.png | 25857 bytes | 0e985329b1171bc28ed965d53fd3d4745ffd77905b4ffd8dfd090974dabc321e
++ assets/world/textures/market-wall-basecolor.png | 211568 bytes | 4e2bb42dcb9483724f401c21ebe0860f5621d019ce995048ac331b1ffb43918c
++ assets/world/textures/market-wall-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/market-wall-height.png | 56584 bytes | 9a33737d8f032389fece532f129e8094ab93fe7897f8ef90f3220ceeca9accb8
++ assets/world/textures/market-wall-normal.png | 105845 bytes | a46096696cec74ade4dd354fd5afc6ce5a1abd4af484dfb6532d067d14d99d49
++ assets/world/textures/market-wall-roughness.png | 167715 bytes | 57758bc3a3edf932a105cd48bf6e1716e7549253fa97812d743bbb8e363ff7a4
++ assets/world/textures/mushroom-ao.png | 53062 bytes | acd43920f51c42f44a12c3d48fbd64d49e9b64b784804329a826089a9da79da5
++ assets/world/textures/mushroom-basecolor.png | 140534 bytes | c543eceea0916137743b31d6696440b481d377e8606a3a6126594d2893bf8bed
++ assets/world/textures/mushroom-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/mushroom-height.png | 51164 bytes | 384760af30de09737b3c716b329619e2b1297fd26141efdf351473a3c6dbea39
++ assets/world/textures/mushroom-normal.png | 87654 bytes | 880b08da5ca8505baf94e6b29fdd60f710472f7f8e3d93104d9e98bc84004373
++ assets/world/textures/mushroom-roughness.png | 167493 bytes | 8fe98768d05905eaf6303208756a6a3f475005ac49066a735c675820924a269b
++ assets/world/textures/police-wall-ao.png | 31715 bytes | 1228d34529a29098aebbcdaf4a080452fc41b300b9061cbc3e50495de667bc05
++ assets/world/textures/police-wall-basecolor.png | 222401 bytes | 8bff47448f812c6b0676695bd6e9ce341fa4c1b028b3f79cca8e8e562b5426d5
++ assets/world/textures/police-wall-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/police-wall-height.png | 59507 bytes | 60b8f17cc9a5a461dfa5aa893eef9047927deeefbe5348ba1cc66d1eeac1936a
++ assets/world/textures/police-wall-normal.png | 119111 bytes | 380e3d67caadf0f53128472bb0e8a0a03485086772b1598b4ae42a7d0aaae5d8
++ assets/world/textures/police-wall-roughness.png | 167960 bytes | 8866a558dddbe2c1f65275d9cca15d78c39c0b929d137f67b7dea60ee9367d5d
++ assets/world/textures/road-ao.png | 181880 bytes | 7fe99bdb7882315478811efde860d3767c415e764a39f21ea3d0b647428684a1
++ assets/world/textures/road-basecolor.png | 571565 bytes | 0ced161c61bc194661fa7f331127b7ce05973274b3093127ab94755c4a02771b
++ assets/world/textures/road-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/road-height.png | 208887 bytes | 5f87fdff2a77b23a538c950faf0936128715287935105123bd09a2ac60ff24d8
++ assets/world/textures/road-normal.png | 386040 bytes | 4aacfa048d737abd7ca31e272264d10fb458eeed82e5c61f9317a768d40b9d13
++ assets/world/textures/road-roughness.png | 169520 bytes | 5398bbfe3ca224a624ce88ed368ddab2a540afb42b7ccbe330918e5f0efc16c4
++ assets/world/textures/roof-ao.png | 59309 bytes | f5eb73ae5da3a3baf000cf146a795d0f8149562de74b71f268cf94686157e346
++ assets/world/textures/roof-basecolor.png | 220885 bytes | 75a31b9ea871d39d2690280b9993f41d6f7f42387b3c162370b81000d1efa7ec
++ assets/world/textures/roof-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/roof-height.png | 91281 bytes | 812e861bb06c5b57e7e8b00b558b9cac2366b1439880bad9046935d62654cc3b
++ assets/world/textures/roof-normal.png | 159719 bytes | a0645f594abf0fb9771b6790cef9846d30901022db64436be1bb84b41a8070fb
++ assets/world/textures/roof-roughness.png | 167608 bytes | 30da4877c1d976defab9db6c259c7b488a7514ec2a35d71e8962cc4ec696b2c0
++ assets/world/textures/school-floor-ao.png | 63465 bytes | c4dd04f5cc09fe76cb2add464cdbf0d0553e873453b2b1142080eb07d0296113
++ assets/world/textures/school-floor-basecolor.png | 214791 bytes | bd2ad2663791dd131af87bf2136784c8aa10758d79ad2e2a0e2fb69090350712
++ assets/world/textures/school-floor-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/school-floor-height.png | 81244 bytes | d7b7be051eef50ca519ff6bc32987dc2869ea2ce78e10b074935cda937447905
++ assets/world/textures/school-floor-normal.png | 119301 bytes | 1373316c2758c2fd5a1f2a1501457b9f736dd9853d0f3ff66b72823943143f6a
++ assets/world/textures/school-floor-roughness.png | 167895 bytes | bdf5326cb8be6b36bfcb5b123bbc0e09f8e1769df93cb4c5c4f8f3f356c307f3
++ assets/world/textures/school-wall-ao.png | 114197 bytes | 1ced1f11287c14161dd9e1cd00da2e957064071081f8bec979501a9267647b1f
++ assets/world/textures/school-wall-basecolor.png | 543316 bytes | 6d3434a956823f904042fb20d3edec078c30cb2aa77851941a293ab669979636
++ assets/world/textures/school-wall-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/school-wall-height.png | 196628 bytes | 1768797b2d7c501d3713026f0f55faad6c9c27494585be0c023a370f6ebd0ec3
++ assets/world/textures/school-wall-normal.png | 355127 bytes | a02104b886f0490348ef449d5f4edda6a9d90681fd9be2d4bd44fdc1b3de92c1
++ assets/world/textures/school-wall-roughness.png | 169411 bytes | b1a0e41f7d9bcb8a66a344acb75d78a424d9e6b4cf7ad464479a31e153e0ad71
++ assets/world/textures/sidewalk-ao.png | 115757 bytes | 9e4a74bde5791d362ae65dc6a1e3e4a98df451cc0dc8164943f6ac5d82592dee
++ assets/world/textures/sidewalk-basecolor.png | 596359 bytes | c8494e910e27cfe89af9b7649bba500cad13f623dc68a0df1db1bb730bc82824
++ assets/world/textures/sidewalk-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/sidewalk-height.png | 214816 bytes | d732baa5d378953da1d1d90855a410db77db95da25ac358569bf102a0041607b
++ assets/world/textures/sidewalk-normal.png | 349859 bytes | 620bff204abfebbd2e4c365792b714fcc3eefb1623837ea632c99415959c8acb
++ assets/world/textures/sidewalk-roughness.png | 167274 bytes | fffe604a961db41ec352fe4d505dfaafb76114960bad23436030c71b06ae8a04
++ assets/world/textures/stone-ao.png | 170320 bytes | 0acc8c2ab7e23c1f66338168d5c151ef9ad347cc1e972e35fcab1d0426282914
++ assets/world/textures/stone-basecolor.png | 654070 bytes | b36cc25c61c27c3a25bbec47feb5208c6f46da9cbdf98d5bd320871b55dc1358
++ assets/world/textures/stone-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/stone-height.png | 235031 bytes | c9cf8e9d595b72ee46f50f74b4ac3272e6b6de571f058a3f8fa21fe4b0ad19c0
++ assets/world/textures/stone-normal.png | 523154 bytes | 955f4148ca57bec3a8036e4945cf11a1b2ea77005cfff73501be553c255c2c70
++ assets/world/textures/stone-roughness.png | 173423 bytes | 45ff320d94542bba0c41f6b4b8e8a8a131ffd5c412394d768fa88dfadbd6e8d8
++ assets/world/textures/toy-plastic-ao.png | 42182 bytes | f73df1d848ba338da53489e6efea2f3dcbba05696dcaf45a1f3f09d14cbda1ae
++ assets/world/textures/toy-plastic-basecolor.png | 135527 bytes | ead7e7fbd3cd43367d1bb4cb3bd877e8398ca282e39f46e355d86970216ae6c5
++ assets/world/textures/toy-plastic-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/toy-plastic-height.png | 61244 bytes | 0704db3620c3c97bc35e03146d5b49bc7a17d110ad1592e8c6b97c6cd426330c
++ assets/world/textures/toy-plastic-normal.png | 52930 bytes | a68e04c4f11cdabdab4200f02a1e986db26326eaecd9cb8860360fce381c7ed4
++ assets/world/textures/toy-plastic-roughness.png | 167236 bytes | d43c8437c0226b84c95d272d01ab87262fd72065311c9d33a5fa184f6cc07d74
++ assets/world/textures/vehicle-tire-ao.png | 19399 bytes | 99f5e32100a377f0934c3cd365d8a309bf73e13b49cd9a7750de56bafdf6bdf2
++ assets/world/textures/vehicle-tire-basecolor.png | 61607 bytes | 6d74f3e4af4fd69351dbec7a7631b19f95c0f17b2b0789b84bd0f3ba127f0f89
++ assets/world/textures/vehicle-tire-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/vehicle-tire-height.png | 30832 bytes | 1f8f32e39066a3e367e0f3010a18c4d5018bbc2ee1288abc561a60b0e26ed6b6
++ assets/world/textures/vehicle-tire-normal.png | 54096 bytes | 9b8578bace466caf6267df5bc24bc267d1d6fc2743d95be297dc62041d797109
++ assets/world/textures/vehicle-tire-roughness.png | 160674 bytes | 66d9ff716a42eae2da7b8f95ba1549f8a473c5a4de807bdf2417f76da25e55d2
++ assets/world/textures/water-ao.png | 66979 bytes | 44fa5c4b269107be334228a8ad70cc6cb58e57070bfbff7f3cbc7498ca05964a
++ assets/world/textures/water-basecolor.png | 177037 bytes | 77108f20bd09874b9ae98a1418a705105282506339dd3f07f12c2340cb1202d4
++ assets/world/textures/water-emissive.png | 117087 bytes | a01ae9c9ae4b967cf724bf598496138959b4ab6e90d7e504e2d3f28a75a57c2e
++ assets/world/textures/water-height.png | 76658 bytes | 1ad627d4881ea4f09806594ff9c541f297235580ed2ca96e8d42d5db1b5ad32b
++ assets/world/textures/water-normal.png | 52580 bytes | 2cfd26d1189b9c9d380120448cef431d01269c28143ec42c238c3b1b933d57cb
++ assets/world/textures/water-roughness.png | 167162 bytes | e8c54556b59ccd844447a2c6326335c62d5a8d9fdf9941f0049f091fc50a31b2
++ assets/world/textures/wood-ao.png | 39209 bytes | 06d3095b8a7c0d691b61b92216428829695cf2d924367c2f79807c8edd7c4c5c
++ assets/world/textures/wood-basecolor.png | 168968 bytes | a357f3a46a453b821d0d9629604a133535b949d7ba5d9eab5488ceb1b99d2ae3
++ assets/world/textures/wood-emissive.png | 842 bytes | 57b5e40e68e97c62837b9d0a5a8f7aac22471c1633897f9bcf4fa62864ecc974
++ assets/world/textures/wood-height.png | 76060 bytes | bb9e158750d30ffc5948c5573910c0b60ba9bac685e50c027e8e4429b01808e4
++ assets/world/textures/wood-normal.png | 117102 bytes | ee45edaa874ffb3b3f239abb8c3ee5197b0e5ab69434b6e86b0b39071d34b36c
++ assets/world/textures/wood-roughness.png | 167556 bytes | 172968fbf85537cdbc9c49a62dbab5e8dcda4c33843117faa6214f5ab695d728
++ docs/CHECKLIST-297-EVENTOS.md | 125880 bytes | 64e442ff4af49ee418363e50da7efad63555a93d67388a282f51b546ded28ef4
++ docs/CHECKLIST-769-FUNCOES.md | 107845 bytes | 0c4dfffc24e8715c6389c9fac0cbbdbcd69e1891c3fca304bd088cbbb1570034
++ docs/GUIA-NOVO-REPOSITORIO-OTTHI-WORLD.md | 2458 bytes | 2d6bd717cf4aeed35e42b761241ab4b6491efd81e2a7d27585dc6b078d72d6ad
++ docs/RELATORIO-ENTREGA-OTTHI-WORLD-V700.md | 7636 bytes | 0de5f651cf5e4c7b3788d8159b0f01be672a97be85766b471000e498444987ac
++ docs/RESUMO-TESTES-OTTHI-WORLD-V700.txt | 877 bytes | 1fd10c3f8fcf83122ed6ac3bdd2f2ac91b8fe2797c79f9396238842d07e473f6
++ docs/TESTE-NAVEGADOR-OTTHI-WORLD-V700.json | 16773 bytes | d5c9cf160b7fbd71431bc52728a28aa24f4514ffe88129cb6518d52d455b7607
++ docs/TESTE-NAVEGADOR-OTTHI-WORLD-V700.md | 1329 bytes | 572c3b8246ae8f52de43e4a97bc95792f86e57e43026cc06dfecd041be9ce77f
++ docs/VALIDACAO-ESTRUTURAL-V700.json | 43068 bytes | 14d92ad73d1e8d2575b5eb76e292d1488aec143802fbca626f3737cb6cd995e4
++ docs/VALIDACAO-ESTRUTURAL-V700.md | 29979 bytes | 5101d4b5d9068a8d57f31284877235327014f882ef7724b4a2f75ad2b0f5de7e
++ docs/VALIDACAO-OTTHI-WORLD-V700.json | 6785 bytes | 0ec797b5d5bbc5b0f0dda6174d90829fd7e7cbd4ec4e2258a86bf719087fb093
++ docs/VALIDACAO-OTTHI-WORLD-V700.md | 2859 bytes | 51ce9f021ba7d558ed0def2fbe38185a413a35985d0f5c17f14bf24f25c90707
++ src/modules/33-otthi-world-professional-core.js | 13252 bytes | 045d7d193fb923bb7a0b2f63eaf975645aa8afa0288f146c33f8830a8a3c16d5
++ src/modules/34-avatar-studio-professional-v3.js | 14349 bytes | 2c3e6daf070a47bebbc85206153aab8ca2dcff15d01145827daa81977bb0f1f6
++ src/modules/35-world-render-pbr-environment.js | 8843 bytes | f9978d061f761c2b10ef3c9e28e8e26bf1ee0f42dc53232d671de5d18b2bbd17
++ src/modules/36-modular-build-machines.js | 19436 bytes | 29ebd9d4a1088b9caa3d7e21488eed3b3c003e6cfb5fcb500aba414f1d3b4bc1
++ src/modules/37-hero-platform-gameplay.js | 13250 bytes | 5142ef7845077c52ebe41ec83192c6b8c9e926acad163fc80e74077891d32afd
++ src/modules/38-otthi-world-integration-bootstrap.js | 2250 bytes | f63e72938f8af0955003647c29ff1165af00b92ed64a00eeaceec9eb23499b56
++ src/styles/16-otthi-world-professional-v700.css | 5123 bytes | a2ee3cb26b60ac0a348f80f34369a02ef1e955f67637537a7183cff95fd335cd
++ tools/generate_otthi_world_assets.py | 9559 bytes | 93d216f1732f045e25cf58745d0453e58401b5342e178438e90d84d9efe24d9c
++ tools/test_v700_otthi_world.py | 7976 bytes | 7863dcffd25ef87b6d77581feada007d0689816cfd50fa52a469aeecb9a76a23
++ docs/ARQUIVOS-ALTERADOS-OTTHI-WORLD-V700.txt | relatório gerado ao final
+
+MODIFICADOS:
+* .github/workflows/build-modular-app.yml | 1309 -> 1371 bytes | base f2f80fc66ff1b801db12036fe4f94f8b676a5013b5c81dc7cc7da8a890e52402 | V700 ea52369710bf120b4fc144ce684a1c1154182b35d2dbc63f7131fd1514a76296
+* .github/workflows/gerar-apk.yml | 4223 -> 4239 bytes | base c455e2ab7d2589c906ca0f64b6177a66b21433c304991b659da32d60de21e8de | V700 163631d4deca6d51aeb78f4af43151020c54cca3a6856c60ace2034426ca69a7
+* 404.html | 269 -> 263 bytes | base 73c4711a3387b407c67b2dd6ee406c45eee87ec4789d529886e7b9e26530dbb1 | V700 b841299f81726357fdd2a908d41f53f2c8c00633ca0e486fbabc77ad511a3942
+* COMO-SUBIR-NOVO-REPOSITORIO.txt | 1095 -> 2791 bytes | base 60e91ae2ee9d186e18ec972112e16a90280f213c6aa01cba69c461f56265cbd5 | V700 0af72b93a425a9de74d228174a82b1073f2b321e2d9bcef689f807a161ca714b
+* README.md | 3756 -> 5140 bytes | base b7c9bbb854eee2615373114b6e8ed0cf24a363512054c00842b08c266e9f2e1b | V700 6c2c7a0e919f7747a5476fb4a174f0dd927fdf444db78c8f98241df3cba83d44
+* VERSION.json | 4726 -> 3678 bytes | base f1c281f56a657f68304ad2ed50164d0758957ada8fe1b8abad9b09692763e6aa | V700 4af1a3e7cf18cdb829058b0b855daad470887e78e7061eb9949318172afabcb5
+* android-app/app/build.gradle | 620 -> 619 bytes | base 992b317ad5d5bfe78ddf044baa5117800efa93807083d70c3bf5de043ec46b47 | V700 b4173cce71a8b506c6b9a9c49dd681a503a8869429361ff5d38a50936e46422f
+* android-app/app/src/main/res/values/strings.xml | 351 -> 343 bytes | base b32cdea47308505d020516db32c2bfad61b16920387cd8c1f532e5ed1ff353d9 | V700 439adfc64f31c06349c6ea22a5e34a0df38281527cb285999921a9e3d8f13ce7
+* app.js | 746413 -> 816991 bytes | base f229aa517702af804869f7461992e66fcd1f352a86ee46ed507d973d96de8875 | V700 7c6ca3107e5c00388eb845fce10a613de07ea3d9e637536abd7b9cf18fc4f674
+* assets/js/core/runtime-config.js | 2017 -> 2020 bytes | base e9895fc3be5080de2423160a146323e21f0c1322f77df48f697f0eaafc4c9a6a | V700 48d4923ad8d7e0cc92152c576966e23fe813387aae4d66e68a9d7ddf750ca0af
+* docs/AUDITORIA-ESTATICA-RESUMO.json | 9104 -> 10661 bytes | base 8c956b7ab73b58b0251b4717eff185e89b3ea2ca3bade0cf8f6f5eb44776a1a2 | V700 a575473983a9f1412daf9f736cf5921c56f9c1d308b377e7a1fb4ce366e15604
+* docs/AUDITORIA-PROFUNDA-RESUMO.json | 367 -> 367 bytes | base dfb8cc4e0f6c4692a6c034533277e2ffed954043efd87464d744854b794a56fb | V700 2f3d4795ea60ebeb0719c9af90d85611d788bdb83331243dd5adb1703947ba14
+* docs/CHECKLIST-COMPLETO-FUNCOES-JOGABILIDADES.md | 9777 -> 10704 bytes | base 72d11b5902ee47f84244981b9a729ac6060439743afc9135853743fe2ddd65c7 | V700 d495c643efcf4c420b263b0da84bb938fde3cdfd9477d504920d96cb15aca1db
+* docs/CHECKLIST-FLUXO-IF-ELSE-SWITCH-LOOPS.md | 1488925 -> 1593386 bytes | base fca866f46caa3282949f77fce55b7c7badba05b643d1e0b5800ada16200f6c8c | V700 c3f55ef96d43f12bf255f9f6eca180322c432f181f45b170c342cde0576517e9
+* docs/DEPENDENCIAS-MODULOS.csv | 49935 -> 65076 bytes | base 0217822f3d8cfcb26f6e5db02f1adefb72617148f925df1299dd97bb0c9bbf86 | V700 2cbbd21036ee8c795e8f5bda1dc7a9f146501dfacd9492d76cf68377dc1e2f81
+* docs/INVENTARIO-ARROW-CALLBACKS.csv | 467003 -> 492998 bytes | base 594a6964a0e741f93416035ce2cf0e614a1240b45adaa68ee5b6b8d6e48d2fc2 | V700 397bbabaeedf4819b32442684ab6244ebff0503d622dbc6627bba508bf245922
+* docs/INVENTARIO-CALLABLES.csv | 58483 -> 63510 bytes | base 045b2275baa9bea18c97a6f4ec1854de3a94c3c647c9181d6ac1dfd4167f2980 | V700 7f279cb47207e97bfd4024ba49f295e10d5868093608446551a072d4441d6bce
+* docs/INVENTARIO-CONDICOES-DETALHADO.csv | 1480688 -> 1584948 bytes | base 18bfa33cc2bc6934ef1a76e77e81f7adc53098afbeaed7abedf797d6e303f638 | V700 fcc010173ca246c84ca991934eb51f03506aa5a1f117151cb5748343f7e9f381
+* docs/INVENTARIO-CONDICOES.csv | 477400 -> 527667 bytes | base 968fd181a751adb2d71545a639ccbf245ae662092b6c49136976747475aaecb6 | V700 2801ef9d2eb0a316914de96220162770805a2779d3c4ac4d908821c152249fd7
+* docs/INVENTARIO-EVENTOS-DETALHADO.csv | 120505 -> 127174 bytes | base 74dc2215236b73706d1fffbdccd48c50c51512fafe11ae28be1f848c8f2bd30c | V700 c505d1d6b6c30df3896c50ba30375cbfc5defc733a32ba013ee97ea234060998
+* docs/INVENTARIO-EVENTOS.csv | 62646 -> 68554 bytes | base 001de2b435005a72784968cc59e5249a56430243687c86e5e531637de2a8cb4f | V700 993ea9be51731b5fe9793b9bacf09027d964f08ab31181b7a4617f632e96aa0d
+* docs/INVENTARIO-FUNCOES-DETALHADO.csv | 191302 -> 207300 bytes | base 32902abb235a27d13e37fc7c68ace43fd150a63b72a63a0ab43587b914a7bc5b | V700 149819e4e2ce7dbcc839f997eab9279aed3c426e26f4ddb029a856bc3e63b223
+* docs/INVENTARIO-FUNCOES-DETALHADO.json | 440929 -> 477308 bytes | base 3244d303d244e9bf670fcb121f0255306c3f8ac4c4f71ecfda859fd8643b0579 | V700 71152eb6b55ca6a0252a86f17d200b869039ef419fe345aca91e6eb5d236b5f4
+* docs/INVENTARIO-FUNCOES.csv | 142208 -> 154249 bytes | base e57560499879437ef49a5e905266ac4f503a87293e305c565b2501e0f760eb75 | V700 e82933be06ba458f06b73734af114a821e0d552cc9585986d7353191ab92ac28
+* docs/INVENTARIO-FUNCOES.json | 358439 -> 388125 bytes | base a8b282f8d19fa3b8482357d8ee942ed04d7d3cdf634cd0f1bdbc78d1e2dfb00c | V700 d5d19fd2f07516ff28ce3fe63e88de108b2dc92be2c838e8254ae9741771a415
+* docs/INVENTARIO-VARIAVEIS-TOPO.csv | 16542 -> 18371 bytes | base 162f4e94c9a4ea36a549dc6b0c6fcfaaee45e55ba7ec8695d27ef51973f44aa0 | V700 28e9370f62b7ccdfabab710318caeb06cdd6ce7148de164bd3d512dead27ff15
+* docs/RELATORIO-PRESERVACAO-V642-V644.json | 10772 -> 12518 bytes | base 9a081bda86d7d27521dbd5362490d4a24bb138d6cea80014add1f4200983006a | V700 4e79c04972602d33b4160aa640eafb36682401fb5e6338bdaa21256e30514917
+* docs/RELATORIO-PRESERVACAO-V642-V644.md | 7215 -> 8888 bytes | base 4b4b7ff9740e13dea7325f34d38ace1307e5ced6e5488867c5600dc0306029d6 | V700 e566bea2a6297a21825729ca204a07833b02352c2ecb66b02f3c030aed7c78fb
+* docs/RELATORIO-TESTE-BAIRROS-V646.json | 10386 -> 10386 bytes | base 795508a3e59f5e5289cf8a9fc6206173a66f477cb786437a3b8d47e9aa1b1002 | V700 15b0f84b53efbcb4518343dc91a4eb1584e21bf35acf042dd6cc64a4b7808304
+* index.html | 14285 -> 14277 bytes | base 61b95b4798b0d8e88a54d6c55661c6aebd1335b45b9b6de0d19bd20549aa00a0 | V700 635f4e6ed0a6a004a6fd9f58821538568640d2a22810b07d5904b38a0380dcdc
+* manifest.webmanifest | 774 -> 789 bytes | base 85cfae7863b77c628c3de5e9007c5f7f08a773295ab4477619e27ce4e9e706ab | V700 731ed74d917c32230f190dac1ecd4e0220f49dd134b9c2f8f5bf49ecb86e0432
+* release-manifest.json | 2130 -> 2127 bytes | base a23df567314be8ad51d01901a80c9fb5825124385066247ccb8c4308092ce46d | V700 5957d60a92fa6cb2cdc3a3d173478ad717494d64d56ddd52084d217bda91ca65
+* src/module-order.json | 14607 -> 16712 bytes | base 533af074de5fd8c1a7c780044c23546f860d21ea0ebe60a7d81031c075623a04 | V700 c5fe750d7ba1284ac2c4cb1e8bb352260eaaf992de1c5119167524bdaa82701d
+* src/modules/00-runtime-foundation.js | 4838 -> 4869 bytes | base 3cb93457034f0fca8f396503c29f643ce79efd7a9ea3ffe814cd4c3e78647600 | V700 3c0d40970cdf5559bf064e8421a720fd0769540299a75edb07d680493d6c97bd
+* src/modules/09-responsive-ar-quality-diagnostics.js | 24136 -> 24134 bytes | base 07afe3b0bda9c473dbff4af3ce666aaf6c55f49dc7af830aad17ecb380682007 | V700 6e01b50e13df463423c7c668bf38d7bc145406b9ce8b5de991fb77c6c59149f4
+* src/modules/29-game-loop-controls-gamepad.js | 16112 -> 16272 bytes | base 66ce1adddd79527d1937defc70a313a049d807cfe5343791928dd40e9c7b5331 | V700 ff2e94f9ee7dade60cc627eec1f9367423fe9c1a0fc05325df168df51d70299f
+* style.css | 201122 -> 206215 bytes | base a4fdba497367197ebb1ee24e8da9f25863dbf94b46852bcfd686bcb8e12d73f6 | V700 5bd67c3cd3ff94989ce2515218eeecaba3d67a865e7bd1a8bff54eea2ef5c7d2
+* sw.js | 9761 -> 9796 bytes | base 21322bc01c0e340e14d07015c071729ead2afd48ebada46f9e9d9dcc3e4ed9bd | V700 38761d46f5b5feb20f49e943a1f19c991a1def03a20222f1c4884ff4e590a446
+* tools/build_project.py | 7714 -> 7713 bytes | base 6eb845fe528535c5814d8b76c0edfa2d7ce0146abc6e734af26be50e9636a9cc | V700 77cc876ca9f7a9d5a6dd0833b9d268c37a92f616b91acb0bb36469d9eadbebb1
+* tools/test_v644_neighborhoods.py | 6788 -> 6785 bytes | base 0bdbbf5bfdcce89ab176e724d3526435fea52557fbc6d441e6f024a9cc2fa699 | V700 fac0df5f5823956cd04d2e32b55613254f987874b7d4f34487c24f3c663cbb8c
+* tools/test_v6462_commercial_polish.py | 4586 -> 4812 bytes | base c788c0519ebb8ef4174e12ea83dff6ab1539ac2a310978083ab797392bdf91b7 | V700 1d9c8c148a919a84c637854d1d09dcfa921f748cdd6765cf533bcc2f318d83e2
+* tools/test_v6463_coop_responsive.py | 4595 -> 5009 bytes | base c52fcd7ff51a473427d24ba0f9a6405240a1dd753c42d07d073b78bb58e6610b | V700 92de0923c643873a4484867db6ea958cc5f6d08fea7fc1f0649cba58f65f9389
+* tools/test_v646_runtime.js | 8565 -> 8562 bytes | base 44016ada1122c1ce86b6979a54649fa04c862a92314e554b5d29782837a028c2 | V700 8ab68bf272da1eb3d3f996bc0eea212eb204c71675df0dfc0ca5b8f03222e34c
+* tools/validate_project.py | 14555 -> 9370 bytes | base c690289ffcb4799fe523b991a97dbcd3f210b7e1bf8551a16475536e472f7590 | V700 8b19aa4dd7968547dcb665b18d1d6260f0d058b179890c65ffeb32e3a73e3d35
+* tools/verify_equivalence.py | 6085 -> 6152 bytes | base d7fad49bd18bf436e140a0006facd716e809b05f43fcc61f5e1bafb8a2862405 | V700 b66118656b35194dadefd777f89fcbc5152316b6fe165af404aa20ce472e1a68
+
+REMOVIDOS:
+- Nenhum arquivo da base V646.7 foi removido.
+
+OBSERVAÇÕES:
+- app.js e style.css são bundles gerados a partir de src/module-order.json.
+- Arquivos históricos de auditoria permanecem no pacote para rastreabilidade.
+- A marca interna OTTHOS em chaves, pacote Android e raiz de banco foi preservada quando necessária para compatibilidade.
+- Alterações de branding visível usam OTTHI World V700.
+
+Powered by thIAguinho Soluções Digitais

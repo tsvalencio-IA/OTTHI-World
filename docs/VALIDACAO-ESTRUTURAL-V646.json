@@ -1,0 +1,1063 @@
+{
+  "version": 646,
+  "build": "646.7-visual-foundation-avatar-v2",
+  "passed": true,
+  "checks": [
+    {
+      "name": "Arquivo obrigatório index.html",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório app.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório style.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório sw.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório manifest.webmanifest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório release-manifest.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório firebase-config.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório firebase-database.rules.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório athos.glb",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório VERSION.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/module-order.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/build_project.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/verify_equivalence.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/validate_project.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v643_mobility.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v643_world_systems.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v644_neighborhoods.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v646_release.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v6466_permissions_buttons.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v647_multiplayer_missions.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório .github/workflows/build-modular-app.yml",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório .github/workflows/gerar-apk.yml",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório android-app/app/build.gradle",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório assets/textures/water-ripples-v643.png",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/31-neighborhood-world-controller.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/styles/13-neighborhood-world-map-v644.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/styles/14-commercial-responsive-map-missions-furniture.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v6462_commercial_polish.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/32-cooperative-missions.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/styles/15-coop-map-responsive-v6463.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v6463_coop_responsive.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v6467_visual_foundation.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/00a-visual-foundation-avatar-v2.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON src/module-order.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON VERSION.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON manifest.webmanifest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON firebase-database.rules.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON release-manifest.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "34 módulos JavaScript",
+      "passed": true,
+      "detail": "34"
+    },
+    {
+      "name": "16 módulos CSS",
+      "passed": true,
+      "detail": "16"
+    },
+    {
+      "name": "Manifesto JS completo",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifesto CSS completo",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Ordem JS corresponde aos arquivos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Ordem CSS corresponde aos arquivos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Versões centrais unificadas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe app.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe sw.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/00-runtime-foundation.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/00a-visual-foundation-avatar-v2.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/01-build-persistence.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/02-state-save-cloud-account.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/03-ui-modal-install-pwa.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/04-education-daily-quiz.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/05-avatar-life-customization.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/06-missions-profile-hud-inventory-tools.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/07-navigation-traffic-routes.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/08-map-parent-settings.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/09-responsive-ar-quality-diagnostics.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/10-player-skills.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/11-render-materials-player-model.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/12-world-resources-nature.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/13-houses-npcs-vehicles-base.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/14-world-district-decoration.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/15-transit-bus-metro.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/16-emergency-services.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/17-adventures-learning-world.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/18-water-fishing-boats.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/19-campfire-hunting-house-extensions.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/20-world-build-cloud-houses.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/21-interactions-shop-social-races.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/22-careers-jobs-uniforms.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/23-vehicle-effects-driving.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/24-construction-system.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/25-render-init-resize-position-collision.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/26-input-player-physics.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/27-npc-enemies-combat-camera-action.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/28-multiplayer-social-online.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/29-game-loop-controls-gamepad.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/30-pause-tests-public-api-bootstrap.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/31-neighborhood-world-controller.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/32-cooperative-missions.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/core/performance-guardian.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/core/runtime-config.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/core/safe-pointer.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/core/viewport-manager.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/education/adaptive-learning.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/game-account.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/multiplayer/room-manager.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/multiplayer-rtdb.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/safety/child-safety.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/save-db.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/ui/shared-modal.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "12 testes determinísticos de mobilidade V643",
+      "passed": true,
+      "detail": "┌─────────┬──────────────────────────────────────────────────────────┬────────────┐\n│ (index) │ teste                                                    │ resultado  │\n├─────────┼──────────────────────────────────────────────────────────┼────────────┤\n│ 0       │ 'Carro acelera apenas pelo botão'                        │ 'APROVADO' │\n│ 1       │ 'Carro: comando direita produz curva visual à direita'   │ 'APROVADO' │\n│ 2       │ 'Carro: comando esquerda produz curva visual à esquerda' │ 'APROVADO' │\n│ 3       │ 'Carro: curvas laterais são simétricas e opostas'        │ 'APROVADO' │\n│ 4       │ 'Carro: Freio reduz a velocidade antes da ré'            │ 'APROVADO' │\n│ 5       │ 'Carro: botão Freio/Ré engata ré depois de parar'        │ 'APROVADO' │\n│ 6       │ 'Carro: Acelerar freia a ré e volta ao avanço'           │ 'APROVADO' │\n│ 7       │ 'Barco acelera apenas pelo botão'                        │ 'APROVADO' │\n│ 8       │ 'Barco: comando direita produz curva visual à direita'   │ 'APROVADO' │\n│ 9       │ 'Barco: comando esquerda produz curva visual à esquerda' │ 'APROVADO' │\n│ 10      │ 'Barco: Freio reduz antes da ré'                         │ 'APROVADO' │\n│ 11      │ 'Barco: Freio/Ré engata ré após parar'                   │ 'APROVADO' │\n└─────────┴──────────────────────────────────────────────────────────┴────────────┘\n{\"passed\":12,\"failed\":0}"
+    },
+    {
+      "name": "34 testes de mundo V643",
+      "passed": true,
+      "detail": "{\n  \"version\": 643,\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 34,\n    \"failed\": 0,\n    \"total\": 34\n  },\n  \"checks\": [\n    {\n      \"name\": \"Cinco pescadores de margem\",\n      \"passed\": true,\n      \"detail\": \"5\"\n    },\n    {\n      \"name\": \"Pesca viva: createShoreFisher\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Pesca viva: createShoreFishingLife\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Pesca viva: updateShoreFishers\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Pesca viva: fishingActivity\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Pesca viva: bobber\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Pesca viva: line.geometry.attributes.position.needsUpdate\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Pesca viva criada na expansão do lago\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Textura de água PNG válida\",\n      \"passed\": true,\n      \"detail\": \"(512, 512)\"\n    },\n    {\n      \"name\": \"Textura de água usada no material\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Frota inicial limitada\",\n      \"passed\": true,\n      \"detail\": \"{'solar': 2, 'verde': 2, 'escolar': 1, 'circular': 1, 'turismo': 1}\"\n    },\n    {\n      \"name\": \"Circular da Cidade com uma unidade\",\n      \"passed\": true,\n      \"detail\": \"1\"\n    },\n    {\n      \"name\": \"Trânsito: trafficPriority\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Trânsito: trafficSpeedFactor\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Trânsito: captureTrafficPositions\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Trânsito: resolveTrafficOverlaps\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Trânsito: trafficHoldUntil\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: busSpawnIndex\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: buildBusRoadPath\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: recoverBusRoute\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: validateBusCoverage\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: laneOffset\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Serviços de emergência respeitam retenção\",\n      \"passed\": true,\n      \"detail\": \"3\"\n    },\n    {\n      \"name\": \"NPCs/veículos respeitam retenção\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS mobilidade: mode-mobility-driver #runBtn\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS mobilidade: mode-mobility-driver #jumpBtn\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS mobilidade: orientation:portrait\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS m"
+    },
+    {
+      "name": "Testes de bairros e mapa",
+      "passed": true,
+      "detail": "{\n  \"version\": 646,\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 87,\n    \"failed\": 0,\n    \"total\": 87\n  },\n  \"checks\": [\n    {\n      \"name\": \"Bairro configurado bairro-central\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Bairro configurado bairro-floresta\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Bairro configurado bairro-lago\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Bairro configurado bairro-montanha\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Bairro configurado bairro-escola\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cinco bairros únicos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Capacidade 10 em todos\",\n      \"passed\": true,\n      \"detail\": \"5\"\n    },\n    {\n      \"name\": \"Limite multiplayer 10\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Entradas físicas dos bairros\",\n      \"passed\": true,\n      \"detail\": \"5\"\n    },\n    {\n      \"name\": \"Limites cartográficos dos bairros\",\n      \"passed\": true,\n      \"detail\": \"5\"\n    },\n    {\n      \"name\": \"Cinco geometrias interpretadas\",\n      \"passed\": true,\n      \"detail\": \"5\"\n    },\n    {\n      \"name\": \"Entrada dentro dos limites bairro-central\",\n      \"passed\": true,\n      \"detail\": \"{'id': 'bairro-central', 'name': 'Bairro Central', 'capacity': 10, 'entryX': 0.0, 'entryZ': 8.0, 'xMin': -48.0, 'xMax': 48.0, 'zMin': -22.0, 'zMax': 38.0}\"\n    },\n    {\n      \"name\": \"Limites dentro do mundo bairro-central\",\n      \"passed\": true,\n      \"detail\": \"{'id': 'bairro-central', 'name': 'Bairro Central', 'capacity': 10, 'entryX': 0.0, 'entryZ': 8.0, 'xMin': -48.0, 'xMax': 48.0, 'zMin': -22.0, 'zMax': 38.0}\"\n    },\n    {\n      \"name\": \"Entrada dentro dos limites bairro-floresta\",\n      \"passed\": true,\n      \"detail\": \"{'id': 'bairro-floresta', 'name': 'Bairro da Floresta', 'capacity': 10, 'entryX': -82.0, 'entryZ': -35.0, 'xMin': -116.0, 'xMax': -48.0, 'zMin': -108.0, 'zMax': 24.0}\"\n    },\n    {\n      \"name\": \"Limites dentro do mundo bairro-floresta\",\n      \"passed\": true,\n      \"detail\": \"{'id': 'bairro-floresta', 'name': 'Bairro da Floresta', 'capacity': 10, 'entryX': -82.0, 'entryZ': -35.0, 'xMin': -116.0, 'xMax': -48.0, 'zMin': -108.0, 'zMax': 24.0}\"\n    },\n    {\n      \"name\": \"Entrada dentro dos limites bairro-lago\",\n      \"passed\": true,\n      \"detail\": \"{'id': 'bairro-lago', 'name': 'Bairro do Lago', 'capacity': 10, 'entryX': -25.0, 'entryZ': 45.0, 'xMin': -62.0, 'xMax': -8.0, 'zMin': 28.0, 'zMax': 82.0}\"\n    },\n    {\n      \"name\": \"Limites dentro do mundo bairro-lago\",\n      \"passed\": true,\n      \"detail\": \"{'id': 'bairro-lago', 'name': 'Bairro do Lago', 'capacity': 10, 'entryX': -25.0, 'entryZ': 45.0, 'xMin': -62.0, 'xMax': -8.0, 'zMin': 28.0, 'zMax': 82.0}\"\n    },\n    {\n      \"name\": \"Entrada dentro dos limites bairro-montanha\",\n      \"passed\": true,\n      \"detail\": \"{'id': 'bairro-montanha', 'name': 'Bairro da Mont"
+    },
+    {
+      "name": "Harness real de slots e Service Worker V646",
+      "passed": true,
+      "detail": "V646 runtime: slots reais, fallback 503, instalação incompleta e revisão coerente aprovados."
+    },
+    {
+      "name": "Permissões autenticadas e botões V646.6",
+      "passed": true,
+      "detail": "V646.6 permissões e botões: 60/60 aprovados."
+    },
+    {
+      "name": "Multiplayer, PWA e missões V646.6",
+      "passed": true,
+      "detail": "{\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 31,\n    \"failed\": 0,\n    \"total\": 31\n  },\n  \"checks\": [\n    {\n      \"name\": \"Navegação aguarda worldGroup\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Reserva atômica de sala preservada\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Fallback por transação individual\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Reserva individual testável\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Participante fica registrado ao desconectar\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Evento cooperativo idempotente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Cancelamento pelo remetente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Modo competitivo sincronizado\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Regras aceitam transação individual\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Convites autenticados sem bloqueio adicional\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem Controlar o fogo progressivamente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem safety-release\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem patient-loaded\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem patient-delivered\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem suspect-escorted\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem student-delivered\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopReserveEvent\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopIndividualCount\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopRaceStandings\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem continueCoopMissionOffline\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem createCoopOvalTrackWorld\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Maca exige dois participantes\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Papéis não podem exceder a capacidade\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Todos precisam estar prontos\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Bots usam posições e velocidade determinísticas\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Bots desaceleram perto do jogador\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Mapa inclui participantes online\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missão ativa tem prioridade no agrupamento\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Mapa recalcula em resize e orientação\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Tela baixa tem regra dedicada\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Modal usa dimensões reais do aparelho\",\n      \"passed\": true\n    }\n  ]\n}"
+    },
+    {
+      "name": "Testes de segurança e release V646",
+      "passed": true,
+      "detail": "test_build_and_ci_do_not_publish_partial_outputs (__main__.ReleaseV646Tests.test_build_and_ci_do_not_publish_partial_outputs) ... ok\ntest_child_safety_and_authenticated_gameplay_contract (__main__.ReleaseV646Tests.test_child_safety_and_authenticated_gameplay_contract) ... ok\ntest_legacy_house_lock_migrates_to_canonical_schema (__main__.ReleaseV646Tests.test_legacy_house_lock_migrates_to_canonical_schema) ... ok\ntest_loading_failure_preserves_save (__main__.ReleaseV646Tests.test_loading_failure_preserves_save) ... ok\ntest_online_interactions_are_open_and_parent_audit_exists (__main__.ReleaseV646Tests.test_online_interactions_are_open_and_parent_audit_exists) ... ok\ntest_parent_and_moderation_ui_are_present (__main__.ReleaseV646Tests.test_parent_and_moderation_ui_are_present) ... ok\ntest_presence_sessions_and_rotation_are_authenticated (__main__.ReleaseV646Tests.test_presence_sessions_and_rotation_are_authenticated) ... ok\ntest_production_runtime_harness (__main__.ReleaseV646Tests.test_production_runtime_harness) ... ok\ntest_release_manifest_hashes_match (__main__.ReleaseV646Tests.test_release_manifest_hashes_match) ... ok\ntest_room_contract_has_no_legacy_public_room (__main__.ReleaseV646Tests.test_room_contract_has_no_legacy_public_room) ... ok\ntest_save_migration_is_explicit (__main__.ReleaseV646Tests.test_save_migration_is_explicit) ... ok\ntest_service_worker_rejects_mixed_shell (__main__.ReleaseV646Tests.test_service_worker_rejects_mixed_shell) ... ok\ntest_slot_reservation_contract_is_atomic_and_recoverable (__main__.ReleaseV646Tests.test_slot_reservation_contract_is_atomic_and_recoverable) ... ok\ntest_version_surfaces_are_unified (__main__.ReleaseV646Tests.test_version_surfaces_are_unified) ... ok\ntest_world_retry_and_privacy_fail_closed (__main__.ReleaseV646Tests.test_world_retry_and_privacy_fail_closed) ... ok\n\n----------------------------------------------------------------------\nRan 15 tests in 0.059s\n\nOK"
+    },
+    {
+      "name": "Serviços profissionais preservados",
+      "passed": true,
+      "detail": "test_accidents_stop_and_require_all_services (__main__.ProfessionalEmergencyServicesTests.test_accidents_stop_and_require_all_services) ... ok\ntest_buses_and_traffic_have_collision_protection (__main__.ProfessionalEmergencyServicesTests.test_buses_and_traffic_have_collision_protection) ... ok\ntest_missions_require_correct_vehicle (__main__.ProfessionalEmergencyServicesTests.test_missions_require_correct_vehicle) ... ok\ntest_service_jobs_and_visual_uniforms_exist (__main__.ProfessionalEmergencyServicesTests.test_service_jobs_and_visual_uniforms_exist) ... ok\ntest_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.ProfessionalEmergencyServicesTests.test_service_vehicle_visuals_are_local_and_multiplayer_safe) ... ok\ntest_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.002s\n\nOK"
+    },
+    {
+      "name": "Mapa, missões, móveis e roupas preservados",
+      "passed": true,
+      "detail": "test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok\ntest_map_is_dynamic_square_and_viewport_fitted (__main__.CommercialPolishTests.test_map_is_dynamic_square_and_viewport_fitted) ... ok\ntest_mission_card_opens_one_clear_briefing (__main__.CommercialPolishTests.test_mission_card_opens_one_clear_briefing) ... ok\ntest_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match) ... ok\ntest_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.test_room_furniture_is_persistent_and_editable) ... ok\ntest_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.015s\n\nOK"
+    },
+    {
+      "name": "Missões cooperativas e responsividade V646.3",
+      "passed": true,
+      "detail": "test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok\ntest_map_is_clustered_and_responsive_in_both_orientations (__main__.CoopResponsiveTests.test_map_is_clustered_and_responsive_in_both_orientations) ... ok\ntest_roles_and_shared_progress_are_online (__main__.CoopResponsiveTests.test_roles_and_shared_progress_are_online) ... ok\ntest_school_fishing_and_race_runtime_contracts (__main__.CoopResponsiveTests.test_school_fishing_and_race_runtime_contracts) ... ok\ntest_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests.test_state_persists_and_existing_systems_integrate) ... ok\ntest_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.016s\n\nOK"
+    },
+    {
+      "name": "Fundação visual e preservação V646.7",
+      "passed": true,
+      "detail": "{\n  \"version\": 646,\n  \"build\": \"646.7-visual-foundation-avatar-v2\",\n  \"baseline\": {\n    \"build\": \"646.6-authenticated-gameplay-open\",\n    \"checks\": 203,\n    \"functionsIncludingAsync\": 727\n  },\n  \"passed\": true,\n  \"counts\": {\n    \"checks\": 44,\n    \"passed\": 44,\n    \"failed\": 0,\n    \"currentFunctionsIncludingAsync\": 750\n  },\n  \"checks\": [\n    {\n      \"name\": \"Todas as funções V646.6 permanecem na mesma ordem relativa\",\n      \"passed\": true,\n      \"detail\": \"727 base / 750 atuais\"\n    },\n    {\n      \"name\": \"Nenhuma função V646.6 foi removida\",\n      \"passed\": true,\n      \"detail\": \"0 ausentes\"\n    },\n    {\n      \"name\": \"Baseline reproduz a auditoria original\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Arquivo crítico preservado: firebase-config.js\",\n      \"passed\": true,\n      \"detail\": \"72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd\"\n    },\n    {\n      \"name\": \"Arquivo crítico preservado: firebase-database.rules.json\",\n      \"passed\": true,\n      \"detail\": \"2e61ee7bb249d1056691dafb6f352a291f39fb39ca79880255f2d7fd11b4c79f\"\n    },\n    {\n      \"name\": \"Arquivo crítico preservado: assets/js/multiplayer-rtdb.js\",\n      \"passed\": true,\n      \"detail\": \"087294b5292e368ce7f8df47b2c7d75354349219a059605fa1a0cea0a514a906\"\n    },\n    {\n      \"name\": \"Arquivo crítico preservado: assets/vendor/three-r128.min.js\",\n      \"passed\": true,\n      \"detail\": \"9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2\"\n    },\n    {\n      \"name\": \"Arquivo crítico preservado: athos.glb\",\n      \"passed\": true,\n      \"detail\": \"98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb\"\n    },\n    {\n      \"name\": \"Arquivo crítico preservado: style.css\",\n      \"passed\": true,\n      \"detail\": \"a4fdba497367197ebb1ee24e8da9f25863dbf94b46852bcfd686bcb8e12d73f6\"\n    },\n    {\n      \"name\": \"Build V646.7 unificado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aprovação física continua pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"34 módulos JavaScript em ordem\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Three.js r128 foi mantido e não há CDN\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Fundação visual contém OTTHI_VISUAL_ASSETS\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Fundação visual contém registerVisualAsset\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Fundação visual contém visualAssetStatus\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Fundação visual contém OTTHI_VISUAL_QUALITY_PROFILES\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Fundação visual contém visualFoundationDiagnostics\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Avatar modular preparado: OTTHI_AVATAR_SCHEMA_VERSION = 2\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Avatar modular preparado: re"
+    },
+    {
+      "name": "IDs HTML únicos",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Referências locais existem",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Versão 646.7 no index",
+      "passed": true,
+      "detail": "16"
+    },
+    {
+      "name": "Build V646.7 no HTML",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Revisão imutável no HTML",
+      "passed": true,
+      "detail": "15e494cd952e3289"
+    },
+    {
+      "name": "Three.js local e versionado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Funções preservadas e ampliadas",
+      "passed": true,
+      "detail": "711"
+    },
+    {
+      "name": "Runtime V646",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Save V646 migra V645",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado mobilityThrottleIntent",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado Acelerar",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado Freio",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado createShoreFishingLife",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado trafficPriority",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado busSpawnIndex",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado miniMapLogicalSize",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado miniMapScale",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado clearRemoteRoomEntities",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado applyRoomWorld",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado mapRegionsMarkup",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado approvedChatPhrases",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado openReportPlayer",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado updatePlayUsage",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado OTTHI_RELEASE_COHERENT",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado COOP_MISSION_TEMPLATES",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Token preservado createCooperativeMissionWorld",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Chaves CSS balanceadas",
+      "passed": true,
+      "detail": "2085/2085"
+    },
+    {
+      "name": "Canvas ocupa 100%",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Mapa principal escala 1:1",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Cinco bairros com 10 vagas",
+      "passed": true,
+      "detail": "5"
+    },
+    {
+      "name": "Segurança infantil padrão",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sala padrão correta",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifesto PWA V646.7",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm bairro-central",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm bairro-floresta",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm bairro-lago",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm bairro-montanha",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm bairro-escola",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm slots",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm coopMissions",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm guardianSettings",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm reports",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Regras Firebase contêm blocks",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Frases infantis permanecem no cliente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Ações do jogo aceitam jogador autenticado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Perfis não são públicos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Service Worker V646.7",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Cache PWA validado por SHA-256",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Fallback HTTP usa cache válido",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifesto de release V646",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Revisão coerente HTML/SW/manifesto",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Hashes da release conferem",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Hash-fonte src/modules/00-runtime-foundation.js",
+      "passed": true,
+      "detail": "2b1b6df8b4f49d149cc49fe9659b18f4b989c7928d50b0328c9effc7582e0e31"
+    },
+    {
+      "name": "Hash-fonte src/modules/00a-visual-foundation-avatar-v2.js",
+      "passed": true,
+      "detail": "66e94b2cd90c68e43a7455afa3045b6449799c9710b602558166d6e5f0e03d39"
+    },
+    {
+      "name": "Hash-fonte src/modules/01-build-persistence.js",
+      "passed": true,
+      "detail": "64d9805824f7580eeef13c6fafdf44aff265487bf727f5b4acb456b905e80d81"
+    },
+    {
+      "name": "Hash-fonte src/modules/02-state-save-cloud-account.js",
+      "passed": true,
+      "detail": "1ec0bc156fd66ca8de527f1612bf92ae67078a292127898c53428dbf0fe65081"
+    },
+    {
+      "name": "Hash-fonte src/modules/03-ui-modal-install-pwa.js",
+      "passed": true,
+      "detail": "d49232561be91aabe54e17ae6d1e18c9699c67ee5cf1848e731cbd811b8950ff"
+    },
+    {
+      "name": "Hash-fonte src/modules/04-education-daily-quiz.js",
+      "passed": true,
+      "detail": "28bfae12189a8bfd6118d93fdeb881fff8c23a4fc4bccd32bfa8dd9cebd2baba"
+    },
+    {
+      "name": "Hash-fonte src/modules/05-avatar-life-customization.js",
+      "passed": true,
+      "detail": "48eee0d596cf07cfffb597d2b8c5b3a3a8423b77fa4dcee070740827f04ffdd1"
+    },
+    {
+      "name": "Hash-fonte src/modules/06-missions-profile-hud-inventory-tools.js",
+      "passed": true,
+      "detail": "178d197114587ed9c603698409a36cd437f1b95ecd2a9e7b126d80f9c77c313b"
+    },
+    {
+      "name": "Hash-fonte src/modules/07-navigation-traffic-routes.js",
+      "passed": true,
+      "detail": "2d042aa04eb6877c0ae464e09a866b3566a0814283cb0d4d481ce31c2a320ecc"
+    },
+    {
+      "name": "Hash-fonte src/modules/08-map-parent-settings.js",
+      "passed": true,
+      "detail": "f0c69a7ef66cebbb77b19f1d1d8e09a6f362776f70036aab0f15442d0c906a3b"
+    },
+    {
+      "name": "Hash-fonte src/modules/09-responsive-ar-quality-diagnostics.js",
+      "passed": true,
+      "detail": "111037557c4b86ffd9e1a9d280f2db9d04366298e71b51552db1f793400eaa82"
+    },
+    {
+      "name": "Hash-fonte src/modules/10-player-skills.js",
+      "passed": true,
+      "detail": "aea3d85401c518ddf4cbfefffe2e0ad720ae4faf46d27310a886b4d966674715"
+    },
+    {
+      "name": "Hash-fonte src/modules/11-render-materials-player-model.js",
+      "passed": true,
+      "detail": "fd64f45cbfb038e111bdc952f5f2eeae332ac7c25708fda9c263767d333aa207"
+    },
+    {
+      "name": "Hash-fonte src/modules/12-world-resources-nature.js",
+      "passed": true,
+      "detail": "ba7ee4fe809b208029fb66b9817d56d943e227c472c5ecb9cebd65441a513bf8"
+    },
+    {
+      "name": "Hash-fonte src/modules/13-houses-npcs-vehicles-base.js",
+      "passed": true,
+      "detail": "e4aca2245b2704c140cdae177332129e5b25365e5d69f9a3e4f3b49361907976"
+    },
+    {
+      "name": "Hash-fonte src/modules/14-world-district-decoration.js",
+      "passed": true,
+      "detail": "b134bf487383f09375cf4967dd2107b2a3051750c3267f6227b4fff511bde87e"
+    },
+    {
+      "name": "Hash-fonte src/modules/15-transit-bus-metro.js",
+      "passed": true,
+      "detail": "f31250d84ed4d69dfad67a2c4bccd41eceecf88efba217ac907237972c34656c"
+    },
+    {
+      "name": "Hash-fonte src/modules/16-emergency-services.js",
+      "passed": true,
+      "detail": "05ca8dc1c1d2ff6acd0c0f913e232f7e92fa076b95b819ae64bd8bab41e28d51"
+    },
+    {
+      "name": "Hash-fonte src/modules/17-adventures-learning-world.js",
+      "passed": true,
+      "detail": "735b30a5f026eb52467df35c61c3d5e4af5c73d7bdc879581d1070c18d07a201"
+    },
+    {
+      "name": "Hash-fonte src/modules/18-water-fishing-boats.js",
+      "passed": true,
+      "detail": "4c9c1581d29146594327bfbc15acb7643bd715f85c1a35f32dc1032a86e19afb"
+    },
+    {
+      "name": "Hash-fonte src/modules/19-campfire-hunting-house-extensions.js",
+      "passed": true,
+      "detail": "6ea68178a5f6831171335b9c20dd59b6d8985ba0cc1ff587ab95b4ab1d44e977"
+    },
+    {
+      "name": "Hash-fonte src/modules/20-world-build-cloud-houses.js",
+      "passed": true,
+      "detail": "712fcc110bd8927592ba637c22f8c81b4ab42f6ba5d1d1863f5e2ad3978e21b9"
+    },
+    {
+      "name": "Hash-fonte src/modules/21-interactions-shop-social-races.js",
+      "passed": true,
+      "detail": "8350f48f0306b34a20fa2a13eec7e48e88724dd06524117896d97dfe64176b8e"
+    },
+    {
+      "name": "Hash-fonte src/modules/22-careers-jobs-uniforms.js",
+      "passed": true,
+      "detail": "5b8ccea7fe11dfd5bb6c050c6706dbecea3e5f8bf36ec666cf4baa6a7bf0e169"
+    },
+    {
+      "name": "Hash-fonte src/modules/23-vehicle-effects-driving.js",
+      "passed": true,
+      "detail": "e9310ba6bc960c093e1bc1950ff75998bc8ccb8f4ac6db9589a2f696fd8c3e75"
+    },
+    {
+      "name": "Hash-fonte src/modules/24-construction-system.js",
+      "passed": true,
+      "detail": "ecbecef3564a5d94f76ffd3d537aa25ad451c20514d64d05f6dca5519768ab48"
+    },
+    {
+      "name": "Hash-fonte src/modules/25-render-init-resize-position-collision.js",
+      "passed": true,
+      "detail": "530244db62e871e89f980499a3898a09034eac47ab606ad03877f1ee28542c12"
+    },
+    {
+      "name": "Hash-fonte src/modules/26-input-player-physics.js",
+      "passed": true,
+      "detail": "9ac178393a9f2f438bc629e0b980681ee21e4c98adbd6ba476ffc3e9649bc5f7"
+    },
+    {
+      "name": "Hash-fonte src/modules/27-npc-enemies-combat-camera-action.js",
+      "passed": true,
+      "detail": "e93543bd683176e6db4f61bb1e30723964b945757c79df0d22b2099f51547f58"
+    },
+    {
+      "name": "Hash-fonte src/modules/28-multiplayer-social-online.js",
+      "passed": true,
+      "detail": "3044b224e20adb290b944c1aef9043539475dc184d9d5b70708949c0ffc58014"
+    },
+    {
+      "name": "Hash-fonte src/modules/29-game-loop-controls-gamepad.js",
+      "passed": true,
+      "detail": "9a0d36e129acbaa2afa4e9ff78d6d5601b76beefd6290cc199f385b81ea6d035"
+    },
+    {
+      "name": "Hash-fonte src/modules/30-pause-tests-public-api-bootstrap.js",
+      "passed": true,
+      "detail": "8539dc76be417801be7672f65d3fe20108b13c402059ad777197920e5c604802"
+    },
+    {
+      "name": "Hash-fonte src/modules/31-neighborhood-world-controller.js",
+      "passed": true,
+      "detail": "c077d7777f196bc9dc03bc62dd3f73c9c15e8f8b5222cff0b94c926d78058ba7"
+    },
+    {
+      "name": "Hash-fonte src/modules/32-cooperative-missions.js",
+      "passed": true,
+      "detail": "71dfedd7b855a95d8047d514c54f013fcb65de6de5e45cdb82f2a78fccf22a0f"
+    },
+    {
+      "name": "Hash-fonte src/styles/00-foundation-lobby-game-modal.css",
+      "passed": true,
+      "detail": "ff7d8c3bf3169c75f4299c794fa9e874665a16a220ee1c4e6dbba19ee41759b8"
+    },
+    {
+      "name": "Hash-fonte src/styles/01-legacy-v607-v613.css",
+      "passed": true,
+      "detail": "4bcd18c1b61afa8822aca9c4ba3e7a5d77165544d4bd49faa06ba3650d35815e"
+    },
+    {
+      "name": "Hash-fonte src/styles/02-art-direction-v614-v617.css",
+      "passed": true,
+      "detail": "c0f3710d71a87fb0d9f4b9e9cb0c9bac130a7522eb76bfa3a65634616236d666"
+    },
+    {
+      "name": "Hash-fonte src/styles/03-responsive-social-v618-v623.css",
+      "passed": true,
+      "detail": "9bcad1abea60e6fbfa8aae53b4fcb579bc86b2c03f4d49ed65115f2c5c6bc10c"
+    },
+    {
+      "name": "Hash-fonte src/styles/04-map-v624-v627.css",
+      "passed": true,
+      "detail": "aa03c40f2feb1022e26a87f8f796a1dba7c94d3d9b63569aaec9edf6b5fa94bb"
+    },
+    {
+      "name": "Hash-fonte src/styles/05-world-ui-v628-v631.css",
+      "passed": true,
+      "detail": "d86fd4ed14be0a50f354aab3abc7b95673aeeab32faae3cba9f3f4dde1dd814b"
+    },
+    {
+      "name": "Hash-fonte src/styles/06-install-build-v633-v636.css",
+      "passed": true,
+      "detail": "fc9ec2784b052bfe5cae58cf29409a65e1d653c9b5c222156299648a580417b0"
+    },
+    {
+      "name": "Hash-fonte src/styles/07-display-fishing-v637.css",
+      "passed": true,
+      "detail": "bbbdccf84a35f2dc43606dfdf2e8921433c646c88ee4ca081d6f5941709b7a4f"
+    },
+    {
+      "name": "Hash-fonte src/styles/08-construction-v638.css",
+      "passed": true,
+      "detail": "862e2964d6181b5f75f1e49d64216ff335a2ebcba1e0596ead6400061431fd30"
+    },
+    {
+      "name": "Hash-fonte src/styles/09-gameplay-layout-camera-v640.css",
+      "passed": true,
+      "detail": "d16c924b27e60a067d022437b46154f635e678de6052662e22f28a5ec77c1b5c"
+    },
+    {
+      "name": "Hash-fonte src/styles/10-foundation-rooms-learning-v641-v642.css",
+      "passed": true,
+      "detail": "f71f620f0e2e25835cc7f196627e8f2bdc35680fe16356e32dde598b6484f0f7"
+    },
+    {
+      "name": "Hash-fonte src/styles/11-mobility-traffic-fishing-v643.css",
+      "passed": true,
+      "detail": "387201cfc25ccbc5df444932ac206d7c3e285c321da48f72007cbc09db40051e"
+    },
+    {
+      "name": "Hash-fonte src/styles/12-fullscreen-responsive-hotfix-v6431.css",
+      "passed": true,
+      "detail": "36407f245dfd26972ef43b1c92dcf1f91d4f66f945e2946c627a36bd80fac7fd"
+    },
+    {
+      "name": "Hash-fonte src/styles/13-neighborhood-world-map-v644.css",
+      "passed": true,
+      "detail": "b9b6f6d86986f46d2be48800eec8b34375a96d1305a5a4ee99f5799c0b7d3262"
+    },
+    {
+      "name": "Hash-fonte src/styles/14-commercial-responsive-map-missions-furniture.css",
+      "passed": true,
+      "detail": "01dc21a785a5a037029c6ed631524dbb01ad520fc3e2ca93d114345386551835"
+    },
+    {
+      "name": "Hash-fonte src/styles/15-coop-map-responsive-v6463.css",
+      "passed": true,
+      "detail": "4e81741e689020453cb0cdd6d0740184a9a7804d6e5d8b7f0226a9cf9b0a722b"
+    },
+    {
+      "name": "app.js sincronizado com fontes",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "style.css sincronizado com fontes",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Android V646.7",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "errors": [],
+  "counts": {
+    "checks": 208,
+    "passed": 208,
+    "failed": 0,
+    "functions": 711,
+    "javascriptModules": 34,
+    "styleModules": 16,
+    "htmlIds": 104
+  },
+  "hashes": {
+    "app.js": "f229aa517702af804869f7461992e66fcd1f352a86ee46ed507d973d96de8875",
+    "style.css": "a4fdba497367197ebb1ee24e8da9f25863dbf94b46852bcfd686bcb8e12d73f6",
+    "src/module-order.json": "533af074de5fd8c1a7c780044c23546f860d21ea0ebe60a7d81031c075623a04",
+    "release-manifest.json": "a23df567314be8ad51d01901a80c9fb5825124385066247ccb8c4308092ce46d"
+  }
+}

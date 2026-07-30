@@ -1,0 +1,18 @@
+{
+  "version": 644,
+  "namedFunctionDeclarations": 769,
+  "topLevelArrowFunctions": 23,
+  "arrowTokensIncludingCallbacks": 1104,
+  "controlFlowOccurrences": 4240,
+  "eventBindings": 297,
+  "moduleDependencyPairs": 401,
+  "conditionsByType": {
+    "if": 2093,
+    "return": 1340,
+    "catch": 50,
+    "for": 386,
+    "while": 8,
+    "else": 347,
+    "throw": 16
+  }
+}

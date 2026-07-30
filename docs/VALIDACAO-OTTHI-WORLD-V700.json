@@ -1,0 +1,322 @@
+{
+  "version": 700,
+  "build": "700.0-five-stages-professional",
+  "passed": true,
+  "counts": {
+    "checks": 61,
+    "passed": 61,
+    "failed": 0,
+    "functionsIncludingAsync": 808,
+    "pbrPacks": 26
+  },
+  "checks": [
+    {
+      "name": "Versão V700 unificada",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Nome do novo repositório",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "40 módulos JavaScript",
+      "passed": true,
+      "detail": "40"
+    },
+    {
+      "name": "17 módulos CSS",
+      "passed": true,
+      "detail": "17"
+    },
+    {
+      "name": "Seis módulos profissionais ao final",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS profissional é a camada final",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Todas as funções-base permanecem na ordem relativa",
+      "passed": true,
+      "detail": "727 base / 808 atuais"
+    },
+    {
+      "name": "Nenhuma função-base foi removida",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Funções ampliadas",
+      "passed": true,
+      "detail": "808"
+    },
+    {
+      "name": "Arquivo crítico preservado: firebase-config.js",
+      "passed": true,
+      "detail": "72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd"
+    },
+    {
+      "name": "Arquivo crítico preservado: firebase-database.rules.json",
+      "passed": true,
+      "detail": "2e61ee7bb249d1056691dafb6f352a291f39fb39ca79880255f2d7fd11b4c79f"
+    },
+    {
+      "name": "Arquivo crítico preservado: assets/js/multiplayer-rtdb.js",
+      "passed": true,
+      "detail": "087294b5292e368ce7f8df47b2c7d75354349219a059605fa1a0cea0a514a906"
+    },
+    {
+      "name": "Arquivo crítico preservado: assets/vendor/three-r128.min.js",
+      "passed": true,
+      "detail": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2"
+    },
+    {
+      "name": "Arquivo crítico preservado: athos.glb",
+      "passed": true,
+      "detail": "98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb"
+    },
+    {
+      "name": "Mesmo Realtime Database e mesma raiz",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Migração do save V646 para V700",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Three.js r128 local preservado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "26 pacotes PBR locais",
+      "passed": true,
+      "detail": "26"
+    },
+    {
+      "name": "PBR completo grass",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo road",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo sidewalk",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo water",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo wood",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo brick",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo stone",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo roof",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo fabric",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo school-wall",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo police-wall",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo gold-ore",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo interior-floor",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo interior-wall",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo market-floor",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo market-wall",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo school-floor",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo fire-wall",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo concrete",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo city-glass",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo emergency-metal",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo toy-plastic",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo vehicle-tire",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo hero-energy",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo mushroom",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "PBR completo foliage",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "157 arquivos na camada visual",
+      "passed": true,
+      "detail": "157"
+    },
+    {
+      "name": "Etapa 1 — fundação",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Etapa 2 — avatar",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Etapa 3 — render",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Etapa 4 — máquinas",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Etapa 5 — aventura",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Novas atualizações ligadas ao game loop",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Fallback seguro no bootstrap",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Identidade original sem ativos de marcas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Index V700 versionado",
+      "passed": true,
+      "detail": "16"
+    },
+    {
+      "name": "Service Worker V700",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifesto PWA V700",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Android V700",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Aprovação física permanece pendente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifesto de release coerente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Hashes de release conferem",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Revisão PWA coerente",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "limits": [
+    "Validação estática e local não substitui Android físico, Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado."
+  ]
+}

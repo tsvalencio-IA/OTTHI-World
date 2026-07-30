@@ -1,0 +1,371 @@
+{
+  "passed": true,
+  "pre": {
+    "title": "OTTHI World V700",
+    "worldApi": true,
+    "release": true,
+    "version": 700,
+    "three": true
+  },
+  "value": {
+    "title": "OTTHI World V700",
+    "release": true,
+    "version": 700,
+    "build": "700.0-five-stages-professional",
+    "worldApi": true,
+    "testsApi": true,
+    "status": {
+      "version": 700,
+      "build": "700.0-five-stages-professional",
+      "stages": {
+        "foundation": {
+          "id": "foundation",
+          "number": 1,
+          "title": "Fundação profissional",
+          "status": "implemented"
+        },
+        "avatar": {
+          "id": "avatar",
+          "number": 2,
+          "title": "Personagem modular",
+          "status": "implemented"
+        },
+        "render": {
+          "id": "render",
+          "number": 3,
+          "title": "Mundo, texturas e render",
+          "status": "implemented"
+        },
+        "machines": {
+          "id": "machines",
+          "number": 4,
+          "title": "Construção e máquinas modulares",
+          "status": "implemented"
+        },
+        "adventure": {
+          "id": "adventure",
+          "number": 5,
+          "title": "Aventura, plataforma e poderes",
+          "status": "implemented"
+        }
+      },
+      "runtime": {
+        "initialized": true,
+        "pbrReady": true,
+        "worldLayerReady": true,
+        "avatarReady": true,
+        "modularVehiclesReady": true,
+        "adventureReady": true,
+        "textures": 87,
+        "materials": 1,
+        "stats": {
+          "pbrMaps": 68,
+          "enhancedMeshes": 5622,
+          "instancedDetails": 292,
+          "vehicleModules": 7,
+          "adventureObjects": 15
+        },
+        "updateTime": 21.291399999999893,
+        "errors": [
+          "texture:grass:normal:load",
+          "texture:grass:roughness:load",
+          "texture:grass:ao:load",
+          "texture:grass:basecolor:load",
+          "texture:road:normal:load",
+          "texture:road:roughness:load",
+          "texture:road:ao:load",
+          "texture:road:basecolor:load",
+          "texture:sidewalk:normal:load",
+          "texture:sidewalk:roughness:load",
+          "texture:sidewalk:ao:load",
+          "texture:sidewalk:basecolor:load",
+          "texture:wood:normal:load",
+          "texture:wood:roughness:load",
+          "texture:wood:ao:load",
+          "texture:wood:basecolor:load",
+          "texture:brick:normal:load",
+          "texture:brick:roughness:load",
+          "texture:brick:ao:load",
+          "texture:brick:basecolor:load",
+          "texture:stone:normal:load",
+          "texture:stone:roughness:load",
+          "texture:stone:ao:load",
+          "texture:stone:basecolor:load",
+          "texture:fabric:normal:load",
+          "texture:fabric:roughness:load",
+          "texture:fabric:ao:load",
+          "texture:fabric:basecolor:load",
+          "texture:interior-floor:normal:load",
+          "texture:interior-floor:roughness:load",
+          "texture:interior-floor:ao:load",
+          "texture:interior-floor:basecolor:load",
+          "texture:interior-wall:normal:load",
+          "texture:interior-wall:roughness:load",
+          "texture:interior-wall:ao:load",
+          "texture:interior-wall:basecolor:load",
+          "texture:market-floor:normal:load",
+          "texture:market-floor:roughness:load",
+          "texture:market-floor:ao:load",
+          "texture:market-floor:basecolor:load",
+          "texture:school-floor:normal:load",
+          "texture:school-floor:roughness:load",
+          "texture:school-floor:ao:load",
+          "texture:school-floor:basecolor:load",
+          "texture:fire-wall:normal:load",
+          "texture:fire-wall:roughness:load",
+          "texture:fire-wall:ao:load",
+          "texture:fire-wall:basecolor:load",
+          "texture:concrete:normal:load",
+          "texture:concrete:roughness:load",
+          "texture:concrete:ao:load",
+          "texture:concrete:basecolor:load",
+          "texture:city-glass:normal:load",
+          "texture:city-glass:roughness:load",
+          "texture:city-glass:ao:load",
+          "texture:city-glass:basecolor:load",
+          "texture:city-glass:emissive:load",
+          "texture:emergency-metal:normal:load",
+          "texture:emergency-metal:roughness:load",
+          "texture:emergency-metal:ao:load",
+          "texture:emergency-metal:basecolor:load",
+          "texture:emergency-metal:emissive:load",
+          "texture:gold-ore:normal:load",
+          "texture:gold-ore:roughness:load",
+          "texture:gold-ore:ao:load",
+          "texture:gold-ore:basecolor:load",
+          "texture:gold-ore:emissive:load",
+          "texture:water:normal:load",
+          "texture:water:roughness:load",
+          "texture:water:ao:load",
+          "texture:water:basecolor:load",
+          "texture:water:emissive:load",
+          "texture:toy-plastic:basecolor:load",
+          "texture:toy-plastic:normal:load",
+          "texture:toy-plastic:roughness:load",
+          "texture:vehicle-tire:basecolor:load",
+          "texture:vehicle-tire:normal:load",
+          "texture:vehicle-tire:roughness:load",
+          "texture:foliage:basecolor:load",
+          "texture:foliage:normal:load",
+          "texture:foliage:roughness:load",
+          "texture:hero-energy:basecolor:load",
+          "texture:hero-energy:normal:load",
+          "texture:hero-energy:emissive:load",
+          "texture:mushroom:basecolor:load",
+          "texture:mushroom:normal:load",
+          "texture:mushroom:roughness:load"
+        ],
+        "assets": null
+      },
+      "state": {
+        "avatar": {
+          "version": 2,
+          "renderMode": "otthi-world-v3",
+          "bodyStyle": "block",
+          "skinTone": "tone-03",
+          "face": "face-happy-01",
+          "hair": "hair-none",
+          "hairColor": "#352317",
+          "torso": "world-jacket-01",
+          "legs": "world-pants-01",
+          "shoes": "world-sneakers-01",
+          "hat": "none",
+          "back": "none",
+          "pattern": "none",
+          "primaryColor": "#1267d6",
+          "secondaryColor": "#111827",
+          "outfit": "classic",
+          "accessory": "none",
+          "uniform": "none"
+        },
+        "vehicles": {
+          "modularParts": 7
+        },
+        "hero": {
+          "selectedPower": "energyPulse",
+          "unlocked": [
+            "energyPulse",
+            "velocityDash",
+            "guardianShield"
+          ],
+          "mastery": {
+            "energyPulse": 0,
+            "velocityDash": 0,
+            "guardianShield": 0,
+            "skyLeap": 0,
+            "magnetWave": 0
+          },
+          "challengeBest": 0,
+          "challengeWins": 0,
+          "energy": 100,
+          "lastUse": 0
+        }
+      },
+      "firebaseConfigPreserved": true
+    },
+    "gameActive": true,
+    "lobbyActive": false,
+    "canvasCount": 1,
+    "modalHidden": true,
+    "worldCenterButton": true,
+    "heroButton": true,
+    "visibleText": "1\nTeste V700\n❤️\n🪙\n508\nOffline\n◆\nArrume sua casa\n☰\nVida\nGPS da Vila\nToque para escolher o destino\n▲\n＋\n◎\n－\n🚌\nEmbarcar • 101 Linha Solar\nToque em AÇÃO\n⚡\n🏃\n🔥\n🚌\n⬆\n🚨 Acidente: veículos parados; polícia, resgate e bombeiros acionados.\n⚡\n100"
+  },
+  "pageErrors": [],
+  "consoleWarningsAndErrors": [
+    {
+      "type": "warning",
+      "text": "Falha lendo main SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at readSlot (<anonymous>:39:22)\n    at Object.load (<anonymous>:51:30)\n    at <anonymous>:581:32\n    at <anonymous>:6152:3\n    at addScriptContent (eval at evaluate (:290:30), <anonymous>:7:21)\n    at UtilityScript.evaluate (<anonymous>:292:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha lendo backup-1 SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at readSlot (<anonymous>:39:22)\n    at Object.load (<anonymous>:51:30)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha lendo backup-2 SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at readSlot (<anonymous>:39:22)\n    at Object.load (<anonymous>:51:30)"
+    },
+    {
+      "type": "warning",
+      "text": "SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/grass-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/asphalt-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/sidewalk-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/water-ripples-v643.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/wood-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/brick-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/stone-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/roof-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/bus-seat-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/school-wall-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/police-wall-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/gold-ore-v628.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/home-floor-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/interior-wall-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/market-floor-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/market-wall-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/school-floor-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/fire-station-wall-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/concrete-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/city-glass-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "[OTTHOS] Textura local indisponível; fallback mantido: ./assets/textures/emergency-metal-v632.png"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    },
+    {
+      "type": "warning",
+      "text": "Falha no IndexedDB; cópia local mantida. SecurityError: Failed to execute 'open' on 'IDBFactory': access to the Indexed Database API is denied in this context.\n    at <anonymous>:21:29\n    at new Promise (<anonymous>)\n    at openDB (<anonymous>:16:12)\n    at Object.save (<anonymous>:64:22)"
+    }
+  ],
+  "allConsoleCount": 38,
+  "testMode": "scripts inline; multiplayer Firebase replaced only in browser harness"
+}

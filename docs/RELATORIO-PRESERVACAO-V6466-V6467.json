@@ -1,0 +1,242 @@
+{
+  "version": 646,
+  "build": "646.7-visual-foundation-avatar-v2",
+  "baseline": {
+    "build": "646.6-authenticated-gameplay-open",
+    "checks": 203,
+    "functionsIncludingAsync": 727
+  },
+  "passed": true,
+  "counts": {
+    "checks": 44,
+    "passed": 44,
+    "failed": 0,
+    "currentFunctionsIncludingAsync": 750
+  },
+  "checks": [
+    {
+      "name": "Todas as funções V646.6 permanecem na mesma ordem relativa",
+      "passed": true,
+      "detail": "727 base / 750 atuais"
+    },
+    {
+      "name": "Nenhuma função V646.6 foi removida",
+      "passed": true,
+      "detail": "0 ausentes"
+    },
+    {
+      "name": "Baseline reproduz a auditoria original",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo crítico preservado: firebase-config.js",
+      "passed": true,
+      "detail": "72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd"
+    },
+    {
+      "name": "Arquivo crítico preservado: firebase-database.rules.json",
+      "passed": true,
+      "detail": "2e61ee7bb249d1056691dafb6f352a291f39fb39ca79880255f2d7fd11b4c79f"
+    },
+    {
+      "name": "Arquivo crítico preservado: assets/js/multiplayer-rtdb.js",
+      "passed": true,
+      "detail": "087294b5292e368ce7f8df47b2c7d75354349219a059605fa1a0cea0a514a906"
+    },
+    {
+      "name": "Arquivo crítico preservado: assets/vendor/three-r128.min.js",
+      "passed": true,
+      "detail": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2"
+    },
+    {
+      "name": "Arquivo crítico preservado: athos.glb",
+      "passed": true,
+      "detail": "98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb"
+    },
+    {
+      "name": "Arquivo crítico preservado: style.css",
+      "passed": true,
+      "detail": "a4fdba497367197ebb1ee24e8da9f25863dbf94b46852bcfd686bcb8e12d73f6"
+    },
+    {
+      "name": "Build V646.7 unificado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Aprovação física continua pendente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "34 módulos JavaScript em ordem",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Three.js r128 foi mantido e não há CDN",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Fundação visual contém OTTHI_VISUAL_ASSETS",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Fundação visual contém registerVisualAsset",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Fundação visual contém visualAssetStatus",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Fundação visual contém OTTHI_VISUAL_QUALITY_PROFILES",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Fundação visual contém visualFoundationDiagnostics",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: OTTHI_AVATAR_SCHEMA_VERSION = 2",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: renderMode: 'procedural-fallback'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: normalizeAvatarV2",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: updateAvatarV2LegacyChoice",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: root.name='OTTHI_AVATAR_ROOT'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: bodyRoot.name='BODY_ROOT'",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: TOOL_SOCKET",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: BACK_SOCKET",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: HEAD_SOCKET",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar modular preparado: VEHICLE_SOCKET",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Avatar antigo migra no save local e na nuvem",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Estúdio atual continua usando as escolhas legadas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Personagem procedural continua como fallback de gameplay",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "athos.glb permanece registrado somente para lobby/AR",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Materiais numéricos básicos passam pelo cache",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Geometrias e contornos possuem caches compartilhados",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Descarte não destrói recursos compartilhados",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Materiais animados continuam exclusivos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Culling padrão reativado nas primitivas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Superfícies críticas continuam protegidas do culling",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "LOD gerenciado usa THREE.LOD",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Árvores e rochas usam LOD real",
+      "passed": true,
+      "detail": "2"
+    },
+    {
+      "name": "Árvores urbanas e prédios de fundo usam LOD real",
+      "passed": true,
+      "detail": "2"
+    },
+    {
+      "name": "Loop visual atualiza LOD e contornos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Qualidade controla recursos visuais",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Diagnóstico expõe draw calls, memória, LOD e avatar",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "limits": [
+    "Teste estrutural não substitui uso em aparelho físico.",
+    "Firebase remoto, multiplayer entre aparelhos, AR e APK exigem validação externa."
+  ]
+}

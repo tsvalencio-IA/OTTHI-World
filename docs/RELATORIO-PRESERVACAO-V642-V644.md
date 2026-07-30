@@ -1,0 +1,301 @@
+# Relatório de preservação — V642 → V644
+
+- Resultado: **APROVADO**
+- Funções-base preservadas: **544 / 544**
+- Funções atuais: **808**
+- Ordem das funções-base preservada: **sim**
+- Funções V643/V644 esperadas: **20 / 20**
+- Assets imutáveis preservados sem alteração: **76 / 83**
+- Alterações aprovadas de integração: **7**
+
+## Sistemas obrigatórios
+
+- [x] `roupas_e_avatar` — applyAvatarCustomization, openAvatarStudio, uniform
+- [x] `skills` — setScaleMode, toggleCrouch, spinPlayer
+- [x] `bombeiros` — createFireTruck, openFireStationDesk, activateFireIncident
+- [x] `policia` — createPoliceCar, startPoliceAlert, updatePoliceSystem
+- [x] `ambulancias` — createAmbulance, createTrafficIncident, resolveTrafficIncident
+- [x] `construcao` — beginBuildMode, placeBuild, reconcileWorldBuilds
+- [x] `pescaria` — startFishing, updateFishingVisual, restoreFishingCamera, createShoreFishingLife
+- [x] `transporte` — createBusModel, enterBus, openMetroStation, trafficPriority, busSpawnIndex
+- [x] `mobilidade_v643` — mobilityThrottleIntent, updateMobilityControlLabels, mobilityAccelerate, mobilityBrake
+- [x] `multiplayer` — remotePlayerEvent, openSocialHub, updateMultiplayer, applyRoomWorld, clearRemoteRoomEntities
+- [x] `bairros_v644` — miniMapScale, currentMapLocations, mapRegionsMarkup, roomHouseMarkers, focusCurrentRoom
+- [x] `educacao` — openEducationHub, runEducationGame, OTTHI_LEARNING
+
+## Alterações de assets aprovadas
+
+- `.nojekyll`
+- `android-app/app/src/main/res/values/strings.xml`
+- `assets/js/multiplayer-rtdb.js`
+- `assets/js/multiplayer/room-manager.js`
+- `assets/js/safety/child-safety.js`
+- `firebase-config.js`
+- `firebase-database.rules.json`
+
+## Funções adicionadas depois da base
+
+- `safeAvatarId()`
+- `safeAvatarColor()`
+- `safeLegacyAvatarChoice()`
+- `defaultAvatarV2()`
+- `normalizeAvatarV2()`
+- `updateAvatarV2LegacyChoice()`
+- `registerVisualAsset()`
+- `updateVisualAsset()`
+- `visualAssetStatus()`
+- `visualQualityProfile()`
+- `createManagedLOD()`
+- `applyVisualQualityBudget()`
+- `updateManagedVisualLODs()`
+- `outlineBelongsToPlayer()`
+- `updateManagedOutlineVisibility()`
+- `visualFoundationDiagnostics()`
+- `createAvatarRigFoundation()`
+- `avatarFoundationDiagnostics()`
+- `waitForAccountBackend()`
+- `ensureAccountConnection()`
+- `createGameAccount()`
+- `loginGameAccount()`
+- `unlinkGameAccount()`
+- `openAccountLogoutGate()`
+- `installApp()`
+- `persistBeforeOtthiReload()`
+- `reloadForOtthiUpdate()`
+- `probeOtthiGameUpdate()`
+- `registerOtthiGameUpdates()`
+- `trafficPriority()`
+- `miniMapLogicalSize()`
+- `miniMapScale()`
+- `missionMapLocations()`
+- `onlinePlayerMapLocations()`
+- `currentMapLocations()`
+- `mapVisualNodes()`
+- `mapClusterSelectionMarkup()`
+- `formatPlayTime()`
+- `ensureModelViewerReady()`
+- `visualCacheHasValue()`
+- `visualCacheOwnsGeometry()`
+- `visualCacheOwnsMaterial()`
+- `visualCacheOwnsTexture()`
+- `disposeDetachedVisual()`
+- `avatarPartLayer()`
+- `addUniformPatch()`
+- `addUniformLimb()`
+- `uniformPalette()`
+- `dressAnimatedAvatar()`
+- `busSpawnIndex()`
+- `serviceKindForJob()`
+- `serviceVehiclePools()`
+- `serviceVehicleById()`
+- `currentServiceMissionJob()`
+- `serviceVehicleAvailable()`
+- `serviceVehicleAppearance()`
+- `safeServiceDepot()`
+- `registerServiceVehicle()`
+- `enterServiceVehicle()`
+- `serviceMissionVehicle()`
+- `serviceVehicleMapLocation()`
+- `reserveMissionServiceVehicle()`
+- `releaseMissionServiceVehicle()`
+- `isDrivingServiceVehicle()`
+- `onServiceVehicleBoarded()`
+- `onServiceVehicleExited()`
+- `returnServiceVehicleHome()`
+- `incidentServiceLabel()`
+- `lockIncidentActor()`
+- `separateIncidentActors()`
+- `createIncidentVisual()`
+- `createTrafficIncidentAt()`
+- `ensureActiveTrafficIncident()`
+- `dispatchIncidentResponder()`
+- `dispatchIncidentResponders()`
+- `assistTrafficIncident()`
+- `markPlayerIncidentArrival()`
+- `releaseIncidentActorStates()`
+- `createShoreFisher()`
+- `createShoreFishingLife()`
+- `updateShoreFishers()`
+- `enterBoat()`
+- `buildCampfire()`
+- `furnitureCatalogForRoom()`
+- `furnitureSpec()`
+- `furnitureForExtension()`
+- `furnitureFootprint()`
+- `furniturePlacementValid()`
+- `disposeFurnitureGroup()`
+- `clearFurniturePreview()`
+- `createFurnitureModel()`
+- `renderExtensionFurniture()`
+- `renderFurniturePreview()`
+- `nextFurnitureSlot()`
+- `openFurniturePlacement()`
+- `removeRoomFurniture()`
+- `openFurnitureManager()`
+- `claimHouseOnline()`
+- `handleHouseDoor()`
+- `missionVehicleName()`
+- `missionInstructionSteps()`
+- `missionBriefingMarkup()`
+- `cancelActiveJob()`
+- `clearServiceVehicleVisual()`
+- `serviceVehicleIcon()`
+- `applyServiceVehicleVisual()`
+- `mobilityDriverActive()`
+- `updateMobilityControlLabels()`
+- `removeNearestBuild()`
+- `ensureViewportCoherence()`
+- `mobilityThrottleIntent()`
+- `guardianMultiplayerAllowed()`
+- `guardianCommunicationAllowed()`
+- `publicPlayerName()`
+- `remotePlayerName()`
+- `sanitizeRemoteSession()`
+- `sendSocialActionRequest()`
+- `acceptIncomingSocialRequest()`
+- `declineIncomingSocialRequest()`
+- `launchSessionWithCountdown()`
+- `acceptIncomingChallenge()`
+- `declineIncomingChallenge()`
+- `currentOnlineRoom()`
+- `approvedChatPhrases()`
+- `openReportPlayer()`
+- `ghostVehicleKind()`
+- `styleGhostVehicle()`
+- `updatePlayUsage()`
+- `showWorldLoading()`
+- `showWorldLoadFailure()`
+- `startGame()`
+- `roomWorldInfo()`
+- `roomHouseMarkers()`
+- `mapHouseLocations()`
+- `mapRegionsMarkup()`
+- `clearRemoteRoomEntities()`
+- `resetMobilityForRoomChange()`
+- `canChangeRoom()`
+- `focusCurrentRoom()`
+- `applyRoomWorld()`
+- `ensureCooperativeState()`
+- `coopUid()`
+- `coopMissionTemplate()`
+- `activeCoopMission()`
+- `activeCoopRecord()`
+- `activeCoopServiceJob()`
+- `coopParticipants()`
+- `coopOwnParticipant()`
+- `coopRoleLabel()`
+- `coopProgress()`
+- `coopEventValues()`
+- `coopHasEvent()`
+- `coopIndividualCount()`
+- `coopRoleCapacity()`
+- `coopRoleTaken()`
+- `coopEventSubjectId()`
+- `coopMedicalDestination()`
+- `coopRaceStandings()`
+- `coopRaceTargetReached()`
+- `coopMissionMapLocations()`
+- `coopServiceKind()`
+- `coopMissionHash()`
+- `coopSceneTarget()`
+- `coopNearestSchool()`
+- `coopNearestInvitableNpc()`
+- `coopCurrentTarget()`
+- `coopCurrentInstruction()`
+- `coopMissionProgressLabel()`
+- `coopMissionBriefingMarkup()`
+- `coopPermissionDenied()`
+- `coopBackendCall()`
+- `bindCoopActionButton()`
+- `coopLocalRecord()`
+- `coopActiveState()`
+- `createCooperativeMission()`
+- `joinCooperativeMission()`
+- `selectCoopRole()`
+- `toggleCoopReady()`
+- `startActiveCoopMission()`
+- `continueCoopMissionOffline()`
+- `prepareCoopMissionRuntime()`
+- `coopSetWaypoint()`
+- `onCoopServiceVehicleBoarded()`
+- `coopRecordEvent()`
+- `coopAddCounter()`
+- `coopReserveEvent()`
+- `coopNearbyParticipantCount()`
+- `performCoopMissionAction()`
+- `updateCoopFishingProgress()`
+- `updateCoopSchoolFollowers()`
+- `activateCoopRaceBots()`
+- `deactivateCoopRaceBots()`
+- `updateCoopRaceVisuals()`
+- `updateCoopRaceProgress()`
+- `coopAdvancePhase()`
+- `maybeCompleteCoopMission()`
+- `resolveCoopMissionScene()`
+- `resetCoopMissionNpcs()`
+- `completeCoopMissionLocal()`
+- `leaveActiveCoopMission()`
+- `openCoopLobby()`
+- `openCoopMissionCenter()`
+- `createCoopOvalTrackWorld()`
+- `createCooperativeMissionWorld()`
+- `updateCoopMissions()`
+- `updateCoopVisuals()`
+- `ensureOtthiWorldState()`
+- `worldPbrPath()`
+- `configureWorldTexture()`
+- `loadWorldTexture()`
+- `ensureUv2()`
+- `applyPbrPack()`
+- `upgradeCoreMaterialsToWorldPbr()`
+- `improveSceneMeshMaterials()`
+- `otthiWorldStageMarkup()`
+- `openOtthiWorldCenter()`
+- `injectOtthiWorldButtons()`
+- `applyOtthiWorldRuntimeSettings()`
+- `otthiWorldDiagnostics()`
+- `worldAvatarSafeChoice()`
+- `disposeWorldAvatarObject()`
+- `clearWorldAvatarV3()`
+- `worldAvatarMaterial()`
+- `worldAvatarLayer()`
+- `avatarV3Box()`
+- `avatarV3Sphere()`
+- `avatarPatternColor()`
+- `applyWorldAvatarV3()`
+- `worldAvatarOptions()`
+- `otthiSeededRandom()`
+- `worldDetailAllowed()`
+- `createWorldInstancedDetails()`
+- `createWorldMushroomCluster()`
+- `enhanceWorldHouses()`
+- `createWorldAtmosphericDetails()`
+- `createWorldLandmarks()`
+- `createOtthiWorldProfessionalLayer()`
+- `updateOtthiWorldEnvironment()`
+- `registerWorldBuildRecord()`
+- `defaultWorldVehicleParts()`
+- `worldVehicleParts()`
+- `removeWorldVehicleModules()`
+- `worldVehicleModuleMaterial()`
+- `applyWorldVehicleModulesToGroup()`
+- `vehicleCatalogOptions()`
+- `openWorldModularGarage()`
+- `createWorldModularGarageInteractable()`
+- `worldHeroState()`
+- `heroPowerUnlocked()`
+- `heroPowerReady()`
+- `createHeroPulseVisual()`
+- `activateWorldHeroPower()`
+- `worldHeroPowerCards()`
+- `openWorldHeroCenter()`
+- `createHeroPlatform()`
+- `createHeroToken()`
+- `createWorldHeroAdventure()`
+- `resetWorldHeroTokens()`
+- `startWorldHeroChallenge()`
+- `completeWorldHeroChallenge()`
+- `updateWorldHeroAdventure()`
+- `ensureWorldHeroHud()`
+- `updateWorldHeroHud()`
+- `bootstrapOtthiWorldShell()`

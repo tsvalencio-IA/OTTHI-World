@@ -1,0 +1,373 @@
+{
+  "version": 644,
+  "functions": 769,
+  "conditions": 2160,
+  "events": 233,
+  "topLevelDeclarations": 146,
+  "htmlNodes": 263,
+  "htmlIds": 104,
+  "javascriptModules": 40,
+  "styleModules": 17,
+  "moduleStats": [
+    {
+      "file": "00-runtime-foundation.js",
+      "description": "Runtime, utilitários, versão, storage e chaves de migração",
+      "functions": 0,
+      "conditions": 8,
+      "events": 0,
+      "startLine": 4,
+      "endLine": 49
+    },
+    {
+      "file": "00a-visual-foundation-avatar-v2.js",
+      "description": "Registro central de assets, LOD gerenciado, orçamento visual e esquema de avatar V2",
+      "functions": 18,
+      "conditions": 30,
+      "events": 0,
+      "startLine": 51,
+      "endLine": 367
+    },
+    {
+      "file": "01-build-persistence.js",
+      "description": "Normalização, merge, tombstones e persistência das construções",
+      "functions": 8,
+      "conditions": 9,
+      "events": 0,
+      "startLine": 369,
+      "endLine": 488
+    },
+    {
+      "file": "02-state-save-cloud-account.js",
+      "description": "Estado, save local, IndexedDB, nuvem e conta",
+      "functions": 14,
+      "conditions": 54,
+      "events": 8,
+      "startLine": 490,
+      "endLine": 756
+    },
+    {
+      "file": "03-ui-modal-install-pwa.js",
+      "description": "Economia, flags, telas, modais, feedback, instalação e PWA",
+      "functions": 14,
+      "conditions": 47,
+      "events": 16,
+      "startLine": 758,
+      "endLine": 1041
+    },
+    {
+      "file": "04-education-daily-quiz.js",
+      "description": "Desafios diários, educação, quiz e coleção",
+      "functions": 30,
+      "conditions": 42,
+      "events": 6,
+      "startLine": 1043,
+      "endLine": 1171
+    },
+    {
+      "file": "05-avatar-life-customization.js",
+      "description": "Avatar, roupas, uniformes, vida, moldes e ajuda",
+      "functions": 6,
+      "conditions": 3,
+      "events": 7,
+      "startLine": 1173,
+      "endLine": 1314
+    },
+    {
+      "file": "06-missions-profile-hud-inventory-tools.js",
+      "description": "Missões, objetivos, perfil, HUD, inventário e ferramentas",
+      "functions": 22,
+      "conditions": 18,
+      "events": 4,
+      "startLine": 1316,
+      "endLine": 1454
+    },
+    {
+      "file": "07-navigation-traffic-routes.js",
+      "description": "Rotas, trânsito, grafo, GPS e minimapa",
+      "functions": 28,
+      "conditions": 70,
+      "events": 0,
+      "startLine": 1456,
+      "endLine": 1604
+    },
+    {
+      "file": "08-map-parent-settings.js",
+      "description": "Mapa, marcadores, waypoint, reset, ferramentas parentais e configurações",
+      "functions": 20,
+      "conditions": 57,
+      "events": 36,
+      "startLine": 1606,
+      "endLine": 1806
+    },
+    {
+      "file": "09-responsive-ar-quality-diagnostics.js",
+      "description": "Responsividade, AR, modos, qualidade, LOD e diagnóstico",
+      "functions": 29,
+      "conditions": 80,
+      "events": 13,
+      "startLine": 1808,
+      "endLine": 2074
+    },
+    {
+      "file": "10-player-skills.js",
+      "description": "Escala, Mini/Normal/Grande, abaixar, girar e domínio de skills",
+      "functions": 9,
+      "conditions": 28,
+      "events": 0,
+      "startLine": 2076,
+      "endLine": 2143
+    },
+    {
+      "file": "11-render-materials-player-model.js",
+      "description": "Texturas, materiais, geometria, personagem e avatar 3D",
+      "functions": 39,
+      "conditions": 111,
+      "events": 0,
+      "startLine": 2145,
+      "endLine": 2512
+    },
+    {
+      "file": "12-world-resources-nature.js",
+      "description": "Interações do mundo, árvores, rochas, mina, poço, ruas, água e móveis",
+      "functions": 17,
+      "conditions": 54,
+      "events": 0,
+      "startLine": 2514,
+      "endLine": 2741
+    },
+    {
+      "file": "13-houses-npcs-vehicles-base.js",
+      "description": "Casas, interiores, NPCs, inimigos, cristais, veículos e academia",
+      "functions": 23,
+      "conditions": 72,
+      "events": 0,
+      "startLine": 2743,
+      "endLine": 2991
+    },
+    {
+      "file": "14-world-district-decoration.js",
+      "description": "Cogumelos, portais, praça, distrito e decoração urbana",
+      "functions": 13,
+      "conditions": 6,
+      "events": 0,
+      "startLine": 2993,
+      "endLine": 3085
+    },
+    {
+      "file": "15-transit-bus-metro.js",
+      "description": "Ônibus, rotas viárias, paradas, metrô e painel de transporte",
+      "functions": 34,
+      "conditions": 110,
+      "events": 10,
+      "startLine": 3087,
+      "endLine": 3308
+    },
+    {
+      "file": "16-emergency-services.js",
+      "description": "Bombeiros, incêndios, polícia, ambulância, segurança e incidentes",
+      "functions": 54,
+      "conditions": 96,
+      "events": 2,
+      "startLine": 3310,
+      "endLine": 3495
+    },
+    {
+      "file": "17-adventures-learning-world.js",
+      "description": "Castelo, aventuras, desafios e praça educacional",
+      "functions": 10,
+      "conditions": 21,
+      "events": 1,
+      "startLine": 3497,
+      "endLine": 3557
+    },
+    {
+      "file": "18-water-fishing-boats.js",
+      "description": "Água, câmera e animação da pesca, barco e física náutica",
+      "functions": 35,
+      "conditions": 66,
+      "events": 3,
+      "startLine": 3559,
+      "endLine": 3717
+    },
+    {
+      "file": "19-campfire-hunting-house-extensions.js",
+      "description": "Fogueira, caça, animais e ampliações de casas",
+      "functions": 37,
+      "conditions": 95,
+      "events": 7,
+      "startLine": 3719,
+      "endLine": 3803
+    },
+    {
+      "file": "20-world-build-cloud-houses.js",
+      "description": "Construção do mundo, recursos, baús, casas em nuvem e interiores",
+      "functions": 10,
+      "conditions": 43,
+      "events": 5,
+      "startLine": 3805,
+      "endLine": 3948
+    },
+    {
+      "file": "21-interactions-shop-social-races.js",
+      "description": "Atividades, mercado, oficina, amizades, NPCs e corridas",
+      "functions": 14,
+      "conditions": 98,
+      "events": 9,
+      "startLine": 3950,
+      "endLine": 4126
+    },
+    {
+      "file": "22-careers-jobs-uniforms.js",
+      "description": "Carreiras, estados de missão, uniformes, professor, bombeiro e entrega",
+      "functions": 16,
+      "conditions": 76,
+      "events": 10,
+      "startLine": 4128,
+      "endLine": 4243
+    },
+    {
+      "file": "23-vehicle-effects-driving.js",
+      "description": "Poeira, som, efeitos, controles, direção, passageiros e ponte",
+      "functions": 16,
+      "conditions": 53,
+      "events": 0,
+      "startLine": 4245,
+      "endLine": 4381
+    },
+    {
+      "file": "24-construction-system.js",
+      "description": "Custos, propriedade, preview, validação, colocação, remoção e reconciliação",
+      "functions": 20,
+      "conditions": 69,
+      "events": 4,
+      "startLine": 4383,
+      "endLine": 4493
+    },
+    {
+      "file": "25-render-init-resize-position-collision.js",
+      "description": "Three.js, qualidade, viewport, resize, posição segura e colisões",
+      "functions": 19,
+      "conditions": 57,
+      "events": 5,
+      "startLine": 4495,
+      "endLine": 4635
+    },
+    {
+      "file": "26-input-player-physics.js",
+      "description": "Entrada, corrida, pulo, física do jogador/veículo e animação",
+      "functions": 14,
+      "conditions": 58,
+      "events": 0,
+      "startLine": 4637,
+      "endLine": 4765
+    },
+    {
+      "file": "27-npc-enemies-combat-camera-action.js",
+      "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
+      "functions": 16,
+      "conditions": 69,
+      "events": 0,
+      "startLine": 4767,
+      "endLine": 4928
+    },
+    {
+      "file": "28-multiplayer-social-online.js",
+      "description": "Desafios online, social, chat, presença, fantasmas e sincronização",
+      "functions": 53,
+      "conditions": 136,
+      "events": 30,
+      "startLine": 4930,
+      "endLine": 5122
+    },
+    {
+      "file": "29-game-loop-controls-gamepad.js",
+      "description": "Loop principal, controles, gamepad e início do jogo",
+      "functions": 6,
+      "conditions": 47,
+      "events": 20,
+      "startLine": 5124,
+      "endLine": 5238
+    },
+    {
+      "file": "30-pause-tests-public-api-bootstrap.js",
+      "description": "Pausa, testes de veículo, API pública de auditoria e bootstrap final",
+      "functions": 5,
+      "conditions": 23,
+      "events": 6,
+      "startLine": 5240,
+      "endLine": 5422
+    },
+    {
+      "file": "31-neighborhood-world-controller.js",
+      "description": "Bairros reais, limite de vagas, transição, casas e mapa V644",
+      "functions": 9,
+      "conditions": 9,
+      "events": 4,
+      "startLine": 5424,
+      "endLine": 5451
+    },
+    {
+      "file": "32-cooperative-missions.js",
+      "description": "Missões cooperativas infantis, equipes online/solo, pesca, escola e corridas",
+      "functions": 53,
+      "conditions": 146,
+      "events": 4,
+      "startLine": 5453,
+      "endLine": 5678
+    },
+    {
+      "file": "33-otthi-world-professional-core.js",
+      "description": "Fundação OTTHI World, PBR local, diagnóstico e painel das cinco etapas",
+      "functions": 13,
+      "conditions": 22,
+      "events": 7,
+      "startLine": 5680,
+      "endLine": 5801
+    },
+    {
+      "file": "34-avatar-studio-professional-v3.js",
+      "description": "Avatar modular V3 sobre o rig procedural preservado",
+      "functions": 10,
+      "conditions": 39,
+      "events": 5,
+      "startLine": 5803,
+      "endLine": 5897
+    },
+    {
+      "file": "35-world-render-pbr-environment.js",
+      "description": "Mundo profissional, materiais PBR, vegetação, atmosfera e detalhes",
+      "functions": 9,
+      "conditions": 24,
+      "events": 0,
+      "startLine": 5899,
+      "endLine": 5956
+    },
+    {
+      "file": "36-modular-build-machines.js",
+      "description": "Construção modular, oficina e veículos montáveis",
+      "functions": 9,
+      "conditions": 76,
+      "events": 5,
+      "startLine": 5958,
+      "endLine": 6056
+    },
+    {
+      "file": "37-hero-platform-gameplay.js",
+      "description": "Poderes originais, circuito de plataforma e aventura",
+      "functions": 16,
+      "conditions": 31,
+      "events": 4,
+      "startLine": 6058,
+      "endLine": 6122
+    },
+    {
+      "file": "38-otthi-world-integration-bootstrap.js",
+      "description": "Integração, fallbacks e bootstrap das cinco etapas",
+      "functions": 1,
+      "conditions": 7,
+      "events": 2,
+      "startLine": 6124,
+      "endLine": 6152
+    }
+  ]
+}
