@@ -1,4 +1,4 @@
-name: Build modular OTTHI World V700
+name: Build modular OTTHI World V701
 
 on:
   workflow_dispatch:
@@ -34,7 +34,7 @@ jobs:
           node tools/test_v646_runtime.js
           node tools/test_v6466_permissions_buttons.js
           python tools/test_v647_multiplayer_missions.py
-          python tools/test_v700_otthi_world.py
+          python tools/test_v701_gm_panel.py
           python tools/validate_project.py
       - name: Validar JavaScript
         run: node --check app.js
