@@ -1,0 +1,934 @@
+{
+  "version": 701,
+  "build": "702.0-world-evolution-complete",
+  "passed": false,
+  "counts": {
+    "checks": 178,
+    "passed": 163,
+    "failed": 15,
+    "functionsIncludingAsync": 852,
+    "javascriptModules": 42,
+    "styleModules": 19,
+    "htmlIds": 105
+  },
+  "checks": [
+    {
+      "name": "Arquivo obrigatório index.html",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório app.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório style.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório sw.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório manifest.webmanifest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório release-manifest.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório VERSION.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório firebase-config.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório firebase-database.rules.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório athos.glb",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/module-order.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório assets/world/pbr-manifest.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/build_project.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v701_gm_panel.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/33-otthi-world-professional-core.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/34-avatar-studio-professional-v3.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/35-world-render-pbr-environment.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/36-modular-build-machines.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/37-hero-platform-gameplay.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/38-otthi-world-integration-bootstrap.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/modules/39-gm-admin-panel.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/styles/16-otthi-world-professional-v700.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório src/styles/17-gm-admin-panel-v701.css",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório .github/workflows/build-modular-app.yml",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório .github/workflows/gerar-apk.yml",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON VERSION.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON src/module-order.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON manifest.webmanifest",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON release-manifest.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON firebase-database.rules.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "JSON assets/world/pbr-manifest.json",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "41 módulos JavaScript",
+      "passed": false,
+      "detail": "42"
+    },
+    {
+      "name": "18 módulos CSS",
+      "passed": false,
+      "detail": "19"
+    },
+    {
+      "name": "Manifesto JS completo",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "Manifesto CSS completo",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "Ordem JS corresponde aos arquivos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Ordem CSS corresponde aos arquivos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Versão central V701",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe app.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe sw.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/00-runtime-foundation.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/00a-visual-foundation-avatar-v2.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/01-build-persistence.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/02-state-save-cloud-account.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/03-ui-modal-install-pwa.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/04-education-daily-quiz.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/05-avatar-life-customization.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/06-missions-profile-hud-inventory-tools.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/07-navigation-traffic-routes.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/08-map-parent-settings.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/09-responsive-ar-quality-diagnostics.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/10-player-skills.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/11-render-materials-player-model.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/12-world-resources-nature.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/13-houses-npcs-vehicles-base.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/14-world-district-decoration.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/15-transit-bus-metro.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/16-emergency-services.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/17-adventures-learning-world.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/18-water-fishing-boats.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/19-campfire-hunting-house-extensions.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/20-world-build-cloud-houses.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/21-interactions-shop-social-races.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/22-careers-jobs-uniforms.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/23-vehicle-effects-driving.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/24-construction-system.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/25-render-init-resize-position-collision.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/26-input-player-physics.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/27-npc-enemies-combat-camera-action.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/28-multiplayer-social-online.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/29-game-loop-controls-gamepad.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/30-pause-tests-public-api-bootstrap.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/31-neighborhood-world-controller.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/32-cooperative-missions.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/33-otthi-world-professional-core.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/34-avatar-studio-professional-v3.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/35-world-render-pbr-environment.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/36-modular-build-machines.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/37-hero-platform-gameplay.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/38-otthi-world-integration-bootstrap.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/39-gm-admin-panel.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/40-world-evolution-v702.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/core/performance-guardian.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/core/runtime-config.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/core/safe-pointer.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/core/viewport-manager.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/education/adaptive-learning.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/game-account.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/multiplayer/room-manager.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/multiplayer-rtdb.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/safety/child-safety.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/save-db.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe assets/js/ui/shared-modal.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Mobilidade determinística",
+      "passed": true,
+      "detail": "┌─────────┬──────────────────────────────────────────────────────────┬────────────┐\n│ (index) │ teste                                                    │ resultado  │\n├─────────┼──────────────────────────────────────────────────────────┼────────────┤\n│ 0       │ 'Carro acelera apenas pelo botão'                        │ 'APROVADO' │\n│ 1       │ 'Carro: comando direita produz curva visual à direita'   │ 'APROVADO' │\n│ 2       │ 'Carro: comando esquerda produz curva visual à esquerda' │ 'APROVADO' │\n│ 3       │ 'Carro: curvas laterais são simétricas e opostas'        │ 'APROVADO' │\n│ 4       │ 'Carro: Freio reduz a velocidade antes da ré'            │ 'APROVADO' │\n│ 5       │ 'Carro: botão Freio/Ré engata ré depois de parar'        │ 'APROVADO' │\n│ 6       │ 'Carro: Acelerar freia a ré e volta ao avanço'           │ 'APROVADO' │\n│ 7       │ 'Barco acelera apenas pelo botão'                        │ 'APROVADO' │\n│ 8       │ 'Barco: comando direita produz curva visual à direita'   │ 'APROVADO' │\n│ 9       │ 'Barco: comando esquerda produz curva visual à esquerda' │ 'APROVADO' │\n│ 10      │ 'Barco: Freio reduz antes da ré'                         │ 'APROVADO' │\n│ 11      │ 'Barco: Freio/Ré engata ré após parar'                   │ 'APROVADO' │\n└─────────┴──────────────────────────────────────────────────────────┴────────────┘\n{\"passed\":12,\"failed\":0}"
+    },
+    {
+      "name": "Sistemas do mundo preservados",
+      "passed": true,
+      "detail": "tail\": \"\"\n    },\n    {\n      \"name\": \"Pesca viva criada na expansão do lago\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Textura de água PNG válida\",\n      \"passed\": true,\n      \"detail\": \"(512, 512)\"\n    },\n    {\n      \"name\": \"Textura de água usada no material\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Frota inicial limitada\",\n      \"passed\": true,\n      \"detail\": \"{'solar': 2, 'verde': 2, 'escolar': 1, 'circular': 1, 'turismo': 1}\"\n    },\n    {\n      \"name\": \"Circular da Cidade com uma unidade\",\n      \"passed\": true,\n      \"detail\": \"1\"\n    },\n    {\n      \"name\": \"Trânsito: trafficPriority\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Trânsito: trafficSpeedFactor\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Trânsito: captureTrafficPositions\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Trânsito: resolveTrafficOverlaps\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Trânsito: trafficHoldUntil\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: busSpawnIndex\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: buildBusRoadPath\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: recoverBusRoute\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: validateBusCoverage\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ônibus: laneOffset\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Serviços de emergência respeitam retenção\",\n      \"passed\": true,\n      \"detail\": \"3\"\n    },\n    {\n      \"name\": \"NPCs/veículos respeitam retenção\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS mobilidade: mode-mobility-driver #runBtn\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS mobilidade: mode-mobility-driver #jumpBtn\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS mobilidade: orientation:portrait\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS mobilidade: orientation:landscape\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS mobilidade: mode-passenger\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Preservação: bombeiros\",\n      \"passed\": true,\n      \"detail\": \"createFireTruck,activateFireIncident\"\n    },\n    {\n      \"name\": \"Preservação: policia\",\n      \"passed\": true,\n      \"detail\": \"createPoliceCar,startPoliceAlert\"\n    },\n    {\n      \"name\": \"Preservação: ambulancia\",\n      \"passed\": true,\n      \"detail\": \"createAmbulance,resolveTrafficIncident\"\n    },\n    {\n      \"name\": \"Preservação: roupas\",\n      \"passed\": true,\n      \"detail\": \"applyAvatarCustomization,JOB_UNIFORMS\"\n    },\n    {\n      \"name\": \"Preservação: skills\",\n      \"passed\": true,\n      \"detail\": \"setScaleMode,toggleCrouch,spinPlayer\"\n    }\n  ]\n}"
+    },
+    {
+      "name": "Bairros, mapa e salas",
+      "passed": false,
+      "detail": "\n      \"name\": \"Mapa completo mapRegionsMarkup\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapHouseLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo quadrado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa retrato responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa paisagem responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Canvas minimapa acompanha caixa\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regras possuem slots fixos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-01\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-02\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-03\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-04\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-05\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-06\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-07\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-08\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-09\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-10\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regra de vaga não aceita numChildren\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga aceita qualquer jogador autenticado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva ocorre por vaga individual\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva não grava o conjunto inteiro\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga sem validação bloqueadora\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI mostra ocupação\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI bloqueia lotado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI só seleciona após sucesso\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Módulo 31 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS 13 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Versão consolidada no index\",\n      \"passed\": false,\n      \"detail\": \"0\"\n    },\n    {\n      \"name\": \"Runtime consolidado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Service Worker consolidado\",\n      \"passed\": false,\n      \"detail\": \"\"\n    }\n  ]\n}"
+    },
+    {
+      "name": "Slots, PWA e revisão",
+      "passed": false,
+      "detail": "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(deletedCaches.includes(`otthi-v7010-${revision}`))\n\n    at testFailedInstallKeepsPreviousRevision (/mnt/data/otthi_work/v702_full/tools/test_v646_runtime.js:232:10)\n    at async /mnt/data/otthi_work/v702_full/tools/test_v646_runtime.js:252:3 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}"
+    },
+    {
+      "name": "Permissões e botões",
+      "passed": true,
+      "detail": "V646.6 permissões e botões: 60/60 aprovados."
+    },
+    {
+      "name": "Multiplayer e missões",
+      "passed": true,
+      "detail": "{\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 31,\n    \"failed\": 0,\n    \"total\": 31\n  },\n  \"checks\": [\n    {\n      \"name\": \"Navegação aguarda worldGroup\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Reserva atômica de sala preservada\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Fallback por transação individual\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Reserva individual testável\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Participante fica registrado ao desconectar\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Evento cooperativo idempotente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Cancelamento pelo remetente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Modo competitivo sincronizado\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Regras aceitam transação individual\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Convites autenticados sem bloqueio adicional\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem Controlar o fogo progressivamente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem safety-release\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem patient-loaded\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem patient-delivered\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem suspect-escorted\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem student-delivered\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopReserveEvent\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopIndividualCount\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopRaceStandings\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem continueCoopMissionOffline\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem createCoopOvalTrackWorld\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Maca exige dois participantes\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Papéis não podem exceder a capacidade\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Todos precisam estar prontos\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Bots usam posições e velocidade determinísticas\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Bots desaceleram perto do jogador\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Mapa inclui participantes online\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missão ativa tem prioridade no agrupamento\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Mapa recalcula em resize e orientação\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Tela baixa tem regra dedicada\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Modal usa dimensões reais do aparelho\",\n      \"passed\": true\n    }\n  ]\n}"
+    },
+    {
+      "name": "Serviços profissionais",
+      "passed": true,
+      "detail": "test_accidents_stop_and_require_all_services (__main__.ProfessionalEmergencyServicesTests.test_accidents_stop_and_require_all_services) ... ok\ntest_buses_and_traffic_have_collision_protection (__main__.ProfessionalEmergencyServicesTests.test_buses_and_traffic_have_collision_protection) ... ok\ntest_missions_require_correct_vehicle (__main__.ProfessionalEmergencyServicesTests.test_missions_require_correct_vehicle) ... ok\ntest_service_jobs_and_visual_uniforms_exist (__main__.ProfessionalEmergencyServicesTests.test_service_jobs_and_visual_uniforms_exist) ... ok\ntest_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.ProfessionalEmergencyServicesTests.test_service_vehicle_visuals_are_local_and_multiplayer_safe) ... ok\ntest_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.003s\n\nOK"
+    },
+    {
+      "name": "Mapa, móveis e roupas",
+      "passed": false,
+      "detail": "test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok\ntest_map_is_dynamic_square_and_viewport_fitted (__main__.CommercialPolishTests.test_map_is_dynamic_square_and_viewport_fitted) ... ok\ntest_mission_card_opens_one_clear_briefing (__main__.CommercialPolishTests.test_mission_card_opens_one_clear_briefing) ... ok\ntest_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match) ... FAIL\ntest_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.test_room_furniture_is_persistent_and_editable) ... ok\ntest_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok\n\n======================================================================\nFAIL: test_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/mnt/data/otthi_work/v702_full/tools/test_v6462_commercial_polish.py\", line 78, in test_new_style_is_last_and_build_outputs_match\n    self.assertEqual(order['styles'][-1]['file'], 'src/styles/17-gm-admin-panel-v701.css')\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'src/styles/18-world-evolution-v702.css' != 'src/styles/17-gm-admin-panel-v701.css'\n- src/styles/18-world-evolution-v702.css\n+ src/styles/17-gm-admin-panel-v701.css\n\n\n----------------------------------------------------------------------\nRan 6 tests in 0.002s\n\nFAILED (failures=1)"
+    },
+    {
+      "name": "Cooperativo e responsividade",
+      "passed": false,
+      "detail": "test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok\ntest_map_is_clustered_and_responsive_in_both_orientations (__main__.CoopResponsiveTests.test_map_is_clustered_and_responsive_in_both_orientations) ... ok\ntest_roles_and_shared_progress_are_online (__main__.CoopResponsiveTests.test_roles_and_shared_progress_are_online) ... ok\ntest_school_fishing_and_race_runtime_contracts (__main__.CoopResponsiveTests.test_school_fishing_and_race_runtime_contracts) ... ok\ntest_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests.test_state_persists_and_existing_systems_integrate) ... ok\ntest_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... FAIL\n\n======================================================================\nFAIL: test_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/mnt/data/otthi_work/v702_full/tools/test_v6463_coop_responsive.py\", line 84, in test_uniform_and_build_order_are_complete\n    self.assertEqual(js_files[-1], 'src/modules/39-gm-admin-panel.js')\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'src/modules/40-world-evolution-v702.js' != 'src/modules/39-gm-admin-panel.js'\n- src/modules/40-world-evolution-v702.js\n+ src/modules/39-gm-admin-panel.js\n\n\n----------------------------------------------------------------------\nRan 6 tests in 0.005s\n\nFAILED (failures=1)"
+    },
+    {
+      "name": "Cinco etapas OTTHI World V701",
+      "passed": false,
+      "detail": "erece apenas adições positivas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aplicação soma sem substituir saldos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Limite de segurança por concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"API GM completa no RTDB\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Concessão e auditoria são gravadas juntas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Usuários recebem concessões online ou na próxima conexão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ledger GM é salvo localmente e na nuvem\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Concessão é idempotente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Login aguarda recuperação antes de aplicar concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo só conclui após persistência\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Admins não podem ser criados pelo cliente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente UID GM lê todos os usuários\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente GM cria concessão imutável\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Itens negativos e zero são recusados\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Moedas negativas são recusadas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo exige concessão real e dono correto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo aplicado não pode ser reaberto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Auditoria é imutável e exclusiva do GM\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Index V701 versionado\",\n      \"passed\": false,\n      \"detail\": \"0\"\n    },\n    {\n      \"name\": \"Service Worker V701\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto PWA V701\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Android V701\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aprovação física permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Firebase remoto permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto de release coerente\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Hashes de release conferem\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Revisão PWA coerente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    }\n  ],\n  \"limits\": [\n    \"Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado.\"\n  ]\n}"
+    },
+    {
+      "name": "IDs HTML únicos",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Referências locais existem",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Cache-busting V701",
+      "passed": false,
+      "detail": "0"
+    },
+    {
+      "name": "Three.js local",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "Manifesto PWA V701",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "Service Worker V701",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "Hash-fonte src/modules/00-runtime-foundation.js",
+      "passed": true,
+      "detail": "e47ad1c1bb307ce9db796109deffddd0c1fb774873b3018ec5c894891d0d0c5f"
+    },
+    {
+      "name": "Hash-fonte src/modules/00a-visual-foundation-avatar-v2.js",
+      "passed": true,
+      "detail": "66e94b2cd90c68e43a7455afa3045b6449799c9710b602558166d6e5f0e03d39"
+    },
+    {
+      "name": "Hash-fonte src/modules/01-build-persistence.js",
+      "passed": true,
+      "detail": "a4102196b4a308ab8779c6f9505c7c054e0d2a261a4d60dcca0b88e29d7f3bdf"
+    },
+    {
+      "name": "Hash-fonte src/modules/02-state-save-cloud-account.js",
+      "passed": true,
+      "detail": "2203a92065490d6b0ad77013a98b85568dc39eaec2a540827226def050b8ad2a"
+    },
+    {
+      "name": "Hash-fonte src/modules/03-ui-modal-install-pwa.js",
+      "passed": true,
+      "detail": "d49232561be91aabe54e17ae6d1e18c9699c67ee5cf1848e731cbd811b8950ff"
+    },
+    {
+      "name": "Hash-fonte src/modules/04-education-daily-quiz.js",
+      "passed": true,
+      "detail": "28bfae12189a8bfd6118d93fdeb881fff8c23a4fc4bccd32bfa8dd9cebd2baba"
+    },
+    {
+      "name": "Hash-fonte src/modules/05-avatar-life-customization.js",
+      "passed": true,
+      "detail": "48eee0d596cf07cfffb597d2b8c5b3a3a8423b77fa4dcee070740827f04ffdd1"
+    },
+    {
+      "name": "Hash-fonte src/modules/06-missions-profile-hud-inventory-tools.js",
+      "passed": true,
+      "detail": "5df8566ee771d21108b1d3c3f615f59c98b670e5d75a313a9d6e71629e6dca1c"
+    },
+    {
+      "name": "Hash-fonte src/modules/07-navigation-traffic-routes.js",
+      "passed": true,
+      "detail": "2d042aa04eb6877c0ae464e09a866b3566a0814283cb0d4d481ce31c2a320ecc"
+    },
+    {
+      "name": "Hash-fonte src/modules/08-map-parent-settings.js",
+      "passed": true,
+      "detail": "f0c69a7ef66cebbb77b19f1d1d8e09a6f362776f70036aab0f15442d0c906a3b"
+    },
+    {
+      "name": "Hash-fonte src/modules/09-responsive-ar-quality-diagnostics.js",
+      "passed": true,
+      "detail": "d847e6b80266b9b5ab48ec703314d15ed5f750f04f2820c5c13de1d2a2f011b8"
+    },
+    {
+      "name": "Hash-fonte src/modules/10-player-skills.js",
+      "passed": true,
+      "detail": "aea3d85401c518ddf4cbfefffe2e0ad720ae4faf46d27310a886b4d966674715"
+    },
+    {
+      "name": "Hash-fonte src/modules/11-render-materials-player-model.js",
+      "passed": true,
+      "detail": "fd64f45cbfb038e111bdc952f5f2eeae332ac7c25708fda9c263767d333aa207"
+    },
+    {
+      "name": "Hash-fonte src/modules/12-world-resources-nature.js",
+      "passed": true,
+      "detail": "ba7ee4fe809b208029fb66b9817d56d943e227c472c5ecb9cebd65441a513bf8"
+    },
+    {
+      "name": "Hash-fonte src/modules/13-houses-npcs-vehicles-base.js",
+      "passed": true,
+      "detail": "e4aca2245b2704c140cdae177332129e5b25365e5d69f9a3e4f3b49361907976"
+    },
+    {
+      "name": "Hash-fonte src/modules/14-world-district-decoration.js",
+      "passed": true,
+      "detail": "b134bf487383f09375cf4967dd2107b2a3051750c3267f6227b4fff511bde87e"
+    },
+    {
+      "name": "Hash-fonte src/modules/15-transit-bus-metro.js",
+      "passed": true,
+      "detail": "f31250d84ed4d69dfad67a2c4bccd41eceecf88efba217ac907237972c34656c"
+    },
+    {
+      "name": "Hash-fonte src/modules/16-emergency-services.js",
+      "passed": true,
+      "detail": "05ca8dc1c1d2ff6acd0c0f913e232f7e92fa076b95b819ae64bd8bab41e28d51"
+    },
+    {
+      "name": "Hash-fonte src/modules/17-adventures-learning-world.js",
+      "passed": true,
+      "detail": "735b30a5f026eb52467df35c61c3d5e4af5c73d7bdc879581d1070c18d07a201"
+    },
+    {
+      "name": "Hash-fonte src/modules/18-water-fishing-boats.js",
+      "passed": true,
+      "detail": "f81fdb6bdde4e190b8f744440adaf644b890f4fc7c715495433d1c4ddf026166"
+    },
+    {
+      "name": "Hash-fonte src/modules/19-campfire-hunting-house-extensions.js",
+      "passed": true,
+      "detail": "6ea68178a5f6831171335b9c20dd59b6d8985ba0cc1ff587ab95b4ab1d44e977"
+    },
+    {
+      "name": "Hash-fonte src/modules/20-world-build-cloud-houses.js",
+      "passed": true,
+      "detail": "712fcc110bd8927592ba637c22f8c81b4ab42f6ba5d1d1863f5e2ad3978e21b9"
+    },
+    {
+      "name": "Hash-fonte src/modules/21-interactions-shop-social-races.js",
+      "passed": true,
+      "detail": "7f219d03a2a5879ad9b3c236baa8515acc66d5f215a99bbc45694168415b0eaf"
+    },
+    {
+      "name": "Hash-fonte src/modules/22-careers-jobs-uniforms.js",
+      "passed": true,
+      "detail": "5b8ccea7fe11dfd5bb6c050c6706dbecea3e5f8bf36ec666cf4baa6a7bf0e169"
+    },
+    {
+      "name": "Hash-fonte src/modules/23-vehicle-effects-driving.js",
+      "passed": true,
+      "detail": "e9310ba6bc960c093e1bc1950ff75998bc8ccb8f4ac6db9589a2f696fd8c3e75"
+    },
+    {
+      "name": "Hash-fonte src/modules/24-construction-system.js",
+      "passed": true,
+      "detail": "ecbecef3564a5d94f76ffd3d537aa25ad451c20514d64d05f6dca5519768ab48"
+    },
+    {
+      "name": "Hash-fonte src/modules/25-render-init-resize-position-collision.js",
+      "passed": true,
+      "detail": "d89730724976c3160bad166f2b94dc54fb9c75bce7b74d58306bc61f7218a73c"
+    },
+    {
+      "name": "Hash-fonte src/modules/26-input-player-physics.js",
+      "passed": true,
+      "detail": "73dbbd53e34e13a2e7d5b7c8fc809b2642b4398c50d15c30f9b87314c0906bbd"
+    },
+    {
+      "name": "Hash-fonte src/modules/27-npc-enemies-combat-camera-action.js",
+      "passed": true,
+      "detail": "9bd86324345b8efcabc96eaca8678fb4346a7888ae81e9f8b7f371c88d8abfbf"
+    },
+    {
+      "name": "Hash-fonte src/modules/28-multiplayer-social-online.js",
+      "passed": true,
+      "detail": "3044b224e20adb290b944c1aef9043539475dc184d9d5b70708949c0ffc58014"
+    },
+    {
+      "name": "Hash-fonte src/modules/29-game-loop-controls-gamepad.js",
+      "passed": true,
+      "detail": "e1bbb0de13ec5399a666fe5e8d2cb35c04267c526ba43e6fd3b41d7077fc930b"
+    },
+    {
+      "name": "Hash-fonte src/modules/30-pause-tests-public-api-bootstrap.js",
+      "passed": true,
+      "detail": "8539dc76be417801be7672f65d3fe20108b13c402059ad777197920e5c604802"
+    },
+    {
+      "name": "Hash-fonte src/modules/31-neighborhood-world-controller.js",
+      "passed": true,
+      "detail": "c077d7777f196bc9dc03bc62dd3f73c9c15e8f8b5222cff0b94c926d78058ba7"
+    },
+    {
+      "name": "Hash-fonte src/modules/32-cooperative-missions.js",
+      "passed": true,
+      "detail": "71dfedd7b855a95d8047d514c54f013fcb65de6de5e45cdb82f2a78fccf22a0f"
+    },
+    {
+      "name": "Hash-fonte src/modules/33-otthi-world-professional-core.js",
+      "passed": true,
+      "detail": "3ea42f806142e7655996b7b1708a1d784e9bcec0df28428bb62076d582f3d1d7"
+    },
+    {
+      "name": "Hash-fonte src/modules/34-avatar-studio-professional-v3.js",
+      "passed": true,
+      "detail": "c2c84662078c210debf030c665875f368d004c8c079107e8a6e82e06fdea0584"
+    },
+    {
+      "name": "Hash-fonte src/modules/35-world-render-pbr-environment.js",
+      "passed": true,
+      "detail": "9738993dc27cc6b48be41fb05e2e5e036a1495559a8b02470ec3b3fbe0c25e68"
+    },
+    {
+      "name": "Hash-fonte src/modules/36-modular-build-machines.js",
+      "passed": true,
+      "detail": "e7727cf5ff9311e925701d6581c950bd6cf53211beaedf5d2ca65e0ac63c405c"
+    },
+    {
+      "name": "Hash-fonte src/modules/37-hero-platform-gameplay.js",
+      "passed": true,
+      "detail": "a4e83de8cef4f4be7e4467c6c56446feb2fb3edc75246fb2bc296556db60402a"
+    },
+    {
+      "name": "Hash-fonte src/modules/38-otthi-world-integration-bootstrap.js",
+      "passed": true,
+      "detail": "6ea150470c494ed27900673045a87288bb453368c7f9e740b289acb7e869395c"
+    },
+    {
+      "name": "Hash-fonte src/modules/39-gm-admin-panel.js",
+      "passed": true,
+      "detail": "3e2f85c595bc2f1f9fe13db95573e4d35b17c88728fecf74d3d53f9700cf7a7b"
+    },
+    {
+      "name": "Hash-fonte src/modules/40-world-evolution-v702.js",
+      "passed": true,
+      "detail": "35a805dd6de3e967f4e8c5e2c4111086a44350ae4f5a75dc5ede09c749c2571b"
+    },
+    {
+      "name": "Hash-fonte src/styles/00-foundation-lobby-game-modal.css",
+      "passed": true,
+      "detail": "ff7d8c3bf3169c75f4299c794fa9e874665a16a220ee1c4e6dbba19ee41759b8"
+    },
+    {
+      "name": "Hash-fonte src/styles/01-legacy-v607-v613.css",
+      "passed": true,
+      "detail": "4bcd18c1b61afa8822aca9c4ba3e7a5d77165544d4bd49faa06ba3650d35815e"
+    },
+    {
+      "name": "Hash-fonte src/styles/02-art-direction-v614-v617.css",
+      "passed": true,
+      "detail": "c0f3710d71a87fb0d9f4b9e9cb0c9bac130a7522eb76bfa3a65634616236d666"
+    },
+    {
+      "name": "Hash-fonte src/styles/03-responsive-social-v618-v623.css",
+      "passed": true,
+      "detail": "9bcad1abea60e6fbfa8aae53b4fcb579bc86b2c03f4d49ed65115f2c5c6bc10c"
+    },
+    {
+      "name": "Hash-fonte src/styles/04-map-v624-v627.css",
+      "passed": true,
+      "detail": "aa03c40f2feb1022e26a87f8f796a1dba7c94d3d9b63569aaec9edf6b5fa94bb"
+    },
+    {
+      "name": "Hash-fonte src/styles/05-world-ui-v628-v631.css",
+      "passed": true,
+      "detail": "d86fd4ed14be0a50f354aab3abc7b95673aeeab32faae3cba9f3f4dde1dd814b"
+    },
+    {
+      "name": "Hash-fonte src/styles/06-install-build-v633-v636.css",
+      "passed": true,
+      "detail": "fc9ec2784b052bfe5cae58cf29409a65e1d653c9b5c222156299648a580417b0"
+    },
+    {
+      "name": "Hash-fonte src/styles/07-display-fishing-v637.css",
+      "passed": true,
+      "detail": "bbbdccf84a35f2dc43606dfdf2e8921433c646c88ee4ca081d6f5941709b7a4f"
+    },
+    {
+      "name": "Hash-fonte src/styles/08-construction-v638.css",
+      "passed": true,
+      "detail": "862e2964d6181b5f75f1e49d64216ff335a2ebcba1e0596ead6400061431fd30"
+    },
+    {
+      "name": "Hash-fonte src/styles/09-gameplay-layout-camera-v640.css",
+      "passed": true,
+      "detail": "d16c924b27e60a067d022437b46154f635e678de6052662e22f28a5ec77c1b5c"
+    },
+    {
+      "name": "Hash-fonte src/styles/10-foundation-rooms-learning-v641-v642.css",
+      "passed": true,
+      "detail": "f71f620f0e2e25835cc7f196627e8f2bdc35680fe16356e32dde598b6484f0f7"
+    },
+    {
+      "name": "Hash-fonte src/styles/11-mobility-traffic-fishing-v643.css",
+      "passed": true,
+      "detail": "387201cfc25ccbc5df444932ac206d7c3e285c321da48f72007cbc09db40051e"
+    },
+    {
+      "name": "Hash-fonte src/styles/12-fullscreen-responsive-hotfix-v6431.css",
+      "passed": true,
+      "detail": "36407f245dfd26972ef43b1c92dcf1f91d4f66f945e2946c627a36bd80fac7fd"
+    },
+    {
+      "name": "Hash-fonte src/styles/13-neighborhood-world-map-v644.css",
+      "passed": true,
+      "detail": "b9b6f6d86986f46d2be48800eec8b34375a96d1305a5a4ee99f5799c0b7d3262"
+    },
+    {
+      "name": "Hash-fonte src/styles/14-commercial-responsive-map-missions-furniture.css",
+      "passed": true,
+      "detail": "01dc21a785a5a037029c6ed631524dbb01ad520fc3e2ca93d114345386551835"
+    },
+    {
+      "name": "Hash-fonte src/styles/15-coop-map-responsive-v6463.css",
+      "passed": true,
+      "detail": "4e81741e689020453cb0cdd6d0740184a9a7804d6e5d8b7f0226a9cf9b0a722b"
+    },
+    {
+      "name": "Hash-fonte src/styles/16-otthi-world-professional-v700.css",
+      "passed": true,
+      "detail": "5a61b5fba611631b0839e2a76ab84e34398705b46d079000a85a101751758466"
+    },
+    {
+      "name": "Hash-fonte src/styles/17-gm-admin-panel-v701.css",
+      "passed": true,
+      "detail": "13fa79fd8d6feac9813c3f7451aca87712927bf1ac978f3f043f63b416a88f68"
+    },
+    {
+      "name": "Hash-fonte src/styles/18-world-evolution-v702.css",
+      "passed": true,
+      "detail": "ea2595137c241f91b896cba1d62b4e63ce94c78c69193f5ff74f968f194f7526"
+    },
+    {
+      "name": "app.js sincronizado com fontes",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "style.css sincronizado com fontes",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Funções preservadas e ampliadas",
+      "passed": true,
+      "detail": "852"
+    },
+    {
+      "name": "Release V701 coerente",
+      "passed": false,
+      "detail": ""
+    },
+    {
+      "name": "Hashes da release conferem",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Revisão HTML/SW/manifesto coerente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Firebase remoto ainda não declarado aprovado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Dispositivo físico ainda não declarado aprovado",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "errors": [
+    "41 módulos JavaScript: 42",
+    "18 módulos CSS: 19",
+    "Manifesto JS completo: ",
+    "Manifesto CSS completo: ",
+    "Versão central V701: ",
+    "Bairros, mapa e salas: \n      \"name\": \"Mapa completo mapRegionsMarkup\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapHouseLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo quadrado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa retrato responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa paisagem responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Canvas minimapa acompanha caixa\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regras possuem slots fixos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-01\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-02\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-03\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-04\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-05\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-06\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-07\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-08\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-09\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-10\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regra de vaga não aceita numChildren\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga aceita qualquer jogador autenticado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva ocorre por vaga individual\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva não grava o conjunto inteiro\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga sem validação bloqueadora\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI mostra ocupação\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI bloqueia lotado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI só seleciona após sucesso\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Módulo 31 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS 13 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Versão consolidada no index\",\n      \"passed\": false,\n      \"detail\": \"0\"\n    },\n    {\n      \"name\": \"Runtime consolidado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Service Worker consolidado\",\n      \"passed\": false,\n      \"detail\": \"\"\n    }\n  ]\n}",
+    "Slots, PWA e revisão: AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:\n\n  assert.ok(deletedCaches.includes(`otthi-v7010-${revision}`))\n\n    at testFailedInstallKeepsPreviousRevision (/mnt/data/otthi_work/v702_full/tools/test_v646_runtime.js:232:10)\n    at async /mnt/data/otthi_work/v702_full/tools/test_v646_runtime.js:252:3 {\n  generatedMessage: true,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}",
+    "Mapa, móveis e roupas: test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok\ntest_map_is_dynamic_square_and_viewport_fitted (__main__.CommercialPolishTests.test_map_is_dynamic_square_and_viewport_fitted) ... ok\ntest_mission_card_opens_one_clear_briefing (__main__.CommercialPolishTests.test_mission_card_opens_one_clear_briefing) ... ok\ntest_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match) ... FAIL\ntest_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.test_room_furniture_is_persistent_and_editable) ... ok\ntest_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok\n\n======================================================================\nFAIL: test_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/mnt/data/otthi_work/v702_full/tools/test_v6462_commercial_polish.py\", line 78, in test_new_style_is_last_and_build_outputs_match\n    self.assertEqual(order['styles'][-1]['file'], 'src/styles/17-gm-admin-panel-v701.css')\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'src/styles/18-world-evolution-v702.css' != 'src/styles/17-gm-admin-panel-v701.css'\n- src/styles/18-world-evolution-v702.css\n+ src/styles/17-gm-admin-panel-v701.css\n\n\n----------------------------------------------------------------------\nRan 6 tests in 0.002s\n\nFAILED (failures=1)",
+    "Cooperativo e responsividade: test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok\ntest_map_is_clustered_and_responsive_in_both_orientations (__main__.CoopResponsiveTests.test_map_is_clustered_and_responsive_in_both_orientations) ... ok\ntest_roles_and_shared_progress_are_online (__main__.CoopResponsiveTests.test_roles_and_shared_progress_are_online) ... ok\ntest_school_fishing_and_race_runtime_contracts (__main__.CoopResponsiveTests.test_school_fishing_and_race_runtime_contracts) ... ok\ntest_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests.test_state_persists_and_existing_systems_integrate) ... ok\ntest_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... FAIL\n\n======================================================================\nFAIL: test_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/mnt/data/otthi_work/v702_full/tools/test_v6463_coop_responsive.py\", line 84, in test_uniform_and_build_order_are_complete\n    self.assertEqual(js_files[-1], 'src/modules/39-gm-admin-panel.js')\n    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nAssertionError: 'src/modules/40-world-evolution-v702.js' != 'src/modules/39-gm-admin-panel.js'\n- src/modules/40-world-evolution-v702.js\n+ src/modules/39-gm-admin-panel.js\n\n\n----------------------------------------------------------------------\nRan 6 tests in 0.005s\n\nFAILED (failures=1)",
+    "Cinco etapas OTTHI World V701: erece apenas adições positivas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aplicação soma sem substituir saldos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Limite de segurança por concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"API GM completa no RTDB\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Concessão e auditoria são gravadas juntas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Usuários recebem concessões online ou na próxima conexão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ledger GM é salvo localmente e na nuvem\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Concessão é idempotente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Login aguarda recuperação antes de aplicar concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo só conclui após persistência\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Admins não podem ser criados pelo cliente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente UID GM lê todos os usuários\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente GM cria concessão imutável\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Itens negativos e zero são recusados\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Moedas negativas são recusadas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo exige concessão real e dono correto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo aplicado não pode ser reaberto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Auditoria é imutável e exclusiva do GM\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Index V701 versionado\",\n      \"passed\": false,\n      \"detail\": \"0\"\n    },\n    {\n      \"name\": \"Service Worker V701\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto PWA V701\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Android V701\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aprovação física permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Firebase remoto permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto de release coerente\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Hashes de release conferem\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Revisão PWA coerente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    }\n  ],\n  \"limits\": [\n    \"Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado.\"\n  ]\n}",
+    "Cache-busting V701: 0",
+    "Three.js local: ",
+    "Manifesto PWA V701: ",
+    "Service Worker V701: ",
+    "Release V701 coerente: "
+  ],
+  "hashes": {
+    "app.js": "2c5184cd2edb42f9218067f4cacb0d82dd39dbd3617bc065260d2d5011ae305e",
+    "style.css": "aeaa2279d4068e50207fe0c1108573596bccd2480f64220fdb426e85236a914f",
+    "src/module-order.json": "bb3804fd22e20a77785726cca48c54e96958317f6043dff6bef00daa2b17af0b",
+    "release-manifest.json": "2a9cd0fdd285b8a27c076b658feccd187b093f3ef1e19946e47072dde3d9aa4f",
+    "firebase-config.js": "72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd",
+    "firebase-database.rules.json": "fb8e45baa9b9306b3fc4ef99ff63922136d5330c4df6e27a7c95b77f576d6d08"
+  },
+  "limits": [
+    "Não substitui teste em Android físico, Firebase remoto, multiplayer entre dois aparelhos, PWA instalada, AR ou APK assinado."
+  ]
+}

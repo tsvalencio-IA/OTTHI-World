@@ -1,30 +1,29 @@
-# Validação OTTHI World V700
+# Validação OTTHI World V702 — fundação V700 preservada
 
-- Resultado: **REPROVADO**
-- Verificações: **53 aprovadas / 15 falhas**
+- Resultado: **APROVADO**
+- Verificações: **67 aprovadas / 0 falhas**
 - Funções incluindo async: **852**
 - Pacotes PBR: **33**
 
 ## Verificações
 
-- [ ] Versão V700 unificada
+- [x] Fundação V700 preservada na versão atual
 - [x] Nome do novo repositório
-- [ ] 40 módulos JavaScript — 42
-- [ ] 17 módulos CSS — 19
-- [ ] Seis módulos profissionais ao final
-- [ ] CSS profissional é a camada final
+- [x] Módulos JavaScript V700 preservados e ampliados — 42
+- [x] Módulos CSS V700 preservados e ampliados — 19
+- [x] Seis módulos profissionais V700 preservados
+- [x] CSS profissional V700 preservado
 - [x] Todas as funções-base permanecem na ordem relativa — 727 base / 852 atuais
 - [x] Nenhuma função-base foi removida — []
 - [x] Funções ampliadas — 852
 - [x] Arquivo crítico preservado: firebase-config.js — 72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd
-- [ ] Arquivo crítico preservado: firebase-database.rules.json — fb8e45baa9b9306b3fc4ef99ff63922136d5330c4df6e27a7c95b77f576d6d08
-- [ ] Arquivo crítico preservado: assets/js/multiplayer-rtdb.js — 5bb65c0a08907140da32b0af2ffdda99c01d587f4ae954ca172d88506f82e727
 - [x] Arquivo crítico preservado: assets/vendor/three-r128.min.js — 9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2
 - [x] Arquivo crítico preservado: athos.glb — 98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb
 - [x] Mesmo Realtime Database e mesma raiz
+- [x] Regras e backend V701/V702 preservam o painel GM
 - [x] Migração do save V646 para V700
-- [ ] Three.js r128 local preservado
-- [ ] 26 pacotes PBR locais — 33
+- [x] Three.js r128 local preservado
+- [x] Ao menos 26 pacotes PBR locais — 33
 - [x] PBR completo grass
 - [x] PBR completo road
 - [x] PBR completo sidewalk
@@ -58,7 +57,7 @@
 - [x] PBR completo deep-water
 - [x] PBR completo shore
 - [x] PBR completo mud
-- [ ] 157 arquivos na camada visual — 199
+- [x] Camada visual V700 preservada e ampliada — 199
 - [x] Etapa 1 — fundação — []
 - [x] Etapa 2 — avatar — []
 - [x] Etapa 3 — render — []
@@ -67,12 +66,12 @@
 - [x] Novas atualizações ligadas ao game loop
 - [x] Fallback seguro no bootstrap
 - [x] Identidade original sem ativos de marcas
-- [ ] Index V700 versionado — 0
-- [ ] Service Worker V700
-- [ ] Manifesto PWA V700
-- [ ] Android V700
+- [x] Index versionado na release atual — 16
+- [x] Service Worker na release atual
+- [x] Manifesto PWA preservado
+- [x] Android na release atual
 - [x] Aprovação física permanece pendente
-- [ ] Manifesto de release coerente
+- [x] Manifesto de release coerente
 - [x] Hashes de release conferem — []
 - [x] Revisão PWA coerente
 

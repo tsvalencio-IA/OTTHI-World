@@ -1,0 +1,297 @@
+{
+  "version": 702,
+  "build": "702.0-world-evolution-complete",
+  "passed": true,
+  "counts": {
+    "checks": 56,
+    "passed": 56,
+    "failed": 0,
+    "functionsIncludingAsync": 852,
+    "pbrPacks": 33
+  },
+  "checks": [
+    {
+      "name": "Painel GM V701 preservado na versão atual",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Nome do repositório preservado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Módulos JavaScript preservados e ampliados",
+      "passed": true,
+      "detail": "42"
+    },
+    {
+      "name": "Módulos CSS preservados e ampliados",
+      "passed": true,
+      "detail": "19"
+    },
+    {
+      "name": "Painel GM permanece no build",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "CSS GM permanece no build",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Todas as funções-base permanecem na ordem relativa",
+      "passed": true,
+      "detail": "727 base / 852 atuais"
+    },
+    {
+      "name": "Nenhuma função-base foi removida",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Funções ampliadas",
+      "passed": true,
+      "detail": "852"
+    },
+    {
+      "name": "Arquivo crítico preservado: firebase-config.js",
+      "passed": true,
+      "detail": "72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd"
+    },
+    {
+      "name": "Arquivo crítico preservado: assets/vendor/three-r128.min.js",
+      "passed": true,
+      "detail": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2"
+    },
+    {
+      "name": "Arquivo crítico preservado: athos.glb",
+      "passed": true,
+      "detail": "98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb"
+    },
+    {
+      "name": "Mesmo Realtime Database e mesma raiz",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Save V700 preservado sem reset",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Three.js r128 local preservado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Ao menos 26 pacotes PBR locais",
+      "passed": true,
+      "detail": "33"
+    },
+    {
+      "name": "Todos os pacotes PBR completos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Etapa 1 — fundação",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Etapa 2 — avatar",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Etapa 3 — render",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Etapa 4 — máquinas",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Etapa 5 — aventura",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Identidade original sem nomes de marcas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Assinatura possui gatilho isolado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Cinco toques consecutivos exigidos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Código *177 exigido sem ser autorização única",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Conta GM precisa estar vinculada",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Painel lista, pesquisa e seleciona usuários",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Painel exibe perfil, dinheiro e inventário",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Interface oferece apenas adições positivas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Aplicação soma sem substituir saldos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Limite de segurança por concessão",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "API GM completa no RTDB",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Concessão e auditoria são gravadas juntas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Usuários recebem concessões online ou na próxima conexão",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Ledger GM é salvo localmente e na nuvem",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Concessão é idempotente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Login aguarda recuperação antes de aplicar concessão",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recibo só conclui após persistência",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Admins não podem ser criados pelo cliente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Somente UID GM lê todos os usuários",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Somente GM cria concessão imutável",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Itens negativos e zero são recusados",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Moedas negativas são recusadas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recibo exige concessão real e dono correto",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recibo aplicado não pode ser reaberto",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Auditoria é imutável e exclusiva do GM",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Index versionado na release atual",
+      "passed": true,
+      "detail": "16"
+    },
+    {
+      "name": "Service Worker na release atual",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifesto PWA preservado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Android na release atual",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Aprovação física permanece pendente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Firebase remoto permanece pendente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Manifesto de release coerente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Hashes de release conferem",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Revisão PWA coerente",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "limits": [
+    "Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado."
+  ]
+}

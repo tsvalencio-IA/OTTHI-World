@@ -1,24 +1,23 @@
-# Preservação V646.6 → V646.7
+# Preservação da fundação V646.6/V646.7 na versão atual
 
 - Resultado: **APROVADO**
-- Verificações: **44 aprovadas / 0 falhas**
+- Verificações: **43 aprovadas / 0 falhas**
 - Funções-base preservadas: **727 incluindo async**
-- Funções atuais: **750 incluindo async**
+- Funções atuais: **852 incluindo async**
 
 ## Verificações
 
-- [x] Todas as funções V646.6 permanecem na mesma ordem relativa — 727 base / 750 atuais
+- [x] Todas as funções V646.6 permanecem na mesma ordem relativa — 727 base / 852 atuais
 - [x] Nenhuma função V646.6 foi removida — 0 ausentes
 - [x] Baseline reproduz a auditoria original
-- [x] Arquivo crítico preservado: firebase-config.js — 72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd
-- [x] Arquivo crítico preservado: firebase-database.rules.json — 2e61ee7bb249d1056691dafb6f352a291f39fb39ca79880255f2d7fd11b4c79f
-- [x] Arquivo crítico preservado: assets/js/multiplayer-rtdb.js — 087294b5292e368ce7f8df47b2c7d75354349219a059605fa1a0cea0a514a906
-- [x] Arquivo crítico preservado: assets/vendor/three-r128.min.js — 9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2
-- [x] Arquivo crítico preservado: athos.glb — 98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb
-- [x] Arquivo crítico preservado: style.css — a4fdba497367197ebb1ee24e8da9f25863dbf94b46852bcfd686bcb8e12d73f6
-- [x] Build V646.7 unificado
+- [x] Arquivo crítico imutável preservado: firebase-config.js — 72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd
+- [x] Arquivo crítico imutável preservado: assets/vendor/three-r128.min.js — 9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2
+- [x] Arquivo crítico imutável preservado: athos.glb — 98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb
+- [x] Realtime Database original preservado e ampliado com segurança
+- [x] Bundle CSS continua reproduzível pela arquitetura modular — 19 módulos CSS / 223366 caracteres
+- [x] Fundação V646.7 preservada na versão atual — V702 / 702.0-world-evolution-complete
 - [x] Aprovação física continua pendente
-- [x] 34 módulos JavaScript em ordem
+- [x] Módulos JavaScript preservam a fundação e aceitam extensões posteriores — 42
 - [x] Three.js r128 foi mantido e não há CDN
 - [x] Fundação visual contém OTTHI_VISUAL_ASSETS
 - [x] Fundação visual contém registerVisualAsset

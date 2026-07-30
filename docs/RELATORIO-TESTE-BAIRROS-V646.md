@@ -80,7 +80,7 @@
 - [x] Cliente gera slot-08
 - [x] Cliente gera slot-09
 - [x] Cliente gera slot-10
-- [x] Regra não aceita numChildren
+- [x] Regra de vaga não aceita numChildren
 - [x] Vaga aceita qualquer jogador autenticado
 - [x] Reserva ocorre por vaga individual
 - [x] Reserva não grava o conjunto inteiro

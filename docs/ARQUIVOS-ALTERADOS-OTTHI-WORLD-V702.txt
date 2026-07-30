@@ -1,0 +1,120 @@
+OTTHI WORLD V702 — ARQUIVOS VERDADEIRAMENTE ALTERADOS
+
+Arquivos novos: 58
+Arquivos modificados: 43
+Arquivos removidos: 0
+
+Observação: esta comparação usa como base a árvore completa imediatamente anterior à implementação V702. O ZIP de entrega é completo; esta lista serve para auditoria.
+
+=== ARQUIVOS NOVOS ===
+A	assets/world/textures/cliff-ao.png	1302 bytes	SHA-256 e2aed97f56541f7151429ef04ab0419fab247e208b9b17af860743755a431f8a
+A	assets/world/textures/cliff-basecolor.png	11637 bytes	SHA-256 adf107bf83b713eaf6a019bbdd4e936022b070320d928bebf6a0b958190e74bf
+A	assets/world/textures/cliff-emissive.png	842 bytes	SHA-256 e9c4a470ad900801f7de4f9402eb27af8a1cc00eac80d618ef16bac39fb27d33
+A	assets/world/textures/cliff-height.png	15408 bytes	SHA-256 ae6dc516a9adedfa452abd7e2474b573c9e79860f03f09ab1485ee894beaf64e
+A	assets/world/textures/cliff-normal.png	49933 bytes	SHA-256 3342c1b9643b1e29c8f037c0c64e369840711ba6ddfc7a1f60afaab4ec3e0992
+A	assets/world/textures/cliff-roughness.png	4671 bytes	SHA-256 75f77fc17ff3822ceae1fae7bab56cc76f2515a75a6f81654c81394a72a596d8
+A	assets/world/textures/deep-water-ao.png	1302 bytes	SHA-256 86546c39a92c35ee0d71f1c9db8f534756a32c52baf7ea3342b0c8775327fee9
+A	assets/world/textures/deep-water-basecolor.png	16371 bytes	SHA-256 b46e4fb984fb7639157391d875f5ef680a41bba7504a3d97aadfb4819b45ef8d
+A	assets/world/textures/deep-water-emissive.png	1880 bytes	SHA-256 7ada56e5b10fca8db86b942f7a679a3a42896d465149fb8b4550bd7dcbf671fe
+A	assets/world/textures/deep-water-height.png	24561 bytes	SHA-256 f6d5ead70ffbbb37bee0c30fa5a3e3dabb45a812658d185c08a71542915c5a88
+A	assets/world/textures/deep-water-normal.png	69343 bytes	SHA-256 e78f233ceff273c76039cd5b1236c0c7da4b581dc6a7b02efe09d2232ef745fa
+A	assets/world/textures/deep-water-roughness.png	4845 bytes	SHA-256 ef6a532bbcfd3b90d06ddab9cd61317345a46781c2a62210d3cd405b5a9c9500
+A	assets/world/textures/dirt-ao.png	1302 bytes	SHA-256 e2aed97f56541f7151429ef04ab0419fab247e208b9b17af860743755a431f8a
+A	assets/world/textures/dirt-basecolor.png	36139 bytes	SHA-256 5db0b5a8755f8b1cde13f10dc8fde29a64e0f710b36dd71da62bac925131beeb
+A	assets/world/textures/dirt-emissive.png	842 bytes	SHA-256 e9c4a470ad900801f7de4f9402eb27af8a1cc00eac80d618ef16bac39fb27d33
+A	assets/world/textures/dirt-height.png	33321 bytes	SHA-256 0dcd192de6ebf9ee1eac243c975060b4c07f4f8a62221b313b560b7d3a75ccd9
+A	assets/world/textures/dirt-normal.png	89914 bytes	SHA-256 af366152fbc017c562733ba543f2e646f53293417b920864db88f8e288f1a490
+A	assets/world/textures/dirt-roughness.png	4695 bytes	SHA-256 a3b59d72687ca20f5420159288d9b9e73d0408ba5f22ae50aa9f9185ca0446b0
+A	assets/world/textures/farmland-ao.png	1302 bytes	SHA-256 e2aed97f56541f7151429ef04ab0419fab247e208b9b17af860743755a431f8a
+A	assets/world/textures/farmland-basecolor.png	12183 bytes	SHA-256 724780e58120231065c403834a10b60babc7599c5a52d7057aecb3d91b130f5a
+A	assets/world/textures/farmland-emissive.png	842 bytes	SHA-256 e9c4a470ad900801f7de4f9402eb27af8a1cc00eac80d618ef16bac39fb27d33
+A	assets/world/textures/farmland-height.png	15450 bytes	SHA-256 bd7c83d9345febeb2181bc73999b8ec75a44cc5627cffa1f57715ca5cc550653
+A	assets/world/textures/farmland-normal.png	43390 bytes	SHA-256 f3cefcec9e6879faf77e911c8232f261cf16d26436cb40920f8e46812906a2a1
+A	assets/world/textures/farmland-roughness.png	4178 bytes	SHA-256 e2db5c54cea0835c70daf2f1ed92f6eaa51a67c20ca7840c57ec0dae6f16c498
+A	assets/world/textures/mud-ao.png	1302 bytes	SHA-256 e2aed97f56541f7151429ef04ab0419fab247e208b9b17af860743755a431f8a
+A	assets/world/textures/mud-basecolor.png	35015 bytes	SHA-256 83fa5c8b3ee8d5315b8501d38c840584cb075a3a29b7bf4820bb269582e7b715
+A	assets/world/textures/mud-emissive.png	842 bytes	SHA-256 e9c4a470ad900801f7de4f9402eb27af8a1cc00eac80d618ef16bac39fb27d33
+A	assets/world/textures/mud-height.png	31622 bytes	SHA-256 b05400ccbf06020594f66c4033262807af997bde8b895b7176a53a23e703c5b9
+A	assets/world/textures/mud-normal.png	84839 bytes	SHA-256 a6df0519bc66999de5b692a8b49185c9b7e7cd24c96a7eebb1c83b16dbe5f7d4
+A	assets/world/textures/mud-roughness.png	4785 bytes	SHA-256 dc61a5eee75d656d66176bf2b8a30b6ecbf21eb881b8126f349c6186ffd39081
+A	assets/world/textures/sand-ao.png	1302 bytes	SHA-256 e2aed97f56541f7151429ef04ab0419fab247e208b9b17af860743755a431f8a
+A	assets/world/textures/sand-basecolor.png	22912 bytes	SHA-256 4e410703aca669f8e2f1846f2b77af789e95ed35ad872977d137bba2a44f99b4
+A	assets/world/textures/sand-emissive.png	842 bytes	SHA-256 e9c4a470ad900801f7de4f9402eb27af8a1cc00eac80d618ef16bac39fb27d33
+A	assets/world/textures/sand-height.png	22833 bytes	SHA-256 4aedfdc2fd6b3417d49c6abe574a41a5e72da4be097ad426c73b959928989052
+A	assets/world/textures/sand-normal.png	59936 bytes	SHA-256 e854517571cfa855403c6140ea6d0ec4006be9c1b144a4b273d6f07874c44c61
+A	assets/world/textures/sand-roughness.png	4397 bytes	SHA-256 2ad30b760353282f80ac93656158799b360cb353404d4a7eb52e219bb186f51b
+A	assets/world/textures/shore-ao.png	1302 bytes	SHA-256 e2aed97f56541f7151429ef04ab0419fab247e208b9b17af860743755a431f8a
+A	assets/world/textures/shore-basecolor.png	23573 bytes	SHA-256 eba22005a3154f1bd8ef1e4fe021fa24c43e2d5e4db6c2b1ab73b2fdf437b90d
+A	assets/world/textures/shore-emissive.png	842 bytes	SHA-256 e9c4a470ad900801f7de4f9402eb27af8a1cc00eac80d618ef16bac39fb27d33
+A	assets/world/textures/shore-height.png	24046 bytes	SHA-256 b34cbbd7b1cf40bcb91684cb45222d1396239fe3e5c064fe61db5ae89d02214f
+A	assets/world/textures/shore-normal.png	62403 bytes	SHA-256 242bf4a8c3248764ed02243914c331978de748fc4c132e7e8986dcdb27f43021
+A	assets/world/textures/shore-roughness.png	4820 bytes	SHA-256 81b85b83a3ebbaf27a92a9aa6e477bfce353c137677419f10dcbcb0d61a50ab0
+A	docs/GUIA-PUBLICACAO-OTTHI-WORLD-V702.md	1247 bytes	SHA-256 be644a9f01885b1b20de2ef69531ebdc695df0a40d41d58f6d9a6cb63e370b1c
+A	docs/RELATORIO-ENTREGA-OTTHI-WORLD-V702.md	4720 bytes	SHA-256 f9a10e53d2cdbe664444d1d742eae0be88343384f3092381625f7548bccfe7ae
+A	docs/RESUMO-TESTES-OTTHI-WORLD-V702.txt	1183 bytes	SHA-256 075e5a1a7742baf9a458aa0ae4debdf027ad168d97523b42b117d06338914adf
+A	docs/VALIDACAO-ESTRUTURAL-V701.json	57507 bytes	SHA-256 eaa00f94744af4c829efec4b0bc2cb7b10e6d5615e246df751c6dde2de1697d4
+A	docs/VALIDACAO-ESTRUTURAL-V701.md	32650 bytes	SHA-256 2e195ace04814e9bbc31292cb84e0c0a6c7ba22b7b4ca7c7e16c8e37ac4b06ed
+A	docs/VALIDACAO-ESTRUTURAL-V702.json	44631 bytes	SHA-256 5ef183f5f9e9ae684ad830a5b5ecbcc0c0dbe372e722a10907e99e7beb0d8e10
+A	docs/VALIDACAO-ESTRUTURAL-V702.md	30898 bytes	SHA-256 1a40d8983e50693df4d013d2f5fb0825c107b9496b54d34187ecf56b6413b35f
+A	docs/VALIDACAO-FUNDACAO-V700-PRESERVADA-V702.json	7293 bytes	SHA-256 947a57c0b667ebd4efb51c54cea6c33d31b094bb07635da0c746661847247302
+A	docs/VALIDACAO-FUNDACAO-V700-PRESERVADA-V702.md	2998 bytes	SHA-256 4ebf50beb87f1fcca2039a00ed8057baf564c1127add8f28a62e9bf05c6fc0cb
+A	docs/VALIDACAO-OTTHI-WORLD-V701.json	6557 bytes	SHA-256 1eed47003b9db775f958c93d059d5a0579da89abed29ec928b9e11f2e68a39c0
+A	docs/VALIDACAO-OTTHI-WORLD-V701.md	2933 bytes	SHA-256 0b0a73c3c6b27a274401c8f6a39584857674d5ae94d943d293e0b140807caa92
+A	docs/VALIDACAO-PAINEL-GM-PRESERVADO-V702.json	6645 bytes	SHA-256 34efc3b3f2b946739cfb6b0791a10edd0fb23dfa39980994977c57643d2eb20c
+A	docs/VALIDACAO-PAINEL-GM-PRESERVADO-V702.md	3042 bytes	SHA-256 44e9119ca2a7b53869e945f0b0f42432f276d4e7fe963e1980d40ceac9af2ff1
+A	src/modules/40-world-evolution-v702.js	18160 bytes	SHA-256 04aae1eab744995297450cb20bd893a5811a4922d107a52b4a2147ca1d9dcc57
+A	src/styles/18-world-evolution-v702.css	8388 bytes	SHA-256 2408f3f7697e444dfc4954f9079c7ddb33ca8387ac29f7f06a6e56b9f6bfca96
+A	tools/test_v702_world_evolution.py	1565 bytes	SHA-256 1ddeda952c8e65d6ec5dfb2945e33be9a661a4f594b9ad0a79c7fd743c51d71c
+
+=== ARQUIVOS MODIFICADOS ===
+M	.github/workflows/build-modular-app.yml	1368 bytes	SHA-256 ae46fe0cdafd73406275d481d5e56c87a41d3ad46d4f44c5be51afe7a7176e1f
+M	.github/workflows/gerar-apk.yml	4239 bytes	SHA-256 36c5f458d426bfbe6f2c809635224592e64d707edee03a538e9974d5e2208888
+M	404.html	263 bytes	SHA-256 5b1a6892c351db8606e033706abf0014b0ff05804dd2aa8ab42360092bf4dc70
+M	VERSION.json	6640 bytes	SHA-256 402468f28e1c04fcf19587ca75e68769096c0cbbe48a896bed8e660304202077
+M	android-app/app/build.gradle	619 bytes	SHA-256 9e359ebaef8ce0a5c3248283d46f5fa46ac34d2c7c1d1976f130f87bc93ad80a
+M	app.js	866091 bytes	SHA-256 ecb572ce3fcb6daf86e9d59859f5b280959de29823084ccaeca327a4ade1ff7d
+M	assets/js/core/runtime-config.js	2020 bytes	SHA-256 a784d4810349781762ea66e989e90b2ae39e493a46d01ba5e831c3fbcc75a054
+M	assets/world/pbr-manifest.json	13644 bytes	SHA-256 e0aa01f44eeadc47fde680b42315b178f8c2640898b162204e7925d398cb9c5e
+M	docs/RELATORIO-PRESERVACAO-V6466-V6467.json	5958 bytes	SHA-256 a8b1fcd23492444c6a5243052894767744d98115ab14f1dc7702c75f975cc59b
+M	docs/RELATORIO-PRESERVACAO-V6466-V6467.md	3109 bytes	SHA-256 c32b1965e8803e4b297f0f30d25fc917ea2645528f600540341911789b4d15b9
+M	docs/RELATORIO-TESTE-BAIRROS-V646.json	10394 bytes	SHA-256 ce79b0ea21cfe0744bcf65caadeabc7ab78498dee26ad1029e7f32a35bbe3dd5
+M	docs/RELATORIO-TESTE-BAIRROS-V646.md	4822 bytes	SHA-256 710e931f2d6214bfa782bb8a1d9cf27fc7fa6349150bc191cde1da0a6bf569cd
+M	docs/VALIDACAO-OTTHI-WORLD-V700.json	7435 bytes	SHA-256 4ee47a8c05519f037846c977ef7bb2b5fc4f4a11cdaa748ff8a551747464d2ab
+M	docs/VALIDACAO-OTTHI-WORLD-V700.md	3039 bytes	SHA-256 200495921e4f28fba11ea7dccf9d1052cf0f30dc207c07612453f0cf8d4179eb
+M	index.html	14397 bytes	SHA-256 8dfabefa10b37c22ff8179325f4a4f11a429a7dac7650ff3609423bc3b429079
+M	manifest.webmanifest	780 bytes	SHA-256 f1ee412c43f59c41cf24ae1e4221837b1f32e64597acc7821bfa2af715846d67
+M	release-manifest.json	2127 bytes	SHA-256 6461699214d19d83da79dbe77c138a961bcb9f10debd7ddb3ded8d4b34dd5005
+M	src/module-order.json	17889 bytes	SHA-256 1975bebb7235d07d569ea3705d22012d8df1ba45e6954270a5abc3c55eb800db
+M	src/modules/00-runtime-foundation.js	4869 bytes	SHA-256 486cf54e22cb6bb8f40f9e17f6770f52d3a5629ab35ef28953b39765e8b24d86
+M	src/modules/01-build-persistence.js	10933 bytes	SHA-256 38a6cda70474602b267c527f102aa1de40e6e4dfe06fcf590e270d923db9197a
+M	src/modules/02-state-save-cloud-account.js	30806 bytes	SHA-256 202e1890b6618803428f2cc286a89849d9eb8eb749fa5e5f71c9a1aac3f2778d
+M	src/modules/06-missions-profile-hud-inventory-tools.js	19120 bytes	SHA-256 7509a00592395e5cd1ed6a211dca8d8feb222de9e8267803b8bd8870282facfa
+M	src/modules/09-responsive-ar-quality-diagnostics.js	24190 bytes	SHA-256 862de276649ad4b167b7acc29d07f1606afc04a5b68595d6246964201f85f509
+M	src/modules/18-water-fishing-boats.js	28139 bytes	SHA-256 56290ee9c27161d2e61896f4d3e0c0010602818b062e0f73794004d078158b4f
+M	src/modules/21-interactions-shop-social-races.js	22267 bytes	SHA-256 42a4a019329704dea6d6ac5e0d5022ef583161668d3175217f6101eb1533bcdb
+M	src/modules/25-render-init-resize-position-collision.js	17790 bytes	SHA-256 7e8a6bc009947fb56898177a5b61f4296a58c7b1457cfc970cdb0c6627a180e8
+M	src/modules/26-input-player-physics.js	16365 bytes	SHA-256 2afd9811b3cf18821fbc06ec1b2eebc9f8a09192f6f52b145f07eed50888d8f8
+M	src/modules/27-npc-enemies-combat-camera-action.js	18632 bytes	SHA-256 2759bf7ca64ab86e4917d2a6d0b35d4fd4a005c5c988e05b24206fb0e45b9d31
+M	src/modules/29-game-loop-controls-gamepad.js	16412 bytes	SHA-256 c6002c9a4617d7364d34515618bb296bbbf9a950d81fd90f6338881d81178633
+M	src/modules/33-otthi-world-professional-core.js	13357 bytes	SHA-256 2936bd46b422a909f5fbf8884815dd5953e470da11981005e37392e09e304ebf
+M	src/modules/34-avatar-studio-professional-v3.js	16988 bytes	SHA-256 1e737e631e7e25591e0fc754ac09ace2c3bfc13b7ca3db4c20ab171dd5749dcb
+M	src/modules/38-otthi-world-integration-bootstrap.js	2250 bytes	SHA-256 d3b2d18f3e4708f5f91a21c531d25a4f68702c6d2890b85feb73fe3671088048
+M	style.css	223514 bytes	SHA-256 aeaa2279d4068e50207fe0c1108573596bccd2480f64220fdb426e85236a914f
+M	sw.js	9796 bytes	SHA-256 28ea0c2f5a6ffd69e6cec389a54fc5d602b28584ba00fc7f2d964170d8d7fc4e
+M	tools/test_v644_neighborhoods.py	6921 bytes	SHA-256 bdc731c19438cd6805a1d47acdd0934ed71c05e64253c995b4bda44614a1862c
+M	tools/test_v6462_commercial_polish.py	5226 bytes	SHA-256 0540735611b7d4901e1ab95daa5b205b3f403ed974754f94df76314929b784cb
+M	tools/test_v6463_coop_responsive.py	5559 bytes	SHA-256 c1f3f950faa63d1a0e21e4804a0be971df1617ed9499e1000e926a0e976bbaeb
+M	tools/test_v6467_visual_foundation.py	10607 bytes	SHA-256 45f292882c619357b55a0c492fcb6f9ba130e4857129458067dbd64f9a84cce9
+M	tools/test_v646_release.py	11692 bytes	SHA-256 670cb72ae8e39a8b66b248cbc1090df9e8b6ade6116c705a292379dc687529bb
+M	tools/test_v646_runtime.js	8562 bytes	SHA-256 4a1ff94dc6540165b5036c7c6a38843e5aef420a5b4740ee2e95aba312836740
+M	tools/test_v700_otthi_world.py	8479 bytes	SHA-256 cddb797f6cb976a2ecde08c6b554e50a687253847bb9e4fc4ef5097d13f8ba7f
+M	tools/test_v701_gm_panel.py	11402 bytes	SHA-256 f7081b3fabe14ed229f266a20ff7e88ef30138995cda6df088492c80464c4222
+M	tools/validate_project.py	9670 bytes	SHA-256 3b1391d864def0d3571493de24d15b731a43f0956fcf5ca1c12ec69c9bba0a69
+
+=== ARQUIVOS REMOVIDOS ===
+Nenhum arquivo removido.
+
+=== ARQUIVOS FIREBASE PRESERVADOS SEM ALTERAÇÃO NA V702 ===
+=	firebase-config.js	SHA-256 72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd
+=	firebase-database.rules.json	SHA-256 fb8e45baa9b9306b3fc4ef99ff63922136d5330c4df6e27a7c95b77f576d6d08
+=	assets/js/multiplayer-rtdb.js	SHA-256 5bb65c0a08907140da32b0af2ffdda99c01d587f4ae954ca172d88506f82e727

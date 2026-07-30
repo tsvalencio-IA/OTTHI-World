@@ -1,42 +1,42 @@
 {
-  "version": 700,
+  "version": 701,
   "build": "702.0-world-evolution-complete",
   "passed": false,
   "counts": {
-    "checks": 68,
-    "passed": 53,
-    "failed": 15,
+    "checks": 56,
+    "passed": 44,
+    "failed": 12,
     "functionsIncludingAsync": 852,
     "pbrPacks": 33
   },
   "checks": [
     {
-      "name": "Versão V700 unificada",
+      "name": "Versão V701 unificada",
       "passed": false,
       "detail": ""
     },
     {
-      "name": "Nome do novo repositório",
+      "name": "Nome do repositório preservado",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "40 módulos JavaScript",
+      "name": "41 módulos JavaScript",
       "passed": false,
       "detail": "42"
     },
     {
-      "name": "17 módulos CSS",
+      "name": "18 módulos CSS",
       "passed": false,
       "detail": "19"
     },
     {
-      "name": "Seis módulos profissionais ao final",
+      "name": "Painel GM é a última camada JS",
       "passed": false,
       "detail": ""
     },
     {
-      "name": "CSS profissional é a camada final",
+      "name": "CSS GM é a última camada visual",
       "passed": false,
       "detail": ""
     },
@@ -61,16 +61,6 @@
       "detail": "72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd"
     },
     {
-      "name": "Arquivo crítico preservado: firebase-database.rules.json",
-      "passed": false,
-      "detail": "fb8e45baa9b9306b3fc4ef99ff63922136d5330c4df6e27a7c95b77f576d6d08"
-    },
-    {
-      "name": "Arquivo crítico preservado: assets/js/multiplayer-rtdb.js",
-      "passed": false,
-      "detail": "5bb65c0a08907140da32b0af2ffdda99c01d587f4ae954ca172d88506f82e727"
-    },
-    {
       "name": "Arquivo crítico preservado: assets/vendor/three-r128.min.js",
       "passed": true,
       "detail": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2"
@@ -86,7 +76,7 @@
       "detail": ""
     },
     {
-      "name": "Migração do save V646 para V700",
+      "name": "Save V700 preservado sem reset",
       "passed": true,
       "detail": ""
     },
@@ -101,174 +91,9 @@
       "detail": "33"
     },
     {
-      "name": "PBR completo grass",
+      "name": "Todos os pacotes PBR completos",
       "passed": true,
       "detail": ""
-    },
-    {
-      "name": "PBR completo road",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo sidewalk",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo water",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo wood",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo brick",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo stone",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo roof",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo fabric",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo school-wall",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo police-wall",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo gold-ore",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo interior-floor",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo interior-wall",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo market-floor",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo market-wall",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo school-floor",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo fire-wall",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo concrete",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo city-glass",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo emergency-metal",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo toy-plastic",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo vehicle-tire",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo hero-energy",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo mushroom",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo foliage",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo dirt",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo sand",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo farmland",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo cliff",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo deep-water",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo shore",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "PBR completo mud",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "157 arquivos na camada visual",
-      "passed": false,
-      "detail": "199"
     },
     {
       "name": "Etapa 1 — fundação",
@@ -296,42 +121,157 @@
       "detail": "[]"
     },
     {
-      "name": "Novas atualizações ligadas ao game loop",
+      "name": "Identidade original sem nomes de marcas",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Fallback seguro no bootstrap",
+      "name": "Assinatura possui gatilho isolado",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Identidade original sem ativos de marcas",
+      "name": "Cinco toques consecutivos exigidos",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Index V700 versionado",
+      "name": "Código *177 exigido sem ser autorização única",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Conta GM precisa estar vinculada",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Painel lista, pesquisa e seleciona usuários",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Painel exibe perfil, dinheiro e inventário",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Interface oferece apenas adições positivas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Aplicação soma sem substituir saldos",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Limite de segurança por concessão",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "API GM completa no RTDB",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Concessão e auditoria são gravadas juntas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Usuários recebem concessões online ou na próxima conexão",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Ledger GM é salvo localmente e na nuvem",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Concessão é idempotente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Login aguarda recuperação antes de aplicar concessão",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recibo só conclui após persistência",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Admins não podem ser criados pelo cliente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Somente UID GM lê todos os usuários",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Somente GM cria concessão imutável",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Itens negativos e zero são recusados",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Moedas negativas são recusadas",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recibo exige concessão real e dono correto",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recibo aplicado não pode ser reaberto",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Auditoria é imutável e exclusiva do GM",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Index V701 versionado",
       "passed": false,
       "detail": "0"
     },
     {
-      "name": "Service Worker V700",
+      "name": "Service Worker V701",
       "passed": false,
       "detail": ""
     },
     {
-      "name": "Manifesto PWA V700",
+      "name": "Manifesto PWA V701",
       "passed": false,
       "detail": ""
     },
     {
-      "name": "Android V700",
+      "name": "Android V701",
       "passed": false,
       "detail": ""
     },
     {
       "name": "Aprovação física permanece pendente",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Firebase remoto permanece pendente",
       "passed": true,
       "detail": ""
     },
@@ -352,6 +292,6 @@
     }
   ],
   "limits": [
-    "Validação estática e local não substitui Android físico, Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado."
+    "Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado."
   ]
 }

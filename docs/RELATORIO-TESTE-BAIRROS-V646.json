@@ -1,5 +1,5 @@
 {
-  "version": 700,
+  "version": 702,
   "passed": true,
   "counts": {
     "passed": 87,
@@ -378,7 +378,7 @@
       "detail": ""
     },
     {
-      "name": "Regra não aceita numChildren",
+      "name": "Regra de vaga não aceita numChildren",
       "passed": true,
       "detail": ""
     },
