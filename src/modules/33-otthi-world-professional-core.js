@@ -8,7 +8,7 @@
  */
 // @otthi-module-body
   const OTTHI_WORLD_VERSION = 702;
-  const OTTHI_WORLD_BUILD = '702.0-world-evolution-complete';
+  const OTTHI_WORLD_BUILD = '702.1-ux-personagem-veiculos';
   const OTTHI_WORLD_STAGES = Object.freeze({
     foundation:Object.freeze({id:'foundation',number:1,title:'Fundação profissional',status:'implemented'}),
     avatar:Object.freeze({id:'avatar',number:2,title:'Personagem modular',status:'implemented'}),
@@ -99,26 +99,16 @@
     otthiWorldRuntime.stats.enhancedMeshes=count;return count;
   }
   function otthiWorldStageMarkup(){
-    return Object.values(OTTHI_WORLD_STAGES).map(stage=>`<article class="otthi-world-stage implemented"><span>${stage.number}</span><div><b>${stage.title}</b><small>Implementada com fallback e preservação da base</small></div><i>✓</i></article>`).join('');
+    return '';
   }
   function openOtthiWorldCenter(){
     ensureOtthiWorldState();
-    openModal('OTTHI World — central profissional',`<div class="otthi-world-intro"><strong>Base real preservada</strong><p>As cinco camadas profissionais funcionam sobre física, controles, casas, missões, Firebase, multiplayer e saves existentes.</p></div><div class="otthi-world-stage-list">${otthiWorldStageMarkup()}</div><div class="choice-grid"><button class="choice" data-world-avatar><b>👤 Estúdio profissional</b><span>Corpo, rosto, cabelo, roupas e identidade original</span></button><button class="choice" data-world-garage><b>🚙 Oficina modular</b><span>Carroceria, rodas, teto, luzes e acessórios</span></button><button class="choice" data-world-hero><b>⚡ Poderes OTTHI</b><span>Ação, plataforma e desafios originais</span></button><button class="choice" data-world-build><b>🧱 Construção avançada</b><span>Novos módulos, móveis e elementos fantásticos</span></button></div><section class="avatar-section"><h3>Renderização</h3><label class="form-switch-row"><input type="checkbox" data-world-render ${state.settings.worldRender?'checked':''}><span>Materiais PBR e acabamento profissional</span></label><label class="form-switch-row"><input type="checkbox" data-world-details ${state.settings.worldDetails?'checked':''}><span>Vegetação e detalhes adicionais</span></label><label class="form-switch-row"><input type="checkbox" data-world-day ${state.settings.worldDayCycle?'checked':''}><span>Ciclo suave de luz</span></label></section><div class="otthi-world-metrics"><span><b>${otthiWorldRuntime.stats.enhancedMeshes}</b> malhas preservadas</span><span><b>${otthiWorldRuntime.stats.pbrMaps}</b> mapas PBR associados</span><span><b>${otthiWorldRuntime.stats.instancedDetails}</b> detalhes otimizados</span></div>`,root=>{
-      $('[data-world-avatar]',root).onclick=()=>openAvatarStudio();
-      $('[data-world-garage]',root).onclick=()=>openWorldModularGarage();
-      $('[data-world-hero]',root).onclick=()=>openWorldHeroCenter();
-      $('[data-world-build]',root).onclick=()=>{closeModal();openBuildMenu();};
-      for(const [selector,key]of [['[data-world-render]','worldRender'],['[data-world-details]','worldDetails'],['[data-world-day]','worldDayCycle']])$(selector,root).onchange=event=>{state.settings[key]=!!event.currentTarget.checked;saveState(true);applyOtthiWorldRuntimeSettings();};
-    });
+    return openAvatarStudio();
   }
   function injectOtthiWorldButtons(){
-    if(!document.getElementById('otthiWorldBtn')){
-      const button=document.createElement('button');button.id='otthiWorldBtn';button.className='menu-tile otthi-world-tile';button.type='button';button.innerHTML='<b>🌍</b><span>OTTHI World</span><small>5 etapas profissionais</small>';button.onclick=openOtthiWorldCenter;
-      const menu=document.querySelector('.menu-grid');menu?.insertBefore(button,document.getElementById('moldsBtn')||null);
-    }
-    if(!document.getElementById('otthiWorldQuickBtn')){
-      const button=document.createElement('button');button.id='otthiWorldQuickBtn';button.type='button';button.innerHTML='🌍<span>World</span>';button.onclick=openOtthiWorldCenter;els.quickBar?.appendChild(button);
-    }
+    document.getElementById('otthiWorldBtn')?.remove();
+    document.getElementById('otthiWorldQuickBtn')?.remove();
+    return false;
   }
   function applyOtthiWorldRuntimeSettings(){
     const enabled=state.settings?.worldRender!==false;document.body.classList.toggle('otthi-world-render',enabled);document.body.classList.toggle('otthi-world-details',state.settings?.worldDetails!==false);

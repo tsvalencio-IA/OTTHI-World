@@ -5717,7 +5717,7 @@
 
   // ===== MODULE: 33-otthi-world-professional-core.js =====
   const OTTHI_WORLD_VERSION = 702;
-  const OTTHI_WORLD_BUILD = '702.0-world-evolution-complete';
+  const OTTHI_WORLD_BUILD = '702.1-ux-personagem-veiculos';
   const OTTHI_WORLD_STAGES = Object.freeze({
     foundation:Object.freeze({id:'foundation',number:1,title:'Fundação profissional',status:'implemented'}),
     avatar:Object.freeze({id:'avatar',number:2,title:'Personagem modular',status:'implemented'}),
@@ -5808,26 +5808,16 @@
     otthiWorldRuntime.stats.enhancedMeshes=count;return count;
   }
   function otthiWorldStageMarkup(){
-    return Object.values(OTTHI_WORLD_STAGES).map(stage=>`<article class="otthi-world-stage implemented"><span>${stage.number}</span><div><b>${stage.title}</b><small>Implementada com fallback e preservação da base</small></div><i>✓</i></article>`).join('');
+    return '';
   }
   function openOtthiWorldCenter(){
     ensureOtthiWorldState();
-    openModal('OTTHI World — central profissional',`<div class="otthi-world-intro"><strong>Base real preservada</strong><p>As cinco camadas profissionais funcionam sobre física, controles, casas, missões, Firebase, multiplayer e saves existentes.</p></div><div class="otthi-world-stage-list">${otthiWorldStageMarkup()}</div><div class="choice-grid"><button class="choice" data-world-avatar><b>👤 Estúdio profissional</b><span>Corpo, rosto, cabelo, roupas e identidade original</span></button><button class="choice" data-world-garage><b>🚙 Oficina modular</b><span>Carroceria, rodas, teto, luzes e acessórios</span></button><button class="choice" data-world-hero><b>⚡ Poderes OTTHI</b><span>Ação, plataforma e desafios originais</span></button><button class="choice" data-world-build><b>🧱 Construção avançada</b><span>Novos módulos, móveis e elementos fantásticos</span></button></div><section class="avatar-section"><h3>Renderização</h3><label class="form-switch-row"><input type="checkbox" data-world-render ${state.settings.worldRender?'checked':''}><span>Materiais PBR e acabamento profissional</span></label><label class="form-switch-row"><input type="checkbox" data-world-details ${state.settings.worldDetails?'checked':''}><span>Vegetação e detalhes adicionais</span></label><label class="form-switch-row"><input type="checkbox" data-world-day ${state.settings.worldDayCycle?'checked':''}><span>Ciclo suave de luz</span></label></section><div class="otthi-world-metrics"><span><b>${otthiWorldRuntime.stats.enhancedMeshes}</b> malhas preservadas</span><span><b>${otthiWorldRuntime.stats.pbrMaps}</b> mapas PBR associados</span><span><b>${otthiWorldRuntime.stats.instancedDetails}</b> detalhes otimizados</span></div>`,root=>{
-      $('[data-world-avatar]',root).onclick=()=>openAvatarStudio();
-      $('[data-world-garage]',root).onclick=()=>openWorldModularGarage();
-      $('[data-world-hero]',root).onclick=()=>openWorldHeroCenter();
-      $('[data-world-build]',root).onclick=()=>{closeModal();openBuildMenu();};
-      for(const [selector,key]of [['[data-world-render]','worldRender'],['[data-world-details]','worldDetails'],['[data-world-day]','worldDayCycle']])$(selector,root).onchange=event=>{state.settings[key]=!!event.currentTarget.checked;saveState(true);applyOtthiWorldRuntimeSettings();};
-    });
+    return openAvatarStudio();
   }
   function injectOtthiWorldButtons(){
-    if(!document.getElementById('otthiWorldBtn')){
-      const button=document.createElement('button');button.id='otthiWorldBtn';button.className='menu-tile otthi-world-tile';button.type='button';button.innerHTML='<b>🌍</b><span>OTTHI World</span><small>5 etapas profissionais</small>';button.onclick=openOtthiWorldCenter;
-      const menu=document.querySelector('.menu-grid');menu?.insertBefore(button,document.getElementById('moldsBtn')||null);
-    }
-    if(!document.getElementById('otthiWorldQuickBtn')){
-      const button=document.createElement('button');button.id='otthiWorldQuickBtn';button.type='button';button.innerHTML='🌍<span>World</span>';button.onclick=openOtthiWorldCenter;els.quickBar?.appendChild(button);
-    }
+    document.getElementById('otthiWorldBtn')?.remove();
+    document.getElementById('otthiWorldQuickBtn')?.remove();
+    return false;
   }
   function applyOtthiWorldRuntimeSettings(){
     const enabled=state.settings?.worldRender!==false;document.body.classList.toggle('otthi-world-render',enabled);document.body.classList.toggle('otthi-world-details',state.settings?.worldDetails!==false);
@@ -5935,12 +5925,12 @@
   const legacyOpenAvatarStudio=openAvatarStudio;
   openAvatarStudio=function openAvatarStudioWorld(){
     ensureOtthiWorldState();
-    openModal(`Estúdio de Personagem — ${playerDisplayName()}`,`<div class="avatar-summary world-avatar-summary"><div class="avatar-face"><i></i><i></i></div><div><b>Mesmo estúdio para todos os jogadores</b><span>Misture Blocks, Toys, Heroes e Adventure. O rig, as skills, o multiplayer e o progresso permanecem preservados.</span></div></div>${worldAvatarOptions('bodyStyle','Estilo do corpo')}${worldAvatarOptions('face','Expressão')}${worldAvatarOptions('hair','Cabelo')}${worldAvatarOptions('torso','Parte superior')}${worldAvatarOptions('legs','Parte inferior')}${worldAvatarOptions('shoes','Calçados')}${worldAvatarOptions('back','Costas')}${worldAvatarOptions('pattern','Estampa')}<section class="avatar-section"><h3>Cores</h3><div class="world-color-grid"><label>Cor principal<input type="color" data-world-avatar-color="primaryColor" value="${state.avatar.primaryColor}"></label><label>Cor secundária<input type="color" data-world-avatar-color="secondaryColor" value="${state.avatar.secondaryColor}"></label><label>Cabelo<input type="color" data-world-avatar-color="hairColor" value="${state.avatar.hairColor}"></label></div></section>${avatarChoiceGroup('uniform','Uniforme profissional preservado')}${avatarChoiceGroup('hat','Chapéu clássico preservado')}${avatarChoiceGroup('accessory','Acessório clássico preservado')}<div class="modal-actions"><button class="btn primary" data-world-avatar-save>Salvar personagem completo</button><button class="btn" data-world-avatar-legacy>Ver estúdio clássico</button></div>`,root=>{
+    openModal(`Personagem — ${playerDisplayName()}`,`<div class="avatar-summary world-avatar-summary"><div class="avatar-face"><i></i><i></i></div><div><b>Personalize seu personagem</b><span>Escolha corpo, rosto, cabelo, roupas, acessórios e cores. Suas escolhas ficam salvas no seu perfil.</span></div></div>${worldAvatarOptions('bodyStyle','Estilo do corpo')}${worldAvatarOptions('face','Expressão')}${worldAvatarOptions('hair','Cabelo')}${worldAvatarOptions('torso','Parte superior')}${worldAvatarOptions('legs','Parte inferior')}${worldAvatarOptions('shoes','Calçados')}${worldAvatarOptions('back','Costas')}${worldAvatarOptions('pattern','Estampa')}<section class="avatar-section"><h3>Cores</h3><div class="world-color-grid"><label>Cor principal<input type="color" data-world-avatar-color="primaryColor" value="${state.avatar.primaryColor}"></label><label>Cor secundária<input type="color" data-world-avatar-color="secondaryColor" value="${state.avatar.secondaryColor}"></label><label>Cabelo<input type="color" data-world-avatar-color="hairColor" value="${state.avatar.hairColor}"></label></div></section>${avatarChoiceGroup('uniform','Uniforme')}${avatarChoiceGroup('hat','Chapéu')}${avatarChoiceGroup('accessory','Acessório')}<div class="modal-actions"><button class="btn primary" data-world-avatar-save>Salvar personagem</button></div>`,root=>{
       $$('[data-world-avatar-field]',root).forEach(button=>button.onclick=()=>{const field=button.dataset.worldAvatarField,value=button.dataset.worldAvatarValue;state.avatar={...state.avatar,[field]:worldAvatarSafeChoice(field,value),renderMode:'otthi-world-v3'};$$(`[data-world-avatar-field="${field}"]`,root).forEach(item=>item.classList.toggle('selected',item===button));applyAvatarCustomization();});
       $$('[data-world-avatar-color]',root).forEach(input=>input.oninput=()=>{state.avatar={...state.avatar,[input.dataset.worldAvatarColor]:safeAvatarColor(input.value,state.avatar[input.dataset.worldAvatarColor])};applyAvatarCustomization();});
       $$('[data-avatar-type]',root).forEach(button=>button.onclick=()=>{state.avatar=updateAvatarV2LegacyChoice(state.avatar,button.dataset.avatarType,button.dataset.avatarId);$$(`[data-avatar-type="${button.dataset.avatarType}"]`,root).forEach(item=>item.classList.toggle('selected',item===button));applyAvatarCustomization();});
-      $('[data-world-avatar-save]',root).onclick=()=>{state.avatar=normalizeAvatarV2({...state.avatar,renderMode:'otthi-world-v3'});setFlag('customizedAvatar');setFlag('otthiWorldAvatarV3');saveState(true);closeModal();toast('Personagem salvo e sincronizado sem alterar o rig de jogabilidade.','good',2400);};
-      $('[data-world-avatar-legacy]',root).onclick=legacyOpenAvatarStudio;
+      $('[data-world-avatar-save]',root).onclick=()=>{state.avatar=normalizeAvatarV2({...state.avatar,renderMode:'otthi-world-v3'});setFlag('customizedAvatar');setFlag('otthiWorldAvatarV3');saveState(true);closeModal();toast('Personagem salvo no seu perfil.','good',2000);};
+      $('[data-world-avatar-legacy]',root)?.addEventListener('click',legacyOpenAvatarStudio);
     });
   };
 
@@ -6054,23 +6044,40 @@
   };
 
   const OTTHI_WORLD_VEHICLE_CATALOG=Object.freeze({
-    body:Object.freeze([['classic','Clássica'],['sport','Esportiva'],['offroad','Aventura'],['service','Serviço']]),
+    body:Object.freeze([['classic','Clássico'],['compact','Compacto'],['sport','Esportivo'],['offroad','Aventura / 4x4'],['special','Especial'],['utility','Utilitário'],['exploration','Exploração'],['service','Serviço']]),
     hood:Object.freeze([['flat','Plano'],['intake','Entrada de ar'],['power','Energia']]),
     roof:Object.freeze([['standard','Padrão'],['open','Sem teto'],['rack','Bagageiro'],['beacon','Sinalizador']]),
     wheels:Object.freeze([['city','Urbanas'],['sport','Esportivas'],['offroad','Todo-terreno']]),
     rear:Object.freeze([['none','Sem acessório'],['spoiler','Aerofólio'],['box','Caixa de carga']]),
     lights:Object.freeze([['warm','Clássicas'],['white','Brancas'],['energy','Energia']])
   });
-  function defaultWorldVehicleParts(){return{body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d'};}
-  function worldVehicleParts(vehicleId){ensureOtthiWorldState();const current=state.vehicles.modularParts[vehicleId]||{};const next={...defaultWorldVehicleParts(),...current};state.vehicles.modularParts[vehicleId]=next;state.vehicles.partDurability[vehicleId]=Number.isFinite(state.vehicles.partDurability[vehicleId])?clamp(state.vehicles.partDurability[vehicleId],0,100):100;return next;}
+  const OTTHI_WORLD_CIVIL_VEHICLE_PRESETS=Object.freeze({
+    'garage-orange':Object.freeze({body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d'}),
+    'market-blue':Object.freeze({body:'compact',hood:'flat',roof:'open',wheels:'city',rear:'none',lights:'white',primary:'#2787d8',secondary:'#43c6e8',accent:'#e9f7ff'}),
+    'workshop-red':Object.freeze({body:'sport',hood:'intake',roof:'open',wheels:'sport',rear:'spoiler',lights:'white',primary:'#e5484d',secondary:'#f3b33d',accent:'#fff0a8'}),
+    'gym-yellow':Object.freeze({body:'offroad',hood:'intake',roof:'rack',wheels:'offroad',rear:'none',lights:'warm',primary:'#f1c943',secondary:'#ef6c3d',accent:'#fff2a8'}),
+    'royal-purple':Object.freeze({body:'special',hood:'power',roof:'standard',wheels:'sport',rear:'spoiler',lights:'energy',primary:'#7d58c9',secondary:'#f1c94d',accent:'#70e8ff'}),
+    'home-green':Object.freeze({body:'utility',hood:'flat',roof:'standard',wheels:'city',rear:'box',lights:'warm',primary:'#31a76a',secondary:'#8edb65',accent:'#f5d84d'}),
+    'forest-teal':Object.freeze({body:'exploration',hood:'intake',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#138d83',secondary:'#6bc08b',accent:'#dff6a3'})
+  });
+  function defaultWorldVehicleParts(vehicleId=''){return{body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d',...(OTTHI_WORLD_CIVIL_VEHICLE_PRESETS[vehicleId]||{})};}
+  function worldVehicleParts(vehicleId){
+    ensureOtthiWorldState();
+    const current=state.vehicles.modularParts[vehicleId]||{},legacy=defaultWorldVehicleParts(),preset=defaultWorldVehicleParts(vehicleId),fields=Object.keys(legacy),isLegacyDefault=fields.every(key=>current[key]===legacy[key]),usePreset=!Object.keys(current).length||isLegacyDefault;
+    const next=usePreset?{...preset}:{...preset,...current};state.vehicles.modularParts[vehicleId]=next;state.vehicles.partDurability[vehicleId]=Number.isFinite(state.vehicles.partDurability[vehicleId])?clamp(state.vehicles.partDurability[vehicleId],0,100):100;return next;
+  }
   function removeWorldVehicleModules(group){const previous=group?.userData?.otthiWorldVehicleModules;if(previous){group.remove(previous);disposeWorldAvatarObject(previous);}if(group?.userData)group.userData.otthiWorldVehicleModules=null;}
   function worldVehicleModuleMaterial(color,metalness=.18,roughness=.42){const material=new THREE.MeshStandardMaterial({map:loadWorldTexture('toy-plastic','basecolor',{repeat:[1,1],color:true}),normalMap:loadWorldTexture('toy-plastic','normal',{repeat:[1,1]}),roughnessMap:loadWorldTexture('toy-plastic','roughness',{repeat:[1,1]}),color:new THREE.Color(color),metalness,roughness});material.userData.otthiWorldAvatarMaterial=true;return material;}
   function applyWorldVehicleModulesToGroup(group,vehicleId){
     if(!group||!vehicleId)return false;removeWorldVehicleModules(group);const parts=worldVehicleParts(vehicleId),durability=Number(state.vehicles.partDurability[vehicleId]||100),modules=new THREE.Group();modules.name=`OTTHI_WORLD_VEHICLE_${vehicleId}`;group.add(modules);group.userData.otthiWorldVehicleModules=modules;
     const primary=worldVehicleModuleMaterial(parts.primary),secondary=worldVehicleModuleMaterial(parts.secondary),accent=worldVehicleModuleMaterial(parts.accent,.28,.34),dark=worldVehicleModuleMaterial(0x17202b,.08,.82),energy=worldVehicleModuleMaterial(0x5de6ff,.22,.18);energy.emissive=new THREE.Color(0x1684a8);energy.emissiveIntensity=.72;
     const part=(w,h,d,material,x,y,z)=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;modules.add(mesh);if(state.settings?.worldOutlines!==false)addVoxelOutline(mesh,0x102238,.20);return mesh;};
-    if(parts.body==='sport'){part(2.02,.16,.34,primary,0,.22,1.42);part(2.05,.14,.30,primary,0,.22,-1.42);part(.24,.28,2.45,secondary,-1.0,.38,0);part(.24,.28,2.45,secondary,1.0,.38,0);}
+    if(parts.body==='compact'){part(1.64,.22,.32,primary,0,.34,1.31);part(1.66,.18,.30,secondary,0,.36,-1.23);part(1.34,.22,1.02,primary,0,1.12,-.34);}
+    else if(parts.body==='sport'){part(2.02,.16,.34,primary,0,.22,1.42);part(2.05,.14,.30,primary,0,.22,-1.42);part(.24,.28,2.45,secondary,-1.0,.38,0);part(.24,.28,2.45,secondary,1.0,.38,0);}
     else if(parts.body==='offroad'){part(2.12,.24,.42,dark,0,.32,1.42);part(2.12,.24,.42,dark,0,.32,-1.42);for(const x of[-1.02,1.02])part(.20,.42,2.42,dark,x,.44,0);}
+    else if(parts.body==='special'){part(2.02,.18,.34,energy,0,.30,1.42);part(1.72,.12,.28,accent,0,.27,-1.42);for(const x of[-.96,.96]){const fin=part(.12,.58,1.08,secondary,x,.78,-.82);fin.rotation.z=x<0?-.18:.18;}part(.48,.12,1.12,energy,0,1.23,-.28);}
+    else if(parts.body==='utility'){part(2.02,.22,.34,dark,0,.31,1.39);part(1.82,.18,.34,secondary,0,.35,-1.41);for(const x of[-.92,.92])part(.16,.38,2.32,primary,x,.48,0);}
+    else if(parts.body==='exploration'){part(2.16,.27,.44,dark,0,.34,1.43);part(2.12,.24,.42,dark,0,.34,-1.43);for(const x of[-1.03,1.03])part(.22,.46,2.44,dark,x,.48,0);const spare=new THREE.Mesh(new THREE.TorusGeometry(.38,.12,7,14),dark);spare.position.set(0,.82,-1.55);spare.rotation.y=Math.PI/2;modules.add(spare);}
     else if(parts.body==='service'){part(1.92,.20,.36,accent,0,.34,1.39);part(1.92,.20,.36,accent,0,.34,-1.39);part(.12,.34,2.3,accent,-.97,.48,0);part(.12,.34,2.3,accent,.97,.48,0);}
     if(parts.hood==='intake')part(.72,.24,.64,secondary,0,.98,.73);else if(parts.hood==='power'){part(.74,.18,.66,energy,0,.99,.73);part(.12,.08,.72,accent,0,1.10,.73);}
     if(durability>20&&parts.roof==='rack'){for(const x of[-.62,.62])part(.10,.36,1.18,dark,x,1.36,-.42);for(const z of[-.92,.02])part(1.36,.10,.10,dark,0,1.55,z);}
@@ -6084,6 +6091,12 @@
   }
   const legacyCreateToyCar=createToyCar;
   createToyCar=function createToyCarWorld(x,z,options={}){const vehicle=legacyCreateToyCar(x,z,options);applyWorldVehicleModulesToGroup(vehicle?.group,vehicle?.id);return vehicle;};
+  function worldVehicleMapLocations(){
+    const records=[],seen=new Set(),add=(vehicle,type='car')=>{if(!vehicle?.id||seen.has(`${type}:${vehicle.id}`))return;const localCar=player.vehicle&&player.car.id===vehicle.id,localBoat=player.boating&&type==='boat',group=vehicle.group;if(group?.visible===false&&!localCar&&!localBoat)return;const x=Number(localCar||localBoat?player.x:group?.position?.x??vehicle.x??0),z=Number(localCar||localBoat?player.z:group?.position?.z??vehicle.z??0),kind=String(vehicle.serviceType||vehicle.kind||type),icon=type==='bus'?'🚌':type==='boat'?'🛶':kind==='police'?'🚓':kind==='firefighter'||kind==='fire'?'🚒':kind==='paramedic'||kind==='ambulance'?'🚑':'🚗',name=type==='bus'?`${vehicle.route?.number||''} ${vehicle.route?.name||'Ônibus'}`.trim():(vehicle.label||vehicle.route?.name||(type==='boat'?'Barco do Lago':'Veículo')),groupName=type==='bus'?'Transporte':type==='boat'?'Água e Natureza':['police','firefighter','fire','paramedic','ambulance'].includes(kind)?'Veículos de serviço':'Veículos';seen.add(`${type}:${vehicle.id}`);records.push({id:`world-vehicle-${type}-${vehicle.id}`,name,icon,group:groupName,x,z,navX:x,navZ:z,description:`Localização atual de ${name}.`,actions:['Marcar no GPS','Caminhar até o veículo','Usar AÇÃO para entrar']});};
+    for(const vehicle of world?.vehicles||[])add(vehicle,'car');for(const bus of world?.buses||[])add(bus,'bus');for(const vehicle of world?.policeCars||[])add(vehicle,'service');for(const vehicle of world?.fireTrucks||[])add(vehicle,'service');for(const vehicle of world?.ambulances||[])add(vehicle,'service');if(world?.boat)add(world.boat,'boat');return records;
+  }
+  const legacyCurrentMapLocations=currentMapLocations;
+  currentMapLocations=function currentMapLocationsWorldVehicles(){const unique=new Map();for(const location of [...legacyCurrentMapLocations(),...worldVehicleMapLocations()])if(location?.id)unique.set(location.id,location);return[...unique.values()];};
   const legacyApplyVehicleAppearance=applyVehicleAppearance;
   applyVehicleAppearance=function applyVehicleAppearanceWorld(vehicle){legacyApplyVehicleAppearance(vehicle);if(vehicleVisual&&vehicle?.id)applyWorldVehicleModulesToGroup(vehicleVisual,vehicle.id);};
   const legacyRegisterVehicleImpact=registerVehicleImpact;
@@ -6100,7 +6113,7 @@
     });
   }
   function createWorldModularGarageInteractable(){
-    if(world.interactables?.some(item=>item.id==='otthi-world-garage'))return false;registerInteractable({id:'otthi-world-garage',type:'workshop',icon:'🛠',label:'Abrir oficina modular OTTHI',x:22,z:-13.5,radius:3.2,priority:244,action:()=>openWorldModularGarage()});otthiWorldRuntime.modularVehiclesReady=true;return true;
+    const index=world.interactables?.findIndex?.(item=>item.id==='otthi-world-garage')??-1;if(index>=0)world.interactables.splice(index,1);otthiWorldRuntime.modularVehiclesReady=true;return true;
   }
 
   // ===== MODULE: 37-hero-platform-gameplay.js =====

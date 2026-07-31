@@ -245,14 +245,14 @@
       "startLine": 5680,
       "endLine": 5801,
       "description": "Fundação OTTHI World, PBR local, diagnóstico e painel das cinco etapas",
-      "sha256Body": "3ea42f806142e7655996b7b1708a1d784e9bcec0df28428bb62076d582f3d1d7"
+      "sha256Body": "0c263732046930ead7b5951e2c318ce131473316d792fb752a8f26690e6bcdca"
     },
     {
       "file": "src/modules/34-avatar-studio-professional-v3.js",
       "startLine": 5803,
       "endLine": 5897,
       "description": "Avatar modular V3 sobre o rig procedural preservado",
-      "sha256Body": "c2c84662078c210debf030c665875f368d004c8c079107e8a6e82e06fdea0584"
+      "sha256Body": "5a106a18e5ed42cde13541c913eaef14fc5b8ba684289bcbc04db1abfb5d7657"
     },
     {
       "file": "src/modules/35-world-render-pbr-environment.js",
@@ -266,7 +266,7 @@
       "startLine": 5958,
       "endLine": 6056,
       "description": "Construção modular, oficina e veículos montáveis",
-      "sha256Body": "e7727cf5ff9311e925701d6581c950bd6cf53211beaedf5d2ca65e0ac63c405c"
+      "sha256Body": "895d4c7a3285f1768206868083e10431b6db5b6e8fab2d5816e47b30ee85aaf5"
     },
     {
       "file": "src/modules/37-hero-platform-gameplay.js",
