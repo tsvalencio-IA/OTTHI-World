@@ -138,7 +138,7 @@
           ".read": "auth != null && (auth.uid === $uid || root.child('otthosWorld').child('admins').child(auth.uid).val() === true)",
           "$grantId": {
             ".write": "auth != null && root.child('otthosWorld').child('admins').child(auth.uid).val() === true && !data.exists()",
-            ".validate": "newData.hasChildren(['schema','grantId','targetUid','targetName','coins','items','totalUnits','reason','createdBy','createdByName','createdAt','createdAtClient']) && newData.child('schema').val() === 1 && newData.child('grantId').val() === $grantId && newData.child('targetUid').val() === $uid && newData.child('targetName').isString() && newData.child('targetName').val().length >= 3 && newData.child('targetName').val().length <= 24 && newData.child('coins').isNumber() && newData.child('coins').val() >= 0 && newData.child('coins').val() <= 1000000 && (newData.child('coins').val() > 0 || newData.child('items').hasChildren()) && newData.child('totalUnits').isNumber() && newData.child('totalUnits').val() > 0 && newData.child('totalUnits').val() <= 41000000 && newData.child('reason').isString() && newData.child('reason').val().length <= 160 && newData.child('createdBy').val() === auth.uid && newData.child('createdByName').isString() && newData.child('createdByName').val().length >= 1 && newData.child('createdByName').val().length <= 24 && newData.child('createdAt').isNumber() && newData.child('createdAt').val() <= now && newData.child('createdAt').val() >= now - 10000 && newData.child('createdAtClient').isNumber() && newData.child('createdAtClient').val() <= now + 300000 && newData.child('createdAtClient').val() >= now - 300000",
+            ".validate": "newData.hasChildren(['schema', 'grantId', 'targetUid', 'targetName', 'coins', 'totalUnits', 'reason', 'createdBy', 'createdByName', 'createdAt', 'createdAtClient']) && newData.child('schema').val() === 1 && newData.child('grantId').val() === $grantId && newData.child('targetUid').val() === $uid && newData.child('targetName').isString() && newData.child('targetName').val().length >= 3 && newData.child('targetName').val().length <= 24 && newData.child('coins').isNumber() && newData.child('coins').val() >= 0 && newData.child('coins').val() <= 1000000 && (newData.child('coins').val() > 0 || newData.child('items').hasChildren()) && newData.child('totalUnits').isNumber() && newData.child('totalUnits').val() > 0 && newData.child('totalUnits').val() <= 41000000 && newData.child('reason').isString() && newData.child('reason').val().length <= 160 && newData.child('createdBy').val() === auth.uid && newData.child('createdByName').isString() && newData.child('createdByName').val().length >= 1 && newData.child('createdByName').val().length <= 24 && newData.child('createdAt').isNumber() && newData.child('createdAt').val() <= now && newData.child('createdAt').val() >= now - 10000 && newData.child('createdAtClient').isNumber() && newData.child('createdAtClient').val() <= now + 300000 && newData.child('createdAtClient').val() >= now - 300000",
             "schema": {},
             "grantId": {},
             "targetUid": {},
@@ -147,7 +147,8 @@
             "items": {
               "$itemKey": {
                 ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= 1000000"
-              }
+              },
+              ".validate": "newData.hasChildren()"
             },
             "totalUnits": {},
             "reason": {},
@@ -192,7 +193,7 @@
         ],
         "$grantId": {
           ".write": "auth != null && root.child('otthosWorld').child('admins').child(auth.uid).val() === true && !data.exists()",
-          ".validate": "newData.hasChildren(['schema','grantId','targetUid','targetName','coins','items','totalUnits','reason','createdBy','createdByName','createdAt','createdAtClient']) && newData.child('schema').val() === 1 && newData.child('grantId').val() === $grantId && newData.child('createdBy').val() === auth.uid && newData.child('targetUid').isString() && newData.child('targetUid').val().length >= 6 && newData.child('targetUid').val().length <= 128 && newData.child('coins').isNumber() && newData.child('coins').val() >= 0 && newData.child('coins').val() <= 1000000 && (newData.child('coins').val() > 0 || newData.child('items').hasChildren()) && newData.child('totalUnits').isNumber() && newData.child('totalUnits').val() > 0 && newData.child('createdAt').isNumber() && newData.child('createdAt').val() <= now && newData.child('createdAt').val() >= now - 10000",
+          ".validate": "newData.hasChildren(['schema', 'grantId', 'targetUid', 'targetName', 'coins', 'totalUnits', 'reason', 'createdBy', 'createdByName', 'createdAt', 'createdAtClient']) && newData.child('schema').val() === 1 && newData.child('grantId').val() === $grantId && newData.child('targetUid').isString() && newData.child('targetUid').val().matches(/^[A-Za-z0-9_-]{6,128}$/) && newData.child('targetName').isString() && newData.child('targetName').val().length >= 3 && newData.child('targetName').val().length <= 24 && newData.child('coins').isNumber() && newData.child('coins').val() >= 0 && newData.child('coins').val() <= 1000000 && (newData.child('coins').val() > 0 || newData.child('items').hasChildren()) && newData.child('totalUnits').isNumber() && newData.child('totalUnits').val() > 0 && newData.child('totalUnits').val() <= 41000000 && newData.child('reason').isString() && newData.child('reason').val().length <= 160 && newData.child('createdBy').val() === auth.uid && newData.child('createdByName').isString() && newData.child('createdByName').val().length >= 1 && newData.child('createdByName').val().length <= 24 && newData.child('createdAt').isNumber() && newData.child('createdAt').val() <= now && newData.child('createdAt').val() >= now - 10000 && newData.child('createdAtClient').isNumber() && newData.child('createdAtClient').val() <= now + 300000 && newData.child('createdAtClient').val() >= now - 300000",
           "schema": {},
           "grantId": {},
           "targetUid": {},
@@ -201,7 +202,8 @@
           "items": {
             "$itemKey": {
               ".validate": "newData.isNumber() && newData.val() > 0 && newData.val() <= 1000000"
-            }
+            },
+            ".validate": "newData.hasChildren()"
           },
           "totalUnits": {},
           "reason": {},
