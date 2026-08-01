@@ -63,7 +63,7 @@
       "startLine": 1456,
       "endLine": 1604,
       "description": "Rotas, trânsito, grafo, GPS e minimapa",
-      "sha256Body": "a73ad5967da8983fc3bcbad661d01ce20076019e166bde9a49bad39671d49dc8"
+      "sha256Body": "9cf4dac61b916d03afce79233100b16d0b1602422748441fdbb004c1c3a4bb7b"
     },
     {
       "file": "src/modules/08-map-parent-settings.js",
@@ -112,7 +112,7 @@
       "startLine": 2993,
       "endLine": 3085,
       "description": "Cogumelos, portais, praça, distrito e decoração urbana",
-      "sha256Body": "8c92991d86ade6a8cfc233614cc1d7d7dfd2508d2a9f70cc2ba4ae639ce8fcc6"
+      "sha256Body": "acf2328861ac55c67dd3591b377fa6cb0ec4b6fe0b9c8e7dcc087eca259d1568"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -294,7 +294,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Evolução integral V702: HUD, câmera, terreno, água, natação, fazenda, escavação e cidadãos temáticos",
-      "sha256Body": "deed11323b255440795fd8431438bdb7e345eb1670f71e46ac4a483eeb861016"
+      "sha256Body": "e8b42d2b5d9aa2dfbf897cd3263ca9b8bb6aaef038ab9d127cba3bb9888b8940"
     }
   ],
   "styles": [
