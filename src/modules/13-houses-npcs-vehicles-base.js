@@ -172,15 +172,41 @@
   }
   function createToyCar(x,z,options={}){
     const id=options.id||`city-car-${world.vehicles.length+1}`,saved=state.vehicles?.parked?.[id]||{},heading=Number(saved.heading??options.heading??0),group=new THREE.Group();group.position.set(Number(saved.x??x),0,Number(saved.z??z));group.rotation.y=heading;group.userData.vehicleId=id;worldGroup.add(group);
+    const profiles={
+      classic:{icon:'🚗',body:[1.98,.34,2.8],cabin:[1.6,.46,1.24,.48],rear:[1.28,.34,.74,-.68],bumper:[2.0,.18,.24],rack:false,spare:false},
+      compact:{icon:'🚙',body:[1.72,.34,2.25],cabin:[1.45,.56,1.18,.22],rear:[1.18,.28,.62,-.52],bumper:[1.78,.18,.22],rack:false,spare:false},
+      sport:{icon:'🏎️',body:[1.92,.28,2.6],cabin:[1.42,.36,1.0,.35],rear:[1.62,.14,.42,-.95],bumper:[1.95,.14,.22],rack:false,spare:false,spoiler:true},
+      offroad:{icon:'🚜',body:[2.0,.4,2.72],cabin:[1.64,.52,1.26,.36],rear:[1.36,.36,.78,-.6],bumper:[2.05,.2,.24],rack:true,spare:true,lift:.07,bigWheel:.08},
+      utility:{icon:'🚐',body:[1.92,.38,2.88],cabin:[1.56,.62,1.44,.08],rear:[1.5,.46,.94,-.72],bumper:[2.0,.2,.24],rack:true,spare:false},
+      special:{icon:'✨',body:[1.88,.34,2.54],cabin:[1.56,.5,1.18,.34],rear:[1.32,.28,.72,-.64],bumper:[1.94,.18,.22],rack:false,spare:false,fin:true},
+      explorer:{icon:'🧭',body:[1.98,.38,2.82],cabin:[1.58,.54,1.24,.28],rear:[1.4,.34,.84,-.66],bumper:[2.02,.2,.24],rack:true,spare:true}
+    };
+    const variant=String(options.variant||options.model||['classic','compact','sport','offroad','utility','special','explorer'][world.vehicles.length%7]);
+    const spec=profiles[variant]||profiles.classic;
     const appearance={chassis:options.chassis??0x26384e,primary:options.primary??0xf28a22,primaryDark:options.primaryDark??options.primary??0xc85b16,secondary:options.secondary??0x0aa7b8,glass:options.glass??0x102338};
-    const chassis=renderMat(appearance.chassis,{roughness:.5,metalness:.16}),orange=renderMat(appearance.primary,{roughness:.4,metalness:.18}),teal=renderMat(appearance.secondary,{roughness:.38,metalness:.22}),glass=renderMat(appearance.glass,{roughness:.12,metalness:.38,transparent:true,opacity:.84});
-    box(1.84,.36,2.56,chassis,0,.28,0,group);box(1.72,.48,1.35,orange,0,.55,.55,group);box(1.48,.46,.92,teal,0,.78,-.48,group);box(1.32,.31,.72,glass,0,.93,-.42,group);
-    box(1.94,.18,.28,0xf3f5f7,0,.32,1.34,group);box(.18,.34,2.2,teal,-.92,.42,0,group);box(.18,.34,2.2,teal,.92,.42,0,group);box(.72,.42,.58,0x151a23,0,.72,-.12,group);
-    const headlight=renderMat(0xfff1a8,{emissive:0xffd75b,emissiveIntensity:.9,roughness:.2});box(.3,.17,.08,headlight,-.58,.5,1.27,group);box(.3,.17,.08,headlight,.58,.5,1.27,group);
-    for(const p of [[-.84,.24,-.79],[.84,.24,-.79],[-.84,.24,.79],[.84,.24,.79]]){const wheel=cylinder(.34,.28,0x10151d,p[0],p[1],p[2],group,14);wheel.rotation.z=Math.PI/2;const hub=cylinder(.12,.3,0xf5a623,p[0],p[1],p[2],group,10);hub.rotation.z=Math.PI/2;}
-    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.28);});
-    const vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:options.label||'Carro da cidade',kind:options.kind||'car',serviceType:options.serviceType||'',appearance,occupied:false,radius:Number(options.radius||1.55)};world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
-    registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:'🚗',label:`Entrar: ${vehicle.label}`,radius:2.5,priority:155,getPos:()=>({x:vehicle.group.position.x,z:vehicle.group.position.z}),available:()=>!vehicle.occupied&&vehicle.group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
+    const chassis=renderMat(appearance.chassis,{roughness:.46,metalness:.22}),primary=renderMat(appearance.primary,{roughness:.34,metalness:.18}),secondary=renderMat(appearance.secondary,{roughness:.3,metalness:.24}),glass=renderMat(appearance.glass,{roughness:.1,metalness:.42,transparent:true,opacity:.84}),trim=renderMat(0xf3f5f7,{roughness:.24,metalness:.18}),dark=renderMat(0x151a23,{roughness:.68}),accent=renderMat(appearance.primaryDark,{roughness:.42,metalness:.18});
+    const lift=Number(spec.lift||0),wheelRadius=.34+Number(spec.bigWheel||0),wheelY=.24+lift;
+    box(spec.body[0],spec.body[1],spec.body[2],chassis,0,.28+lift,0,group);
+    box(spec.cabin[0],spec.cabin[1],spec.cabin[2],primary,0,.53+lift,spec.cabin[3],group);
+    box(spec.rear[0],spec.rear[1],spec.rear[2],secondary,0,.80+lift,spec.rear[3],group);
+    box(Math.max(1.18,spec.cabin[0]-.18),Math.max(.28,spec.cabin[1]-.17),Math.max(.78,spec.cabin[2]-.18),glass,0,.88+lift,spec.cabin[3]-.02,group);
+    box(spec.bumper[0],spec.bumper[1],spec.bumper[2],trim,0,.32+lift,spec.body[2]/2+.06,group);
+    box(spec.bumper[0]-.04,spec.bumper[1],spec.bumper[2]-.02,accent,0,.34+lift,-spec.body[2]/2-.06,group);
+    box(.18,.34,spec.body[2]-.38,secondary,-spec.body[0]/2+.08,.42+lift,0,group);box(.18,.34,spec.body[2]-.38,secondary,spec.body[0]/2-.08,.42+lift,0,group);
+    box(Math.max(.56,spec.cabin[0]*.42),.38,.56,dark,0,.72+lift,-.08,group);
+    if(spec.rack){box(spec.cabin[0]-.12,.08,.16,trim,0,1.14+lift,-.1,group);box(spec.cabin[0]-.24,.08,.16,trim,0,1.14+lift,.18,group);}
+    if(spec.spoiler){box(.95,.08,.2,accent,0,.88+lift,-1.35,group);}
+    if(spec.fin){box(.16,.26,.52,trim,0,1.1+lift,-1.02,group);}
+    const headlight=renderMat(0xfff1a8,{emissive:0xffd75b,emissiveIntensity:.9,roughness:.18}),taillight=renderMat(0xff334d,{emissive:0xa90018,emissiveIntensity:.8,roughness:.22});
+    box(.28,.16,.08,headlight,-.58,.5+lift,spec.body[2]/2-.02,group);box(.28,.16,.08,headlight,.58,.5+lift,spec.body[2]/2-.02,group);
+    box(.24,.14,.07,taillight,-.59,.45+lift,-spec.body[2]/2+.02,group);box(.24,.14,.07,taillight,.59,.45+lift,-spec.body[2]/2+.02,group);
+    const wheelPos=[[-spec.body[0]/2+.26,wheelY,-.82],[spec.body[0]/2-.26,wheelY,-.82],[-spec.body[0]/2+.26,wheelY,.82],[spec.body[0]/2-.26,wheelY,.82]];
+    for(const p of wheelPos){const wheel=cylinder(wheelRadius,.28,0x10151d,p[0],p[1],p[2],group,14);wheel.rotation.z=Math.PI/2;const hub=cylinder(.12+Number(spec.bigWheel||0)*.2,.3,0xf5a623,p[0],p[1],p[2],group,10);hub.rotation.z=Math.PI/2;}
+    if(spec.spare){const spare=cylinder(.28,.22,0x10151d,0,.56+lift,-spec.body[2]/2-.18,group,14);spare.rotation.z=Math.PI/2;const hub=cylinder(.1,.24,0xf5a623,0,.56+lift,-spec.body[2]/2-.18,group,10);hub.rotation.z=Math.PI/2;}
+    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.24);});
+    const labelBase=options.label||'Carro da cidade';
+    const vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:labelBase,kind:options.kind||'car',serviceType:options.serviceType||'',appearance,variant,occupied:false,radius:Number(options.radius||1.65),mapIcon:spec.icon};world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
+    registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:spec.icon||'🚗',label:`Entrar: ${vehicle.label}`,radius:2.6,priority:155,getPos:()=>({x:vehicle.group.position.x,z:vehicle.group.position.z}),available:()=>!vehicle.occupied&&vehicle.group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
   }
 
   function createWaypointMarker(){

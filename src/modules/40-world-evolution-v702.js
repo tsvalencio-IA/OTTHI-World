@@ -76,13 +76,17 @@
     }else{toast('A plantação ainda está crescendo.','warn',1400);return;}saveState(true);updateHUD();updateFarmPlotVisual(plot);}
   function createFarmingSystem(){
     if(world.worldEvolution?.farming)return false;const group=new THREE.Group();group.name='OTTHI_V702_FARM';worldGroup.add(group);const empty=v702TextureMaterial('farmland',0x79502e,{repeat:[2,2],roughness:.96,normalScale:.52}),wet=v702TextureMaterial('mud',0x543522,{repeat:[2,2],roughness:.88,normalScale:.48});
-    const positions=[];for(let x=42;x<=62;x+=4)for(let z=27;z<=39;z+=4)positions.push([x,z]);
+    const plotArea={minX:70,maxX:86,minZ:24,maxZ:40};
+    const positions=[];for(let x=plotArea.minX;x<=plotArea.maxX;x+=4)for(let z=plotArea.minZ;z<=plotArea.maxZ;z+=4)positions.push([x,z]);
+    const addFence=(x,z,w,d)=>{premiumBox(w,.18,.18,0xd8ccb0,x,.42,z+d/2,group);premiumBox(w,.18,.18,0xd8ccb0,x,.42,z-d/2,group);premiumBox(.18,.18,d,0xd8ccb0,x-w/2,.42,z,group);premiumBox(.18,.18,d,0xd8ccb0,x+w/2,.42,z,group);for(const sx of[-w/2,w/2])for(const sz of[-d/2,d/2])premiumBox(.22,.95,.22,0x9d7d57,x+sx,.48,z+sz,group);};
+    addFence(78,32,24,20);
+    premiumBox(4.4,.12,7.2,0xc6b17c,78,.09,21.2,group);premiumBox(3.2,.55,3.2,0xc89a52,69,.28,22.5,group);premiumBox(3.2,.55,3.2,0xc89a52,69,.84,22.5,group);
     positions.forEach(([x,z],index)=>{const id=`farm-${index}`,soil=new THREE.Mesh(new THREE.BoxGeometry(3.25,.12,3.25),empty);soil.position.set(x,.13,z);soil.receiveShadow=true;group.add(soil);const crop=new THREE.Group();crop.position.set(x,.2,z);group.add(crop);for(const dx of[-.72,-.24,.24,.72])for(const dz of[-.72,0,.72]){premiumBox(.07,.72,.07,0x4b9f3e,dx,.36,dz,crop);premiumBox(.25,.19,.25,(index+Math.round(dx*10))%2?0xf0c84c:0x6fc44e,dx,.76,dz,crop);}const interactable={id:`farm-plot-${id}`,type:'farm',icon:'🌱',label:'Preparar e plantar',x,z,radius:2.25,priority:178,action:null};const plot={id,x,z,soil,crop,interactable,soilMaterials:{empty,wet}};interactable.action=()=>useFarmPlot(plot);registerInteractable(interactable);WORLD_V702.farmPlots.set(id,plot);updateFarmPlotVisual(plot);});
-    createSignpost(52,23,'Fazenda Comunitária',Math.PI);world.worldEvolution.farming=group;return true;
+    createSignpost(78,19,'Fazenda Comunitária',Math.PI);world.worldEvolution.farming=group;return true;
   }
   function useDigSite(site){ensureWorldEvolutionState();if(!['hoe','shovel','pickaxe'].includes(state.tools.equipped)){toast('Equipe Enxada, Pá ou Picareta para cavar.','warn',1900);return;}const previous=Number(state.farming.digSites[site.id]||0),remaining=V702_DIG_COOLDOWN-(Date.now()-previous);if(remaining>0){toast(`A terra precisa descansar por ${Math.ceil(remaining/1000)} s.`,'warn',1300);return;}state.farming.digSites[site.id]=Date.now();playToolAnimation();const bait=1+Math.floor(Math.random()*3),seeds=Math.random()<.46?1:0,clay=site.biome==='shore'||site.biome==='farm'?(Math.random()<.55?1:0):0;state.inventory.bait=(state.inventory.bait||0)+bait;state.inventory.seeds=(state.inventory.seeds||0)+seeds;state.inventory.clay=(state.inventory.clay||0)+clay;state.tools.harvested.bait=(state.tools.harvested.bait||0)+bait;state.tools.harvested.clay=(state.tools.harvested.clay||0)+clay;state.stats.dugBait=(state.stats.dugBait||0)+bait;addXP(7+bait*2);saveState(true);updateHUD();toast(`Escavação: +${bait} isca${bait>1?'s':''}${seeds?`, +${seeds} semente`:''}${clay?', +1 argila':''}.`,'good',2200);}
   function createDigSites(){
-    if(world.worldEvolution?.digSites)return false;const sites=[[-47,-45,'forest'],[-62,-34,'forest'],[40,29,'farm'],[63,38,'farm'],[-55,43,'shore'],[-91,76,'shore'],[81,-36,'desert'],[104,-48,'desert']];
+    if(world.worldEvolution?.digSites)return false;const sites=[[-47,-45,'forest'],[-62,-34,'forest'],[68,24,'farm'],[88,40,'farm'],[-55,43,'shore'],[-91,76,'shore'],[81,-36,'desert'],[104,-48,'desert']];
     for(const [x,z,biome]of sites){const id=`dig-${biome}-${x}-${z}`,mat=v702TextureMaterial(biome==='desert'?'sand':biome==='shore'?'shore':'dirt',biome==='desert'?0xdcb266:0x795333,{repeat:[2,2],roughness:.95});const patch=new THREE.Mesh(new THREE.CylinderGeometry(1.35,1.55,.08,16),mat);patch.position.set(x,groundHeightAt(x,z)+.05,z);worldGroup.add(patch);const site={id,x,z,biome,mesh:patch};WORLD_V702.digSites.set(id,site);registerInteractable({id,type:'dig',icon:'🪱',label:'Cavar por iscas e recursos',x,z,radius:2.35,priority:165,action:()=>useDigSite(site)});}
     world.worldEvolution.digSites=true;return true;
   }
@@ -92,10 +96,11 @@
     if(theme==='adventure'){const cap=worldAvatarMaterial(0xd84235,{roughness:.48});avatarV3Sphere(g,.58,cap,0,2.48,0,1.08,.34,1.08);premiumBox(.72,.1,.32,cap,0,2.43,.38,g);premiumBox(.58,.72,.05,0x256ac5,0,1.05,.33,g);}
     if(theme==='toy'){for(const p of[[-.48,1.2,0],[.48,1.2,0],[-.2,.62,0],[.2,.62,0]])avatarV3Sphere(g,.16,worldAvatarMaterial(0xffd39a,{roughness:.38}),...p);premiumBox(.42,.3,.14,0xffdc4d,0,1.32,.35,g);}
     if(theme==='block'){g.scale.set(1.06,1.02,1.06);premiumBox(.34,.34,.08,0x62e86b,0,1.15,.35,g);}
+    if(theme==='hero'){premiumBox(.82,.98,.06,0x245aa5,0,1.18,.34,g);premiumBox(.42,.24,.08,0xf4d24d,0,1.48,.38,g);premiumBox(.18,.92,.08,0xf4d24d,-.24,1.06,.36,g);premiumBox(.18,.92,.08,0xf4d24d,.24,1.06,.36,g);}
     npc.theme=theme;return npc;
   }
   function createThemedCitizens(){
-    if(world.worldEvolution?.citizens)return false;const specs=[['nox','Nox',-8,-28,0x25365f,'shadow',3.2],['arani','Arani',16,-34,0xd9454d,'web',3.2],['tico','Tico',38,34,0xe44739,'adventure',2.8],['plim','Plim',82,-39,0xf0c743,'toy',3],['byte','Byte',76,86,0x45b7da,'block',2.8],['flora','Flora',-46,44,0x6bbf55,'toy',3.2]];
+    if(world.worldEvolution?.citizens)return false;const specs=[['nox','Nox',-8,-28,0x25365f,'shadow',3.2],['arani','Arani',16,-34,0xd9454d,'web',3.2],['tico','Tico',38,34,0xe44739,'adventure',2.8],['plim','Plim',82,-39,0xf0c743,'toy',3],['byte','Byte',76,86,0x45b7da,'block',2.8],['flora','Flora',-46,44,0x6bbf55,'toy',3.2],['milo','Milo',12,18,0xd94836,'adventure',2.8],['luna','Luna',-12,12,0x6cb6ff,'toy',3],['briko','Briko',55,74,0x22a7b7,'hero',3],['nina','Nina',72,26,0xf49a35,'toy',2.9]];
     for(const [id,name,x,z,color,theme,radius]of specs){if(world.npcs.some(n=>n.id===id))continue;const npc=decorateThemedCitizen(createNPC(id,name,x,z,color,radius),theme);WORLD_V702.citizens.push(npc);}world.worldEvolution.citizens=true;return true;
   }
   function createCameraPitchButtons(){

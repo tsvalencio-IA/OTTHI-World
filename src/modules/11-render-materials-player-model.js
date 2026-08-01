@@ -253,12 +253,13 @@
     // Materiais exclusivos: a cor do veículo ativo não pode alterar carros estacionados que usam o cache visual.
     const chassis=mat(0x26384e,{roughness:.5,metalness:.16}),orange=mat(0xf28a22,{roughness:.4,metalness:.18}),orangeDark=mat(0xc85b16,{roughness:.48});
     const teal=mat(0x0aa7b8,{roughness:.38,metalness:.22}),glass=mat(0x102338,{roughness:.12,metalness:.38,transparent:true,opacity:.84});
-    box(1.84,.36,2.56,chassis,0,.28,0,vehicleVisual);box(1.72,.48,1.35,orange,0,.55,.55,vehicleVisual);
-    box(1.48,.46,.92,teal,0,.78,-.48,vehicleVisual);box(1.32,.31,.72,glass,0,.93,-.42,vehicleVisual);
-    box(1.94,.18,.28,white,0,.32,1.34,vehicleVisual);box(1.9,.18,.24,orangeDark,0,.34,-1.32,vehicleVisual);
-    box(.18,.34,2.2,teal,-.92,.42,0,vehicleVisual);box(.18,.34,2.2,teal,.92,.42,0,vehicleVisual);
-    box(.72,.42,.58,blackSoft,0,.72,-.12,vehicleVisual);
-    const wheelRing=new THREE.Mesh(new THREE.TorusGeometry(.17,.035,8,14),black);wheelRing.position.set(-.31,.95,.32);wheelRing.rotation.x=Math.PI/2.3;vehicleVisual.add(wheelRing);
+    box(1.94,.38,2.74,chassis,0,.28,0,vehicleVisual);box(1.82,.54,1.46,orange,0,.57,.5,vehicleVisual);
+    box(1.56,.48,1.04,teal,0,.83,-.42,vehicleVisual);box(1.42,.34,.84,glass,0,.96,-.35,vehicleVisual);
+    box(2.02,.18,.26,white,0,.32,1.42,vehicleVisual);box(1.96,.18,.22,orangeDark,0,.34,-1.39,vehicleVisual);
+    box(.18,.36,2.34,teal,-.98,.44,0,vehicleVisual);box(.18,.36,2.34,teal,.98,.44,0,vehicleVisual);
+    box(.76,.42,.62,blackSoft,0,.72,-.08,vehicleVisual);box(.88,.08,.18,white,0,1.14,-.14,vehicleVisual);box(.62,.08,.18,white,0,1.14,.14,vehicleVisual);
+    box(.16,.24,1.58,orangeDark,-.64,.62,-.08,vehicleVisual);box(.16,.24,1.58,orangeDark,.64,.62,-.08,vehicleVisual);
+    const wheelRing=new THREE.Mesh(new THREE.TorusGeometry(.17,.035,8,14),black);wheelRing.position.set(-.31,.95,.32);wheelRing.rotation.x=Math.PI/2.3;vehicleVisual.add(wheelRing);const roofBox=box(1.12,.08,.16,white,0,1.15,-.02,vehicleVisual);roofBox.userData.decor=true;
     const headlight=renderMat(0xfff1a8,{emissive:0xffd75b,emissiveIntensity:.9,roughness:.2}),taillight=renderMat(0xff334d,{emissive:0xa90018,emissiveIntensity:.8});
     box(.3,.17,.08,headlight,-.58,.5,1.27,vehicleVisual);box(.3,.17,.08,headlight,.58,.5,1.27,vehicleVisual);
     box(.28,.16,.07,taillight,-.59,.45,-1.3,vehicleVisual);box(.28,.16,.07,taillight,.59,.45,-1.3,vehicleVisual);

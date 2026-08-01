@@ -14,7 +14,7 @@
       "startLine": 51,
       "endLine": 367,
       "description": "Registro central de assets, LOD gerenciado, orçamento visual e esquema de avatar V2",
-      "sha256Body": "66e94b2cd90c68e43a7455afa3045b6449799c9710b602558166d6e5f0e03d39"
+      "sha256Body": "ee8992b3a048bd78d065bff4dc08ad58d33a2814c87418d9119554f922e8f0ea"
     },
     {
       "file": "src/modules/01-build-persistence.js",
@@ -91,7 +91,7 @@
       "startLine": 2145,
       "endLine": 2512,
       "description": "Texturas, materiais, geometria, personagem e avatar 3D",
-      "sha256Body": "fd64f45cbfb038e111bdc952f5f2eeae332ac7c25708fda9c263767d333aa207"
+      "sha256Body": "abc34a50ad8efb570197dab4e4987b6bf1f151c561dc94cfd11f99202fc8bf49"
     },
     {
       "file": "src/modules/12-world-resources-nature.js",
@@ -105,7 +105,7 @@
       "startLine": 2743,
       "endLine": 2991,
       "description": "Casas, interiores, NPCs, inimigos, cristais, veículos e academia",
-      "sha256Body": "e4aca2245b2704c140cdae177332129e5b25365e5d69f9a3e4f3b49361907976"
+      "sha256Body": "0b0e89338c7c2754dc8a5120425aea62bc097f543848dc138e626862c316659a"
     },
     {
       "file": "src/modules/14-world-district-decoration.js",
@@ -245,28 +245,28 @@
       "startLine": 5680,
       "endLine": 5801,
       "description": "Fundação OTTHI World, PBR local, diagnóstico e painel das cinco etapas",
-      "sha256Body": "0c263732046930ead7b5951e2c318ce131473316d792fb752a8f26690e6bcdca"
+      "sha256Body": "3ea42f806142e7655996b7b1708a1d784e9bcec0df28428bb62076d582f3d1d7"
     },
     {
       "file": "src/modules/34-avatar-studio-professional-v3.js",
       "startLine": 5803,
       "endLine": 5897,
       "description": "Avatar modular V3 sobre o rig procedural preservado",
-      "sha256Body": "5a106a18e5ed42cde13541c913eaef14fc5b8ba684289bcbc04db1abfb5d7657"
+      "sha256Body": "c2c84662078c210debf030c665875f368d004c8c079107e8a6e82e06fdea0584"
     },
     {
       "file": "src/modules/35-world-render-pbr-environment.js",
       "startLine": 5899,
       "endLine": 5956,
       "description": "Mundo profissional, materiais PBR, vegetação, atmosfera e detalhes",
-      "sha256Body": "9738993dc27cc6b48be41fb05e2e5e036a1495559a8b02470ec3b3fbe0c25e68"
+      "sha256Body": "d3ba2880494e0419922c8e540348c32fa8052d311d73e84bde72096dd1800520"
     },
     {
       "file": "src/modules/36-modular-build-machines.js",
       "startLine": 5958,
       "endLine": 6056,
       "description": "Construção modular, oficina e veículos montáveis",
-      "sha256Body": "895d4c7a3285f1768206868083e10431b6db5b6e8fab2d5816e47b30ee85aaf5"
+      "sha256Body": "e7727cf5ff9311e925701d6581c950bd6cf53211beaedf5d2ca65e0ac63c405c"
     },
     {
       "file": "src/modules/37-hero-platform-gameplay.js",
@@ -294,7 +294,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Evolução integral V702: HUD, câmera, terreno, água, natação, fazenda, escavação e cidadãos temáticos",
-      "sha256Body": "35a805dd6de3e967f4e8c5e2c4111086a44350ae4f5a75dc5ede09c749c2571b"
+      "sha256Body": "034b520503395da4e86a46424ab38a4aec0356fa820ee1af0506c09706c32e1a"
     }
   ],
   "styles": [
@@ -429,7 +429,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "HUD paisagem e interface de mundo evoluído V702",
-      "sha256Body": "ea2595137c241f91b896cba1d62b4e63ce94c78c69193f5ff74f968f194f7526"
+      "sha256Body": "936632d2bc014684563dd2c0435d31bb3220bb5dd5e2d102482a129d4d6324af"
     }
   ]
 }

@@ -86,20 +86,20 @@
 
   const OTTHI_AVATAR_V2_DEFAULTS = Object.freeze({
     version: OTTHI_AVATAR_SCHEMA_VERSION,
-    renderMode: 'procedural-fallback',
-    bodyStyle: 'block',
+    renderMode: 'otthi-world-v3',
+    bodyStyle: 'toy',
     skinTone: 'tone-03',
-    face: 'face-athos-01',
-    hair: 'hair-athos-01',
-    hairColor: '#352317',
-    torso: 'legacy-outfit-classic',
-    legs: 'legacy-pants-01',
-    shoes: 'legacy-sneakers-01',
+    face: 'face-happy-01',
+    hair: 'hair-short-01',
+    hairColor: '#4a2d1b',
+    torso: 'world-mushroom-adventurer',
+    legs: 'world-shorts-01',
+    shoes: 'world-sneakers-01',
     hat: 'none',
-    back: 'none',
-    pattern: 'none',
-    primaryColor: '#1267d6',
-    secondaryColor: '#111827',
+    back: 'world-backpack-01',
+    pattern: 'world-star',
+    primaryColor: '#d94236',
+    secondaryColor: '#236ac7',
     outfit: 'classic',
     accessory: 'none',
     uniform: 'none'
@@ -136,21 +136,22 @@
     const accessory=safeLegacyAvatarChoice('accessory',source.accessory,defaults.accessory);
     const uniform=safeLegacyAvatarChoice('uniform',source.uniform,defaults.uniform);
     // O estado sincronizado aceita somente os campos conhecidos pelo esquema infantil V2.
+    const legacyRender=!source.renderMode||source.renderMode==='procedural-fallback';
     return {
       ...defaults,
       version:OTTHI_AVATAR_SCHEMA_VERSION,
-      renderMode:safeAvatarId(source.renderMode,defaults.renderMode),
-      bodyStyle:safeAvatarId(source.bodyStyle,defaults.bodyStyle),
+      renderMode:legacyRender?'otthi-world-v3':safeAvatarId(source.renderMode,defaults.renderMode),
+      bodyStyle:legacyRender&&(!source.bodyStyle||source.bodyStyle==='block')?'toy':safeAvatarId(source.bodyStyle,defaults.bodyStyle),
       skinTone:safeAvatarId(source.skinTone,defaults.skinTone),
-      face:safeAvatarId(source.face,defaults.face),
-      hair:safeAvatarId(source.hair,defaults.hair),
+      face:legacyRender&&(!source.face||String(source.face).startsWith('face-athos'))?defaults.face:safeAvatarId(source.face,defaults.face),
+      hair:legacyRender&&(!source.hair||String(source.hair).startsWith('hair-athos'))?defaults.hair:safeAvatarId(source.hair,defaults.hair),
       hairColor:safeAvatarColor(source.hairColor,defaults.hairColor),
-      torso:safeAvatarId(source.torso,`legacy-outfit-${outfit}`),
-      legs:safeAvatarId(source.legs,defaults.legs),
-      shoes:safeAvatarId(source.shoes,defaults.shoes),
+      torso:legacyRender&&(!source.torso||String(source.torso).startsWith('legacy-outfit-'))?defaults.torso:safeAvatarId(source.torso,defaults.torso),
+      legs:legacyRender&&(!source.legs||String(source.legs).startsWith('legacy-'))?defaults.legs:safeAvatarId(source.legs,defaults.legs),
+      shoes:legacyRender&&(!source.shoes||String(source.shoes).startsWith('legacy-'))?defaults.shoes:safeAvatarId(source.shoes,defaults.shoes),
       hat,
-      back:safeAvatarId(source.back,accessory==='backpack'?'legacy-backpack':'none'),
-      pattern:safeAvatarId(source.pattern,defaults.pattern),
+      back:legacyRender&&(!source.back||source.back==='none'||source.back==='legacy-backpack')?defaults.back:safeAvatarId(source.back,accessory==='backpack'?'legacy-backpack':'none'),
+      pattern:legacyRender&&(!source.pattern||source.pattern==='none')?defaults.pattern:safeAvatarId(source.pattern,defaults.pattern),
       primaryColor:safeAvatarColor(source.primaryColor,defaults.primaryColor),
       secondaryColor:safeAvatarColor(source.secondaryColor,defaults.secondaryColor),
       outfit,
@@ -2402,12 +2403,13 @@
     // Materiais exclusivos: a cor do veículo ativo não pode alterar carros estacionados que usam o cache visual.
     const chassis=mat(0x26384e,{roughness:.5,metalness:.16}),orange=mat(0xf28a22,{roughness:.4,metalness:.18}),orangeDark=mat(0xc85b16,{roughness:.48});
     const teal=mat(0x0aa7b8,{roughness:.38,metalness:.22}),glass=mat(0x102338,{roughness:.12,metalness:.38,transparent:true,opacity:.84});
-    box(1.84,.36,2.56,chassis,0,.28,0,vehicleVisual);box(1.72,.48,1.35,orange,0,.55,.55,vehicleVisual);
-    box(1.48,.46,.92,teal,0,.78,-.48,vehicleVisual);box(1.32,.31,.72,glass,0,.93,-.42,vehicleVisual);
-    box(1.94,.18,.28,white,0,.32,1.34,vehicleVisual);box(1.9,.18,.24,orangeDark,0,.34,-1.32,vehicleVisual);
-    box(.18,.34,2.2,teal,-.92,.42,0,vehicleVisual);box(.18,.34,2.2,teal,.92,.42,0,vehicleVisual);
-    box(.72,.42,.58,blackSoft,0,.72,-.12,vehicleVisual);
-    const wheelRing=new THREE.Mesh(new THREE.TorusGeometry(.17,.035,8,14),black);wheelRing.position.set(-.31,.95,.32);wheelRing.rotation.x=Math.PI/2.3;vehicleVisual.add(wheelRing);
+    box(1.94,.38,2.74,chassis,0,.28,0,vehicleVisual);box(1.82,.54,1.46,orange,0,.57,.5,vehicleVisual);
+    box(1.56,.48,1.04,teal,0,.83,-.42,vehicleVisual);box(1.42,.34,.84,glass,0,.96,-.35,vehicleVisual);
+    box(2.02,.18,.26,white,0,.32,1.42,vehicleVisual);box(1.96,.18,.22,orangeDark,0,.34,-1.39,vehicleVisual);
+    box(.18,.36,2.34,teal,-.98,.44,0,vehicleVisual);box(.18,.36,2.34,teal,.98,.44,0,vehicleVisual);
+    box(.76,.42,.62,blackSoft,0,.72,-.08,vehicleVisual);box(.88,.08,.18,white,0,1.14,-.14,vehicleVisual);box(.62,.08,.18,white,0,1.14,.14,vehicleVisual);
+    box(.16,.24,1.58,orangeDark,-.64,.62,-.08,vehicleVisual);box(.16,.24,1.58,orangeDark,.64,.62,-.08,vehicleVisual);
+    const wheelRing=new THREE.Mesh(new THREE.TorusGeometry(.17,.035,8,14),black);wheelRing.position.set(-.31,.95,.32);wheelRing.rotation.x=Math.PI/2.3;vehicleVisual.add(wheelRing);const roofBox=box(1.12,.08,.16,white,0,1.15,-.02,vehicleVisual);roofBox.userData.decor=true;
     const headlight=renderMat(0xfff1a8,{emissive:0xffd75b,emissiveIntensity:.9,roughness:.2}),taillight=renderMat(0xff334d,{emissive:0xa90018,emissiveIntensity:.8});
     box(.3,.17,.08,headlight,-.58,.5,1.27,vehicleVisual);box(.3,.17,.08,headlight,.58,.5,1.27,vehicleVisual);
     box(.28,.16,.07,taillight,-.59,.45,-1.3,vehicleVisual);box(.28,.16,.07,taillight,.59,.45,-1.3,vehicleVisual);
@@ -2919,15 +2921,41 @@
   }
   function createToyCar(x,z,options={}){
     const id=options.id||`city-car-${world.vehicles.length+1}`,saved=state.vehicles?.parked?.[id]||{},heading=Number(saved.heading??options.heading??0),group=new THREE.Group();group.position.set(Number(saved.x??x),0,Number(saved.z??z));group.rotation.y=heading;group.userData.vehicleId=id;worldGroup.add(group);
+    const profiles={
+      classic:{icon:'🚗',body:[1.98,.34,2.8],cabin:[1.6,.46,1.24,.48],rear:[1.28,.34,.74,-.68],bumper:[2.0,.18,.24],rack:false,spare:false},
+      compact:{icon:'🚙',body:[1.72,.34,2.25],cabin:[1.45,.56,1.18,.22],rear:[1.18,.28,.62,-.52],bumper:[1.78,.18,.22],rack:false,spare:false},
+      sport:{icon:'🏎️',body:[1.92,.28,2.6],cabin:[1.42,.36,1.0,.35],rear:[1.62,.14,.42,-.95],bumper:[1.95,.14,.22],rack:false,spare:false,spoiler:true},
+      offroad:{icon:'🚜',body:[2.0,.4,2.72],cabin:[1.64,.52,1.26,.36],rear:[1.36,.36,.78,-.6],bumper:[2.05,.2,.24],rack:true,spare:true,lift:.07,bigWheel:.08},
+      utility:{icon:'🚐',body:[1.92,.38,2.88],cabin:[1.56,.62,1.44,.08],rear:[1.5,.46,.94,-.72],bumper:[2.0,.2,.24],rack:true,spare:false},
+      special:{icon:'✨',body:[1.88,.34,2.54],cabin:[1.56,.5,1.18,.34],rear:[1.32,.28,.72,-.64],bumper:[1.94,.18,.22],rack:false,spare:false,fin:true},
+      explorer:{icon:'🧭',body:[1.98,.38,2.82],cabin:[1.58,.54,1.24,.28],rear:[1.4,.34,.84,-.66],bumper:[2.02,.2,.24],rack:true,spare:true}
+    };
+    const variant=String(options.variant||options.model||['classic','compact','sport','offroad','utility','special','explorer'][world.vehicles.length%7]);
+    const spec=profiles[variant]||profiles.classic;
     const appearance={chassis:options.chassis??0x26384e,primary:options.primary??0xf28a22,primaryDark:options.primaryDark??options.primary??0xc85b16,secondary:options.secondary??0x0aa7b8,glass:options.glass??0x102338};
-    const chassis=renderMat(appearance.chassis,{roughness:.5,metalness:.16}),orange=renderMat(appearance.primary,{roughness:.4,metalness:.18}),teal=renderMat(appearance.secondary,{roughness:.38,metalness:.22}),glass=renderMat(appearance.glass,{roughness:.12,metalness:.38,transparent:true,opacity:.84});
-    box(1.84,.36,2.56,chassis,0,.28,0,group);box(1.72,.48,1.35,orange,0,.55,.55,group);box(1.48,.46,.92,teal,0,.78,-.48,group);box(1.32,.31,.72,glass,0,.93,-.42,group);
-    box(1.94,.18,.28,0xf3f5f7,0,.32,1.34,group);box(.18,.34,2.2,teal,-.92,.42,0,group);box(.18,.34,2.2,teal,.92,.42,0,group);box(.72,.42,.58,0x151a23,0,.72,-.12,group);
-    const headlight=renderMat(0xfff1a8,{emissive:0xffd75b,emissiveIntensity:.9,roughness:.2});box(.3,.17,.08,headlight,-.58,.5,1.27,group);box(.3,.17,.08,headlight,.58,.5,1.27,group);
-    for(const p of [[-.84,.24,-.79],[.84,.24,-.79],[-.84,.24,.79],[.84,.24,.79]]){const wheel=cylinder(.34,.28,0x10151d,p[0],p[1],p[2],group,14);wheel.rotation.z=Math.PI/2;const hub=cylinder(.12,.3,0xf5a623,p[0],p[1],p[2],group,10);hub.rotation.z=Math.PI/2;}
-    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.28);});
-    const vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:options.label||'Carro da cidade',kind:options.kind||'car',serviceType:options.serviceType||'',appearance,occupied:false,radius:Number(options.radius||1.55)};world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
-    registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:'🚗',label:`Entrar: ${vehicle.label}`,radius:2.5,priority:155,getPos:()=>({x:vehicle.group.position.x,z:vehicle.group.position.z}),available:()=>!vehicle.occupied&&vehicle.group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
+    const chassis=renderMat(appearance.chassis,{roughness:.46,metalness:.22}),primary=renderMat(appearance.primary,{roughness:.34,metalness:.18}),secondary=renderMat(appearance.secondary,{roughness:.3,metalness:.24}),glass=renderMat(appearance.glass,{roughness:.1,metalness:.42,transparent:true,opacity:.84}),trim=renderMat(0xf3f5f7,{roughness:.24,metalness:.18}),dark=renderMat(0x151a23,{roughness:.68}),accent=renderMat(appearance.primaryDark,{roughness:.42,metalness:.18});
+    const lift=Number(spec.lift||0),wheelRadius=.34+Number(spec.bigWheel||0),wheelY=.24+lift;
+    box(spec.body[0],spec.body[1],spec.body[2],chassis,0,.28+lift,0,group);
+    box(spec.cabin[0],spec.cabin[1],spec.cabin[2],primary,0,.53+lift,spec.cabin[3],group);
+    box(spec.rear[0],spec.rear[1],spec.rear[2],secondary,0,.80+lift,spec.rear[3],group);
+    box(Math.max(1.18,spec.cabin[0]-.18),Math.max(.28,spec.cabin[1]-.17),Math.max(.78,spec.cabin[2]-.18),glass,0,.88+lift,spec.cabin[3]-.02,group);
+    box(spec.bumper[0],spec.bumper[1],spec.bumper[2],trim,0,.32+lift,spec.body[2]/2+.06,group);
+    box(spec.bumper[0]-.04,spec.bumper[1],spec.bumper[2]-.02,accent,0,.34+lift,-spec.body[2]/2-.06,group);
+    box(.18,.34,spec.body[2]-.38,secondary,-spec.body[0]/2+.08,.42+lift,0,group);box(.18,.34,spec.body[2]-.38,secondary,spec.body[0]/2-.08,.42+lift,0,group);
+    box(Math.max(.56,spec.cabin[0]*.42),.38,.56,dark,0,.72+lift,-.08,group);
+    if(spec.rack){box(spec.cabin[0]-.12,.08,.16,trim,0,1.14+lift,-.1,group);box(spec.cabin[0]-.24,.08,.16,trim,0,1.14+lift,.18,group);}
+    if(spec.spoiler){box(.95,.08,.2,accent,0,.88+lift,-1.35,group);}
+    if(spec.fin){box(.16,.26,.52,trim,0,1.1+lift,-1.02,group);}
+    const headlight=renderMat(0xfff1a8,{emissive:0xffd75b,emissiveIntensity:.9,roughness:.18}),taillight=renderMat(0xff334d,{emissive:0xa90018,emissiveIntensity:.8,roughness:.22});
+    box(.28,.16,.08,headlight,-.58,.5+lift,spec.body[2]/2-.02,group);box(.28,.16,.08,headlight,.58,.5+lift,spec.body[2]/2-.02,group);
+    box(.24,.14,.07,taillight,-.59,.45+lift,-spec.body[2]/2+.02,group);box(.24,.14,.07,taillight,.59,.45+lift,-spec.body[2]/2+.02,group);
+    const wheelPos=[[-spec.body[0]/2+.26,wheelY,-.82],[spec.body[0]/2-.26,wheelY,-.82],[-spec.body[0]/2+.26,wheelY,.82],[spec.body[0]/2-.26,wheelY,.82]];
+    for(const p of wheelPos){const wheel=cylinder(wheelRadius,.28,0x10151d,p[0],p[1],p[2],group,14);wheel.rotation.z=Math.PI/2;const hub=cylinder(.12+Number(spec.bigWheel||0)*.2,.3,0xf5a623,p[0],p[1],p[2],group,10);hub.rotation.z=Math.PI/2;}
+    if(spec.spare){const spare=cylinder(.28,.22,0x10151d,0,.56+lift,-spec.body[2]/2-.18,group,14);spare.rotation.z=Math.PI/2;const hub=cylinder(.1,.24,0xf5a623,0,.56+lift,-spec.body[2]/2-.18,group,10);hub.rotation.z=Math.PI/2;}
+    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.24);});
+    const labelBase=options.label||'Carro da cidade';
+    const vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:labelBase,kind:options.kind||'car',serviceType:options.serviceType||'',appearance,variant,occupied:false,radius:Number(options.radius||1.65),mapIcon:spec.icon};world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
+    registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:spec.icon||'🚗',label:`Entrar: ${vehicle.label}`,radius:2.6,priority:155,getPos:()=>({x:vehicle.group.position.x,z:vehicle.group.position.z}),available:()=>!vehicle.occupied&&vehicle.group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
   }
 
   function createWaypointMarker(){
@@ -5717,7 +5745,7 @@
 
   // ===== MODULE: 33-otthi-world-professional-core.js =====
   const OTTHI_WORLD_VERSION = 702;
-  const OTTHI_WORLD_BUILD = '702.1-ux-personagem-veiculos';
+  const OTTHI_WORLD_BUILD = '702.0-world-evolution-complete';
   const OTTHI_WORLD_STAGES = Object.freeze({
     foundation:Object.freeze({id:'foundation',number:1,title:'Fundação profissional',status:'implemented'}),
     avatar:Object.freeze({id:'avatar',number:2,title:'Personagem modular',status:'implemented'}),
@@ -5808,16 +5836,26 @@
     otthiWorldRuntime.stats.enhancedMeshes=count;return count;
   }
   function otthiWorldStageMarkup(){
-    return '';
+    return Object.values(OTTHI_WORLD_STAGES).map(stage=>`<article class="otthi-world-stage implemented"><span>${stage.number}</span><div><b>${stage.title}</b><small>Implementada com fallback e preservação da base</small></div><i>✓</i></article>`).join('');
   }
   function openOtthiWorldCenter(){
     ensureOtthiWorldState();
-    return openAvatarStudio();
+    openModal('OTTHI World — central profissional',`<div class="otthi-world-intro"><strong>Base real preservada</strong><p>As cinco camadas profissionais funcionam sobre física, controles, casas, missões, Firebase, multiplayer e saves existentes.</p></div><div class="otthi-world-stage-list">${otthiWorldStageMarkup()}</div><div class="choice-grid"><button class="choice" data-world-avatar><b>👤 Estúdio profissional</b><span>Corpo, rosto, cabelo, roupas e identidade original</span></button><button class="choice" data-world-garage><b>🚙 Oficina modular</b><span>Carroceria, rodas, teto, luzes e acessórios</span></button><button class="choice" data-world-hero><b>⚡ Poderes OTTHI</b><span>Ação, plataforma e desafios originais</span></button><button class="choice" data-world-build><b>🧱 Construção avançada</b><span>Novos módulos, móveis e elementos fantásticos</span></button></div><section class="avatar-section"><h3>Renderização</h3><label class="form-switch-row"><input type="checkbox" data-world-render ${state.settings.worldRender?'checked':''}><span>Materiais PBR e acabamento profissional</span></label><label class="form-switch-row"><input type="checkbox" data-world-details ${state.settings.worldDetails?'checked':''}><span>Vegetação e detalhes adicionais</span></label><label class="form-switch-row"><input type="checkbox" data-world-day ${state.settings.worldDayCycle?'checked':''}><span>Ciclo suave de luz</span></label></section><div class="otthi-world-metrics"><span><b>${otthiWorldRuntime.stats.enhancedMeshes}</b> malhas preservadas</span><span><b>${otthiWorldRuntime.stats.pbrMaps}</b> mapas PBR associados</span><span><b>${otthiWorldRuntime.stats.instancedDetails}</b> detalhes otimizados</span></div>`,root=>{
+      $('[data-world-avatar]',root).onclick=()=>openAvatarStudio();
+      $('[data-world-garage]',root).onclick=()=>openWorldModularGarage();
+      $('[data-world-hero]',root).onclick=()=>openWorldHeroCenter();
+      $('[data-world-build]',root).onclick=()=>{closeModal();openBuildMenu();};
+      for(const [selector,key]of [['[data-world-render]','worldRender'],['[data-world-details]','worldDetails'],['[data-world-day]','worldDayCycle']])$(selector,root).onchange=event=>{state.settings[key]=!!event.currentTarget.checked;saveState(true);applyOtthiWorldRuntimeSettings();};
+    });
   }
   function injectOtthiWorldButtons(){
-    document.getElementById('otthiWorldBtn')?.remove();
-    document.getElementById('otthiWorldQuickBtn')?.remove();
-    return false;
+    if(!document.getElementById('otthiWorldBtn')){
+      const button=document.createElement('button');button.id='otthiWorldBtn';button.className='menu-tile otthi-world-tile';button.type='button';button.innerHTML='<b>🌍</b><span>OTTHI World</span><small>5 etapas profissionais</small>';button.onclick=openOtthiWorldCenter;
+      const menu=document.querySelector('.menu-grid');menu?.insertBefore(button,document.getElementById('moldsBtn')||null);
+    }
+    if(!document.getElementById('otthiWorldQuickBtn')){
+      const button=document.createElement('button');button.id='otthiWorldQuickBtn';button.type='button';button.innerHTML='🌍<span>World</span>';button.onclick=openOtthiWorldCenter;els.quickBar?.appendChild(button);
+    }
   }
   function applyOtthiWorldRuntimeSettings(){
     const enabled=state.settings?.worldRender!==false;document.body.classList.toggle('otthi-world-render',enabled);document.body.classList.toggle('otthi-world-details',state.settings?.worldDetails!==false);
@@ -5925,12 +5963,12 @@
   const legacyOpenAvatarStudio=openAvatarStudio;
   openAvatarStudio=function openAvatarStudioWorld(){
     ensureOtthiWorldState();
-    openModal(`Personagem — ${playerDisplayName()}`,`<div class="avatar-summary world-avatar-summary"><div class="avatar-face"><i></i><i></i></div><div><b>Personalize seu personagem</b><span>Escolha corpo, rosto, cabelo, roupas, acessórios e cores. Suas escolhas ficam salvas no seu perfil.</span></div></div>${worldAvatarOptions('bodyStyle','Estilo do corpo')}${worldAvatarOptions('face','Expressão')}${worldAvatarOptions('hair','Cabelo')}${worldAvatarOptions('torso','Parte superior')}${worldAvatarOptions('legs','Parte inferior')}${worldAvatarOptions('shoes','Calçados')}${worldAvatarOptions('back','Costas')}${worldAvatarOptions('pattern','Estampa')}<section class="avatar-section"><h3>Cores</h3><div class="world-color-grid"><label>Cor principal<input type="color" data-world-avatar-color="primaryColor" value="${state.avatar.primaryColor}"></label><label>Cor secundária<input type="color" data-world-avatar-color="secondaryColor" value="${state.avatar.secondaryColor}"></label><label>Cabelo<input type="color" data-world-avatar-color="hairColor" value="${state.avatar.hairColor}"></label></div></section>${avatarChoiceGroup('uniform','Uniforme')}${avatarChoiceGroup('hat','Chapéu')}${avatarChoiceGroup('accessory','Acessório')}<div class="modal-actions"><button class="btn primary" data-world-avatar-save>Salvar personagem</button></div>`,root=>{
+    openModal(`Estúdio de Personagem — ${playerDisplayName()}`,`<div class="avatar-summary world-avatar-summary"><div class="avatar-face"><i></i><i></i></div><div><b>Mesmo estúdio para todos os jogadores</b><span>Misture Blocks, Toys, Heroes e Adventure. O rig, as skills, o multiplayer e o progresso permanecem preservados.</span></div></div>${worldAvatarOptions('bodyStyle','Estilo do corpo')}${worldAvatarOptions('face','Expressão')}${worldAvatarOptions('hair','Cabelo')}${worldAvatarOptions('torso','Parte superior')}${worldAvatarOptions('legs','Parte inferior')}${worldAvatarOptions('shoes','Calçados')}${worldAvatarOptions('back','Costas')}${worldAvatarOptions('pattern','Estampa')}<section class="avatar-section"><h3>Cores</h3><div class="world-color-grid"><label>Cor principal<input type="color" data-world-avatar-color="primaryColor" value="${state.avatar.primaryColor}"></label><label>Cor secundária<input type="color" data-world-avatar-color="secondaryColor" value="${state.avatar.secondaryColor}"></label><label>Cabelo<input type="color" data-world-avatar-color="hairColor" value="${state.avatar.hairColor}"></label></div></section>${avatarChoiceGroup('uniform','Uniforme profissional preservado')}${avatarChoiceGroup('hat','Chapéu clássico preservado')}${avatarChoiceGroup('accessory','Acessório clássico preservado')}<div class="modal-actions"><button class="btn primary" data-world-avatar-save>Salvar personagem completo</button><button class="btn" data-world-avatar-legacy>Ver estúdio clássico</button></div>`,root=>{
       $$('[data-world-avatar-field]',root).forEach(button=>button.onclick=()=>{const field=button.dataset.worldAvatarField,value=button.dataset.worldAvatarValue;state.avatar={...state.avatar,[field]:worldAvatarSafeChoice(field,value),renderMode:'otthi-world-v3'};$$(`[data-world-avatar-field="${field}"]`,root).forEach(item=>item.classList.toggle('selected',item===button));applyAvatarCustomization();});
       $$('[data-world-avatar-color]',root).forEach(input=>input.oninput=()=>{state.avatar={...state.avatar,[input.dataset.worldAvatarColor]:safeAvatarColor(input.value,state.avatar[input.dataset.worldAvatarColor])};applyAvatarCustomization();});
       $$('[data-avatar-type]',root).forEach(button=>button.onclick=()=>{state.avatar=updateAvatarV2LegacyChoice(state.avatar,button.dataset.avatarType,button.dataset.avatarId);$$(`[data-avatar-type="${button.dataset.avatarType}"]`,root).forEach(item=>item.classList.toggle('selected',item===button));applyAvatarCustomization();});
-      $('[data-world-avatar-save]',root).onclick=()=>{state.avatar=normalizeAvatarV2({...state.avatar,renderMode:'otthi-world-v3'});setFlag('customizedAvatar');setFlag('otthiWorldAvatarV3');saveState(true);closeModal();toast('Personagem salvo no seu perfil.','good',2000);};
-      $('[data-world-avatar-legacy]',root)?.addEventListener('click',legacyOpenAvatarStudio);
+      $('[data-world-avatar-save]',root).onclick=()=>{state.avatar=normalizeAvatarV2({...state.avatar,renderMode:'otthi-world-v3'});setFlag('customizedAvatar');setFlag('otthiWorldAvatarV3');saveState(true);closeModal();toast('Personagem salvo e sincronizado sem alterar o rig de jogabilidade.','good',2400);};
+      $('[data-world-avatar-legacy]',root).onclick=legacyOpenAvatarStudio;
     });
   };
 
@@ -5944,14 +5982,17 @@
     return Math.abs(x)<108&&Math.abs(z)<108;
   }
   function createWorldInstancedDetails(){
-    if(!worldGroup||world.worldProfessional?.details)return false;const random=otthiSeededRandom(700031),quality=qualityTier(),grassCount=quality==='low'?100:quality==='high'?360:220,flowerCount=quality==='low'?30:quality==='high'?120:72;
+    if(!worldGroup||world.worldProfessional?.details)return false;const random=otthiSeededRandom(700031),quality=qualityTier(),grassCount=quality==='low'?150:quality==='high'?520:320,flowerCount=quality==='low'?42:quality==='high'?180:108,shrubCount=quality==='low'?18:quality==='high'?64:36;
     const grassMaterial=new THREE.MeshStandardMaterial({map:loadWorldTexture('foliage','basecolor',{repeat:[1,1],color:true,nearest:true}),normalMap:loadWorldTexture('foliage','normal',{repeat:[1,1]}),roughnessMap:loadWorldTexture('foliage','roughness',{repeat:[1,1]}),color:0x75bc55,roughness:.92,side:THREE.DoubleSide,vertexColors:false});
     const grassGeometry=new THREE.PlaneGeometry(.42,.72);grassGeometry.translate(0,.36,0);const grass=new THREE.InstancedMesh(grassGeometry,grassMaterial,grassCount);grass.name='OTTHI_WORLD_INSTANCED_GRASS';grass.userData.otthiWorldDetail=true;const dummy=new THREE.Object3D();let placed=0,attempts=0;
     while(placed<grassCount&&attempts<grassCount*16){attempts++;const x=(random()-.5)*208,z=(random()-.5)*208;if(!worldDetailAllowed(x,z))continue;dummy.position.set(x,.025,z);dummy.rotation.set(0,random()*Math.PI*2,0);const scale=.55+random()*.8;dummy.scale.set(scale,scale,scale);dummy.updateMatrix();grass.setMatrixAt(placed++,dummy.matrix);}
     grass.count=placed;grass.instanceMatrix.needsUpdate=true;grass.frustumCulled=true;worldGroup.add(grass);
     const flowerGeo=new THREE.OctahedronGeometry(.11,0),flowerMaterial=new THREE.MeshStandardMaterial({color:0xffd55b,roughness:.56,emissive:0x4a2500,emissiveIntensity:.08});const flowers=new THREE.InstancedMesh(flowerGeo,flowerMaterial,flowerCount);flowers.name='OTTHI_WORLD_INSTANCED_FLOWERS';flowers.userData.otthiWorldDetail=true;placed=0;attempts=0;
     while(placed<flowerCount&&attempts<flowerCount*18){attempts++;const x=(random()-.5)*198,z=(random()-.5)*198;if(!worldDetailAllowed(x,z))continue;dummy.position.set(x,.18,z);dummy.rotation.set(random()*Math.PI,random()*Math.PI,random()*Math.PI);const scale=.7+random()*.8;dummy.scale.set(scale,scale,scale);dummy.updateMatrix();flowers.setMatrixAt(placed++,dummy.matrix);}
-    flowers.count=placed;flowers.instanceMatrix.needsUpdate=true;worldGroup.add(flowers);world.worldProfessional={...(world.worldProfessional||{}),details:{grass,flowers}};otthiWorldRuntime.stats.instancedDetails=grass.count+flowers.count;return true;
+    flowers.count=placed;flowers.instanceMatrix.needsUpdate=true;worldGroup.add(flowers);
+    const shrubGeo=new THREE.SphereGeometry(.38,8,6),shrubMaterial=new THREE.MeshStandardMaterial({color:0x58a84a,roughness:.9});const shrubs=new THREE.InstancedMesh(shrubGeo,shrubMaterial,shrubCount);shrubs.name='OTTHI_WORLD_INSTANCED_SHRUBS';shrubs.userData.otthiWorldDetail=true;placed=0;attempts=0;
+    while(placed<shrubCount&&attempts<shrubCount*24){attempts++;const x=(random()-.5)*188,z=(random()-.5)*188;if(!worldDetailAllowed(x,z))continue;if(x>64&&x<92&&z>18&&z<44)continue;dummy.position.set(x,.3,z);dummy.rotation.set(0,random()*Math.PI*2,0);const scale=.75+random()*.9;dummy.scale.set(scale,scale*.8,scale);dummy.updateMatrix();shrubs.setMatrixAt(placed++,dummy.matrix);}
+    shrubs.count=placed;shrubs.instanceMatrix.needsUpdate=true;worldGroup.add(shrubs);world.worldProfessional={...(world.worldProfessional||{}),details:{grass,flowers,shrubs}};otthiWorldRuntime.stats.instancedDetails=grass.count+flowers.count+shrubs.count;return true;
   }
   function createWorldMushroomCluster(x,z,scale=1,color=0xd73b35){
     const group=new THREE.Group();group.position.set(x,groundHeightAt(x,z),z);group.scale.setScalar(scale);group.userData.otthiWorldDetail=true;worldGroup.add(group);
@@ -6044,40 +6085,23 @@
   };
 
   const OTTHI_WORLD_VEHICLE_CATALOG=Object.freeze({
-    body:Object.freeze([['classic','Clássico'],['compact','Compacto'],['sport','Esportivo'],['offroad','Aventura / 4x4'],['special','Especial'],['utility','Utilitário'],['exploration','Exploração'],['service','Serviço']]),
+    body:Object.freeze([['classic','Clássica'],['sport','Esportiva'],['offroad','Aventura'],['service','Serviço']]),
     hood:Object.freeze([['flat','Plano'],['intake','Entrada de ar'],['power','Energia']]),
     roof:Object.freeze([['standard','Padrão'],['open','Sem teto'],['rack','Bagageiro'],['beacon','Sinalizador']]),
     wheels:Object.freeze([['city','Urbanas'],['sport','Esportivas'],['offroad','Todo-terreno']]),
     rear:Object.freeze([['none','Sem acessório'],['spoiler','Aerofólio'],['box','Caixa de carga']]),
     lights:Object.freeze([['warm','Clássicas'],['white','Brancas'],['energy','Energia']])
   });
-  const OTTHI_WORLD_CIVIL_VEHICLE_PRESETS=Object.freeze({
-    'garage-orange':Object.freeze({body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d'}),
-    'market-blue':Object.freeze({body:'compact',hood:'flat',roof:'open',wheels:'city',rear:'none',lights:'white',primary:'#2787d8',secondary:'#43c6e8',accent:'#e9f7ff'}),
-    'workshop-red':Object.freeze({body:'sport',hood:'intake',roof:'open',wheels:'sport',rear:'spoiler',lights:'white',primary:'#e5484d',secondary:'#f3b33d',accent:'#fff0a8'}),
-    'gym-yellow':Object.freeze({body:'offroad',hood:'intake',roof:'rack',wheels:'offroad',rear:'none',lights:'warm',primary:'#f1c943',secondary:'#ef6c3d',accent:'#fff2a8'}),
-    'royal-purple':Object.freeze({body:'special',hood:'power',roof:'standard',wheels:'sport',rear:'spoiler',lights:'energy',primary:'#7d58c9',secondary:'#f1c94d',accent:'#70e8ff'}),
-    'home-green':Object.freeze({body:'utility',hood:'flat',roof:'standard',wheels:'city',rear:'box',lights:'warm',primary:'#31a76a',secondary:'#8edb65',accent:'#f5d84d'}),
-    'forest-teal':Object.freeze({body:'exploration',hood:'intake',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#138d83',secondary:'#6bc08b',accent:'#dff6a3'})
-  });
-  function defaultWorldVehicleParts(vehicleId=''){return{body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d',...(OTTHI_WORLD_CIVIL_VEHICLE_PRESETS[vehicleId]||{})};}
-  function worldVehicleParts(vehicleId){
-    ensureOtthiWorldState();
-    const current=state.vehicles.modularParts[vehicleId]||{},legacy=defaultWorldVehicleParts(),preset=defaultWorldVehicleParts(vehicleId),fields=Object.keys(legacy),isLegacyDefault=fields.every(key=>current[key]===legacy[key]),usePreset=!Object.keys(current).length||isLegacyDefault;
-    const next=usePreset?{...preset}:{...preset,...current};state.vehicles.modularParts[vehicleId]=next;state.vehicles.partDurability[vehicleId]=Number.isFinite(state.vehicles.partDurability[vehicleId])?clamp(state.vehicles.partDurability[vehicleId],0,100):100;return next;
-  }
+  function defaultWorldVehicleParts(){return{body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d'};}
+  function worldVehicleParts(vehicleId){ensureOtthiWorldState();const current=state.vehicles.modularParts[vehicleId]||{};const next={...defaultWorldVehicleParts(),...current};state.vehicles.modularParts[vehicleId]=next;state.vehicles.partDurability[vehicleId]=Number.isFinite(state.vehicles.partDurability[vehicleId])?clamp(state.vehicles.partDurability[vehicleId],0,100):100;return next;}
   function removeWorldVehicleModules(group){const previous=group?.userData?.otthiWorldVehicleModules;if(previous){group.remove(previous);disposeWorldAvatarObject(previous);}if(group?.userData)group.userData.otthiWorldVehicleModules=null;}
   function worldVehicleModuleMaterial(color,metalness=.18,roughness=.42){const material=new THREE.MeshStandardMaterial({map:loadWorldTexture('toy-plastic','basecolor',{repeat:[1,1],color:true}),normalMap:loadWorldTexture('toy-plastic','normal',{repeat:[1,1]}),roughnessMap:loadWorldTexture('toy-plastic','roughness',{repeat:[1,1]}),color:new THREE.Color(color),metalness,roughness});material.userData.otthiWorldAvatarMaterial=true;return material;}
   function applyWorldVehicleModulesToGroup(group,vehicleId){
     if(!group||!vehicleId)return false;removeWorldVehicleModules(group);const parts=worldVehicleParts(vehicleId),durability=Number(state.vehicles.partDurability[vehicleId]||100),modules=new THREE.Group();modules.name=`OTTHI_WORLD_VEHICLE_${vehicleId}`;group.add(modules);group.userData.otthiWorldVehicleModules=modules;
     const primary=worldVehicleModuleMaterial(parts.primary),secondary=worldVehicleModuleMaterial(parts.secondary),accent=worldVehicleModuleMaterial(parts.accent,.28,.34),dark=worldVehicleModuleMaterial(0x17202b,.08,.82),energy=worldVehicleModuleMaterial(0x5de6ff,.22,.18);energy.emissive=new THREE.Color(0x1684a8);energy.emissiveIntensity=.72;
     const part=(w,h,d,material,x,y,z)=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;modules.add(mesh);if(state.settings?.worldOutlines!==false)addVoxelOutline(mesh,0x102238,.20);return mesh;};
-    if(parts.body==='compact'){part(1.64,.22,.32,primary,0,.34,1.31);part(1.66,.18,.30,secondary,0,.36,-1.23);part(1.34,.22,1.02,primary,0,1.12,-.34);}
-    else if(parts.body==='sport'){part(2.02,.16,.34,primary,0,.22,1.42);part(2.05,.14,.30,primary,0,.22,-1.42);part(.24,.28,2.45,secondary,-1.0,.38,0);part(.24,.28,2.45,secondary,1.0,.38,0);}
+    if(parts.body==='sport'){part(2.02,.16,.34,primary,0,.22,1.42);part(2.05,.14,.30,primary,0,.22,-1.42);part(.24,.28,2.45,secondary,-1.0,.38,0);part(.24,.28,2.45,secondary,1.0,.38,0);}
     else if(parts.body==='offroad'){part(2.12,.24,.42,dark,0,.32,1.42);part(2.12,.24,.42,dark,0,.32,-1.42);for(const x of[-1.02,1.02])part(.20,.42,2.42,dark,x,.44,0);}
-    else if(parts.body==='special'){part(2.02,.18,.34,energy,0,.30,1.42);part(1.72,.12,.28,accent,0,.27,-1.42);for(const x of[-.96,.96]){const fin=part(.12,.58,1.08,secondary,x,.78,-.82);fin.rotation.z=x<0?-.18:.18;}part(.48,.12,1.12,energy,0,1.23,-.28);}
-    else if(parts.body==='utility'){part(2.02,.22,.34,dark,0,.31,1.39);part(1.82,.18,.34,secondary,0,.35,-1.41);for(const x of[-.92,.92])part(.16,.38,2.32,primary,x,.48,0);}
-    else if(parts.body==='exploration'){part(2.16,.27,.44,dark,0,.34,1.43);part(2.12,.24,.42,dark,0,.34,-1.43);for(const x of[-1.03,1.03])part(.22,.46,2.44,dark,x,.48,0);const spare=new THREE.Mesh(new THREE.TorusGeometry(.38,.12,7,14),dark);spare.position.set(0,.82,-1.55);spare.rotation.y=Math.PI/2;modules.add(spare);}
     else if(parts.body==='service'){part(1.92,.20,.36,accent,0,.34,1.39);part(1.92,.20,.36,accent,0,.34,-1.39);part(.12,.34,2.3,accent,-.97,.48,0);part(.12,.34,2.3,accent,.97,.48,0);}
     if(parts.hood==='intake')part(.72,.24,.64,secondary,0,.98,.73);else if(parts.hood==='power'){part(.74,.18,.66,energy,0,.99,.73);part(.12,.08,.72,accent,0,1.10,.73);}
     if(durability>20&&parts.roof==='rack'){for(const x of[-.62,.62])part(.10,.36,1.18,dark,x,1.36,-.42);for(const z of[-.92,.02])part(1.36,.10,.10,dark,0,1.55,z);}
@@ -6091,12 +6115,6 @@
   }
   const legacyCreateToyCar=createToyCar;
   createToyCar=function createToyCarWorld(x,z,options={}){const vehicle=legacyCreateToyCar(x,z,options);applyWorldVehicleModulesToGroup(vehicle?.group,vehicle?.id);return vehicle;};
-  function worldVehicleMapLocations(){
-    const records=[],seen=new Set(),add=(vehicle,type='car')=>{if(!vehicle?.id||seen.has(`${type}:${vehicle.id}`))return;const localCar=player.vehicle&&player.car.id===vehicle.id,localBoat=player.boating&&type==='boat',group=vehicle.group;if(group?.visible===false&&!localCar&&!localBoat)return;const x=Number(localCar||localBoat?player.x:group?.position?.x??vehicle.x??0),z=Number(localCar||localBoat?player.z:group?.position?.z??vehicle.z??0),kind=String(vehicle.serviceType||vehicle.kind||type),icon=type==='bus'?'🚌':type==='boat'?'🛶':kind==='police'?'🚓':kind==='firefighter'||kind==='fire'?'🚒':kind==='paramedic'||kind==='ambulance'?'🚑':'🚗',name=type==='bus'?`${vehicle.route?.number||''} ${vehicle.route?.name||'Ônibus'}`.trim():(vehicle.label||vehicle.route?.name||(type==='boat'?'Barco do Lago':'Veículo')),groupName=type==='bus'?'Transporte':type==='boat'?'Água e Natureza':['police','firefighter','fire','paramedic','ambulance'].includes(kind)?'Veículos de serviço':'Veículos';seen.add(`${type}:${vehicle.id}`);records.push({id:`world-vehicle-${type}-${vehicle.id}`,name,icon,group:groupName,x,z,navX:x,navZ:z,description:`Localização atual de ${name}.`,actions:['Marcar no GPS','Caminhar até o veículo','Usar AÇÃO para entrar']});};
-    for(const vehicle of world?.vehicles||[])add(vehicle,'car');for(const bus of world?.buses||[])add(bus,'bus');for(const vehicle of world?.policeCars||[])add(vehicle,'service');for(const vehicle of world?.fireTrucks||[])add(vehicle,'service');for(const vehicle of world?.ambulances||[])add(vehicle,'service');if(world?.boat)add(world.boat,'boat');return records;
-  }
-  const legacyCurrentMapLocations=currentMapLocations;
-  currentMapLocations=function currentMapLocationsWorldVehicles(){const unique=new Map();for(const location of [...legacyCurrentMapLocations(),...worldVehicleMapLocations()])if(location?.id)unique.set(location.id,location);return[...unique.values()];};
   const legacyApplyVehicleAppearance=applyVehicleAppearance;
   applyVehicleAppearance=function applyVehicleAppearanceWorld(vehicle){legacyApplyVehicleAppearance(vehicle);if(vehicleVisual&&vehicle?.id)applyWorldVehicleModulesToGroup(vehicleVisual,vehicle.id);};
   const legacyRegisterVehicleImpact=registerVehicleImpact;
@@ -6113,7 +6131,7 @@
     });
   }
   function createWorldModularGarageInteractable(){
-    const index=world.interactables?.findIndex?.(item=>item.id==='otthi-world-garage')??-1;if(index>=0)world.interactables.splice(index,1);otthiWorldRuntime.modularVehiclesReady=true;return true;
+    if(world.interactables?.some(item=>item.id==='otthi-world-garage'))return false;registerInteractable({id:'otthi-world-garage',type:'workshop',icon:'🛠',label:'Abrir oficina modular OTTHI',x:22,z:-13.5,radius:3.2,priority:244,action:()=>openWorldModularGarage()});otthiWorldRuntime.modularVehiclesReady=true;return true;
   }
 
   // ===== MODULE: 37-hero-platform-gameplay.js =====
@@ -6428,13 +6446,17 @@
     }else{toast('A plantação ainda está crescendo.','warn',1400);return;}saveState(true);updateHUD();updateFarmPlotVisual(plot);}
   function createFarmingSystem(){
     if(world.worldEvolution?.farming)return false;const group=new THREE.Group();group.name='OTTHI_V702_FARM';worldGroup.add(group);const empty=v702TextureMaterial('farmland',0x79502e,{repeat:[2,2],roughness:.96,normalScale:.52}),wet=v702TextureMaterial('mud',0x543522,{repeat:[2,2],roughness:.88,normalScale:.48});
-    const positions=[];for(let x=42;x<=62;x+=4)for(let z=27;z<=39;z+=4)positions.push([x,z]);
+    const plotArea={minX:70,maxX:86,minZ:24,maxZ:40};
+    const positions=[];for(let x=plotArea.minX;x<=plotArea.maxX;x+=4)for(let z=plotArea.minZ;z<=plotArea.maxZ;z+=4)positions.push([x,z]);
+    const addFence=(x,z,w,d)=>{premiumBox(w,.18,.18,0xd8ccb0,x,.42,z+d/2,group);premiumBox(w,.18,.18,0xd8ccb0,x,.42,z-d/2,group);premiumBox(.18,.18,d,0xd8ccb0,x-w/2,.42,z,group);premiumBox(.18,.18,d,0xd8ccb0,x+w/2,.42,z,group);for(const sx of[-w/2,w/2])for(const sz of[-d/2,d/2])premiumBox(.22,.95,.22,0x9d7d57,x+sx,.48,z+sz,group);};
+    addFence(78,32,24,20);
+    premiumBox(4.4,.12,7.2,0xc6b17c,78,.09,21.2,group);premiumBox(3.2,.55,3.2,0xc89a52,69,.28,22.5,group);premiumBox(3.2,.55,3.2,0xc89a52,69,.84,22.5,group);
     positions.forEach(([x,z],index)=>{const id=`farm-${index}`,soil=new THREE.Mesh(new THREE.BoxGeometry(3.25,.12,3.25),empty);soil.position.set(x,.13,z);soil.receiveShadow=true;group.add(soil);const crop=new THREE.Group();crop.position.set(x,.2,z);group.add(crop);for(const dx of[-.72,-.24,.24,.72])for(const dz of[-.72,0,.72]){premiumBox(.07,.72,.07,0x4b9f3e,dx,.36,dz,crop);premiumBox(.25,.19,.25,(index+Math.round(dx*10))%2?0xf0c84c:0x6fc44e,dx,.76,dz,crop);}const interactable={id:`farm-plot-${id}`,type:'farm',icon:'🌱',label:'Preparar e plantar',x,z,radius:2.25,priority:178,action:null};const plot={id,x,z,soil,crop,interactable,soilMaterials:{empty,wet}};interactable.action=()=>useFarmPlot(plot);registerInteractable(interactable);WORLD_V702.farmPlots.set(id,plot);updateFarmPlotVisual(plot);});
-    createSignpost(52,23,'Fazenda Comunitária',Math.PI);world.worldEvolution.farming=group;return true;
+    createSignpost(78,19,'Fazenda Comunitária',Math.PI);world.worldEvolution.farming=group;return true;
   }
   function useDigSite(site){ensureWorldEvolutionState();if(!['hoe','shovel','pickaxe'].includes(state.tools.equipped)){toast('Equipe Enxada, Pá ou Picareta para cavar.','warn',1900);return;}const previous=Number(state.farming.digSites[site.id]||0),remaining=V702_DIG_COOLDOWN-(Date.now()-previous);if(remaining>0){toast(`A terra precisa descansar por ${Math.ceil(remaining/1000)} s.`,'warn',1300);return;}state.farming.digSites[site.id]=Date.now();playToolAnimation();const bait=1+Math.floor(Math.random()*3),seeds=Math.random()<.46?1:0,clay=site.biome==='shore'||site.biome==='farm'?(Math.random()<.55?1:0):0;state.inventory.bait=(state.inventory.bait||0)+bait;state.inventory.seeds=(state.inventory.seeds||0)+seeds;state.inventory.clay=(state.inventory.clay||0)+clay;state.tools.harvested.bait=(state.tools.harvested.bait||0)+bait;state.tools.harvested.clay=(state.tools.harvested.clay||0)+clay;state.stats.dugBait=(state.stats.dugBait||0)+bait;addXP(7+bait*2);saveState(true);updateHUD();toast(`Escavação: +${bait} isca${bait>1?'s':''}${seeds?`, +${seeds} semente`:''}${clay?', +1 argila':''}.`,'good',2200);}
   function createDigSites(){
-    if(world.worldEvolution?.digSites)return false;const sites=[[-47,-45,'forest'],[-62,-34,'forest'],[40,29,'farm'],[63,38,'farm'],[-55,43,'shore'],[-91,76,'shore'],[81,-36,'desert'],[104,-48,'desert']];
+    if(world.worldEvolution?.digSites)return false;const sites=[[-47,-45,'forest'],[-62,-34,'forest'],[68,24,'farm'],[88,40,'farm'],[-55,43,'shore'],[-91,76,'shore'],[81,-36,'desert'],[104,-48,'desert']];
     for(const [x,z,biome]of sites){const id=`dig-${biome}-${x}-${z}`,mat=v702TextureMaterial(biome==='desert'?'sand':biome==='shore'?'shore':'dirt',biome==='desert'?0xdcb266:0x795333,{repeat:[2,2],roughness:.95});const patch=new THREE.Mesh(new THREE.CylinderGeometry(1.35,1.55,.08,16),mat);patch.position.set(x,groundHeightAt(x,z)+.05,z);worldGroup.add(patch);const site={id,x,z,biome,mesh:patch};WORLD_V702.digSites.set(id,site);registerInteractable({id,type:'dig',icon:'🪱',label:'Cavar por iscas e recursos',x,z,radius:2.35,priority:165,action:()=>useDigSite(site)});}
     world.worldEvolution.digSites=true;return true;
   }
@@ -6444,10 +6466,11 @@
     if(theme==='adventure'){const cap=worldAvatarMaterial(0xd84235,{roughness:.48});avatarV3Sphere(g,.58,cap,0,2.48,0,1.08,.34,1.08);premiumBox(.72,.1,.32,cap,0,2.43,.38,g);premiumBox(.58,.72,.05,0x256ac5,0,1.05,.33,g);}
     if(theme==='toy'){for(const p of[[-.48,1.2,0],[.48,1.2,0],[-.2,.62,0],[.2,.62,0]])avatarV3Sphere(g,.16,worldAvatarMaterial(0xffd39a,{roughness:.38}),...p);premiumBox(.42,.3,.14,0xffdc4d,0,1.32,.35,g);}
     if(theme==='block'){g.scale.set(1.06,1.02,1.06);premiumBox(.34,.34,.08,0x62e86b,0,1.15,.35,g);}
+    if(theme==='hero'){premiumBox(.82,.98,.06,0x245aa5,0,1.18,.34,g);premiumBox(.42,.24,.08,0xf4d24d,0,1.48,.38,g);premiumBox(.18,.92,.08,0xf4d24d,-.24,1.06,.36,g);premiumBox(.18,.92,.08,0xf4d24d,.24,1.06,.36,g);}
     npc.theme=theme;return npc;
   }
   function createThemedCitizens(){
-    if(world.worldEvolution?.citizens)return false;const specs=[['nox','Nox',-8,-28,0x25365f,'shadow',3.2],['arani','Arani',16,-34,0xd9454d,'web',3.2],['tico','Tico',38,34,0xe44739,'adventure',2.8],['plim','Plim',82,-39,0xf0c743,'toy',3],['byte','Byte',76,86,0x45b7da,'block',2.8],['flora','Flora',-46,44,0x6bbf55,'toy',3.2]];
+    if(world.worldEvolution?.citizens)return false;const specs=[['nox','Nox',-8,-28,0x25365f,'shadow',3.2],['arani','Arani',16,-34,0xd9454d,'web',3.2],['tico','Tico',38,34,0xe44739,'adventure',2.8],['plim','Plim',82,-39,0xf0c743,'toy',3],['byte','Byte',76,86,0x45b7da,'block',2.8],['flora','Flora',-46,44,0x6bbf55,'toy',3.2],['milo','Milo',12,18,0xd94836,'adventure',2.8],['luna','Luna',-12,12,0x6cb6ff,'toy',3],['briko','Briko',55,74,0x22a7b7,'hero',3],['nina','Nina',72,26,0xf49a35,'toy',2.9]];
     for(const [id,name,x,z,color,theme,radius]of specs){if(world.npcs.some(n=>n.id===id))continue;const npc=decorateThemedCitizen(createNPC(id,name,x,z,color,radius),theme);WORLD_V702.citizens.push(npc);}world.worldEvolution.citizens=true;return true;
   }
   function createCameraPitchButtons(){
