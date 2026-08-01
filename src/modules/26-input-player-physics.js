@@ -39,7 +39,7 @@
   }
   function canJump(){return !player.vehicle&&!player.boating&&!player.transit.mode&&(player.swimming||player.grounded||performance.now()-player.lastGrounded<125);}
   function requestJump(){if(!els.modal.hidden||paused||player.vehicle||player.boating||player.transit.mode)return;player.jumpBuffer=performance.now()+150;if(canJump())doJump();}
-  function doJump(){if(!canJump())return;state.stats.jumps++;trackDaily('jump',1);player.vy=player.swimming?3.1:10.2;player.grounded=false;player.jumpBuffer=0;beep(player.swimming?420:540);vibrate(18);}
+  function doJump(){if(!canJump())return;if(player.swimming){player.swimBoostUntil=performance.now()+650;player.jumpBuffer=0;player.vy=.35;beep(420,65);vibrate(18);return;}state.stats.jumps++;trackDaily('jump',1);player.vy=10.2;player.grounded=false;player.jumpBuffer=0;beep(540);vibrate(18);}
   function updatePlayer(dt){
     // Entrada é atualizada em todos os estados. O veículo tem prioridade absoluta:
     // uma animação anterior de sofá/cama/TV nunca pode bloquear aceleração ou direção.
@@ -60,14 +60,14 @@
       const wantsSprint=sprintRequested()&&mag>.14&&!player.crouched&&state.needs.energy>4;input.isSprinting=wantsSprint;
       const needsPenalty=state.needs.energy<15?.72:state.needs.hunger<15?.82:1;const sizeSpeed=player.scaleMode==='mini'?1.12:player.scaleMode==='giant'?.84:1;
       const skillBoost=performance.now()<player.skillDashUntil?1.82:1;
-      const speed=player.swimming?(wantsSprint?6.2:4.25):(wantsSprint?11.4:7.35)*needsPenalty*sizeSpeed*(player.crouched?.54:1)*skillBoost;
-      const targetVx=worldMove.x*speed,targetVz=worldMove.z*speed;const accel=player.swimming?12:player.grounded?(wantsSprint?34:29):10;
+      const swimBoost=player.swimming&&performance.now()<Number(player.swimBoostUntil||0)?1.28:1;const speed=player.swimming?(wantsSprint?7.2:5.15)*swimBoost:(wantsSprint?11.4:7.35)*needsPenalty*sizeSpeed*(player.crouched?.54:1)*skillBoost;
+      const targetVx=worldMove.x*speed,targetVz=worldMove.z*speed;const accel=player.swimming?15:player.grounded?(wantsSprint?34:29):10;
       player.vx=lerp(player.vx,targetVx,Math.min(1,dt*accel));player.vz=lerp(player.vz,targetVz,Math.min(1,dt*accel));if(mag<.03){player.vx*=Math.pow(player.swimming?.06:.0008,dt);player.vz*=Math.pow(player.swimming?.06:.0008,dt);}
     }
     const prevX=player.x,prevZ=player.z;player.x+=player.vx*dt;player.z+=player.vz*dt;player.x=clamp(player.x,-116,116);player.z=clamp(player.z,-116,116);if(player.boating)constrainBoat(prevX,prevZ);else if(!(player.vehicle&&player.car.passengerOf)){resolveCollisions(prevX,prevZ);resolveWaterWalking(prevX,prevZ);}
     const movedNow=Math.hypot(player.x-prevX,player.z-prevZ);if(movedNow>.001){if(player.vehicle||player.boating){state.stats.driven+=movedNow;trackDaily('drive',movedNow);}else if(player.swimming){state.stats.swum=(state.stats.swum||0)+movedNow;trackDaily('walk',movedNow*.5);}else{state.stats.walked+=movedNow;trackDaily('walk',movedNow);}}
     const ground=player.boating?.78:groundHeightAt(player.x,player.z);
-    if(player.swimming){const waterLevel=.02,targetY=-.62+Math.sin(animTime*2.6)*.035;player.vy=lerp(player.vy,0,Math.min(1,dt*4));player.y=lerp(player.y,targetY,Math.min(1,dt*5.5));player.grounded=true;player.lastGrounded=performance.now();state.needs.energy=clamp(state.needs.energy-dt*(input.isSprinting?.22:.08),0,100);}
+    if(player.swimming){const depth=clamp(Number(player.waterDepth||.35),.08,1),targetY=lerp(-.18,-.58,depth)+Math.sin(animTime*2.8)*.045;player.vy=lerp(player.vy,0,Math.min(1,dt*5));player.y=lerp(player.y,targetY,Math.min(1,dt*7));player.grounded=true;player.lastGrounded=performance.now();state.needs.energy=clamp(state.needs.energy-dt*(input.isSprinting?.18:.055),0,100);}
     else{if(!player.grounded)player.vy-=31*dt;player.y+=player.vy*dt;if(player.y<=ground&&player.vy<=0){const landed=!player.grounded&&player.vy<-4;player.y=ground;player.vy=0;player.grounded=true;player.lastGrounded=performance.now();if(landed){vibrate(20);beep(180,35,'sine');}}else if(player.y>ground+.03)player.grounded=false;}
     if(player.jumpBuffer&&player.jumpBuffer>performance.now()&&canJump())doJump();
     if(!player.vehicle&&!player.boating&&Math.hypot(player.vx,player.vz)>.15)player.facing=Math.atan2(player.vx,player.vz);

@@ -1,6 +1,6 @@
 {
-  "version": 702,
-  "generator": "generate_v702_biome_assets.py",
+  "version": 703,
+  "generator": "OTTHI World consolidated visual expansion V703",
   "packs": {
     "grass": {
       "baseColor": "./assets/world/textures/grass-basecolor.png",
@@ -265,6 +265,62 @@
       "ao": "./assets/world/textures/mud-ao.png",
       "height": "./assets/world/textures/mud-height.png",
       "emissive": "./assets/world/textures/mud-emissive.png"
+    },
+    "track-rubber": {
+      "baseColor": "./assets/world/textures/track-rubber-basecolor.png",
+      "normal": "./assets/world/textures/track-rubber-normal.png",
+      "roughness": "./assets/world/textures/track-rubber-roughness.png",
+      "ao": "./assets/world/textures/track-rubber-ao.png",
+      "height": "./assets/world/textures/track-rubber-height.png",
+      "emissive": "./assets/world/textures/track-rubber-emissive.png"
+    },
+    "sports-turf": {
+      "baseColor": "./assets/world/textures/sports-turf-basecolor.png",
+      "normal": "./assets/world/textures/sports-turf-normal.png",
+      "roughness": "./assets/world/textures/sports-turf-roughness.png",
+      "ao": "./assets/world/textures/sports-turf-ao.png",
+      "height": "./assets/world/textures/sports-turf-height.png",
+      "emissive": "./assets/world/textures/sports-turf-emissive.png"
+    },
+    "court-acrylic": {
+      "baseColor": "./assets/world/textures/court-acrylic-basecolor.png",
+      "normal": "./assets/world/textures/court-acrylic-normal.png",
+      "roughness": "./assets/world/textures/court-acrylic-roughness.png",
+      "ao": "./assets/world/textures/court-acrylic-ao.png",
+      "height": "./assets/world/textures/court-acrylic-height.png",
+      "emissive": "./assets/world/textures/court-acrylic-emissive.png"
+    },
+    "court-sand": {
+      "baseColor": "./assets/world/textures/court-sand-basecolor.png",
+      "normal": "./assets/world/textures/court-sand-normal.png",
+      "roughness": "./assets/world/textures/court-sand-roughness.png",
+      "ao": "./assets/world/textures/court-sand-ao.png",
+      "height": "./assets/world/textures/court-sand-height.png",
+      "emissive": "./assets/world/textures/court-sand-emissive.png"
+    },
+    "kart-asphalt": {
+      "baseColor": "./assets/world/textures/kart-asphalt-basecolor.png",
+      "normal": "./assets/world/textures/kart-asphalt-normal.png",
+      "roughness": "./assets/world/textures/kart-asphalt-roughness.png",
+      "ao": "./assets/world/textures/kart-asphalt-ao.png",
+      "height": "./assets/world/textures/kart-asphalt-height.png",
+      "emissive": "./assets/world/textures/kart-asphalt-emissive.png"
+    },
+    "mountain-rock": {
+      "baseColor": "./assets/world/textures/mountain-rock-basecolor.png",
+      "normal": "./assets/world/textures/mountain-rock-normal.png",
+      "roughness": "./assets/world/textures/mountain-rock-roughness.png",
+      "ao": "./assets/world/textures/mountain-rock-ao.png",
+      "height": "./assets/world/textures/mountain-rock-height.png",
+      "emissive": "./assets/world/textures/mountain-rock-emissive.png"
+    },
+    "stadium-concrete": {
+      "baseColor": "./assets/world/textures/stadium-concrete-basecolor.png",
+      "normal": "./assets/world/textures/stadium-concrete-normal.png",
+      "roughness": "./assets/world/textures/stadium-concrete-roughness.png",
+      "ao": "./assets/world/textures/stadium-concrete-ao.png",
+      "height": "./assets/world/textures/stadium-concrete-height.png",
+      "emissive": "./assets/world/textures/stadium-concrete-emissive.png"
     }
   }
 }

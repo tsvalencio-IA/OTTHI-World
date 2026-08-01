@@ -43,6 +43,7 @@
     })
   });
 
+  // Compatibilidade preservada para saves antigos: renderMode: 'procedural-fallback' migra para o visual V3 sem perder rig ou progresso.
   const OTTHI_AVATAR_V2_DEFAULTS = Object.freeze({
     version: OTTHI_AVATAR_SCHEMA_VERSION,
     renderMode: 'otthi-world-v3',

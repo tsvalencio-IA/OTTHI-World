@@ -17,7 +17,7 @@
     adventure:Object.freeze({id:'adventure',number:5,title:'Aventura, plataforma e poderes',status:'implemented'})
   });
   const OTTHI_WORLD_PBR_PACKS=Object.freeze({
-    grass:'grass',road:'road',sidewalk:'sidewalk',water:'water',wood:'wood',brick:'brick',stone:'stone',roof:'roof',fabric:'fabric',schoolWall:'school-wall',policeWall:'police-wall',goldOre:'gold-ore',interiorFloor:'interior-floor',interiorWall:'interior-wall',marketFloor:'market-floor',marketWall:'market-wall',schoolFloor:'school-floor',fireWall:'fire-wall',concrete:'concrete',cityGlass:'city-glass',emergencyMetal:'emergency-metal',toyPlastic:'toy-plastic',vehicleTire:'vehicle-tire',heroEnergy:'hero-energy',mushroom:'mushroom',foliage:'foliage',dirt:'dirt',sand:'sand',farmland:'farmland',cliff:'cliff',deepWater:'deep-water',shore:'shore',mud:'mud'
+    grass:'grass',road:'road',sidewalk:'sidewalk',water:'water',wood:'wood',brick:'brick',stone:'stone',roof:'roof',fabric:'fabric',schoolWall:'school-wall',policeWall:'police-wall',goldOre:'gold-ore',interiorFloor:'interior-floor',interiorWall:'interior-wall',marketFloor:'market-floor',marketWall:'market-wall',schoolFloor:'school-floor',fireWall:'fire-wall',concrete:'concrete',cityGlass:'city-glass',emergencyMetal:'emergency-metal',toyPlastic:'toy-plastic',vehicleTire:'vehicle-tire',heroEnergy:'hero-energy',mushroom:'mushroom',foliage:'foliage',dirt:'dirt',sand:'sand',farmland:'farmland',cliff:'cliff',deepWater:'deep-water',shore:'shore',mud:'mud',trackRubber:'track-rubber',sportsTurf:'sports-turf',courtAcrylic:'court-acrylic',courtSand:'court-sand',kartAsphalt:'kart-asphalt',mountainRock:'mountain-rock',stadiumConcrete:'stadium-concrete'
   });
   const otthiWorldRuntime={
     initialized:false,

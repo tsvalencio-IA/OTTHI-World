@@ -15,7 +15,7 @@
     createSkyDome();
     scene.background=new THREE.Color(0x79cfff);scene.fog=new THREE.Fog(0xbce8ff,235,560);
     // roads
-    createRoad(0,0,18,210);createRoad(0,0,210,18);createRoad(-55,-55,9,105);createRoad(55,48,9,92);createRoad(55,-55,9,105);createRoad(-55,22,9,44);createRoad(27.5,78,55,9);
+    createRoad(0,0,18,210);createRoad(0,0,210,18);createRoad(-55,-55,9,105);createRoad(55,48,9,92);createRoad(55,-55,9,105);createRoad(-55,22,9,44);createRoad(27.5,78,55,9);createRoad(-21,68,42,9);createRoad(75.5,18,41,9);
     createDistrictVisuals();createLearningPlaza();
     // water, bridge, lava/secret zone
     createWater(-72,52,92,18);createWater(-100,70,38,34);
@@ -40,18 +40,18 @@
     // yards/fences/lamps
     createFenceLine(-36,26,-14,26,9);createFenceLine(14,26,36,26,9);createFenceLine(-10,29,10,29,8);for(const p of [[-9,9],[9,9],[-33,8],[33,8],[-10,-7],[10,-7]])createLamp(p[0],p[1]);
     // NPCs com mobilidade própria
-    const nino=createNPC('nino','Nino',4,3,0xffd84d,4),luna=createNPC('luna','Luna',-22,8,0xff72b6,4),teo=createNPC('teo','Teo',22,7,0x54c7ff,4),bia=createNPC('bia','Bia',-10,-10,0x8ee15c,3),maya=createNPC('maya','Maya',65,54,0xa66bff,3),clara=createNPC('clara','Clara',-66,-10,0xf0b62d,2),rafa=createNPC('rafa','Rafa',65,-10,0x2f7fd8,2),davi=createNPC('davi','Davi',65,-60,0xe54843,2),leo=createNPC('leo','Leo',48,44,0x38a66a,2);
-    createNpcMobility(clara,'bike',[[-66,-10],[-55,-10],[-55,0],[-66,0]],2.7);createNpcMobility(rafa,'moto',[[65,-10],[55,-10],[55,0],[65,0]],3.8);createNpcMobility(davi,'car',[[65,-60],[55,-60],[55,-18],[65,-18]],4.1);createNpcMobility(leo,'skate',[[48,44],[55,44],[55,32],[48,32]],3.0);
+    const nino=createNPC('nino','Nino',4,3,0xffd84d,4),luna=createNPC('luna','Luna',-22,8,0xff72b6,4),teo=createNPC('teo','Teo',22,7,0x54c7ff,4),bia=createNPC('bia','Bia',-10,-10,0x8ee15c,3),maya=createNPC('maya','Maya',65,54,0xa66bff,3),clara=createNPC('clara','Clara',-66,-10,0xf0b62d,2),rafa=createNPC('rafa','Rafa',65,-10,0x2f7fd8,2),davi=createNPC('davi','Davi',65,-60,0xe54843,2),leo=createNPC('leo','Leo',48,44,0x38a66a,2),isa=createNPC('isa','Isa',-46,62,0xff7dbd,3),gui=createNPC('gui','Gui',-35,66,0x45b7da,3),caio=createNPC('caio','Caio',19,-74,0xf3c946,3);
+    createNpcMobility(clara,'bike',[[-66,-10],[-55,-10],[-55,0],[-66,0]],2.7);createNpcMobility(rafa,'moto',[[65,-10],[55,-10],[55,0],[65,0]],3.8);createNpcMobility(davi,'car',[[65,-60],[55,-60],[55,-18],[65,-18]],4.1);createNpcMobility(leo,'skate',[[90,24],[96,24],[96,40],[90,40]],3.0);createNpcMobility(isa,'bike',[[-46,62],[-53,62],[-53,68],[-42,68]],2.8);createNpcMobility(gui,'skate',[[-35,66],[-31,63],[-42,68],[-48,63]],2.9);createNpcMobility(caio,'moto',[[19,-74],[24,-74],[31,-77],[18,-77]],3.6);
     createNpcMobility(nino,'bike',[[4,3],[4,10],[-18,10],[-18,0],[4,0]],3.2);createNpcMobility(luna,'skate',[[-22,8],[-34,8],[-34,0],[-12,0],[-12,8]],2.8);createNpcMobility(teo,'moto',[[22,7],[8,7],[8,-12],[35,-12],[35,7]],4.7);createNpcMobility(bia,'bike',[[-10,-10],[-10,0],[-48,0],[-48,-10]],3.4);createNpcMobility(maya,'car',[[65,54],[55,54],[55,8],[68,8],[68,54]],4.5);
-    // farm and garage
-    createFenceLine(38,22,65,22,10);createFenceLine(65,22,65,43,8);for(let x=42;x<62;x+=4)for(let z=27;z<40;z+=4){box(2.8,.12,2.8,0x75451f,x,.06,z);box(.18,.55,.18,0x54c93e,x,.33,z);}
-    createToyCar(52,48,{id:'garage-orange',label:'Carro da Garagem',primary:0xf28a22,secondary:0x0aa7b8});createToyCar(-31,-11,{id:'market-blue',label:'Compacto Azul',primary:0x2787d8,secondary:0x43c6e8,heading:Math.PI/2});createToyCar(31,-11,{id:'workshop-red',label:'Esportivo Vermelho',primary:0xe5484d,secondary:0xf3b33d,heading:-Math.PI/2});createToyCar(12,35,{id:'home-green',label:'Carro Verde',primary:0x31a76a,secondary:0x8edb65,heading:Math.PI});createToyCar(66,40,{id:'royal-purple',label:'Carro Real',primary:0x7d58c9,secondary:0xf1c94d});createToyCar(47,84,{id:'gym-yellow',label:'Carro do Ginásio',primary:0xf1c943,secondary:0xef6c3d,heading:Math.PI});createToyCar(-78,-5,{id:'forest-teal',label:'Carro da Floresta',primary:0x138d83,secondary:0x6bc08b,heading:Math.PI/2});
-    registerInteractable({id:'job-board',type:'job',icon:'📦',label:'Central de trabalhos',x:49,z:45,radius:2.3,action:openJobCenter});world.deliveryPoint={x:65,z:54};
+    // acesso da fazenda preservado sem invadir a avenida ou a Escola Horizonte
+    createFenceLine(84,18,108,18,10);createFenceLine(108,18,108,44,9);for(const [x,z]of[[84,21],[108,21],[108,42]]){box(2.8,.5,2.8,0xc89a52,x,.25,z);box(2.8,.5,2.8,0xb88942,x,.75,z);}
+    createToyCar(26,-12,{id:'garage-orange',label:'Carro de Blocos',primary:0xf28a22,secondary:0x0aa7b8,variant:'brick'});createToyCar(-31,-11,{id:'market-blue',label:'Compacto Azul',primary:0x2787d8,secondary:0x43c6e8,heading:Math.PI/2});createToyCar(31,-11,{id:'workshop-red',label:'Esportivo Vermelho',primary:0xe5484d,secondary:0xf3b33d,heading:-Math.PI/2});createToyCar(12,35,{id:'home-green',label:'Carro Verde',primary:0x31a76a,secondary:0x8edb65,heading:Math.PI});createToyCar(66,40,{id:'royal-purple',label:'Carro Real',primary:0x7d58c9,secondary:0xf1c94d});createToyCar(-42,70,{id:'gym-yellow',label:'Veículo do Complexo Esportivo',primary:0xf1c943,secondary:0xef6c3d,heading:Math.PI,variant:'toy'});createToyCar(-78,-5,{id:'forest-teal',label:'Carro da Floresta',primary:0x138d83,secondary:0x6bc08b,heading:Math.PI/2});
+    registerInteractable({id:'job-board',type:'job',icon:'📦',label:'Central de trabalhos',x:91,z:22,radius:2.3,action:openJobCenter});world.deliveryPoint={x:65,z:54};
     createLifeExpansionWorld();
     createAthleticsGym();createSizeChallenges();createTransitWorld();createPoliceSystem();createFireServiceWorld();decorateCityServices();createWaypointMarker();createCooperativeMissionWorld();
     // placas de bairro/orientação (somente decorativas, não alteram colisão nem interação)
     createSignpost(12,4,'Vila do Sol',Math.PI/2); createSignpost(-30,-5,'Mercado e Oficina',Math.PI/2);
-    createSignpost(-62,-30,'Floresta',Math.PI*.15); createSignpost(48,26,'Fazenda e Garagem',-Math.PI/2);
+    createSignpost(-62,-30,'Floresta',Math.PI*.15); createSignpost(91,18,'Fazenda Comunitária',-Math.PI/2);
     createSignpost(70,40,'Castelo',Math.PI*.7); createSignpost(-58,50,'Lago',Math.PI*.4);
     // platform challenge
     const coords=[[48,0,-48],[53,1.2,-55],[59,2.3,-61],[66,3.5,-67],[74,4.6,-72],[82,5.8,-76]];coords.forEach(([x,y,z],i)=>{createPlatform(x,y+.5,z,3.2,3.2,i%2?0x7a4ed0:0x3e9fd8);createCrystal(x,y+1.7,z,i===coords.length-1);});world.secretChest=createChest('secret',86,-78,true);
@@ -66,8 +66,8 @@
     // restored builds
     reconcileWorldBuilds();
     updateBridgeVisual();restoreActiveAdventure();
-    // boundaries mountains
-    for(let i=0;i<34;i++){const a=i/34*Math.PI*2,r=118+Math.random()*10,x=Math.cos(a)*r,z=Math.sin(a)*r;box(12,12+Math.random()*16,12,0x6d7d8a,x,6,z);}
+    // cordilheira de limite: montanhas de baixa geometria, sem caixas gigantes no horizonte
+    const boundaryRock=renderMat(0x718078,{roughness:.94}),boundarySnow=renderMat(0xe8f0ee,{roughness:.92});for(let i=0;i<24;i++){const a=i/24*Math.PI*2,r=121+Math.sin(i*2.7)*5,x=Math.cos(a)*r,z=Math.sin(a)*r,h=15+(i%5)*2.8,peak=new THREE.Mesh(new THREE.ConeGeometry(9+(i%3)*2,h,7,3),boundaryRock);peak.position.set(x,h/2-1,z);peak.rotation.y=a*.7;peak.receiveShadow=true;worldGroup.add(peak);if(i%2===0){const cap=new THREE.Mesh(new THREE.ConeGeometry(4.2+(i%3),h*.25,7,2),boundarySnow);cap.position.set(x,h*.84,z);cap.rotation.y=peak.rotation.y;worldGroup.add(cap);}}
   }
 
   function collectResource(id){
