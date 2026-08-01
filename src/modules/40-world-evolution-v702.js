@@ -24,13 +24,13 @@
     let dune=0;if(x>70&&z>-61&&z<-24){const a=Math.max(0,1-Math.hypot((x-91)/25,(z+42)/20));dune=Math.max(0,Math.sin((x+z)*.12)*.45+.55)*a*2.1;}return Math.max(0,mountain,dune);
   }
   function v702TextureMaterial(pack,color,options={}){
-    const repeat=options.repeat||[6,6],material=new THREE.MeshStandardMaterial({color,roughness:options.roughness??.86,metalness:options.metalness??0,transparent:!!options.transparent,opacity:options.opacity??1,side:options.side||THREE.FrontSide});
-    try{material.map=loadWorldTexture(pack,'basecolor',{repeat,color:true,nearest:!!options.nearest});material.normalMap=loadWorldTexture(pack,'normal',{repeat});material.roughnessMap=loadWorldTexture(pack,'roughness',{repeat});material.normalScale.set(options.normalScale??.45,options.normalScale??.45);}catch(error){material.userData.textureFallback=true;}
-    material.userData={...(material.userData||{}),otthiV702Pack:pack};return material;
+    const repeat=options.repeat||[6,6],material=new THREE.MeshStandardMaterial({color,roughness:options.roughness??.86,metalness:options.metalness??0,transparent:!!options.transparent,opacity:options.opacity??1,side:options.side||THREE.FrontSide,dithering:true});
+    try{material.map=loadWorldTexture(pack,'basecolor',{repeat,color:true,nearest:!!options.nearest});material.normalMap=loadWorldTexture(pack,'normal',{repeat});material.roughnessMap=loadWorldTexture(pack,'roughness',{repeat});material.aoMap=loadWorldTexture(pack,'ao',{repeat});material.aoMapIntensity=Number(options.aoIntensity??1.08);material.normalScale.set(options.normalScale??.45,options.normalScale??.45);}catch(error){material.userData.textureFallback=true;}
+    material.envMapIntensity=Number(options.envMapIntensity??.55);material.userData={...(material.userData||{}),otthiV702Pack:pack};return material;
   }
   function createV702GroundRecovery(){
     if(world.worldEvolution?.groundRecovery)return false;
-    const material=v702TextureMaterial('grass',0x5fae4d,{repeat:[42,42],roughness:.94,normalScale:.28});
+    const material=v702TextureMaterial('grass',0xe2ebdc,{repeat:[42,42],roughness:.92,normalScale:.34,aoIntensity:1.12});
     const ground=new THREE.Mesh(new THREE.BoxGeometry(249,.04,249),material);ground.position.set(0,.025,0);ground.receiveShadow=true;ground.frustumCulled=false;ground.renderOrder=0;ground.userData.criticalSurface=true;ground.name='OTTHI_V702_GRASS_RECOVERY';worldGroup.add(ground);world.criticalSurfaces.push(ground);
     world.worldEvolution={...(world.worldEvolution||{}),groundRecovery:ground};return true;
   }
@@ -119,7 +119,7 @@
     document.getElementById('cameraPitchUpBtn')?.remove();document.getElementById('cameraPitchDownBtn')?.remove();if(els.cameraControls){els.cameraControls.hidden=true;els.cameraControls.setAttribute('aria-hidden','true');}WORLD_V702.cameraButtonsReady=true;return true;
   }
   function initializeWorldEvolution(){
-    if(WORLD_V702.initialized||!worldGroup)return false;ensureWorldEvolutionState();createV702GroundRecovery();world.worldEvolution=world.worldEvolution||{};createDesertBiome();createMountainTerrain();createLakeDepthLayers();createFarmingSystem();createDigSites();createThemedCitizens();createSportsCourts();createKartCircuit();createCameraPitchButtons();WORLD_V702.initialized=true;document.documentElement.dataset.otthiWorld='702';document.body.classList.add('otthi-v702-world');return true;
+    if(WORLD_V702.initialized||!worldGroup)return false;ensureWorldEvolutionState();createV702GroundRecovery();world.worldEvolution=world.worldEvolution||{};createDesertBiome();createMountainTerrain();createLakeDepthLayers();createFarmingSystem();createDigSites();createThemedCitizens();createSportsCourts();createKartCircuit();createCameraPitchButtons();improveSceneMeshMaterials(worldGroup);applyProfessionalRenderPolish();WORLD_V702.initialized=true;document.documentElement.dataset.otthiWorld='702';document.body.classList.add('otthi-v702-world');return true;
   }
   function updateWorldEvolution(dt){
     if(!WORLD_V702.initialized)return;WORLD_V702.waterTime+=dt;for(const layer of WORLD_V702.waterLayers){if(layer.material?.normalMap){layer.material.normalMap.offset.x=(layer.material.normalMap.offset.x+dt*.012)%1;layer.material.normalMap.offset.y=(layer.material.normalMap.offset.y+dt*.007)%1;}layer.position.y=.105+Math.sin(WORLD_V702.waterTime*1.45+layer.position.x*.01)*.018;}updateWorldEvolution.farmAcc=(updateWorldEvolution.farmAcc||0)+dt;if(updateWorldEvolution.farmAcc>.9){updateWorldEvolution.farmAcc=0;for(const plot of WORLD_V702.farmPlots.values())updateFarmPlotVisual(plot);}updateWorldSport(dt);updateKartSession();

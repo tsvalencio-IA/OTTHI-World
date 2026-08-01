@@ -245,14 +245,14 @@
       "startLine": 5680,
       "endLine": 5801,
       "description": "Fundação OTTHI World, PBR local, diagnóstico e painel das cinco etapas",
-      "sha256Body": "e223e7ed554ed06c2243c4a258a82d104d24a170e680a99b708f435984139f8d"
+      "sha256Body": "b0d7f903441f211d9e55de29f9b17acae3dad17df61061579f357c76fafb5f84"
     },
     {
       "file": "src/modules/34-avatar-studio-professional-v3.js",
       "startLine": 5803,
       "endLine": 5897,
       "description": "Avatar modular V3 sobre o rig procedural preservado",
-      "sha256Body": "1b5c43b902301154bb4433f0b64d0fe0b8dc4b54e1b8cc0b4e873a1320d28114"
+      "sha256Body": "2f9e586108f80a1272479dd56dd2cb1d8f6f1957062572707ae8cb894a6da203"
     },
     {
       "file": "src/modules/35-world-render-pbr-environment.js",
@@ -294,7 +294,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Evolução integral V702: HUD, câmera, terreno, água, natação, fazenda, escavação e cidadãos temáticos",
-      "sha256Body": "bcdc64866fda3db3f2d5b29dbe517c7002afa811cef1b35be97909669c258f03"
+      "sha256Body": "deed11323b255440795fd8431438bdb7e345eb1670f71e46ac4a483eeb861016"
     }
   ],
   "styles": [
@@ -429,7 +429,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "HUD paisagem e interface de mundo evoluído V702",
-      "sha256Body": "b150fa7c186a41c55147e039a25e62fb1f2da315f50831967be0a9c565d050ec"
+      "sha256Body": "47587437c06ed01f49d0d443620bf484131e9062eb4e26f0fe2b531047e2aca7"
     }
   ]
 }

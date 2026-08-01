@@ -5862,11 +5862,26 @@
     document.getElementById('otthiWorldQuickBtn')?.remove();
     return false;
   }
+  function applyProfessionalRenderPolish(){
+    if(renderer){
+      renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.045;renderer.outputEncoding=THREE.sRGBEncoding;renderer.sortObjects=true;
+      renderer.domElement.style.imageRendering='auto';renderer.domElement.style.filter='saturate(.94) contrast(1.045) brightness(1.01)';
+      const allowShadows=qualityTier()==='high'&&!perf.mobile;renderer.shadowMap.enabled=allowShadows;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+    }
+    if(sunLight){sunLight.intensity=1.38;sunLight.color.setHex(0xffe8bd);sunLight.shadow.bias=-.001;sunLight.shadow.normalBias=.025;}
+    const hemi=scene?.children?.find?.(item=>item?.isHemisphereLight);if(hemi){hemi.intensity=.82;hemi.color.setHex(0xe7f5ff);hemi.groundColor.setHex(0x33452c);}
+    if(scene&&!scene.userData.otthiProfessionalFill){const fill=new THREE.DirectionalLight(0xaed9ff,.23);fill.position.set(-34,26,-24);fill.userData.otthiProfessionalFill=true;scene.add(fill);scene.userData.otthiProfessionalFill=fill;}
+    const neutral={grass:0xe1eadb,road:0xf1f3f4,sidewalk:0xf5f5f2,wood:0xf1dfca,brick:0xf1d6ca,roof:0xf0d7d3,stone:0xe5e8ea,concrete:0xeff1f2};
+    for(const [key,color]of Object.entries(neutral)){const material=materials?.[key];if(material?.color){material.color.setHex(color);material.aoMapIntensity=1.08;material.envMapIntensity=.56;material.dithering=true;material.needsUpdate=true;}}
+    if(materials?.water){materials.water.color.setHex(0xc7edf4);materials.water.roughness=.18;materials.water.metalness=.04;materials.water.envMapIntensity=.78;materials.water.transparent=true;materials.water.opacity=.86;materials.water.depthWrite=false;materials.water.needsUpdate=true;}
+    if(worldGroup)worldGroup.traverse(object=>{if(!object?.isMesh)return;ensureUv2(object);const list=Array.isArray(object.material)?object.material:[object.material];for(const material of list){if(!material)continue;material.dithering=true;if(material.aoMap)material.aoMapIntensity=1.06;if(material.normalMap&&material.normalScale&&!material.userData?.otthiNormalPolished){material.normalScale.multiplyScalar(.86);material.userData={...(material.userData||{}),otthiNormalPolished:true};}material.needsUpdate=true;}});
+    return true;
+  }
   function applyOtthiWorldRuntimeSettings(){
     const enabled=state.settings?.worldRender!==false;document.body.classList.toggle('otthi-world-render',enabled);document.body.classList.toggle('otthi-world-details',state.settings?.worldDetails!==false);
     if(worldGroup)worldGroup.traverse(object=>{if(object.userData?.otthiWorldDetail)object.visible=state.settings?.worldDetails!==false;});
-    if(renderer){renderer.toneMappingExposure=enabled?1.02:.94;renderer.shadowMap.enabled=enabled&&qualityTier()==='high'&&!perf.mobile;}
-    
+    if(renderer){renderer.toneMappingExposure=enabled?1.045:.94;renderer.shadowMap.enabled=enabled&&qualityTier()==='high'&&!perf.mobile;}
+    if(enabled)applyProfessionalRenderPolish();
   }
   function otthiWorldDiagnostics(){return{version:OTTHI_WORLD_VERSION,build:OTTHI_WORLD_BUILD,stages:OTTHI_WORLD_STAGES,runtime:{...otthiWorldRuntime,assets:undefined,textures:otthiWorldRuntime.textures.size,materials:otthiWorldRuntime.materials.size},state:{avatar:{...state.avatar},vehicles:{modularParts:Object.keys(state.vehicles?.modularParts||{}).length},hero:{...state.adventures?.hero}},firebaseConfigPreserved:true};}
   window.OTTHI_WORLD={version:OTTHI_WORLD_VERSION,build:OTTHI_WORLD_BUILD,open:openOtthiWorldCenter,status:otthiWorldDiagnostics,stages:OTTHI_WORLD_STAGES};
@@ -5911,7 +5926,7 @@
     avatar.bodyStyle=worldAvatarSafeChoice('bodyStyle',avatar.bodyStyle);avatar.face=worldAvatarSafeChoice('face',avatar.face);avatar.hair=worldAvatarSafeChoice('hair',avatar.hair);avatar.torso=worldAvatarSafeChoice('torso',avatar.torso);avatar.legs=worldAvatarSafeChoice('legs',avatar.legs);avatar.shoes=worldAvatarSafeChoice('shoes',avatar.shoes);avatar.back=worldAvatarSafeChoice('back',avatar.back);avatar.pattern=worldAvatarSafeChoice('pattern',avatar.pattern);
     setProceduralAvatarBaseVisible(avatar.bodyStyle==='block');
     const primary=worldAvatarMaterial(avatar.primaryColor,{roughness:.42}),secondary=worldAvatarMaterial(avatar.secondaryColor,{roughness:.54}),accent=worldAvatarMaterial(avatarPatternColor(),{roughness:.34}),hairMat=worldAvatarMaterial(avatar.hairColor,{roughness:.7}),skin=worldAvatarMaterial(0xd9a075,{roughness:.72}),energy=worldAvatarMaterial(0x5fe7ff,{roughness:.18,metalness:.18,emissive:0x129ac8,emissiveIntensity:.86});
-    const headLayer=worldAvatarLayer(parts.head,'HEAD'),bodyLayer=worldAvatarLayer(parts.body,'TORSO'),leftArm=worldAvatarLayer(parts.leftArm,'ARM_LEFT'),rightArm=worldAvatarLayer(parts.rightArm,'ARM_RIGHT'),leftLeg=worldAvatarLayer(parts.leftLeg,'LEG_LEFT'),rightLeg=worldAvatarLayer(parts.rightLeg,'LEG_RIGHT');
+    const headLayer=worldAvatarLayer(parts.head.parent||playerModel,'HEAD');headLayer.position.copy(parts.head.position);headLayer.quaternion.copy(parts.head.quaternion);headLayer.scale.copy(parts.head.scale);const bodyLayer=worldAvatarLayer(parts.body,'TORSO'),leftArm=worldAvatarLayer(parts.leftArm,'ARM_LEFT'),rightArm=worldAvatarLayer(parts.rightArm,'ARM_RIGHT'),leftLeg=worldAvatarLayer(parts.leftLeg,'LEG_LEFT'),rightLeg=worldAvatarLayer(parts.rightLeg,'LEG_RIGHT');
     if(avatar.bodyStyle==='toy'){
       const toyBody=avatarV3Sphere(bodyLayer,.64,primary,0,0,0,1.02,1.12,.72);toyBody.position.y=.02;
       avatarV3Cylinder(leftArm,.20,.22,.72,primary,0,-.43,0);avatarV3Cylinder(rightArm,.20,.22,.72,primary,0,-.43,0);
@@ -5944,7 +5959,7 @@
     }else if(avatar.torso==='world-web-runner'){
       const red=worldAvatarMaterial(0xd93645,{roughness:.42}),blue=worldAvatarMaterial(0x1e5fae,{roughness:.5});avatarV3Box(bodyLayer,1.16,1.02,.09,red,0,0,.42);avatarV3Box(bodyLayer,.48,.82,.11,blue,0,-.05,.48);for(const y of[-.25,0,.25])avatarV3Box(bodyLayer,1.08,.035,.12,accent,0,y,.495);avatarV3Box(leftArm,.44,.52,.44,red,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,red,0,-.36,0);
     }else if(avatar.torso==='world-mushroom-adventurer'){
-      const overalls=worldAvatarMaterial(0x236ac7,{roughness:.55}),shirt=worldAvatarMaterial(0xd94236,{roughness:.48});avatarV3Box(bodyLayer,1.16,1.02,.09,shirt,0,0,.42);avatarV3Box(bodyLayer,.72,.72,.11,overalls,0,-.15,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,-.28,.02,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,.28,.02,.49);avatarV3Box(leftArm,.44,.52,.44,shirt,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,shirt,0,-.36,0);const cap=worldAvatarLayer(parts.head,'ADVENTURE_CAP');avatarV3Sphere(cap,.64,shirt,0,.44,0,1.15,.35,1.15);avatarV3Box(cap,.72,.10,.34,shirt,0,.38,.42);
+      const overalls=worldAvatarMaterial(0x236ac7,{roughness:.55}),shirt=worldAvatarMaterial(0xd94236,{roughness:.48});avatarV3Box(bodyLayer,1.16,1.02,.09,shirt,0,0,.42);avatarV3Box(bodyLayer,.72,.72,.11,overalls,0,-.15,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,-.28,.02,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,.28,.02,.49);avatarV3Box(leftArm,.44,.52,.44,shirt,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,shirt,0,-.36,0);const cap=worldAvatarLayer(headLayer,'ADVENTURE_CAP');avatarV3Sphere(cap,.64,shirt,0,.44,0,1.15,.35,1.15);avatarV3Box(cap,.72,.10,.34,shirt,0,.38,.42);
     }else if(avatar.torso==='world-toy-rescuer'){
       avatarV3Box(bodyLayer,1.18,1.04,.10,primary,0,0,.42);avatarV3Box(bodyLayer,.76,.68,.12,secondary,0,-.10,.49);avatarV3Box(bodyLayer,.18,.90,.12,accent,-.32,.02,.49);avatarV3Box(bodyLayer,.18,.90,.12,accent,.32,.02,.49);avatarV3Box(leftArm,.46,.55,.46,primary,0,-.36,0);avatarV3Box(rightArm,.46,.55,.46,primary,0,-.36,0);
     }else{
@@ -6467,13 +6482,13 @@
     let dune=0;if(x>70&&z>-61&&z<-24){const a=Math.max(0,1-Math.hypot((x-91)/25,(z+42)/20));dune=Math.max(0,Math.sin((x+z)*.12)*.45+.55)*a*2.1;}return Math.max(0,mountain,dune);
   }
   function v702TextureMaterial(pack,color,options={}){
-    const repeat=options.repeat||[6,6],material=new THREE.MeshStandardMaterial({color,roughness:options.roughness??.86,metalness:options.metalness??0,transparent:!!options.transparent,opacity:options.opacity??1,side:options.side||THREE.FrontSide});
-    try{material.map=loadWorldTexture(pack,'basecolor',{repeat,color:true,nearest:!!options.nearest});material.normalMap=loadWorldTexture(pack,'normal',{repeat});material.roughnessMap=loadWorldTexture(pack,'roughness',{repeat});material.normalScale.set(options.normalScale??.45,options.normalScale??.45);}catch(error){material.userData.textureFallback=true;}
-    material.userData={...(material.userData||{}),otthiV702Pack:pack};return material;
+    const repeat=options.repeat||[6,6],material=new THREE.MeshStandardMaterial({color,roughness:options.roughness??.86,metalness:options.metalness??0,transparent:!!options.transparent,opacity:options.opacity??1,side:options.side||THREE.FrontSide,dithering:true});
+    try{material.map=loadWorldTexture(pack,'basecolor',{repeat,color:true,nearest:!!options.nearest});material.normalMap=loadWorldTexture(pack,'normal',{repeat});material.roughnessMap=loadWorldTexture(pack,'roughness',{repeat});material.aoMap=loadWorldTexture(pack,'ao',{repeat});material.aoMapIntensity=Number(options.aoIntensity??1.08);material.normalScale.set(options.normalScale??.45,options.normalScale??.45);}catch(error){material.userData.textureFallback=true;}
+    material.envMapIntensity=Number(options.envMapIntensity??.55);material.userData={...(material.userData||{}),otthiV702Pack:pack};return material;
   }
   function createV702GroundRecovery(){
     if(world.worldEvolution?.groundRecovery)return false;
-    const material=v702TextureMaterial('grass',0x5fae4d,{repeat:[42,42],roughness:.94,normalScale:.28});
+    const material=v702TextureMaterial('grass',0xe2ebdc,{repeat:[42,42],roughness:.92,normalScale:.34,aoIntensity:1.12});
     const ground=new THREE.Mesh(new THREE.BoxGeometry(249,.04,249),material);ground.position.set(0,.025,0);ground.receiveShadow=true;ground.frustumCulled=false;ground.renderOrder=0;ground.userData.criticalSurface=true;ground.name='OTTHI_V702_GRASS_RECOVERY';worldGroup.add(ground);world.criticalSurfaces.push(ground);
     world.worldEvolution={...(world.worldEvolution||{}),groundRecovery:ground};return true;
   }
@@ -6562,7 +6577,7 @@
     document.getElementById('cameraPitchUpBtn')?.remove();document.getElementById('cameraPitchDownBtn')?.remove();if(els.cameraControls){els.cameraControls.hidden=true;els.cameraControls.setAttribute('aria-hidden','true');}WORLD_V702.cameraButtonsReady=true;return true;
   }
   function initializeWorldEvolution(){
-    if(WORLD_V702.initialized||!worldGroup)return false;ensureWorldEvolutionState();createV702GroundRecovery();world.worldEvolution=world.worldEvolution||{};createDesertBiome();createMountainTerrain();createLakeDepthLayers();createFarmingSystem();createDigSites();createThemedCitizens();createSportsCourts();createKartCircuit();createCameraPitchButtons();WORLD_V702.initialized=true;document.documentElement.dataset.otthiWorld='702';document.body.classList.add('otthi-v702-world');return true;
+    if(WORLD_V702.initialized||!worldGroup)return false;ensureWorldEvolutionState();createV702GroundRecovery();world.worldEvolution=world.worldEvolution||{};createDesertBiome();createMountainTerrain();createLakeDepthLayers();createFarmingSystem();createDigSites();createThemedCitizens();createSportsCourts();createKartCircuit();createCameraPitchButtons();improveSceneMeshMaterials(worldGroup);applyProfessionalRenderPolish();WORLD_V702.initialized=true;document.documentElement.dataset.otthiWorld='702';document.body.classList.add('otthi-v702-world');return true;
   }
   function updateWorldEvolution(dt){
     if(!WORLD_V702.initialized)return;WORLD_V702.waterTime+=dt;for(const layer of WORLD_V702.waterLayers){if(layer.material?.normalMap){layer.material.normalMap.offset.x=(layer.material.normalMap.offset.x+dt*.012)%1;layer.material.normalMap.offset.y=(layer.material.normalMap.offset.y+dt*.007)%1;}layer.position.y=.105+Math.sin(WORLD_V702.waterTime*1.45+layer.position.x*.01)*.018;}updateWorldEvolution.farmAcc=(updateWorldEvolution.farmAcc||0)+dt;if(updateWorldEvolution.farmAcc>.9){updateWorldEvolution.farmAcc=0;for(const plot of WORLD_V702.farmPlots.values())updateFarmPlotVisual(plot);}updateWorldSport(dt);updateKartSession();

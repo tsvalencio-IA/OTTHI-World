@@ -110,11 +110,26 @@
     document.getElementById('otthiWorldQuickBtn')?.remove();
     return false;
   }
+  function applyProfessionalRenderPolish(){
+    if(renderer){
+      renderer.toneMapping=THREE.ACESFilmicToneMapping;renderer.toneMappingExposure=1.045;renderer.outputEncoding=THREE.sRGBEncoding;renderer.sortObjects=true;
+      renderer.domElement.style.imageRendering='auto';renderer.domElement.style.filter='saturate(.94) contrast(1.045) brightness(1.01)';
+      const allowShadows=qualityTier()==='high'&&!perf.mobile;renderer.shadowMap.enabled=allowShadows;renderer.shadowMap.type=THREE.PCFSoftShadowMap;
+    }
+    if(sunLight){sunLight.intensity=1.38;sunLight.color.setHex(0xffe8bd);sunLight.shadow.bias=-.001;sunLight.shadow.normalBias=.025;}
+    const hemi=scene?.children?.find?.(item=>item?.isHemisphereLight);if(hemi){hemi.intensity=.82;hemi.color.setHex(0xe7f5ff);hemi.groundColor.setHex(0x33452c);}
+    if(scene&&!scene.userData.otthiProfessionalFill){const fill=new THREE.DirectionalLight(0xaed9ff,.23);fill.position.set(-34,26,-24);fill.userData.otthiProfessionalFill=true;scene.add(fill);scene.userData.otthiProfessionalFill=fill;}
+    const neutral={grass:0xe1eadb,road:0xf1f3f4,sidewalk:0xf5f5f2,wood:0xf1dfca,brick:0xf1d6ca,roof:0xf0d7d3,stone:0xe5e8ea,concrete:0xeff1f2};
+    for(const [key,color]of Object.entries(neutral)){const material=materials?.[key];if(material?.color){material.color.setHex(color);material.aoMapIntensity=1.08;material.envMapIntensity=.56;material.dithering=true;material.needsUpdate=true;}}
+    if(materials?.water){materials.water.color.setHex(0xc7edf4);materials.water.roughness=.18;materials.water.metalness=.04;materials.water.envMapIntensity=.78;materials.water.transparent=true;materials.water.opacity=.86;materials.water.depthWrite=false;materials.water.needsUpdate=true;}
+    if(worldGroup)worldGroup.traverse(object=>{if(!object?.isMesh)return;ensureUv2(object);const list=Array.isArray(object.material)?object.material:[object.material];for(const material of list){if(!material)continue;material.dithering=true;if(material.aoMap)material.aoMapIntensity=1.06;if(material.normalMap&&material.normalScale&&!material.userData?.otthiNormalPolished){material.normalScale.multiplyScalar(.86);material.userData={...(material.userData||{}),otthiNormalPolished:true};}material.needsUpdate=true;}});
+    return true;
+  }
   function applyOtthiWorldRuntimeSettings(){
     const enabled=state.settings?.worldRender!==false;document.body.classList.toggle('otthi-world-render',enabled);document.body.classList.toggle('otthi-world-details',state.settings?.worldDetails!==false);
     if(worldGroup)worldGroup.traverse(object=>{if(object.userData?.otthiWorldDetail)object.visible=state.settings?.worldDetails!==false;});
-    if(renderer){renderer.toneMappingExposure=enabled?1.02:.94;renderer.shadowMap.enabled=enabled&&qualityTier()==='high'&&!perf.mobile;}
-    
+    if(renderer){renderer.toneMappingExposure=enabled?1.045:.94;renderer.shadowMap.enabled=enabled&&qualityTier()==='high'&&!perf.mobile;}
+    if(enabled)applyProfessionalRenderPolish();
   }
   function otthiWorldDiagnostics(){return{version:OTTHI_WORLD_VERSION,build:OTTHI_WORLD_BUILD,stages:OTTHI_WORLD_STAGES,runtime:{...otthiWorldRuntime,assets:undefined,textures:otthiWorldRuntime.textures.size,materials:otthiWorldRuntime.materials.size},state:{avatar:{...state.avatar},vehicles:{modularParts:Object.keys(state.vehicles?.modularParts||{}).length},hero:{...state.adventures?.hero}},firebaseConfigPreserved:true};}
   window.OTTHI_WORLD={version:OTTHI_WORLD_VERSION,build:OTTHI_WORLD_BUILD,open:openOtthiWorldCenter,status:otthiWorldDiagnostics,stages:OTTHI_WORLD_STAGES};
