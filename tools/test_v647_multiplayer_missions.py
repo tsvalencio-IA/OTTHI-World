@@ -64,9 +64,10 @@ for token in (
 check("Maca exige dois participantes", "coopNearbyParticipantCount(5)<2" in missions)
 check("Papéis não podem exceder a capacidade", "coopRoleCapacity" in missions and "coopRoleTaken" in missions)
 check("Todos precisam estar prontos", "participants.some(item=>!item.ready)" in missions)
-check("Bots usam posições e velocidade determinísticas", "bot.coopRaceT=index/Math.max" in missions and
-      "bot.coopRaceSpeed=.072" in missions)
-check("Bots desaceleram perto do jogador", "nearPlayer ? .18 : 1" in missions)
+check("Bots usam rota viária e velocidade determinísticas", "bot.coopRaceT=0" in missions and
+      "bot.coopRaceSpeed=.055+index*.004" in missions and "coopStreetRoutePoint" in missions)
+check("Bots desaceleram perto do jogador", "nearPlayer?.55:1" in missions)
+check("Bots não fecham volta em diagonal", "route=[[45+lane,82]" not in missions and "bot.coopRaceFinished=true" in missions)
 check("Mapa inclui participantes online", "onlinePlayerMapLocations" in map_source and
       "group:'Jogadores online'" in map_source)
 check("Missão ativa tem prioridade no agrupamento", "loc.missionTarget" in map_source and

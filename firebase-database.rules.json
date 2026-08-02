@@ -270,7 +270,7 @@
               "emoteType": {},
               "emoteSeq": {},
               "$other": {},
-              ".write": "auth != null"
+              ".write": "auth != null && auth.uid === $uid"
             },
             ".indexOn": [
               "updatedAt",

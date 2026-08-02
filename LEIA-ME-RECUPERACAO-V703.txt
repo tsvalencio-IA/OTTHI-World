@@ -1,0 +1,12 @@
+OTTHI WORLD V703 — RECUPERAÇÃO FUNCIONAL
+
+1. NÃO publique a Revisão 8.
+2. NÃO aplique os oito arquivos antigos.
+3. Esta V703 é um pacote completo baseado na V702.1 funcional.
+4. Publique primeiro em branch/ambiente de homologação.
+5. Publique também firebase-database.rules.json no mesmo Realtime Database.
+6. Teste com duas contas em dois aparelhos antes de substituir a produção.
+7. O botão Desprender fica no menu de pausa e retorna ao último ponto seguro.
+8. Faça backup do repositório e do banco antes da troca integral.
+
+Powered by thIAguinho Soluções Digitais

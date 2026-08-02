@@ -1,0 +1,93 @@
+OTTHI WORLD V703 — LISTA EXATA DE ARQUIVOS DIFERENTES
+
+Base de comparação: OTTHI-World-V702.1-COMPLETO-CORRIGIDO.zip
+SHA-256 da base: 90b3e8d0ec96bc12c1d9334cdca34d65e721919b6453cadf5f7dd4c38433397c
+Arquivos no pacote V703: 496
+Adicionados em relação à V702.1: 12
+Modificados em relação à V702.1: 54
+Removidos em relação à V702.1: 0
+Idênticos à V702.1: 430
+
+ARQUIVOS ADICIONADOS
+--------------------
+ARQUIVOS-ALTERADOS-OTTHI-WORLD-V703.txt
+AUDITORIA-BASE-MUNDIAL-V703.json
+CHANGELOG-OTTHI-WORLD-V703.md
+LEIA-ME-RECUPERACAO-V703.txt
+PLANO-PUBLICACAO-SEGURA-OTTHI-WORLD-V703.md
+RELATORIO-RECUPERACAO-OTTHI-WORLD-V703.md
+RESULTADOS-TESTES-OTTHI-WORLD-V703.md
+docs/CHECKLIST-307-EVENTOS.md
+docs/CHECKLIST-829-FUNCOES.md
+docs/VALIDACAO-ESTRUTURAL-V703.json
+docs/VALIDACAO-ESTRUTURAL-V703.md
+tools/test_v703_recovery.py
+
+ARQUIVOS MODIFICADOS
+--------------------
+.github/workflows/build-modular-app.yml
+.github/workflows/gerar-apk.yml
+README.md
+SHA256SUMS.txt
+VERSION.json
+android-app/app/build.gradle
+app.js
+assets/js/core/runtime-config.js
+assets/js/multiplayer-rtdb.js
+docs/AUDITORIA-ESTATICA-RESUMO.json
+docs/AUDITORIA-PROFUNDA-RESUMO.json
+docs/CHECKLIST-COMPLETO-FUNCOES-JOGABILIDADES.md
+docs/CHECKLIST-FLUXO-IF-ELSE-SWITCH-LOOPS.md
+docs/DEPENDENCIAS-MODULOS.csv
+docs/INVENTARIO-ARROW-CALLBACKS.csv
+docs/INVENTARIO-CALLABLES.csv
+docs/INVENTARIO-CONDICOES-DETALHADO.csv
+docs/INVENTARIO-CONDICOES.csv
+docs/INVENTARIO-EVENTOS-DETALHADO.csv
+docs/INVENTARIO-EVENTOS.csv
+docs/INVENTARIO-FUNCOES-DETALHADO.csv
+docs/INVENTARIO-FUNCOES-DETALHADO.json
+docs/INVENTARIO-FUNCOES.csv
+docs/INVENTARIO-FUNCOES.json
+docs/INVENTARIO-NOS-HTML.csv
+docs/INVENTARIO-VARIAVEIS-TOPO.csv
+docs/RELATORIO-PRESERVACAO-V642-V644.json
+docs/RELATORIO-PRESERVACAO-V642-V644.md
+docs/RELATORIO-PRESERVACAO-V6466-V6467.json
+docs/RELATORIO-PRESERVACAO-V6466-V6467.md
+docs/RELATORIO-TESTE-BAIRROS-V646.json
+docs/VALIDACAO-ESTRUTURAL-V702.json
+docs/VALIDACAO-ESTRUTURAL-V702.md
+docs/VALIDACAO-FUNDACAO-V700-PRESERVADA-V702.json
+docs/VALIDACAO-FUNDACAO-V700-PRESERVADA-V702.md
+docs/VALIDACAO-PAINEL-GM-PRESERVADO-V702.json
+docs/VALIDACAO-PAINEL-GM-PRESERVADO-V702.md
+firebase-database.rules.json
+index.html
+manifest.webmanifest
+release-manifest.json
+src/module-order.json
+src/modules/00-runtime-foundation.js
+src/modules/25-render-init-resize-position-collision.js
+src/modules/28-multiplayer-social-online.js
+src/modules/30-pause-tests-public-api-bootstrap.js
+src/modules/32-cooperative-missions.js
+sw.js
+tools/test_v6466_permissions_buttons.js
+tools/test_v646_release.py
+tools/test_v646_runtime.js
+tools/test_v647_multiplayer_missions.py
+tools/test_v702_world_evolution.py
+tools/validate_project.py
+
+ARQUIVOS REMOVIDOS
+------------------
+(nenhum)
+
+COMPARAÇÃO DE SEGURANÇA COM A REVISÃO 8
+----------------------------------------
+Arquivos presentes na Revisão 8 e ausentes na V703 recuperada: 54
+Arquivos cujo conteúdo difere da Revisão 8: 86
+Arquivos idênticos à Revisão 8: 398
+
+Observação: arquivos de relatórios e inventários gerados pelo build aparecem como modificados porque foram sincronizados com o runtime V703.

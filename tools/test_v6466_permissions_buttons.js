@@ -47,8 +47,11 @@ for (const [branchName, recordKey] of [
   check(`${branchName}: sem validação bloqueadora`, !hasValidation(record));
 }
 
+const presenceRecord = room.presence['$uid'];
+check('presence: somente o próprio UID escreve', presenceRecord['.write'] === 'auth != null && auth.uid === $uid');
+check('presence: sem validação bloqueadora de campos compatíveis', !hasValidation(presenceRecord));
+
 for (const [branchName, recordKey] of [
-  ['presence', '$uid'],
   ['chat', '$messageId'],
   ['houses', '$houseId'],
   ['gameSessions', '$sessionId'],

@@ -151,7 +151,7 @@ class ReleaseV646Tests(unittest.TestCase):
         room = rules['rooms']['$roomId']
         self.assertEqual(room['slots']['$slotId']['.write'], 'auth != null')
         self.assertNotIn('.write', room['slots'])
-        self.assertEqual(room['presence']['$uid']['.write'], 'auth != null')
+        self.assertEqual(room['presence']['$uid']['.write'], 'auth != null && auth.uid === $uid')
         self.assertEqual(room['gameSessions']['$sessionId']['.write'], 'auth != null')
         self.assertLess(
             backend.index('runTransaction(refs.slot'),

@@ -1,124 +1,76 @@
-# OTTHI World V700
+# OTTHI World V703 — Recuperação funcional
 
-Versão completa preparada para um novo repositório chamado **OTTHI-World**.
+Esta é uma **entrega completa**, reconstruída sobre a base **V702.1**, identificada como a última consolidação funcional anterior às camadas que desorganizaram o cenário nas Revisões 7 e 8.
 
-Esta entrega evolui a base real do OTTHI sem reescrever o jogo e sem trocar o Firebase Realtime Database existente. A física, os controles, o mapa, as casas, os veículos, as missões, as profissões, a construção, o multiplayer, a educação adaptativa e os salvamentos anteriores continuam sendo a fundação do projeto.
+Não aplique esta versão como hotfix e não misture seus arquivos com a Revisão 8. A publicação correta substitui integralmente o projeto por este pacote, depois de homologação.
 
-## Cinco etapas implementadas
+## O que foi recuperado
 
-### 1. Fundação profissional
+Os módulos responsáveis por materializar vias, bairros, casas, transporte, serviços, aventura, água e evolução básica do mundo foram restaurados exatamente da V702.1. A equivalência é verificada por hashes no teste `tools/test_v703_recovery.py`.
 
-- arquitetura modular preservada;
-- cache de materiais e contornos;
-- culling e LOD da fundação V646.7;
-- registro central de assets e diagnóstico;
-- níveis de qualidade e fallbacks;
-- personagem e veículos anteriores mantidos como fallback.
+A recuperação não simplifica o jogo e não remove sistemas para os testes passarem. Permanecem contas, autenticação, Firebase, saves, painel GM, casas, personalizações, inventário, profissões, escolas, construção, veículos, transporte, pescaria, agricultura, PWA e wrapper Android da base funcional.
 
-### 2. Personagem modular
+## Correções específicas da V703
 
-- Avatar V3 original OTTHI;
-- estilos `Blocks`, `Toys` e `Heroes`;
-- corpo, rosto, cabelo, roupa, calçado, costas, estampas e cores;
-- compatibilidade com as escolhas clássicas;
-- save local e sincronização pelo fluxo já existente;
-- rig procedural antigo preservado para não alterar física nem controles.
+### Multiplayer e aparência
 
-### 3. Mundo, texturas e render
+- a presença online envia uma descrição compacta da aparência real do avatar;
+- o jogador remoto deixa de ser sempre um fantasma genérico;
+- estilo corporal, rosto, cabelo, roupas, calçados, acessórios, uniforme e cores são reconstruídos no outro aparelho;
+- cada usuário autenticado pode gravar presença somente no próprio UID nas regras incluídas.
 
-- 26 pacotes de materiais locais;
-- canais base color, normal, roughness, ambient occlusion, height e emissive;
-- 157 arquivos na pasta `assets/world`;
-- materiais estilizados para terreno, vias, água, madeira, pedra, paredes, pisos, veículos, vegetação, energia e cogumelos;
-- vegetação e detalhes instanciados;
-- detalhes adicionais em casas e marcos visuais;
-- atmosfera e ciclo de iluminação opcional;
-- qualidade adaptativa para reduzir impacto em celulares.
+### Queda e jogador preso
 
-### 4. Construção e máquinas modulares
+- a última posição segura é mantida separadamente;
+- posições em queda, água, veículo, barco ou transporte não substituem o ponto seguro;
+- há recuperação automática para posição inválida, queda abaixo do terreno, saída do mundo e aprisionamento em collider;
+- o menu de pausa possui **Desprender — voltar ao último ponto seguro**.
 
-- novas receitas de telhado, porta, janela, escada, mesa, cadeira, caixote, cogumelo, plataforma de energia e bancada;
-- veículos com carroceria, capô, teto, rodas, traseira, luzes, cores e durabilidade;
-- garagem modular integrada aos veículos atuais;
-- direção, entrada e saída, física, colisões e missões originais preservadas.
+### Missões cooperativas
 
-### 5. Aventura, plataforma e poderes
+- uma missão só inicia quando suas dependências reais existem no mundo;
+- cada etapa possui instrução, métrica, alvo e próximo destino;
+- a corrida de rua usa checkpoints sequenciais sobre vias existentes;
+- adversários seguem a rota viária e param na chegada;
+- a corrida oval exige os setores em ordem antes de contar a volta;
+- a pescaria usa a mesma coordenada para fogueira, GPS e objetivo.
 
-- cinco poderes originais OTTHI;
-- energia, recarga, seleção, domínio e desbloqueio;
-- HUD próprio;
-- Circuito das Nuvens com plataformas, cristais, checkpoints, tempo, recompensas e progressão;
-- identidade original, sem personagens, marcas, logotipos ou ativos de terceiros.
-
-## Realtime Database preservado
-
-Os arquivos abaixo foram mantidos byte por byte em relação à base recebida:
-
-- `firebase-config.js`;
-- `firebase-database.rules.json`;
-- `assets/js/multiplayer-rtdb.js`.
-
-A raiz de multiplayer permanece `otthosWorld`. Não crie outro banco para esta versão. Para manter os jogadores e dados atuais, publique este projeto usando a mesma configuração Firebase já existente.
-
-## Compatibilidade preservada
-
-- Three.js local r128;
-- `athos.glb` original;
-- save anterior V646 com migração para V700;
-- PWA e Service Worker;
-- projeto Android;
-- retrato e paisagem;
-- controles mobile e gamepad;
-- Firebase, salas e multiplayer existentes;
-- casas, interiores, construção, barcos, ônibus, metrô, pescaria e profissões;
-- polícia, bombeiros, ambulância, missões e educação adaptativa.
-
-## Estrutura principal
+## Fonte e bundles
 
 - `src/modules/` — módulos-fonte JavaScript;
 - `src/styles/` — módulos-fonte CSS;
-- `src/module-order.json` — ordem e integridade dos módulos;
-- `app.js` e `style.css` — bundles gerados;
-- `assets/world/` — novos materiais e manifesto PBR;
-- `tools/` — build, inventários e validações;
-- `docs/` — relatórios, matrizes, inventários e instruções;
-- `android-app/` — wrapper Android preservado e atualizado para V700.
+- `src/module-order.json` — ordem dos módulos;
+- `app.js` e `style.css` — bundles gerados e sincronizados;
+- `tools/` — build e validações;
+- `android-app/` — wrapper Android V7.0.3;
+- `firebase-database.rules.json` — regras a publicar no mesmo Realtime Database.
 
-## Build local ou GitHub Actions
-
-O repositório já inclui o workflow `.github/workflows/build-modular-app.yml`.
-
-Para quem usa terminal:
+## Build e validação
 
 ```bash
 python tools/build_project.py
 node --check app.js
-python tools/test_v700_otthi_world.py
 python tools/validate_project.py
+python tools/verify_equivalence.py
+python tools/test_v703_recovery.py
 ```
 
-O uso de terminal não é necessário para publicar pelo GitHub. Consulte `COMO-SUBIR-NOVO-REPOSITORIO.txt` e `docs/GUIA-NOVO-REPOSITORIO-OTTHI-WORLD.md`.
+A validação local verifica sintaxe, integridade dos bundles, hashes, preservação de funções, segurança estrutural, restauração da base mundial, contrato de skin remota, recuperação de queda e objetivos cooperativos.
 
-## Validação realizada
+## Limites honestos da validação
 
-Foram executados build modular, validação de sintaxe, testes de mobilidade, mundo, bairros, permissões, botões, missões, multiplayer estrutural, serviços, responsividade, preservação das funções da base e testes específicos da V700.
+Ainda exigem teste real antes da produção:
 
-Também foi executado um harness de navegador com o código real e stubs isolados para WebGL e RTDB. Esse harness comprova inicialização lógica das novas camadas, mas não equivale a teste gráfico real em GPU nem a conexão Firebase remota.
+- renderização WebGL em celular com GPU real;
+- retrato e paisagem em aparelhos físicos;
+- duas contas conectadas em dois aparelhos;
+- publicação e leitura das regras no Firebase remoto;
+- desconexão, reconexão e remoção de presença fantasma;
+- instalação e atualização da PWA;
+- APK assinado e instalado;
+- desempenho prolongado e consumo de memória.
 
-## Validações físicas ainda obrigatórias
-
-A versão não deve ser declarada aprovada em aparelho físico antes de testar:
-
-- Android real em retrato e paisagem;
-- renderização WebGL e desempenho em aparelhos básicos e intermediários;
-- texturas e iluminação com GPU real;
-- Firebase remoto com as regras publicadas;
-- multiplayer entre dois aparelhos;
-- atualização e instalação da PWA;
-- APK gerado e instalado;
-- AR, quando aplicável.
-
-Consulte `docs/RELATORIO-ENTREGA-OTTHI-WORLD-V700.md` para o escopo e as limitações verificadas.
+Consulte os relatórios V703 na raiz do pacote antes da publicação.
 
 ---
 
