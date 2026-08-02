@@ -18,6 +18,8 @@ function sanitizePublicName(value='Jogador'){
   return name.length>=3?name:'Jogador';
 }
 function neutralPublicName(uid=user?.uid||'0000'){const suffix=String(uid||'0000').replace(/[^a-z0-9]/gi,'').slice(-4).toUpperCase().padStart(4,'0');return`Jogador ${suffix}`}
+const PRESENCE_AVATAR_FIELDS=Object.freeze(['renderMode','bodyStyle','skinTone','face','hair','hairColor','torso','legs','shoes','hat','back','pattern','primaryColor','secondaryColor','outfit','accessory','uniform']);
+function sanitizePresenceAvatar(value={}){const source=value&&typeof value==='object'?value:{},clean={v:3};for(const field of PRESENCE_AVATAR_FIELDS){const raw=String(source[field]??'').slice(0,32);clean[field]=(field.endsWith('Color')||field==='skinTone')&&/^#[0-9a-f]{6}$/i.test(raw)?raw.toLowerCase():raw.replace(/[^A-Za-z0-9_-]/g,'').slice(0,28);}return clean}
 function publicHouseName(houseId=''){return({home:'Casa inicial',blue:'Casa Azul',pink:'Casa Rosa',cabin:'Cabana da Floresta'})[String(houseId||'')]||'Casa online'}
 function publicHousePrice(houseId=''){return({home:0,blue:250,pink:420,cabin:180})[String(houseId||'')]??0}
 function canonicalHouseRecord(houseId,current={},overrides={}){
@@ -220,7 +222,7 @@ async function connect(options={}){
   })();return connecting;
 }
 async function publish(payload,force=false){
-  lastPresence={...lastPresence,...payload,name:neutralPublicName(user?.uid),room:currentRoom(),emoteType:String(payload.emoteType||lastPresence?.emoteType||'').slice(0,16),emoteSeq:Number(payload.emoteSeq??lastPresence?.emoteSeq??0)};
+  lastPresence={...lastPresence,...payload,avatar:sanitizePresenceAvatar(payload.avatar||lastPresence?.avatar||{}),avatarSig:String(payload.avatarSig||lastPresence?.avatarSig||'').replace(/[^A-Za-z0-9_#|.-]/g,'').slice(0,640),name:neutralPublicName(user?.uid),room:currentRoom(),emoteType:String(payload.emoteType||lastPresence?.emoteType||'').slice(0,16),emoteSeq:Number(payload.emoteSeq??lastPresence?.emoteSeq??0)};
   if(!connected||!multiplayerAllowed()||!refs.presence||!api)return false;const nowPerf=performance.now();if(!force&&nowPerf-presenceWrite<200)return false;presenceWrite=nowPerf;
   try{
     if(refs.slot&&(force||nowPerf-slotTouchAt>5000)){
