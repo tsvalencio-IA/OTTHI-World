@@ -19,7 +19,7 @@
     {id:'market',name:'Alarme controlado no Mercadinho',x:-22,z:-11,navX:-22,navZ:-10},
     {id:'school',name:'Treinamento na Escola Vila do Sol',x:-63,z:-10,navX:-55,navZ:-10},
     {id:'workshop',name:'Simulação segura na Oficina',x:22,z:-11,navX:22,navZ:-10},
-    {id:'farm',name:'Fogueira fora de controle na Fazenda',x:96,z:32,navX:96,navZ:18},
+    {id:'farm',name:'Fogueira fora de controle na Fazenda',x:52,z:34,navX:55,navZ:34},
     {id:'castle',name:'Tocha do Castelo acesa demais',x:79,z:52,navX:55,navZ:52}
   ];
   const SERVICE_JOB_KIND=Object.freeze({police:'police',firefighter:'firefighter',paramedic:'paramedic'});
@@ -28,7 +28,7 @@
     firefighter:[{x:55,z:-70,heading:0},{x:55,z:-62,heading:0}],
     paramedic:[{x:55,z:-52,heading:0},{x:55,z:-44,heading:0}]
   });
-  const TRAINING_INCIDENT_SITES=Object.freeze([{x:23,z:0},{x:-28,z:0},{x:96,z:24},{x:0,z:-42}]);
+  const TRAINING_INCIDENT_SITES=Object.freeze([{x:23,z:0},{x:-28,z:0},{x:55,z:24},{x:0,z:-42}]);
   function serviceKindForJob(jobOrId){const id=typeof jobOrId==='string'?jobOrId:jobOrId?.id;return SERVICE_JOB_KIND[id]||'';}
   function serviceVehiclePools(kind=''){if(kind==='police')return world.policeCars||[];if(kind==='firefighter')return world.fireTrucks||[];if(kind==='paramedic')return world.ambulances||[];return[...(world.policeCars||[]),...(world.fireTrucks||[]),...(world.ambulances||[])];}
   function serviceVehicleById(id=''){return serviceVehiclePools().find(vehicle=>vehicle.id===id)||null;}

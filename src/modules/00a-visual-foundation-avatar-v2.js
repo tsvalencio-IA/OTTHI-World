@@ -43,23 +43,22 @@
     })
   });
 
-  // Compatibilidade preservada para saves antigos: renderMode: 'procedural-fallback' migra para o visual V3 sem perder rig ou progresso.
   const OTTHI_AVATAR_V2_DEFAULTS = Object.freeze({
     version: OTTHI_AVATAR_SCHEMA_VERSION,
-    renderMode: 'otthi-world-v3',
-    bodyStyle: 'toy',
+    renderMode: 'procedural-fallback',
+    bodyStyle: 'block',
     skinTone: 'tone-03',
-    face: 'face-happy-01',
-    hair: 'hair-short-01',
-    hairColor: '#4a2d1b',
-    torso: 'world-mushroom-adventurer',
-    legs: 'world-shorts-01',
-    shoes: 'world-sneakers-01',
+    face: 'face-athos-01',
+    hair: 'hair-athos-01',
+    hairColor: '#352317',
+    torso: 'legacy-outfit-classic',
+    legs: 'legacy-pants-01',
+    shoes: 'legacy-sneakers-01',
     hat: 'none',
-    back: 'world-backpack-01',
-    pattern: 'world-star',
-    primaryColor: '#d94236',
-    secondaryColor: '#236ac7',
+    back: 'none',
+    pattern: 'none',
+    primaryColor: '#1267d6',
+    secondaryColor: '#111827',
     outfit: 'classic',
     accessory: 'none',
     uniform: 'none'
@@ -96,22 +95,21 @@
     const accessory=safeLegacyAvatarChoice('accessory',source.accessory,defaults.accessory);
     const uniform=safeLegacyAvatarChoice('uniform',source.uniform,defaults.uniform);
     // O estado sincronizado aceita somente os campos conhecidos pelo esquema infantil V2.
-    const legacyRender=!source.renderMode||source.renderMode==='procedural-fallback';
     return {
       ...defaults,
       version:OTTHI_AVATAR_SCHEMA_VERSION,
-      renderMode:legacyRender?'otthi-world-v3':safeAvatarId(source.renderMode,defaults.renderMode),
-      bodyStyle:legacyRender&&(!source.bodyStyle||source.bodyStyle==='block')?'toy':safeAvatarId(source.bodyStyle,defaults.bodyStyle),
+      renderMode:safeAvatarId(source.renderMode,defaults.renderMode),
+      bodyStyle:safeAvatarId(source.bodyStyle,defaults.bodyStyle),
       skinTone:safeAvatarId(source.skinTone,defaults.skinTone),
-      face:legacyRender&&(!source.face||String(source.face).startsWith('face-athos'))?defaults.face:safeAvatarId(source.face,defaults.face),
-      hair:legacyRender&&(!source.hair||String(source.hair).startsWith('hair-athos'))?defaults.hair:safeAvatarId(source.hair,defaults.hair),
+      face:safeAvatarId(source.face,defaults.face),
+      hair:safeAvatarId(source.hair,defaults.hair),
       hairColor:safeAvatarColor(source.hairColor,defaults.hairColor),
-      torso:legacyRender&&(!source.torso||String(source.torso).startsWith('legacy-outfit-'))?defaults.torso:safeAvatarId(source.torso,defaults.torso),
-      legs:legacyRender&&(!source.legs||String(source.legs).startsWith('legacy-'))?defaults.legs:safeAvatarId(source.legs,defaults.legs),
-      shoes:legacyRender&&(!source.shoes||String(source.shoes).startsWith('legacy-'))?defaults.shoes:safeAvatarId(source.shoes,defaults.shoes),
+      torso:safeAvatarId(source.torso,`legacy-outfit-${outfit}`),
+      legs:safeAvatarId(source.legs,defaults.legs),
+      shoes:safeAvatarId(source.shoes,defaults.shoes),
       hat,
-      back:legacyRender&&(!source.back||source.back==='none'||source.back==='legacy-backpack')?defaults.back:safeAvatarId(source.back,accessory==='backpack'?'legacy-backpack':'none'),
-      pattern:legacyRender&&(!source.pattern||source.pattern==='none')?defaults.pattern:safeAvatarId(source.pattern,defaults.pattern),
+      back:safeAvatarId(source.back,accessory==='backpack'?'legacy-backpack':'none'),
+      pattern:safeAvatarId(source.pattern,defaults.pattern),
       primaryColor:safeAvatarColor(source.primaryColor,defaults.primaryColor),
       secondaryColor:safeAvatarColor(source.secondaryColor,defaults.secondaryColor),
       outfit,

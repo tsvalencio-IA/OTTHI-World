@@ -70,8 +70,9 @@
   }
   function savePlayerPosition(immediate=false){
     if(player.boating&&player.boat)state.boats.lastPosition={x:+player.x.toFixed(2),z:+player.z.toFixed(2),heading:+player.boat.heading.toFixed(3)};
-    const transient=!!currentHouse||!!player.transit.mode||!!player.car.passengerOf||!!player.boat.passengerOf;
-    const x=transient?Number(player.lastSafeX||state.position?.x||0):player.x,z=transient?Number(player.lastSafeZ||state.position?.z||8):player.z,y=transient?Number(player.lastSafeY||0):player.y,yaw=currentHouse?Number(enterHouse.outdoorYaw||cameraYaw):cameraYaw;
+    const transient=!!currentHouse||!!player.transit.mode||!!player.car.passengerOf||!!player.boat.passengerOf||!!player.vehicle||!!player.boating||!!player.swimming;
+    const currentSafe=!transient&&Number.isFinite(player.x)&&Number.isFinite(player.y)&&Number.isFinite(player.z)&&Math.abs(player.x)<=116&&Math.abs(player.z)<=116&&!isInsideLakeNavigable(player.x,player.z)&&!positionBlockedForPlayer(player.x,player.z,.26,{ignoreTraffic:true,allowWater:false})&&player.y>=groundHeightAt(player.x,player.z)-.35;
+    const x=currentSafe?player.x:Number(player.lastSafeX??state.position?.x??0),z=currentSafe?player.z:Number(player.lastSafeZ??state.position?.z??8),y=currentSafe?player.y:Number(player.lastSafeY??groundHeightAt(x,z)),yaw=currentHouse?Number(enterHouse.outdoorYaw||cameraYaw):cameraYaw;
     if(Number.isFinite(x)&&Number.isFinite(z)&&!isInsideLakeNavigable(x,z))state.position={x:+x.toFixed(2),y:+Number(y||0).toFixed(2),z:+z.toFixed(2),yaw:+Number(yaw||0).toFixed(3)};
     saveState(immediate);
   }
@@ -107,15 +108,29 @@
   }
   function rememberSafePlayerPosition(force=false){
     const now=performance.now();if(!force&&now-Number(player.lastSafeAt||0)<450)return false;
-    if(!player.grounded||player.swimming||player.vehicle||player.boating||player.transit.mode||positionBlockedForPlayer(player.x,player.z,.38,{ignoreTraffic:true}))return false;
-    player.lastSafeX=player.x;player.lastSafeY=player.y;player.lastSafeZ=player.z;player.lastSafeAt=now;player.invalidSince=0;return true;
+    const ground=groundHeightAt(player.x,player.z),stableHeight=Math.abs(player.y-ground)<=.42;
+    if(!player.grounded||!stableHeight||player.swimming||player.vehicle||player.boating||player.transit.mode||currentHouse||positionBlockedForPlayer(player.x,player.z,.38,{ignoreTraffic:true,allowWater:false}))return false;
+    player.lastSafeX=player.x;player.lastSafeY=ground;player.lastSafeZ=player.z;player.lastSafeAt=now;player.invalidSince=0;player.recoveryReason='';return true;
+  }
+  function resetPlayerModesForRecovery(){
+    clearMovementInputs?.();
+    if(player.vehicle){const vehicle=currentVehicleRef?.();if(vehicle){vehicle.occupied=false;vehicle.group.visible=true;}player.vehicle=false;activeVehicleRef=null;world.activeVehicle=null;player.car.id='';player.car.speed=0;player.car.passengerOf='';player.car.passengerUid='';player.car.passengerBotId='';vehicleVisual&&(vehicleVisual.visible=false);stopEngineSound?.();}
+    if(player.boating){player.boating=false;player.boat.speed=0;player.boat.passengerOf='';player.boat.passengerUid='';player.boat.passengerBotId='';}
+    if(player.transit?.mode){player.transit.mode='';player.transit.busId='';player.transit.metroUntil=0;if(metroOverlay){metroOverlay.hidden=true;metroOverlay.classList.remove('travelling','arriving');}}
+    player.swimming=false;player.sitUntil=0;if(playerModel)playerModel.visible=true;if(avatarLayer)avatarLayer.visible=true;if(contactShadow)contactShadow.visible=true;
+  }
+  function recoverPlayerToLastSafe(reason='posição inválida',notify=true){
+    resetPlayerModesForRecovery();const baseX=Number.isFinite(Number(player.lastSafeX))?Number(player.lastSafeX):Number(state.position?.x||0),baseZ=Number.isFinite(Number(player.lastSafeZ))?Number(player.lastSafeZ):Number(state.position?.z||8),safe=safePointNear(baseX,baseZ,{ignoreTraffic:true,allowWater:false,radius:.42,distances:[0,.8,1.4,2.2,3.2,4.4]});
+    player.x=safe.x;player.z=safe.z;player.y=safe.y;player.vx=player.vy=player.vz=0;player.grounded=true;player.lastGrounded=performance.now();player.invalidSince=0;player.recoveryReason=reason;playerGroup?.position?.set(player.x,player.y,player.z);playerGroup&&(playerGroup.rotation.y=player.facing);contactShadow?.position?.set(player.x,player.y+.025,player.z);rememberSafePlayerPosition(true);savePlayerPosition(true);updateContext?.(true);updateNavigation?.(0,true);auditPlayerMode?.('safe-recovery');
+    if(notify)toast('Você voltou ao último ponto seguro.','warn',2200);console.warn(`[OTTHOS] Recuperação do jogador: ${reason}.`);return true;
   }
   function recoverPlayerIfInvalid(){
-    const impossible=!Number.isFinite(player.x)||!Number.isFinite(player.y)||!Number.isFinite(player.z)||Math.abs(player.x)>130||Math.abs(player.z)>130||player.y<-12||player.y>80;
-    const penetrated=!player.vehicle&&!player.boating&&!player.transit.mode&&positionBlockedForPlayer(player.x,player.z,.24,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming});
-    if(!impossible&&!penetrated){player.invalidSince=0;rememberSafePlayerPosition();return false;}
-    player.invalidSince=player.invalidSince||performance.now();if(!impossible&&performance.now()-player.invalidSince<1100)return false;
-    const safe=safePointNear(Number(player.lastSafeX)||0,Number(player.lastSafeZ)||8,{ignoreTraffic:true,allowWater:false});player.x=safe.x;player.z=safe.z;player.y=safe.y;player.vx=player.vy=player.vz=0;player.grounded=true;player.invalidSince=0;console.warn('[OTTHOS] Posição impossível recuperada para o último ponto seguro.');return true;
+    const finite=Number.isFinite(player.x)&&Number.isFinite(player.y)&&Number.isFinite(player.z),ground=finite?groundHeightAt(player.x,player.z):0,outside=!finite||Math.abs(player.x)>130||Math.abs(player.z)>130||player.y>80,belowWorld=finite&&!player.swimming&&player.y<ground-2.25,deepFall=finite&&!player.swimming&&!player.vehicle&&!player.boating&&!player.transit.mode&&!player.grounded&&player.vy<0&&player.y<ground-1.05;
+    const penetrated=finite&&!player.vehicle&&!player.boating&&!player.transit.mode&&positionBlockedForPlayer(player.x,player.z,.24,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming});
+    const reason=outside?'fora dos limites':belowWorld?'abaixo do terreno':deepFall?'queda sem retorno':penetrated?'preso em colisão':'';
+    if(!reason){player.invalidSince=0;rememberSafePlayerPosition();return false;}
+    player.invalidSince=player.invalidSince||performance.now();const immediate=outside||belowWorld;if(!immediate&&performance.now()-player.invalidSince<900)return false;
+    return recoverPlayerToLastSafe(reason,true);
   }
   function safeVehicleExitPoint(vehicleRef=null){
     const heading=Number(player.car.heading||player.facing||0),x=player.x,z=player.z;

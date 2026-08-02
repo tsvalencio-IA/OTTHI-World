@@ -34,36 +34,19 @@
   }
   function avatarV3Box(parent,w,h,d,material,x=0,y=0,z=0){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);if(state.settings?.worldOutlines!==false)addVoxelOutline(mesh,0x102238,.22);return mesh;}
   function avatarV3Sphere(parent,r,material,x=0,y=0,z=0,sx=1,sy=1,sz=1){const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,12,8),material);mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
-  function avatarV3Cylinder(parent,rTop,rBottom,height,material,x=0,y=0,z=0,segments=14){const mesh=new THREE.Mesh(new THREE.CylinderGeometry(rTop,rBottom,height,segments),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
-  function setProceduralAvatarBaseVisible(visible){for(const mesh of playerModel?.userData?.proceduralBaseMeshes||[])mesh.visible=!!visible;}
   function avatarPatternColor(){return state.avatar.pattern==='world-star'?0xffd84d:state.avatar.pattern==='world-pixels'?0x5ad7ff:state.avatar.pattern==='world-stripe'?0xffffff:state.avatar.secondaryColor;}
   function applyWorldAvatarV3(){
     if(!playerModel?.userData?.parts)return false;ensureOtthiWorldState();clearWorldAvatarV3();
     const parts=playerModel.userData.parts,avatar=state.avatar;
     avatar.bodyStyle=worldAvatarSafeChoice('bodyStyle',avatar.bodyStyle);avatar.face=worldAvatarSafeChoice('face',avatar.face);avatar.hair=worldAvatarSafeChoice('hair',avatar.hair);avatar.torso=worldAvatarSafeChoice('torso',avatar.torso);avatar.legs=worldAvatarSafeChoice('legs',avatar.legs);avatar.shoes=worldAvatarSafeChoice('shoes',avatar.shoes);avatar.back=worldAvatarSafeChoice('back',avatar.back);avatar.pattern=worldAvatarSafeChoice('pattern',avatar.pattern);
-    setProceduralAvatarBaseVisible(avatar.bodyStyle==='block');
     const primary=worldAvatarMaterial(avatar.primaryColor,{roughness:.42}),secondary=worldAvatarMaterial(avatar.secondaryColor,{roughness:.54}),accent=worldAvatarMaterial(avatarPatternColor(),{roughness:.34}),hairMat=worldAvatarMaterial(avatar.hairColor,{roughness:.7}),skin=worldAvatarMaterial(0xd9a075,{roughness:.72}),energy=worldAvatarMaterial(0x5fe7ff,{roughness:.18,metalness:.18,emissive:0x129ac8,emissiveIntensity:.86});
-    const headLayer=worldAvatarLayer(parts.head.parent||playerModel,'HEAD');headLayer.position.copy(parts.head.position);headLayer.quaternion.copy(parts.head.quaternion);headLayer.scale.copy(parts.head.scale);const bodyLayer=worldAvatarLayer(parts.body,'TORSO'),leftArm=worldAvatarLayer(parts.leftArm,'ARM_LEFT'),rightArm=worldAvatarLayer(parts.rightArm,'ARM_RIGHT'),leftLeg=worldAvatarLayer(parts.leftLeg,'LEG_LEFT'),rightLeg=worldAvatarLayer(parts.rightLeg,'LEG_RIGHT');
+    const headLayer=worldAvatarLayer(parts.head,'HEAD'),bodyLayer=worldAvatarLayer(parts.body,'TORSO'),leftArm=worldAvatarLayer(parts.leftArm,'ARM_LEFT'),rightArm=worldAvatarLayer(parts.rightArm,'ARM_RIGHT'),leftLeg=worldAvatarLayer(parts.leftLeg,'LEG_LEFT'),rightLeg=worldAvatarLayer(parts.rightLeg,'LEG_RIGHT');
     if(avatar.bodyStyle==='toy'){
-      const toyBody=avatarV3Sphere(bodyLayer,.64,primary,0,0,0,1.02,1.12,.72);toyBody.position.y=.02;
-      avatarV3Cylinder(leftArm,.20,.22,.72,primary,0,-.43,0);avatarV3Cylinder(rightArm,.20,.22,.72,primary,0,-.43,0);
-      avatarV3Sphere(leftArm,.22,skin,0,-.86,.02);avatarV3Sphere(rightArm,.22,skin,0,-.86,.02);
-      avatarV3Cylinder(leftLeg,.20,.22,.70,secondary,0,-.40,0);avatarV3Cylinder(rightLeg,.20,.22,.70,secondary,0,-.40,0);
-      avatarV3Sphere(headLayer,.60,skin,0,0,0,1.02,1.05,.98);
+      avatarV3Sphere(leftArm,.22,skin,0,-.99,.02);avatarV3Sphere(rightArm,.22,skin,0,-.99,.02);avatarV3Sphere(leftLeg,.21,secondary,0,-.62,0);avatarV3Sphere(rightLeg,.21,secondary,0,-.62,0);avatarV3Sphere(headLayer,.55,worldAvatarMaterial(0x11151d,{roughness:.5}),0,0,0,1.04,1.02,1.04);
     }else if(avatar.bodyStyle==='hero'){
-      avatarV3Sphere(bodyLayer,.66,primary,0,0,0,1.05,1.14,.7);avatarV3Box(bodyLayer,1.18,.18,.80,secondary,0,.55,0);
-      avatarV3Cylinder(leftArm,.22,.25,.82,primary,0,-.42,0);avatarV3Cylinder(rightArm,.22,.25,.82,primary,0,-.42,0);
-      avatarV3Sphere(leftArm,.24,accent,0,-.89,0);avatarV3Sphere(rightArm,.24,accent,0,-.89,0);
-      avatarV3Cylinder(leftLeg,.22,.24,.78,secondary,0,-.43,0);avatarV3Cylinder(rightLeg,.22,.24,.78,secondary,0,-.43,0);
-      avatarV3Sphere(headLayer,.57,skin,0,0,0,1.0,1.03,.96);
+      avatarV3Box(leftArm,.47,.26,.48,accent,0,-.15,0);avatarV3Box(rightArm,.47,.26,.48,accent,0,-.15,0);avatarV3Box(bodyLayer,1.16,.18,.78,secondary,0,.62,0);avatarV3Box(leftLeg,.45,.2,.45,accent,0,-.7,0);avatarV3Box(rightLeg,.45,.2,.45,accent,0,-.7,0);
     }else if(avatar.bodyStyle==='adventure'){
-      avatarV3Sphere(bodyLayer,.63,primary,0,0,0,1.02,1.10,.72);avatarV3Box(bodyLayer,1.12,.23,.82,accent,0,.51,0);
-      avatarV3Cylinder(leftArm,.20,.22,.76,primary,0,-.42,0);avatarV3Cylinder(rightArm,.20,.22,.76,primary,0,-.42,0);
-      avatarV3Sphere(leftArm,.23,skin,0,-.88,.02);avatarV3Sphere(rightArm,.23,skin,0,-.88,.02);
-      avatarV3Cylinder(leftLeg,.21,.23,.74,secondary,0,-.42,0);avatarV3Cylinder(rightLeg,.21,.23,.74,secondary,0,-.42,0);
-      avatarV3Sphere(headLayer,.61,skin,0,0,0,1.03,1.05,1.0);
-    }else{
-      setProceduralAvatarBaseVisible(true);
+      avatarV3Sphere(headLayer,.58,skin,0,0,0,1.03,1.02,1.03);avatarV3Box(bodyLayer,1.12,.23,.82,accent,0,.55,0);avatarV3Sphere(leftArm,.23,skin,0,-.98,.02);avatarV3Sphere(rightArm,.23,skin,0,-.98,.02);avatarV3Box(leftLeg,.47,.18,.5,primary,0,-.72,0);avatarV3Box(rightLeg,.47,.18,.5,primary,0,-.72,0);
     }
     if(avatar.torso==='world-jacket-01'){
       avatarV3Box(bodyLayer,1.12,.96,.08,primary,0,.02,.405);avatarV3Box(bodyLayer,.08,.92,.10,accent,0,.02,.46);avatarV3Box(leftArm,.41,.44,.41,primary,0,-.33,0);avatarV3Box(rightArm,.41,.44,.41,primary,0,-.33,0);
@@ -76,7 +59,7 @@
     }else if(avatar.torso==='world-web-runner'){
       const red=worldAvatarMaterial(0xd93645,{roughness:.42}),blue=worldAvatarMaterial(0x1e5fae,{roughness:.5});avatarV3Box(bodyLayer,1.16,1.02,.09,red,0,0,.42);avatarV3Box(bodyLayer,.48,.82,.11,blue,0,-.05,.48);for(const y of[-.25,0,.25])avatarV3Box(bodyLayer,1.08,.035,.12,accent,0,y,.495);avatarV3Box(leftArm,.44,.52,.44,red,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,red,0,-.36,0);
     }else if(avatar.torso==='world-mushroom-adventurer'){
-      const overalls=worldAvatarMaterial(0x236ac7,{roughness:.55}),shirt=worldAvatarMaterial(0xd94236,{roughness:.48});avatarV3Box(bodyLayer,1.16,1.02,.09,shirt,0,0,.42);avatarV3Box(bodyLayer,.72,.72,.11,overalls,0,-.15,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,-.28,.02,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,.28,.02,.49);avatarV3Box(leftArm,.44,.52,.44,shirt,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,shirt,0,-.36,0);const cap=worldAvatarLayer(headLayer,'ADVENTURE_CAP');avatarV3Sphere(cap,.64,shirt,0,.44,0,1.15,.35,1.15);avatarV3Box(cap,.72,.10,.34,shirt,0,.38,.42);
+      const overalls=worldAvatarMaterial(0x236ac7,{roughness:.55}),shirt=worldAvatarMaterial(0xd94236,{roughness:.48});avatarV3Box(bodyLayer,1.16,1.02,.09,shirt,0,0,.42);avatarV3Box(bodyLayer,.72,.72,.11,overalls,0,-.15,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,-.28,.02,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,.28,.02,.49);avatarV3Box(leftArm,.44,.52,.44,shirt,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,shirt,0,-.36,0);const cap=worldAvatarLayer(parts.head,'ADVENTURE_CAP');avatarV3Sphere(cap,.64,shirt,0,.44,0,1.15,.35,1.15);avatarV3Box(cap,.72,.10,.34,shirt,0,.38,.42);
     }else if(avatar.torso==='world-toy-rescuer'){
       avatarV3Box(bodyLayer,1.18,1.04,.10,primary,0,0,.42);avatarV3Box(bodyLayer,.76,.68,.12,secondary,0,-.10,.49);avatarV3Box(bodyLayer,.18,.90,.12,accent,-.32,.02,.49);avatarV3Box(bodyLayer,.18,.90,.12,accent,.32,.02,.49);avatarV3Box(leftArm,.46,.55,.46,primary,0,-.36,0);avatarV3Box(rightArm,.46,.55,.46,primary,0,-.36,0);
     }else{
@@ -98,12 +81,12 @@
     if(avatar.hair==='hair-short-01'){avatarV3Box(headLayer,1.13,.24,1.13,hairMat,0,.49,0);avatarV3Box(headLayer,.24,.42,1.08,hairMat,-.48,.29,-.02);avatarV3Box(headLayer,.24,.42,1.08,hairMat,.48,.29,-.02);}
     else if(avatar.hair==='hair-spikes-01'){avatarV3Box(headLayer,1.13,.18,1.10,hairMat,0,.48,0);for(const x of[-.38,-.12,.14,.4]){const spike=new THREE.Mesh(new THREE.ConeGeometry(.16,.48,4),hairMat);spike.position.set(x,.76,-.03);spike.rotation.y=Math.PI/4;headLayer.add(spike);}}
     else if(avatar.hair==='hair-curls-01'){for(const [x,y,z]of[[-.4,.48,0],[-.14,.57,.04],[.14,.57,.04],[.4,.48,0],[-.48,.28,-.05],[.48,.28,-.05]])avatarV3Sphere(headLayer,.22,hairMat,x,y,z);}
-    const expression=avatar.face,eyeMat=worldAvatarMaterial(0x111827,{roughness:.28}),eyeGlow=expression==='face-brave-01'?energy:worldAvatarMaterial(0xffffff,{roughness:.28});
-    for(const x of[-.23,.23]){avatarV3Sphere(headLayer,.075,eyeGlow,x,.11,.55,1,.92,.38);avatarV3Sphere(headLayer,.038,eyeMat,x,.11,.585);}
-    const brow=worldAvatarMaterial(expression==='face-brave-01'?0x2b394b:avatar.hairColor,{roughness:.62});
-    const leftBrow=avatarV3Box(headLayer,.25,.045,.035,brow,-.24,.25,.555),rightBrow=avatarV3Box(headLayer,.25,.045,.035,brow,.24,.25,.555);
-    if(expression==='face-brave-01'){leftBrow.rotation.z=-.18;rightBrow.rotation.z=.18;}if(expression==='face-curious-01'){leftBrow.position.y=.31;rightBrow.rotation.z=.14;}
-    const mouth=avatarV3Sphere(headLayer,.075,worldAvatarMaterial(0xff6f81,{roughness:.45}),0,-.22,.56,expression==='face-focus-01'?1.5:2.15,.42,.34);if(expression==='face-happy-01')mouth.position.y=-.19;
+    const expression=avatar.face;
+    const brow=worldAvatarMaterial(expression==='face-brave-01'?0x6ae6ff:0xffffff,{roughness:.55});
+    const leftBrow=avatarV3Box(headLayer,.28,.05,.04,brow,-.27,.18,.54),rightBrow=avatarV3Box(headLayer,.28,.05,.04,brow,.27,.18,.54);
+    if(expression==='face-brave-01'){leftBrow.rotation.z=-.18;rightBrow.rotation.z=.18;}
+    if(expression==='face-curious-01'){leftBrow.position.y=.25;rightBrow.rotation.z=.14;}
+    const mouth=avatarV3Box(headLayer,expression==='face-focus-01'?.26:.34,.05,.04,worldAvatarMaterial(0xff6f81,{roughness:.45}),0,-.22,.54);if(expression==='face-happy-01')mouth.rotation.z=.02;
     if(avatar.back==='world-backpack-01'){const pack=worldAvatarLayer(parts.body,'BACKPACK');avatarV3Box(pack,.82,.92,.38,secondary,0,.02,-.54);avatarV3Box(pack,.55,.24,.15,accent,0,-.22,-.76);}
     else if(avatar.back==='world-cape-01'){const cape=worldAvatarLayer(parts.body,'CAPE');avatarV3Box(cape,.94,1.34,.06,primary,0,-.18,-.49).rotation.x=-.08;avatarV3Box(cape,.52,.14,.08,accent,0,.42,-.5);}
     else if(avatar.back==='world-jetpack-01'){const jet=worldAvatarLayer(parts.body,'JETPACK');avatarV3Box(jet,.34,.82,.36,secondary,-.28,.02,-.54);avatarV3Box(jet,.34,.82,.36,secondary,.28,.02,-.54);avatarV3Box(jet,.22,.22,.3,energy,-.28,-.48,-.56);avatarV3Box(jet,.22,.22,.3,energy,.28,-.48,-.56);}

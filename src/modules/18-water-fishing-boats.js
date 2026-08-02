@@ -12,17 +12,8 @@
   function insideWater(x,z,h){return Math.abs(x-h.x)<=h.w/2&&Math.abs(z-h.z)<=h.d/2;}
   function waterAt(x,z){return(world.hazards||[]).find(h=>h.type==='water'&&insideWater(x,z,h));}
   function isInsideLakeNavigable(x,z){return (x>=-113&&x<=-29&&z>=44&&z<=60)||(x>=-116&&x<=-82&&z>=55&&z<=84);}
-  function nearestShoreFishingPoint(x=player.x,z=player.z){
-    let best=null;for(const hazard of(world.hazards||[]).filter(item=>item.type==='water')){const minX=hazard.x-hazard.w/2,maxX=hazard.x+hazard.w/2,minZ=hazard.z-hazard.d/2,maxZ=hazard.z+hazard.d/2,nx=clamp(x,minX,maxX),nz=clamp(z,minZ,maxZ),inside=insideWater(x,z,hazard);let edgeX=nx,edgeZ=nz,dist;
-      if(inside){const choices=[[Math.abs(x-minX),minX,z],[Math.abs(maxX-x),maxX,z],[Math.abs(z-minZ),x,minZ],[Math.abs(maxZ-z),x,maxZ]].sort((a,b)=>a[0]-b[0]);dist=choices[0][0];edgeX=choices[0][1];edgeZ=choices[0][2];}else dist=Math.hypot(x-nx,z-nz);
-      const dx=hazard.x-edgeX,dz=hazard.z-edgeZ,m=Math.hypot(dx,dz)||1,targetX=edgeX+dx/m*3.4,targetZ=edgeZ+dz/m*3.4,record={hazard,inside,edgeX,edgeZ,targetX,targetZ,distance:dist};if(!best||record.distance<best.distance)best=record;
-    }return best;
-  }
-  function isNearFishingArea(){if(player.boating)return true;const shore=nearestShoreFishingPoint();return !!shore&&!shore.inside&&shore.distance<=6.2;}
-  function resolveWaterWalking(prevX,prevZ){
-    if(player.boating||player.vehicle||currentHouse){player.swimming=false;player.waterDepth=0;return;}const h=waterAt(player.x,player.z);let depth=0;if(h){const edgeDepth=Math.min(h.w/2-Math.abs(player.x-h.x),h.d/2-Math.abs(player.z-h.z));depth=clamp((edgeDepth-.18)/3.2,0,1);}const nowSwimming=!!h&&depth>.08&&groundHeightAt(player.x,player.z)<=.32;
-    if(nowSwimming&&!player.swimming&&performance.now()-waterWarningAt>900){waterWarningAt=performance.now();toast('Você entrou na água. Use o manche para nadar; PULAR dá uma braçada rápida.','good',2400);}if(!nowSwimming&&player.swimming&&performance.now()-waterWarningAt>700){waterWarningAt=performance.now();toast('Você saiu da água.','good',1100);}player.swimming=nowSwimming;player.waterDepth=nowSwimming?depth:0;if(player.swimming){player.vx*=.992;player.vz*=.992;}
-  }
+  function isNearFishingArea(){return player.boating||Math.hypot(player.x+28,player.z-45)<9||Math.hypot(player.x+27,player.z-57)<9;}
+  function resolveWaterWalking(prevX,prevZ){if(player.boating||player.vehicle||currentHouse){player.swimming=false;return;}const h=waterAt(player.x,player.z);const nowSwimming=!!h&&groundHeightAt(player.x,player.z)<=.24;if(nowSwimming&&!player.swimming&&performance.now()-waterWarningAt>900){waterWarningAt=performance.now();toast('Você entrou na água. Use o joystick para nadar e PULAR para uma braçada.','good',2400);}if(!nowSwimming&&player.swimming&&performance.now()-waterWarningAt>700){waterWarningAt=performance.now();toast('Você saiu da água.','good',1100);}player.swimming=nowSwimming;if(player.swimming){player.vx*=.985;player.vz*=.985;}}
 
   const BOAT_DOCK={minX:-36,maxX:-24,minZ:50.5,maxZ:53.5,exitX:-23.25,touchDistance:4.4};
   function distanceToBoatDock(x=player.x,z=player.z){const nx=clamp(x,BOAT_DOCK.minX,BOAT_DOCK.maxX),nz=clamp(z,BOAT_DOCK.minZ,BOAT_DOCK.maxZ);return Math.hypot(x-nx,z-nz);}
@@ -45,17 +36,33 @@
   }
   function setFishingLine(a,b){const v=fishingVisual;if(!v)return;const attr=v.line.geometry.getAttribute('position'),arr=attr.array;arr[0]=a.x;arr[1]=a.y;arr[2]=a.z;arr[3]=b.x;arr[4]=b.y;arr[5]=b.z;attr.needsUpdate=true;}
   function fishingCastTarget(source){
-    let x,z;if(source==='boat'){const heading=player.boat.heading,dist=5.6;x=player.x+Math.sin(heading)*dist;z=player.z+Math.cos(heading)*dist;}else{const shore=nearestShoreFishingPoint();if(shore){x=shore.targetX;z=shore.targetZ;}else{x=player.x+Math.sin(player.facing)*5;z=player.z+Math.cos(player.facing)*5;}}
-    if(!waterAt(x,z)){const shore=nearestShoreFishingPoint(x,z);if(shore){x=shore.targetX;z=shore.targetZ;}}return new THREE.Vector3(x,.16,z);
+    let dx,dz,dist=source==='boat'?5.4:5.0;
+    if(source==='boat'){const heading=player.boat.heading;dx=Math.sin(heading);dz=Math.cos(heading);}else{dx=-45-player.x;dz=52-player.z;const m=Math.hypot(dx,dz)||1;dx/=m;dz/=m;}
+    let x=player.x+dx*dist,z=player.z+dz*dist;
+    if(!isInsideLakeNavigable(x,z)){dx=-72-player.x;dz=52-player.z;const m=Math.hypot(dx,dz)||1;x=player.x+dx/m*dist;z=player.z+dz/m*dist;}
+    return new THREE.Vector3(x,.16,z);
   }
   function beginFishingVisual(source){
-    const v=ensureFishingVisual();if(!v)return;const initialTarget=fishingCastTarget(source),targetHeading=Math.atan2(initialTarget.x-player.x,initialTarget.z-player.z);player.facing=targetHeading;input.cameraDrag=null;
-    v.hideToken++;v.active=true;v.phase='ready';v.source=source;v.phaseAt=performance.now();v.target.copy(initialTarget);v.rodRoot.visible=true;v.line.visible=true;v.bobber.visible=true;v.fish.visible=false;v.rodRoot.rotation.set(-.48,0,-.08);player.emoteType='fishing';player.emoteUntil=performance.now()+600000;player.emoteSeq=(player.emoteSeq||0)+1;const tip=new THREE.Vector3();v.tip.getWorldPosition(tip);v.bobber.position.copy(tip);setFishingLine(tip,v.bobber.position);
+    const v=ensureFishingVisual();
+    if(!v)return;
+    if(!fishingCameraState)fishingCameraState={yaw:cameraYaw,pitch:cameraPitch,zoom:cameraZoom};
+    const initialTarget=fishingCastTarget(source),targetHeading=Math.atan2(initialTarget.x-player.x,initialTarget.z-player.z);
+    cameraYaw=targetHeading+Math.PI/2;
+    cameraPitch=clamp(cameraPitch,.24,.52);
+    cameraZoom=clamp(cameraZoom,-1.5,1.2);
+    input.cameraDrag=null;
+    v.hideToken++;v.active=true;v.phase='ready';v.source=source;v.phaseAt=performance.now();v.target.copy(initialTarget);
+    v.rodRoot.visible=true;v.line.visible=true;v.bobber.visible=true;v.fish.visible=false;v.rodRoot.rotation.set(-.48,0,-.08);
+    player.emoteType='fishing';player.emoteUntil=performance.now()+600000;player.emoteSeq=(player.emoteSeq||0)+1;
+    const tip=new THREE.Vector3();v.tip.getWorldPosition(tip);v.bobber.position.copy(tip);setFishingLine(tip,v.bobber.position);
   }
   function castFishingVisual(){const v=ensureFishingVisual();if(!v?.active)return;v.tip.getWorldPosition(v.castStart);v.target.copy(fishingCastTarget(v.source));v.phase='casting';v.phaseAt=performance.now();beep(420,55,'sine');}
   function hookFishingVisual(){const v=fishingVisual;if(!v?.active)return;v.phase='hooked';v.phaseAt=performance.now();v.bobber.scale.setScalar(1.28);}
   function pullFishingVisual(success,fishData){const v=fishingVisual;if(!v?.active)return;v.phase=success?'pulling':'escaping';v.phaseAt=performance.now();v.fishSize=clamp(.8+Number(fishData?.size||.5)*.08,.82,1.35);v.fish.scale.setScalar(v.fishSize);v.fish.visible=!!success;}
-  function restoreFishingCamera(){fishingCameraState=null;input.cameraDrag=null;}
+  function restoreFishingCamera(){
+    if(!fishingCameraState)return;
+    cameraYaw=Number(fishingCameraState.yaw||0);cameraPitch=clamp(Number(fishingCameraState.pitch||.28),-.55,1.35);cameraZoom=Number(fishingCameraState.zoom||0);state.settings.cameraPitch=+cameraPitch.toFixed(3);fishingCameraState=null;input.cameraDrag=null;
+  }
   function stopFishingVisual(delay=0){
     const v=fishingVisual;
     if(!v){restoreFishingCamera();return;}
@@ -151,8 +158,8 @@
   function constrainBoat(prevX,prevZ){if(!player.boating)return;if(!isInsideLakeNavigable(player.x,player.z)){player.x=prevX;player.z=prevZ;player.boat.speed*=-.18;player.vx=player.vz=0;}if(world.boat){world.boat.group.position.set(player.x,.1,player.z);world.boat.group.rotation.y=player.boat.heading;world.boat.heading=player.boat.heading;}state.boats.lastPosition={x:+player.x.toFixed(2),z:+player.z.toFixed(2),heading:+player.boat.heading.toFixed(3)};}
   function weightedFish(){let r=Math.random()*100;for(const fish of FISH_SPECIES){r-=fish.weight;if(r<=0)return fish;}return FISH_SPECIES[0];}
   function startFishing(source='shore',options={}){
-    if(fishingSession){toast('Finalize a pesca atual primeiro.','warn');return;}if((state.inventory.fishingRod||0)<1){toast('Você precisa de uma vara de pesca.','warn');return;}if((state.inventory.bait||0)<1){toast('Você ficou sem isca.','warn');return;}if(source==='boat'&&!player.boating){toast('Entre no barco primeiro.','warn');return;}if(source!=='boat'&&!isNearFishingArea()){toast('Chegue perto de qualquer margem segura do lago para pescar.','warn');return;}const wait=Math.max(0,6500-(Date.now()-Number(state.fishing.lastAttempt||0)));if(wait>0){toast(`Aguarde ${Math.ceil(wait/1000)} s para tentar novamente.`,'warn');return;}
-    setFishingUiActive(true);const token=uid();fishingSession={token,source,options,hookTimer:0,escapeTimer:0,finishTimer:0};beginFishingVisual(source);ensureFishingModalStyle();openModal(options.cooperative?'Pesca com amigo':'Pesca',`<div class="activity-card fishing-card"><div class="fishing-compact-status" data-fishing-status>🎣 Pronto</div><div class="fishing-camera-hint">🎣 Pesque de qualquer margem segura • arraste a paisagem para olhar ao redor</div><div class="activity-meter"><i data-fishing-meter></i></div><button class="btn primary xl" data-cast>Lançar</button><button class="btn good xl" data-pull hidden>PUXAR!</button></div>`,root=>{
+    if(fishingSession){toast('Finalize a pesca atual primeiro.','warn');return;}if((state.inventory.fishingRod||0)<1){toast('Você precisa de uma vara de pesca.','warn');return;}if((state.inventory.bait||0)<1){toast('Você ficou sem isca.','warn');return;}if(source==='boat'&&!player.boating){toast('Entre no barco primeiro.','warn');return;}if(source!=='boat'&&!isNearFishingArea()){toast('Pesque somente nos pontos marcados da margem.','warn');return;}const wait=Math.max(0,6500-(Date.now()-Number(state.fishing.lastAttempt||0)));if(wait>0){toast(`Aguarde ${Math.ceil(wait/1000)} s para tentar novamente.`,'warn');return;}
+    setFishingUiActive(true);const token=uid();fishingSession={token,source,options,hookTimer:0,escapeTimer:0,finishTimer:0};beginFishingVisual(source);ensureFishingModalStyle();openModal(options.cooperative?'Pesca com amigo':'Pesca',`<div class="activity-card fishing-card"><div class="fishing-compact-status" data-fishing-status>🎣 Pronto</div><div class="fishing-camera-hint">↔ Arraste a paisagem para girar a câmera</div><div class="activity-meter"><i data-fishing-meter></i></div><button class="btn primary xl" data-cast>Lançar</button><button class="btn good xl" data-pull hidden>PUXAR!</button></div>`,root=>{
       els.modal.classList.add('fishing-modal');
       const status=$('[data-fishing-status]',root),cast=$('[data-cast]',root),pull=$('[data-pull]',root),meter=$('[data-fishing-meter]',root);
       cast.onclick=()=>{if(!fishingSession||fishingSession.token!==token)return;cast.disabled=true;state.inventory.bait--;state.fishing.lastAttempt=Date.now();saveState(true);status.textContent='🎣 Aguarde…';meter.style.animation='fishingWait 2.4s linear forwards';castFishingVisual();const hookDelay=1400+Math.random()*1700;fishingSession.hookTimer=setTimeout(()=>{if(!fishingSession||fishingSession.token!==token||els.modal.hidden){cancelFishingSession();return;}status.textContent='⚡ Fisgou!';pull.hidden=false;hookFishingVisual();beep(880,100,'sine');vibrate([35,35,55]);fishingSession.hookedAt=performance.now();fishingSession.escapeTimer=setTimeout(()=>{if(!fishingSession||fishingSession.token!==token)return;status.textContent='💨 Escapou';pull.hidden=true;pullFishingVisual(false);fishingSession.finishTimer=setTimeout(()=>{if(fishingSession?.token===token)fishingSession=null;stopFishingVisual();},800);},2700);},hookDelay);};

@@ -1,20 +1,20 @@
 {
-  "version": 702,
-  "build": "702.0-world-evolution-complete",
+  "version": 703,
+  "build": "703.0-recovery-functional-world",
   "javascript": [
     {
       "file": "src/modules/00-runtime-foundation.js",
       "startLine": 4,
       "endLine": 49,
       "description": "Runtime, utilitários, versão, storage e chaves de migração",
-      "sha256Body": "2c3f602c0468771bfad79d20add668ca4b4f96d6ac869dda6689ac69f4e4ec25"
+      "sha256Body": "96710b4d7882a27c7b76273ce0e30fefa1f65ffc1c196ef6b84173f04cdb00fc"
     },
     {
       "file": "src/modules/00a-visual-foundation-avatar-v2.js",
       "startLine": 51,
       "endLine": 367,
       "description": "Registro central de assets, LOD gerenciado, orçamento visual e esquema de avatar V2",
-      "sha256Body": "bad76996bba6200fe63a94ce4a6e910a5f3e22f0594b04d72a9dbcdbdb08fb6c"
+      "sha256Body": "66e94b2cd90c68e43a7455afa3045b6449799c9710b602558166d6e5f0e03d39"
     },
     {
       "file": "src/modules/01-build-persistence.js",
@@ -63,7 +63,7 @@
       "startLine": 1456,
       "endLine": 1604,
       "description": "Rotas, trânsito, grafo, GPS e minimapa",
-      "sha256Body": "9cf4dac61b916d03afce79233100b16d0b1602422748441fdbb004c1c3a4bb7b"
+      "sha256Body": "2d042aa04eb6877c0ae464e09a866b3566a0814283cb0d4d481ce31c2a320ecc"
     },
     {
       "file": "src/modules/08-map-parent-settings.js",
@@ -91,7 +91,7 @@
       "startLine": 2145,
       "endLine": 2512,
       "description": "Texturas, materiais, geometria, personagem e avatar 3D",
-      "sha256Body": "77f18424431abf7480e7ee1d17f7fa6f59e1fda7d7b90f6697c9ff4de516b921"
+      "sha256Body": "fd64f45cbfb038e111bdc952f5f2eeae332ac7c25708fda9c263767d333aa207"
     },
     {
       "file": "src/modules/12-world-resources-nature.js",
@@ -105,14 +105,14 @@
       "startLine": 2743,
       "endLine": 2991,
       "description": "Casas, interiores, NPCs, inimigos, cristais, veículos e academia",
-      "sha256Body": "2a11c168e7d7f28f3a0e5950f070f772ddaf31fc136354743535c3c95e4e6c42"
+      "sha256Body": "e4aca2245b2704c140cdae177332129e5b25365e5d69f9a3e4f3b49361907976"
     },
     {
       "file": "src/modules/14-world-district-decoration.js",
       "startLine": 2993,
       "endLine": 3085,
       "description": "Cogumelos, portais, praça, distrito e decoração urbana",
-      "sha256Body": "acf2328861ac55c67dd3591b377fa6cb0ec4b6fe0b9c8e7dcc087eca259d1568"
+      "sha256Body": "b134bf487383f09375cf4967dd2107b2a3051750c3267f6227b4fff511bde87e"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -126,7 +126,7 @@
       "startLine": 3310,
       "endLine": 3495,
       "description": "Bombeiros, incêndios, polícia, ambulância, segurança e incidentes",
-      "sha256Body": "b5df7e5b48bda3ccacd3fa832f21277a2aecff50a20735198b8a91ff140102dd"
+      "sha256Body": "05ca8dc1c1d2ff6acd0c0f913e232f7e92fa076b95b819ae64bd8bab41e28d51"
     },
     {
       "file": "src/modules/17-adventures-learning-world.js",
@@ -140,21 +140,21 @@
       "startLine": 3559,
       "endLine": 3717,
       "description": "Água, câmera e animação da pesca, barco e física náutica",
-      "sha256Body": "a7d2d466a24876d635cc95508be92ea9e2c041797406bb8da42bc7b77d5d8165"
+      "sha256Body": "f81fdb6bdde4e190b8f744440adaf644b890f4fc7c715495433d1c4ddf026166"
     },
     {
       "file": "src/modules/19-campfire-hunting-house-extensions.js",
       "startLine": 3719,
       "endLine": 3803,
       "description": "Fogueira, caça, animais e ampliações de casas",
-      "sha256Body": "187749c3cc1928a6ec27506e20dbd32c97a21fea2657e4594a517856a5668154"
+      "sha256Body": "6ea68178a5f6831171335b9c20dd59b6d8985ba0cc1ff587ab95b4ab1d44e977"
     },
     {
       "file": "src/modules/20-world-build-cloud-houses.js",
       "startLine": 3805,
       "endLine": 3948,
       "description": "Construção do mundo, recursos, baús, casas em nuvem e interiores",
-      "sha256Body": "cb0a06a3d2b91e109529bf41caabfbe90bd9cc158ede1d38cef2d5d959bab3fe"
+      "sha256Body": "712fcc110bd8927592ba637c22f8c81b4ab42f6ba5d1d1863f5e2ad3978e21b9"
     },
     {
       "file": "src/modules/21-interactions-shop-social-races.js",
@@ -189,14 +189,14 @@
       "startLine": 4495,
       "endLine": 4635,
       "description": "Three.js, qualidade, viewport, resize, posição segura e colisões",
-      "sha256Body": "d89730724976c3160bad166f2b94dc54fb9c75bce7b74d58306bc61f7218a73c"
+      "sha256Body": "d1541b35c584a3ac6585f92b0a6b74a09611dd821f6a093ce6806236fb211791"
     },
     {
       "file": "src/modules/26-input-player-physics.js",
       "startLine": 4637,
       "endLine": 4765,
       "description": "Entrada, corrida, pulo, física do jogador/veículo e animação",
-      "sha256Body": "23b4c540b31d41daf88e375684f1bddf8de9745a7606e9121aaccec4d19cd336"
+      "sha256Body": "73dbbd53e34e13a2e7d5b7c8fc809b2642b4398c50d15c30f9b87314c0906bbd"
     },
     {
       "file": "src/modules/27-npc-enemies-combat-camera-action.js",
@@ -210,7 +210,7 @@
       "startLine": 4930,
       "endLine": 5122,
       "description": "Desafios online, social, chat, presença, fantasmas e sincronização",
-      "sha256Body": "3044b224e20adb290b944c1aef9043539475dc184d9d5b70708949c0ffc58014"
+      "sha256Body": "056bcb81a9e0ac32f0ef3651bf8f2e792d9c3923df1c703d194dc2f3fecfaf68"
     },
     {
       "file": "src/modules/29-game-loop-controls-gamepad.js",
@@ -224,7 +224,7 @@
       "startLine": 5240,
       "endLine": 5422,
       "description": "Pausa, testes de veículo, API pública de auditoria e bootstrap final",
-      "sha256Body": "8539dc76be417801be7672f65d3fe20108b13c402059ad777197920e5c604802"
+      "sha256Body": "d9bccd75ebbbe64cbbc5a41a484709a8592672dba1fc23e056f3fea77db401f4"
     },
     {
       "file": "src/modules/31-neighborhood-world-controller.js",
@@ -238,35 +238,35 @@
       "startLine": 5453,
       "endLine": 5678,
       "description": "Missões cooperativas infantis, equipes online/solo, pesca, escola e corridas",
-      "sha256Body": "71dfedd7b855a95d8047d514c54f013fcb65de6de5e45cdb82f2a78fccf22a0f"
+      "sha256Body": "b4f6aa6a2c5fc2f9ebdf8ea95199c87cdb3605ff4bc9eac5432a3bbacfda65f4"
     },
     {
       "file": "src/modules/33-otthi-world-professional-core.js",
       "startLine": 5680,
       "endLine": 5801,
       "description": "Fundação OTTHI World, PBR local, diagnóstico e painel das cinco etapas",
-      "sha256Body": "b0d7f903441f211d9e55de29f9b17acae3dad17df61061579f357c76fafb5f84"
+      "sha256Body": "0c263732046930ead7b5951e2c318ce131473316d792fb752a8f26690e6bcdca"
     },
     {
       "file": "src/modules/34-avatar-studio-professional-v3.js",
       "startLine": 5803,
       "endLine": 5897,
       "description": "Avatar modular V3 sobre o rig procedural preservado",
-      "sha256Body": "2f9e586108f80a1272479dd56dd2cb1d8f6f1957062572707ae8cb894a6da203"
+      "sha256Body": "5a106a18e5ed42cde13541c913eaef14fc5b8ba684289bcbc04db1abfb5d7657"
     },
     {
       "file": "src/modules/35-world-render-pbr-environment.js",
       "startLine": 5899,
       "endLine": 5956,
       "description": "Mundo profissional, materiais PBR, vegetação, atmosfera e detalhes",
-      "sha256Body": "d3ba2880494e0419922c8e540348c32fa8052d311d73e84bde72096dd1800520"
+      "sha256Body": "9738993dc27cc6b48be41fb05e2e5e036a1495559a8b02470ec3b3fbe0c25e68"
     },
     {
       "file": "src/modules/36-modular-build-machines.js",
       "startLine": 5958,
       "endLine": 6056,
       "description": "Construção modular, oficina e veículos montáveis",
-      "sha256Body": "cf6651a531ba88c15757cf8491ce4f6c83b17083c91731f4c4855cfb3cb62aa5"
+      "sha256Body": "895d4c7a3285f1768206868083e10431b6db5b6e8fab2d5816e47b30ee85aaf5"
     },
     {
       "file": "src/modules/37-hero-platform-gameplay.js",
@@ -294,7 +294,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Evolução integral V702: HUD, câmera, terreno, água, natação, fazenda, escavação e cidadãos temáticos",
-      "sha256Body": "e8b42d2b5d9aa2dfbf897cd3263ca9b8bb6aaef038ab9d127cba3bb9888b8940"
+      "sha256Body": "35a805dd6de3e967f4e8c5e2c4111086a44350ae4f5a75dc5ede09c749c2571b"
     }
   ],
   "styles": [
@@ -429,7 +429,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "HUD paisagem e interface de mundo evoluído V702",
-      "sha256Body": "47587437c06ed01f49d0d443620bf484131e9062eb4e26f0fe2b531047e2aca7"
+      "sha256Body": "ea2595137c241f91b896cba1d62b4e63ce94c78c69193f5ff74f968f194f7526"
     }
   ]
 }

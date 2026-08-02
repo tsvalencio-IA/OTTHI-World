@@ -111,28 +111,24 @@
     registerInteractable({id:`${activity}-${house.id}`,type:'activity',activity,icon:activityIcon(activity),label:item.label,x:item.x,z:item.z,radius:1.75,priority,houseId:house.id,action:()=>useActivity(activity,house)});
   }
   function activityIcon(type){return ({bed:'🛏',sofa:'🛋',tv:'📺',fridge:'🍎',stove:'🍳',sink:'💧',shower:'🚿',chest:'🎁',shop:'🛒',workshop:'🛠',wardrobe:'👕',school:'🏫',police:'🛡️',firestation:'🚒'})[type]||'✋';}
+
   function createNPC(id,name,x,z,color,pathRadius=3){
     const group=new THREE.Group();group.position.set(x,0,z);worldGroup.add(group);
     const hairPalette=[0x3b2415,0x111214,0xd9b45a,0xa4471f,0x2b3a55,0x8a8f99],skinPalette=[0xffd3a0,0xe7ad7d,0xb97853,0x8e5a3e];
-    const hash=String(id).split('').reduce((a,c)=>a+c.charCodeAt(0),0),hairColor=hairPalette[hash%hairPalette.length],skinColor=skinPalette[hash%skinPalette.length];
-    const shirt=renderMat(color,{roughness:.54}),shirtDark=renderMat(shadeColor(color,-28),{roughness:.62}),pants=renderMat(hash%2?0x294b75:0x44356f,{roughness:.7}),shoe=renderMat(hash%3===0?0xffffff:0x1b2635,{roughness:.5}),skin=renderMat(skinColor,{roughness:.66}),hair=renderMat(hairColor,{roughness:.72});
-    const body=new THREE.Mesh(new THREE.SphereGeometry(.56,16,12),shirt);body.scale.set(.82,1.08,.62);body.position.set(0,1.22,0);body.castShadow=true;group.add(body);
-    const waist=new THREE.Mesh(new THREE.SphereGeometry(.43,14,10),shirtDark);waist.scale.set(1,.38,.75);waist.position.set(0,.72,0);waist.castShadow=true;group.add(waist);
-    const head=new THREE.Mesh(new THREE.SphereGeometry(.49,18,14),skin);head.scale.set(.96,1.04,.92);head.position.set(0,2.17,0);head.castShadow=true;group.add(head);
-    const hairCap=new THREE.Mesh(new THREE.SphereGeometry(.51,16,10,0,Math.PI*2,0,Math.PI*.52),hair);hairCap.position.set(0,2.36,0);hairCap.scale.set(1.01,.72,1.01);hairCap.castShadow=true;group.add(hairCap);
-    if(hash%3===0){for(const [hx,hz,s]of[[-.38,-.02,.19],[.38,-.02,.19],[-.28,.30,.16],[.28,.30,.16]]){const curl=new THREE.Mesh(new THREE.SphereGeometry(s,10,8),hair);curl.position.set(hx,2.26,hz);curl.castShadow=true;group.add(curl);}}
-    else if(hash%3===1){const fringe=new THREE.Mesh(new THREE.SphereGeometry(.2,10,8),hair);fringe.scale.set(1.7,.55,.45);fringe.position.set(0,2.35,.42);group.add(fringe);}
-    const eyeMat=renderMat(0x111827,{roughness:.26}),mouthMat=renderMat(0xa84b4b,{roughness:.38});
-    for(const ex of[-.17,.17]){const eye=new THREE.Mesh(new THREE.SphereGeometry(.045,8,6),eyeMat);eye.position.set(ex,2.19,.455);group.add(eye);}
-    const mouth=new THREE.Mesh(new THREE.SphereGeometry(.055,8,6),mouthMat);mouth.scale.set(1.8,.45,.35);mouth.position.set(0,2.02,.465);group.add(mouth);
+    const hash=String(id).split('').reduce((a,c)=>a+c.charCodeAt(0),0),hairColor=hairPalette[hash%hairPalette.length],skin=skinPalette[hash%skinPalette.length];
+    const shirt=renderMat(color,{roughness:.68}),shirtDark=renderMat(shadeColor(color,-28),{roughness:.72}),pants=renderMat(hash%2?0x294b75:0x44356f,{roughness:.76}),shoe=renderMat(hash%3===0?0xffffff:0x1b2635,{roughness:.58});
+    const body=box(.82,1.06,.58,shirt,0,1.13,0,group),head=box(.7,.7,.7,skin,0,2.03,0,group);
+    box(.76,.18,.64,hairColor,0,2.38,0,group);if(hash%3===0){box(.18,.42,.58,hairColor,-.34,2.15,0,group);box(.18,.42,.58,hairColor,.34,2.15,0,group);}else if(hash%3===1){box(.72,.12,.12,hairColor,0,2.14,.34,group);}
+    box(.09,.09,.04,0x111827,-.16,2.08,.37,group);box(.09,.09,.04,0x111827,.16,2.08,.37,group);box(.18,.05,.04,0xa84b4b,0,1.91,.37,group);
+    box(.72,.14,.6,shirtDark,0,.66,0,group);
     const leftArm=new THREE.Group(),rightArm=new THREE.Group(),leftLeg=new THREE.Group(),rightLeg=new THREE.Group();
-    leftArm.position.set(-.57,1.48,0);rightArm.position.set(.57,1.48,0);leftLeg.position.set(-.22,.74,0);rightLeg.position.set(.22,.74,0);group.add(leftArm,rightArm,leftLeg,rightLeg);
-    for(const arm of[leftArm,rightArm]){const sleeve=new THREE.Mesh(new THREE.CylinderGeometry(.17,.19,.58,12),shirt);sleeve.position.y=-.26;sleeve.castShadow=true;arm.add(sleeve);const hand=new THREE.Mesh(new THREE.SphereGeometry(.18,12,9),skin);hand.position.y=-.65;hand.castShadow=true;arm.add(hand);}
-    for(const leg of[leftLeg,rightLeg]){const limb=new THREE.Mesh(new THREE.CylinderGeometry(.17,.19,.62,12),pants);limb.position.y=-.29;limb.castShadow=true;leg.add(limb);const foot=new THREE.Mesh(new THREE.SphereGeometry(.22,12,8),shoe);foot.scale.set(1,0.58,1.35);foot.position.set(0,-.68,.08);foot.castShadow=true;leg.add(foot);}
-    if(hash%4===0){const cap=new THREE.Mesh(new THREE.SphereGeometry(.54,14,9,0,Math.PI*2,0,Math.PI*.48),renderMat(0x2f7ed6,{roughness:.46}));cap.scale.y=.48;cap.position.set(0,2.55,0);group.add(cap);const brim=new THREE.Mesh(new THREE.BoxGeometry(.54,.07,.28),cap.material);brim.position.set(0,2.46,.42);group.add(brim);}
+    leftArm.position.set(-.52,1.4,0);rightArm.position.set(.52,1.4,0);leftLeg.position.set(-.21,.74,0);rightLeg.position.set(.21,.74,0);group.add(leftArm,rightArm,leftLeg,rightLeg);
+    for(const arm of [leftArm,rightArm]){box(.24,.48,.24,shirt,0,-.22,0,arm);box(.22,.25,.22,skin,0,-.58,0,arm);}
+    for(const leg of [leftLeg,rightLeg]){box(.24,.58,.25,pants,0,-.28,0,leg);box(.27,.18,.34,shoe,0,-.65,.06,leg);}
+    if(hash%4===0)box(.9,.18,.7,0x2f7ed6,0,2.48,0,group);
     const npc={id,name,x,z,baseX:x,baseZ:z,color,group,pathRadius,phase:Math.random()*6.28,friendship:state.friendship[id]||0,body,head,limbs:{leftArm,rightArm,leftLeg,rightLeg}};
-    group.traverse(o=>{if(o.isMesh&&state.settings?.worldOutlines!==false)addVoxelOutline(o,0x172033,.16);});
-    const badge=new THREE.Sprite(new THREE.SpriteMaterial({map:iconTexture(name.charAt(0),'#ffffff','#15314b'),transparent:true,depthWrite:false}));badge.position.set(0,3.02,0);badge.scale.set(.55,.55,.55);badge.visible=false;group.add(badge);npc.badge=badge;
+    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x172033,.3);});
+    const badge=new THREE.Sprite(new THREE.SpriteMaterial({map:iconTexture(name.charAt(0),'#ffffff','#15314b'),transparent:true,depthWrite:false}));badge.position.set(0,2.95,0);badge.scale.set(.55,.55,.55);badge.visible=false;group.add(badge);npc.badge=badge;
     world.npcs.push(npc);registerInteractable({id:`npc-${id}`,type:'npc',icon:'💬',label:`Conversar com ${name}`,radius:2.7,priority:160,getPos:()=>({x:npc.group.position.x,z:npc.group.position.z}),action:()=>talkToNPC(npc)});return npc;
   }
   function createNpcMobility(npc,type,route,speed){
@@ -176,41 +172,15 @@
   }
   function createToyCar(x,z,options={}){
     const id=options.id||`city-car-${world.vehicles.length+1}`,saved=state.vehicles?.parked?.[id]||{},heading=Number(saved.heading??options.heading??0),group=new THREE.Group();group.position.set(Number(saved.x??x),0,Number(saved.z??z));group.rotation.y=heading;group.userData.vehicleId=id;worldGroup.add(group);
-    const profiles={
-      classic:{icon:'🚗',body:[1.98,.34,2.8],cabin:[1.6,.46,1.24,.48],rear:[1.28,.34,.74,-.68],bumper:[2.0,.18,.24],rack:false,spare:false},
-      compact:{icon:'🚙',body:[1.72,.34,2.25],cabin:[1.45,.56,1.18,.22],rear:[1.18,.28,.62,-.52],bumper:[1.78,.18,.22],rack:false,spare:false},
-      sport:{icon:'🏎️',body:[1.92,.28,2.6],cabin:[1.42,.36,1.0,.35],rear:[1.62,.14,.42,-.95],bumper:[1.95,.14,.22],rack:false,spare:false,spoiler:true},
-      offroad:{icon:'🚜',body:[2.0,.4,2.72],cabin:[1.64,.52,1.26,.36],rear:[1.36,.36,.78,-.6],bumper:[2.05,.2,.24],rack:true,spare:true,lift:.07,bigWheel:.08},
-      utility:{icon:'🚐',body:[1.92,.38,2.88],cabin:[1.56,.62,1.44,.08],rear:[1.5,.46,.94,-.72],bumper:[2.0,.2,.24],rack:true,spare:false},
-      special:{icon:'✨',body:[1.88,.34,2.54],cabin:[1.56,.5,1.18,.34],rear:[1.32,.28,.72,-.64],bumper:[1.94,.18,.22],rack:false,spare:false,fin:true},
-      explorer:{icon:'🧭',body:[1.98,.38,2.82],cabin:[1.58,.54,1.24,.28],rear:[1.4,.34,.84,-.66],bumper:[2.02,.2,.24],rack:true,spare:true}
-    };
-    const variant=String(options.variant||options.model||['classic','compact','sport','offroad','utility','special','explorer'][world.vehicles.length%7]);
-    const spec=profiles[variant]||profiles.classic;
     const appearance={chassis:options.chassis??0x26384e,primary:options.primary??0xf28a22,primaryDark:options.primaryDark??options.primary??0xc85b16,secondary:options.secondary??0x0aa7b8,glass:options.glass??0x102338};
-    const chassis=renderMat(appearance.chassis,{roughness:.46,metalness:.22}),primary=renderMat(appearance.primary,{roughness:.34,metalness:.18}),secondary=renderMat(appearance.secondary,{roughness:.3,metalness:.24}),glass=renderMat(appearance.glass,{roughness:.1,metalness:.42,transparent:true,opacity:.84}),trim=renderMat(0xf3f5f7,{roughness:.24,metalness:.18}),dark=renderMat(0x151a23,{roughness:.68}),accent=renderMat(appearance.primaryDark,{roughness:.42,metalness:.18});
-    const lift=Number(spec.lift||0),wheelRadius=.34+Number(spec.bigWheel||0),wheelY=.24+lift;
-    box(spec.body[0],spec.body[1],spec.body[2],chassis,0,.28+lift,0,group);
-    box(spec.cabin[0],spec.cabin[1],spec.cabin[2],primary,0,.53+lift,spec.cabin[3],group);
-    box(spec.rear[0],spec.rear[1],spec.rear[2],secondary,0,.80+lift,spec.rear[3],group);
-    box(Math.max(1.18,spec.cabin[0]-.18),Math.max(.28,spec.cabin[1]-.17),Math.max(.78,spec.cabin[2]-.18),glass,0,.88+lift,spec.cabin[3]-.02,group);
-    box(spec.bumper[0],spec.bumper[1],spec.bumper[2],trim,0,.32+lift,spec.body[2]/2+.06,group);
-    box(spec.bumper[0]-.04,spec.bumper[1],spec.bumper[2]-.02,accent,0,.34+lift,-spec.body[2]/2-.06,group);
-    box(.18,.34,spec.body[2]-.38,secondary,-spec.body[0]/2+.08,.42+lift,0,group);box(.18,.34,spec.body[2]-.38,secondary,spec.body[0]/2-.08,.42+lift,0,group);
-    box(Math.max(.56,spec.cabin[0]*.42),.38,.56,dark,0,.72+lift,-.08,group);
-    if(spec.rack){box(spec.cabin[0]-.12,.08,.16,trim,0,1.14+lift,-.1,group);box(spec.cabin[0]-.24,.08,.16,trim,0,1.14+lift,.18,group);}
-    if(spec.spoiler){box(.95,.08,.2,accent,0,.88+lift,-1.35,group);}
-    if(spec.fin){box(.16,.26,.52,trim,0,1.1+lift,-1.02,group);}
-    const headlight=renderMat(0xfff1a8,{emissive:0xffd75b,emissiveIntensity:.9,roughness:.18}),taillight=renderMat(0xff334d,{emissive:0xa90018,emissiveIntensity:.8,roughness:.22});
-    box(.28,.16,.08,headlight,-.58,.5+lift,spec.body[2]/2-.02,group);box(.28,.16,.08,headlight,.58,.5+lift,spec.body[2]/2-.02,group);
-    box(.24,.14,.07,taillight,-.59,.45+lift,-spec.body[2]/2+.02,group);box(.24,.14,.07,taillight,.59,.45+lift,-spec.body[2]/2+.02,group);
-    const wheelPos=[[-spec.body[0]/2+.26,wheelY,-.82],[spec.body[0]/2-.26,wheelY,-.82],[-spec.body[0]/2+.26,wheelY,.82],[spec.body[0]/2-.26,wheelY,.82]];
-    for(const p of wheelPos){const wheel=cylinder(wheelRadius,.28,0x10151d,p[0],p[1],p[2],group,14);wheel.rotation.z=Math.PI/2;const hub=cylinder(.12+Number(spec.bigWheel||0)*.2,.3,0xf5a623,p[0],p[1],p[2],group,10);hub.rotation.z=Math.PI/2;}
-    if(spec.spare){const spare=cylinder(.28,.22,0x10151d,0,.56+lift,-spec.body[2]/2-.18,group,14);spare.rotation.z=Math.PI/2;const hub=cylinder(.1,.24,0xf5a623,0,.56+lift,-spec.body[2]/2-.18,group,10);hub.rotation.z=Math.PI/2;}
-    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.24);});
-    const labelBase=options.label||'Carro da cidade';
-    const vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:labelBase,kind:options.kind||'car',serviceType:options.serviceType||'',appearance,variant,occupied:false,radius:Number(options.radius||1.65),mapIcon:spec.icon};world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
-    registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:spec.icon||'🚗',label:`Entrar: ${vehicle.label}`,radius:2.6,priority:155,getPos:()=>({x:vehicle.group.position.x,z:vehicle.group.position.z}),available:()=>!vehicle.occupied&&vehicle.group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
+    const chassis=renderMat(appearance.chassis,{roughness:.5,metalness:.16}),orange=renderMat(appearance.primary,{roughness:.4,metalness:.18}),teal=renderMat(appearance.secondary,{roughness:.38,metalness:.22}),glass=renderMat(appearance.glass,{roughness:.12,metalness:.38,transparent:true,opacity:.84});
+    box(1.84,.36,2.56,chassis,0,.28,0,group);box(1.72,.48,1.35,orange,0,.55,.55,group);box(1.48,.46,.92,teal,0,.78,-.48,group);box(1.32,.31,.72,glass,0,.93,-.42,group);
+    box(1.94,.18,.28,0xf3f5f7,0,.32,1.34,group);box(.18,.34,2.2,teal,-.92,.42,0,group);box(.18,.34,2.2,teal,.92,.42,0,group);box(.72,.42,.58,0x151a23,0,.72,-.12,group);
+    const headlight=renderMat(0xfff1a8,{emissive:0xffd75b,emissiveIntensity:.9,roughness:.2});box(.3,.17,.08,headlight,-.58,.5,1.27,group);box(.3,.17,.08,headlight,.58,.5,1.27,group);
+    for(const p of [[-.84,.24,-.79],[.84,.24,-.79],[-.84,.24,.79],[.84,.24,.79]]){const wheel=cylinder(.34,.28,0x10151d,p[0],p[1],p[2],group,14);wheel.rotation.z=Math.PI/2;const hub=cylinder(.12,.3,0xf5a623,p[0],p[1],p[2],group,10);hub.rotation.z=Math.PI/2;}
+    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.28);});
+    const vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:options.label||'Carro da cidade',kind:options.kind||'car',serviceType:options.serviceType||'',appearance,occupied:false,radius:Number(options.radius||1.55)};world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
+    registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:'🚗',label:`Entrar: ${vehicle.label}`,radius:2.5,priority:155,getPos:()=>({x:vehicle.group.position.x,z:vehicle.group.position.z}),available:()=>!vehicle.occupied&&vehicle.group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
   }
 
   function createWaypointMarker(){
@@ -225,36 +195,27 @@
     if(wp)world.waypointMarker.position.set(wp.x,0,wp.z);
   }
   function createAthleticsGym(){
-    // Ginásio oval profissional: pista oficial, arquibancadas e campo integrados sem invadir prédios.
-    const centerX=-42,centerZ=93,radiusX=27,radiusZ=13.8,trackWidth=7.2;
-    const gym={x:centerX,z:centerZ,centerX,centerZ,radiusX,radiusZ,startX:centerX+radiusX,finishX:centerX+radiusX,lane1Z:centerZ,lane2Z:centerZ+1.15,entranceX:centerX,entranceZ:centerZ-25};world.gym=gym;
-    const stadium=new THREE.Group();stadium.name='OTTHI_SPORTS_STADIUM';stadium.position.set(centerX,0,centerZ);worldGroup.add(stadium);world.sportsComplex={...(world.sportsComplex||{}),stadium};
-    const pbr=(pack,color,repeat=[4,4],roughness=.84)=>{const material=new THREE.MeshStandardMaterial({color,roughness});try{material.map=loadWorldTexture(pack,'basecolor',{repeat,color:true});material.normalMap=loadWorldTexture(pack,'normal',{repeat});material.roughnessMap=loadWorldTexture(pack,'roughness',{repeat});material.normalScale.set(.45,.45);}catch{}return material;};
-    const concrete=pbr('stadium-concrete',0xffffff,[8,5],.9),track=pbr('track-rubber',0xffffff,[18,3],.78),turf=pbr('sports-turf',0xffffff,[10,5],.88),white=renderMat(0xf8f7ef,{roughness:.68}),seatA=renderMat(0x2373b9,{roughness:.52}),seatB=renderMat(0xf3c946,{roughness:.52}),steel=renderMat(0x3c5268,{roughness:.42,metalness:.28});
-    premiumBox(72,.18,48,concrete,0,.08,0,stadium);
-    const segments=112;
+    const gym={x:51,z:75.5,centerX:51,centerZ:75.5,radiusX:25,radiusZ:8,startX:76,finishX:76,lane1Z:75.5,lane2Z:77.4};world.gym=gym;
+    // Ginásio oval: pista contínua com duas faixas, campo central e arquibancada.
+    premiumBox(58,.12,23,0x315f3b,gym.centerX,.06,gym.centerZ,worldGroup);
+    const trackMat=renderMat(0xc55f42,{roughness:.88}),lineMat=renderMat(0xf8f3da,{roughness:.72}),segments=64;
     for(let i=0;i<segments;i++){
       const a=i/segments*Math.PI*2,b=(i+1)/segments*Math.PI*2,mid=(a+b)/2;
-      const x=Math.cos(mid)*radiusX,z=Math.sin(mid)*radiusZ;
-      const x1=Math.cos(a)*radiusX,z1=Math.sin(a)*radiusZ,x2=Math.cos(b)*radiusX,z2=Math.sin(b)*radiusZ,len=Math.hypot(x2-x1,z2-z1);
-      const piece=new THREE.Mesh(new THREE.BoxGeometry(Math.max(.55,len+.15),.12,trackWidth),track);piece.position.set(x,.22,z);piece.rotation.y=-Math.atan2(z2-z1,x2-x1);piece.receiveShadow=true;stadium.add(piece);
-      for(const offset of[-trackWidth/2,-trackWidth/2+1.18,-trackWidth/2+2.36,-trackWidth/2+3.54,-trackWidth/2+4.72,-trackWidth/2+5.9,trackWidth/2]){
-        const scaleX=(radiusX+offset)/radiusX,scaleZ=(radiusZ+offset*.48)/radiusZ,lx=Math.cos(mid)*radiusX*scaleX,lz=Math.sin(mid)*radiusZ*scaleZ;
-        const line=new THREE.Mesh(new THREE.BoxGeometry(Math.max(.4,len+.1),.025,.07),white);line.position.set(lx,.292,lz);line.rotation.y=piece.rotation.y;stadium.add(line);
+      for(const offset of [0,2.15,-2.15]){
+        const rx=gym.radiusX+offset,rz=gym.radiusZ+offset*.22,x=gym.centerX+Math.cos(mid)*rx,z=gym.centerZ+Math.sin(mid)*rz;
+        const nextX=gym.centerX+Math.cos(b)*rx,nextZ=gym.centerZ+Math.sin(b)*rz,len=Math.hypot(nextX-(gym.centerX+Math.cos(a)*rx),nextZ-(gym.centerZ+Math.sin(a)*rz));
+        const piece=new THREE.Mesh(new THREE.BoxGeometry(Math.max(.65,len+.12),.12,offset===0?4.15:.12),offset===0?trackMat:lineMat);piece.position.set(x,.16,z);piece.rotation.y=-Math.atan2(Math.sin(mid)*rz,Math.cos(mid)*rx);worldGroup.add(piece);
       }
     }
-    const field=new THREE.Mesh(new THREE.BoxGeometry(43,.12,19),turf);field.position.set(0,.24,0);field.receiveShadow=true;stadium.add(field);
-    premiumBox(43,.035,.11,white,0,.32,-9.45,stadium);premiumBox(43,.035,.11,white,0,.32,9.45,stadium);premiumBox(.11,.035,19,white,-21.45,.32,0,stadium);premiumBox(.11,.035,19,white,21.45,.32,0,stadium);premiumBox(.11,.035,19,white,0,.32,0,stadium);
-    const centerCircle=new THREE.Mesh(new THREE.RingGeometry(2.55,2.67,48),new THREE.MeshBasicMaterial({color:0xffffff,side:THREE.DoubleSide}));centerCircle.rotation.x=-Math.PI/2;centerCircle.position.y=.33;stadium.add(centerCircle);
-    const createGoal=(x,rot)=>{const g=new THREE.Group();g.position.set(x,.32,0);g.rotation.y=rot;stadium.add(g);premiumBox(.12,2.2,.12,white,0,1.1,-3.05,g);premiumBox(.12,2.2,.12,white,0,1.1,3.05,g);premiumBox(.12,.12,6.2,white,0,2.16,0,g);for(let z=-2.9;z<=2.9;z+=.48)premiumBox(1.45,.025,.025,0xd8f4ff,-.72,1.08,z,g);for(let y=.15;y<2.1;y+=.38)premiumBox(1.45,.025,.025,0xd8f4ff,-.72,y,0,g);};createGoal(-21.5,0);createGoal(21.5,Math.PI);
-    const stand=(z,frontSign=1)=>{const group=new THREE.Group();group.position.set(0,0,z);stadium.add(group);for(let row=0;row<6;row++){const width=52-row*.6,depth=1.2,height=.42;premiumBox(width,height,depth,concrete,0,.22+row*.42,-frontSign*row*.92,group);for(let x=-23;x<=23;x+=2.1)premiumBox(1.45,.15,.72,(Math.round(x/2.1)+row)%2?seatA:seatB,x,.51+row*.42,-frontSign*row*.92,group);}premiumBox(55,.25,1.0,steel,0,5.15,-frontSign*2.2,group);for(const x of[-25,-12.5,0,12.5,25])premiumBox(.24,5,.24,steel,x,2.55,-frontSign*2.2,group);};stand(-20,-1);stand(20,1);
-    for(const x of[-33,33]){const end=new THREE.Group();end.position.set(x,0,0);end.rotation.y=Math.PI/2;stadium.add(end);for(let row=0;row<4;row++){premiumBox(18-row*.5,.38,1.1,concrete,0,.2+row*.38,row*.88,end);for(let sx=-7;sx<=7;sx+=2)premiumBox(1.35,.14,.68,(sx+row)%4?seatA:seatB,sx,.48+row*.38,row*.88,end);}}
-    for(const [lx,lz]of[[-30,-17],[30,-17],[-30,17],[30,17]]){premiumBox(.35,8,.35,steel,lx,4,lz,stadium);const lamp=addGlow(centerX+lx,8.2,centerZ+lz,0xf7fbff,10);lamp.userData.otthiWorldDetail=true;}
-    const sign=new THREE.Mesh(new THREE.PlaneGeometry(13,1.7),new THREE.MeshStandardMaterial({map:signTexture('COMPLEXO ESPORTIVO OTTHI','#0d3d66','#ffffff'),roughness:.46,side:THREE.DoubleSide}));sign.position.set(0,4.4,-24.15);stadium.add(sign);
-    const legacyArenaScore=new THREE.Mesh(new THREE.PlaneGeometry(10.5,1.2),new THREE.MeshStandardMaterial({map:signTexture('OTTHI ARENA • 3 VOLTAS','#173c66','#ffe06a'),roughness:.46,side:THREE.DoubleSide}));legacyArenaScore.position.set(0,4.05,24.1);legacyArenaScore.rotation.y=Math.PI;stadium.add(legacyArenaScore);
-    for(let j=-3;j<=3;j++)premiumBox(.18,.08,.72,j%2?0x111827:0xffffff,radiusX,.36,j*.72,stadium);
-    registerCollider(centerX,centerZ-22.5,55,4.5,{sportsStand:true});registerCollider(centerX,centerZ+22.5,55,4.5,{sportsStand:true});
-    registerInteractable({id:'athletics-gym',type:'race',icon:'🏟️',label:'Abrir desafios do complexo esportivo',x:centerX,z:centerZ-25,radius:4.2,priority:160,action:()=>openRaceCenter()});
+    // Gramado listrado, linha de largada, placar e arquibancada sem bloquear a pista.
+    for(let stripe=-4;stripe<=4;stripe++)premiumBox(43,0.035,1.35,stripe%2?0x3b9b4d:0x46aa57,gym.centerX,.19,gym.centerZ+stripe*1.35,worldGroup);
+    for(let j=-2;j<=2;j++)premiumBox(.18,.07,.72,j%2?0x111827:0xffffff,gym.finishX,.24,gym.centerZ+j*.72,worldGroup);
+    premiumBox(14,3.4,5.2,0x315779,51,1.7,91,worldGroup);premiumBox(12,.72,4.3,0xffd84d,51,3.82,91,worldGroup);
+    const arenaSign=new THREE.Mesh(new THREE.PlaneGeometry(9.8,1.15),new THREE.MeshStandardMaterial({map:signTexture('OTTHI ARENA • 3 VOLTAS','#123b63','#ffffff'),roughness:.55,side:THREE.DoubleSide}));arenaSign.position.set(51,3.86,88.35);arenaSign.rotation.y=Math.PI;worldGroup.add(arenaSign);
+    for(let row=0;row<3;row++)premiumBox(16-row*1.1,.42,1.25,row%2?0x6f98b8:0x5d83a1,51,.45+row*.48,87.2+row*.72,worldGroup);
+    for(const x of [27,39,51,63,75])premiumBox(.42,.09,.42,0xf5d84d,x,.25,66.5,worldGroup);
+    createLamp(25,67);createLamp(77,67);createLamp(25,84);createLamp(77,84);
+    registerInteractable({id:'athletics-gym',type:'race',icon:'🏃',label:'Abrir desafios do ginásio oval',x:51,z:86,radius:3.4,priority:120,action:()=>openRaceCenter()});
   }
   function createSizeChallenges(){
     // Passagem mini
