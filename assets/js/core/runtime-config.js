@@ -10,8 +10,8 @@
     } catch { return ''; }
   })();
   window.OTTHI_CONFIG = {
-    version: 703,
-    build: '703.0-recovery-functional-world',
+    version: 704,
+    build: '704.0-world-reconstruction-complete',
     repository: repo,
     baseUrl,
     firebaseRoot: 'otthosWorld',

@@ -134,7 +134,7 @@ function disable(){localStorage.removeItem(CONFIG_KEY);disconnect()}
 async function loadSdk(){if(api)return api;const[a,u,d]=await Promise.all([import(`https://www.gstatic.com/firebasejs/${SDK}/firebase-app.js`),import(`https://www.gstatic.com/firebasejs/${SDK}/firebase-auth.js`),import(`https://www.gstatic.com/firebasejs/${SDK}/firebase-database.js`)]);api={...a,...u,...d};return api}
 async function ensureServices(){
   const cfg=getConfig();if(!validConfig(cfg))throw new Error('Firebase não configurado');
-  const f=await loadSdk();app=f.getApps().find(x=>x.options?.projectId===cfg.projectId)||f.initializeApp(cfg,'otthos-world');auth=f.getAuth(app);if(typeof auth.authStateReady==='function')await auth.authStateReady();db=f.getDatabase(app);return f;
+  const f=await loadSdk();api=f;app=f.getApps().find(x=>x.options?.projectId===cfg.projectId)||f.initializeApp(cfg,'otthos-world');auth=f.getAuth(app);if(typeof auth.authStateReady==='function')await auth.authStateReady();db=f.getDatabase(app);return f;
 }
 function normalizeUsername(value=''){return String(value).normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase().replace(/[^a-z0-9._-]/g,'').replace(/\.+/g,'.').replace(/^[._-]+|[._-]+$/g,'').slice(0,20)}
 function accountEmail(username=''){const clean=normalizeUsername(username);return clean?`${clean}@players.otthos.game`:''}
@@ -152,7 +152,7 @@ async function createPlayerAccount(username,password,displayName=''){
 }
 async function signInPlayerAccount(username,password,displayName=''){
   const clean=normalizeUsername(username),secret=String(password||'');if(clean.length<3||secret.length<6)return{ok:false,error:'Confira o nome da conta e a senha.'};
-  try{const f=await ensureServices();await disconnect();user=(await f.signInWithEmailAndPassword(auth,accountEmail(clean),secret)).user;reauthenticatedAt=0;const publicName=sanitizePublicName(displayName||user.displayName||clean);await f.updateProfile(user,{displayName:publicName}).catch(()=>{});await f.update(f.ref(db,`${ROOT}/users/${user.uid}/profile`),{name:publicName,username:clean,accountLinked:true,updatedAt:f.serverTimestamp()});dispatchAccount();await connect({name:publicName});return{ok:true,...accountStatus()};}
+  try{const f=await ensureServices();await disconnect();user=(await f.signInWithEmailAndPassword(auth,accountEmail(clean),secret)).user;reauthenticatedAt=0;const publicName=sanitizePublicName(displayName||user.displayName||clean);await f.updateProfile(user,{displayName:publicName}).catch(()=>{});let cloudWarning='';try{await f.update(f.ref(db,`${ROOT}/users/${user.uid}/profile`),{name:publicName,username:clean,accountLinked:true,updatedAt:f.serverTimestamp()});}catch(error){cloudWarning='Perfil conectado; sincronização temporariamente indisponível.';}dispatchAccount();connect({name:publicName}).catch(()=>false);return{ok:true,...accountStatus(),cloudWarning};}
   catch(error){return{ok:false,error:friendlyAuthError(error)}}
 }
 async function reauthenticateAccount(password){try{const f=await ensureServices(),current=auth.currentUser;if(!current||current.isAnonymous||!current.email)return{ok:false,error:'Vincule uma conta antes de abrir a área dos responsáveis.'};await f.reauthenticateWithCredential(current,f.EmailAuthProvider.credential(current.email,String(password||'')));await current.getIdToken(true);reauthenticatedAt=Date.now();return{ok:true,expiresAt:reauthenticatedAt+PARENTAL_REAUTH_MS}}catch(error){reauthenticatedAt=0;return{ok:false,error:friendlyAuthError(error)}}}
@@ -240,11 +240,11 @@ function syncProgress(progress,force=false){pendingProgress=progress;clearTimeou
 function validAccountId(accountId){return/^[a-f0-9]{64}$/.test(String(accountId||''))}
 function accountReadyFor(accountId){const current=accountStatus();return!!(current.uid&&!current.anonymous&&validAccountId(accountId))}
 async function loadGameAccount(accountId){
-  if(!connected||!api||!db)return{ok:false,error:'Conecte-se para recuperar a conta'};if(!accountReadyFor(accountId))return{ok:false,error:'Entre na conta protegida antes de recuperar o progresso'};
+  if(!api||!db)return{ok:false,error:'Serviço de conta indisponível'};if(!accountReadyFor(accountId))return{ok:false,error:'Entre na conta protegida antes de recuperar o progresso'};
   try{const current=accountStatus(),snap=await api.get(api.ref(db,`${ROOT}/gameAccounts/${current.uid}`));if(!snap.exists())return{ok:true,exists:false,record:null};const record=snap.val()||{};if(record.accountId!==accountId)return{ok:false,error:'Esta conta não corresponde ao progresso protegido.'};return{ok:true,exists:true,record};}catch(error){listenerError('conta do jogo')(error);return{ok:false,error:error?.message||'Não foi possível abrir a conta'}}
 }
 async function saveGameAccount(accountId,payload){
-  if(!connected||!api||!db)return{ok:false,error:'Conecte-se para salvar a conta'};if(!accountReadyFor(accountId))return{ok:false,error:'Entre na conta protegida antes de salvar'};
+  if(!api||!db)return{ok:false,error:'Serviço de conta indisponível'};if(!accountReadyFor(accountId))return{ok:false,error:'Entre na conta protegida antes de salvar'};
   const iv=String(payload?.iv||''),ciphertext=String(payload?.ciphertext||'');if(!iv||!ciphertext||ciphertext.length>450000)return{ok:false,error:'Progresso inválido'};
   try{const current=accountStatus();await api.set(api.ref(db,`${ROOT}/gameAccounts/${current.uid}`),{schema:2,ownerUid:current.uid,accountId,username:current.username,iv:iv.slice(0,64),ciphertext,updatedAt:api.serverTimestamp(),updatedAtClient:Number(payload?.updatedAtClient||Date.now())});return{ok:true}}catch(error){listenerError('salvamento da conta')(error);return{ok:false,error:error?.message||'Não foi possível salvar a conta'}}
 }
