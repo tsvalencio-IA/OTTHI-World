@@ -15,6 +15,21 @@
     const base={block:{w:1.5,d:1.5},wall:{w:3,d:.32},floor:{w:3,d:3},fence:{w:2.4,d:.22},lamp:{w:.9,d:.9},bench:{w:2.3,d:.85},planter:{w:2.3,d:.95}}[type]||{w:1.5,d:1.5};
     return Math.abs(Math.sin(Number(rotation||0)))>.7?{w:base.d,d:base.w}:{...base};
   }
+  function buildNeedsWorldMigrationV704(data){
+    const footprint=buildFootprint(data?.type,data?.rotation),rect={x:Number(data?.x),z:Number(data?.z),w:footprint.w,d:footprint.d};if(!Number.isFinite(rect.x)||!Number.isFinite(rect.z))return true;
+    if(typeof v704RoadAt==='function'){const corners=[[rect.x-rect.w/2,rect.z-rect.d/2],[rect.x+rect.w/2,rect.z-rect.d/2],[rect.x-rect.w/2,rect.z+rect.d/2],[rect.x+rect.w/2,rect.z+rect.d/2]];if(corners.some(([x,z])=>v704RoadAt(x,z,.25,true)))return true;}
+    if(typeof v704ProtectedRectangles==='function'&&v704ProtectedRectangles().some(item=>item.kind!=='construction'&&v704RectOverlap(rect,item,.35)))return true;
+    if(typeof waterAt==='function'&&[[rect.x-rect.w/2,rect.z-rect.d/2],[rect.x+rect.w/2,rect.z-rect.d/2],[rect.x-rect.w/2,rect.z+rect.d/2],[rect.x+rect.w/2,rect.z+rect.d/2]].some(([x,z])=>waterAt(x,z)))return true;
+    return false;
+  }
+  function migrateWorldBuildsToSafeZoneV704(){
+    if(!Array.isArray(state.builds)||!state.builds.length)return{migrated:0};let migrated=0,slotIndex=0;const occupied=[];
+    state.builds=state.builds.map(raw=>{const data=normalizeBuildRecord(raw);if(!data||!buildNeedsWorldMigrationV704(data)){if(data){const size=buildFootprint(data.type,data.rotation);occupied.push({x:data.x,z:data.z,w:size.w,d:size.d});}return data||raw;}
+      const size=buildFootprint(data.type,data.rotation);let target=null;for(let tries=0;tries<48;tries++){const candidate=v704NearestConstructionSlot(slotIndex++);const rect={x:candidate.x,z:candidate.z,w:size.w,d:size.d};if(v704BuildAllowedAt(rect.x,rect.z,rect.w,rect.d)&&!occupied.some(other=>v704RectOverlap(rect,other,.3))){target=candidate;occupied.push(rect);break;}}
+      if(!target)return data;const now=Date.now();migrated++;return{...data,x:target.x,z:target.z,updatedAt:now,layoutVersion:704,layoutMigratedAt:now,layoutMigratedFrom:{x:data.x,z:data.z}};
+    }).filter(Boolean);
+    if(migrated){state.worldLayout={version:704,migratedAt:Date.now(),migratedBuilds:migrated};saveState(true);console.info(`[OTTHI V704] ${migrated} construções antigas foram realocadas sem exclusão.`);}return{migrated};
+  }
   function buildPlacementCandidate(){
     if(!buildMode)return null;const distance=['wall','fence','bench','planter'].includes(buildMode)?2.8:2.45;
     const x=Math.round((player.x+Math.sin(player.facing)*distance)*2)/2,z=Math.round((player.z+Math.cos(player.facing)*distance)*2)/2;
@@ -26,7 +41,9 @@
     const corners=[[x-footprint.w/2,z-footprint.d/2],[x+footprint.w/2,z-footprint.d/2],[x-footprint.w/2,z+footprint.d/2],[x+footprint.w/2,z+footprint.d/2]];
     if(corners.some(([cx,cz])=>waterAt(cx,cz)))return false;
     const heights=corners.map(([cx,cz])=>groundHeightAt(cx,cz));if(Math.max(...heights)-Math.min(...heights)>.72)return false;
-    const permitted=(Math.abs(x)<18&&z>27&&z<48)||world.houses.some(h=>state.houses[h.id]?.owned&&Math.abs(x-h.x)<10&&Math.abs(z-h.z)<10);if(!permitted)return false;
+    const publicZone=typeof v704BuildAllowedAt==='function'&&v704BuildAllowedAt(x,z,footprint.w,footprint.d),ownedLot=world.houses.some(h=>state.houses[h.id]?.owned&&Math.abs(x-h.x)<10&&Math.abs(z-h.z)<10);if(!publicZone&&!ownedLot)return false;
+    if(typeof v704RoadAt==='function'&&corners.some(([cx,cz])=>v704RoadAt(cx,cz,.2,true)))return false;
+    if(typeof v704ProtectedRectangles==='function'){for(const protectedRect of v704ProtectedRectangles()){if(protectedRect.kind==='house'||protectedRect.kind==='construction')continue;if(rectOverlap(rect,protectedRect,.35))return false;}}
     if(world.hazards.some(h=>Number.isFinite(h.w)&&Number.isFinite(h.d)&&rectOverlap(rect,h,.2)))return false;
     if(world.colliders.some(c=>rectOverlap(rect,{x:c.x,z:c.z,w:c.w,d:c.d},.22)))return false;
     if(world.builds.some(b=>{const size=buildFootprint(b.data.type,b.data.rotation);return rectOverlap(rect,{x:b.data.x,z:b.data.z,w:size.w,d:size.d},.18);} ))return false;
@@ -106,8 +123,20 @@
   function removeWorldBuildRecord(record){
     if(!record)return;worldGroup?.remove(record.mesh);for(const extra of record.extras||[]){worldGroup?.remove(extra);world.glows=world.glows.filter(item=>item!==extra);}world.colliders=world.colliders.filter(c=>c.buildId!==record.data.id);world.platforms=world.platforms.filter(p=>p.buildId!==record.data.id);world.builds=world.builds.filter(item=>item!==record);
   }
+
+  function buildConflictsWithMasterWorldV704(data){
+    if(!data||typeof v704RectOverlap!=='function')return false;const size=buildFootprint(data.type,data.rotation),rect={x:Number(data.x),z:Number(data.z),w:size.w,d:size.d};
+    if(WORLD_LAYOUT_V704.roads.some(road=>v704RectOverlap(rect,v704RoadFootprint(road,true),.25)))return true;
+    for(const protectedRect of v704ProtectedRectangles()){if(protectedRect.kind==='house'||protectedRect.kind==='construction')continue;if(v704RectOverlap(rect,protectedRect,.35))return true;}
+    if((world.hazards||[]).some(h=>Number.isFinite(h.w)&&v704RectOverlap(rect,h,.2)))return true;return false;
+  }
+  function migrateLegacyWorldBuildsV704(){
+    if(!Array.isArray(state.builds)||typeof v704NearestConstructionSlot!=='function')return 0;let moved=0,slotIndex=0;const occupied=[];
+    for(const data of state.builds){if(!buildConflictsWithMasterWorldV704(data))continue;let slot,size=buildFootprint(data.type,data.rotation);do{slot=v704NearestConstructionSlot(slotIndex++);}while(slotIndex<80&&occupied.some(other=>rectOverlap({x:slot.x,z:slot.z,w:size.w,d:size.d},other,.35)));data.legacyPositionV704=data.legacyPositionV704||{x:Number(data.x),z:Number(data.z)};data.x=slot.x;data.z=slot.z;data.y=groundHeightAt(slot.x,slot.z);data.worldLayoutVersion=704;occupied.push({x:data.x,z:data.z,w:size.w,d:size.d});moved++;}
+    if(moved){state.worldMigrationV704={version:704,moved,at:Date.now()};console.warn(`[OTTHI V704] ${moved} construção(ões) antigas foram realocadas da pista/rua para a área de construção.`);saveState(true);}return moved;
+  }
   function reconcileWorldBuilds(){
-    if(!worldGroup||!world?.builds)return false;state.buildTombstones=normalizeBuildTombstones(state.buildTombstones);state.builds=applyBuildTombstones(state.builds,state.buildTombstones);const wanted=new Map(state.builds.map(data=>[data.id,data]));
+    if(!worldGroup||!world?.builds)return false;migrateLegacyWorldBuildsV704();state.buildTombstones=normalizeBuildTombstones(state.buildTombstones);state.builds=applyBuildTombstones(state.builds,state.buildTombstones);const wanted=new Map(state.builds.map(data=>[data.id,data]));
     for(const record of [...world.builds]){const data=wanted.get(record.data.id);if(!data||record.signature!==buildRecordSignature(data)){removeWorldBuildRecord(record);}}
     for(const data of state.builds)if(!world.builds.some(record=>record.data.id===data.id))spawnBuild(data,false);return true;
   }

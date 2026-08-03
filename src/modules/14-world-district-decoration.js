@@ -60,36 +60,41 @@
     const coinMat=mat(0xffd52e,{emissive:0xb26b00,emissiveIntensity:.32,metalness:.18,roughness:.3});points.forEach(([x,z],i)=>{const c=new THREE.Mesh(new THREE.TorusGeometry(.34,.11,7,14),coinMat);c.position.set(x,1.15+Math.sin(i*.7)*.18,z);c.rotation.y=Math.PI/2;worldGroup.add(c);world.landmarks.push(c);});
   }
   function createCommercialDistrict(){
-    // Peripheral skyline preserves gameplay coordinates while giving a premium city silhouette.
-    [[-108,-92,12,12,10,0xe77a32,0xffd75a],[-88,-105,11,17,9,0x35a8e8,0xffffff],[-64,-108,13,14,9,0x8b5cf6,0xf4d35e],[-35,-109,11,18,9,0x46b96a,0xffffff],[38,-109,12,16,9,0xe84a6f,0xffef98],[68,-107,13,20,10,0x2f7fd8,0xffffff],[99,-93,12,14,10,0xf09c35,0x45d7ff]].forEach(v=>createBackdropBuilding(...v));
-    [[-104,92,13,16,10,0x4f9fd7,0xffffff],[-74,107,11,19,9,0xe86a3d,0xffed84],[-36,108,12,14,9,0x65b85d,0xffffff],[35,108,12,18,10,0x8a62d4,0x5ee7ff],[69,106,13,15,9,0xe44a4a,0xffffff],[103,88,11,20,10,0x3b91d1,0xffed84]].forEach(v=>createBackdropBuilding(...v));
-    createFloatingIsland(-78,36,-138,.75);createFloatingIsland(18,48,-150,.9);createFloatingIsland(96,30,-132,.65);
-    [[-17,-8],[-10,-8],[10,-8],[17,-8],[-17,8],[-10,8],[10,8],[17,8]].forEach(p=>createStreetTree(...p,.72));
-    createCoinTrail([[34,-28],[39,-31],[44,-34],[49,-37],[54,-40],[59,-43],[64,-46]]);
+    // Skyline apenas fora dos limites jogáveis: nenhum prédio decorativo entra nas zonas ativas.
+    [[-112,-130,12,12,10,0xe77a32,0xffd75a],[-84,-132,11,17,9,0x35a8e8,0xffffff],[-54,-132,13,14,9,0x8b5cf6,0xf4d35e],[-24,-131,11,18,9,0x46b96a,0xffffff],[24,-131,12,16,9,0xe84a6f,0xffef98],[58,-132,13,20,10,0x2f7fd8,0xffffff],[96,-130,12,14,10,0xf09c35,0x45d7ff]].forEach(v=>createBackdropBuilding(...v));
+    [[-108,130,13,16,10,0x4f9fd7,0xffffff],[-74,132,11,19,9,0xe86a3d,0xffed84],[-36,132,12,14,9,0x65b85d,0xffffff],[18,132,12,18,10,0x8a62d4,0x5ee7ff],[58,132,13,15,9,0xe44a4a,0xffffff],[102,130,11,20,10,0x3b91d1,0xffed84]].forEach(v=>createBackdropBuilding(...v));
+    createFloatingIsland(-78,36,-148,.75);createFloatingIsland(18,48,-158,.9);createFloatingIsland(96,30,-142,.65);
+    [[-28,-28],[-38,-28],[38,-28],[48,-28],[-28,44],[-38,44],[22,44],[32,44]].forEach(([x,z])=>{if(!v704ReservedAt(x,z,.8))createStreetTree(x,z,.72);});
+    createCoinTrail([[72,-35],[77,-39],[82,-43],[87,-47],[92,-51],[97,-55]]);
   }
 
   function createDistrictVisuals(){
-    [[-13,34,1.05,0xe64343],[-37,35,.82,0x4b78e8],[14,-34,.95,0xec4c4c],[40,-5,.78,0x8b5cf6],[-70,-20,1.35,0xdf3f3f],[-82,-76,.9,0x5c7ce2],[72,28,1.1,0xe94d4d],[92,22,.82,0x8b5cf6]].forEach(v=>createVoxelMushroom(...v));
-    createPlayground(-8,-38);createFountain(0,-2);createPortalArch(88,51);createChallengeCube(36,1.3,-27,'◆','#ffd43b');createChallengeCube(66,1.3,-50,'★','#53d8ff');createChallengeCube(-43,1.3,35,'◈','#ff756f');createAwning(-22,-14,0xef4444,0);createAwning(22,-14,0x2563eb,0);createCommercialDistrict();
+    const decorativeMushrooms=[[-42,43,.78,0xe64343],[-78,34,.72,0x4b78e8],[34,-30,.72,0xec4c4c],[44,20,.66,0x8b5cf6],[-82,-28,.88,0xdf3f3f],[-104,-68,.72,0x5c7ce2],[74,42,.72,0xe94d4d],[108,8,.66,0x8b5cf6]];
+    for(const item of decorativeMushrooms){const[x,z,scale,color]=item;if(!v704ReservedAt(x,z,1.2))createVoxelMushroom(x,z,scale,color);}
+    const playground=worldLayoutPoint('playground'),fountain=worldLayoutPoint('fountain'),portal=worldLayoutPoint('portal');
+    createPlayground(playground.x,playground.z);createFountain(fountain.x,fountain.z);createPortalArch(portal.x,portal.z);
+    [[34,-28,'◆','#ffd43b'],[78,-46,'★','#53d8ff'],[-46,43,'◈','#ff756f']].forEach(([x,z,symbol,color])=>{if(!v704ReservedAt(x,z,.8))createChallengeCube(x,1.3,z,symbol,color);});
+    createAwning(-22,-14,0xef4444,0);createAwning(22,-14,0x2563eb,0);createCommercialDistrict();
   }
 
   const BUS_ROUTES=[
     {id:'solar',name:'Linha Solar',number:'101',color:0x168de2,speed:6.6,copies:2,dwell:3600,laneOffset:1.72,points:[
-      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:7,z:11},{x:7,z:27},{x:0,z:34},{x:0,z:55},{x:0,z:94,stopId:'bairro-norte',stopName:'Bairro Norte'},{x:0,z:55},{x:0,z:34},{x:7,z:27},{x:7,z:11},{x:7,z:0},{x:0,z:0},{x:55,z:0,stopId:'fazenda',stopName:'Fazenda'},{x:55,z:48,stopId:'castelo',stopName:'Castelo'},{x:55,z:88,stopId:'ginasio',stopName:'Ginásio'},{x:55,z:48},{x:55,z:0},{x:0,z:0}
+      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:58},{x:34,z:58,stopId:'complexo-esportivo',stopName:'Complexo Esportivo'},{x:68,z:58},{x:68,z:38},{x:91,z:38,stopId:'fazenda',stopName:'Fazenda'},{x:100,z:38,stopId:'castelo',stopName:'Castelo'},{x:68,z:38},{x:68,z:0},{x:0,z:0}
     ]},
     {id:'verde',name:'Linha Verde',number:'202',color:0x27b36a,speed:6.4,copies:2,dwell:3600,laneOffset:1.38,points:[
-      {x:0,z:-10,stopId:'central-sul',stopName:'Central Sul'},{x:0,z:-55,stopId:'academia',stopName:'Academia'},{x:0,z:-94,stopId:'vale',stopName:'Vale dos Cristais'},{x:0,z:-55},{x:-55,z:-55,stopId:'floresta',stopName:'Floresta'},{x:-55,z:-10,stopId:'mercado',stopName:'Mercadinho'},{x:-55,z:0},{x:-70,z:0,stopId:'escola-sol',stopName:'Escola Vila do Sol'},{x:-55,z:0},{x:0,z:0}
+      {x:0,z:-10,stopId:'central-sul',stopName:'Central Sul'},{x:0,z:0},{x:65,z:0},{x:65,z:-65},{x:94,z:-65,stopId:'kartodromo',stopName:'Kartódromo'},{x:65,z:-65},{x:65,z:0},{x:0,z:0},{x:-55,z:0},{x:-55,z:-65,stopId:'floresta',stopName:'Floresta'},{x:-55,z:0},{x:0,z:0}
     ]},
     {id:'escolar',name:'Circular Escolar',number:'E10',color:0xf0b62d,speed:5.9,copies:1,dwell:4200,schoolBus:true,laneOffset:1.18,points:[
-      {x:-70,z:0,stopId:'escola-sol',stopName:'Escola Vila do Sol'},{x:-55,z:0},{x:0,z:0,stopId:'central-escolar',stopName:'Praça Central'},{x:55,z:0},{x:55,z:18,stopId:'escola-horizonte',stopName:'Escola Horizonte'},{x:55,z:0},{x:0,z:0},{x:-55,z:0}
+      {x:-68,z:0,stopId:'escola-sol',stopName:'Escola Vila do Sol'},{x:-55,z:0},{x:0,z:0,stopId:'central-escolar',stopName:'Praça Central'},{x:65,z:0},{x:68,z:24,stopId:'escola-horizonte',stopName:'Escola Horizonte'},{x:68,z:0},{x:0,z:0},{x:-55,z:0}
     ]},
     {id:'circular',name:'Circular da Cidade',number:'303',color:0x8b5cf6,speed:6.3,copies:1,dwell:3500,laneOffset:1.62,points:[
-      {x:0,z:0,stopId:'praca-central',stopName:'Praça Central'},{x:55,z:0,stopId:'delegacia-central',stopName:'Delegacia Central'},{x:55,z:-18},{x:55,z:-68,stopId:'bombeiros',stopName:'Corpo de Bombeiros'},{x:55,z:-18},{x:0,z:-18,stopId:'comercio',stopName:'Mercado e Oficina'},{x:-55,z:-18},{x:-55,z:0},{x:-55,z:22,stopId:'posto-bairro',stopName:'Posto Policial do Bairro'},{x:-55,z:0},{x:0,z:0}
+      {x:0,z:0,stopId:'praca-central',stopName:'Praça Central'},{x:65,z:0,stopId:'delegacia-central',stopName:'Delegacia Central'},{x:65,z:-18},{x:65,z:-65,stopId:'bombeiros',stopName:'Corpo de Bombeiros'},{x:65,z:-18},{x:65,z:0},{x:0,z:0,stopId:'comercio',stopName:'Mercado e Oficina'},{x:-55,z:0},{x:-55,z:-18},{x:-55,z:22,stopId:'posto-bairro',stopName:'Posto Policial do Bairro'},{x:-55,z:0},{x:0,z:0}
     ]},
     {id:'turismo',name:'Linha Turismo Kids',number:'404',color:0xe05c42,speed:6.1,copies:1,dwell:3900,laneOffset:1.28,points:[
-      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:50,stopId:'lago-acesso',stopName:'Acesso ao Lago'},{x:0,z:78},{x:55,z:78},{x:55,z:88,stopId:'ginasio',stopName:'Ginásio'},{x:55,z:48,stopId:'castelo',stopName:'Castelo'},{x:55,z:18,stopId:'escola-horizonte',stopName:'Escola Horizonte'},{x:55,z:0},{x:0,z:0}
+      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:0},{x:-55,z:0},{x:-55,z:58,stopId:'lago-acesso',stopName:'Acesso ao Lago'},{x:-55,z:80,stopId:'montanha',stopName:'Trilha da Montanha'},{x:-55,z:58},{x:-55,z:0},{x:0,z:0},{x:0,z:58},{x:34,z:58,stopId:'complexo-esportivo',stopName:'Complexo Esportivo'},{x:68,z:58},{x:68,z:38},{x:100,z:38,stopId:'castelo',stopName:'Castelo'},{x:68,z:38},{x:68,z:0},{x:0,z:0}
     ]}
   ];
+  window.OTTHI_BUS_ROUTES_V704=BUS_ROUTES;
   const ADVENTURE_DEFS={
     castle:{icon:'👑',name:'Coroas do Castelo',description:'Encontre 6 coroas reais em 75 segundos.',target:6,reward:180,xp:130},
     metro:{icon:'Ⓜ️',name:'Explorador do Metrô',description:'Visite 3 destinos diferentes pela rede.',target:3,reward:150,xp:105},

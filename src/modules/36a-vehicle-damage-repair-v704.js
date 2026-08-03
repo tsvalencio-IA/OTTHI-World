@@ -1,0 +1,52 @@
+/**
+ * OTTHI World V704 — dano, quebra, reboque e reparo real de veículos.
+ * Colisões reduzem integridade; veículo quebrado não continua dirigindo.
+ */
+// @otthi-module-body
+  const VEHICLE_DAMAGE_V704={debris:[],lastImpactAt:0};
+  function ensureVehicleDamageStateV704(){
+    state.vehicles=state.vehicles||{lastUsedId:'',parked:{}};state.vehicles.partDurability=state.vehicles.partDurability||{};state.vehicles.broken=state.vehicles.broken||{};state.vehicles.damageHistory=Array.isArray(state.vehicles.damageHistory)?state.vehicles.damageHistory:[];return state.vehicles;
+  }
+  function vehicleIdV704(vehicle=currentVehicleRef?.()){return String(vehicle?.id||player.car.id||'');}
+  function vehicleDurabilityV704(vehicle=currentVehicleRef?.()){ensureVehicleDamageStateV704();const id=vehicleIdV704(vehicle);if(!id)return 100;const value=Number(state.vehicles.partDurability[id]);return Number.isFinite(value)?clamp(value,0,100):100;}
+  function vehicleBrokenV704(vehicle=currentVehicleRef?.()){const id=vehicleIdV704(vehicle);return!!(id&&(vehicleDurabilityV704(vehicle)<=0||state.vehicles.broken[id]));}
+  function vehiclePerformanceV704(vehicle=currentVehicleRef?.()){const d=vehicleDurabilityV704(vehicle);if(d<=0)return 0;if(d<20)return .28;if(d<45)return .55;if(d<70)return .78;return 1;}
+  function setVehicleDurabilityV704(vehicle,value,reason='damage'){
+    const id=vehicleIdV704(vehicle);if(!id)return 100;ensureVehicleDamageStateV704();const before=vehicleDurabilityV704(vehicle),after=clamp(Math.round(Number(value)||0),0,100);state.vehicles.partDurability[id]=after;state.vehicles.broken[id]=after<=0;
+    state.vehicles.damageHistory.push({id,before,after,reason:String(reason).slice(0,32),at:Date.now()});state.vehicles.damageHistory=state.vehicles.damageHistory.slice(-40);
+    if(vehicle?.group&&typeof applyWorldVehicleModulesToGroup==='function')applyWorldVehicleModulesToGroup(vehicle.group,id);if(player.vehicle&&player.car.id===id&&vehicleVisual&&typeof applyWorldVehicleModulesToGroup==='function')applyWorldVehicleModulesToGroup(vehicleVisual,id);
+    return after;
+  }
+  function spawnVehicleDebrisV704(vehicle,severity=1){
+    if(!worldGroup||VEHICLE_DAMAGE_V704.debris.length>=9)return;const heading=Number(player.car.heading||vehicle?.heading||0),count=Math.min(3,Math.max(1,Math.ceil(severity)));
+    for(let i=0;i<count;i++){const mesh=box(.22+Math.random()*.28,.12+Math.random()*.18,.34+Math.random()*.3,i%2?0x283747:0xd1d5db,player.x+(Math.random()-.5)*1.1,.55+Math.random()*.45,player.z+(Math.random()-.5)*1.1);mesh.userData.vehicleDebris=true;VEHICLE_DAMAGE_V704.debris.push({mesh,life:2.6+Math.random(),vx:(Math.random()-.5)*4+Math.sin(heading)*1.5,vy:2+Math.random()*2.2,vz:(Math.random()-.5)*4+Math.cos(heading)*1.5});}
+  }
+  function updateVehicleDebrisV704(dt){for(let i=VEHICLE_DAMAGE_V704.debris.length-1;i>=0;i--){const p=VEHICLE_DAMAGE_V704.debris[i];p.life-=dt;p.vy-=8.5*dt;p.mesh.position.x+=p.vx*dt;p.mesh.position.y=Math.max(.08,p.mesh.position.y+p.vy*dt);p.mesh.position.z+=p.vz*dt;p.mesh.rotation.x+=dt*3;p.mesh.rotation.z+=dt*2.2;if(p.mesh.position.y<=.08){p.vx*=.82;p.vz*=.82;p.vy=0;}if(p.life<=0){worldGroup.remove(p.mesh);if(typeof disposeDetachedVisual==='function')disposeDetachedVisual(p.mesh);VEHICLE_DAMAGE_V704.debris.splice(i,1);}}}
+  function applyVehicleImpactDamageV704(vehicle,impactSpeed,baseline=null){
+    const speed=Math.abs(Number(impactSpeed||0));if(speed<1.2)return vehicleDurabilityV704(vehicle);const before=Number.isFinite(Number(baseline))?clamp(Number(baseline),0,100):vehicleDurabilityV704(vehicle),damage=speed<4?4:speed<8?10:speed<12?20:speed<16?35:before,after=setVehicleDurabilityV704(vehicle,before-damage,speed>=16?'destructive-impact':speed>=12?'strong-impact':'impact');
+    if(speed>=8)spawnVehicleDebrisV704(vehicle,damage/12);if(after<=0){player.car.speed=0;player.vx=0;player.vz=0;player.car.broken=true;if(typeof stopEngineSound==='function')stopEngineSound();vibrate([70,60,90]);toast('O veículo quebrou. Ele não pode continuar: repare ou solicite reboque.','warn',3600);setTimeout(()=>{const active=typeof currentVehicleRef==='function'?currentVehicleRef():vehicle;if(player.vehicle&&vehicleBrokenV704(active))openBrokenVehicleOptionsV704(active);},650);}else if(after<25)toast(`Veículo muito danificado: ${after}% de integridade. Procure a oficina.`,'warn',2800);else toast(`Batida: integridade ${after}%.`,'warn',1300);saveState(true);return after;
+  }
+  function nearestRepairableVehicleV704(){let best=null,dist=Infinity;for(const v of world.vehicles||[]){const x=v===currentVehicleRef?.()?player.x:Number(v.group?.position?.x??v.x),z=v===currentVehicleRef?.()?player.z:Number(v.group?.position?.z??v.z),d=Math.hypot(player.x-x,player.z-z);if(d<dist){dist=d;best=v;}}return best;}
+  function repairVehicleV704(idOrVehicle,vehicleMaybe=null){
+    const vehicle=typeof idOrVehicle==='object'?idOrVehicle:(vehicleMaybe||vehicleById?.(String(idOrVehicle))),id=typeof idOrVehicle==='string'?idOrVehicle:vehicle?.id;if(!id)return false;ensureVehicleDamageStateV704();const current=vehicleDurabilityV704(vehicle||{id});if(current>=100){toast('Este veículo já está em perfeito estado.','good');return true;}
+    const missing=100-current,coins=Math.max(8,Math.ceil(missing*.42)),stone=Math.max(1,Math.ceil(missing/35)),wood=Math.max(1,Math.ceil(missing/50));if(state.profile.coins<coins||(state.inventory.stone||0)<stone||(state.inventory.wood||0)<wood){toast(`Reparo exige ${coins} moedas, ${stone} pedra(s) e ${wood} madeira(s).`,'warn',3000);return false;}
+    addCoins(-coins);state.inventory.stone-=stone;state.inventory.wood-=wood;setVehicleDurabilityV704(vehicle||{id},100,'repair');state.vehicles.broken[id]=false;if(player.car.id===id)player.car.broken=false;saveState(true);updateHUD();toast('Veículo reparado e liberado para dirigir.','good',2200);return true;
+  }
+  function towVehicleToWorkshopV704(vehicle=nearestRepairableVehicleV704()){
+    if(!vehicle){toast('Nenhum veículo encontrado para rebocar.','warn');return false;}const cost=20;if(state.profile.coins<cost){toast(`O reboque custa ${cost} moedas.`,'warn');return false;}if(player.vehicle&&currentVehicleRef?.()===vehicle)exitVehicle(true);addCoins(-cost);const w=worldLayoutPoint('workshop');vehicle.group.position.set(w.x+7,groundHeightAt(w.x+7,w.z),w.z-1);vehicle.group.rotation.y=Math.PI/2;vehicle.x=w.x+7;vehicle.z=w.z-1;vehicle.heading=Math.PI/2;persistParkedVehicle(vehicle);saveState(true);toast('Veículo rebocado para a oficina. Use a bancada para reparar.','good',2400);return true;
+  }
+  function openBrokenVehicleOptionsV704(vehicle){const d=vehicleDurabilityV704(vehicle);openModal('Veículo quebrado',`<p><b>${escapeHtml(vehicle?.label||'Veículo')}</b> está com ${d}% de integridade e não pode continuar.</p><div class="modal-actions"><button class="btn primary" data-v704-tow>🚚 Rebocar para oficina • 20 moedas</button><button class="btn good" data-v704-repair>🛠 Reparar agora</button></div>`,root=>{$('[data-v704-tow]',root).onclick=()=>{if(towVehicleToWorkshopV704(vehicle))closeModal();};$('[data-v704-repair]',root).onclick=()=>{if(repairVehicleV704(vehicle)){closeModal();}};});}
+  const legacyEnterVehicleV704=enterVehicle;
+  enterVehicle=function enterVehicleDamageV704(vehicle=world.vehicle){if(vehicleBrokenV704(vehicle)){openBrokenVehicleOptionsV704(vehicle);return false;}const ok=legacyEnterVehicleV704(vehicle);if(ok)player.car.broken=false;return ok;};
+  const legacyRegisterVehicleImpactV704=registerVehicleImpact;
+  registerVehicleImpact=function registerVehicleImpactDamageV704(){const now=performance.now(),vehicle=typeof currentVehicleRef==='function'?currentVehicleRef():null,impact=Math.abs(Number(player.car.speed||Math.hypot(player.vx,player.vz)||0)),baseline=vehicleDurabilityV704(vehicle);if(now-VEHICLE_DAMAGE_V704.lastImpactAt<420){player.car.speed*=.08;player.vx*=.1;player.vz*=.1;return;}VEHICLE_DAMAGE_V704.lastImpactAt=now;legacyRegisterVehicleImpactV704();applyVehicleImpactDamageV704(vehicle,impact,baseline);};
+  const legacyUpdateVehiclePhysicsV704=updateVehiclePhysics;
+  updateVehiclePhysics=function updateVehiclePhysicsDamageV704(dt,ix,iz){const vehicle=currentVehicleRef?.();if(vehicleBrokenV704(vehicle)){player.car.broken=true;player.car.speed=0;player.vx=0;player.vz=0;updateMobilityControlLabels();return;}legacyUpdateVehiclePhysicsV704(dt,ix,iz);const factor=vehiclePerformanceV704(vehicle),limit=(player.car.kind==='kart'?18:23.5)*factor;player.car.speed=clamp(player.car.speed,-Math.max(3,8.5*factor),limit);if(factor<1){player.vx*=.72+.28*factor;player.vz*=.72+.28*factor;}};
+  const legacyUpdateVehicleFXV704=updateVehicleFX;
+  updateVehicleFX=function updateVehicleFXDamageV704(dt){legacyUpdateVehicleFXV704(dt);updateVehicleDebrisV704(dt);if(player.vehicle&&!player.car.passengerOf&&els.vehicleBadge){const d=vehicleDurabilityV704();els.vehicleBadge.textContent+=` • Integridade ${d}%${d<=0?' • QUEBRADO':d<25?' • CRÍTICO':''}`;}};
+  const legacyOpenWorldModularGarageV704=typeof openWorldModularGarage==='function'?openWorldModularGarage:null;
+  if(legacyOpenWorldModularGarageV704){openWorldModularGarage=function openWorldModularGarageV704(vehicleId=''){legacyOpenWorldModularGarageV704(vehicleId);};}
+  function createVehicleRepairStationV704(){if(world?.interactables?.some(item=>item.id==='vehicle-repair-v704'))return;const w=worldLayoutPoint('workshop');registerInteractable({id:'vehicle-repair-v704',type:'repair',icon:'🛠️',label:'Oficina — reparar ou montar veículo',x:w.x,z:w.z+4.8,radius:2.7,priority:235,action:()=>{const vehicle=nearestRepairableVehicleV704();if(vehicle&&vehicleDurabilityV704(vehicle)<100){openBrokenVehicleOptionsV704(vehicle);}else if(typeof openWorldModularGarage==='function')openWorldModularGarage(vehicle?.id||'');}});}
+  const legacyCreateWorldModularGarageInteractableV704=typeof createWorldModularGarageInteractable==='function'?createWorldModularGarageInteractable:null;
+  if(legacyCreateWorldModularGarageInteractableV704){createWorldModularGarageInteractable=function createWorldModularGarageInteractableV704(){const ok=legacyCreateWorldModularGarageInteractableV704();createVehicleRepairStationV704();return ok;};}
+  window.OTTHI_VEHICLE_DAMAGE_V704={durability:vehicleDurabilityV704,broken:vehicleBrokenV704,damage:applyVehicleImpactDamageV704,repair:repairVehicleV704,tow:towVehicleToWorkshopV704,diagnostics:()=>({debris:VEHICLE_DAMAGE_V704.debris.length,currentId:vehicleIdV704(),durability:vehicleDurabilityV704(),broken:vehicleBrokenV704()})};

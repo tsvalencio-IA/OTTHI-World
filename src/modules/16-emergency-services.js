@@ -10,25 +10,25 @@
 // @otthi-module-body
   function decorateCityServices(){
     const fire=world.fireStation,police=world.policeStation,west=world.policeStations?.find(x=>x.id==='police-west');
-    if(fire){for(const x of [-2.35,0,2.35]){premiumBox(1.9,2.35,.12,materials.cityGlass,fire.x+x,1.42,fire.z+3.56,fire.front);for(let y=.45;y<2.5;y+=.48)premiumBox(1.75,.06,.14,0xf4f5f2,fire.x+x,y,fire.z+3.62,fire.front);}premiumBox(7.2,.36,.24,materials.emergencyMetal,fire.x,3.02,fire.z+3.66,fire.front);const badge=new THREE.Mesh(new THREE.PlaneGeometry(1.05,1.05),new THREE.MeshStandardMaterial({map:iconTexture('🚒','#ffffff','#c83232'),transparent:true,side:THREE.DoubleSide}));badge.position.set(fire.x,3.85,fire.z+3.75);fire.front.add(badge);for(const z of [-64,-72]){premiumCylinder(.17,1.35,0xf2c23c,60.5,.68,z,worldGroup,10);premiumBox(.5,.18,.5,0xe8483f,60.5,1.45,z);}}
+    if(fire){for(const x of [-2.35,0,2.35]){premiumBox(1.9,2.35,.12,materials.cityGlass,fire.x+x,1.42,fire.z+3.56,fire.front);for(let y=.45;y<2.5;y+=.48)premiumBox(1.75,.06,.14,0xf4f5f2,fire.x+x,y,fire.z+3.62,fire.front);}premiumBox(7.2,.36,.24,materials.emergencyMetal,fire.x,3.02,fire.z+3.66,fire.front);const badge=new THREE.Mesh(new THREE.PlaneGeometry(1.05,1.05),new THREE.MeshStandardMaterial({map:iconTexture('🚒','#ffffff','#c83232'),transparent:true,side:THREE.DoubleSide}));badge.position.set(fire.x,3.85,fire.z+3.75);fire.front.add(badge);for(const z of [-26,-10]){premiumCylinder(.17,1.35,0xf2c23c,91.5,.68,z,worldGroup,10);premiumBox(.5,.18,.5,0xe8483f,91.5,1.45,z);}}
     for(const station of [police,west].filter(Boolean)){premiumBox(6.4,.28,.2,0x245da8,station.x,2.95,station.z+3.65,station.front);const badge=new THREE.Mesh(new THREE.PlaneGeometry(.9,.9),new THREE.MeshStandardMaterial({map:iconTexture('★','#ffffff','#245da8'),transparent:true,side:THREE.DoubleSide}));badge.position.set(station.x,3.7,station.z+3.72);station.front.add(badge);premiumBox(2.6,.1,1.1,materials.cityGlass,station.x,2.38,station.z+3.86,station.front);}
-    for(const p of [[55,-45],[55,-75],[-55,12],[-55,32]]){premiumBox(.18,2.2,.18,0x2e3c4f,p[0],1.1,p[1]);premiumBox(.62,.62,.18,0x111827,p[0],2.08,p[1]);premiumBox(.16,.16,.08,0x46d66c,p[0],2.22,p[1]+.1);premiumBox(.16,.16,.08,0xf0c33c,p[0],2.05,p[1]+.1);premiumBox(.16,.16,.08,0xe74b4b,p[0],1.88,p[1]+.1);}
+    for(const p of [[65,-45],[65,-75],[-55,12],[-55,32],[68,38]]){premiumBox(.18,2.2,.18,0x2e3c4f,p[0],1.1,p[1]);premiumBox(.62,.62,.18,0x111827,p[0],2.08,p[1]);premiumBox(.16,.16,.08,0x46d66c,p[0],2.22,p[1]+.1);premiumBox(.16,.16,.08,0xf0c33c,p[0],2.05,p[1]+.1);premiumBox(.16,.16,.08,0xe74b4b,p[0],1.88,p[1]+.1);}
   }
 
   const FIRE_SITES=[
-    {id:'market',name:'Alarme controlado no Mercadinho',x:-22,z:-11,navX:-22,navZ:-10},
-    {id:'school',name:'Treinamento na Escola Vila do Sol',x:-63,z:-10,navX:-55,navZ:-10},
-    {id:'workshop',name:'Simulação segura na Oficina',x:22,z:-11,navX:22,navZ:-10},
-    {id:'farm',name:'Fogueira fora de controle na Fazenda',x:52,z:34,navX:55,navZ:34},
-    {id:'castle',name:'Tocha do Castelo acesa demais',x:79,z:52,navX:55,navZ:52}
+    {id:'market',name:'Alarme controlado no Mercadinho',x:-22,z:-11,navX:-22,navZ:-9},
+    {id:'school',name:'Treinamento na Escola Vila do Sol',x:-68,z:-11,navX:-55,navZ:-9},
+    {id:'workshop',name:'Simulação segura na Oficina',x:22,z:-11,navX:22,navZ:-9},
+    {id:'farm',name:'Fogueira fora de controle na Fazenda',x:96,z:28,navX:91,navZ:38},
+    {id:'castle',name:'Tocha do Castelo acesa demais',x:100,z:42.5,navX:100,navZ:38}
   ];
   const SERVICE_JOB_KIND=Object.freeze({police:'police',firefighter:'firefighter',paramedic:'paramedic'});
   const SERVICE_DEPOTS=Object.freeze({
-    police:[{x:68,z:-12,heading:Math.PI},{x:-55,z:20,heading:0}],
-    firefighter:[{x:55,z:-70,heading:0},{x:55,z:-62,heading:0}],
-    paramedic:[{x:55,z:-52,heading:0},{x:55,z:-44,heading:0}]
+    police:[{x:65,z:-18,heading:Math.PI},{x:-55,z:22,heading:0}],
+    firefighter:[{x:65,z:-28,heading:0},{x:65,z:-36,heading:0}],
+    paramedic:[{x:65,z:-44,heading:0},{x:65,z:-52,heading:0}]
   });
-  const TRAINING_INCIDENT_SITES=Object.freeze([{x:23,z:0},{x:-28,z:0},{x:55,z:24},{x:0,z:-42}]);
+  const TRAINING_INCIDENT_SITES=Object.freeze([{x:23,z:0},{x:-28,z:0},{x:68,z:24},{x:0,z:-42}]);
   function serviceKindForJob(jobOrId){const id=typeof jobOrId==='string'?jobOrId:jobOrId?.id;return SERVICE_JOB_KIND[id]||'';}
   function serviceVehiclePools(kind=''){if(kind==='police')return world.policeCars||[];if(kind==='firefighter')return world.fireTrucks||[];if(kind==='paramedic')return world.ambulances||[];return[...(world.policeCars||[]),...(world.fireTrucks||[]),...(world.ambulances||[])];}
   function serviceVehicleById(id=''){return serviceVehiclePools().find(vehicle=>vehicle.id===id)||null;}

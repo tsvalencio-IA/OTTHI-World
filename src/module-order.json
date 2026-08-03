@@ -1,13 +1,13 @@
 {
-  "version": 703,
-  "build": "703.0-recovery-functional-world",
+  "version": 704,
+  "build": "704.0-world-reconstruction-complete",
   "javascript": [
     {
       "file": "src/modules/00-runtime-foundation.js",
       "startLine": 4,
       "endLine": 49,
       "description": "Runtime, utilitários, versão, storage e chaves de migração",
-      "sha256Body": "96710b4d7882a27c7b76273ce0e30fefa1f65ffc1c196ef6b84173f04cdb00fc"
+      "sha256Body": "bfa0d0b0c61ef85d9b179c40cb524d390e30165b2edc9c60b2f58549cab9d5a5"
     },
     {
       "file": "src/modules/00a-visual-foundation-avatar-v2.js",
@@ -21,14 +21,14 @@
       "startLine": 369,
       "endLine": 488,
       "description": "Normalização, merge, tombstones e persistência das construções",
-      "sha256Body": "a4102196b4a308ab8779c6f9505c7c054e0d2a261a4d60dcca0b88e29d7f3bdf"
+      "sha256Body": "3c063dc04de636d8724bd7c3b8df0f129fcefbfecbc457970c3279b2da69da08"
     },
     {
       "file": "src/modules/02-state-save-cloud-account.js",
       "startLine": 490,
       "endLine": 756,
       "description": "Estado, save local, IndexedDB, nuvem e conta",
-      "sha256Body": "2203a92065490d6b0ad77013a98b85568dc39eaec2a540827226def050b8ad2a"
+      "sha256Body": "bcaf631b4aab91c1ca9ef4ff46f362f8ee0a5ca9ae2765454e70015689a4ae39"
     },
     {
       "file": "src/modules/03-ui-modal-install-pwa.js",
@@ -52,18 +52,25 @@
       "sha256Body": "48eee0d596cf07cfffb597d2b8c5b3a3a8423b77fa4dcee070740827f04ffdd1"
     },
     {
+      "file": "src/modules/05a-world-layout-v704.js",
+      "startLine": 0,
+      "endLine": 0,
+      "description": "Fonte central de verdade do layout mundial V704",
+      "sha256Body": "f0e23ce07c34a907a9d4013e84e6c61cb0cd96f00cd975e0fb0d34145c2e5f75"
+    },
+    {
       "file": "src/modules/06-missions-profile-hud-inventory-tools.js",
       "startLine": 1316,
       "endLine": 1454,
       "description": "Missões, objetivos, perfil, HUD, inventário e ferramentas",
-      "sha256Body": "5df8566ee771d21108b1d3c3f615f59c98b670e5d75a313a9d6e71629e6dca1c"
+      "sha256Body": "73db927a29e186535b6e8f598f955694df99d92a58720a07d760a237c4c2cf19"
     },
     {
       "file": "src/modules/07-navigation-traffic-routes.js",
       "startLine": 1456,
       "endLine": 1604,
       "description": "Rotas, trânsito, grafo, GPS e minimapa",
-      "sha256Body": "2d042aa04eb6877c0ae464e09a866b3566a0814283cb0d4d481ce31c2a320ecc"
+      "sha256Body": "f2fb2b29abe13f85217e159dcd1f20c066b609758c0eb530426bbe36997f177d"
     },
     {
       "file": "src/modules/08-map-parent-settings.js",
@@ -105,14 +112,21 @@
       "startLine": 2743,
       "endLine": 2991,
       "description": "Casas, interiores, NPCs, inimigos, cristais, veículos e academia",
-      "sha256Body": "e4aca2245b2704c140cdae177332129e5b25365e5d69f9a3e4f3b49361907976"
+      "sha256Body": "2937d1d293fe0b487a14beda6f899b28bff24dbb8cb761930d52f986e75aa9e8"
+    },
+    {
+      "file": "src/modules/13a-sports-kart-v704.js",
+      "startLine": 0,
+      "endLine": 0,
+      "description": "Complexo esportivo, futebol, vôlei, futevôlei e kartódromo jogáveis V704",
+      "sha256Body": "3f2814eda562b36232b4303cfd2f59e9b43d8682885b6a1b5051e2fda057e5af"
     },
     {
       "file": "src/modules/14-world-district-decoration.js",
       "startLine": 2993,
       "endLine": 3085,
       "description": "Cogumelos, portais, praça, distrito e decoração urbana",
-      "sha256Body": "b134bf487383f09375cf4967dd2107b2a3051750c3267f6227b4fff511bde87e"
+      "sha256Body": "051e3271c37674b2d20a32e0aedba7e7d43acd9f4217b36fa48c897ae96cc03c"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -126,14 +140,14 @@
       "startLine": 3310,
       "endLine": 3495,
       "description": "Bombeiros, incêndios, polícia, ambulância, segurança e incidentes",
-      "sha256Body": "05ca8dc1c1d2ff6acd0c0f913e232f7e92fa076b95b819ae64bd8bab41e28d51"
+      "sha256Body": "387a214e393eb259ecc6dc500b93ebc7803099d3ee9cffdb7f0b41c34b9c29a3"
     },
     {
       "file": "src/modules/17-adventures-learning-world.js",
       "startLine": 3497,
       "endLine": 3557,
       "description": "Castelo, aventuras, desafios e praça educacional",
-      "sha256Body": "735b30a5f026eb52467df35c61c3d5e4af5c73d7bdc879581d1070c18d07a201"
+      "sha256Body": "ed109312f584cc409313032922e0dc4fe4fe8e21b42fd6c6628409c30a5f5ab5"
     },
     {
       "file": "src/modules/18-water-fishing-boats.js",
@@ -147,14 +161,14 @@
       "startLine": 3719,
       "endLine": 3803,
       "description": "Fogueira, caça, animais e ampliações de casas",
-      "sha256Body": "6ea68178a5f6831171335b9c20dd59b6d8985ba0cc1ff587ab95b4ab1d44e977"
+      "sha256Body": "ffdc32479d3d650f81ea304e7d68b2ef5f5bf7a785d1ddca36ebb525bd8401de"
     },
     {
       "file": "src/modules/20-world-build-cloud-houses.js",
       "startLine": 3805,
       "endLine": 3948,
       "description": "Construção do mundo, recursos, baús, casas em nuvem e interiores",
-      "sha256Body": "712fcc110bd8927592ba637c22f8c81b4ab42f6ba5d1d1863f5e2ad3978e21b9"
+      "sha256Body": "3d6438a11a2d8f3ef7ba0e87b38fd82e43f76cf36e3b1b8ecb7edd23d806d1ae"
     },
     {
       "file": "src/modules/21-interactions-shop-social-races.js",
@@ -182,7 +196,14 @@
       "startLine": 4383,
       "endLine": 4493,
       "description": "Custos, propriedade, preview, validação, colocação, remoção e reconciliação",
-      "sha256Body": "ecbecef3564a5d94f76ffd3d537aa25ad451c20514d64d05f6dca5519768ab48"
+      "sha256Body": "632c2a8b3679a9c792a91543f0680cfd9c71101c6c5c76531de1cecf76bd91bb"
+    },
+    {
+      "file": "src/modules/32-cooperative-missions.js",
+      "startLine": 5453,
+      "endLine": 5678,
+      "description": "Missões cooperativas infantis, equipes online/solo, pesca, escola e corridas",
+      "sha256Body": "9c9070f1ee307f64f0bce21372af4ba014481ddef99067144a373784e0187570"
     },
     {
       "file": "src/modules/25-render-init-resize-position-collision.js",
@@ -203,7 +224,7 @@
       "startLine": 4767,
       "endLine": 4928,
       "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
-      "sha256Body": "9bd86324345b8efcabc96eaca8678fb4346a7888ae81e9f8b7f371c88d8abfbf"
+      "sha256Body": "43343a587daaae0448ddedd1b9503ce5c30e9093b03fb89a56da11ff5612a972"
     },
     {
       "file": "src/modules/28-multiplayer-social-online.js",
@@ -217,7 +238,7 @@
       "startLine": 5124,
       "endLine": 5238,
       "description": "Loop principal, controles, gamepad e início do jogo",
-      "sha256Body": "e1bbb0de13ec5399a666fe5e8d2cb35c04267c526ba43e6fd3b41d7077fc930b"
+      "sha256Body": "65fef48863baa26596d2a3f52c6ae589ad2d887b335b1f687fa433f50a58e45f"
     },
     {
       "file": "src/modules/30-pause-tests-public-api-bootstrap.js",
@@ -232,13 +253,6 @@
       "endLine": 5451,
       "description": "Bairros reais, limite de vagas, transição, casas e mapa V644",
       "sha256Body": "c077d7777f196bc9dc03bc62dd3f73c9c15e8f8b5222cff0b94c926d78058ba7"
-    },
-    {
-      "file": "src/modules/32-cooperative-missions.js",
-      "startLine": 5453,
-      "endLine": 5678,
-      "description": "Missões cooperativas infantis, equipes online/solo, pesca, escola e corridas",
-      "sha256Body": "b4f6aa6a2c5fc2f9ebdf8ea95199c87cdb3605ff4bc9eac5432a3bbacfda65f4"
     },
     {
       "file": "src/modules/33-otthi-world-professional-core.js",
@@ -266,7 +280,14 @@
       "startLine": 5958,
       "endLine": 6056,
       "description": "Construção modular, oficina e veículos montáveis",
-      "sha256Body": "895d4c7a3285f1768206868083e10431b6db5b6e8fab2d5816e47b30ee85aaf5"
+      "sha256Body": "1de7b0cc4028bab47a6a3bf15fdaf8afdcb6166daf000b1409bb079407e7dcf6"
+    },
+    {
+      "file": "src/modules/36a-vehicle-damage-repair-v704.js",
+      "startLine": 0,
+      "endLine": 0,
+      "description": "Dano, quebra, reboque e reparo real de veículos V704",
+      "sha256Body": "617e526f5c6377f800d850c9a5e0d042a4f715e6d9bb6e6dfa4f583b3d69ecdc"
     },
     {
       "file": "src/modules/37-hero-platform-gameplay.js",
@@ -280,7 +301,7 @@
       "startLine": 6124,
       "endLine": 6152,
       "description": "Integração, fallbacks e bootstrap das cinco etapas",
-      "sha256Body": "6ea150470c494ed27900673045a87288bb453368c7f9e740b289acb7e869395c"
+      "sha256Body": "acab13285787b50ec9385519c8c81145560568c1bde7447c46ce38004011837b"
     },
     {
       "file": "src/modules/39-gm-admin-panel.js",
@@ -294,7 +315,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Evolução integral V702: HUD, câmera, terreno, água, natação, fazenda, escavação e cidadãos temáticos",
-      "sha256Body": "35a805dd6de3e967f4e8c5e2c4111086a44350ae4f5a75dc5ede09c749c2571b"
+      "sha256Body": "ba0edb6e50e5fcc9e3cfe781cf0ba6198e1c6dbb622406e956e69c7bb55b5243"
     }
   ],
   "styles": [

@@ -155,6 +155,7 @@
     if(paused||!els.modal.hidden||performance.now()<actionLockedUntil)return;
     actionLockedUntil=performance.now()+90;state.stats.actions++;
     if(state.ui.quickOpen){state.ui.quickOpen=false;syncMobilePanels();}
+    if(typeof handleActiveSportActionV704==='function'&&handleActiveSportActionV704()){updateContext(true);return;}
     let target=currentContext;
     if(target&&target.radius!==999){const pos=worldPos(target);if(!isInteractionAvailable(target)||Math.hypot(player.x-pos.x,player.z-pos.z)>(target.radius||2)+.2)target=null;}
     if(!target)target=nearestInteractable();

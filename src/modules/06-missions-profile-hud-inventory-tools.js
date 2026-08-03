@@ -143,10 +143,6 @@
   }
   function playToolAnimation(){player.emoteType='tool';player.emoteUntil=performance.now()+620;player.emoteSeq=(player.emoteSeq||0)+1;const low=['pickaxe','hoe','shovel'].includes(state.tools.equipped);beep(low?180:260,55,'triangle');vibrate(16);}
 
-  const WORLD_MAP_ROADS=[{x:0,z:0,w:18,d:210},{x:0,z:0,w:210,d:18},{x:-55,z:-55,w:9,d:105},{x:55,z:48,w:9,d:92},{x:55,z:-55,w:9,d:105},{x:-55,z:22,w:9,d:44},{x:27.5,z:78,w:55,d:9}];
-  const NAV_BASE_NODES={
-    VS:{x:0,z:-105},V55S:{x:0,z:-55},V18S:{x:0,z:-18},C:{x:0,z:0},V18N:{x:0,z:18},V50N:{x:0,z:50},V78N:{x:0,z:78},VN:{x:0,z:105},
-    HW:{x:-105,z:0},H88W:{x:-88,z:0},H55W:{x:-55,z:0},H25W:{x:-25,z:0},H25E:{x:25,z:0},H55E:{x:55,z:0},H88E:{x:88,z:0},HE:{x:105,z:0},
-    W105S:{x:-55,z:-105},W55S:{x:-55,z:-55},W22N:{x:-55,z:22},W40N:{x:-55,z:40},E105S:{x:55,z:-105},E55S:{x:55,z:-55},E18S:{x:55,z:-18},E48N:{x:55,z:48},E78N:{x:55,z:78},E94N:{x:55,z:94}
-  };
-  const NAV_BASE_EDGES=[['VS','V55S'],['V55S','V18S'],['V18S','C'],['C','V18N'],['V18N','V50N'],['V50N','V78N'],['V78N','VN'],['HW','H88W'],['H88W','H55W'],['H55W','H25W'],['H25W','C'],['C','H25E'],['H25E','H55E'],['H55E','H88E'],['H88E','HE'],['W105S','W55S'],['W55S','H55W'],['H55W','W22N'],['W22N','W40N'],['E105S','E55S'],['E55S','E18S'],['E18S','H55E'],['H55E','E48N'],['E48N','E78N'],['E78N','E94N'],['V78N','E78N']];
+  const WORLD_MAP_ROADS=WORLD_LAYOUT_V704.roads.map(road=>({...road}));
+  const NAV_BASE_NODES=Object.fromEntries(Object.entries(WORLD_LAYOUT_V704.nodes).map(([id,point])=>[id,{...point}]));
+  const NAV_BASE_EDGES=WORLD_LAYOUT_V704.edges.map(edge=>[...edge]);
