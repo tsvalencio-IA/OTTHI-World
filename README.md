@@ -1,76 +1,81 @@
-# OTTHI World V703 — Recuperação funcional
+# OTTHI World V704 — reconstrução consolidada do mundo
 
-Esta é uma **entrega completa**, reconstruída sobre a base **V702.1**, identificada como a última consolidação funcional anterior às camadas que desorganizaram o cenário nas Revisões 7 e 8.
+Esta é a versão completa consolidada do projeto atual do repositório `tsvalencio-IA/OTTHI-World`, branch `main`. Ela não depende da aplicação de hotfixes em sequência.
 
-Não aplique esta versão como hotfix e não misture seus arquivos com a Revisão 8. A publicação correta substitui integralmente o projeto por este pacote, depois de homologação.
+A publicação correta substitui integralmente os arquivos da versão anterior pelo conteúdo deste pacote. Não misture a V704 com ZIPs V702, V703, V703.1, Revisão 7 ou Revisão 8.
 
-## O que foi recuperado
+## O que foi reconstruído
 
-Os módulos responsáveis por materializar vias, bairros, casas, transporte, serviços, aventura, água e evolução básica do mundo foram restaurados exatamente da V702.1. A equivalência é verificada por hashes no teste `tools/test_v703_recovery.py`.
+### Mundo e coordenadas
 
-A recuperação não simplifica o jogo e não remove sistemas para os testes passarem. Permanecem contas, autenticação, Firebase, saves, painel GM, casas, personalizações, inventário, profissões, escolas, construção, veículos, transporte, pescaria, agricultura, PWA e wrapper Android da base funcional.
+- `WORLD_LAYOUT_V704` é a autoridade única para vias, zonas, estruturas, acessos, destinos, áreas protegidas e pontos principais.
+- O anel aleatório de prédios que podia invadir pista, campo e quadras foi removido.
+- O skyline decorativo permanece fora dos limites jogáveis.
+- Estádio, campo de futebol, pista de atletismo, vôlei, futevôlei e kartódromo possuem zonas independentes.
+- A criação antiga do ginásio não materializa outra geometria: ela delega ao único complexo V704.
+- Casas, prédios funcionais, veículos estacionados, água, montanhas, castelo, fazenda e áreas de construção usam o mesmo layout.
+- Construções antigas salvas em ruas ou áreas protegidas são migradas para a zona de construção, sem apagar o registro do usuário.
+- Rotas de ônibus, GPS, mapa, entradas e missões usam a mesma malha de vias.
 
-## Correções específicas da V703
+### Esportes e kart
 
-### Multiplayer e aparência
+- Futebol: partida, bola, chute, gols, placar, cronômetro, reinício, adversário e goleiro básico.
+- Atletismo: pista oval protegida, setores sequenciais e corrida cooperativa na geometria real da pista.
+- Vôlei e futevôlei: quadras separadas, saque, rally, rede, limites, pontuação e adversário.
+- Kart: modelo próprio, boxes em ilha interna, contagem regressiva, checkpoints ordenados, voltas, adversários e penalização de atalhos.
 
-- a presença online envia uma descrição compacta da aparência real do avatar;
-- o jogador remoto deixa de ser sempre um fantasma genérico;
-- estilo corporal, rosto, cabelo, roupas, calçados, acessórios, uniforme e cores são reconstruídos no outro aparelho;
-- cada usuário autenticado pode gravar presença somente no próprio UID nas regras incluídas.
+### Veículos
 
-### Queda e jogador preso
+- Integridade persistente por veículo.
+- Batidas leves, médias, fortes e destrutivas produzem consequências diferentes.
+- Perda de desempenho conforme a integridade diminui.
+- Batida destrutiva quebra o veículo e zera a movimentação.
+- Veículo quebrado não pode ser dirigido normalmente.
+- Opções reais de reboque e reparo, com custo e consumo de materiais.
+- Fragmentos visuais são limitados e descartados para não crescerem indefinidamente.
 
-- a última posição segura é mantida separadamente;
-- posições em queda, água, veículo, barco ou transporte não substituem o ponto seguro;
-- há recuperação automática para posição inválida, queda abaixo do terreno, saída do mundo e aprisionamento em collider;
-- o menu de pausa possui **Desprender — voltar ao último ponto seguro**.
+### Estabilidade preservada
 
-### Missões cooperativas
+- Login concluído independentemente da disponibilidade da sala multiplayer.
+- Ordem de inicialização cooperativa corrigida; `coopActionInteractable` é inicializada antes da montagem do mundo.
+- Firebase, raiz `otthosWorld`, saves locais e em nuvem, painel GM, casas, personalizações, profissões, escolas, inventário, construção, transporte, pesca, PWA e wrapper Android permanecem no projeto.
 
-- uma missão só inicia quando suas dependências reais existem no mundo;
-- cada etapa possui instrução, métrica, alvo e próximo destino;
-- a corrida de rua usa checkpoints sequenciais sobre vias existentes;
-- adversários seguem a rota viária e param na chegada;
-- a corrida oval exige os setores em ordem antes de contar a volta;
-- a pescaria usa a mesma coordenada para fogueira, GPS e objetivo.
+## Estrutura
 
-## Fonte e bundles
+- `src/modules/` — fontes JavaScript modulares.
+- `src/styles/` — fontes CSS modulares.
+- `src/module-order.json` — ordem e hashes das fontes.
+- `app.js` e `style.css` — bundles gerados e sincronizados.
+- `tools/` — build, auditorias e testes.
+- `android-app/` — wrapper Android V7.0.4.
+- `firebase-database.rules.json` — regras do Realtime Database.
 
-- `src/modules/` — módulos-fonte JavaScript;
-- `src/styles/` — módulos-fonte CSS;
-- `src/module-order.json` — ordem dos módulos;
-- `app.js` e `style.css` — bundles gerados e sincronizados;
-- `tools/` — build e validações;
-- `android-app/` — wrapper Android V7.0.3;
-- `firebase-database.rules.json` — regras a publicar no mesmo Realtime Database.
+## Validação local executada
 
-## Build e validação
+- build idempotente;
+- sintaxe JavaScript;
+- sincronização entre fontes e bundles;
+- hashes da release;
+- 19 arquivos de teste aprovados;
+- validador estrutural: 196 de 196 verificações;
+- auditoria geométrica: 11 vias, 27 estruturas, 16 zonas e 11 caminhos;
+- 5 rotas de ônibus, 58 segmentos e nenhum segmento fora da rede viária;
+- seis áreas esportivas/kart auditadas sem prédio, casa ou veículo invasor;
+- materialização simulada de `buildWorld()`: 38 verificações;
+- runtime de dano, quebra, imobilização, reboque e reparo: 14 verificações.
 
-```bash
-python tools/build_project.py
-node --check app.js
-python tools/validate_project.py
-python tools/verify_equivalence.py
-python tools/test_v703_recovery.py
-```
+## Limites declarados
 
-A validação local verifica sintaxe, integridade dos bundles, hashes, preservação de funções, segurança estrutural, restauração da base mundial, contrato de skin remota, recuperação de queda e objetivos cooperativos.
+Não foram declarados como aprovados:
 
-## Limites honestos da validação
-
-Ainda exigem teste real antes da produção:
-
-- renderização WebGL em celular com GPU real;
-- retrato e paisagem em aparelhos físicos;
-- duas contas conectadas em dois aparelhos;
-- publicação e leitura das regras no Firebase remoto;
-- desconexão, reconexão e remoção de presença fantasma;
+- teste visual 3D em celular físico com WebGL real;
+- Firebase remoto de produção;
+- multiplayer real em dois aparelhos;
 - instalação e atualização da PWA;
-- APK assinado e instalado;
-- desempenho prolongado e consumo de memória.
+- APK assinado instalado em aparelho;
+- desempenho prolongado em diferentes celulares.
 
-Consulte os relatórios V703 na raiz do pacote antes da publicação.
+Os relatórios V703 mantidos no pacote são históricos. A referência atual de publicação é exclusivamente a V704.
 
 ---
 

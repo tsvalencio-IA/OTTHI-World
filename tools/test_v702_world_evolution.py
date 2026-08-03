@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[1]
 checks=[]
 def ck(name,ok): checks.append((name,bool(ok)))
 version=json.loads((ROOT/'VERSION.json').read_text('utf-8'))
-ck('version 703 com camada V702 preservada',version.get('version')==703)
+ck('versão atual preserva a camada V702',version.get('version',0)>=703)
 js=(ROOT/'src/modules/40-world-evolution-v702.js').read_text('utf-8')
 css=(ROOT/'src/styles/18-world-evolution-v702.css').read_text('utf-8')
 for token in ['professionalTerrainHeightAt','createLakeDepthLayers','player.swimming','createFarmingSystem','createDigSites','createThemedCitizens','cameraPitchUpBtn','OTTHI_WORLD_V702']:
@@ -21,6 +21,6 @@ for pack in ['dirt','sand','farmland','cliff','deep-water','shore','mud']:
     for channel in ['basecolor','normal','roughness','ao','height','emissive']:
         ck(f'{pack}-{channel}',(ROOT/f'assets/world/textures/{pack}-{channel}.png').is_file())
 failed=[n for n,o in checks if not o]
-print(f'V703 / camada V702: {len(checks)-len(failed)}/{len(checks)}')
+print(f'Versão atual / camada V702: {len(checks)-len(failed)}/{len(checks)}')
 if failed:
     print('\n'.join('FALHOU: '+x for x in failed));sys.exit(1)

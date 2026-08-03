@@ -51,10 +51,14 @@ current_functions = re.findall(
     re.M,
 )
 baseline_functions = BASELINE['orderedFunctions']
+coop_source = text('src/modules/32-cooperative-missions.js')
+coop_functions = set(re.findall(r'^  (?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(', coop_source, re.M))
+ordered_baseline = [name for name in baseline_functions if name not in coop_functions]
+ordered_current = [name for name in current_functions if name not in coop_functions]
 add(
-    'Todas as funções V646.6 permanecem na mesma ordem relativa',
-    ordered_subsequence(baseline_functions, current_functions),
-    f"{len(baseline_functions)} base / {len(current_functions)} atuais",
+    'Funções históricas preservam a ordem, exceto o módulo cooperativo movido antes do bootstrap',
+    ordered_subsequence(ordered_baseline, ordered_current),
+    f"{len(baseline_functions)} base / {len(current_functions)} atuais / {len(coop_functions)} cooperativas reposicionadas",
 )
 add(
     'Nenhuma função V646.6 foi removida',

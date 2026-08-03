@@ -42,7 +42,9 @@ add('CSS profissional V700 preservado',any(x['file']=='src/styles/16-otthi-world
 baseline=json.loads(text('docs/BASELINE-V6466-VISUAL-FOUNDATION.json'))
 functions=re.findall(r'^  (?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(',app,re.M)
 base=baseline['orderedFunctions']
-add('Todas as funções-base permanecem na ordem relativa',ordered_subsequence(base,functions),f'{len(base)} base / {len(functions)} atuais')
+coop_names=set(re.findall(r'^  (?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(',text('src/modules/32-cooperative-missions.js'),re.M))
+base_order_without_relocated_coop=[name for name in base if name not in coop_names]
+add('Todas as funções-base permanecem na ordem relativa, exceto módulo cooperativo movido antes do bootstrap',ordered_subsequence(base_order_without_relocated_coop,functions),f'{len(base_order_without_relocated_coop)} base ordenadas / {len(functions)} atuais')
 add('Nenhuma função-base foi removida',set(base).issubset(functions),sorted(set(base)-set(functions))[:10])
 add('Funções ampliadas',len(functions)>=800,len(functions))
 

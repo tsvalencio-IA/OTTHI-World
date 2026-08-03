@@ -1,40 +1,55 @@
 {
-  "version": 703,
-  "build": "703.0-recovery-functional-world",
+  "version": 704,
+  "build": "704.0-world-reconstruction-complete",
   "name": "OTTHI World",
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 7030,
-  "androidVersionName": "7.0.3",
-  "recoveryBase": {
-    "version": "V702.1",
-    "archiveSha256": "90b3e8d0ec96bc12c1d9334cdca34d65e721919b6453cadf5f7dd4c38433397c",
-    "reason": "restaurar a última base funcional anterior às camadas regressivas das Revisões 7 e 8"
-  },
+  "androidVersionCode": 7040,
+  "androidVersionName": "7.0.4",
   "stages": {
-    "1": {"name": "Fundação profissional", "status": "preserved"},
-    "2": {"name": "Personagem modular", "status": "preserved"},
-    "3": {"name": "Mundo, texturas e render", "status": "restored-from-v702.1"},
-    "4": {"name": "Construção e máquinas modulares", "status": "preserved"},
-    "5": {"name": "Aventura, plataforma e poderes", "status": "preserved"},
-    "6": {"name": "Recuperação funcional, avatar remoto e missões cooperativas", "status": "implemented"}
+    "1": {
+      "name": "Fundação profissional",
+      "status": "preserved"
+    },
+    "2": {
+      "name": "Personagem modular",
+      "status": "preserved"
+    },
+    "3": {
+      "name": "Mundo, zonas, esportes e kartódromo consolidados",
+      "status": "implemented"
+    },
+    "4": {
+      "name": "Construção e máquinas modulares",
+      "status": "preserved"
+    },
+    "5": {
+      "name": "Aventura, plataforma e poderes",
+      "status": "preserved"
+    },
+    "6": {
+      "name": "Recuperação, avatar remoto e missões cooperativas",
+      "status": "implemented"
+    },
+    "7": {
+      "name": "Veículos com dano, quebra, reboque e reparo",
+      "status": "implemented"
+    }
   },
   "changes": [
-    "Pacote completo reconstruído sobre a V702.1, sem depender da Revisão 8 ou de hotfixes em sequência",
-    "Onze módulos que materializam vias, bairros, casas, transporte, serviços, aventura e água restaurados exatamente da V702.1 e verificados por SHA-256",
-    "Configuração visual compacta do avatar enviada na presença multiplayer",
-    "Avatar remoto reconstruído conforme estilo, rosto, cabelo, roupa, calçados, acessórios, uniforme e cores recebidos",
-    "Presença no Realtime Database restringida para cada conta escrever somente no próprio UID",
-    "Última posição segura mantida separadamente de estados transitórios como veículo, barco, transporte, natação e queda",
-    "Recuperação automática para posição inválida, queda abaixo do terreno, saída dos limites e aprisionamento em collider",
-    "Botão Desprender no menu de pausa para retorno manual ao último ponto seguro",
-    "Missões cooperativas bloqueadas antes da largada quando dependências reais do mundo não existem",
-    "Objetivos cooperativos expostos por etapa, instrução, métrica e alvo verificáveis",
-    "Corrida de rua usa largada e checkpoints sequenciais sobre a malha viária existente",
-    "Adversários da corrida seguem a mesma rota viária e param após a chegada, sem fechar volta atravessando o mapa",
-    "Corrida oval exige setores em ordem antes de contar a volta",
-    "Pescaria cooperativa usa a mesma coordenada real para fogueira, GPS e objetivo"
+    "Autoridade única WORLD_LAYOUT_V704 para vias, zonas, estruturas, acessos, GPS e áreas protegidas",
+    "Criação antiga do ginásio desativada e redirecionada ao único complexo esportivo V704",
+    "Estádio, campo, pista de atletismo, vôlei, futevôlei e kartódromo reconstruídos em áreas independentes",
+    "Auditoria estática e auditoria do mundo materializado verificam casas, colliders, veículos, hazards e destinos",
+    "Construções antigas que ocupavam ruas ou áreas protegidas são realocadas com registro para a zona de construção",
+    "Futebol com bola, chute, adversário, goleiro, gols, placar e cronômetro",
+    "Vôlei e futevôlei com saque, rally, rede, adversário, limites e pontuação",
+    "Kart com veículo próprio, contagem regressiva, checkpoints, três voltas, adversários e penalização de atalhos",
+    "Veículos possuem integridade persistente, perda de desempenho, quebra total, imobilização, reboque e reparo",
+    "Login de conta desacoplado da disponibilidade da sala multiplayer",
+    "Entrada no mundo preserva a correção da ordem de inicialização das missões cooperativas",
+    "Firebase, saves, multiplayer, painel GM, casas, profissões, escolas, inventário, PWA e controles preservados"
   ],
   "preserves": [
     "Firebase existente e raiz otthosWorld",
@@ -46,7 +61,7 @@
     "inventário, ferramentas e construção",
     "profissões, escolas e serviços",
     "veículos, ônibus, metrô, barcos e transporte",
-    "pescaria, natação e agricultura da base V702.1",
+    "pescaria, natação e agricultura",
     "missões não cooperativas existentes",
     "PWA, Service Worker e wrapper Android",
     "controles retrato, paisagem, toque e gamepad"
@@ -54,24 +69,28 @@
   "validation": {
     "structuralApproved": true,
     "allLocalTestsApproved": true,
-    "worldBaselineRestoredApproved": true,
-    "recoveryStaticApproved": true,
-    "multiplayerAvatarContractApproved": true,
-    "cooperativeObjectiveContractApproved": true,
+    "staticWorldAuditApproved": true,
+    "runtimeWorldAuditAvailable": true,
     "browserSmokeApproved": false,
     "physicalDeviceApproved": false,
     "firebaseRemoteApproved": false,
     "multiplayerTwoDevicesApproved": false,
     "pwaInstalledApproved": false,
-    "arApproved": false,
     "apkApproved": false
   },
-  "release": "703.0-recovery",
+  "release": "704.0-world-reconstruction",
   "notes": [
-    "Não publicar a Revisão 8 nem aplicar os oito arquivos antigos sobre esta versão.",
-    "A V703 deve ser publicada como pacote completo, primeiro em ambiente de teste ou branch de homologação.",
-    "A regra Firebase incluída precisa ser publicada junto para aplicar a proteção de presença por UID.",
-    "A validação local não substitui teste visual WebGL em GPU real, celular físico, Firebase remoto, PWA instalada, APK e multiplayer entre dois aparelhos.",
-    "Esta entrega recupera a base funcional anterior e corrige regressões identificadas; não afirma que todo o jogo atingiu acabamento comercial definitivo."
-  ]
+    "Validação estrutural, build idempotente, hashes, 19 suítes locais, auditoria geométrica, materialização simulada do mundo e runtime de dano veicular aprovados na V704.",
+    "A auditoria do mundo materializado também está incorporada ao runtime e registra conflitos reais no console quando executada com WebGL.",
+    "Teste em aparelho físico, Firebase remoto, multiplayer entre dois aparelhos, PWA instalada e APK permanecem separados e não foram declarados como aprovados.",
+    "Os relatórios V703 mantidos no pacote são históricos; a referência de publicação atual é exclusivamente a V704."
+  ],
+  "hotfix": "704.0",
+  "assetVersion": 7040,
+  "consolidationBase": {
+    "repository": "tsvalencio-IA/OTTHI-World",
+    "branch": "main",
+    "previousBuild": "703.1-startup-fix",
+    "method": "reconstrução consolidada em uma única árvore completa, sem aplicação sequencial de hotfixes"
+  }
 }

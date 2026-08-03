@@ -4,8 +4,8 @@
   'use strict';
 
   const OTTHI_GAME_LIVE_BASE = new URL('./', window.location.href).href;
-  const OTTHI_GAME_WEB_BUILD = '703.0-recovery-functional-world';
-  window.OTTHI_GAME_VERSION = 703;
+  const OTTHI_GAME_WEB_BUILD = '704.0-world-reconstruction-complete';
+  window.OTTHI_GAME_VERSION = 704;
   window.OTTHI_GAME_BUILD = OTTHI_GAME_WEB_BUILD;
   const OTTHI_INDEX_BUILD = document.documentElement?.dataset?.otthiBuild || '';
   const OTTHI_RELEASE_REVISION = document.documentElement?.dataset?.otthiRevision || '';
@@ -24,7 +24,7 @@
   const uid = () => (crypto.randomUUID ? crypto.randomUUID() : `p-${Date.now()}-${Math.random().toString(16).slice(2)}`);
   const safePointerCapture=(element,pointerId)=>{try{if(element?.setPointerCapture&&Number.isInteger(pointerId))element.setPointerCapture(pointerId);return true;}catch{return false;}};
   const safePointerRelease=(element,pointerId)=>{try{if(element?.hasPointerCapture?.(pointerId))element.releasePointerCapture(pointerId);return true;}catch{return false;}};
-  const APP_VERSION = 703;
+  const APP_VERSION = 704;
   const STORAGE_KEY = 'otthos_life_world_roleplay_v700';
   const LEGACY_STORAGE_KEYS = ['otthos_life_world_roleplay_v646','otthos_life_world_roleplay_v645','otthos_life_world_roleplay_v644','otthos_life_world_roleplay_v643','otthos_life_world_roleplay_v642','otthos_life_world_roleplay_v641','otthos_life_world_roleplay_v640','otthos_life_world_roleplay_v639','otthos_life_world_roleplay_v638','otthos_life_world_roleplay_v637','otthos_life_world_roleplay_v636','otthos_life_world_roleplay_v635','otthos_life_world_roleplay_v634','otthos_life_world_roleplay_v633','otthos_life_world_roleplay_v632','otthos_life_world_roleplay_v631','otthos_life_world_roleplay_v630','otthos_life_world_roleplay_v629','otthos_life_world_roleplay_v628','otthos_life_world_roleplay_v627','otthos_life_world_roleplay_v626','otthos_life_world_roleplay_v625','otthos_life_world_roleplay_v624','otthos_life_world_roleplay_v623','otthos_life_world_roleplay_v622','otthos_life_world_roleplay_v621','otthos_life_world_roleplay_v620','otthos_life_world_roleplay_v619','otthos_life_world_roleplay_v618','otthos_life_world_roleplay_v617','otthos_life_world_roleplay_v616','otthos_life_world_roleplay_v615','otthos_life_world_roleplay_v614','otthos_life_world_roleplay_v613','otthos_life_world_roleplay_v612','otthos_life_world_roleplay_v611','otthos_life_world_roleplay_v610','otthos_life_world_roleplay_v609','otthos_life_world_roleplay_v608','otthos_life_world_roleplay_v607','otthos_life_world_roleplay_v606','otthos_life_world_roleplay_v605','otthos_life_world_roleplay_v604','otthos_life_world_roleplay_v603','otthos_life_world_roleplay_v602','otthos_life_world_roleplay_v601','otthos_life_world_complete_v600'];
   const safeLocalGet = key => { try { return window.localStorage?.getItem(key) ?? null; } catch { return null; } };
@@ -463,7 +463,7 @@
     builds: [],
     buildTombstones: [],
     defeated: 0,
-    position: { x: 0, y: 0, z: 8, yaw: 0 },
+    position: { x: -18, y: 0, z: 39, yaw: 0 },
     settings: { sound: true, quality: 'auto', autoTier: 'balanced', vibration: true, cameraZoom: 0, cameraPitch: .28, cameraYawAssist: true, joystickNatural: true },
     guardian: { multiplayerEnabled:true, communicationEnabled:true, chatEnabled:true, sessionLimitMinutes:0, updatedAt:0 },
     usage: { totalSeconds:0, sessionSeconds:0, sessionStartedAt:0, lastPlayedAt:0, sessionLockedAt:0 },
@@ -476,7 +476,8 @@
     campfires: [],
     boats: { activeBoatId: '', passengerOf: '', lastPosition: { x:-38, z:52, heading:0 } },
     transport: { metroTrips:0, metroDestinations:[], busStops:[], busTrips:0, busWaiting:null },
-    vehicles: { lastUsedId:'', parked:{} },
+    vehicles: { lastUsedId:'', parked:{}, modularParts:{}, partDurability:{}, broken:{}, damageHistory:[] },
+    worldLayout: { version:704, migratedAt:0, migratedBuilds:0 },
     objectives: { pinnedChapterId:'', history:[] },
     adventures: { completed:[], bestTimes:{}, active:null },
     hunting: { lastAttempt: 0, tracksFound: 0, successful: 0, failed: 0, cooperativeRewards: [] },
@@ -537,7 +538,8 @@
       safety: { ...fresh.safety, ...(saved.safety || {}) },
       cityServices: { ...fresh.cityServices, ...(saved.cityServices || {}) },
       transport: { ...fresh.transport, ...(saved.transport || {}), metroDestinations:Array.isArray(saved.transport?.metroDestinations)?saved.transport.metroDestinations:[], busStops:Array.isArray(saved.transport?.busStops)?saved.transport.busStops:[] },
-      vehicles: { ...fresh.vehicles, ...(saved.vehicles || {}), parked:{...fresh.vehicles.parked,...(saved.vehicles?.parked||{})} },
+      vehicles: { ...fresh.vehicles, ...(saved.vehicles || {}), parked:{...fresh.vehicles.parked,...(saved.vehicles?.parked||{})}, modularParts:{...fresh.vehicles.modularParts,...(saved.vehicles?.modularParts||{})}, partDurability:{...fresh.vehicles.partDurability,...(saved.vehicles?.partDurability||{})}, broken:{...fresh.vehicles.broken,...(saved.vehicles?.broken||{})}, damageHistory:Array.isArray(saved.vehicles?.damageHistory)?saved.vehicles.damageHistory.slice(-40):[] },
+      worldLayout: { ...fresh.worldLayout, ...(saved.worldLayout || {}) },
       objectives: { ...fresh.objectives, ...(saved.objectives || {}), history:Array.isArray(saved.objectives?.history)?saved.objectives.history:[] },
       adventures: { ...fresh.adventures, ...(saved.adventures || {}), active:saved.adventures?.active&&typeof saved.adventures.active==='object'?{...saved.adventures.active,progress:Array.isArray(saved.adventures.active.progress)?saved.adventures.active.progress:[]}:null, completed:Array.isArray(saved.adventures?.completed)?saved.adventures.completed:[], bestTimes:{...fresh.adventures.bestTimes,...(saved.adventures?.bestTimes||{})} },
       races: { ...fresh.races, ...(saved.races || {}) },
@@ -628,7 +630,7 @@
       version: APP_VERSION,lastSaved:Number(state.lastSaved||Date.now()),
       profile:{name:state.profile.name||'Jogador',coins:state.profile.coins||0,xp:state.profile.xp||0,level:state.profile.level||1,reputation:state.profile.reputation||0},
       inventory:{...state.inventory},gm:{appliedGrantIds:[...new Set((state.gm?.appliedGrantIds||[]).map(String).filter(Boolean))].slice(-500),lastGrantAt:Math.max(0,Number(state.gm?.lastGrantAt||0))},medals:[...(state.medals||[])],flags:{...state.flags},houses:{...state.houses},races:{...state.races},
-      avatar:{...state.avatar},abilities:{...state.abilities,mastery:{...(state.abilities?.mastery||{})}},tools:{...state.tools,owned:[...(state.tools?.owned||[])],harvested:{...(state.tools?.harvested||{})}},safety:{...state.safety},cityServices:{...state.cityServices},career:{...state.career,activeJob:state.career?.activeJob?{...state.career.activeJob}:null},cooperative:{...state.cooperative,active:state.cooperative?.active?{...state.cooperative.active}:null,completed:[...(state.cooperative?.completed||[])],history:[...(state.cooperative?.history||[])]},friendship:{...state.friendship},completedChapters:[...(state.completedChapters||[])],builds:[...(state.builds||[])],buildTombstones:[...(state.buildTombstones||[])],homeStorage:{...state.homeStorage},fishing:{...state.fishing,catches:[...(state.fishing?.catches||[])],species:{...(state.fishing?.species||{})}},farming:{...state.farming,plots:{...(state.farming?.plots||{})},digSites:{...(state.farming?.digSites||{})}},campfires:[...(state.campfires||[])],boats:{...state.boats,lastPosition:{...(state.boats?.lastPosition||{})}},transport:{...state.transport,metroDestinations:[...(state.transport?.metroDestinations||[])],busStops:[...(state.transport?.busStops||[])]},vehicles:{...state.vehicles,parked:{...(state.vehicles?.parked||{})}},objectives:{...state.objectives,history:[...(state.objectives?.history||[])]},adventures:{...state.adventures,completed:[...(state.adventures?.completed||[])],bestTimes:{...(state.adventures?.bestTimes||{})}},hunting:{...state.hunting},houseExtensions:[...(state.houseExtensions||[])],roomFurniture:[...(state.roomFurniture||[])],
+      avatar:{...state.avatar},abilities:{...state.abilities,mastery:{...(state.abilities?.mastery||{})}},tools:{...state.tools,owned:[...(state.tools?.owned||[])],harvested:{...(state.tools?.harvested||{})}},safety:{...state.safety},cityServices:{...state.cityServices},career:{...state.career,activeJob:state.career?.activeJob?{...state.career.activeJob}:null},cooperative:{...state.cooperative,active:state.cooperative?.active?{...state.cooperative.active}:null,completed:[...(state.cooperative?.completed||[])],history:[...(state.cooperative?.history||[])]},friendship:{...state.friendship},completedChapters:[...(state.completedChapters||[])],builds:[...(state.builds||[])],buildTombstones:[...(state.buildTombstones||[])],homeStorage:{...state.homeStorage},fishing:{...state.fishing,catches:[...(state.fishing?.catches||[])],species:{...(state.fishing?.species||{})}},farming:{...state.farming,plots:{...(state.farming?.plots||{})},digSites:{...(state.farming?.digSites||{})}},campfires:[...(state.campfires||[])],boats:{...state.boats,lastPosition:{...(state.boats?.lastPosition||{})}},transport:{...state.transport,metroDestinations:[...(state.transport?.metroDestinations||[])],busStops:[...(state.transport?.busStops||[])]},vehicles:{...state.vehicles,parked:{...(state.vehicles?.parked||{})},modularParts:{...(state.vehicles?.modularParts||{})},partDurability:{...(state.vehicles?.partDurability||{})},broken:{...(state.vehicles?.broken||{})},damageHistory:[...(state.vehicles?.damageHistory||[])].slice(-40)},worldLayout:{...(state.worldLayout||{})},objectives:{...state.objectives,history:[...(state.objectives?.history||[])]},adventures:{...state.adventures,completed:[...(state.adventures?.completed||[])],bestTimes:{...(state.adventures?.bestTimes||{})}},hunting:{...state.hunting},houseExtensions:[...(state.houseExtensions||[])],roomFurniture:[...(state.roomFurniture||[])],
       achievements:{stats:{...state.stats},daily:{...state.daily,quests:[...(state.daily?.quests||[])]},learning:{...state.learning,subjectXP:{...state.learning.subjectXP},lessons:{...state.learning.lessons}}},position:{...state.position}
     };
   }
@@ -649,7 +651,7 @@
       inventory:{...state.inventory,...(remote.inventory||{})},gm:{...state.gm,...(remote.gm||{}),appliedGrantIds:[...new Set([...(state.gm?.appliedGrantIds||[]),...(remote.gm?.appliedGrantIds||[])].map(String).filter(Boolean))].slice(-500),lastGrantAt:Math.max(Number(state.gm?.lastGrantAt||0),Number(remote.gm?.lastGrantAt||0))},medals:Array.isArray(remote.medals)?remote.medals:state.medals,
       flags:{...state.flags,...(remote.flags||{})},houses:{...state.houses,...(remote.houses||{})},races:{...state.races,...(remote.races||{})},
       avatar:normalizeAvatarV2({...state.avatar,...(remote.avatar||{})}),abilities:{...state.abilities,...(remote.abilities||{}),mastery:{...state.abilities.mastery,...(remote.abilities?.mastery||{})}},tools:{...state.tools,...(remote.tools||{}),owned:Array.isArray(remote.tools?.owned)?remote.tools.owned:state.tools.owned,harvested:{...state.tools.harvested,...(remote.tools?.harvested||{})}},safety:{...state.safety,...(remote.safety||{})},cityServices:{...state.cityServices,...(remote.cityServices||{})},career:{...state.career,...(remote.career||{}),activeJob:remote.career?.activeJob?{...remote.career.activeJob}:state.career.activeJob},cooperative:{...state.cooperative,...(remote.cooperative||{}),active:remote.cooperative?.active?{...remote.cooperative.active}:state.cooperative.active,completed:Array.isArray(remote.cooperative?.completed)?remote.cooperative.completed:state.cooperative.completed,history:Array.isArray(remote.cooperative?.history)?remote.cooperative.history:state.cooperative.history},friendship:{...state.friendship,...(remote.friendship||{})},completedChapters:Array.isArray(remote.completedChapters)?remote.completedChapters:state.completedChapters,
-      builds:mergedBuilds,buildTombstones:mergedBuildTombstones,homeStorage:{...state.homeStorage,...(remote.homeStorage||{})},fishing:{...state.fishing,...(remote.fishing||{}),catches:Array.isArray(remote.fishing?.catches)?remote.fishing.catches:state.fishing.catches,species:{...state.fishing.species,...(remote.fishing?.species||{})}},farming:{...state.farming,...(remote.farming||{}),plots:{...state.farming.plots,...(remote.farming?.plots||{})},digSites:{...state.farming.digSites,...(remote.farming?.digSites||{})}},campfires:Array.isArray(remote.campfires)?remote.campfires:state.campfires,boats:{...state.boats,...(remote.boats||{}),lastPosition:{...state.boats.lastPosition,...(remote.boats?.lastPosition||{})}},transport:{...state.transport,...(remote.transport||{}),metroDestinations:Array.isArray(remote.transport?.metroDestinations)?remote.transport.metroDestinations:state.transport.metroDestinations,busStops:Array.isArray(remote.transport?.busStops)?remote.transport.busStops:state.transport.busStops},vehicles:{...state.vehicles,...(remote.vehicles||{}),parked:{...state.vehicles.parked,...(remote.vehicles?.parked||{})}},objectives:{...state.objectives,...(remote.objectives||{}),history:Array.isArray(remote.objectives?.history)?remote.objectives.history:state.objectives.history},adventures:{...state.adventures,...(remote.adventures||{}),completed:Array.isArray(remote.adventures?.completed)?remote.adventures.completed:state.adventures.completed,bestTimes:{...state.adventures.bestTimes,...(remote.adventures?.bestTimes||{})}},hunting:{...state.hunting,...(remote.hunting||{})},houseExtensions:mergedExtensions,roomFurniture:mergedFurniture,
+      builds:mergedBuilds,buildTombstones:mergedBuildTombstones,homeStorage:{...state.homeStorage,...(remote.homeStorage||{})},fishing:{...state.fishing,...(remote.fishing||{}),catches:Array.isArray(remote.fishing?.catches)?remote.fishing.catches:state.fishing.catches,species:{...state.fishing.species,...(remote.fishing?.species||{})}},farming:{...state.farming,...(remote.farming||{}),plots:{...state.farming.plots,...(remote.farming?.plots||{})},digSites:{...state.farming.digSites,...(remote.farming?.digSites||{})}},campfires:Array.isArray(remote.campfires)?remote.campfires:state.campfires,boats:{...state.boats,...(remote.boats||{}),lastPosition:{...state.boats.lastPosition,...(remote.boats?.lastPosition||{})}},transport:{...state.transport,...(remote.transport||{}),metroDestinations:Array.isArray(remote.transport?.metroDestinations)?remote.transport.metroDestinations:state.transport.metroDestinations,busStops:Array.isArray(remote.transport?.busStops)?remote.transport.busStops:state.transport.busStops},vehicles:{...state.vehicles,...(remote.vehicles||{}),parked:{...state.vehicles.parked,...(remote.vehicles?.parked||{})},modularParts:{...(state.vehicles?.modularParts||{}),...(remote.vehicles?.modularParts||{})},partDurability:{...(state.vehicles?.partDurability||{}),...(remote.vehicles?.partDurability||{})},broken:{...(state.vehicles?.broken||{}),...(remote.vehicles?.broken||{})},damageHistory:Array.isArray(remote.vehicles?.damageHistory)?remote.vehicles.damageHistory.slice(-40):(state.vehicles?.damageHistory||[]).slice(-40)},worldLayout:{...(state.worldLayout||{}),...(remote.worldLayout||{})},objectives:{...state.objectives,...(remote.objectives||{}),history:Array.isArray(remote.objectives?.history)?remote.objectives.history:state.objectives.history},adventures:{...state.adventures,...(remote.adventures||{}),completed:Array.isArray(remote.adventures?.completed)?remote.adventures.completed:state.adventures.completed,bestTimes:{...state.adventures.bestTimes,...(remote.adventures?.bestTimes||{})}},hunting:{...state.hunting,...(remote.hunting||{})},houseExtensions:mergedExtensions,roomFurniture:mergedFurniture,
       stats:{...state.stats,...(remote.achievements?.stats||{})},daily:{...state.daily,...(remote.achievements?.daily||{})},learning:{...state.learning,...(remote.achievements?.learning||{}),subjectXP:{...state.learning.subjectXP,...(remote.achievements?.learning?.subjectXP||{})},lessons:{...state.learning.lessons,...(remote.achievements?.learning?.lessons||{})}},
       position:{...state.position,...(remote.position||{})},lastSaved:remoteSaved,version: APP_VERSION
     };
@@ -1323,6 +1325,163 @@
 
   let activeMission = null;
 
+  // ===== MODULE: 05a-world-layout-v704.js =====
+  const WORLD_LAYOUT_V704=Object.freeze({
+    version:704,
+    bounds:Object.freeze({minX:-116,maxX:116,minZ:-116,maxZ:116}),
+    roads:Object.freeze([
+      {id:'avenida-central-ns',x:0,z:0,w:18,d:210,kind:'avenue'},
+      {id:'avenida-central-ew',x:0,z:0,w:210,d:18,kind:'avenue'},
+      {id:'via-floresta-sul',x:-55,z:-55,w:9,d:105,kind:'street'},
+      {id:'via-floresta-norte',x:-55,z:28,w:9,d:56,kind:'street'},
+      {id:'acesso-construcao-ns',x:-55,z:68,w:9,d:24,kind:'street'},
+      {id:'acesso-construcao-ew',x:-35,z:78,w:40,d:7,kind:'street'},
+      {id:'via-servicos-leste',x:65,z:-55,w:9,d:105,kind:'street'},
+      {id:'via-escola-leste',x:68,z:29,w:9,d:58,kind:'street'},
+      {id:'acesso-norte',x:34,z:58,w:68,d:9,kind:'street'},
+      {id:'acesso-castelo-fazenda',x:84,z:38,w:32,d:7,kind:'street'},
+      {id:'acesso-kart',x:80,z:-65,w:30,d:9,kind:'street'}
+    ]),
+    nodes:Object.freeze({
+      VS:{x:0,z:-105},V65S:{x:0,z:-65},V18S:{x:0,z:-18},C:{x:0,z:0},V18N:{x:0,z:18},V58N:{x:0,z:58},VN:{x:0,z:105},
+      HW:{x:-105,z:0},H55W:{x:-55,z:0},H25W:{x:-25,z:0},H25E:{x:25,z:0},H65E:{x:65,z:0},H88E:{x:88,z:0},HE:{x:105,z:0},
+      W105S:{x:-55,z:-105},W55S:{x:-55,z:-55},W28N:{x:-55,z:28},W56N:{x:-55,z:56},W80N:{x:-55,z:80},BUILD78:{x:-15,z:78},
+      E105S:{x:65,z:-105},E65S:{x:65,z:-65},E18S:{x:65,z:-18},E0:{x:65,z:0},E58N:{x:68,z:58},
+      N34:{x:34,z:58},N68:{x:68,z:58},C38:{x:68,z:38},CASTLE38:{x:100,z:38},
+      K65:{x:65,z:-65},K80:{x:80,z:-65},K94:{x:94,z:-65}
+    }),
+    edges:Object.freeze([
+      ['VS','V65S'],['V65S','V18S'],['V18S','C'],['C','V18N'],['V18N','V58N'],['V58N','VN'],
+      ['HW','H55W'],['H55W','H25W'],['H25W','C'],['C','H25E'],['H25E','H65E'],['H65E','H88E'],['H88E','HE'],
+      ['W105S','W55S'],['W55S','H55W'],['H55W','W28N'],['W28N','W56N'],['W56N','W80N'],['W80N','BUILD78'],
+      ['E105S','E65S'],['E65S','E18S'],['E18S','E0'],['E0','H65E'],['E0','C38'],['C38','E58N'],
+      ['V58N','N34'],['N34','N68'],['N68','E58N'],['C38','CASTLE38'],
+      ['V65S','E65S'],['E65S','K65'],['K65','K80'],['K80','K94']
+    ]),
+    points:Object.freeze({
+      spawn:{x:-18,z:39},home:{x:-18,z:34},blue:{x:-30,z:17},pink:{x:24,z:17},shop:{x:-22,z:-18},workshop:{x:22,z:-18},
+      school:{x:-68,z:-18},schoolEast:{x:82,z:24},police:{x:78,z:-18},policeWest:{x:-68,z:22},fireStation:{x:96,z:-18},
+      well:{x:38,z:10},foundry:{x:43,z:-35},mine:{x:-92,z:-92},cabin:{x:-88,z:-42},
+      camp:{x:-78,z:-62},hunt:{x:-101,z:-78},lake:{x:-72,z:52},lakeNorth:{x:-100,z:70},pier:{x:-30,z:52},
+      farm:{x:101,z:22},farmEntrance:{x:91,z:34},garage:{x:84,z:30},jobBoard:{x:86,z:34},
+      sports:{x:42,z:88},sportsEntrance:{x:42,z:66},volley:{x:82,z:95},footvolley:{x:100,z:95},
+      kart:{x:94,z:-91},kartEntrance:{x:94,z:-70},kartBoxes:{x:94,z:-91},
+      castle:{x:100,z:55},castleEntrance:{x:100,z:40},mountain:{x:-88,z:97},mountainEntrance:{x:-62,z:84},
+      lava:{x:35,z:-104},giantGate:{x:18,z:-54},miniTunnel:{x:-38,z:34},crouchTunnel:{x:-42,z:24},
+      learningMath:{x:22,z:-32},learningPortuguese:{x:22,z:-40},learningEnglish:{x:22,z:-48},learningEntrance:{x:14,z:-40},
+      playground:{x:-28,z:-40},fountain:{x:-14,z:-8},portal:{x:82,z:53},
+      construction:{x:-33,z:96},constructionEntrance:{x:-33,z:78},
+      platformCircuit:{x:94,z:-52},platformEntrance:{x:76,z:-35},
+      repairParking:{x:32,z:-18}
+    }),
+    zones:Object.freeze({
+      urban:{id:'urban',name:'Centro urbano',x:0,z:0,w:118,d:104},
+      residential:{id:'residential',name:'Bairros residenciais',x:-2,z:27,w:92,d:38},
+      services:{id:'services',name:'Escolas e serviços',x:78,z:-18,w:70,d:106},
+      stadium:{id:'stadium',name:'Estádio e atletismo',x:42,z:88,w:62,d:44},
+      courts:{id:'courts',name:'Quadras de vôlei e futevôlei',x:91,z:95,w:34,d:24},
+      kart:{id:'kart',name:'Kartódromo',x:94,z:-91,w:44,d:38},
+      rural:{id:'rural',name:'Fazenda',x:101,z:22,w:26,d:22},
+      lake:{id:'lake',name:'Lago principal',x:-72,z:52,w:88,d:18},
+      lakeNorth:{id:'lakeNorth',name:'Braço norte do lago',x:-100,z:70,w:32,d:14},
+      forest:{id:'forest',name:'Floresta e acampamento',x:-86,z:-58,w:60,d:58},
+      mine:{id:'mine',name:'Mina',x:-92,z:-92,w:28,d:24},
+      castle:{id:'castle',name:'Castelo e aventura',x:100,z:55,w:32,d:28},
+      mountain:{id:'mountain',name:'Montanhas e trilhas',x:-88,z:97,w:50,d:36},
+      construction:{id:'construction',name:'Construção dos jogadores',x:-33,z:96,w:36,d:32},
+      education:{id:'education',name:'Academia Kids',x:22,z:-40,w:18,d:24},
+      platform:{id:'platform',name:'Circuito das plataformas',x:94,z:-52,w:38,d:42}
+    }),
+    paths:Object.freeze([
+      {id:'casa-inicial',x1:-18,z1:37.2,x2:-18,z2:45,w:2.2,destination:'home'},
+      {id:'complexo-esportivo',x1:42,z1:62,x2:42,z2:67,w:3.2,destination:'stadium'},
+      {id:'quadras-leste-a',x1:68,z1:62,x2:76,z2:64,w:2.2},
+      {id:'quadras-leste-b',x1:76,z1:64,x2:76,z2:82,w:2.2},
+      {id:'quadra-volei',x1:76,z1:82,x2:82,z2:84,w:2.2,destination:'volley'},
+      {id:'quadra-futevolei',x1:92,z1:82,x2:100,z2:84,w:2.2,destination:'footvolley'},
+      {id:'fazenda',x1:91,z1:34,x2:96,z2:30,w:2.2,destination:'farm'},
+      {id:'castelo',x1:100,z1:41,x2:100,z2:43,w:5.2,destination:'castle'},
+      {id:'kart',x1:94,z1:-69,x2:94,z2:-72.1,w:3.2,destination:'kart-circuit'},
+      {id:'montanha',x1:-55,z1:80,x2:-63,z2:84,w:2.2,destination:'mountain'},
+      {id:'construcao',x1:-35,z1:81,x2:-33,z2:82,w:3.0,destination:'construction-zone'}
+    ]),
+    structures:Object.freeze([
+      {id:'home',kind:'house',point:'home',w:9,d:7,margin:1.2,access:'spawn'},
+      {id:'blue',kind:'house',point:'blue',w:9,d:7,margin:1.2},
+      {id:'pink',kind:'house',point:'pink',w:9,d:7,margin:1.2},
+      {id:'shop',kind:'house',point:'shop',w:9,d:7,margin:1.2},
+      {id:'workshop',kind:'house',point:'workshop',w:9,d:7,margin:1.2},
+      {id:'school',kind:'house',point:'school',w:9,d:7,margin:1.4},
+      {id:'school-east',kind:'house',point:'schoolEast',w:9,d:7,margin:1.4},
+      {id:'police',kind:'house',point:'police',w:9,d:7,margin:1.4},
+      {id:'police-west',kind:'house',point:'policeWest',w:9,d:7,margin:1.4},
+      {id:'fire-station',kind:'house',point:'fireStation',w:9,d:7,margin:1.4},
+      {id:'cabin',kind:'house',point:'cabin',w:9,d:7,margin:1.2},
+      {id:'stadium',kind:'sport',point:'sports',w:62,d:43,margin:.5},
+      {id:'football-field',kind:'sport-inner',point:'sports',w:42,d:18,margin:0,inside:'stadium'},
+      {id:'volley',kind:'sport',point:'volley',w:14,d:22,margin:.6},
+      {id:'footvolley',kind:'sport',point:'footvolley',w:14,d:22,margin:.6},
+      {id:'kart-circuit',kind:'kart',point:'kart',w:44,d:38,margin:.35},
+      {id:'kart-boxes',kind:'kart-inner',point:'kartBoxes',w:14,d:32,margin:0,inside:'kart-circuit'},
+      {id:'farm',kind:'farm',point:'farm',w:22,d:18,margin:.8},
+      {id:'castle',kind:'castle',point:'castle',w:31,d:27.6,margin:.4,allowedRoads:['acesso-castelo-fazenda']},
+      {id:'mountain',kind:'terrain',point:'mountain',w:50,d:36,margin:.5},
+      {id:'mine',kind:'resource',point:'mine',w:18,d:14,margin:1.0},
+      {id:'learning',kind:'education',x:22,z:-40,w:8,d:22,margin:1.0},
+      {id:'playground',kind:'playground',point:'playground',w:9,d:7,margin:1.0},
+      {id:'giant-gate',kind:'challenge',point:'giantGate',w:10,d:2,margin:1.0},
+      {id:'mini-tunnel',kind:'challenge',point:'miniTunnel',w:8,d:6,margin:1.0},
+      {id:'crouch-tunnel',kind:'challenge',point:'crouchTunnel',w:8,d:5,margin:1.0},
+      {id:'construction-zone',kind:'construction',point:'construction',w:36,d:32,margin:0,allowRoadOverlap:false}
+    ])
+  });
+  function worldLayoutPoint(id,fallback={x:0,z:0}){const p=WORLD_LAYOUT_V704.points[id];return p?{x:Number(p.x),z:Number(p.z)}:{x:Number(fallback.x||0),z:Number(fallback.z||0)};}
+  function worldLayoutRect(id){const zone=WORLD_LAYOUT_V704.zones[id];return zone?{...zone}:null;}
+  function worldLayoutStructure(id){const item=WORLD_LAYOUT_V704.structures.find(entry=>entry.id===id);if(!item)return null;const p=item.point?worldLayoutPoint(item.point):item;return{...item,x:Number(item.x??p.x),z:Number(item.z??p.z)};}
+  function v704RectOverlap(a,b,margin=0){return Math.abs(Number(a.x)-Number(b.x))<(Number(a.w)+Number(b.w))/2+margin&&Math.abs(Number(a.z)-Number(b.z))<(Number(a.d)+Number(b.d))/2+margin;}
+  function v704PointInRect(point,rect,margin=0){return Math.abs(Number(point.x)-Number(rect.x))<=Number(rect.w)/2+margin&&Math.abs(Number(point.z)-Number(rect.z))<=Number(rect.d)/2+margin;}
+  function v704RoadFootprint(road,includeSidewalk=true){const side=includeSidewalk?2.7:0;return{...road,w:Number(road.w)+(Number(road.w)>=Number(road.d)?0:side),d:Number(road.d)+(Number(road.w)>=Number(road.d)?side:0)};}
+  function v704RoadAt(x,z,margin=0,includeSidewalk=false){return WORLD_LAYOUT_V704.roads.some(road=>v704PointInRect({x,z},v704RoadFootprint(road,includeSidewalk),margin));}
+  function v704ZoneAt(x,z,margin=0){return Object.values(WORLD_LAYOUT_V704.zones).filter(zone=>v704PointInRect({x,z},zone,margin)).map(zone=>zone.id);}
+  function v704ConstructionAt(x,z,margin=0){return v704PointInRect({x,z},WORLD_LAYOUT_V704.zones.construction,-Math.abs(margin));}
+  function v704ProtectedRectangles(){return WORLD_LAYOUT_V704.structures.filter(item=>item.kind!=='sport-inner'&&item.kind!=='construction').map(item=>worldLayoutStructure(item.id));}
+  function v704ReservedAt(x,z,margin=0){if(v704RoadAt(x,z,margin,true))return true;return v704ProtectedRectangles().some(rect=>v704PointInRect({x,z},rect,Number(rect.margin||0)+margin));}
+  function v704BuildAllowedAt(x,z,w=1.5,d=1.5){const zone=WORLD_LAYOUT_V704.zones.construction,rect={x,z,w,d};if(x-w/2<zone.x-zone.w/2||x+w/2>zone.x+zone.w/2||z-d/2<zone.z-zone.d/2||z+d/2>zone.z+zone.d/2)return false;return !WORLD_LAYOUT_V704.roads.some(road=>v704RectOverlap(rect,v704RoadFootprint(road,true),.25));}
+  function v704NearestConstructionSlot(index=0){const zone=WORLD_LAYOUT_V704.zones.construction,columns=6,spacingX=5,spacingZ=5,row=Math.floor(index/columns),column=index%columns;return{x:zone.x-zone.w/2+3+column*spacingX,z:zone.z-zone.d/2+3+row*spacingZ};}
+  function v704PathRect(path){const dx=Number(path.x2)-Number(path.x1),dz=Number(path.z2)-Number(path.z1),length=Math.hypot(dx,dz);return{id:path.id,x:(path.x1+path.x2)/2,z:(path.z1+path.z2)/2,w:Math.abs(dx)+Number(path.w||2),d:Math.abs(dz)+Number(path.w||2),rotation:Math.atan2(dx,dz),length};}
+  function v704StaticWorldAudit(){
+    const problems=[],roads=WORLD_LAYOUT_V704.roads.map(road=>v704RoadFootprint(road,true)),structures=WORLD_LAYOUT_V704.structures.map(item=>worldLayoutStructure(item.id)),bounds=WORLD_LAYOUT_V704.bounds;
+    const compatible=new Set(['stadium|football-field','football-field|stadium']);
+    for(const road of roads){if(road.x-road.w/2<bounds.minX||road.x+road.w/2>bounds.maxX||road.z-road.d/2<bounds.minZ||road.z+road.d/2>bounds.maxZ)problems.push({type:'road-out-of-bounds',a:road.id});}
+    for(const item of structures){
+      if(item.x-item.w/2<bounds.minX||item.x+item.w/2>bounds.maxX||item.z-item.d/2<bounds.minZ||item.z+item.d/2>bounds.maxZ)problems.push({type:'structure-out-of-bounds',a:item.id});
+      if(item.kind==='construction')continue;
+      for(const road of roads){if((item.allowedRoads||[]).includes(road.id))continue;if(v704RectOverlap(item,road,Number(item.margin||0)))problems.push({type:'structure-on-road',a:item.id,b:road.id});}
+    }
+    for(let i=0;i<structures.length;i++)for(let j=i+1;j<structures.length;j++){
+      const a=structures[i],b=structures[j];if(a.kind==='construction'||b.kind==='construction'||compatible.has(`${a.id}|${b.id}`)||a.inside===b.id||b.inside===a.id)continue;
+      if(v704RectOverlap(a,b,Math.max(Number(a.margin||0),Number(b.margin||0))))problems.push({type:'structure-overlap',a:a.id,b:b.id});
+    }
+    const water=[WORLD_LAYOUT_V704.zones.lake,WORLD_LAYOUT_V704.zones.lakeNorth];for(const item of structures.filter(s=>!['terrain'].includes(s.kind)))for(const hazard of water)if(v704RectOverlap(item,hazard,.1))problems.push({type:'structure-in-water',a:item.id,b:hazard.id});
+    for(const path of WORLD_LAYOUT_V704.paths){const rect=v704PathRect(path);for(const structure of structures){if(['construction-zone'].includes(structure.id)||path.destination===structure.id)continue;const startInside=v704PointInRect({x:path.x1,z:path.z1},structure,.1),endInside=v704PointInRect({x:path.x2,z:path.z2},structure,.1);if(!startInside&&!endInside&&v704RectOverlap(rect,structure,.2))problems.push({type:'path-through-structure',a:path.id,b:structure.id});}}
+    return{version:704,passed:problems.length===0,problems,roads:roads.length,structures:structures.length,zones:Object.keys(WORLD_LAYOUT_V704.zones).length,paths:WORLD_LAYOUT_V704.paths.length};
+  }
+  function v704ActualHouseRect(house){if(!house)return null;if(house.id==='castle-hall')return worldLayoutStructure('castle');return{id:String(house.id||'house'),kind:'runtime-house',x:Number(house.x),z:Number(house.z),w:Number(house.w||9),d:Number(house.d||7)};}
+  function v704RuntimeWorldAudit(){
+    const problems=[],roads=WORLD_LAYOUT_V704.roads.map(road=>v704RoadFootprint(road,true)),protectedRects=v704ProtectedRectangles(),houses=(world?.houses||[]).map(v704ActualHouseRect).filter(Boolean),vehicles=world?.vehicles||[],hazards=world?.hazards||[];
+    const add=(type,a,b='',detail='')=>problems.push({type,a:String(a||''),b:String(b||''),detail:String(detail||'')});
+    for(const house of houses)for(const road of roads)if(v704RectOverlap(house,road,1.0))add('house-on-road',house.id,road.id);
+    for(let i=0;i<houses.length;i++)for(let j=i+1;j<houses.length;j++)if(v704RectOverlap(houses[i],houses[j],1.0))add('house-overlap',houses[i].id,houses[j].id);
+    for(const house of houses)for(const hazard of hazards)if(Number.isFinite(hazard.w)&&v704RectOverlap(house,hazard,.25))add('house-in-hazard',house.id,hazard.type);
+    const protectedGameplay=protectedRects.filter(rect=>['sport','kart','farm','castle'].includes(rect.kind));for(const collider of world?.colliders||[]){const rect={x:Number(collider.x),z:Number(collider.z),w:Number(collider.w),d:Number(collider.d)};if(!Number.isFinite(rect.x)||collider.sportsV704||collider.kartV704)continue;for(const protectedRect of protectedGameplay)if(v704RectOverlap(rect,protectedRect,.15))add('collider-in-protected-area',collider.houseId||collider.buildId||collider.landmark||'collider',protectedRect.id);}
+    for(const vehicle of vehicles){const x=Number(vehicle.group?.position?.x??vehicle.x),z=Number(vehicle.group?.position?.z??vehicle.z),id=String(vehicle.id||'vehicle');if(!Number.isFinite(x)||!Number.isFinite(z)){add('vehicle-invalid-position',id);continue;}const isKart=String(vehicle.kind||'')==='kart';if(!isKart)for(const road of roads)if(v704PointInRect({x,z},road,Number(vehicle.radius||1.35)))add('vehicle-on-road',id,road.id);for(const structure of protectedRects){if(isKart&&['kart-circuit','kart-boxes'].includes(structure.id))continue;if(v704PointInRect({x,z},structure,1.2))add('vehicle-inside-structure',id,structure.id);}}
+    const spawn=worldLayoutPoint('spawn');if(typeof positionBlockedForPlayer==='function'&&positionBlockedForPlayer(spawn.x,spawn.z,.42,{ignoreTraffic:true,allowWater:false}))add('spawn-blocked','spawn');
+    const important=['sportsEntrance','volley','footvolley','kartEntrance','farmEntrance','castleEntrance','mountainEntrance','constructionEntrance'];for(const id of important){const p=worldLayoutPoint(id);if(typeof nearestRoadProjection==='function'){const projection=nearestRoadProjection(p);if(!projection||projection.distance>18||projection.clear===false)add('destination-inaccessible',id,'road',projection?`distance=${projection.distance.toFixed(1)}`:'no-projection');}}
+    const names={};worldGroup?.traverse?.(object=>{const name=String(object.name||'');if(name)names[name]=(names[name]||0)+1;});for(const name of['OTTHI_V702_FARM','OTTHI_V702_MOUNTAIN','OTTHI_V704_SPORTS','OTTHI_V704_KART'])if((names[name]||0)>1)add('duplicate-world-system',name,String(names[name]));
+    const result={version:704,passed:problems.length===0,problems,houses:houses.length,vehicles:vehicles.length,colliders:world?.colliders?.length||0,hazards:hazards.length,interactables:world?.interactables?.length||0,at:Date.now()};world.layoutAuditRuntime=result;if(!result.passed)console.error('[OTTHI V704] auditoria geométrica do mundo real',problems);return result;
+  }
+  window.OTTHI_WORLD_LAYOUT_V704={layout:WORLD_LAYOUT_V704,point:worldLayoutPoint,zone:worldLayoutRect,structure:worldLayoutStructure,staticAudit:v704StaticWorldAudit,runtimeAudit:v704RuntimeWorldAudit,audit:v704StaticWorldAudit,roadAt:v704RoadAt,reservedAt:v704ReservedAt,buildAllowedAt:v704BuildAllowedAt,constructionSlot:v704NearestConstructionSlot,zonesAt:v704ZoneAt};
+
   // ===== MODULE: 06-missions-profile-hud-inventory-tools.js =====
   function deriveMissionFlags() {
     const friendCount = Object.values(state.friendship).filter(v => v > 0).length;
@@ -1459,13 +1618,9 @@
   }
   function playToolAnimation(){player.emoteType='tool';player.emoteUntil=performance.now()+620;player.emoteSeq=(player.emoteSeq||0)+1;const low=['pickaxe','hoe','shovel'].includes(state.tools.equipped);beep(low?180:260,55,'triangle');vibrate(16);}
 
-  const WORLD_MAP_ROADS=[{x:0,z:0,w:18,d:210},{x:0,z:0,w:210,d:18},{x:-55,z:-55,w:9,d:105},{x:55,z:48,w:9,d:92},{x:55,z:-55,w:9,d:105},{x:-55,z:22,w:9,d:44},{x:27.5,z:78,w:55,d:9}];
-  const NAV_BASE_NODES={
-    VS:{x:0,z:-105},V55S:{x:0,z:-55},V18S:{x:0,z:-18},C:{x:0,z:0},V18N:{x:0,z:18},V50N:{x:0,z:50},V78N:{x:0,z:78},VN:{x:0,z:105},
-    HW:{x:-105,z:0},H88W:{x:-88,z:0},H55W:{x:-55,z:0},H25W:{x:-25,z:0},H25E:{x:25,z:0},H55E:{x:55,z:0},H88E:{x:88,z:0},HE:{x:105,z:0},
-    W105S:{x:-55,z:-105},W55S:{x:-55,z:-55},W22N:{x:-55,z:22},W40N:{x:-55,z:40},E105S:{x:55,z:-105},E55S:{x:55,z:-55},E18S:{x:55,z:-18},E48N:{x:55,z:48},E78N:{x:55,z:78},E94N:{x:55,z:94}
-  };
-  const NAV_BASE_EDGES=[['VS','V55S'],['V55S','V18S'],['V18S','C'],['C','V18N'],['V18N','V50N'],['V50N','V78N'],['V78N','VN'],['HW','H88W'],['H88W','H55W'],['H55W','H25W'],['H25W','C'],['C','H25E'],['H25E','H55E'],['H55E','H88E'],['H88E','HE'],['W105S','W55S'],['W55S','H55W'],['H55W','W22N'],['W22N','W40N'],['E105S','E55S'],['E55S','E18S'],['E18S','H55E'],['H55E','E48N'],['E48N','E78N'],['E78N','E94N'],['V78N','E78N']];
+  const WORLD_MAP_ROADS=WORLD_LAYOUT_V704.roads.map(road=>({...road}));
+  const NAV_BASE_NODES=Object.fromEntries(Object.entries(WORLD_LAYOUT_V704.nodes).map(([id,point])=>[id,{...point}]));
+  const NAV_BASE_EDGES=WORLD_LAYOUT_V704.edges.map(edge=>[...edge]);
 
   // ===== MODULE: 07-navigation-traffic-routes.js =====
   function routeLength(points){let total=0;for(let i=1;i<points.length;i++)total+=Math.hypot(points[i].x-points[i-1].x,points[i].z-points[i-1].z);return total;}
@@ -1556,46 +1711,54 @@
   function routeSvgMarkup(points){const mapped=points.map(p=>worldToMap(p.x,p.z));return `<svg class="map-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${mapped.map(p=>`${p.left},${p.top}`).join(' ')}"/></svg>`;}
 
   const METRO_STATIONS = [
-    { id:'central', name:'Estação Central', x:-12, z:5, navX:-12, navZ:11, line:'Linha Solar' },
-    { id:'academia', name:'Estação Academia', x:13, z:-40, navX:13, navZ:-40, line:'Linha Solar' },
-    { id:'floresta', name:'Estação Floresta', x:-62, z:-34, navX:-62, navZ:-34, line:'Linha Verde' },
-    { id:'lago', name:'Estação Lago', x:-25, z:59, navX:-25, navZ:59, line:'Linha Verde' },
-    { id:'castelo', name:'Estação Castelo', x:71, z:49, navX:71, navZ:49, line:'Linha Real' },
-    { id:'ginásio', name:'Estação Ginásio', x:63, z:80, navX:63, navZ:80, line:'Linha Real' }
+    { id:'central', name:'Estação Central', x:-12, z:5, navX:0, navZ:5, line:'Linha Solar' },
+    { id:'academia', name:'Estação Academia', x:-4, z:-40, navX:0, navZ:-40, line:'Linha Solar' },
+    { id:'floresta', name:'Estação Floresta', x:-55, z:-34, navX:-55, navZ:-34, line:'Linha Verde' },
+    { id:'lago', name:'Estação Lago', x:-55, z:56, navX:-55, navZ:56, line:'Linha Verde' },
+    { id:'castelo', name:'Estação Castelo', x:100, z:38, navX:100, navZ:38, line:'Linha Real' },
+    { id:'esportes', name:'Estação Complexo Esportivo', x:34, z:58, navX:34, navZ:58, line:'Linha Esportiva' },
+    { id:'kart', name:'Estação Kartódromo', x:94, z:-65, navX:94, navZ:-65, line:'Linha Esportiva' }
   ];
+  const mapPointV704=(id,navOffsetZ=0)=>{const p=worldLayoutPoint(id);return{x:p.x,z:p.z,navX:p.x,navZ:p.z+navOffsetZ};};
   const MAP_LOCATIONS = [
-    { id:'home', name:`Casa de ${playerDisplayName()}`, icon:'🏠', x:0, z:18, navX:0, navZ:23.3, group:'Casa' },
+    { id:'home', name:`Casa de ${playerDisplayName()}`, icon:'🏠', ...mapPointV704('home',5.3), group:'Casa' },
     { id:'village', name:'Praça da Vila', icon:'🏘', x:0, z:0, group:'Vila' },
-    { id:'blue', name:'Casa Azul', icon:'🏡', x:-25, z:17, navX:-25, navZ:22.3, group:'Casas' },
-    { id:'pink', name:'Casa Rosa', icon:'🏡', x:25, z:17, navX:25, navZ:22.3, group:'Casas' },
-    { id:'shop', name:'Mercadinho', icon:'🛒', x:-22, z:-18, navX:-22, navZ:-12.7, group:'Serviços' },
-    { id:'workshop', name:'Oficina', icon:'🛠', x:22, z:-18, navX:22, navZ:-12.7, group:'Serviços' },
-    { id:'school', name:'Escola Vila do Sol', icon:'🏫', x:-68, z:-18, navX:-60, navZ:-12, group:'Serviços' },
-    { id:'school-east', name:'Escola Horizonte', icon:'🏫', x:78, z:24, navX:68, navZ:18, group:'Serviços' },
-    { id:'police', name:'Delegacia Central', icon:'🛡️', x:68, z:-18, navX:55, navZ:-12, group:'Serviços' },
-    { id:'police-west', name:'Posto Policial do Bairro', icon:'👮', x:-68, z:22, navX:-55, navZ:22, group:'Serviços' },
-    { id:'fire-station', name:'Corpo de Bombeiros', icon:'🚒', x:68, z:-68, navX:55, navZ:-68, group:'Serviços' },
-    { id:'well', name:'Poço da Vila', icon:'🪣', x:38, z:10, navX:38, navZ:10, group:'Recursos' },
-    { id:'mine', name:'Mina Dourada', icon:'⛏️', x:-92, z:-92, navX:-84, navZ:-86, group:'Recursos' },
-    { id:'forest', name:'Floresta', icon:'🌲', x:-88, z:-42, navX:-82, navZ:-35, group:'Exploração' },
-    { id:'lake', name:'Represa / Lago', icon:'🌊', x:-36, z:52, navX:-27, navZ:52, group:'Água e Natureza' },
-    { id:'pier', name:'Píer do Lago', icon:'🛶', x:-29, z:52, navX:-25, navZ:52, group:'Água e Natureza' },
-    { id:'fishing', name:'Área de Pesca', icon:'🎣', x:-31, z:45, navX:-25, navZ:45, group:'Água e Natureza' },
-    { id:'camp', name:'Acampamento', icon:'🔥', x:-70, z:-62, navX:-62, navZ:-55, group:'Floresta e Campo' },
-    { id:'hunt', name:'Área de Rastreamento', icon:'🐾', x:-98, z:-72, navX:-88, navZ:-65, group:'Floresta e Campo' },
-    { id:'cabin', name:'Cabana da Floresta', icon:'🛖', x:-88, z:-42, navX:-82, navZ:-35, group:'Floresta e Campo' },
-    { id:'home-extension', name:'Ampliação da Casa', icon:'🧰', x:9, z:24, navX:7, navZ:26, group:'Casa' },
-    { id:'crystal', name:'Vale dos Cristais', icon:'💎', x:70, z:-60, group:'Desafios' },
-    { id:'garage', name:'Garagem e Fazenda', icon:'🚗', x:52, z:48, navX:48, navZ:43, group:'Trabalho' },
+    { id:'blue', name:'Casa Azul', icon:'🏡', ...mapPointV704('blue',5.3), group:'Casas' },
+    { id:'pink', name:'Casa Rosa', icon:'🏡', ...mapPointV704('pink',5.3), group:'Casas' },
+    { id:'shop', name:'Mercadinho', icon:'🛒', ...mapPointV704('shop',5.3), group:'Serviços' },
+    { id:'workshop', name:'Oficina', icon:'🛠', ...mapPointV704('workshop',5.3), group:'Serviços' },
+    { id:'school', name:'Escola Vila do Sol', icon:'🏫', ...mapPointV704('school',5.3), group:'Serviços' },
+    { id:'school-east', name:'Escola Horizonte', icon:'🏫', ...mapPointV704('schoolEast',5.3), group:'Serviços' },
+    { id:'police', name:'Delegacia Central', icon:'🛡️', ...mapPointV704('police',5.3), group:'Serviços' },
+    { id:'police-west', name:'Posto Policial do Bairro', icon:'👮', ...mapPointV704('policeWest',5.3), group:'Serviços' },
+    { id:'fire-station', name:'Corpo de Bombeiros', icon:'🚒', ...mapPointV704('fireStation',5.3), group:'Serviços' },
+    { id:'well', name:'Poço da Vila', icon:'🪣', ...mapPointV704('well'), group:'Recursos' },
+    { id:'mine', name:'Mina Dourada', icon:'⛏️', ...mapPointV704('mine',6), group:'Recursos' },
+    { id:'forest', name:'Floresta', icon:'🌲', ...mapPointV704('cabin',6), group:'Exploração' },
+    { id:'lake', name:'Represa / Lago', icon:'🌊', x:-36, z:52, navX:-28, navZ:52, group:'Água e Natureza' },
+    { id:'pier', name:'Píer do Lago', icon:'🛶', ...mapPointV704('pier'), group:'Água e Natureza' },
+    { id:'fishing', name:'Área de Pesca', icon:'🎣', x:-31, z:45, navX:-28, navZ:45, group:'Água e Natureza' },
+    { id:'camp', name:'Acampamento', icon:'🔥', ...mapPointV704('camp'), group:'Floresta e Campo' },
+    { id:'hunt', name:'Área de Rastreamento', icon:'🐾', ...mapPointV704('hunt'), group:'Floresta e Campo' },
+    { id:'cabin', name:'Cabana da Floresta', icon:'🛖', ...mapPointV704('cabin',5.3), group:'Floresta e Campo' },
+    { id:'home-extension', name:'Área de Construção', icon:'🧰', ...mapPointV704('constructionEntrance'), group:'Casa' },
+    { id:'crystal', name:'Circuito das Plataformas', icon:'💎', ...mapPointV704('platformEntrance'), group:'Desafios' },
+    { id:'garage', name:'Garagem', icon:'🚗', ...mapPointV704('garage'), group:'Trabalho' },
+    { id:'farm', name:'Fazenda Comunitária', icon:'🌾', ...mapPointV704('farm'), group:'Trabalho' },
     ...METRO_STATIONS.map(s=>({id:`metro-${s.id}`,name:s.name,icon:'Ⓜ️',x:s.x,z:s.z,navX:s.navX,navZ:s.navZ,group:'Transporte'})),
-    { id:'gym', name:'Ginásio', icon:'🏃', x:45, z:78, navX:45, navZ:84, group:'Desafios' },
-    { id:'castle', name:'Castelo', icon:'🏰', x:88, z:62, group:'Aventura' },
-    { id:'mini', name:'Passagem Mini', icon:'◱', x:-38, z:42, group:'Habilidades' },
-    { id:'crouch', name:'Túnel Baixo', icon:'▼', x:-53, z:24, group:'Habilidades' },
-    { id:'giant', name:'Portão Grande', icon:'⬡', x:36, z:-35, group:'Habilidades' },
-    { id:'edu-math', name:'Matemática Kids', icon:'🔢', x:22, z:-32, navX:18, navZ:-32, group:'Academia' },
-    { id:'edu-portuguese', name:'Português Kids', icon:'📚', x:22, z:-40, navX:18, navZ:-40, group:'Academia' },
-    { id:'edu-english', name:'English Kids', icon:'🌎', x:22, z:-48, navX:18, navZ:-48, group:'Academia' }
+    { id:'gym', name:'Complexo Esportivo', icon:'🏟️', ...mapPointV704('sportsEntrance'), group:'Esportes' },
+    { id:'football', name:'Estádio de Futebol', icon:'⚽', ...mapPointV704('sports'), group:'Esportes' },
+    { id:'volley', name:'Quadra de Vôlei', icon:'🏐', ...mapPointV704('volley'), group:'Esportes' },
+    { id:'footvolley', name:'Quadra de Futevôlei', icon:'🏖️', ...mapPointV704('footvolley'), group:'Esportes' },
+    { id:'kart', name:'Kartódromo OTTHI', icon:'🏁', ...mapPointV704('kartEntrance'), group:'Esportes' },
+    { id:'castle', name:'Castelo', icon:'🏰', ...mapPointV704('castleEntrance'), group:'Aventura' },
+    { id:'mountain', name:'Montanha OTTHI', icon:'⛰️', ...mapPointV704('mountain'), group:'Aventura' },
+    { id:'mini', name:'Passagem Mini', icon:'◱', ...mapPointV704('miniTunnel'), group:'Habilidades' },
+    { id:'crouch', name:'Túnel Baixo', icon:'▼', ...mapPointV704('crouchTunnel'), group:'Habilidades' },
+    { id:'giant', name:'Portão Grande', icon:'⬡', ...mapPointV704('giantGate'), group:'Habilidades' },
+    { id:'edu-math', name:'Matemática Kids', icon:'🔢', ...mapPointV704('learningMath'), group:'Academia' },
+    { id:'edu-portuguese', name:'Português Kids', icon:'📚', ...mapPointV704('learningPortuguese'), group:'Academia' },
+    { id:'edu-english', name:'English Kids', icon:'🌎', ...mapPointV704('learningEnglish'), group:'Academia' }
   ];
   const MAP_LOCATION_DETAILS={
     home:['Sua casa principal, com cozinha, quarto, sala, banho e baú de conquistas.',['Dormir','Cozinhar','Decorar']],
@@ -1612,7 +1775,11 @@
     forest:['Área de árvores, madeira, pistas e aventuras sem violência.',['Cortar madeira','Explorar']],
     lake:['Represa com píer, barco e pesca.',['Pescar','Passear de barco']],
     castle:['Castelo real com desafios, coroas e áreas secretas.',['Explorar','Desafios']],
-    gym:['Ginásio para corridas e desafios esportivos.',['Competir','Treinar']],
+    gym:['Complexo esportivo com atletismo, futebol, vôlei e futevôlei em áreas separadas.',['Competir','Treinar']],
+    football:['Campo central com partida, placar, cronômetro, adversário e goleiro.',['Jogar futebol']],
+    volley:['Quadra exclusiva com saque, rally e pontuação.',['Jogar vôlei']],
+    footvolley:['Quadra de areia exclusiva com rede, rally e pontuação.',['Jogar futevôlei']],
+    kart:['Circuito próprio com karts, checkpoints, voltas e classificação.',['Correr de kart']],
     garage:['Garagem, fazenda e central de entregas.',['Dirigir','Fazer entregas']],
     default:['Local importante da cidade OTTHOS.',['Explorar','Criar rota']]
   };
@@ -2942,44 +3109,20 @@
     if(wp)world.waypointMarker.position.set(wp.x,0,wp.z);
   }
   function createAthleticsGym(){
-    const gym={x:51,z:75.5,centerX:51,centerZ:75.5,radiusX:25,radiusZ:8,startX:76,finishX:76,lane1Z:75.5,lane2Z:77.4};world.gym=gym;
-    // Ginásio oval: pista contínua com duas faixas, campo central e arquibancada.
-    premiumBox(58,.12,23,0x315f3b,gym.centerX,.06,gym.centerZ,worldGroup);
-    const trackMat=renderMat(0xc55f42,{roughness:.88}),lineMat=renderMat(0xf8f3da,{roughness:.72}),segments=64;
-    for(let i=0;i<segments;i++){
-      const a=i/segments*Math.PI*2,b=(i+1)/segments*Math.PI*2,mid=(a+b)/2;
-      for(const offset of [0,2.15,-2.15]){
-        const rx=gym.radiusX+offset,rz=gym.radiusZ+offset*.22,x=gym.centerX+Math.cos(mid)*rx,z=gym.centerZ+Math.sin(mid)*rz;
-        const nextX=gym.centerX+Math.cos(b)*rx,nextZ=gym.centerZ+Math.sin(b)*rz,len=Math.hypot(nextX-(gym.centerX+Math.cos(a)*rx),nextZ-(gym.centerZ+Math.sin(a)*rz));
-        const piece=new THREE.Mesh(new THREE.BoxGeometry(Math.max(.65,len+.12),.12,offset===0?4.15:.12),offset===0?trackMat:lineMat);piece.position.set(x,.16,z);piece.rotation.y=-Math.atan2(Math.sin(mid)*rz,Math.cos(mid)*rx);worldGroup.add(piece);
-      }
-    }
-    // Gramado listrado, linha de largada, placar e arquibancada sem bloquear a pista.
-    for(let stripe=-4;stripe<=4;stripe++)premiumBox(43,0.035,1.35,stripe%2?0x3b9b4d:0x46aa57,gym.centerX,.19,gym.centerZ+stripe*1.35,worldGroup);
-    for(let j=-2;j<=2;j++)premiumBox(.18,.07,.72,j%2?0x111827:0xffffff,gym.finishX,.24,gym.centerZ+j*.72,worldGroup);
-    premiumBox(14,3.4,5.2,0x315779,51,1.7,91,worldGroup);premiumBox(12,.72,4.3,0xffd84d,51,3.82,91,worldGroup);
-    const arenaSign=new THREE.Mesh(new THREE.PlaneGeometry(9.8,1.15),new THREE.MeshStandardMaterial({map:signTexture('OTTHI ARENA • 3 VOLTAS','#123b63','#ffffff'),roughness:.55,side:THREE.DoubleSide}));arenaSign.position.set(51,3.86,88.35);arenaSign.rotation.y=Math.PI;worldGroup.add(arenaSign);
-    for(let row=0;row<3;row++)premiumBox(16-row*1.1,.42,1.25,row%2?0x6f98b8:0x5d83a1,51,.45+row*.48,87.2+row*.72,worldGroup);
-    for(const x of [27,39,51,63,75])premiumBox(.42,.09,.42,0xf5d84d,x,.25,66.5,worldGroup);
-    createLamp(25,67);createLamp(77,67);createLamp(25,84);createLamp(77,84);
-    registerInteractable({id:'athletics-gym',type:'race',icon:'🏃',label:'Abrir desafios do ginásio oval',x:51,z:86,radius:3.4,priority:120,action:()=>openRaceCenter()});
+    // V704: autoridade única. Chamadas legadas reutilizam o complexo já existente.
+    return typeof createSportsComplexV704==='function'?createSportsComplexV704():world.gym;
   }
   function createSizeChallenges(){
-    // Passagem mini
-    box(.7,2.5,5,0x64748b,-41,1.25,42);box(.7,2.5,5,0x64748b,-35,1.25,42);box(6.7,.65,5,0x64748b,-38,2.2,42);
-    registerInteractable({id:'mini-tunnel',type:'challenge',icon:'◱',label:'Passagem pequena',x:-38,z:44.5,radius:3,priority:110,action:()=>{
-      if(player.scaleMode!=='mini'){toast('Use o botão MINI para passar.','warn',2200);return;}player.z=39.5;setFlag('miniPassage');addXP(25);toast('Passagem mini concluída!','good');
-    }});
-    // Túnel baixo
-    box(.7,1.55,4,0x8b5a2b,-56,.78,24);box(.7,1.55,4,0x8b5a2b,-50,.78,24);box(6.7,.45,4,0x8b5a2b,-53,1.55,24);
-    registerInteractable({id:'crouch-tunnel',type:'challenge',icon:'▼',label:'Túnel baixo',x:-53,z:26,radius:3,priority:110,action:()=>{
-      if(!player.crouched){toast('Use ABAIXAR para entrar.','warn',2200);return;}player.z=21.5;setFlag('crouchPassage');addXP(25);toast('Túnel baixo concluído!','good');
-    }});
-    // Portão grande
-    box(8,4,.6,0x6b7280,36,2,-35);box(1,5,1,0x94a3b8,31.5,2.5,-35);box(1,5,1,0x94a3b8,40.5,2.5,-35);
-    registerInteractable({id:'giant-gate',type:'challenge',icon:'⬡',label:'Abrir portão pesado',x:36,z:-32,radius:3.2,priority:110,action:()=>{
-      if(player.scaleMode!=='giant'){toast('Use GRANDE para abrir o portão.','warn',2200);return;}setFlag('giantGate');addXP(35);toast('Portão pesado aberto!','good');
-    }});
+    const mini=worldLayoutPoint('miniTunnel'),crouch=worldLayoutPoint('crouchTunnel'),giant=worldLayoutPoint('giantGate');
+    // Passagem mini: laterais sólidas e vão central livre.
+    box(.7,2.5,6,0x64748b,mini.x-3,1.25,mini.z);box(.7,2.5,6,0x64748b,mini.x+3,1.25,mini.z);box(6.7,.65,6,0x64748b,mini.x,2.2,mini.z);registerCollider(mini.x-3,mini.z,.7,6,{challenge:'mini'});registerCollider(mini.x+3,mini.z,.7,6,{challenge:'mini'});
+    registerInteractable({id:'mini-tunnel',type:'challenge',icon:'◱',label:'Passagem pequena',x:mini.x,z:mini.z+4.2,radius:3,priority:110,action:()=>{if(player.scaleMode!=='mini'){toast('Use o botão MINI para passar.','warn',2200);return;}player.x=mini.x;player.z=mini.z-4.2;setFlag('miniPassage');addXP(25);toast('Passagem mini concluída!','good');}});
+    // Túnel baixo: somente o personagem abaixado atravessa o vão.
+    box(.7,1.55,5,0x8b5a2b,crouch.x-3,.78,crouch.z);box(.7,1.55,5,0x8b5a2b,crouch.x+3,.78,crouch.z);box(6.7,.45,5,0x8b5a2b,crouch.x,1.55,crouch.z);registerCollider(crouch.x-3,crouch.z,.7,5,{challenge:'crouch'});registerCollider(crouch.x+3,crouch.z,.7,5,{challenge:'crouch'});
+    registerInteractable({id:'crouch-tunnel',type:'challenge',icon:'▼',label:'Túnel baixo',x:crouch.x,z:crouch.z+3.8,radius:3,priority:110,action:()=>{if(!player.crouched){toast('Use ABAIXAR para entrar.','warn',2200);return;}player.x=crouch.x;player.z=crouch.z-3.8;setFlag('crouchPassage');addXP(25);toast('Túnel baixo concluído!','good');}});
+    // Portão grande abre de verdade e libera a passagem.
+    const gate=new THREE.Group();gate.position.set(giant.x,0,giant.z);worldGroup.add(gate);const slab=box(8,4,.6,0x6b7280,0,2,0,gate);box(1,5,1,0x94a3b8,-4.5,2.5,0,gate);box(1,5,1,0x94a3b8,4.5,2.5,0,gate);const collider=registerCollider(giant.x,giant.z,8,.6,{challenge:'giant'});
+    registerInteractable({id:'giant-gate',type:'challenge',icon:'⬡',label:'Abrir portão pesado',x:giant.x,z:giant.z+3,radius:3.2,priority:110,action:()=>{if(player.scaleMode!=='giant'){toast('Use GRANDE para abrir o portão.','warn',2200);return;}slab.position.y=6;world.colliders=world.colliders.filter(item=>item!==collider);setFlag('giantGate');addXP(35);toast('Portão pesado aberto e passagem liberada!','good');}});
   }
 
   function createSkyDome(){
@@ -3003,6 +3146,154 @@
     if(!world.clouds)return;
     for(const c of world.clouds){c.group.position.x+=c.speed*dt;if(c.group.position.x>210)c.group.position.x=-210;}
   }
+
+  // ===== MODULE: 13a-sports-kart-v704.js =====
+  const SPORTS_V704={initialized:false,active:null,football:null,courts:new Map(),kart:null,publishAt:0};
+  function v704SportGroundY(x,z){return typeof groundHeightAt==='function'?groundHeightAt(x,z):0;}
+  function v704SetRaceHud(title,status){if(!els?.raceBadge)return;els.raceBadge.hidden=false;els.raceTitle.textContent=title;els.raceStatus.textContent=status;}
+  function v704HideRaceHud(){if(els?.raceBadge)els.raceBadge.hidden=true;}
+  function v704SportBall(color=0xffffff,r=.45){const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),renderMat(color,{roughness:.56,metalness:0}));mesh.castShadow=true;mesh.receiveShadow=true;worldGroup.add(mesh);return mesh;}
+  function v704CreateSimpleAthlete(color,x,z,label='Adversário'){
+    const group=new THREE.Group();group.position.set(x,0,z);group.userData.label=label;worldGroup.add(group);
+    box(.72,1.02,.52,color,0,1.08,0,group);box(.64,.64,.64,0xffca98,0,1.92,0,group);box(.2,.78,.2,0x23324a,-.2,.43,0,group);box(.2,.78,.2,0x23324a,.2,.43,0,group);
+    return group;
+  }
+  function v704FieldLine(w,d,x,z){return stableBox(w,.025,d,0xffffff,x,.205,z,worldGroup,4);}
+  function v704CreateGoal(x,z,side){
+    const g=new THREE.Group();g.position.set(x,0,z);worldGroup.add(g);const post=renderMat(0xffffff,{roughness:.65}),net=renderMat(0xdbeafe,{transparent:true,opacity:.55,roughness:.9});
+    box(.16,2.15,.16,post,0,1.08,-3.3,g);box(.16,2.15,.16,post,0,1.08,3.3,g);box(.16,.16,6.75,post,0,2.12,0,g);
+    for(let zi=-3;zi<=3;zi+=.75)box(1.8,.035,.035,net,side*-.9,1.1,zi,g);for(let yi=.25;yi<2.1;yi+=.38)box(1.8,.035,.035,net,side*-.9,yi,0,g);
+    return g;
+  }
+  function createSportsComplexV704(){
+    if(SPORTS_V704.initialized)return world.sportsV704;const c=worldLayoutPoint('sports'),cx=c.x,cz=c.z,rx=26,rz=14;
+    const sports={centerX:cx,centerZ:cz,radiusX:rx,radiusZ:rz,startX:cx+rx,finishX:cx+rx,lane1Z:cz,lane2Z:cz+1.8,fieldW:42,fieldD:18};const sportsRoot=new THREE.Group();sportsRoot.name='OTTHI_V704_SPORTS';worldGroup.add(sportsRoot);sports.root=sportsRoot;world.gym=sports;world.sportsV704=sports;
+    const grass=renderMat(0x348447,{roughness:.94}),track=renderMat(0xb94f3b,{roughness:.9}),trackLine=renderMat(0xf8fafc,{roughness:.75});
+    premiumBox(58,.11,32,0x2f6e43,cx,.06,cz,worldGroup);
+    for(let i=0;i<88;i++){
+      const a=i/88*Math.PI*2,b=(i+1)/88*Math.PI*2,m=(a+b)/2;
+      for(const [off,width,matl] of [[0,5.2,track],[-2.0,.09,trackLine],[2.0,.09,trackLine]]){
+        const arx=rx+off,arz=rz+off*.52,x=cx+Math.cos(m)*arx,z=cz+Math.sin(m)*arz;
+        const ax=cx+Math.cos(a)*arx,az=cz+Math.sin(a)*arz,bx=cx+Math.cos(b)*arx,bz=cz+Math.sin(b)*arz,len=Math.hypot(bx-ax,bz-az);
+        const piece=new THREE.Mesh(new THREE.BoxGeometry(Math.max(.45,len+.08),.10,width),matl);piece.position.set(x,.16,z);piece.rotation.y=-Math.atan2(Math.sin(m)*arz,Math.cos(m)*arx);piece.receiveShadow=true;worldGroup.add(piece);
+      }
+    }
+    // Campo central com medidas proporcionais e marcações completas.
+    premiumBox(sports.fieldW,.08,sports.fieldD,grass,cx,.18,cz,worldGroup);
+    v704FieldLine(sports.fieldW,.12,cx,cz-sports.fieldD/2);v704FieldLine(sports.fieldW,.12,cx,cz+sports.fieldD/2);v704FieldLine(.12,sports.fieldD,cx-sports.fieldW/2,cz);v704FieldLine(.12,sports.fieldD,cx+sports.fieldW/2,cz);v704FieldLine(.1,sports.fieldD,cx,cz);
+    const circle=new THREE.RingGeometry(2.6,2.72,36);circle.rotateX(-Math.PI/2);const cm=new THREE.Mesh(circle,renderMat(0xffffff,{roughness:.8,side:THREE.DoubleSide}));cm.position.set(cx,.23,cz);worldGroup.add(cm);
+    for(const side of[-1,1]){v704FieldLine(6.5,.1,cx+side*(sports.fieldW/2-3.25),cz-5);v704FieldLine(6.5,.1,cx+side*(sports.fieldW/2-3.25),cz+5);v704FieldLine(.1,10,cx+side*(sports.fieldW/2-6.5),cz);v704CreateGoal(cx+side*(sports.fieldW/2+.08),cz,side);}
+    // Arquibancadas fora da pista, sem collider no campo ou nas raias.
+    for(const side of[-1,1])for(let row=0;row<3;row++)premiumBox(34-row*1.4,.42,1.15,row%2?0x547998:0x688daa,cx,.38+row*.46,cz+side*(17.2+row*.72),worldGroup);
+    for(const p of[[cx-29,cz-16.5],[cx+29,cz-16.5],[cx-29,cz+16.5],[cx+29,cz+16.5]])createLamp(p[0],p[1]);
+    const scoreBase=premiumBox(9,3.1,.8,0x17324d,cx,2.0,cz+20.2,worldGroup);scoreBase.userData.sportsStructure=true;
+    const sign=new THREE.Mesh(new THREE.PlaneGeometry(7.8,1.45),new THREE.MeshStandardMaterial({map:signTexture('OTTHI ARENA  0 × 0','#102d4a','#ffffff'),roughness:.55,side:THREE.DoubleSide}));sign.position.set(cx,2.45,cz+19.75);sign.rotation.y=Math.PI;worldGroup.add(sign);sports.scoreboard=sign;
+    // Entradas separadas: atletismo e futebol.
+    registerInteractable({id:'athletics-gym',type:'race',icon:'🏃',label:'Atletismo — corridas e voltas',x:cx-8,z:cz-19,radius:3.2,priority:160,action:()=>openRaceCenter()});
+    registerInteractable({id:'football-v704',type:'sport',icon:'⚽',label:'Futebol — iniciar partida',x:cx+8,z:cz-19,radius:3.2,priority:166,action:()=>openFootballV704()});
+    createCourtV704('volley',worldLayoutPoint('volley'),false);createCourtV704('footvolley',worldLayoutPoint('footvolley'),true);
+    SPORTS_V704.initialized=true;return sports;
+  }
+  function createCourtV704(type,center,foot=false){
+    const cx=center.x,cz=center.z,w=12,d=20,base=foot?0xdab977:0x4f9bd5;premiumBox(w,.10,d,base,cx,.08,cz,worldGroup);
+    v704FieldLine(w,.11,cx,cz-d/2);v704FieldLine(w,.11,cx,cz+d/2);v704FieldLine(.11,d,cx-w/2,cz);v704FieldLine(.11,d,cx+w/2,cz);v704FieldLine(w,.08,cx,cz);
+    const netH=foot?1.8:2.35;for(let y=.35;y<netH;y+=.32)premiumBox(w,.025,.025,0xf3f4f6,cx,y,cz,worldGroup);premiumBox(.16,netH+.25,.16,0xe5e7eb,cx-w/2,.5+netH/2,cz,worldGroup);premiumBox(.16,netH+.25,.16,0xe5e7eb,cx+w/2,.5+netH/2,cz,worldGroup);
+    const label=foot?'Futevôlei':'Vôlei',id=`${type}-v704`;createSignpost(cx,cz-d/2-2.6,label,Math.PI);
+    const court={id,type,label,cx,cz,w,d,netH,foot,ball:null,ai:null,score:[0,0],serving:0,state:'idle',timer:0,vx:0,vy:0,vz:0};SPORTS_V704.courts.set(type,court);
+    registerInteractable({id,type:'sport',icon:foot?'🏖️':'🏐',label:`${label} — iniciar partida`,x:cx,z:cz-d/2-2,radius:3,priority:165,action:()=>startCourtV704(type)});
+  }
+  function openFootballV704(){
+    openModal('Futebol OTTHI',`<p>Partida com bola física, gols, cronômetro, adversário e goleiro básico.</p><div class="button-grid"><button id="footballSoloV704" class="primary">⚽ Jogar contra o computador</button><button id="footballOnlineV704">🌐 Abrir modo online</button></div>`);
+    setTimeout(()=>{const solo=document.getElementById('footballSoloV704'),online=document.getElementById('footballOnlineV704');if(solo)solo.onclick=()=>startFootballV704('solo');if(online)online.onclick=()=>startFootballV704('online');},0);
+  }
+  function resetFootballBallV704(direction=0){const f=SPORTS_V704.football;if(!f)return;f.ball.position.set(f.cx,.58,f.cz);f.vx=direction*2.5;f.vz=0;f.cooldown=.8;}
+  function startFootballV704(mode='solo'){
+    closeModal();stopSportV704(false);const s=world.sportsV704,cx=s.centerX,cz=s.centerZ,ball=v704SportBall(0xffffff,.48),ai=v704CreateSimpleAthlete(0xe5484d,cx+10,cz,'Adversário'),keeper=v704CreateSimpleAthlete(0x3b82f6,cx+s.fieldW/2-1.8,cz,'Goleiro');ball.position.set(cx,.58,cz);
+    SPORTS_V704.football={type:'football',mode,cx,cz,w:s.fieldW,d:s.fieldD,ball,ai,keeper,score:[0,0],time:90,vx:0,vz:0,cooldown:1,finished:false};SPORTS_V704.active=SPORTS_V704.football;
+    player.x=cx-8;player.z=cz;player.y=v704SportGroundY(player.x,player.z);v704SetRaceHud('⚽ Futebol OTTHI','90 s • 0 × 0');toast(mode==='online'?'Partida online aberta. Jogadores da sala podem entrar no campo.':'Partida solo iniciada. Use AÇÃO perto da bola para chutar.','good',2400);
+  }
+  function footballKickV704(){const f=SPORTS_V704.football;if(!f||f.finished)return false;const dx=f.ball.position.x-player.x,dz=f.ball.position.z-player.z;if(Math.hypot(dx,dz)>2.1)return false;const power=9.5,fx=Math.sin(player.facing),fz=Math.cos(player.facing);f.vx=fx*power+player.vx*.35;f.vz=fz*power+player.vz*.35;f.cooldown=.18;toast('Chute!','good',650);return true;}
+  function updateFootballV704(dt){
+    const f=SPORTS_V704.football;if(!f||f.finished)return;f.time=Math.max(0,f.time-dt);f.cooldown=Math.max(0,f.cooldown-dt);
+    f.ball.position.x+=f.vx*dt;f.ball.position.z+=f.vz*dt;const friction=Math.pow(.18,dt);f.vx*=friction;f.vz*=friction;f.ball.rotation.z-=f.vx*dt;f.ball.rotation.x+=f.vz*dt;
+    // Contato do jogador também desloca a bola; AÇÃO fornece o chute forte.
+    const pd=Math.hypot(f.ball.position.x-player.x,f.ball.position.z-player.z);if(pd<1.05&&f.cooldown<=0){const a=Math.atan2(f.ball.position.x-player.x,f.ball.position.z-player.z);f.vx+=Math.sin(a)*2.3;f.vz+=Math.cos(a)*2.3;f.cooldown=.15;}
+    // IA persegue a bola e finaliza para o gol esquerdo.
+    const adx=f.ball.position.x-f.ai.position.x,adz=f.ball.position.z-f.ai.position.z,ad=Math.max(.001,Math.hypot(adx,adz));f.ai.position.x+=adx/ad*3.1*dt;f.ai.position.z+=adz/ad*3.1*dt;f.ai.rotation.y=Math.atan2(adx,adz);
+    if(ad<1.2&&f.cooldown<=0){f.vx=-8.4;f.vz=clamp((f.cz-f.ball.position.z)*.6,-3.2,3.2);f.cooldown=.5;}
+    f.keeper.position.z=clamp(f.ball.position.z,f.cz-3,f.cz+3);
+    const halfW=f.w/2,halfD=f.d/2,goal=Math.abs(f.ball.position.z-f.cz)<3.4;
+    if(f.ball.position.x>f.cx+halfW){if(goal){f.score[0]++;toast('GOL DO JOGADOR!','good',1800);resetFootballBallV704(-1);}else{f.ball.position.x=f.cx+halfW;f.vx=-Math.abs(f.vx)*.68;}}
+    if(f.ball.position.x<f.cx-halfW){if(goal){f.score[1]++;toast('Gol do adversário.','warn',1600);resetFootballBallV704(1);}else{f.ball.position.x=f.cx-halfW;f.vx=Math.abs(f.vx)*.68;}}
+    if(f.ball.position.z>f.cz+halfD){f.ball.position.z=f.cz+halfD;f.vz=-Math.abs(f.vz)*.72;}if(f.ball.position.z<f.cz-halfD){f.ball.position.z=f.cz-halfD;f.vz=Math.abs(f.vz)*.72;}
+    v704SetRaceHud('⚽ Futebol OTTHI',`${Math.ceil(f.time)} s • ${f.score[0]} × ${f.score[1]}`);v704UpdateScoreboard(f.score[0],f.score[1]);v704PublishSport({type:'football',mode:f.mode,score:f.score,time:Math.ceil(f.time),ball:[+f.ball.position.x.toFixed(2),+f.ball.position.z.toFixed(2)]});
+    if(f.time<=0){f.finished=true;const won=f.score[0]>f.score[1];addXP(won?45:20);if(won)addCoins(25);toast(won?'Vitória no futebol!':f.score[0]===f.score[1]?'Empate no futebol.':'Fim de partida. Continue treinando.',won?'good':'warn',2400);setTimeout(()=>stopSportV704(),1800);}
+  }
+  function v704UpdateScoreboard(a,b){const sign=world.sportsV704?.scoreboard;if(!sign)return;const old=sign.material;sign.material=new THREE.MeshStandardMaterial({map:signTexture(`OTTHI ARENA  ${a} × ${b}`,'#102d4a','#ffffff'),roughness:.55,side:THREE.DoubleSide});old?.map?.dispose?.();old?.dispose?.();}
+  function startCourtV704(type){
+    stopSportV704(false);const c=SPORTS_V704.courts.get(type);if(!c)return;c.ball=c.ball||v704SportBall(type==='footvolley'?0xffd34d:0xffffff,.4);c.ai=c.ai||v704CreateSimpleAthlete(0x8b5cf6,c.cx,c.cz+6,`${c.label} CPU`);c.score=[0,0];c.state='serve';c.serving=0;c.timer=75;c.vx=0;c.vy=0;c.vz=0;c.ball.position.set(c.cx,.55,c.cz-6);c.ai.position.set(c.cx,0,c.cz+6);SPORTS_V704.active=c;player.x=c.cx;player.z=c.cz-6;player.y=v704SportGroundY(player.x,player.z);v704SetRaceHud(`${c.foot?'🏖️':'🏐'} ${c.label}`,'AÇÃO para sacar • 0 × 0');toast(`${c.label}: use AÇÃO para sacar e rebater. Primeiro a 7 pontos vence.`,'good',2300);
+  }
+  function courtHitV704(){const c=SPORTS_V704.active;if(!c||!['volley','footvolley'].includes(c.type))return false;const d=Math.hypot(c.ball.position.x-player.x,c.ball.position.z-player.z);if(c.state==='serve'&&c.serving===0){c.ball.position.set(player.x,1.1,player.z+.55);c.vx=Math.sin(player.facing)*3.1;c.vz=Math.max(5.8,Math.cos(player.facing)*6.4);c.vy=c.foot?5.2:6.8;c.state='rally';return true;}if(d<2.15&&c.ball.position.y<3.3){c.vx=Math.sin(player.facing)*3.4;c.vz=Math.max(5.6,Math.cos(player.facing)*6.6);c.vy=c.foot?4.8:6.4;c.state='rally';return true;}return false;}
+  function resetCourtServeV704(c,server){c.serving=server;c.state='serve';c.vx=c.vy=c.vz=0;c.ball.position.set(c.cx,.55,c.cz+(server?6:-6));if(server===1){setTimeout(()=>{if(SPORTS_V704.active===c&&c.state==='serve'){c.vz=-6.2;c.vy=c.foot?5.0:6.5;c.state='rally';}},700);}}
+  function courtPointV704(c,side){c.score[side]++;toast(`${side===0?'Você':'Computador'} marcou!`,side===0?'good':'warn',1200);if(c.score[side]>=7){addXP(side===0?42:16);if(side===0)addCoins(18);toast(side===0?`Vitória no ${c.label}!`:`Fim da partida de ${c.label}.`,side===0?'good':'warn',2200);setTimeout(()=>stopSportV704(),1500);return;}resetCourtServeV704(c,side===0?0:1);}
+  function updateCourtV704(c,dt){
+    if(!c||SPORTS_V704.active!==c)return;c.timer=Math.max(0,c.timer-dt);if(c.state==='serve'){v704SetRaceHud(`${c.foot?'🏖️':'🏐'} ${c.label}`,`${c.serving===0?'AÇÃO para sacar':'Saque do computador'} • ${c.score[0]} × ${c.score[1]}`);return;}
+    c.vy-=9.1*dt;c.ball.position.x+=c.vx*dt;c.ball.position.y+=c.vy*dt;c.ball.position.z+=c.vz*dt;c.ball.rotation.x+=c.vz*dt;c.ball.rotation.z-=c.vx*dt;
+    // Rede: bloqueia bolas abaixo da altura correta.
+    if(Math.abs(c.ball.position.z-c.cz)<.28&&c.ball.position.y<c.netH+.18){c.ball.position.z=c.cz+(c.vz>0?-.32:.32);c.vz*=-.52;c.vy*=.72;}
+    // IA acompanha a projeção da bola e rebate para o lado do jogador.
+    c.ai.position.x+=clamp(c.ball.position.x-c.ai.position.x,-3.1*dt,3.1*dt);c.ai.position.z+=clamp((c.cz+5)-c.ai.position.z,-2.6*dt,2.6*dt);
+    const aiD=Math.hypot(c.ball.position.x-c.ai.position.x,c.ball.position.z-c.ai.position.z);if(c.ball.position.z>c.cz&&aiD<1.7&&c.ball.position.y<2.7&&c.vz>0){c.vx=clamp((player.x-c.ball.position.x)*.45,-3.2,3.2);c.vz=-6.2;c.vy=c.foot?4.9:6.2;}
+    const halfW=c.w/2,halfD=c.d/2;if(c.ball.position.y<=.28){const inside=Math.abs(c.ball.position.x-c.cx)<=halfW&&Math.abs(c.ball.position.z-c.cz)<=halfD;courtPointV704(c,c.ball.position.z>c.cz?0:1);return;}
+    if(Math.abs(c.ball.position.x-c.cx)>halfW+1||Math.abs(c.ball.position.z-c.cz)>halfD+1){courtPointV704(c,c.ball.position.z>c.cz?0:1);return;}
+    v704SetRaceHud(`${c.foot?'🏖️':'🏐'} ${c.label}`,`${c.score[0]} × ${c.score[1]} • ${Math.ceil(c.timer)} s`);v704PublishSport({type:c.type,score:c.score,ball:[+c.ball.position.x.toFixed(2),+c.ball.position.y.toFixed(2),+c.ball.position.z.toFixed(2)]});if(c.timer<=0)stopSportV704();
+  }
+  function createKartVehicleV704(id,x,z,color,heading=0){
+    const saved=state.vehicles?.parked?.[id]||{},group=new THREE.Group();group.position.set(Number(saved.x??x),0,Number(saved.z??z));group.rotation.y=Number(saved.heading??heading);group.userData.vehicleId=id;worldGroup.add(group);
+    const chassis=renderMat(0x1d2939,{roughness:.48,metalness:.2}),body=renderMat(color,{roughness:.38,metalness:.16}),wheel=renderMat(0x101318,{roughness:.72});
+    box(1.55,.22,2.15,chassis,0,.25,0,group);box(1.28,.34,1.0,body,0,.46,.35,group);box(.62,.48,.62,0x27364a,0,.65,-.28,group);box(1.72,.18,.25,body,0,.32,1.12,group);box(1.7,.14,.22,body,0,.38,-1.08,group);
+    for(const [wx,wz]of[[-.82,-.72],[.82,-.72],[-.82,.72],[.82,.72]]){const wh=cylinder(.31,.26,wheel,wx,.25,wz,group,14);wh.rotation.z=Math.PI/2;}
+    const vehicle={id,x:group.position.x,z:group.position.z,heading:group.rotation.y,group,label:'Kart OTTHI',kind:'kart',serviceType:'kart',appearance:{primary:color,secondary:0xffffff,chassis:0x1d2939},occupied:false,radius:1.25};world.vehicles.push(vehicle);world.kartsV704=world.kartsV704||[];world.kartsV704.push(vehicle);
+    registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:'🏎️',label:'Entrar no kart',radius:2.3,priority:170,getPos:()=>({x:group.position.x,z:group.position.z}),available:()=>!vehicle.occupied&&group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
+  }
+  function createKartCircuitV704(){
+    if(SPORTS_V704.kart)return SPORTS_V704.kart;const c=worldLayoutPoint('kart'),cx=c.x,cz=c.z,rx=18,rz=10,trackMat=renderMat(0x30343b,{roughness:.88}),curbA=renderMat(0xffffff,{roughness:.72}),curbB=renderMat(0xe5484d,{roughness:.72});
+    const root=new THREE.Group();root.name='OTTHI_V704_KART';worldGroup.add(root);premiumBox(44,.08,32,0x477a3c,cx,.04,cz,worldGroup);
+    for(let i=0;i<72;i++){const a=i/72*Math.PI*2,b=(i+1)/72*Math.PI*2,m=(a+b)/2,x=cx+Math.cos(m)*rx,z=cz+Math.sin(m)*rz,ax=cx+Math.cos(a)*rx,az=cz+Math.sin(a)*rz,bx=cx+Math.cos(b)*rx,bz=cz+Math.sin(b)*rz,len=Math.hypot(bx-ax,bz-az),road=new THREE.Mesh(new THREE.BoxGeometry(len+.15,.1,5.1),trackMat);road.position.set(x,.15,z);road.rotation.y=-Math.atan2(Math.sin(m)*rz,Math.cos(m)*rx);road.userData.kartTrack=true;worldGroup.add(road);for(const off of[-2.65,2.65]){const crx=rx+off,crz=rz+off*.55,curb=new THREE.Mesh(new THREE.BoxGeometry(len+.12,.16,.34),i%2?curbA:curbB);curb.position.set(cx+Math.cos(m)*crx,.22,cz+Math.sin(m)*crz);curb.rotation.y=road.rotation.y;curb.userData.kartBarrier=true;worldGroup.add(curb);}}
+    // Ilha central e boxes próprios do kartódromo; nenhuma edificação ocupa a pista.
+    premiumBox(18,.14,6,0x606873,cx,.16,cz,worldGroup);for(const [i,x]of[-6,-2,2,6].entries())premiumBox(3,1.8,3,i%2?0x36536b:0x2d465e,cx+x,.9,cz,worldGroup);
+    for(let i=-2;i<=2;i++)premiumBox(.25,.08,4.6,i%2?0xffffff:0x111827,cx+rx,.24,cz+i*.9,worldGroup);
+    const checkpoints=[{x:cx+rx,z:cz},{x:cx,z:cz+rz},{x:cx-rx,z:cz},{x:cx,z:cz-rz}],entrance=worldLayoutPoint('kartEntrance');
+    const karts=[createKartVehicleV704('kart-red',cx+rx-1.5,cz-1.6,0xe5484d,-Math.PI/2),createKartVehicleV704('kart-blue',cx+rx-1.5,cz+1.6,0x2787d8,-Math.PI/2),createKartVehicleV704('kart-yellow',cx-4,cz-4.4,0xf1c943,0),createKartVehicleV704('kart-green',cx+4,cz-4.4,0x31a76a,0)];
+    const kart={cx,cz,rx,rz,checkpoints,karts,active:false,countdown:0,lap:0,expected:0,startAt:0,best:0,ai:[],root};SPORTS_V704.kart=kart;world.kartV704=kart;
+    registerInteractable({id:'kart-race-v704',type:'kart',icon:'🏁',label:'Kartódromo — iniciar corrida',x:entrance.x,z:entrance.z,radius:3.4,priority:174,action:()=>startKartRaceV704()});createSignpost(entrance.x,entrance.z+1.2,'Kartódromo OTTHI',Math.PI);return kart;
+  }
+  function startKartRaceV704(){
+    const k=SPORTS_V704.kart;if(!k)return;if(k.active){toast('A corrida já está em andamento.','warn');return;}let kart=currentVehicleRef?.();if(!kart||kart.kind!=='kart'){kart=k.karts.find(v=>!v.occupied)||k.karts[0];enterVehicle(kart);}if(!player.vehicle||currentVehicleRef?.()?.kind!=='kart'){toast('Entre em um kart para correr.','warn');return;}
+    const v=currentVehicleRef();v.group.position.set(k.cx+k.rx-1.5,0,k.cz-1.4);v.group.rotation.y=-Math.PI/2;player.x=v.group.position.x;player.z=v.group.position.z;player.car.heading=-Math.PI/2;player.car.speed=0;k.active=true;k.countdown=3.3;k.lap=0;k.expected=1;k.startAt=performance.now();k.ai=[];
+    for(let i=0;i<3;i++){const group=new THREE.Group();group.position.set(k.cx+k.rx-3.2,0,k.cz+(i-1)*2.2);worldGroup.add(group);box(1.35,.22,1.9,[0x7d58c9,0xf28a22,0x138d83][i],0,.3,0,group);for(const [x,z]of[[-.72,-.62],[.72,-.62],[-.72,.62],[.72,.62]]){const w=cylinder(.27,.22,0x111827,x,.25,z,group,12);w.rotation.z=Math.PI/2;}k.ai.push({group,angle:-.04-i*.035,speed:.64+i*.035,lap:0});}
+    SPORTS_V704.active=k;v704SetRaceHud('🏁 Kart OTTHI','3');toast('Corrida de 3 voltas. Passe pelos quatro checkpoints na ordem.','good',2200);
+  }
+  function updateKartRaceV704(dt){
+    const k=SPORTS_V704.kart;if(!k?.active)return;k.countdown-=dt;if(k.countdown>0){player.car.speed=0;v704SetRaceHud('🏁 Kart OTTHI',String(Math.ceil(k.countdown)));return;}
+    for(const ai of k.ai){ai.angle+=ai.speed*dt;const loops=Math.floor(ai.angle/(Math.PI*2));ai.lap=Math.max(ai.lap,loops);const a=ai.angle%(Math.PI*2);ai.group.position.set(k.cx+Math.cos(a)*k.rx,0,k.cz+Math.sin(a)*k.rz);ai.group.rotation.y=-Math.atan2(Math.cos(a)*k.rx,-Math.sin(a)*k.rz);}
+    const cp=k.checkpoints[k.expected],d=Math.hypot(player.x-cp.x,player.z-cp.z);if(d<4.0){k.expected=(k.expected+1)%k.checkpoints.length;if(k.expected===1){k.lap++;beep(760);toast(`Volta ${Math.min(k.lap,3)}/3`,'good',1000);}}
+    // Penalização real contra atalhos: carro fora do corredor perde desempenho e volta ao último checkpoint se insistir.
+    const nx=(player.x-k.cx)/k.rx,nz=(player.z-k.cz)/k.rz,ellipse=Math.hypot(nx,nz),offTrack=Math.abs(ellipse-1)>.25;if(offTrack){player.car.speed*=Math.pow(.2,dt);k.offTrack=(k.offTrack||0)+dt;}else k.offTrack=0;if(k.offTrack>2.2){const prev=k.checkpoints[(k.expected+3)%4],vehicle=currentVehicleRef?.();player.x=prev.x;player.z=prev.z;player.car.speed=0;if(vehicle?.group){vehicle.group.position.set(prev.x,0,prev.z);vehicle.group.rotation.y=player.car.heading;}k.offTrack=0;toast('Atalho inválido: retorno ao último checkpoint.','warn',1500);}
+    const aiProgresses=k.ai.map(a=>a.lap+(a.angle%(Math.PI*2))/(Math.PI*2)),aiProgress=Math.max(...aiProgresses),playerProgress=k.lap+k.expected/4,position=1+aiProgresses.filter(progress=>progress>playerProgress).length;v704SetRaceHud('🏁 Kart OTTHI',`Volta ${Math.min(k.lap+1,3)}/3 • P${Math.min(position,4)}`);v704PublishSport({type:'kart',lap:k.lap,expected:k.expected,position});
+    if(k.lap>=3){k.active=false;const elapsed=(performance.now()-k.startAt)/1000,won=playerProgress>=aiProgress;addXP(won?60:30);if(won)addCoins(40);toast(`${won?'Vitória':'Chegada'} no kart: ${elapsed.toFixed(1)} s`,won?'good':'warn',2600);for(const ai of k.ai)worldGroup.remove(ai.group);k.ai=[];SPORTS_V704.active=null;setTimeout(v704HideRaceHud,1800);}
+  }
+  function handleActiveSportActionV704(){if(SPORTS_V704.football)return footballKickV704();const a=SPORTS_V704.active;if(a&&['volley','footvolley'].includes(a.type))return courtHitV704();return false;}
+  function stopSportV704(show=true){
+    const f=SPORTS_V704.football;if(f){worldGroup.remove(f.ball);worldGroup.remove(f.ai);worldGroup.remove(f.keeper);SPORTS_V704.football=null;}
+    const a=SPORTS_V704.active;if(a&&['volley','footvolley'].includes(a.type)){if(a.ball)a.ball.visible=false;if(a.ai)a.ai.visible=false;a.state='idle';}
+    SPORTS_V704.active=null;if(show)v704HideRaceHud();
+  }
+  function v704PublishSport(data){const now=performance.now();if(now-SPORTS_V704.publishAt<350)return;SPORTS_V704.publishAt=now;try{window.OTTHOS_RTDB?.publish?.({sport:{...data,updatedAtClient:Date.now()}},false);}catch{}}
+  function updateWorldSportsV704(dt){
+    if(SPORTS_V704.football)updateFootballV704(dt);const a=SPORTS_V704.active;if(a&&['volley','footvolley'].includes(a.type))updateCourtV704(a,dt);if(SPORTS_V704.kart?.active)updateKartRaceV704(dt);
+  }
+  window.OTTHI_SPORTS_V704={create:createSportsComplexV704,createKart:createKartCircuitV704,startFootball:startFootballV704,startCourt:startCourtV704,startKart:startKartRaceV704,stop:stopSportV704,update:updateWorldSportsV704,state:()=>({active:SPORTS_V704.active?.type||'',football:SPORTS_V704.football?{score:[...SPORTS_V704.football.score],time:SPORTS_V704.football.time}:null,kart:SPORTS_V704.kart?{active:SPORTS_V704.kart.active,lap:SPORTS_V704.kart.lap,expected:SPORTS_V704.kart.expected}:null})};
 
   // ===== MODULE: 14-world-district-decoration.js =====
   function createVoxelMushroom(x,z,scale=1,color=0xe34242){
@@ -3057,36 +3348,41 @@
     const coinMat=mat(0xffd52e,{emissive:0xb26b00,emissiveIntensity:.32,metalness:.18,roughness:.3});points.forEach(([x,z],i)=>{const c=new THREE.Mesh(new THREE.TorusGeometry(.34,.11,7,14),coinMat);c.position.set(x,1.15+Math.sin(i*.7)*.18,z);c.rotation.y=Math.PI/2;worldGroup.add(c);world.landmarks.push(c);});
   }
   function createCommercialDistrict(){
-    // Peripheral skyline preserves gameplay coordinates while giving a premium city silhouette.
-    [[-108,-92,12,12,10,0xe77a32,0xffd75a],[-88,-105,11,17,9,0x35a8e8,0xffffff],[-64,-108,13,14,9,0x8b5cf6,0xf4d35e],[-35,-109,11,18,9,0x46b96a,0xffffff],[38,-109,12,16,9,0xe84a6f,0xffef98],[68,-107,13,20,10,0x2f7fd8,0xffffff],[99,-93,12,14,10,0xf09c35,0x45d7ff]].forEach(v=>createBackdropBuilding(...v));
-    [[-104,92,13,16,10,0x4f9fd7,0xffffff],[-74,107,11,19,9,0xe86a3d,0xffed84],[-36,108,12,14,9,0x65b85d,0xffffff],[35,108,12,18,10,0x8a62d4,0x5ee7ff],[69,106,13,15,9,0xe44a4a,0xffffff],[103,88,11,20,10,0x3b91d1,0xffed84]].forEach(v=>createBackdropBuilding(...v));
-    createFloatingIsland(-78,36,-138,.75);createFloatingIsland(18,48,-150,.9);createFloatingIsland(96,30,-132,.65);
-    [[-17,-8],[-10,-8],[10,-8],[17,-8],[-17,8],[-10,8],[10,8],[17,8]].forEach(p=>createStreetTree(...p,.72));
-    createCoinTrail([[34,-28],[39,-31],[44,-34],[49,-37],[54,-40],[59,-43],[64,-46]]);
+    // Skyline apenas fora dos limites jogáveis: nenhum prédio decorativo entra nas zonas ativas.
+    [[-112,-130,12,12,10,0xe77a32,0xffd75a],[-84,-132,11,17,9,0x35a8e8,0xffffff],[-54,-132,13,14,9,0x8b5cf6,0xf4d35e],[-24,-131,11,18,9,0x46b96a,0xffffff],[24,-131,12,16,9,0xe84a6f,0xffef98],[58,-132,13,20,10,0x2f7fd8,0xffffff],[96,-130,12,14,10,0xf09c35,0x45d7ff]].forEach(v=>createBackdropBuilding(...v));
+    [[-108,130,13,16,10,0x4f9fd7,0xffffff],[-74,132,11,19,9,0xe86a3d,0xffed84],[-36,132,12,14,9,0x65b85d,0xffffff],[18,132,12,18,10,0x8a62d4,0x5ee7ff],[58,132,13,15,9,0xe44a4a,0xffffff],[102,130,11,20,10,0x3b91d1,0xffed84]].forEach(v=>createBackdropBuilding(...v));
+    createFloatingIsland(-78,36,-148,.75);createFloatingIsland(18,48,-158,.9);createFloatingIsland(96,30,-142,.65);
+    [[-28,-28],[-38,-28],[38,-28],[48,-28],[-28,44],[-38,44],[22,44],[32,44]].forEach(([x,z])=>{if(!v704ReservedAt(x,z,.8))createStreetTree(x,z,.72);});
+    createCoinTrail([[72,-35],[77,-39],[82,-43],[87,-47],[92,-51],[97,-55]]);
   }
 
   function createDistrictVisuals(){
-    [[-13,34,1.05,0xe64343],[-37,35,.82,0x4b78e8],[14,-34,.95,0xec4c4c],[40,-5,.78,0x8b5cf6],[-70,-20,1.35,0xdf3f3f],[-82,-76,.9,0x5c7ce2],[72,28,1.1,0xe94d4d],[92,22,.82,0x8b5cf6]].forEach(v=>createVoxelMushroom(...v));
-    createPlayground(-8,-38);createFountain(0,-2);createPortalArch(88,51);createChallengeCube(36,1.3,-27,'◆','#ffd43b');createChallengeCube(66,1.3,-50,'★','#53d8ff');createChallengeCube(-43,1.3,35,'◈','#ff756f');createAwning(-22,-14,0xef4444,0);createAwning(22,-14,0x2563eb,0);createCommercialDistrict();
+    const decorativeMushrooms=[[-42,43,.78,0xe64343],[-78,34,.72,0x4b78e8],[34,-30,.72,0xec4c4c],[44,20,.66,0x8b5cf6],[-82,-28,.88,0xdf3f3f],[-104,-68,.72,0x5c7ce2],[74,42,.72,0xe94d4d],[108,8,.66,0x8b5cf6]];
+    for(const item of decorativeMushrooms){const[x,z,scale,color]=item;if(!v704ReservedAt(x,z,1.2))createVoxelMushroom(x,z,scale,color);}
+    const playground=worldLayoutPoint('playground'),fountain=worldLayoutPoint('fountain'),portal=worldLayoutPoint('portal');
+    createPlayground(playground.x,playground.z);createFountain(fountain.x,fountain.z);createPortalArch(portal.x,portal.z);
+    [[34,-28,'◆','#ffd43b'],[78,-46,'★','#53d8ff'],[-46,43,'◈','#ff756f']].forEach(([x,z,symbol,color])=>{if(!v704ReservedAt(x,z,.8))createChallengeCube(x,1.3,z,symbol,color);});
+    createAwning(-22,-14,0xef4444,0);createAwning(22,-14,0x2563eb,0);createCommercialDistrict();
   }
 
   const BUS_ROUTES=[
     {id:'solar',name:'Linha Solar',number:'101',color:0x168de2,speed:6.6,copies:2,dwell:3600,laneOffset:1.72,points:[
-      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:7,z:11},{x:7,z:27},{x:0,z:34},{x:0,z:55},{x:0,z:94,stopId:'bairro-norte',stopName:'Bairro Norte'},{x:0,z:55},{x:0,z:34},{x:7,z:27},{x:7,z:11},{x:7,z:0},{x:0,z:0},{x:55,z:0,stopId:'fazenda',stopName:'Fazenda'},{x:55,z:48,stopId:'castelo',stopName:'Castelo'},{x:55,z:88,stopId:'ginasio',stopName:'Ginásio'},{x:55,z:48},{x:55,z:0},{x:0,z:0}
+      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:58},{x:34,z:58,stopId:'complexo-esportivo',stopName:'Complexo Esportivo'},{x:68,z:58},{x:68,z:38},{x:91,z:38,stopId:'fazenda',stopName:'Fazenda'},{x:100,z:38,stopId:'castelo',stopName:'Castelo'},{x:68,z:38},{x:68,z:0},{x:0,z:0}
     ]},
     {id:'verde',name:'Linha Verde',number:'202',color:0x27b36a,speed:6.4,copies:2,dwell:3600,laneOffset:1.38,points:[
-      {x:0,z:-10,stopId:'central-sul',stopName:'Central Sul'},{x:0,z:-55,stopId:'academia',stopName:'Academia'},{x:0,z:-94,stopId:'vale',stopName:'Vale dos Cristais'},{x:0,z:-55},{x:-55,z:-55,stopId:'floresta',stopName:'Floresta'},{x:-55,z:-10,stopId:'mercado',stopName:'Mercadinho'},{x:-55,z:0},{x:-70,z:0,stopId:'escola-sol',stopName:'Escola Vila do Sol'},{x:-55,z:0},{x:0,z:0}
+      {x:0,z:-10,stopId:'central-sul',stopName:'Central Sul'},{x:0,z:0},{x:65,z:0},{x:65,z:-65},{x:94,z:-65,stopId:'kartodromo',stopName:'Kartódromo'},{x:65,z:-65},{x:65,z:0},{x:0,z:0},{x:-55,z:0},{x:-55,z:-65,stopId:'floresta',stopName:'Floresta'},{x:-55,z:0},{x:0,z:0}
     ]},
     {id:'escolar',name:'Circular Escolar',number:'E10',color:0xf0b62d,speed:5.9,copies:1,dwell:4200,schoolBus:true,laneOffset:1.18,points:[
-      {x:-70,z:0,stopId:'escola-sol',stopName:'Escola Vila do Sol'},{x:-55,z:0},{x:0,z:0,stopId:'central-escolar',stopName:'Praça Central'},{x:55,z:0},{x:55,z:18,stopId:'escola-horizonte',stopName:'Escola Horizonte'},{x:55,z:0},{x:0,z:0},{x:-55,z:0}
+      {x:-68,z:0,stopId:'escola-sol',stopName:'Escola Vila do Sol'},{x:-55,z:0},{x:0,z:0,stopId:'central-escolar',stopName:'Praça Central'},{x:65,z:0},{x:68,z:24,stopId:'escola-horizonte',stopName:'Escola Horizonte'},{x:68,z:0},{x:0,z:0},{x:-55,z:0}
     ]},
     {id:'circular',name:'Circular da Cidade',number:'303',color:0x8b5cf6,speed:6.3,copies:1,dwell:3500,laneOffset:1.62,points:[
-      {x:0,z:0,stopId:'praca-central',stopName:'Praça Central'},{x:55,z:0,stopId:'delegacia-central',stopName:'Delegacia Central'},{x:55,z:-18},{x:55,z:-68,stopId:'bombeiros',stopName:'Corpo de Bombeiros'},{x:55,z:-18},{x:0,z:-18,stopId:'comercio',stopName:'Mercado e Oficina'},{x:-55,z:-18},{x:-55,z:0},{x:-55,z:22,stopId:'posto-bairro',stopName:'Posto Policial do Bairro'},{x:-55,z:0},{x:0,z:0}
+      {x:0,z:0,stopId:'praca-central',stopName:'Praça Central'},{x:65,z:0,stopId:'delegacia-central',stopName:'Delegacia Central'},{x:65,z:-18},{x:65,z:-65,stopId:'bombeiros',stopName:'Corpo de Bombeiros'},{x:65,z:-18},{x:65,z:0},{x:0,z:0,stopId:'comercio',stopName:'Mercado e Oficina'},{x:-55,z:0},{x:-55,z:-18},{x:-55,z:22,stopId:'posto-bairro',stopName:'Posto Policial do Bairro'},{x:-55,z:0},{x:0,z:0}
     ]},
     {id:'turismo',name:'Linha Turismo Kids',number:'404',color:0xe05c42,speed:6.1,copies:1,dwell:3900,laneOffset:1.28,points:[
-      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:50,stopId:'lago-acesso',stopName:'Acesso ao Lago'},{x:0,z:78},{x:55,z:78},{x:55,z:88,stopId:'ginasio',stopName:'Ginásio'},{x:55,z:48,stopId:'castelo',stopName:'Castelo'},{x:55,z:18,stopId:'escola-horizonte',stopName:'Escola Horizonte'},{x:55,z:0},{x:0,z:0}
+      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:0},{x:-55,z:0},{x:-55,z:58,stopId:'lago-acesso',stopName:'Acesso ao Lago'},{x:-55,z:80,stopId:'montanha',stopName:'Trilha da Montanha'},{x:-55,z:58},{x:-55,z:0},{x:0,z:0},{x:0,z:58},{x:34,z:58,stopId:'complexo-esportivo',stopName:'Complexo Esportivo'},{x:68,z:58},{x:68,z:38},{x:100,z:38,stopId:'castelo',stopName:'Castelo'},{x:68,z:38},{x:68,z:0},{x:0,z:0}
     ]}
   ];
+  window.OTTHI_BUS_ROUTES_V704=BUS_ROUTES;
   const ADVENTURE_DEFS={
     castle:{icon:'👑',name:'Coroas do Castelo',description:'Encontre 6 coroas reais em 75 segundos.',target:6,reward:180,xp:130},
     metro:{icon:'Ⓜ️',name:'Explorador do Metrô',description:'Visite 3 destinos diferentes pela rede.',target:3,reward:150,xp:105},
@@ -3324,25 +3620,25 @@
   // ===== MODULE: 16-emergency-services.js =====
   function decorateCityServices(){
     const fire=world.fireStation,police=world.policeStation,west=world.policeStations?.find(x=>x.id==='police-west');
-    if(fire){for(const x of [-2.35,0,2.35]){premiumBox(1.9,2.35,.12,materials.cityGlass,fire.x+x,1.42,fire.z+3.56,fire.front);for(let y=.45;y<2.5;y+=.48)premiumBox(1.75,.06,.14,0xf4f5f2,fire.x+x,y,fire.z+3.62,fire.front);}premiumBox(7.2,.36,.24,materials.emergencyMetal,fire.x,3.02,fire.z+3.66,fire.front);const badge=new THREE.Mesh(new THREE.PlaneGeometry(1.05,1.05),new THREE.MeshStandardMaterial({map:iconTexture('🚒','#ffffff','#c83232'),transparent:true,side:THREE.DoubleSide}));badge.position.set(fire.x,3.85,fire.z+3.75);fire.front.add(badge);for(const z of [-64,-72]){premiumCylinder(.17,1.35,0xf2c23c,60.5,.68,z,worldGroup,10);premiumBox(.5,.18,.5,0xe8483f,60.5,1.45,z);}}
+    if(fire){for(const x of [-2.35,0,2.35]){premiumBox(1.9,2.35,.12,materials.cityGlass,fire.x+x,1.42,fire.z+3.56,fire.front);for(let y=.45;y<2.5;y+=.48)premiumBox(1.75,.06,.14,0xf4f5f2,fire.x+x,y,fire.z+3.62,fire.front);}premiumBox(7.2,.36,.24,materials.emergencyMetal,fire.x,3.02,fire.z+3.66,fire.front);const badge=new THREE.Mesh(new THREE.PlaneGeometry(1.05,1.05),new THREE.MeshStandardMaterial({map:iconTexture('🚒','#ffffff','#c83232'),transparent:true,side:THREE.DoubleSide}));badge.position.set(fire.x,3.85,fire.z+3.75);fire.front.add(badge);for(const z of [-26,-10]){premiumCylinder(.17,1.35,0xf2c23c,91.5,.68,z,worldGroup,10);premiumBox(.5,.18,.5,0xe8483f,91.5,1.45,z);}}
     for(const station of [police,west].filter(Boolean)){premiumBox(6.4,.28,.2,0x245da8,station.x,2.95,station.z+3.65,station.front);const badge=new THREE.Mesh(new THREE.PlaneGeometry(.9,.9),new THREE.MeshStandardMaterial({map:iconTexture('★','#ffffff','#245da8'),transparent:true,side:THREE.DoubleSide}));badge.position.set(station.x,3.7,station.z+3.72);station.front.add(badge);premiumBox(2.6,.1,1.1,materials.cityGlass,station.x,2.38,station.z+3.86,station.front);}
-    for(const p of [[55,-45],[55,-75],[-55,12],[-55,32]]){premiumBox(.18,2.2,.18,0x2e3c4f,p[0],1.1,p[1]);premiumBox(.62,.62,.18,0x111827,p[0],2.08,p[1]);premiumBox(.16,.16,.08,0x46d66c,p[0],2.22,p[1]+.1);premiumBox(.16,.16,.08,0xf0c33c,p[0],2.05,p[1]+.1);premiumBox(.16,.16,.08,0xe74b4b,p[0],1.88,p[1]+.1);}
+    for(const p of [[65,-45],[65,-75],[-55,12],[-55,32],[68,38]]){premiumBox(.18,2.2,.18,0x2e3c4f,p[0],1.1,p[1]);premiumBox(.62,.62,.18,0x111827,p[0],2.08,p[1]);premiumBox(.16,.16,.08,0x46d66c,p[0],2.22,p[1]+.1);premiumBox(.16,.16,.08,0xf0c33c,p[0],2.05,p[1]+.1);premiumBox(.16,.16,.08,0xe74b4b,p[0],1.88,p[1]+.1);}
   }
 
   const FIRE_SITES=[
-    {id:'market',name:'Alarme controlado no Mercadinho',x:-22,z:-11,navX:-22,navZ:-10},
-    {id:'school',name:'Treinamento na Escola Vila do Sol',x:-63,z:-10,navX:-55,navZ:-10},
-    {id:'workshop',name:'Simulação segura na Oficina',x:22,z:-11,navX:22,navZ:-10},
-    {id:'farm',name:'Fogueira fora de controle na Fazenda',x:52,z:34,navX:55,navZ:34},
-    {id:'castle',name:'Tocha do Castelo acesa demais',x:79,z:52,navX:55,navZ:52}
+    {id:'market',name:'Alarme controlado no Mercadinho',x:-22,z:-11,navX:-22,navZ:-9},
+    {id:'school',name:'Treinamento na Escola Vila do Sol',x:-68,z:-11,navX:-55,navZ:-9},
+    {id:'workshop',name:'Simulação segura na Oficina',x:22,z:-11,navX:22,navZ:-9},
+    {id:'farm',name:'Fogueira fora de controle na Fazenda',x:96,z:28,navX:91,navZ:38},
+    {id:'castle',name:'Tocha do Castelo acesa demais',x:100,z:42.5,navX:100,navZ:38}
   ];
   const SERVICE_JOB_KIND=Object.freeze({police:'police',firefighter:'firefighter',paramedic:'paramedic'});
   const SERVICE_DEPOTS=Object.freeze({
-    police:[{x:68,z:-12,heading:Math.PI},{x:-55,z:20,heading:0}],
-    firefighter:[{x:55,z:-70,heading:0},{x:55,z:-62,heading:0}],
-    paramedic:[{x:55,z:-52,heading:0},{x:55,z:-44,heading:0}]
+    police:[{x:65,z:-18,heading:Math.PI},{x:-55,z:22,heading:0}],
+    firefighter:[{x:65,z:-28,heading:0},{x:65,z:-36,heading:0}],
+    paramedic:[{x:65,z:-44,heading:0},{x:65,z:-52,heading:0}]
   });
-  const TRAINING_INCIDENT_SITES=Object.freeze([{x:23,z:0},{x:-28,z:0},{x:55,z:24},{x:0,z:-42}]);
+  const TRAINING_INCIDENT_SITES=Object.freeze([{x:23,z:0},{x:-28,z:0},{x:68,z:24},{x:0,z:-42}]);
   function serviceKindForJob(jobOrId){const id=typeof jobOrId==='string'?jobOrId:jobOrId?.id;return SERVICE_JOB_KIND[id]||'';}
   function serviceVehiclePools(kind=''){if(kind==='police')return world.policeCars||[];if(kind==='firefighter')return world.fireTrucks||[];if(kind==='paramedic')return world.ambulances||[];return[...(world.policeCars||[]),...(world.fireTrucks||[]),...(world.ambulances||[])];}
   function serviceVehicleById(id=''){return serviceVehiclePools().find(vehicle=>vehicle.id===id)||null;}
@@ -3513,7 +3809,7 @@
     const g=new THREE.Group();g.position.set(x,0,z);worldGroup.add(g);const stone=0x8996a5,dark=0x657587,trim=0xc9d0d8,roof=0x315aa8,gold=0xf5c846;
     const moatA=premiumBox(8.2,.18,2.5,materials.water,-8.1,.08,-13.8,g),moatB=premiumBox(8.2,.18,2.5,materials.water,8.1,.08,-13.8,g),moatBack=premiumBox(27,.18,2.2,materials.water,0,.08,13.5,g);for(const water of [moatA,moatB,moatBack])water.material.depthWrite=false;
     premiumBox(31,.7,25,dark,0,.35,0,g);premiumBox(27,.45,21,0xb5bac1,0,.82,0,g);
-    premiumBox(10,6.4,2.1,stone,-8.5,4, -10,g);premiumBox(10,6.4,2.1,stone,8.5,4,-10,g);premiumBox(27,6.4,2.1,stone,0,4,10,g);premiumBox(2.1,6.4,18,stone,-13.5,4,0,g);premiumBox(2.1,6.4,18,stone,13.5,4,0,g);
+    premiumBox(10,6.4,2.1,stone,-8.5,4, -10,g);premiumBox(10,6.4,2.1,stone,8.5,4,-10,g);premiumBox(27,6.4,2.1,stone,0,4,10,g);premiumBox(2.1,6.4,18,stone,-13.5,4,0,g);premiumBox(2.1,6.4,18,stone,13.5,4,0,g);registerCollider(x-8.5,z-10,10,2.1,{castle:true});registerCollider(x+8.5,z-10,10,2.1,{castle:true});registerCollider(x,z+10,27,2.1,{castle:true});registerCollider(x-13.5,z,2.1,18,{castle:true});registerCollider(x+13.5,z,2.1,18,{castle:true});
     premiumBox(10,8.5,8.5,dark,0,5.1,3.5,g);premiumBox(8.6,7.5,7.2,stone,0,5.4,2.8,g);premiumBox(4.2,4.8,.8,0x20364f,0,3.2,-1.05,g);
     for(const [tx,tz] of [[-13,-10],[13,-10],[-13,10],[13,10]]){premiumCylinder(3.6,10,stone,tx,5.5,tz,g,12);premiumCylinder(4,1.1,trim,tx,10.2,tz,g,12);const cone=new THREE.Mesh(new THREE.ConeGeometry(4.25,4.8,12),renderMat(roof,{roughness:.55,metalness:.08}));cone.position.set(tx,13.05,tz);cone.castShadow=true;g.add(cone);premiumBox(.16,2,.16,gold,tx,16.2,tz,g);const flag=premiumBox(1.8,.8,.08,0xe43d4c,tx+.9,16.7,tz,g);flag.rotation.y=.15;}
     const battlement=(px,pz,alongX,count)=>{for(let i=0;i<count;i++){const offset=(i-(count-1)/2)*2.15;premiumBox(1.25,1.15,1.25,trim,px+(alongX?offset:0),7.75,pz+(alongX?0:offset),g);}};battlement(-8.3,-10,true,4);battlement(8.3,-10,true,4);battlement(0,10,true,11);battlement(-13.5,0,false,7);battlement(13.5,0,false,7);
@@ -3536,13 +3832,13 @@
     registerInteractable({id:'castle-adventures',type:'adventure',icon:'🏰',label:'Desafios do Castelo',x,z:z-11.5,radius:5.2,priority:195,action:openAdventureHub});world.castle=g;world.castleHouse=castleHouse;createCastleChallengeTokens();return g;
   }
   function createCastleChallengeTokens(){
-    const coords=[[-10,-7],[10,-7],[-10,7],[10,7],[0,5],[-6,1]];world.challengeTokens=coords.map(([dx,dz],i)=>{const mesh=new THREE.Mesh(new THREE.OctahedronGeometry(.62,0),mat(0xffd34d,{emissive:0xc68400,emissiveIntensity:1.1,metalness:.22,roughness:.25}));mesh.position.set(88+dx,1.5,62+dz);mesh.visible=false;worldGroup.add(mesh);return{id:`crown-${i}`,x:88+dx,z:62+dz,mesh,got:false};});
+    const center=worldLayoutPoint('castle',{x:100,z:62}),coords=[[-10,-7],[10,-7],[-10,7],[10,7],[0,5],[-6,1]];world.challengeTokens=coords.map(([dx,dz],i)=>{const mesh=new THREE.Mesh(new THREE.OctahedronGeometry(.62,0),mat(0xffd34d,{emissive:0xc68400,emissiveIntensity:1.1,metalness:.22,roughness:.25}));mesh.position.set(center.x+dx,1.5,center.z+dz);mesh.visible=false;worldGroup.add(mesh);return{id:`crown-${i}`,x:center.x+dx,z:center.z+dz,mesh,got:false};});
   }
   function openAdventureHub(){
     const active=world.activeChallenge,completed=new Set(state.adventures.completed||[]);openModal('Desafios da cidade',`${active?`<div class="active-adventure"><b>${ADVENTURE_DEFS[active.type]?.icon} Em andamento: ${ADVENTURE_DEFS[active.type]?.name}</b><span>${active.progress.size}/${active.target}</span></div>`:''}<div class="adventure-grid">${Object.entries(ADVENTURE_DEFS).map(([id,d])=>`<button class="adventure-card ${completed.has(id)?'completed':''}" data-adventure="${id}" ${active?'disabled':''}><span>${d.icon}</span><b>${d.name}</b><small>${d.description}</small><em>${completed.has(id)?'✓ Concluído':`${d.reward} moedas • ${d.xp} XP`}</em></button>`).join('')}</div>`,root=>{$$('[data-adventure]',root).forEach(btn=>btn.onclick=()=>startAdventure(btn.dataset.adventure));});
   }
   function startAdventure(type){
-    const def=ADVENTURE_DEFS[type];if(!def||world.activeChallenge||activeRace)return false;if(type==='castle'&&Math.hypot(player.x-88,player.z-52)>15){setWaypoint('castle');toast('Siga a rota até o Castelo para começar.','good',2200);return false;}closeModal();const startedAt=Date.now(),endsAt=type==='castle'?startedAt+75000:0;world.activeChallenge={type,target:def.target,progress:new Set(),startedAt:performance.now(),endsAt:type==='castle'?performance.now()+75000:0};state.adventures.active={type,startedAt,endsAt,progress:[]};if(type==='castle')for(const token of world.challengeTokens){token.got=false;token.mesh.visible=true;}els.raceBadge.hidden=false;els.raceTitle.textContent=`${def.icon} ${def.name}`;els.raceStatus.textContent=`0/${def.target}`;toast(`${def.name} começou!`,'good',1900);saveState(true);return true;
+    const def=ADVENTURE_DEFS[type];if(!def||world.activeChallenge||activeRace)return false;if(type==='castle'&&(()=>{const p=worldLayoutPoint('castleEntrance',{x:100,z:49});return Math.hypot(player.x-p.x,player.z-p.z)>15;})()){setWaypoint('castle');toast('Siga a rota até o Castelo para começar.','good',2200);return false;}closeModal();const startedAt=Date.now(),endsAt=type==='castle'?startedAt+75000:0;world.activeChallenge={type,target:def.target,progress:new Set(),startedAt:performance.now(),endsAt:type==='castle'?performance.now()+75000:0};state.adventures.active={type,startedAt,endsAt,progress:[]};if(type==='castle')for(const token of world.challengeTokens){token.got=false;token.mesh.visible=true;}els.raceBadge.hidden=false;els.raceTitle.textContent=`${def.icon} ${def.name}`;els.raceStatus.textContent=`0/${def.target}`;toast(`${def.name} começou!`,'good',1900);saveState(true);return true;
   }
   function restoreActiveAdventure(){
     const saved=state.adventures?.active,def=ADVENTURE_DEFS[saved?.type];if(!saved||!def)return false;const progress=new Set(Array.isArray(saved.progress)?saved.progress:[]),elapsed=Math.max(0,Date.now()-Number(saved.startedAt||Date.now())),remaining=saved.type==='castle'?Math.max(5000,Number(saved.endsAt||Date.now()+75000)-Date.now()):0;
@@ -3562,7 +3858,7 @@
   function createLearningStation(id,subject,x,z,color,icon,label){
     const g=new THREE.Group();g.position.set(x,0,z);worldGroup.add(g);premiumBox(2.5,.35,2.5,0x34485e,0,.18,0,g);premiumBox(1.7,2.1,1.2,color,0,1.35,0,g);const panel=new THREE.Mesh(new THREE.PlaneGeometry(1.25,1.25),new THREE.MeshStandardMaterial({map:iconTexture(icon,color,'#ffffff'),roughness:.35,emissive:new THREE.Color(color),emissiveIntensity:.12,side:THREE.DoubleSide}));panel.position.set(0,1.55,.63);g.add(panel);const beacon=new THREE.Mesh(new THREE.OctahedronGeometry(.34,0),mat(color,{emissive:color,emissiveIntensity:1.1}));beacon.position.y=2.75;g.add(beacon);registerInteractable({id:`learning-${id}`,type:'education',icon,label,x,z,radius:3,priority:130,action:()=>openEducationHub(subject)});world.landmarks.push(g);return g;
   }
-  function createLearningPlaza(){createLearningStation('math','math',22,-32,0x27b36a,'＋','Jogar Matemática Kids');createLearningStation('portuguese','portuguese',22,-40,0x7b5ce6,'A','Jogar Português Kids');createLearningStation('english','english',22,-48,0x168de2,'E','Jogar English Kids');createSignpost(22,-27,'Academia Kids',Math.PI/2);}
+  function createLearningPlaza(){const math=worldLayoutPoint('learningMath'),pt=worldLayoutPoint('learningPortuguese'),en=worldLayoutPoint('learningEnglish'),entry=worldLayoutPoint('learningEntrance');createLearningStation('math','math',math.x,math.z,0x27b36a,'＋','Jogar Matemática Kids');createLearningStation('portuguese','portuguese',pt.x,pt.z,0x7b5ce6,'A','Jogar Português Kids');createLearningStation('english','english',en.x,en.z,0x168de2,'E','Jogar English Kids');createSignpost(entry.x,entry.z,'Academia Kids',Math.PI/2);}
 
   const FISH_SPECIES=[
     {name:'Tilápia',rarity:'comum',weight:44,min:.25,max:1.8,xp:16,coins:5},{name:'Lambari',rarity:'comum',weight:30,min:.08,max:.35,xp:10,coins:3},{name:'Traíra',rarity:'incomum',weight:16,min:.5,max:2.8,xp:28,coins:9},{name:'Pacu',rarity:'raro',weight:8,min:1.1,max:4.8,xp:44,coins:16},{name:'Dourado',rarity:'lendário',weight:2,min:2.0,max:7.2,xp:90,coins:35}
@@ -3731,7 +4027,7 @@
   }
 
   // ===== MODULE: 19-campfire-hunting-house-extensions.js =====
-  function campfireAllowed(x,z){if(Math.hypot(x+70,z+62)>14)return false;if(waterAt(x,z))return false;if(WORLD_MAP_ROADS.some(r=>rectOverlap({x,z,w:3,d:3},r,.5)))return false;if(world.houses.some(h=>Math.hypot(x-h.x,z-h.z)<10))return false;return true;}
+  function campfireAllowed(x,z){const camp=worldLayoutPoint('camp',{x:-78,z:-62});if(Math.hypot(x-camp.x,z-camp.z)>14)return false;if(waterAt(x,z))return false;if(WORLD_MAP_ROADS.some(r=>rectOverlap({x,z,w:3,d:3},r,.5)))return false;if(world.houses.some(h=>Math.hypot(x-h.x,z-h.z)<10))return false;return true;}
   function spawnCampfire(data,remote=false){
     if(!data?.id||world.campfires.some(x=>x.data.id===data.id))return;const g=new THREE.Group();g.position.set(data.x,0,data.z);worldGroup.add(g);for(const a of [-.55,.55]){const log=premiumCylinder(.18,1.6,0x76502d,a,.2,0,g,8);log.rotation.z=Math.PI/2;log.rotation.y=a>0?Math.PI/4:-Math.PI/4;}const flame=new THREE.Mesh(new THREE.ConeGeometry(.42,1.15,7),mat(0xff7a18,{emissive:0xff4a00,emissiveIntensity:1.4,transparent:true,opacity:.9}));flame.position.y=.9;g.add(flame);const record={data:{...data,remote},group:g,flame,interactable:null};record.interactable=registerInteractable({id:`campfire-${data.id}`,type:'campfire',icon:'🔥',label:'Usar fogueira',x:data.x,z:data.z,radius:3.2,priority:150,action:()=>openCampfire(data.id)});world.campfires.push(record);
   }
@@ -3743,13 +4039,13 @@
     });}
   function openNearestCampfire(){const c=nearestActiveCampfire(12);if(c)openCampfire(c.data.id);else toast('A fogueira do amigo não está próxima ou já apagou.','warn');}
   function openCampfireZone(){const c=nearestActiveCampfire(8);if(c)openCampfire(c.data.id);else openModal('Acampamento','<p>Esta é uma área segura para montar fogueira. Ela usa madeira real do inventário e apaga automaticamente.</p><div class="modal-actions"><button class="btn primary" data-build-fire>Construir fogueira</button></div>',root=>$('[data-build-fire]',root).onclick=()=>{closeModal();buildCampfire();});}
-  function createCampfireZone(){for(let i=0;i<9;i++){const a=i/9*Math.PI*2;premiumBox(.75,.3,.5,0x8b765e,-70+Math.cos(a)*2,.15,-62+Math.sin(a)*2);}createSignpost(-65,-57,'Acampamento',Math.PI*.25);registerInteractable({id:'campfire-zone',type:'campfire-zone',icon:'🔥',label:'Área de fogueira',x:-70,z:-62,radius:5,priority:145,action:openCampfireZone});}
+  function createCampfireZone(){const camp=worldLayoutPoint('camp',{x:-78,z:-62});for(let i=0;i<9;i++){const a=i/9*Math.PI*2;premiumBox(.75,.3,.5,0x8b765e,camp.x+Math.cos(a)*2,.15,camp.z+Math.sin(a)*2);}createSignpost(camp.x+5,camp.z+5,'Acampamento',Math.PI*.25);registerInteractable({id:'campfire-zone',type:'campfire-zone',icon:'🔥',label:'Área de fogueira',x:camp.x,z:camp.z,radius:5,priority:145,action:openCampfireZone});}
   function createForestAnimal(id,type,x,z,color){const g=new THREE.Group();g.position.set(x,0,z);worldGroup.add(g);premiumBox(1.25,.72,.55,color,0,.72,0,g);premiumBox(.55,.55,.5,color,0,1.25,.38,g);for(const ox of [-.42,.42])for(const oz of [-.18,.18])premiumBox(.16,.55,.16,0x5e432b,ox,.28,oz,g);if(type==='deer'){premiumBox(.08,.5,.08,0x5e432b,-.18,1.68,.4,g);premiumBox(.08,.5,.08,0x5e432b,.18,1.68,.4,g);}const animal={id,type,group:g,x,z,available:true,respawnAt:0};world.animals.push(animal);return animal;}
-  function startHunting(options={}){const cooldown=Math.max(0,20000-(Date.now()-Number(state.hunting.lastAttempt||0)));if(cooldown>0){toast(`A floresta precisa descansar por ${Math.ceil(cooldown/1000)} s.`,'warn');return;}if(Math.hypot(player.x+96,player.z+72)>28){toast('Siga as pegadas até a área de rastreamento.','warn');return;}state.hunting.lastAttempt=Date.now();state.hunting.tracksFound++;const trail=['Pegadas perto das pedras','Galhos mexidos à esquerda','Folhas amassadas perto da árvore'],correct=Math.floor(Math.random()*3);openModal(options.cooperative?'Rastreamento com amigo':'Rastreamento na floresta',`<div class="activity-card hunting-card"><div class="activity-icon">🐾</div><h3>Encontre o caminho do animal</h3><p>${trail[correct]}. Qual direção você seguirá?</p><div class="choice-grid"><button class="choice" data-track="0"><b>⬅️ Esquerda</b><span>Seguir pistas</span></button><button class="choice" data-track="1"><b>⬆️ Em frente</b><span>Seguir pistas</span></button><button class="choice" data-track="2"><b>➡️ Direita</b><span>Seguir pistas</span></button></div><small>Atividade infantil: sem sangue, sem atacar pessoas ou NPCs.</small></div>`,root=>{$$('[data-track]',root).forEach(btn=>btn.onclick=()=>{const picked=Number(btn.dataset.track),success=picked===correct&&Math.random()<.78;closeModal();if(success){state.hunting.successful++;state.inventory.forestResources=(state.inventory.forestResources||0)+1;state.inventory.food=(state.inventory.food||0)+1;let xp=26;if(options.cooperative&&options.requestId&&!state.hunting.cooperativeRewards.includes(options.requestId)){state.hunting.cooperativeRewards.push(options.requestId);state.hunting.cooperativeRewards=state.hunting.cooperativeRewards.slice(-80);xp+=7;}addXP(xp);toast('Rastreamento concluído! Recurso da floresta coletado sem violência.','good',2800);const animal=world.animals.find(a=>a.available);if(animal){animal.available=false;animal.group.visible=false;animal.respawnAt=Date.now()+45000;}}else{state.hunting.failed++;toast('As pistas terminaram. O animal escapou em segurança.','warn',2400);}saveState(true);});});}
-  function createHuntingArea(){createSignpost(-89,-65,'Rastreamento infantil',Math.PI*.3);for(const p of [[-93,-70],[-97,-73],[-101,-75],[-104,-70]]){const mark=premiumBox(.45,.05,.7,0x634b32,p[0],.04,p[1]);mark.rotation.y=Math.random()*Math.PI;}createForestAnimal('deer-1','deer',-105,-78,0xb67945);createForestAnimal('rabbit-1','rabbit',-88,-82,0xc8b7a3);registerInteractable({id:'hunting-trail',type:'hunting',icon:'🐾',label:'Seguir rastros',x:-96,z:-72,radius:6,priority:140,action:()=>startHunting()});}
+  function startHunting(options={}){const cooldown=Math.max(0,20000-(Date.now()-Number(state.hunting.lastAttempt||0)));if(cooldown>0){toast(`A floresta precisa descansar por ${Math.ceil(cooldown/1000)} s.`,'warn');return;}if((()=>{const p=worldLayoutPoint('hunt',{x:-101,z:-78});return Math.hypot(player.x-p.x,player.z-p.z)>28;})()){toast('Siga as pegadas até a área de rastreamento.','warn');return;}state.hunting.lastAttempt=Date.now();state.hunting.tracksFound++;const trail=['Pegadas perto das pedras','Galhos mexidos à esquerda','Folhas amassadas perto da árvore'],correct=Math.floor(Math.random()*3);openModal(options.cooperative?'Rastreamento com amigo':'Rastreamento na floresta',`<div class="activity-card hunting-card"><div class="activity-icon">🐾</div><h3>Encontre o caminho do animal</h3><p>${trail[correct]}. Qual direção você seguirá?</p><div class="choice-grid"><button class="choice" data-track="0"><b>⬅️ Esquerda</b><span>Seguir pistas</span></button><button class="choice" data-track="1"><b>⬆️ Em frente</b><span>Seguir pistas</span></button><button class="choice" data-track="2"><b>➡️ Direita</b><span>Seguir pistas</span></button></div><small>Atividade infantil: sem sangue, sem atacar pessoas ou NPCs.</small></div>`,root=>{$$('[data-track]',root).forEach(btn=>btn.onclick=()=>{const picked=Number(btn.dataset.track),success=picked===correct&&Math.random()<.78;closeModal();if(success){state.hunting.successful++;state.inventory.forestResources=(state.inventory.forestResources||0)+1;state.inventory.food=(state.inventory.food||0)+1;let xp=26;if(options.cooperative&&options.requestId&&!state.hunting.cooperativeRewards.includes(options.requestId)){state.hunting.cooperativeRewards.push(options.requestId);state.hunting.cooperativeRewards=state.hunting.cooperativeRewards.slice(-80);xp+=7;}addXP(xp);toast('Rastreamento concluído! Recurso da floresta coletado sem violência.','good',2800);const animal=world.animals.find(a=>a.available);if(animal){animal.available=false;animal.group.visible=false;animal.respawnAt=Date.now()+45000;}}else{state.hunting.failed++;toast('As pistas terminaram. O animal escapou em segurança.','warn',2400);}saveState(true);});});}
+  function createHuntingArea(){const hunt=worldLayoutPoint('hunt',{x:-101,z:-78});createSignpost(hunt.x+8,hunt.z+13,'Rastreamento infantil',Math.PI*.3);for(const [dx,dz] of [[8,8],[4,5],[0,3],[-3,8]]){const mark=premiumBox(.45,.05,.7,0x634b32,hunt.x+dx,.04,hunt.z+dz);mark.rotation.y=Math.random()*Math.PI;}createForestAnimal('deer-1','deer',hunt.x-4,hunt.z,0xb67945);createForestAnimal('rabbit-1','rabbit',hunt.x+13,hunt.z-4,0xc8b7a3);registerInteractable({id:'hunting-trail',type:'hunting',icon:'🐾',label:'Seguir rastros',x:hunt.x,z:hunt.z,radius:6,priority:140,action:()=>startHunting()});}
   function nearestOwnedHouseForExtension(){return world.houses.filter(h=>state.houses[h.id]?.owned&&!h.publicBuilding).sort((a,b)=>distance2D(player,a)-distance2D(player,b))[0];}
   function extensionPlacement(house,side){const off=7.1;return side===0?{x:house.x+off,z:house.z,rotation:0}:side===1?{x:house.x,z:house.z+off,rotation:Math.PI/2}:side===2?{x:house.x-off,z:house.z,rotation:Math.PI}: {x:house.x,z:house.z-off,rotation:-Math.PI/2};}
-  function extensionValid(draft){const rect={x:draft.x,z:draft.z,w:5.4,d:5.4};if(Math.abs(draft.x)>111||Math.abs(draft.z)>111)return false;if(world.hazards.some(h=>rectOverlap(rect,h,.5)))return false;if(WORLD_MAP_ROADS.some(r=>rectOverlap(rect,r,.4)))return false;if(world.houseExtensions.some(e=>rectOverlap(rect,{x:e.data.x,z:e.data.z,w:5.4,d:5.4},.35)))return false;for(const h of world.houses){if(h.id===draft.houseId)continue;if(rectOverlap(rect,{x:h.x,z:h.z,w:9,d:7},.6))return false;}return true;}
+  function extensionValid(draft){const rect={x:Number(draft.x),z:Number(draft.z),w:5.4,d:5.4};if(Math.abs(rect.x)>111||Math.abs(rect.z)>111)return false;if(world.hazards.some(h=>rectOverlap(rect,h,.5)))return false;if(WORLD_MAP_ROADS.some(r=>rectOverlap(rect,r,.4)))return false;if(typeof v704ProtectedRectangles==='function'&&v704ProtectedRectangles().some(item=>item.id!==draft.houseId&&item.kind!=='construction'&&rectOverlap(rect,item,.55)))return false;if(world.houseExtensions.some(e=>rectOverlap(rect,{x:e.data.x,z:e.data.z,w:5.4,d:5.4},.35)))return false;for(const h of world.houses){if(h.id===draft.houseId)continue;if(rectOverlap(rect,{x:h.x,z:h.z,w:9,d:7},.6))return false;}return true;}
   const ROOM_FURNITURE_CATALOG=Object.freeze({
     bedroom:[{id:'bed',name:'Cama confortável',icon:'🛏️',price:45,w:2.15,d:1.5},{id:'wardrobe',name:'Guarda-roupa',icon:'🚪',price:38,w:1.25,d:.58},{id:'nightstand',name:'Criado-mudo',icon:'🗄️',price:18,w:.62,d:.54},{id:'lamp',name:'Abajur',icon:'💡',price:15,w:.5,d:.5}],
     living:[{id:'sofa',name:'Sofá',icon:'🛋️',price:44,w:2.1,d:.88},{id:'tv',name:'Televisão',icon:'📺',price:52,w:1.35,d:.48},{id:'coffee-table',name:'Mesa de centro',icon:'🪵',price:24,w:1.15,d:.72},{id:'bookshelf',name:'Estante de livros',icon:'📚',price:36,w:1.25,d:.5}],
@@ -3821,64 +4117,77 @@
   function buildWorld(){
     worldGroup=new THREE.Group();scene.add(worldGroup);
     const ground=stableBox(250,.3,250,materials.grass,0,-.15,0,worldGroup,0);ground.receiveShadow=false;
-    createSkyDome();
-    scene.background=new THREE.Color(0x79cfff);scene.fog=new THREE.Fog(0xbce8ff,235,560);
-    // roads
-    createRoad(0,0,18,210);createRoad(0,0,210,18);createRoad(-55,-55,9,105);createRoad(55,48,9,92);createRoad(55,-55,9,105);createRoad(-55,22,9,44);createRoad(27.5,78,55,9);
-    createDistrictVisuals();createLearningPlaza();
-    // water, bridge, lava/secret zone
-    createWater(-72,52,92,18);createWater(-100,70,38,34);
-    // bridge visual and fixed flag
-    for(let i=-5;i<=5;i++){const part=box(2.1,.35,5,materials.wood,-12+i*2.15,.25,52);world.bridgeParts.push(part);registerPlatform(-12+i*2.15,52,2.1,5,.43,{bridgePart:i+5});}
-    createLava(96,-82,34,26);
-    // trees forest
-    for(let i=0;i<48;i++){const x=-92+(Math.random()-.5)*68,z=-52+(Math.random()-.5)*84;if(Math.abs(x+68)<10&&Math.abs(z-52)<12)continue;if(Math.abs(x+68)<11&&Math.abs(z+18)<11)continue;if(Math.abs(x+92)<14&&Math.abs(z+92)<13)continue;createTree(x,z,.75+Math.random()*.55,true);}
-    for(let i=0;i<18;i++)createRock(-44+(Math.random()-.5)*60,-95+(Math.random()-.5)*54,.7+Math.random()*.6,true);
-    for(let i=0;i<80;i++)createFlower((Math.random()-.5)*190,(Math.random()-.5)*190,Math.random()>.5?0xff74c9:0xffdf55);
-    // village houses
-    const home=createHouse({id:'home',name:`Casa de ${playerDisplayName()}`,x:0,z:18,color:0xc4843e,roofColor:0xd93a38});addHouseInterior(home,'home');
-    const blue=createHouse({id:'blue',name:'Casa Azul',x:-25,z:17,color:0x4f9fd7,roofColor:0x225fa5,price:250});addHouseInterior(blue,'neighbor');
-    const pink=createHouse({id:'pink',name:'Casa Rosa',x:25,z:17,color:0xe58aae,roofColor:0xb63871,price:420});addHouseInterior(pink,'neighbor');
-    const cabin=createHouse({id:'cabin',name:'Cabana da Floresta',x:-88,z:-42,color:0x7e4a28,roofColor:0x4d2b1c,price:180});addHouseInterior(cabin,'neighbor');
-    const shop=createHouse({id:'shop',name:'Mercadinho',x:-22,z:-18,color:0xf1b83e,roofColor:0xc83a2f,publicBuilding:true});addHouseInterior(shop,'shop');
-    const workshop=createHouse({id:'workshop',name:'Oficina',x:22,z:-18,color:0x8c96a4,roofColor:0x3d4a5a,publicBuilding:true});addHouseInterior(workshop,'workshop');
-    const school=createHouse({id:'school',name:'Escola Vila do Sol',x:-68,z:-18,color:0xf2c64e,roofColor:0x2f7fd8,publicBuilding:true});addHouseInterior(school,'school');world.school=school;
-    const schoolEast=createHouse({id:'school-east',name:'Escola Horizonte',x:78,z:24,color:0xe9d68f,roofColor:0x2f7fd8,publicBuilding:true});addHouseInterior(schoolEast,'school');world.schools=[school,schoolEast];
-    const policeStation=createHouse({id:'police',name:'Delegacia Central',x:68,z:-18,color:0xe8edf3,roofColor:0x245da8,publicBuilding:true});addHouseInterior(policeStation,'police');world.policeStation=policeStation;const policeWest=createHouse({id:'police-west',name:'Posto Policial do Bairro',x:-68,z:22,color:0xdfeaf2,roofColor:0x245da8,publicBuilding:true});addHouseInterior(policeWest,'police');world.policeStations=[policeStation,policeWest];const fireStation=createHouse({id:'fire-station',name:'Corpo de Bombeiros',x:68,z:-68,color:0xc83e3c,roofColor:0x3d4652,publicBuilding:true});addHouseInterior(fireStation,'firestation');world.fireStation=fireStation;
-    createGoldMine();createVillageWell();createGoldFoundry();
-    // yards/fences/lamps
-    createFenceLine(-36,26,-14,26,9);createFenceLine(14,26,36,26,9);createFenceLine(-10,29,10,29,8);for(const p of [[-9,9],[9,9],[-33,8],[33,8],[-10,-7],[10,-7]])createLamp(p[0],p[1]);
-    // NPCs com mobilidade própria
-    const nino=createNPC('nino','Nino',4,3,0xffd84d,4),luna=createNPC('luna','Luna',-22,8,0xff72b6,4),teo=createNPC('teo','Teo',22,7,0x54c7ff,4),bia=createNPC('bia','Bia',-10,-10,0x8ee15c,3),maya=createNPC('maya','Maya',65,54,0xa66bff,3),clara=createNPC('clara','Clara',-66,-10,0xf0b62d,2),rafa=createNPC('rafa','Rafa',65,-10,0x2f7fd8,2),davi=createNPC('davi','Davi',65,-60,0xe54843,2),leo=createNPC('leo','Leo',48,44,0x38a66a,2);
-    createNpcMobility(clara,'bike',[[-66,-10],[-55,-10],[-55,0],[-66,0]],2.7);createNpcMobility(rafa,'moto',[[65,-10],[55,-10],[55,0],[65,0]],3.8);createNpcMobility(davi,'car',[[65,-60],[55,-60],[55,-18],[65,-18]],4.1);createNpcMobility(leo,'skate',[[48,44],[55,44],[55,32],[48,32]],3.0);
-    createNpcMobility(nino,'bike',[[4,3],[4,10],[-18,10],[-18,0],[4,0]],3.2);createNpcMobility(luna,'skate',[[-22,8],[-34,8],[-34,0],[-12,0],[-12,8]],2.8);createNpcMobility(teo,'moto',[[22,7],[8,7],[8,-12],[35,-12],[35,7]],4.7);createNpcMobility(bia,'bike',[[-10,-10],[-10,0],[-48,0],[-48,-10]],3.4);createNpcMobility(maya,'car',[[65,54],[55,54],[55,8],[68,8],[68,54]],4.5);
-    // farm and garage
-    createFenceLine(38,22,65,22,10);createFenceLine(65,22,65,43,8);for(let x=42;x<62;x+=4)for(let z=27;z<40;z+=4){box(2.8,.12,2.8,0x75451f,x,.06,z);box(.18,.55,.18,0x54c93e,x,.33,z);}
-    createToyCar(52,48,{id:'garage-orange',label:'Carro da Garagem',primary:0xf28a22,secondary:0x0aa7b8});createToyCar(-31,-11,{id:'market-blue',label:'Compacto Azul',primary:0x2787d8,secondary:0x43c6e8,heading:Math.PI/2});createToyCar(31,-11,{id:'workshop-red',label:'Esportivo Vermelho',primary:0xe5484d,secondary:0xf3b33d,heading:-Math.PI/2});createToyCar(12,35,{id:'home-green',label:'Carro Verde',primary:0x31a76a,secondary:0x8edb65,heading:Math.PI});createToyCar(66,40,{id:'royal-purple',label:'Carro Real',primary:0x7d58c9,secondary:0xf1c94d});createToyCar(47,84,{id:'gym-yellow',label:'Carro do Ginásio',primary:0xf1c943,secondary:0xef6c3d,heading:Math.PI});createToyCar(-78,-5,{id:'forest-teal',label:'Carro da Floresta',primary:0x138d83,secondary:0x6bc08b,heading:Math.PI/2});
-    registerInteractable({id:'job-board',type:'job',icon:'📦',label:'Central de trabalhos',x:49,z:45,radius:2.3,action:openJobCenter});world.deliveryPoint={x:65,z:54};
-    createLifeExpansionWorld();
-    createAthleticsGym();createSizeChallenges();createTransitWorld();createPoliceSystem();createFireServiceWorld();decorateCityServices();createWaypointMarker();createCooperativeMissionWorld();
-    // placas de bairro/orientação (somente decorativas, não alteram colisão nem interação)
-    createSignpost(12,4,'Vila do Sol',Math.PI/2); createSignpost(-30,-5,'Mercado e Oficina',Math.PI/2);
-    createSignpost(-62,-30,'Floresta',Math.PI*.15); createSignpost(48,26,'Fazenda e Garagem',-Math.PI/2);
-    createSignpost(70,40,'Castelo',Math.PI*.7); createSignpost(-58,50,'Lago',Math.PI*.4);
-    // platform challenge
-    const coords=[[48,0,-48],[53,1.2,-55],[59,2.3,-61],[66,3.5,-67],[74,4.6,-72],[82,5.8,-76]];coords.forEach(([x,y,z],i)=>{createPlatform(x,y+.5,z,3.2,3.2,i%2?0x7a4ed0:0x3e9fd8);createCrystal(x,y+1.7,z,i===coords.length-1);});world.secretChest=createChest('secret',86,-78,true);
-    // castelo real e inimigos
-    createRoyalCastle(88,62);
-    createEnemy('slime',48,-25);createEnemy('slime',58,-32);createEnemy('bat',72,-43);createEnemy('golem',82,48);createEnemy('slime',96,56);
-    // crystals spread
-    for(const p of [[12,1,-2],[-14,1,-8],[36,1,-15],[-45,1,18],[-63,1,-35],[78,1,15],[95,1,-20]])createCrystal(...p);
-    // public interactables
-    registerInteractable({id:'bridge-repair',type:'repair',icon:'🛠',label:'Consertar/inspecionar ponte',x:-12,z:47,radius:3.2,action:repairBridge});
-    createChest('village',8,-5,false);createChest('forest',-82,-50,false);
-    // restored builds
-    reconcileWorldBuilds();
-    updateBridgeVisual();restoreActiveAdventure();
-    // boundaries mountains
-    for(let i=0;i<34;i++){const a=i/34*Math.PI*2,r=118+Math.random()*10,x=Math.cos(a)*r,z=Math.sin(a)*r;box(12,12+Math.random()*16,12,0x6d7d8a,x,6,z);}
-  }
+    createSkyDome();scene.background=new THREE.Color(0x79cfff);scene.fog=new THREE.Fog(0xbce8ff,235,560);
+    const P=(id,fallback={x:0,z:0})=>worldLayoutPoint(id,fallback),L=WORLD_LAYOUT_V704;
 
+    // Uma única fonte de verdade cria todas as ruas. Nenhum módulo paralelo desenha vias alternativas.
+    for(const road of L.roads)createRoad(road.x,road.z,road.w,road.d);
+    createDistrictVisuals();createLearningPlaza();
+
+    // Água, ponte e zona de lava preservadas, fora das áreas urbanas e esportivas.
+    const lake=P('lake'),lakeNorth=P('lakeNorth');createWater(lake.x,lake.z,88,18);createWater(lakeNorth.x,lakeNorth.z,32,14);
+    for(let i=-5;i<=5;i++){const part=box(2.1,.35,5,materials.wood,-12+i*2.15,.25,52);world.bridgeParts.push(part);registerPlatform(-12+i*2.15,52,2.1,5,.43,{bridgePart:i+5});}
+    const lava=P('lava');createLava(lava.x,lava.z,26,20);
+
+    // Vegetação apenas em áreas livres: não nasce sobre ruas, pistas, quadras, fazenda ou kartódromo.
+    for(let i=0,created=0;i<180&&created<48;i++){
+      const x=-94+(Math.random()-.5)*58,z=-54+(Math.random()-.5)*80;
+      if(v704ReservedAt(x,z,2.4)||Math.abs(x+68)<11&&Math.abs(z+18)<11||Math.abs(x+92)<14&&Math.abs(z+92)<13)continue;
+      createTree(x,z,.75+Math.random()*.55,true);created++;
+    }
+    for(let i=0,created=0;i<90&&created<18;i++){
+      const x=-44+(Math.random()-.5)*60,z=-95+(Math.random()-.5)*42;if(v704ReservedAt(x,z,1.8))continue;createRock(x,z,.7+Math.random()*.6,true);created++;
+    }
+    for(let i=0,created=0;i<320&&created<80;i++){
+      const x=(Math.random()-.5)*218,z=(Math.random()-.5)*218;if(v704ReservedAt(x,z,1.2))continue;createFlower(x,z,Math.random()>.5?0xff74c9:0xffdf55);created++;
+    }
+
+    // Casas e serviços usam os mesmos pontos usados pelo mapa, GPS e missões.
+    const hp=P('home'),bp=P('blue'),pp=P('pink'),cp=P('cabin'),sp=P('shop'),wp=P('workshop'),sc=P('school'),se=P('schoolEast'),ps=P('police'),pw=P('policeWest'),fs=P('fireStation');
+    const home=createHouse({id:'home',name:`Casa de ${playerDisplayName()}`,x:hp.x,z:hp.z,color:0xc4843e,roofColor:0xd93a38});addHouseInterior(home,'home');
+    const blue=createHouse({id:'blue',name:'Casa Azul',x:bp.x,z:bp.z,color:0x4f9fd7,roofColor:0x225fa5,price:250});addHouseInterior(blue,'neighbor');
+    const pink=createHouse({id:'pink',name:'Casa Rosa',x:pp.x,z:pp.z,color:0xe58aae,roofColor:0xb63871,price:420});addHouseInterior(pink,'neighbor');
+    const cabin=createHouse({id:'cabin',name:'Cabana da Floresta',x:cp.x,z:cp.z,color:0x7e4a28,roofColor:0x4d2b1c,price:180});addHouseInterior(cabin,'neighbor');
+    const shop=createHouse({id:'shop',name:'Mercadinho',x:sp.x,z:sp.z,color:0xf1b83e,roofColor:0xc83a2f,publicBuilding:true});addHouseInterior(shop,'shop');
+    const workshop=createHouse({id:'workshop',name:'Oficina',x:wp.x,z:wp.z,color:0x8c96a4,roofColor:0x3d4a5a,publicBuilding:true});addHouseInterior(workshop,'workshop');
+    const school=createHouse({id:'school',name:'Escola Vila do Sol',x:sc.x,z:sc.z,color:0xf2c64e,roofColor:0x2f7fd8,publicBuilding:true});addHouseInterior(school,'school');world.school=school;
+    const schoolEast=createHouse({id:'school-east',name:'Escola Horizonte',x:se.x,z:se.z,color:0xe9d68f,roofColor:0x2f7fd8,publicBuilding:true});addHouseInterior(schoolEast,'school');world.schools=[school,schoolEast];
+    const policeStation=createHouse({id:'police',name:'Delegacia Central',x:ps.x,z:ps.z,color:0xe8edf3,roofColor:0x245da8,publicBuilding:true});addHouseInterior(policeStation,'police');world.policeStation=policeStation;
+    const policeWest=createHouse({id:'police-west',name:'Posto Policial do Bairro',x:pw.x,z:pw.z,color:0xdfeaf2,roofColor:0x245da8,publicBuilding:true});addHouseInterior(policeWest,'police');world.policeStations=[policeStation,policeWest];
+    const fireStation=createHouse({id:'fire-station',name:'Corpo de Bombeiros',x:fs.x,z:fs.z,color:0xc83e3c,roofColor:0x3d4652,publicBuilding:true});addHouseInterior(fireStation,'firestation');world.fireStation=fireStation;
+    const mine=P('mine'),well=P('well'),foundry=P('foundry');createGoldMine(mine.x,mine.z);createVillageWell(well.x,well.z);createGoldFoundry(foundry.x,foundry.z);
+
+    createFenceLine(-36,26,-15,26,9);createFenceLine(15,26,36,26,9);for(const p of [[-9,9],[9,9],[-33,8],[33,8],[-10,-7],[10,-7]])createLamp(p[0],p[1]);
+
+    // NPCs and their routes stay on pavements/roads from the master graph.
+    const nino=createNPC('nino','Nino',4,3,0xffd84d,4),luna=createNPC('luna','Luna',-22,8,0xff72b6,4),teo=createNPC('teo','Teo',22,7,0x54c7ff,4),bia=createNPC('bia','Bia',-10,-10,0x8ee15c,3),maya=createNPC('maya','Maya',68,42,0xa66bff,3),clara=createNPC('clara','Clara',-66,-10,0xf0b62d,2),rafa=createNPC('rafa','Rafa',66,-10,0x2f7fd8,2),davi=createNPC('davi','Davi',66,-60,0xe54843,2),leo=createNPC('leo','Leo',34,58,0x38a66a,2);
+    createNpcMobility(clara,'bike',[[-66,-10],[-55,-10],[-55,0],[-66,0]],2.7);createNpcMobility(rafa,'moto',[[66,-10],[65,-10],[65,0],[76,0]],3.8);createNpcMobility(davi,'car',[[66,-60],[65,-60],[65,-18],[76,-18]],4.1);createNpcMobility(leo,'skate',[[34,58],[52,58],[68,58],[68,45]],3.0);
+    createNpcMobility(nino,'bike',[[4,3],[4,10],[-18,10],[-18,0],[4,0]],3.2);createNpcMobility(luna,'skate',[[-22,8],[-34,8],[-34,0],[-12,0],[-12,8]],2.8);createNpcMobility(teo,'moto',[[22,7],[8,7],[8,-12],[35,-12],[35,7]],4.7);createNpcMobility(bia,'bike',[[-10,-10],[-10,0],[-48,0],[-48,-10]],3.4);createNpcMobility(maya,'car',[[68,42],[68,22],[65,0],[88,0],[88,42]],4.5);
+
+    // Veículos estacionados em vagas livres, nunca sobre quadras/pistas/prédios.
+    createToyCar(P('garage').x,P('garage').z,{id:'garage-orange',label:'Carro da Garagem',primary:0xf28a22,secondary:0x0aa7b8});
+    createToyCar(-31,-13,{id:'market-blue',label:'Compacto Azul',primary:0x2787d8,secondary:0x43c6e8,heading:Math.PI/2});
+    createToyCar(31,-13,{id:'workshop-red',label:'Esportivo Vermelho',primary:0xe5484d,secondary:0xf3b33d,heading:-Math.PI/2});
+    createToyCar(14,35,{id:'home-green',label:'Carro Verde',primary:0x31a76a,secondary:0x8edb65,heading:Math.PI});
+    createToyCar(76,31,{id:'royal-purple',label:'Carro Real',primary:0x7d58c9,secondary:0xf1c94d});
+    createToyCar(86,68,{id:'gym-yellow',label:'Carro do Complexo Esportivo',primary:0xf1c943,secondary:0xef6c3d,heading:Math.PI});
+    createToyCar(-78,-15,{id:'forest-teal',label:'Carro da Floresta',primary:0x138d83,secondary:0x6bc08b,heading:Math.PI/2});
+    const job=P('jobBoard');registerInteractable({id:'job-board',type:'job',icon:'📦',label:'Central de trabalhos',x:job.x,z:job.z,radius:2.3,action:openJobCenter});world.deliveryPoint={x:86,z:34};
+
+    createLifeExpansionWorld();createSportsComplexV704();createKartCircuitV704();createSizeChallenges();createTransitWorld();createPoliceSystem();createFireServiceWorld();decorateCityServices();createWaypointMarker();createCooperativeMissionWorld();
+
+    createSignpost(12,4,'Vila do Sol',Math.PI/2);createSignpost(-30,-5,'Mercado e Oficina',Math.PI/2);createSignpost(-62,-30,'Floresta',Math.PI*.15);createSignpost(91,38,'Fazenda e Garagem',-Math.PI/2);createSignpost(100,40,'Castelo',Math.PI*.7);createSignpost(-58,50,'Lago',Math.PI*.4);createSignpost(42,64,'Complexo Esportivo',Math.PI);createSignpost(94,-69,'Kartódromo',Math.PI);
+
+    // Circuito de plataformas deslocado para uma área própria, sem ocupar o kartódromo.
+    const circuit=P('platformCircuit'),coords=[[-16,0,15],[-10,1.2,10],[-4,2.3,5],[2,3.5,0],[8,4.6,-5],[14,5.8,-10]].map(([dx,y,dz])=>[circuit.x+dx,y,circuit.z+dz]);coords.forEach(([x,y,z],i)=>{createPlatform(x,y+.5,z,3.2,3.2,i%2?0x7a4ed0:0x3e9fd8);createCrystal(x,y+1.7,z,i===coords.length-1);});world.secretChest=createChest('secret',circuit.x+16,circuit.z-13,true);
+    const castle=P('castle');createRoyalCastle(castle.x,castle.z);
+    createEnemy('slime',48,-25);createEnemy('slime',58,-32);createEnemy('bat',72,-43);createEnemy('golem',82,48);createEnemy('slime',108,58);
+    for(const p of [[12,1,-2],[-14,1,-8],[36,1,-15],[-45,1,18],[-63,1,-35],[78,1,15],[95,1,-20]])createCrystal(...p);
+    registerInteractable({id:'bridge-repair',type:'repair',icon:'🛠',label:'Consertar/inspecionar ponte',x:-12,z:47,radius:3.2,action:repairBridge});createChest('village',8,-5,false);createChest('forest',-82,-50,false);
+    if(typeof migrateWorldBuildsToSafeZoneV704==='function')migrateWorldBuildsToSafeZoneV704();reconcileWorldBuilds();updateBridgeVisual();restoreActiveAdventure();
+    // O antigo anel aleatório de prédios foi removido: ele invadia quadras e a pista nas bordas.
+    world.layoutAudit=v704StaticWorldAudit();if(!world.layoutAudit.passed)console.error('[OTTHI V704] conflitos no layout mestre',world.layoutAudit.problems);setTimeout(()=>{try{v704RuntimeWorldAudit();}catch(error){console.error('[OTTHI V704] auditoria do mundo real falhou',error);}},0);
+  }
   function collectResource(id){
     const resource=world.resources.find(r=>r.id===id);if(!resource||resource.collected)return;
     const needed=resource.type==='wood'?'axe':'pickaxe';if(state.tools.equipped!==needed){toast(`Equipe ${needed==='axe'?'o machado':'a picareta'} em Ferramentas.`,'warn',1700);return;}
@@ -4423,6 +4732,21 @@
     const base={block:{w:1.5,d:1.5},wall:{w:3,d:.32},floor:{w:3,d:3},fence:{w:2.4,d:.22},lamp:{w:.9,d:.9},bench:{w:2.3,d:.85},planter:{w:2.3,d:.95}}[type]||{w:1.5,d:1.5};
     return Math.abs(Math.sin(Number(rotation||0)))>.7?{w:base.d,d:base.w}:{...base};
   }
+  function buildNeedsWorldMigrationV704(data){
+    const footprint=buildFootprint(data?.type,data?.rotation),rect={x:Number(data?.x),z:Number(data?.z),w:footprint.w,d:footprint.d};if(!Number.isFinite(rect.x)||!Number.isFinite(rect.z))return true;
+    if(typeof v704RoadAt==='function'){const corners=[[rect.x-rect.w/2,rect.z-rect.d/2],[rect.x+rect.w/2,rect.z-rect.d/2],[rect.x-rect.w/2,rect.z+rect.d/2],[rect.x+rect.w/2,rect.z+rect.d/2]];if(corners.some(([x,z])=>v704RoadAt(x,z,.25,true)))return true;}
+    if(typeof v704ProtectedRectangles==='function'&&v704ProtectedRectangles().some(item=>item.kind!=='construction'&&v704RectOverlap(rect,item,.35)))return true;
+    if(typeof waterAt==='function'&&[[rect.x-rect.w/2,rect.z-rect.d/2],[rect.x+rect.w/2,rect.z-rect.d/2],[rect.x-rect.w/2,rect.z+rect.d/2],[rect.x+rect.w/2,rect.z+rect.d/2]].some(([x,z])=>waterAt(x,z)))return true;
+    return false;
+  }
+  function migrateWorldBuildsToSafeZoneV704(){
+    if(!Array.isArray(state.builds)||!state.builds.length)return{migrated:0};let migrated=0,slotIndex=0;const occupied=[];
+    state.builds=state.builds.map(raw=>{const data=normalizeBuildRecord(raw);if(!data||!buildNeedsWorldMigrationV704(data)){if(data){const size=buildFootprint(data.type,data.rotation);occupied.push({x:data.x,z:data.z,w:size.w,d:size.d});}return data||raw;}
+      const size=buildFootprint(data.type,data.rotation);let target=null;for(let tries=0;tries<48;tries++){const candidate=v704NearestConstructionSlot(slotIndex++);const rect={x:candidate.x,z:candidate.z,w:size.w,d:size.d};if(v704BuildAllowedAt(rect.x,rect.z,rect.w,rect.d)&&!occupied.some(other=>v704RectOverlap(rect,other,.3))){target=candidate;occupied.push(rect);break;}}
+      if(!target)return data;const now=Date.now();migrated++;return{...data,x:target.x,z:target.z,updatedAt:now,layoutVersion:704,layoutMigratedAt:now,layoutMigratedFrom:{x:data.x,z:data.z}};
+    }).filter(Boolean);
+    if(migrated){state.worldLayout={version:704,migratedAt:Date.now(),migratedBuilds:migrated};saveState(true);console.info(`[OTTHI V704] ${migrated} construções antigas foram realocadas sem exclusão.`);}return{migrated};
+  }
   function buildPlacementCandidate(){
     if(!buildMode)return null;const distance=['wall','fence','bench','planter'].includes(buildMode)?2.8:2.45;
     const x=Math.round((player.x+Math.sin(player.facing)*distance)*2)/2,z=Math.round((player.z+Math.cos(player.facing)*distance)*2)/2;
@@ -4434,7 +4758,9 @@
     const corners=[[x-footprint.w/2,z-footprint.d/2],[x+footprint.w/2,z-footprint.d/2],[x-footprint.w/2,z+footprint.d/2],[x+footprint.w/2,z+footprint.d/2]];
     if(corners.some(([cx,cz])=>waterAt(cx,cz)))return false;
     const heights=corners.map(([cx,cz])=>groundHeightAt(cx,cz));if(Math.max(...heights)-Math.min(...heights)>.72)return false;
-    const permitted=(Math.abs(x)<18&&z>27&&z<48)||world.houses.some(h=>state.houses[h.id]?.owned&&Math.abs(x-h.x)<10&&Math.abs(z-h.z)<10);if(!permitted)return false;
+    const publicZone=typeof v704BuildAllowedAt==='function'&&v704BuildAllowedAt(x,z,footprint.w,footprint.d),ownedLot=world.houses.some(h=>state.houses[h.id]?.owned&&Math.abs(x-h.x)<10&&Math.abs(z-h.z)<10);if(!publicZone&&!ownedLot)return false;
+    if(typeof v704RoadAt==='function'&&corners.some(([cx,cz])=>v704RoadAt(cx,cz,.2,true)))return false;
+    if(typeof v704ProtectedRectangles==='function'){for(const protectedRect of v704ProtectedRectangles()){if(protectedRect.kind==='house'||protectedRect.kind==='construction')continue;if(rectOverlap(rect,protectedRect,.35))return false;}}
     if(world.hazards.some(h=>Number.isFinite(h.w)&&Number.isFinite(h.d)&&rectOverlap(rect,h,.2)))return false;
     if(world.colliders.some(c=>rectOverlap(rect,{x:c.x,z:c.z,w:c.w,d:c.d},.22)))return false;
     if(world.builds.some(b=>{const size=buildFootprint(b.data.type,b.data.rotation);return rectOverlap(rect,{x:b.data.x,z:b.data.z,w:size.w,d:size.d},.18);} ))return false;
@@ -4514,8 +4840,20 @@
   function removeWorldBuildRecord(record){
     if(!record)return;worldGroup?.remove(record.mesh);for(const extra of record.extras||[]){worldGroup?.remove(extra);world.glows=world.glows.filter(item=>item!==extra);}world.colliders=world.colliders.filter(c=>c.buildId!==record.data.id);world.platforms=world.platforms.filter(p=>p.buildId!==record.data.id);world.builds=world.builds.filter(item=>item!==record);
   }
+
+  function buildConflictsWithMasterWorldV704(data){
+    if(!data||typeof v704RectOverlap!=='function')return false;const size=buildFootprint(data.type,data.rotation),rect={x:Number(data.x),z:Number(data.z),w:size.w,d:size.d};
+    if(WORLD_LAYOUT_V704.roads.some(road=>v704RectOverlap(rect,v704RoadFootprint(road,true),.25)))return true;
+    for(const protectedRect of v704ProtectedRectangles()){if(protectedRect.kind==='house'||protectedRect.kind==='construction')continue;if(v704RectOverlap(rect,protectedRect,.35))return true;}
+    if((world.hazards||[]).some(h=>Number.isFinite(h.w)&&v704RectOverlap(rect,h,.2)))return true;return false;
+  }
+  function migrateLegacyWorldBuildsV704(){
+    if(!Array.isArray(state.builds)||typeof v704NearestConstructionSlot!=='function')return 0;let moved=0,slotIndex=0;const occupied=[];
+    for(const data of state.builds){if(!buildConflictsWithMasterWorldV704(data))continue;let slot,size=buildFootprint(data.type,data.rotation);do{slot=v704NearestConstructionSlot(slotIndex++);}while(slotIndex<80&&occupied.some(other=>rectOverlap({x:slot.x,z:slot.z,w:size.w,d:size.d},other,.35)));data.legacyPositionV704=data.legacyPositionV704||{x:Number(data.x),z:Number(data.z)};data.x=slot.x;data.z=slot.z;data.y=groundHeightAt(slot.x,slot.z);data.worldLayoutVersion=704;occupied.push({x:data.x,z:data.z,w:size.w,d:size.d});moved++;}
+    if(moved){state.worldMigrationV704={version:704,moved,at:Date.now()};console.warn(`[OTTHI V704] ${moved} construção(ões) antigas foram realocadas da pista/rua para a área de construção.`);saveState(true);}return moved;
+  }
   function reconcileWorldBuilds(){
-    if(!worldGroup||!world?.builds)return false;state.buildTombstones=normalizeBuildTombstones(state.buildTombstones);state.builds=applyBuildTombstones(state.builds,state.buildTombstones);const wanted=new Map(state.builds.map(data=>[data.id,data]));
+    if(!worldGroup||!world?.builds)return false;migrateLegacyWorldBuildsV704();state.buildTombstones=normalizeBuildTombstones(state.buildTombstones);state.builds=applyBuildTombstones(state.builds,state.buildTombstones);const wanted=new Map(state.builds.map(data=>[data.id,data]));
     for(const record of [...world.builds]){const data=wanted.get(record.data.id);if(!data||record.signature!==buildRecordSignature(data)){removeWorldBuildRecord(record);}}
     for(const data of state.builds)if(!world.builds.some(record=>record.data.id===data.id))spawnBuild(data,false);return true;
   }
@@ -4526,6 +4864,265 @@
   }
   els.buildBtn.onclick=openBuildMenu;
 
+
+  // ===== MODULE: 32-cooperative-missions.js =====
+  const COOP_MISSION_TEMPLATES=Object.freeze({
+    firefighter:{id:'firefighter',title:'Bombeiros em Equipe',icon:'🚒',reward:240,rep:55,minPlayers:2,maxPlayers:3,vehicle:'Caminhão dos bombeiros',roles:[['driver','Motorista'],['hose','Mangueira'],['rescuer','Apoio de segurança']],steps:['Vestir os uniformes','Levar o caminhão à ocorrência','Conectar e usar a mangueira','Controlar o fogo progressivamente','Isolar e liberar a área'],description:'Um jogador dirige, outro controla o fogo com a mangueira e o terceiro isola e libera a área.'},
+    paramedic:{id:'paramedic',title:'Resgate com Ambulância',icon:'🚑',reward:245,rep:58,minPlayers:2,maxPlayers:3,vehicle:'Ambulância',roles:[['driver','Motorista'],['medic','Socorrista'],['stretcher','Equipe da maca']],steps:['Vestir os uniformes','Levar a ambulância ao local','Fazer os primeiros socorros','Carregar a maca com duas pessoas','Colocar o paciente na ambulância','Transportar ao ponto médico'],description:'A equipe atende com cuidado, usa a maca em dupla e transporta o paciente sem conteúdo gráfico.'},
+    police:{id:'police',title:'Patrulha Kids Cooperativa',icon:'🚓',reward:230,rep:52,minPlayers:2,maxPlayers:3,vehicle:'Viatura',roles:[['driver','Motorista'],['officer','Policial'],['helper','Apoio da patrulha']],steps:['Vestir os uniformes','Levar a viatura até o chamado','Fazer a abordagem educativa','Dizer “Você está preso”','Acompanhar o personagem até a viatura'],description:'Missão infantil sem armas, tiros ou agressões: abordagem verbal e acompanhamento seguro.'},
+    fishing:{id:'fishing',title:'Pescaria e Peixe Assado',icon:'🎣',reward:190,rep:35,minPlayers:2,maxPlayers:3,vehicle:'Nenhum',roles:[['fisher','Pescador'],['fisher','Pescadora'],['cook','Cozinheiro da fogueira']],steps:['Encontrar a equipe no lago','Pescar 6 peixes em conjunto','Levar os peixes à fogueira','Assar 3 peixes e compartilhar'],description:'A equipe soma as pescarias, mantém contadores individuais e prepara os peixes na fogueira.'},
+    school:{id:'school',title:'Todos para a Escola',icon:'🎓',reward:210,rep:48,minPlayers:2,maxPlayers:3,vehicle:'Nenhum',roles:[['guide','Guia dos alunos'],['teacher','Professor'],['helper','Ajudante']],steps:['Encontrar personagens pela vila','Convidar 4 alunos com educação','Guiar os alunos até a escola','Entregar cada aluno sem duplicar'],description:'Convide personagens voluntariamente; eles seguem a equipe e não podem ficar presos, perdidos ou duplicados.'},
+    streetRace:{id:'streetRace',title:'Corrida de Rua',icon:'🏃',reward:185,rep:32,minPlayers:2,maxPlayers:3,vehicle:'Nenhum',roles:[['runner','Corredor'],['runner','Corredora'],['helper','Apoio da equipe']],steps:['Reunir no ponto de largada','Passar pelos quatro checkpoints','Acompanhar posição e tempo','Cruzar a chegada com segurança'],description:'Corrida a pé com classificação individual, opção cooperativa por equipe ou competitiva.'},
+    ovalRace:{id:'ovalRace',title:'Desafio do Ginásio Oval',icon:'🏟️',reward:205,rep:38,minPlayers:2,maxPlayers:3,vehicle:'Nenhum',roles:[['runner','Corredor da pista'],['runner','Corredora da pista'],['helper','Marcador de voltas']],steps:['Reunir na pista oval','Completar três voltas','Correr junto com atletas bots','Conferir tempo e classificação'],description:'Pista oval otimizada, bots em faixas separadas e opções de equipe ou competição.'}
+  });
+  const COOP_ROLE_LABELS=Object.freeze({driver:'Motorista',hose:'Mangueira',rescuer:'Apoio',medic:'Socorrista',stretcher:'Maca',officer:'Policial',fisher:'Pescador',cook:'Cozinheiro',guide:'Guia',teacher:'Professor',runner:'Corredor',helper:'Ajudante'});
+  let coopRemoteMissions={},coopActionInteractable=null,coopRaceBots=[],coopVisualAcc=0;
+  const COOP_STREET_ROUTE=Object.freeze([{x:34,z:58,name:'Largada do Acesso Norte'},{x:68,z:58,name:'Checkpoint do Complexo'},{x:68,z:44,name:'Checkpoint Escola Leste'},{x:65,z:0,name:'Checkpoint Avenida Leste'},{x:0,z:0,name:'Chegada Central'}]);
+  function coopStreetRoutePoint(progress=0,lane=0){
+    const points=COOP_STREET_ROUTE,lengths=[],total=points.slice(1).reduce((sum,point,index)=>{const previous=points[index],length=Math.hypot(point.x-previous.x,point.z-previous.z);lengths.push(length);return sum+length;},0);let remaining=clamp(Number(progress)||0,0,1)*total;
+    for(let index=0;index<lengths.length;index++){const a=points[index],b=points[index+1],length=lengths[index];if(remaining<=length||index===lengths.length-1){const ratio=length?clamp(remaining/length,0,1):0,dx=b.x-a.x,dz=b.z-a.z,norm=Math.hypot(dx,dz)||1;return{x:lerp(a.x,b.x,ratio)-dz/norm*lane,z:lerp(a.z,b.z,ratio)+dx/norm*lane,heading:Math.atan2(dx,dz)};}remaining-=length;}return{x:points.at(-1).x,z:points.at(-1).z,heading:0};
+  }
+  function coopPointAccessible(point,radius=1.1){if(!point||!Number.isFinite(Number(point.x))||!Number.isFinite(Number(point.z)))return false;const x=Number(point.x),z=Number(point.z);if(Math.abs(x)>114||Math.abs(z)>114||waterAt(x,z))return false;return !positionBlockedForPlayer(x,z,radius,{ignoreTraffic:true,allowWater:false});}
+  function coopMissionPreflight(type){
+    const errors=[],warnings=[];if(!coopMissionTemplate(type))errors.push('modelo de missão inexistente');
+    if(type==='firefighter'){if(!(world.fireTrucks||[]).length)errors.push('caminhão de bombeiros ausente');if(!(typeof FIRE_SITES!=='undefined'&&FIRE_SITES.length))errors.push('ocorrências de incêndio ausentes');}
+    else if(type==='paramedic'){if(!(world.ambulances||[]).length)errors.push('ambulância ausente');if(!(typeof TRAINING_INCIDENT_SITES!=='undefined'&&TRAINING_INCIDENT_SITES.length))errors.push('pontos de resgate ausentes');}
+    else if(type==='police'){if(!(world.policeCars||[]).length)errors.push('viatura ausente');if(!(world.npcs||[]).some(item=>!item.coopRaceBot))errors.push('personagem da abordagem ausente');}
+    else if(type==='fishing'){if(!waterAt(-63,52))errors.push('ponto de pesca fora da água');if(!coopPointAccessible(worldLayoutPoint('camp'),1.4))warnings.push('fogueira será posicionada no ponto seguro mais próximo');}
+    else if(type==='school'){if(!(world.schools||[]).length&&!world.school)errors.push('escola ausente');if((world.npcs||[]).filter(item=>!item.coopRaceBot).length<4)errors.push('menos de quatro alunos disponíveis');}
+    else if(type==='streetRace'){for(const point of COOP_STREET_ROUTE)if(!pointOnRoad(point.x,point.z,1.2))errors.push(`${point.name} fora da malha viária`);}
+    else if(type==='ovalRace'){if(!world.gym||!Number.isFinite(world.gym.centerX)||!Number.isFinite(world.gym.centerZ))errors.push('pista oval ausente');}
+    return{ok:errors.length===0,errors,warnings};
+  }
+  function coopObjectiveSnapshot(active=activeCoopMission(),record=activeCoopRecord()){
+    if(!active||!record)return null;const p=coopProgress(record),target=coopCurrentTarget(active,record),template=coopMissionTemplate(record.type),metric=record.type==='firefighter'?`${Math.min(4,p.counter)}/4 aplicações de água`:record.type==='fishing'?(p.phase<2?`${p.counter}/6 peixes`:`${p.counter}/3 peixes assados`):record.type==='school'?`${p.counter}/4 alunos`:record.type==='streetRace'?`${active.race?.checkpoints||0}/4 checkpoints`:record.type==='ovalRace'?`${active.race?.laps||0}/3 voltas`:`etapa ${Math.min(template.steps.length,p.phase+1)}/${template.steps.length}`;return{mission:record.type,phase:p.phase,metric,target:target?{id:target.id,name:target.name,x:target.x,z:target.z,navX:target.navX??target.x,navZ:target.navZ??target.z}:null,instruction:coopCurrentInstruction(active,record)};
+  }
+  function ensureCooperativeState(){state.cooperative={active:null,completed:[],history:[],preferredMode:'coop',soloFallback:true,lastLobbyNotice:0,...(state.cooperative||{})};return state.cooperative;}
+  function coopUid(){return String(window.OTTHOS_RTDB?.uid||state.profile?.playerId||'local');}
+  function coopMissionTemplate(id){return COOP_MISSION_TEMPLATES[String(id||'')]||null;}
+  function activeCoopMission(){ensureCooperativeState();return state.cooperative.active;}
+  function activeCoopRecord(){const active=activeCoopMission();if(!active)return null;return active.remote&&coopRemoteMissions[active.id]?coopRemoteMissions[active.id]:active.record||active;}
+  function activeCoopServiceJob(){const active=activeCoopMission();return active?.serviceJob||null;}
+  function coopParticipants(record=activeCoopRecord()){return Object.values(record?.participants||{}).filter(Boolean);}
+  function coopOwnParticipant(record=activeCoopRecord()){return record?.participants?.[coopUid()]||null;}
+  function coopRoleLabel(role){return COOP_ROLE_LABELS[role]||'Ajudante';}
+  function coopProgress(record=activeCoopRecord()){return{phase:Math.max(0,Number(record?.progress?.phase||0)),counter:Math.max(0,Number(record?.progress?.counter||0)),target:Math.max(1,Number(record?.progress?.target||1)),events:record?.progress?.events||{}};}
+  function coopEventValues(record=activeCoopRecord(),kind=''){return Object.values(coopProgress(record).events).filter(event=>!kind||event?.kind===kind);}
+  function coopHasEvent(kind,uidValue=''){return coopEventValues(activeCoopRecord(),kind).some(event=>!uidValue||event.uid===uidValue);}
+  function coopIndividualCount(record=activeCoopRecord(),kind='',uidValue=coopUid()){return coopEventValues(record,kind).filter(event=>event?.uid===uidValue).reduce((sum,event)=>sum+Math.max(0,Number(event.value||0)),0);}
+  function coopRoleCapacity(template,role){return template?.roles?.filter(item=>item[0]===role).length||0;}
+  function coopRoleTaken(record,role,ignoreUid=coopUid()){return coopParticipants(record).filter(item=>item.uid!==ignoreUid&&item.role===role).length;}
+  function coopEventSubjectId(prefix,id){return`${prefix}-${String(id||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,56)}`;}
+  function coopMedicalDestination(){const hospital=world.hospital||world.clinic||world.medicalCenter;if(hospital)return{id:hospital.id||'medical-center',name:hospital.name||'Ponto médico',icon:'🏥',x:Number(hospital.x??hospital.group?.position?.x??0),z:Number(hospital.z??hospital.group?.position?.z??0),ref:hospital};return{id:'medical-center',name:'Ponto médico da Vila',icon:'🏥',x:18,z:-24,navX:18,navZ:-24};}
+  function coopRaceStandings(record=activeCoopRecord()){
+    const kind=record?.type==='ovalRace'?'oval-lap':'street-checkpoint',started=Number(record?.startedAt||record?.createdAtClient||Date.now()),rows=coopParticipants(record).map(item=>{const events=coopEventValues(record,kind).filter(event=>event.uid===item.uid),score=events.reduce((sum,event)=>sum+Math.max(0,Number(event.value||0)),0),last=events.reduce((value,event)=>Math.max(value,Number(event.createdAtClient||0)),0);return{...item,score,elapsed:last?Math.max(0,last-started):0};});return rows.sort((a,b)=>b.score-a.score||(a.elapsed||Infinity)-(b.elapsed||Infinity)||a.name.localeCompare(b.name));
+  }
+  function coopRaceTargetReached(record=activeCoopRecord()){const target=record?.type==='ovalRace'?3:4,standings=coopRaceStandings(record);return record?.mode==='competitive'?Number(standings[0]?.score||0)>=target:coopProgress(record).counter>=target;}
+  function coopMissionMapLocations(){
+    const active=activeCoopMission(),record=activeCoopRecord(),template=coopMissionTemplate(record?.type||active?.type);if(!active||!template)return[];
+    const target=coopCurrentTarget(active,record);if(!target)return[];
+    return[{id:`coop-${active.id}-${target.id||'target'}`,name:target.name||template.title,icon:target.icon||template.icon,group:'Missão cooperativa',x:target.x,z:target.z,navX:target.navX??target.x,navZ:target.navZ??target.z,missionTarget:true,coopTarget:true,description:target.description||coopCurrentInstruction(active,record),actions:[`Função: ${coopRoleLabel(coopOwnParticipant(record)?.role||active.role)}`,'Siga o GPS','Use AÇÃO no ponto marcado']}];
+  }
+  function coopServiceKind(type){return['firefighter','paramedic','police'].includes(type)?type:'';}
+  function coopMissionHash(value=''){let hash=2166136261;for(const char of String(value||'')){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619);}return hash>>>0;}
+  function coopSceneTarget(type,missionId=activeCoopMission()?.id||'coop'){
+    const seed=coopMissionHash(`${missionId}:${type}`);
+    if(type==='firefighter'){const site=FIRE_SITES[seed%FIRE_SITES.length],fire=world.fires.find(item=>item.id===site?.id&&item.active)||activateFireIncident(site?.id||'',true);if(fire){fire.coopMissionId=missionId;fire.coopIntensity=1;for(const truck of world.fireTrucks||[]){if(truck.targetFireId===fire.id){truck.targetFireId='';truck.serviceRoute=[];truck.serviceRouteIndex=0;}}}return fire?{id:`fire-${fire.id}`,name:fire.name,icon:'🔥',x:fire.x,z:fire.z,navX:fire.navX,navZ:fire.navZ,ref:fire}:null;}
+    if(type==='paramedic'){let incident=world.activeIncident;if(!incident){const site=TRAINING_INCIDENT_SITES[seed%TRAINING_INCIDENT_SITES.length],projection=nearestRoadProjection(site)?.point||site;incident=createTrafficIncidentAt(projection.x,projection.z,'minor',[]);}if(incident){incident.coopMissionId=missionId;incident.playerAssigned={police:true,paramedic:true,firefighter:true};incident.responders={};for(const vehicle of serviceVehiclePools()){if(vehicle.incidentTargetId===incident.id){vehicle.incidentTargetId='';vehicle.responseRoute=[];vehicle.responseIndex=0;}}}return incident?{id:`incident-${incident.id}`,name:'Área segura do resgate',icon:'⚠️',x:incident.x,z:incident.z,navX:incident.navX,navZ:incident.navZ,ref:incident}:null;}
+    if(type==='police'){const candidates=(world.npcs||[]).filter(item=>!item.coopRaceBot),npc=candidates[seed%Math.max(1,candidates.length)]||world.npcs[0];return npc?{id:`police-${npc.id}`,name:'Abordagem educativa',icon:'👮',x:npc.group.position.x,z:npc.group.position.z,ref:npc}:null;}
+    return null;
+  }
+  function coopNearestSchool(){return(world.schools||[]).sort((a,b)=>Math.hypot(player.x-a.x,player.z-a.z)-Math.hypot(player.x-b.x,player.z-b.z))[0]||world.school;}
+  function coopNearestInvitableNpc(active){const events=coopProgress(activeCoopRecord()).events||{};return(world.npcs||[]).filter(n=>!n.coopRaceBot&&!active.invitedNpcIds?.includes(n.id)&&!n.coopSchoolDelivered&&!events[coopEventSubjectId('student',n.id)]&&!events[coopEventSubjectId('student-delivered',n.id)]).sort((a,b)=>Math.hypot(player.x-a.group.position.x,player.z-a.group.position.z)-Math.hypot(player.x-b.group.position.x,player.z-b.group.position.z))[0]||null;}
+  function coopCurrentTarget(active=activeCoopMission(),record=activeCoopRecord()){
+    if(!active||!record)return null;const type=record.type,progress=coopProgress(record),phase=progress.phase;
+    if(coopServiceKind(type)){
+      if(phase<1){const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)return{id:`service-${vehicle.id}`,name:vehicle.label,icon:type==='police'?'🚓':type==='firefighter'?'🚒':'🚑',x:vehicle.group.position.x,z:vehicle.group.position.z,ref:vehicle,description:'Veículo reservado para esta equipe.'};}
+      if(type==='paramedic'&&phase>=5)return coopMedicalDestination();
+      if(type==='paramedic'&&phase>=4){const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)return{id:`service-${vehicle.id}`,name:'Colocar o paciente na ambulância',icon:'🚑',x:vehicle.group.position.x,z:vehicle.group.position.z,ref:vehicle};}
+      if(type==='police'&&phase>=4){const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)return{id:`service-${vehicle.id}`,name:'Acompanhar até a viatura',icon:'🚓',x:vehicle.group.position.x,z:vehicle.group.position.z,ref:vehicle};}
+      return active.sceneTarget||coopSceneTarget(type);
+    }
+    if(type==='fishing'){const camp=active.coopCampfirePoint||worldLayoutPoint('camp');return phase<2?{id:'coop-lake',name:'Ponto de pescaria do lago',icon:'🎣',x:-63,z:52,navX:-55,navZ:52}:{id:'coop-campfire',name:'Fogueira da equipe',icon:'🔥',x:camp.x,z:camp.z};}
+    if(type==='school'){
+      if(progress.counter>=4){const school=coopNearestSchool();return school?{id:school.id,name:school.name,icon:'🏫',x:school.x,z:school.z,ref:school}:null;}
+      const follower=(world.npcs||[]).find(n=>active.followingNpcIds?.includes(n.id));if(follower){const school=coopNearestSchool();return school?{id:school.id,name:`Levar ${follower.name} à escola`,icon:'🏫',x:school.x,z:school.z,ref:school}:null;}
+      const npc=coopNearestInvitableNpc(active);return npc?{id:`student-${npc.id}`,name:`Convidar ${npc.name}`,icon:'🧒',x:npc.group.position.x,z:npc.group.position.z,ref:npc}:null;
+    }
+    if(type==='streetRace'){const race=active.race||{},index=race.started?Math.min(4,Number(race.checkpoints||0)+1):0,point=COOP_STREET_ROUTE[index]||COOP_STREET_ROUTE.at(-1);return{id:`coop-street-${index}`,name:race.started?point.name:'Largada da corrida de rua',icon:'🏁',x:point.x,z:point.z,description:race.started?'Passe pelo checkpoint na ordem indicada.':'Use AÇÃO na largada para iniciar a cronometragem.'};}
+    if(type==='ovalRace'){const gym=world.gym||{...worldLayoutPoint('sports'),centerX:worldLayoutPoint('sports').x,centerZ:worldLayoutPoint('sports').z,radiusX:26,radiusZ:14},race=active.race||{};return{id:'coop-oval-race',name:race.started?'Linha de chegada da pista oval':'Largada da pista oval',icon:'🏟️',x:gym.centerX+gym.radiusX,z:gym.centerZ,description:race.started?'Complete a sequência inteira de quatro setores para validar cada volta.':'Use AÇÃO na linha para iniciar a cronometragem.'};}
+    return null;
+  }
+  function coopCurrentInstruction(active=activeCoopMission(),record=activeCoopRecord()){
+    if(!active||!record)return'Sem missão cooperativa ativa.';const template=coopMissionTemplate(record.type),p=coopProgress(record),role=coopRoleLabel(coopOwnParticipant(record)?.role||active.role),step=template?.steps[Math.min(p.phase,(template.steps?.length||1)-1)]||template?.description;
+    if(record.status==='lobby')return`Aguarde a equipe. Sua função: ${role}.`;
+    if(record.type==='firefighter'&&p.phase===3)return`Fogo controlado: ${p.counter}/4. A pessoa da mangueira deve aplicar água até zerar o risco.`;
+    if(record.type==='firefighter'&&p.phase>=4)return'A pessoa de apoio deve isolar e liberar a área.';
+    if(record.type==='paramedic'&&p.phase===4)return'Leve a maca até a ambulância e use AÇÃO para acomodar o paciente.';
+    if(record.type==='paramedic'&&p.phase>=5)return'O motorista deve levar a ambulância ao ponto médico marcado.';
+    if(record.type==='police'&&p.phase>=4)return'Acompanhe o personagem com calma até a viatura marcada.';
+    if(record.type==='fishing'&&p.phase===1)return`Equipe: ${p.counter}/6 peixes. Pesque junto com os outros jogadores.`;
+    if(record.type==='fishing'&&p.phase>=2)return`Equipe: ${p.counter}/3 peixes assados. Vá à fogueira.`;
+    if(record.type==='school')return`Alunos levados: ${p.counter}/4. Convide um personagem e conduza-o até a escola.`;
+    if(record.type==='streetRace')return active.race?.started?`${record.mode==='competitive'?'Seus checkpoints':'Checkpoints da equipe'}: ${record.mode==='competitive'?coopIndividualCount(record,'street-checkpoint'):p.counter}/4. Siga o próximo marcador na ordem.`:'Vá à largada e use AÇÃO para iniciar a corrida.';
+    if(record.type==='ovalRace')return active.race?.started?`${record.mode==='competitive'?'Suas voltas':'Voltas da equipe'}: ${record.mode==='competitive'?coopIndividualCount(record,'oval-lap'):p.counter}/3. Passe pelos quatro setores na ordem.`:'Vá à linha de largada e use AÇÃO para iniciar as voltas.';
+    return`${step} • sua função: ${role}.`;
+  }
+  function coopMissionProgressLabel(){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record)return null;const template=coopMissionTemplate(record.type),p=coopProgress(record),total=Math.max(1,template.steps.length),percent=record.status==='completed'?100:clamp((p.phase/total)*100,4,96);return{title:`${template.icon} ${template.title}`,label:coopCurrentInstruction(active,record),percent};}
+  function coopMissionBriefingMarkup(record=activeCoopRecord()){
+    const active=activeCoopMission(),template=coopMissionTemplate(record?.type);if(!active||!record||!template)return'';const p=coopProgress(record),participants=coopParticipants(record),own=coopOwnParticipant(record),steps=template.steps.map((text,index)=>`<li class="${index<p.phase?'done':index===p.phase?'current':''}"><i>${index<p.phase?'✓':index+1}</i><span>${text}</span></li>`).join(''),isRace=['streetRace','ovalRace'].includes(record.type),standings=isRace?coopRaceStandings(record):[],raceMarkup=isRace&&record.status==='active'?`<div class="coop-race-standings"><b>CLASSIFICAÇÃO</b>${standings.map((item,index)=>`<span><i>${index+1}º</i><strong>${item.name}</strong><em>${item.score} ${record.type==='ovalRace'?'voltas':'checkpoints'}${item.elapsed?` • ${(item.elapsed/1000).toFixed(1)}s`:''}</em></span>`).join('')}</div>`:'',fishMarkup=record.type==='fishing'?`<div class="coop-individual-counter"><b>Seu contador</b><span>${p.phase<2?coopIndividualCount(record,'fish-caught'):coopIndividualCount(record,'cooked-fish')} ${p.phase<2?'peixes pescados':'peixes assados'} • equipe ${p.counter}/${p.target}</span></div>`:'';
+    return`<section class="coop-briefing"><header><span>${template.icon}</span><div><small>MISSÃO ${record.mode==='solo'?'SOLO':record.mode==='competitive'?'COMPETITIVA':'COOPERATIVA'} • ${record.status.toUpperCase()}</small><h3>${template.title}</h3><p>${template.description}</p></div></header><div class="coop-team-strip">${participants.map(item=>`<article class="${item.uid===coopUid()?'me':''}"><b>${item.name||'Jogador'}</b><span>${coopRoleLabel(item.role)}</span></article>`).join('')}</div><div class="coop-role-now"><b>SUA FUNÇÃO</b><span>${coopRoleLabel(own?.role||active.role)}</span></div><div class="coop-vehicle-now"><b>VEÍCULO</b><span>${template.vehicle}</span></div><ol class="mission-step-list">${steps}</ol>${fishMarkup}${raceMarkup}<div class="mission-current-instruction">Agora: ${coopCurrentInstruction(active,record)}</div><div class="job-progress"><i style="width:${coopMissionProgressLabel()?.percent||0}%"></i></div></section>`;
+  }
+  function coopPermissionDenied(error=''){return/permission|denied|permiss[aã]o/i.test(String(error||''));}
+  async function coopBackendCall(name,...args){const fn=window.OTTHOS_RTDB?.[name];if(typeof fn!=='function')return{ok:false,error:'O multiplayer cooperativo ainda não está pronto.'};try{return await fn(...args);}catch(error){return{ok:false,error:error?.message||String(error)}}}
+  function bindCoopActionButton(button,handler){if(!button||typeof handler!=='function')return;button.addEventListener('click',async()=>{if(button.dataset.coopBusy==='1')return;button.dataset.coopBusy='1';button.disabled=true;try{await handler(button);}finally{if(button.isConnected){delete button.dataset.coopBusy;button.disabled=false;}}});}
+  function coopLocalRecord(template,mode='solo',role='helper'){
+    const id=`local-${template.id}-${Date.now()}`;return{id,type:template.id,title:template.title,icon:template.icon,hostUid:coopUid(),room:state.multiplayer?.room||'bairro-central',status:'lobby',mode,minPlayers:1,maxPlayers:template.maxPlayers,createdAtClient:Date.now(),updatedAtClient:Date.now(),participants:{[coopUid()]:{uid:coopUid(),name:publicPlayerName(),role,ready:true,joinedAtClient:Date.now(),updatedAtClient:Date.now()}},progress:{phase:0,counter:0,target:1,events:{},updatedAtClient:Date.now()}};
+  }
+  function coopActiveState(record,remote=false){return{id:record.id,type:record.type,role:record.participants?.[coopUid()]?.role||'helper',remote,record,createdAt:Date.now(),baselineRawFish:Number(state.inventory.rawFish||0),baselineCookedFish:Number(state.inventory.cookedFish||0),invitedNpcIds:[],followingNpcIds:[],deliveredNpcIds:[],previousUniform:state.avatar.uniform||'none',serviceJob:null,sceneTarget:null,race:{startedAt:0,checkpoints:0,lastCheckpoint:-1,lastAngle:null,angleTravel:0,laps:0}};}
+  async function createCooperativeMission(templateId,mode='coop'){
+    ensureCooperativeState();if(state.cooperative.active){toast('Conclua ou saia da missão cooperativa atual.','warn');return false;}if(state.career?.activeJob){toast('Conclua ou cancele o trabalho atual antes de iniciar uma missão cooperativa.','warn',2600);return false;}const template=coopMissionTemplate(templateId);if(!template)return false;const preflight=coopMissionPreflight(template.id);if(!preflight.ok){toast(`Missão indisponível: ${preflight.errors.join('; ')}.`,'bad',4200);return false;}const role=template.roles[0][0];let record,remote=false;
+    if(mode!=='solo'&&window.OTTHOS_RTDB?.connected?.()){const target=template.id==='fishing'?6:template.id==='school'?4:template.id==='streetRace'?4:template.id==='ovalRace'?3:template.id==='firefighter'?4:1,result=await coopBackendCall('createCoopMission',template.id,{title:template.title,icon:template.icon,minPlayers:template.minPlayers,maxPlayers:template.maxPlayers,role,target,mode});if(!result?.ok){if(coopPermissionDenied(result?.error)){record=coopLocalRecord(template,'solo',role);toast('O servidor ainda usa regras antigas. A atividade foi aberta no modo solo para nenhum botão ficar bloqueado.','warn',4200);}else{toast(result?.error||'Não foi possível criar a equipe.','warn',2800);return false;}}else{record=result.mission;record.id=result.id;remote=true;coopRemoteMissions[result.id]=record;}}else{record=coopLocalRecord(template,'solo',role);}
+    state.cooperative.active=coopActiveState(record,remote);saveState(true);openCoopLobby(record.id);return true;
+  }
+  async function joinCooperativeMission(id,role='helper'){
+    ensureCooperativeState();if(state.career?.activeJob||state.cooperative.active){toast('Finalize a missão atual antes de entrar em outra equipe.','warn');return false;}const result=await coopBackendCall('joinCoopMission',id,role);if(!result?.ok){if(coopPermissionDenied(result?.error)){const remote=coopRemoteMissions[id],template=coopMissionTemplate(remote?.type);if(template){toast('A entrada online foi recusada pelas regras antigas. Abrindo a versão solo equivalente.','warn',3800);return createCooperativeMission(template.id,'solo');}}toast(result?.error||'Não foi possível entrar na equipe.','warn');return false;}const record=result.mission;coopRemoteMissions[id]=record;state.cooperative.active=coopActiveState(record,true);saveState(true);openCoopLobby(id);return true;
+  }
+  async function selectCoopRole(role){const active=activeCoopMission(),record=activeCoopRecord(),template=coopMissionTemplate(record?.type);if(!active||!template||!template.roles.some(item=>item[0]===role))return false;if(coopRoleTaken(record,role)>=coopRoleCapacity(template,role)){toast('Essa função já está ocupada. Escolha outra função da equipe.','warn');return false;}if(active.remote){const result=await coopBackendCall('updateCoopParticipant',active.id,{role});if(!result?.ok){toast(result?.error||'Não foi possível trocar a função.','warn');return false;}if(record.participants?.[coopUid()])record.participants[coopUid()].role=role;}else active.record.participants[coopUid()].role=role;active.role=role;saveState(true);openCoopLobby(active.id);return true;}
+  async function toggleCoopReady(){const active=activeCoopMission(),record=activeCoopRecord(),own=coopOwnParticipant(record);if(!active||!own)return false;const ready=!own.ready;if(active.remote){const result=await coopBackendCall('updateCoopParticipant',active.id,{ready});if(!result?.ok){toast(result?.error||'Não foi possível atualizar o estado da equipe.','warn');return false;}own.ready=ready;}else active.record.participants[coopUid()].ready=ready;openCoopLobby(active.id);return true;}
+  async function startActiveCoopMission(forceSolo=false){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record)return false;const preflight=coopMissionPreflight(record.type);if(!preflight.ok){toast(`A missão não pode iniciar: ${preflight.errors.join('; ')}.`,'bad',4200);return false;}const participants=coopParticipants(record),isHost=record.hostUid===coopUid();if(!isHost&&active.remote){toast('Aguarde quem criou a equipe iniciar.','warn');return false;}if(!forceSolo&&participants.length<Number(record.minPlayers||1)){toast(`Esta missão foi planejada para pelo menos ${record.minPlayers} jogadores. Use “Iniciar solo” para a versão adaptada.`,'warn',3200);return false;}if(!forceSolo&&participants.some(item=>!item.ready)){toast('Todos os participantes precisam marcar “Estou pronto” antes da largada.','warn',2800);return false;}const nextMode=forceSolo?'solo':record.mode==='competitive'?'competitive':'coop';if(active.remote){const result=await coopBackendCall('setCoopMissionStatus',active.id,'active',{mode:nextMode});if(!result?.ok){if(coopPermissionDenied(result?.error)){toast('As regras antigas impediram a largada online. Continuando esta missão no modo solo.','warn',3600);return continueCoopMissionOffline();}toast(result?.error||'Não foi possível iniciar.','warn');return false;}record.mode=result.mode||record.mode;record.status='active';}else{active.record.status='active';active.record.mode=nextMode;}
+    if(forceSolo){record.mode='solo';if(!active.remote)active.record.mode='solo';}
+    prepareCoopMissionRuntime();closeModal();updateMissionHUD();toast(`Missão iniciada: ${coopMissionTemplate(record.type).title}`,'good',2800);return true;
+  }
+  function continueCoopMissionOffline(){
+    const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||!active.remote)return false;
+    const uid=coopUid(),own=record.participants?.[uid]||{uid,name:publicPlayerName(),role:active.role,ready:true,joinedAtClient:Date.now(),updatedAtClient:Date.now()},copy={...record,id:`offline-${record.type}-${Date.now()}`,hostUid:uid,status:'active',mode:'solo',minPlayers:1,participants:{[uid]:{...own,ready:true}},progress:{...coopProgress(record),events:{...coopProgress(record).events},updatedAtClient:Date.now()}};
+    active.id=copy.id;active.remote=false;active.record=copy;active.role=own.role||active.role;active.runtimePrepared=false;prepareCoopMissionRuntime();saveState(true);closeModal();updateMissionHUD();toast('Missão retomada no modo solo. O progresso online original não foi apagado.','good',3200);return true;
+  }
+  function prepareCoopMissionRuntime(){
+    const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||record.status!=='active')return;if(!active.previousUniform)active.previousUniform=state.avatar.uniform||'none';const template=coopMissionTemplate(record.type),kind=coopServiceKind(record.type);
+    if(kind){active.serviceJob=active.serviceJob||{id:kind,title:template.title,icon:template.icon,instanceId:`coop-${active.id}`,cooperative:true,serviceVehicleId:'',serviceVehicleKind:kind,serviceVehicleBoarded:false,serviceVehicleArrived:false};reserveMissionServiceVehicle(active.serviceJob,{waypoint:true});active.sceneTarget=active.sceneTarget||coopSceneTarget(kind);equipJobUniform(kind);}
+    else if(record.type==='school')equipJobUniform('teacher');
+    else if(record.type==='fishing'){const fireId=`coop-fire-${String(active.id).replace(/[^A-Za-z0-9_-]/g,'').slice(-32)}`;let fire=world.campfires.find(item=>item.data?.id===fireId);if(!fire){const safe=safePointNear(-70,-62,{ignoreTraffic:true,allowWater:false,radius:1.2,distances:[0,1,2,3,4]});spawnCampfire({id:fireId,ownerId:state.profile.playerId,x:safe.x,z:safe.z,createdAt:Date.now(),expiresAt:Date.now()+60*60*1000,cooking:null},false);fire=world.campfires.find(item=>item.data?.id===fireId);}active.coopCampfireId=fireId;active.coopCampfirePoint={x:Number(fire?.data?.x??-70),z:Number(fire?.data?.z??-62)};}
+    else if(record.type==='streetRace'||record.type==='ovalRace'){state.avatar.uniform='sport';applyAvatarCustomization();active.race={...(active.race||{}),started:false,startedAt:0,checkpoints:0,lastCheckpoint:-1,expectedSector:1,angleTravel:0,laps:0};activateCoopRaceBots(record.type);}
+    const target=coopCurrentTarget(active,record);if(target)coopSetWaypoint(target);saveState(true);
+  }
+  function coopSetWaypoint(target){if(!target)return;state.waypoint={id:`coop-${target.id||'target'}`,name:target.name||'Objetivo cooperativo',x:Number(target.x||0),z:Number(target.z||0),navX:Number(target.navX??target.x??0),navZ:Number(target.navZ??target.z??0),arrived:false};world.routePath=buildRoutePoints(player,state.waypoint);updateWaypointMarker();updateNavigation(0,true);}
+  function onCoopServiceVehicleBoarded(vehicle,job){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||active.serviceJob!==job)return;job.serviceVehicleBoarded=true;coopRecordEvent('driver-boarded','driver',1,1);active.sceneTarget=active.sceneTarget||coopSceneTarget(record.type);if(active.sceneTarget)coopSetWaypoint(active.sceneTarget);toast('Veículo correto. Leve a equipe ao ponto marcado.','good',2500);}
+  async function coopRecordEvent(kind,role='',value=1,nextPhase=null){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record)return false;const id=`${coopUid().replace(/[^A-Za-z0-9_-]/g,'').slice(-24)}-${kind}-${Math.floor(Date.now()/1200)}`;if(active.remote){const result=await coopBackendCall('updateCoopMissionProgress',active.id,{eventId:id,kind,value,phase:nextPhase});return!!result?.ok;}const progress=active.record.progress||(active.record.progress={phase:0,counter:0,target:1,events:{}});progress.events[id]={uid:coopUid(),role:role||active.role,kind,value,createdAtClient:Date.now()};if(Number.isFinite(Number(nextPhase)))progress.phase=Math.max(progress.phase,Number(nextPhase));progress.updatedAtClient=Date.now();return true;}
+  async function coopAddCounter(kind,amount=1,target=1,nextPhase=null){const active=activeCoopMission(),record=activeCoopRecord();if(!active)return false;const competitive=['streetRace','ovalRace'].includes(record?.type)&&record.mode==='competitive',counterDelta=competitive?0:amount;if(active.remote){const result=await coopBackendCall('updateCoopMissionProgress',active.id,{eventId:`${coopUid().slice(-12)}-${kind}-${Date.now()}`,kind,value:amount,counterDelta,target,phase:nextPhase});return!!result?.ok;}const p=active.record.progress;p.counter=Math.min(999,Number(p.counter||0)+counterDelta);p.target=target;if(Number.isFinite(Number(nextPhase)))p.phase=Math.max(p.phase,Number(nextPhase));p.events[`${kind}-${Date.now()}`]={uid:coopUid(),role:active.role,kind,value:amount,createdAtClient:Date.now()};return true;}
+  async function coopReserveEvent(eventId,kind,value=1,options={}){
+    const active=activeCoopMission();if(!active)return{ok:false,eventOwner:''};const id=String(eventId||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,80);if(!id)return{ok:false,eventOwner:''};
+    if(active.remote)return await coopBackendCall('updateCoopMissionProgress',active.id,{eventId:id,kind,value,reserveEvent:true,counterDelta:Number(options.counterDelta||0),target:options.target,phase:options.phase});
+    const progress=active.record.progress||(active.record.progress={phase:0,counter:0,target:1,events:{}}),existing=progress.events[id];if(existing)return{ok:existing.uid===coopUid(),eventOwner:existing.uid,progress};
+    progress.events[id]={uid:coopUid(),role:active.role,kind,value,createdAtClient:Date.now()};progress.counter=Math.max(0,Number(progress.counter||0)+Math.max(0,Number(options.counterDelta||0)));if(Number.isFinite(Number(options.target)))progress.target=Math.max(1,Number(options.target));if(Number.isFinite(Number(options.phase)))progress.phase=Math.max(Number(progress.phase||0),Number(options.phase));return{ok:true,eventOwner:coopUid(),progress};
+  }
+  function coopNearbyParticipantCount(radius=7){const record=activeCoopRecord(),presence=window.OTTHOS_RTDB?.getPresence?.()||{};let count=1;for(const participant of coopParticipants(record)){if(participant.uid===coopUid())continue;const remote=presence[participant.uid];if(remote&&Math.hypot(player.x-Number(remote.x||0),player.z-Number(remote.z||0))<=radius)count++;}return count;}
+  async function performCoopMissionAction(){
+    const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||record.status!=='active')return false;const type=record.type,p=coopProgress(record),role=coopOwnParticipant(record)?.role||active.role,target=coopCurrentTarget(active,record);if(target&&Math.hypot(player.x-(target.navX??target.x),player.z-(target.navZ??target.z))>6){toast('Chegue ao ponto marcado no GPS.','warn');return false;}
+    if(coopServiceKind(type)){
+      if(p.phase<1){toast(role==='driver'?'Entre no veículo reservado usando AÇÃO.':'Aguarde o motorista e entre como passageiro pelo menu do jogador online.','warn',2800);return false;}
+      if(p.phase===1){toast('O motorista precisa estacionar no ponto marcado.','warn');return false;}
+      if(type==='paramedic'&&p.phase>=5){toast('O motorista deve levar a ambulância até o ponto médico marcado.','warn');return false;}
+      if(player.vehicle){toast('Estacione e saia do veículo para executar a tarefa.','warn');return false;}
+      if(type==='firefighter'){
+        if(p.counter<4){if(role!=='hose'&&record.mode!=='solo'){toast('Você está no apoio; a pessoa da mangueira deve controlar o fogo.','warn');return false;}const fire=active.sceneTarget?.ref||ensureActiveFire(true),next=Math.min(4,p.counter+1);if(fire)fire.coopIntensity=Math.max(.08,1-next/4);await coopAddCounter('water-pulse',1,4,3);if(next>=4)await coopRecordEvent('fire-controlled',role,1,4);toast(`Água aplicada. Intensidade do fogo: ${Math.max(0,Math.round((1-next/4)*100))}%.`,'good',2200);return true;}
+        if(role!=='rescuer'&&record.mode!=='solo'){toast('A pessoa de apoio precisa isolar e liberar a área.','warn');return false;}await coopRecordEvent('safety-release',role,1,5);toast('Área isolada, verificada e liberada com segurança.','good');return true;
+      }
+      if(type==='paramedic'){
+        if(!coopHasEvent('first-aid')){if(role!=='medic'&&record.mode!=='solo'){toast('O socorrista precisa atender o paciente primeiro.','warn');return false;}await coopRecordEvent('first-aid',role,1,3);player.sitUntil=performance.now()+1500;toast('Primeiros socorros feitos com cuidado.','good');return true;}
+        if(!coopHasEvent('stretcher')){if(record.mode!=='solo'&&coopNearbyParticipantCount(5)<2){toast('A maca precisa de duas pessoas próximas. Chame outro integrante da equipe.','warn',2800);return false;}await coopRecordEvent('stretcher',role,1,4);toast('Maca carregada por duas pessoas. Leve o paciente até a ambulância.','good',2600);const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)coopSetWaypoint({id:`service-${vehicle.id}`,name:'Colocar o paciente na ambulância',icon:'🚑',x:vehicle.group.position.x,z:vehicle.group.position.z});return true;}
+        if(!coopHasEvent('patient-loaded')){await coopRecordEvent('patient-loaded',role,1,5);toast('Paciente acomodado com segurança. Motorista: siga até o ponto médico.','good',2800);coopSetWaypoint(coopMedicalDestination());return true;}
+        return false;
+      }
+      if(type==='police'){
+        if(!coopHasEvent('approach')){if(role!=='officer'&&record.mode!=='solo'){toast('O policial deve iniciar a abordagem educativa.','warn');return false;}await coopRecordEvent('approach',role,1,3);toast('Abordagem calma: converse antes de concluir.','good');return true;}
+        if(!coopHasEvent('you-are-arrested')){const npc=active.sceneTarget?.ref;if(npc){npc.following=true;npc.emoteType='wave';npc.emoteUntil=performance.now()+1800;}await coopRecordEvent('you-are-arrested',role,1,4);toast('“Você está preso.” Agora acompanhe o personagem, sem armas ou agressões, até a viatura.','good',3200);const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)coopSetWaypoint({id:`service-${vehicle.id}`,name:'Acompanhar até a viatura',icon:'🚓',x:vehicle.group.position.x,z:vehicle.group.position.z});return true;}
+        const npc=active.sceneTarget?.ref;if(npc)npc.following=false;await coopRecordEvent('suspect-escorted',role,1,5);toast('Personagem acompanhado com segurança até a viatura.','good');return true;
+      }
+    }
+    if(type==='fishing'){
+      if(p.phase<1){await coopRecordEvent('at-lake',role,1,1);toast('Equipe reunida no lago. Comece a pescar.','good');return true;}
+      if(p.phase===1){if(state.inventory.bait<1){toast('Você precisa de isca.','warn');return false;}startFishing('shore',{cooperative:true,requestId:active.id});return true;}
+      if(Number(state.inventory.rawFish||0)<1){toast('A equipe precisa de peixe cru para assar.','warn');return false;}state.inventory.rawFish--;setTimeout(async()=>{state.inventory.cookedFish=(state.inventory.cookedFish||0)+1;saveState(true);await coopAddCounter('cooked-fish',1,3);toast('Peixe assado para a equipe!','good');},1800);toast('Peixe na grelha...','good');return true;
+    }
+    if(type==='school'){
+      const follower=(world.npcs||[]).find(n=>active.followingNpcIds?.includes(n.id));
+      if(follower){const school=coopNearestSchool();if(!school||Math.hypot(player.x-school.x,player.z-school.z)>8){toast('Conduza o aluno até a escola marcada.','warn');return false;}const result=await coopReserveEvent(coopEventSubjectId('student-delivered',follower.id),'student-delivered',1,{counterDelta:1,target:4,phase:4});if(!result?.ok||result.eventOwner!==coopUid()){active.followingNpcIds=active.followingNpcIds.filter(id=>id!==follower.id);follower.following=false;toast('Esse aluno já foi entregue por outro integrante.','warn');return false;}follower.following=false;follower.coopSchoolDelivered=true;follower.baseX=school.x+(Math.random()-.5)*5;follower.baseZ=school.z+5+(Math.random()*2);active.followingNpcIds=active.followingNpcIds.filter(id=>id!==follower.id);if(!active.deliveredNpcIds.includes(follower.id))active.deliveredNpcIds.push(follower.id);toast(`${follower.name} chegou à escola. +1 aluno para a equipe.`,'good',2300);return true;}
+      const npc=coopNearestInvitableNpc(active);if(!npc||Math.hypot(player.x-npc.group.position.x,player.z-npc.group.position.z)>4){toast('Chegue perto de um personagem para convidá-lo.','warn');return false;}const result=await coopReserveEvent(coopEventSubjectId('student',npc.id),'student-invited',1);if(!result?.ok||result.eventOwner!==coopUid()){toast('Outro integrante acabou de convidar esse aluno. Procure o próximo marcador.','warn',2600);return false;}if(!active.invitedNpcIds.includes(npc.id))active.invitedNpcIds.push(npc.id);if(!active.followingNpcIds.includes(npc.id))active.followingNpcIds.push(npc.id);npc.following=true;toast(`${npc.name}: “Sim! Vou seguir você até a escola.”`,'good',2600);const school=coopNearestSchool();if(school)coopSetWaypoint({id:school.id,name:school.name,icon:'🏫',x:school.x,z:school.z});saveState(true);return true;
+    }
+    if(type==='streetRace'||type==='ovalRace'){
+      const race=active.race||(active.race={});if(!race.started){race.started=true;race.startedAt=Date.now();race.checkpoints=0;race.lastCheckpoint=-1;race.expectedSector=1;race.laps=0;race.lastSectorAt=0;await coopAdvancePhase(1,{counterSet:0,target:type==='ovalRace'?3:4});const next=coopCurrentTarget(active,activeCoopRecord());if(next)coopSetWaypoint(next);toast('3… 2… 1… valendo! Siga os marcadores na ordem.','good',2600);return true;}toast(coopCurrentInstruction(active,record),'good',1800);return true;
+    }
+    return false;
+  }
+  function updateCoopFishingProgress(active,record){const p=coopProgress(record);if(record.type!=='fishing'||record.status!=='active')return;const caught=Math.max(0,Number(state.inventory.rawFish||0)-Number(active.baselineRawFish||0));if(p.phase===1&&caught>Number(active.reportedFish||0)){const delta=caught-Number(active.reportedFish||0);active.reportedFish=caught;coopAddCounter('fish-caught',delta,6).catch(()=>{});}const latest=coopProgress(activeCoopRecord());if(latest.phase===1&&latest.counter>=6&&!active.fishingCookPhaseStarted){active.fishingCookPhaseStarted=true;coopAdvancePhase(2,{counterSet:0,target:3}).then(()=>{active.baselineCookedFish=Number(state.inventory.cookedFish||0);const camp=active.coopCampfirePoint||worldLayoutPoint('camp');coopSetWaypoint({id:'coop-campfire',name:'Fogueira da equipe',icon:'🔥',x:camp.x,z:camp.z});updateMissionHUD();});}}
+  function updateCoopSchoolFollowers(active){active.followingNpcIds=[...new Set(active.followingNpcIds||[])];for(const id of active.followingNpcIds){const npc=world.npcs.find(n=>n.id===id);if(!npc)continue;npc.following=true;const distance=Math.hypot(player.x-npc.group.position.x,player.z-npc.group.position.z);if(!Number.isFinite(distance)||distance>22){npc.group.position.set(player.x-1.4,0,player.z-1.4);npc.baseX=player.x-1.4;npc.baseZ=player.z-1.4;}}}
+  function activateCoopRaceBots(type){coopRaceBots.forEach((bot,index)=>{bot.group.visible=true;bot.coopRaceMode=type;bot.coopRaceIndex=index;bot.coopRaceLane=index%3;bot.coopRaceT=0;bot.coopRaceFinished=false;bot.coopRaceSpeed=.055+index*.004;if(type==='streetRace'){const start=coopStreetRoutePoint(0,(Number(bot.coopRaceLane||0)-1)*.78);bot.group.position.set(start.x,0,start.z);bot.group.rotation.y=start.heading;}});}
+  function deactivateCoopRaceBots(){for(const bot of coopRaceBots){bot.coopRaceMode='';bot.coopRaceFinished=false;bot.coopRaceT=0;bot.group.visible=false;}}
+  function updateCoopRaceVisuals(dt){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||!['streetRace','ovalRace'].includes(record.type)||record.status!=='active')return;for(const bot of coopRaceBots){if(!bot.coopRaceMode)continue;const nearPlayer=Math.hypot(player.x-bot.group.position.x,player.z-bot.group.position.z)<1.8,pace=nearPlayer?.55:1;if(record.type==='ovalRace'){bot.coopRaceT=(bot.coopRaceT+dt*bot.coopRaceSpeed*pace)%1;const a=bot.coopRaceT*Math.PI*2,rx=23.7+Number(bot.coopRaceLane||0)*.9,rz=12.4+Number(bot.coopRaceLane||0)*.45;{const gym=world.gym||{centerX:worldLayoutPoint('sports').x,centerZ:worldLayoutPoint('sports').z};bot.group.position.set(gym.centerX+Math.cos(a)*rx,0,gym.centerZ+Math.sin(a)*rz)};bot.group.rotation.y=Math.atan2(-Math.sin(a)*rx,Math.cos(a)*rz);}else if(!bot.coopRaceFinished){bot.coopRaceT=Math.min(1,bot.coopRaceT+dt*bot.coopRaceSpeed*pace);const point=coopStreetRoutePoint(bot.coopRaceT,(Number(bot.coopRaceLane||0)-1)*.78);bot.group.position.set(point.x,0,point.z);bot.group.rotation.y=point.heading;if(bot.coopRaceT>=1)bot.coopRaceFinished=true;}}
+  }
+  function updateCoopRaceProgress(active,record){
+    const p=coopProgress(record),race=active.race||(active.race={started:false,checkpoints:0,lastCheckpoint:-1,expectedSector:1,laps:0});if(!race.started)return;
+    if(record.type==='streetRace'){
+      const nextIndex=Math.min(4,Number(race.checkpoints||0)+1),point=COOP_STREET_ROUTE[nextIndex];
+      if(point&&Math.hypot(player.x-point.x,player.z-point.z)<4.2&&race.lastCheckpoint!==nextIndex){race.lastCheckpoint=nextIndex;race.checkpoints=nextIndex;coopAddCounter('street-checkpoint',1,4).catch(()=>{});toast(`Checkpoint ${race.checkpoints}/4 validado.`,'good');const next=coopCurrentTarget(active,activeCoopRecord());if(race.checkpoints<4&&next)coopSetWaypoint(next);}
+    }else{
+      const gym=world.gym||{...worldLayoutPoint('sports'),centerX:worldLayoutPoint('sports').x,centerZ:worldLayoutPoint('sports').z,radiusX:26,radiusZ:14},sectors=[{x:gym.centerX+gym.radiusX,z:gym.centerZ,name:'Leste'},{x:gym.centerX,z:gym.centerZ+gym.radiusZ,name:'Sul'},{x:gym.centerX-gym.radiusX,z:gym.centerZ,name:'Oeste'},{x:gym.centerX,z:gym.centerZ-gym.radiusZ,name:'Norte'}],index=Math.max(0,Math.min(3,Number(race.expectedSector||1))),sector=sectors[index];
+      if(sector&&Math.hypot(player.x-sector.x,player.z-sector.z)<3.7&&Date.now()-Number(race.lastSectorAt||0)>700){race.lastSectorAt=Date.now();race.expectedSector=(index+1)%4;if(race.expectedSector===1&&index===0){race.laps++;coopAddCounter('oval-lap',1,3).catch(()=>{});toast(`Volta ${race.laps}/3 validada pelos quatro setores.`,'good');}}
+    }
+    if(coopRaceTargetReached(activeCoopRecord()))coopAdvancePhase(coopMissionTemplate(record.type).steps.length);
+  }
+  async function coopAdvancePhase(phase,options={}){const active=activeCoopMission();if(!active)return false;const patch={phase,...options};if(active.remote){const result=await coopBackendCall('updateCoopMissionProgress',active.id,patch);return!!result?.ok;}const progress=active.record.progress||(active.record.progress={phase:0,counter:0,target:1,events:{}});progress.phase=Math.max(Number(progress.phase||0),Number(phase||0));if(Number.isFinite(Number(options.counterSet)))progress.counter=Math.max(0,Math.min(999,Number(options.counterSet)));if(Number.isFinite(Number(options.target)))progress.target=Math.max(1,Math.min(99,Number(options.target)));progress.updatedAtClient=Date.now();return true;}
+  async function maybeCompleteCoopMission(){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||record.status!=='active')return;const template=coopMissionTemplate(record.type),p=coopProgress(record);let done=p.phase>=template.steps.length;
+    if(record.type==='firefighter')done=p.counter>=4&&coopHasEvent('fire-controlled')&&coopHasEvent('safety-release');
+    else if(record.type==='paramedic')done=coopHasEvent('first-aid')&&coopHasEvent('stretcher')&&coopHasEvent('patient-loaded')&&coopHasEvent('patient-delivered');
+    else if(record.type==='police')done=coopHasEvent('approach')&&coopHasEvent('you-are-arrested')&&coopHasEvent('suspect-escorted');
+    else if(record.type==='fishing')done=p.phase>=2&&p.counter>=3;
+    else if(record.type==='school')done=p.counter>=4;
+    else if(record.type==='streetRace'||record.type==='ovalRace')done=coopRaceTargetReached(record);
+    if(!done||active.completionPending)return;active.completionPending=true;if(active.remote){if(record.hostUid===coopUid()){const result=await coopBackendCall('setCoopMissionStatus',active.id,'completed');if(!result?.ok)active.completionPending=false;}else active.completionPending=false;}else{active.record.status='completed';completeCoopMissionLocal(active.record);}}
+  function removeCoopCampfire(active=activeCoopMission()){const id=active?.coopCampfireId;if(!id)return;const record=world.campfires.find(item=>item.data?.id===id);if(record){record.interactable&&(record.interactable.disabled=true);worldGroup?.remove(record.group);world.campfires=world.campfires.filter(item=>item!==record);}active.coopCampfireId='';}
+  function resolveCoopMissionScene(active=activeCoopMission(),record=activeCoopRecord(),completed=true){const scene=active?.sceneTarget?.ref;if(record?.type==='firefighter'&&scene?.active){scene.coopMissionId='';if(completed)extinguishFireIncident(scene,true);else{scene.active=false;scene.group.visible=false;scene.playerHelping=false;scene.truckHelping=false;for(const truck of world.fireTrucks||[])if(truck.targetFireId===scene.id){truck.targetFireId='';truck.serviceRoute=[];truck.serviceRouteIndex=0;}}}else if(record?.type==='paramedic'&&scene&&!scene.resolved){scene.coopMissionId='';if(completed){scene.arrived={police:true,paramedic:true,firefighter:true};scene.tasks={police:true,paramedic:true,firefighter:true};resolveTrafficIncident(scene);}else{scene.resolved=true;scene.group.visible=false;releaseIncidentActorStates(scene);for(const vehicle of serviceVehiclePools())if(vehicle.incidentTargetId===scene.id){vehicle.incidentTargetId='';vehicle.responseRoute=[];vehicle.responseIndex=0;}if(world.activeIncident===scene)world.activeIncident=null;setTimeout(()=>worldGroup.remove(scene.group),500);}}}
+  function resetCoopMissionNpcs(active=activeCoopMission()){for(const npc of world.npcs||[]){if(!npc)continue;if(active?.followingNpcIds?.includes(npc.id)||active?.invitedNpcIds?.includes(npc.id)||active?.deliveredNpcIds?.includes(npc.id)||npc.coopSchoolDelivered){npc.following=false;npc.coopSchoolDelivered=false;if(npc.group)npc.group.visible=npc.coopRaceBot?false:true;}}}
+  function completeCoopMissionLocal(record=activeCoopRecord()){
+    const active=activeCoopMission(),template=coopMissionTemplate(record?.type);if(!active||!template)return false;const token=`coop-${active.id}`;if(state.cooperative.completed.includes(token)){state.cooperative.active=null;return false;}state.cooperative.completed.push(token);state.cooperative.completed=state.cooperative.completed.slice(-100);state.cooperative.history.push({id:token,type:record.type,title:template.title,completedAt:Date.now(),participants:coopParticipants(record).length});state.cooperative.history=state.cooperative.history.slice(-80);addCoins(template.reward);addReputation(template.rep);addXP(120);awardMedal(`Equipe: ${template.title}`);resolveCoopMissionScene(active,record);removeCoopCampfire(active);if(active.serviceJob)releaseMissionServiceVehicle(active.serviceJob);resetCoopMissionNpcs(active);deactivateCoopRaceBots();state.avatar.uniform=active.previousUniform||'none';applyAvatarCustomization();state.cooperative.active=null;state.waypoint=null;world.routePath=[];updateWaypointMarker();updateNavigation(0,true);saveState(true);updateMissionHUD();toast(`Missão cooperativa concluída! +${template.reward} moedas`,'good',3200);return true;
+  }
+  async function leaveActiveCoopMission(){const active=activeCoopMission(),record=activeCoopRecord();if(!active)return;if(!(await confirmModal('Sair da missão','A missão será encerrada somente para você; as etapas sincronizadas não serão corrompidas.','Sair','Continuar')))return;if(active.remote){if(record?.hostUid===coopUid())await coopBackendCall('setCoopMissionStatus',active.id,'cancelled');await coopBackendCall('leaveCoopMission',active.id);}resolveCoopMissionScene(active,record,false);removeCoopCampfire(active);if(active.serviceJob)releaseMissionServiceVehicle(active.serviceJob);deactivateCoopRaceBots();resetCoopMissionNpcs(active);state.avatar.uniform=active.previousUniform||'none';state.cooperative.active=null;state.waypoint=null;updateWaypointMarker();saveState(true);closeModal();updateMissionHUD();toast('Você saiu da missão cooperativa.','good');}
+  function openCoopLobby(id){
+    const active=activeCoopMission(),record=active?.id===id?activeCoopRecord():coopRemoteMissions[id];if(!record)return openCoopMissionCenter();
+    const template=coopMissionTemplate(record.type),participants=coopParticipants(record),own=record.participants?.[coopUid()],host=record.hostUid===coopUid(),running=record.status==='active',offline=active?.remote&&!window.OTTHOS_RTDB?.connected?.(),modeLabel=record.mode==='solo'?'VERSÃO SOLO':record.mode==='competitive'?'COMPETIÇÃO ONLINE':'MISSÃO COOPERATIVA';
+    const roles=template.roles.map(([role,label])=>{const full=coopRoleTaken(record,role)>=coopRoleCapacity(template,role)&&own?.role!==role;return`<button class="choice ${own?.role===role?'selected':''}" data-coop-role="${role}" ${full||running?'disabled':''}><b>${label}</b><span>${full?'Função ocupada':role==='driver'?'Conduz o veículo reservado':'Executa uma etapa definida'}</span></button>`}).join('');
+    const actions=running?`<button class="btn primary" data-coop-gps>Marcar próximo passo no GPS</button>${offline?'<button class="btn good" data-coop-offline>Continuar solo neste aparelho</button>':''}<button class="btn danger" data-coop-leave>Cancelar / sair</button>`:`<button class="btn ${own?.ready?'good':'primary'}" data-coop-ready>${own?.ready?'Pronto ✓':'Estou pronto'}</button>${host?'<button class="btn primary" data-coop-start>Iniciar com a equipe</button><button class="btn" data-coop-solo>Iniciar versão solo</button>':''}<button class="btn danger" data-coop-leave>Sair da equipe</button>`;
+    openModal('Equipe da missão',`<div class="coop-lobby"><header><span>${template.icon}</span><div><small>${modeLabel}</small><h3>${template.title}</h3><p>${template.description}</p></div></header>${offline?'<p class="coop-offline-alert">Conexão perdida. O progresso sincronizado foi preservado; você pode aguardar a reconexão ou continuar uma cópia solo.</p>':''}<section class="coop-lobby-members"><b>Equipe ${participants.length}/${record.maxPlayers}</b>${participants.map(item=>`<article><span>${item.uid===record.hostUid?'⭐':'👤'}</span><div><b>${item.name||'Jogador'}</b><small>${coopRoleLabel(item.role)}${item.ready?' • pronto':' • aguardando'}</small></div></article>`).join('')}</section>${running?coopMissionBriefingMarkup(record):`<section><b>Escolha sua função</b><div class="coop-role-grid">${roles}</div></section>`}<div class="modal-actions">${actions}</div></div>`,root=>{$$('[data-coop-role]',root).forEach(btn=>bindCoopActionButton(btn,()=>selectCoopRole(btn.dataset.coopRole)));bindCoopActionButton($('[data-coop-ready]',root),toggleCoopReady);bindCoopActionButton($('[data-coop-start]',root),()=>startActiveCoopMission(false));bindCoopActionButton($('[data-coop-solo]',root),()=>startActiveCoopMission(true));$('[data-coop-gps]',root)?.addEventListener('click',()=>{const target=coopCurrentTarget();if(target)coopSetWaypoint(target);closeModal();});bindCoopActionButton($('[data-coop-offline]',root),continueCoopMissionOffline);bindCoopActionButton($('[data-coop-leave]',root),leaveActiveCoopMission);});
+  }
+  function openCoopMissionCenter(){
+    ensureCooperativeState();const active=activeCoopMission(),lobbies=Object.values(coopRemoteMissions).filter(m=>m.status==='lobby'&&m.room===(window.OTTHOS_RTDB?.getRoom?.()||state.multiplayer.room)&&!m.participants?.[coopUid()]);
+    const templates=Object.values(COOP_MISSION_TEMPLATES).map(t=>{const race=['streetRace','ovalRace'].includes(t.id);return`<article class="coop-template"><header><span>${t.icon}</span><div><b>${t.title}</b><small>${t.minPlayers}-${t.maxPlayers} jogadores • solo adaptado</small></div></header><p>${t.description}</p><div class="coop-template-roles">${t.roles.map(r=>`<i>${r[1]}</i>`).join('')}</div><small class="coop-required-vehicle">Veículo: ${t.vehicle}</small><footer><button class="btn primary" data-create-coop="${t.id}">Criar equipe</button>${race?`<button class="btn good" data-create-competitive="${t.id}">Competição online</button>`:''}<button class="btn" data-create-solo="${t.id}">Jogar solo</button></footer></article>`}).join('');
+    const lobbyMarkup=lobbies.length?lobbies.map(m=>{const t=coopMissionTemplate(m.type);return`<article class="coop-open-lobby"><span>${t.icon}</span><div><b>${t.title}</b><small>${coopParticipants(m).length}/${m.maxPlayers} jogadores • ${m.mode==='competitive'?'competição':'equipe'}</small></div><button class="btn good" data-join-coop="${m.id}">Entrar voluntariamente</button></article>`}).join(''):'<p class="empty-online">Nenhuma equipe aguardando neste bairro. Você pode criar uma ou jogar a versão solo.</p>';
+    openModal('Missões cooperativas',`${active?`${coopMissionBriefingMarkup()}<div class="modal-actions"><button class="btn primary" data-open-active-coop>Abrir missão</button><button class="btn" data-coop-gps>Marcar próximo passo no GPS</button></div>`:''}<section class="coop-center-intro"><span>🤝</span><div><h3>Objetivos para jogar junto</h3><p>Papéis definidos, progresso sincronizado, entrada voluntária e alternativa solo quando faltarem parceiros.</p></div></section><h3 class="panel-subtitle">Equipes aguardando neste bairro</h3><div class="coop-open-lobbies">${lobbyMarkup}</div><h3 class="panel-subtitle">Criar uma missão</h3><div class="coop-template-grid">${templates}</div>`,root=>{$$('[data-create-coop]',root).forEach(btn=>bindCoopActionButton(btn,()=>createCooperativeMission(btn.dataset.createCoop,'coop')));$$('[data-create-competitive]',root).forEach(btn=>bindCoopActionButton(btn,()=>createCooperativeMission(btn.dataset.createCompetitive,'competitive')));$$('[data-create-solo]',root).forEach(btn=>bindCoopActionButton(btn,()=>createCooperativeMission(btn.dataset.createSolo,'solo')));$$('[data-join-coop]',root).forEach(btn=>bindCoopActionButton(btn,()=>joinCooperativeMission(btn.dataset.joinCoop,'helper')));$('[data-open-active-coop]',root)?.addEventListener('click',()=>openCoopLobby(active.id));$('[data-coop-gps]',root)?.addEventListener('click',()=>{const target=coopCurrentTarget();if(target)coopSetWaypoint(target);closeModal();});});
+  }
+  function createCoopOvalTrackWorld(){
+    // V704: a pista física é criada uma única vez por createSportsComplexV704().
+    // Este método apenas confirma o contrato usado pelas missões cooperativas.
+    if(!world.gym&&typeof createSportsComplexV704==='function')createSportsComplexV704();
+    return!!world.gym;
+  }
+
+  function createCooperativeMissionWorld(){
+    ensureCooperativeState();createCoopOvalTrackWorld();const entrance=worldLayoutPoint('sportsEntrance'),gym=world.gym||{centerX:worldLayoutPoint('sports').x,centerZ:worldLayoutPoint('sports').z};registerInteractable({id:'coop-mission-board',type:'coopMission',icon:'🤝',label:'Missões cooperativas',x:entrance.x,z:entrance.z,radius:3,priority:246,action:openCoopMissionCenter});coopActionInteractable=registerInteractable({id:'coop-dynamic-action',type:'coopAction',icon:'🤝',label:'Executar etapa da equipe',radius:4.8,priority:260,getPos:()=>{const target=coopCurrentTarget();return{x:Number(target?.x||9999),z:Number(target?.z||9999)}},available:()=>!!activeCoopMission()&&activeCoopRecord()?.status==='active'&&!player.vehicle,action:performCoopMissionAction});
+    for(let i=0;i<5;i++){const bot=createNPC(`track-bot-${i}`,`Atleta ${i+1}`,gym.centerX-4+i*2,gym.centerZ+5,0x55a8ff,0);bot.coopRaceBot=true;bot.coopRaceMode='';bot.group.visible=false;const interaction=(world.interactables||[]).find(item=>item.id===`npc-track-bot-${i}`);if(interaction)interaction.available=()=>bot.group.visible;coopRaceBots.push(bot);}
+    addEventListener('otthi:coop-missions',event=>{coopRemoteMissions={...(event.detail?.missions||{})};const active=activeCoopMission();if(active?.remote&&coopRemoteMissions[active.id]){active.record=coopRemoteMissions[active.id];if(active.record.status==='active'&&!active.runtimePrepared){active.runtimePrepared=true;prepareCoopMissionRuntime();}if(active.record.status==='completed')completeCoopMissionLocal(active.record);updateMissionHUD();}else if(!active){const waiting=Object.values(coopRemoteMissions).filter(m=>m.status==='lobby').length;if(waiting&&Date.now()-Number(state.cooperative.lastLobbyNotice||0)>30000){state.cooperative.lastLobbyNotice=Date.now();toast(`${waiting} equipe(s) cooperativa(s) aguardando neste bairro.`,'good',2600);}}});
+  }
+  function updateCoopMissions(dt=0){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record)return;if(record.status==='lobby')return;if(record.status==='completed'){completeCoopMissionLocal(record);return;}if(record.status==='cancelled'){resolveCoopMissionScene(active,record,false);removeCoopCampfire(active);if(active.serviceJob)releaseMissionServiceVehicle(active.serviceJob);resetCoopMissionNpcs(active);deactivateCoopRaceBots();state.avatar.uniform=active.previousUniform||'none';state.cooperative.active=null;state.waypoint=null;updateWaypointMarker();saveState(true);updateMissionHUD();toast('A missão cooperativa foi cancelada sem apagar o progresso anterior.','warn');return;}if(record.status!=='active')return;if(!active.runtimePrepared){active.runtimePrepared=true;active.previousUniform=state.avatar.uniform||'none';prepareCoopMissionRuntime();}
+    updateCoopSchoolFollowers(active);updateCoopFishingProgress(active,record);if(record.type==='streetRace'||record.type==='ovalRace')updateCoopRaceProgress(active,record);
+    if(coopServiceKind(record.type)&&active.serviceJob?.serviceVehicleBoarded&&!active.serviceJob.serviceVehicleArrived&&active.sceneTarget){const d=Math.hypot(player.x-(active.sceneTarget.navX??active.sceneTarget.x),player.z-(active.sceneTarget.navZ??active.sceneTarget.z));if(isDrivingServiceVehicle(record.type)&&d<6){active.serviceJob.serviceVehicleArrived=true;coopRecordEvent('vehicle-arrived','driver',1,2).catch(()=>{});toast('Veículo posicionado. Estacione, saia e cumpra sua função.','good',2800);}}
+    const p=coopProgress(record);if(record.type==='firefighter'&&active.sceneTarget?.ref)active.sceneTarget.ref.coopIntensity=Math.max(.08,1-Math.min(4,p.counter)/4);
+    if(record.type==='paramedic'&&p.phase>=5&&!coopHasEvent('patient-delivered')&&!active.patientDeliveryPending){const destination=coopMedicalDestination(),d=Math.hypot(player.x-(destination.navX??destination.x),player.z-(destination.navZ??destination.z));if(isDrivingServiceVehicle('paramedic')&&d<7){active.patientDeliveryPending=true;coopRecordEvent('patient-delivered','driver',1,6).then(()=>{toast('Paciente entregue com segurança no ponto médico.','good',2800);}).finally(()=>{active.patientDeliveryPending=false;});}}
+    maybeCompleteCoopMission().catch(()=>{});const label=coopMissionProgressLabel();if(label&&updateCoopMissions.lastLabel!==label.label){updateCoopMissions.lastLabel=label.label;updateMissionHUD();}const now=Date.now();if(now-Number(updateCoopMissions.lastSavedAt||0)>2500){updateCoopMissions.lastSavedAt=now;saveState();}
+  }
+  function updateCoopVisuals(dt){coopVisualAcc+=dt;updateCoopRaceVisuals(dt);}
+  window.OTTHI_COOP={open:openCoopMissionCenter,templates:()=>COOP_MISSION_TEMPLATES,active:activeCoopMission,performAction:performCoopMissionAction,mapLocations:coopMissionMapLocations,preflight:coopMissionPreflight,objective:coopObjectiveSnapshot,streetRoute:()=>COOP_STREET_ROUTE.map(point=>({...point}))};
 
   // ===== MODULE: 25-render-init-resize-position-collision.js =====
   function initThree(){
@@ -4963,6 +5560,7 @@
     if(paused||!els.modal.hidden||performance.now()<actionLockedUntil)return;
     actionLockedUntil=performance.now()+90;state.stats.actions++;
     if(state.ui.quickOpen){state.ui.quickOpen=false;syncMobilePanels();}
+    if(typeof handleActiveSportActionV704==='function'&&handleActiveSportActionV704()){updateContext(true);return;}
     let target=currentContext;
     if(target&&target.radius!==999){const pos=worldPos(target);if(!isInteractionAvailable(target)||Math.hypot(player.x-pos.x,player.z-pos.z)>(target.radius||2)+.2)target=null;}
     if(!target)target=nearestInteractable();
@@ -5284,7 +5882,7 @@
       if(player.vehicle)updateVehicleFX(dt);
       if(typeof fxParticles!=='undefined'&&fxParticles.length)updateFX(dt);
       if(world.fireballs?.length)updateFireballs(dt);
-      if(activeRace)updateRace(dt);if(typeof updateCoopVisuals==='function')updateCoopVisuals(dt);
+      if(activeRace)updateRace(dt);if(typeof updateCoopVisuals==='function')updateCoopVisuals(dt);if(typeof updateWorldSportsV704==='function')updateWorldSportsV704(dt);
 
       perf.uiAcc+=dt;const uiRate=tier==='high'?1/20:tier==='balanced'?1/12:1/8;
       if(perf.uiAcc>=uiRate){const step=perf.uiAcc;perf.uiAcc=0;updateCareerMissions();if(typeof updateCoopMissions==='function')updateCoopMissions(step);updateNeeds(step);updateNavigation(step);}
@@ -5569,263 +6167,6 @@
   window.addEventListener('otthos:mp-status',event=>{const room=event.detail?.room;if(event.detail?.connected&&room&&!appliedRoomId&&running)applyRoomWorld(room,{toast:false,teleport:state.multiplayer.room!==room});});
   window.addEventListener('otthos:houses',()=>{if(!els.modal.hidden&&els.modal.classList.contains('map-modal'))refreshOpenMapAfterResize();updateNavigation(0,true);});
   window.OTTHI_ROOM_WORLD={current:()=>roomWorldInfo(),get:roomWorldInfo,canChangeRoom,apply:applyRoomWorld,focusCurrentRoom,houseMarkers:roomHouseMarkers,mapHouseLocations,mapRegionsMarkup};
-
-  // ===== MODULE: 32-cooperative-missions.js =====
-  const COOP_MISSION_TEMPLATES=Object.freeze({
-    firefighter:{id:'firefighter',title:'Bombeiros em Equipe',icon:'🚒',reward:240,rep:55,minPlayers:2,maxPlayers:3,vehicle:'Caminhão dos bombeiros',roles:[['driver','Motorista'],['hose','Mangueira'],['rescuer','Apoio de segurança']],steps:['Vestir os uniformes','Levar o caminhão à ocorrência','Conectar e usar a mangueira','Controlar o fogo progressivamente','Isolar e liberar a área'],description:'Um jogador dirige, outro controla o fogo com a mangueira e o terceiro isola e libera a área.'},
-    paramedic:{id:'paramedic',title:'Resgate com Ambulância',icon:'🚑',reward:245,rep:58,minPlayers:2,maxPlayers:3,vehicle:'Ambulância',roles:[['driver','Motorista'],['medic','Socorrista'],['stretcher','Equipe da maca']],steps:['Vestir os uniformes','Levar a ambulância ao local','Fazer os primeiros socorros','Carregar a maca com duas pessoas','Colocar o paciente na ambulância','Transportar ao ponto médico'],description:'A equipe atende com cuidado, usa a maca em dupla e transporta o paciente sem conteúdo gráfico.'},
-    police:{id:'police',title:'Patrulha Kids Cooperativa',icon:'🚓',reward:230,rep:52,minPlayers:2,maxPlayers:3,vehicle:'Viatura',roles:[['driver','Motorista'],['officer','Policial'],['helper','Apoio da patrulha']],steps:['Vestir os uniformes','Levar a viatura até o chamado','Fazer a abordagem educativa','Dizer “Você está preso”','Acompanhar o personagem até a viatura'],description:'Missão infantil sem armas, tiros ou agressões: abordagem verbal e acompanhamento seguro.'},
-    fishing:{id:'fishing',title:'Pescaria e Peixe Assado',icon:'🎣',reward:190,rep:35,minPlayers:2,maxPlayers:3,vehicle:'Nenhum',roles:[['fisher','Pescador'],['fisher','Pescadora'],['cook','Cozinheiro da fogueira']],steps:['Encontrar a equipe no lago','Pescar 6 peixes em conjunto','Levar os peixes à fogueira','Assar 3 peixes e compartilhar'],description:'A equipe soma as pescarias, mantém contadores individuais e prepara os peixes na fogueira.'},
-    school:{id:'school',title:'Todos para a Escola',icon:'🎓',reward:210,rep:48,minPlayers:2,maxPlayers:3,vehicle:'Nenhum',roles:[['guide','Guia dos alunos'],['teacher','Professor'],['helper','Ajudante']],steps:['Encontrar personagens pela vila','Convidar 4 alunos com educação','Guiar os alunos até a escola','Entregar cada aluno sem duplicar'],description:'Convide personagens voluntariamente; eles seguem a equipe e não podem ficar presos, perdidos ou duplicados.'},
-    streetRace:{id:'streetRace',title:'Corrida de Rua',icon:'🏃',reward:185,rep:32,minPlayers:2,maxPlayers:3,vehicle:'Nenhum',roles:[['runner','Corredor'],['runner','Corredora'],['helper','Apoio da equipe']],steps:['Reunir no ponto de largada','Passar pelos quatro checkpoints','Acompanhar posição e tempo','Cruzar a chegada com segurança'],description:'Corrida a pé com classificação individual, opção cooperativa por equipe ou competitiva.'},
-    ovalRace:{id:'ovalRace',title:'Desafio do Ginásio Oval',icon:'🏟️',reward:205,rep:38,minPlayers:2,maxPlayers:3,vehicle:'Nenhum',roles:[['runner','Corredor da pista'],['runner','Corredora da pista'],['helper','Marcador de voltas']],steps:['Reunir na pista oval','Completar três voltas','Correr junto com atletas bots','Conferir tempo e classificação'],description:'Pista oval otimizada, bots em faixas separadas e opções de equipe ou competição.'}
-  });
-  const COOP_ROLE_LABELS=Object.freeze({driver:'Motorista',hose:'Mangueira',rescuer:'Apoio',medic:'Socorrista',stretcher:'Maca',officer:'Policial',fisher:'Pescador',cook:'Cozinheiro',guide:'Guia',teacher:'Professor',runner:'Corredor',helper:'Ajudante'});
-  let coopRemoteMissions={},coopActionInteractable=null,coopRaceBots=[],coopVisualAcc=0;
-  const COOP_STREET_ROUTE=Object.freeze([{x:27.5,z:78,name:'Largada do Boulevard'},{x:55,z:78,name:'Checkpoint Leste'},{x:55,z:0,name:'Checkpoint Avenida Leste'},{x:0,z:0,name:'Checkpoint Central'},{x:-55,z:0,name:'Chegada Oeste'}]);
-  function coopStreetRoutePoint(progress=0,lane=0){
-    const points=COOP_STREET_ROUTE,lengths=[],total=points.slice(1).reduce((sum,point,index)=>{const previous=points[index],length=Math.hypot(point.x-previous.x,point.z-previous.z);lengths.push(length);return sum+length;},0);let remaining=clamp(Number(progress)||0,0,1)*total;
-    for(let index=0;index<lengths.length;index++){const a=points[index],b=points[index+1],length=lengths[index];if(remaining<=length||index===lengths.length-1){const ratio=length?clamp(remaining/length,0,1):0,dx=b.x-a.x,dz=b.z-a.z,norm=Math.hypot(dx,dz)||1;return{x:lerp(a.x,b.x,ratio)-dz/norm*lane,z:lerp(a.z,b.z,ratio)+dx/norm*lane,heading:Math.atan2(dx,dz)};}remaining-=length;}return{x:points.at(-1).x,z:points.at(-1).z,heading:0};
-  }
-  function coopPointAccessible(point,radius=1.1){if(!point||!Number.isFinite(Number(point.x))||!Number.isFinite(Number(point.z)))return false;const x=Number(point.x),z=Number(point.z);if(Math.abs(x)>114||Math.abs(z)>114||waterAt(x,z))return false;return !positionBlockedForPlayer(x,z,radius,{ignoreTraffic:true,allowWater:false});}
-  function coopMissionPreflight(type){
-    const errors=[],warnings=[];if(!coopMissionTemplate(type))errors.push('modelo de missão inexistente');
-    if(type==='firefighter'){if(!(world.fireTrucks||[]).length)errors.push('caminhão de bombeiros ausente');if(!(typeof FIRE_SITES!=='undefined'&&FIRE_SITES.length))errors.push('ocorrências de incêndio ausentes');}
-    else if(type==='paramedic'){if(!(world.ambulances||[]).length)errors.push('ambulância ausente');if(!(typeof TRAINING_INCIDENT_SITES!=='undefined'&&TRAINING_INCIDENT_SITES.length))errors.push('pontos de resgate ausentes');}
-    else if(type==='police'){if(!(world.policeCars||[]).length)errors.push('viatura ausente');if(!(world.npcs||[]).some(item=>!item.coopRaceBot))errors.push('personagem da abordagem ausente');}
-    else if(type==='fishing'){if(!waterAt(-63,52))errors.push('ponto de pesca fora da água');if(!coopPointAccessible({x:-70,z:-62},1.4))warnings.push('fogueira será posicionada no ponto seguro mais próximo');}
-    else if(type==='school'){if(!(world.schools||[]).length&&!world.school)errors.push('escola ausente');if((world.npcs||[]).filter(item=>!item.coopRaceBot).length<4)errors.push('menos de quatro alunos disponíveis');}
-    else if(type==='streetRace'){for(const point of COOP_STREET_ROUTE)if(!pointOnRoad(point.x,point.z,1.2))errors.push(`${point.name} fora da malha viária`);}
-    else if(type==='ovalRace'){if(!world.gym||!Number.isFinite(world.gym.centerX)||!Number.isFinite(world.gym.centerZ))errors.push('pista oval ausente');}
-    return{ok:errors.length===0,errors,warnings};
-  }
-  function coopObjectiveSnapshot(active=activeCoopMission(),record=activeCoopRecord()){
-    if(!active||!record)return null;const p=coopProgress(record),target=coopCurrentTarget(active,record),template=coopMissionTemplate(record.type),metric=record.type==='firefighter'?`${Math.min(4,p.counter)}/4 aplicações de água`:record.type==='fishing'?(p.phase<2?`${p.counter}/6 peixes`:`${p.counter}/3 peixes assados`):record.type==='school'?`${p.counter}/4 alunos`:record.type==='streetRace'?`${active.race?.checkpoints||0}/4 checkpoints`:record.type==='ovalRace'?`${active.race?.laps||0}/3 voltas`:`etapa ${Math.min(template.steps.length,p.phase+1)}/${template.steps.length}`;return{mission:record.type,phase:p.phase,metric,target:target?{id:target.id,name:target.name,x:target.x,z:target.z,navX:target.navX??target.x,navZ:target.navZ??target.z}:null,instruction:coopCurrentInstruction(active,record)};
-  }
-  function ensureCooperativeState(){state.cooperative={active:null,completed:[],history:[],preferredMode:'coop',soloFallback:true,lastLobbyNotice:0,...(state.cooperative||{})};return state.cooperative;}
-  function coopUid(){return String(window.OTTHOS_RTDB?.uid||state.profile?.playerId||'local');}
-  function coopMissionTemplate(id){return COOP_MISSION_TEMPLATES[String(id||'')]||null;}
-  function activeCoopMission(){ensureCooperativeState();return state.cooperative.active;}
-  function activeCoopRecord(){const active=activeCoopMission();if(!active)return null;return active.remote&&coopRemoteMissions[active.id]?coopRemoteMissions[active.id]:active.record||active;}
-  function activeCoopServiceJob(){const active=activeCoopMission();return active?.serviceJob||null;}
-  function coopParticipants(record=activeCoopRecord()){return Object.values(record?.participants||{}).filter(Boolean);}
-  function coopOwnParticipant(record=activeCoopRecord()){return record?.participants?.[coopUid()]||null;}
-  function coopRoleLabel(role){return COOP_ROLE_LABELS[role]||'Ajudante';}
-  function coopProgress(record=activeCoopRecord()){return{phase:Math.max(0,Number(record?.progress?.phase||0)),counter:Math.max(0,Number(record?.progress?.counter||0)),target:Math.max(1,Number(record?.progress?.target||1)),events:record?.progress?.events||{}};}
-  function coopEventValues(record=activeCoopRecord(),kind=''){return Object.values(coopProgress(record).events).filter(event=>!kind||event?.kind===kind);}
-  function coopHasEvent(kind,uidValue=''){return coopEventValues(activeCoopRecord(),kind).some(event=>!uidValue||event.uid===uidValue);}
-  function coopIndividualCount(record=activeCoopRecord(),kind='',uidValue=coopUid()){return coopEventValues(record,kind).filter(event=>event?.uid===uidValue).reduce((sum,event)=>sum+Math.max(0,Number(event.value||0)),0);}
-  function coopRoleCapacity(template,role){return template?.roles?.filter(item=>item[0]===role).length||0;}
-  function coopRoleTaken(record,role,ignoreUid=coopUid()){return coopParticipants(record).filter(item=>item.uid!==ignoreUid&&item.role===role).length;}
-  function coopEventSubjectId(prefix,id){return`${prefix}-${String(id||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,56)}`;}
-  function coopMedicalDestination(){const hospital=world.hospital||world.clinic||world.medicalCenter;if(hospital)return{id:hospital.id||'medical-center',name:hospital.name||'Ponto médico',icon:'🏥',x:Number(hospital.x??hospital.group?.position?.x??0),z:Number(hospital.z??hospital.group?.position?.z??0),ref:hospital};return{id:'medical-center',name:'Ponto médico da Vila',icon:'🏥',x:18,z:-24,navX:18,navZ:-24};}
-  function coopRaceStandings(record=activeCoopRecord()){
-    const kind=record?.type==='ovalRace'?'oval-lap':'street-checkpoint',started=Number(record?.startedAt||record?.createdAtClient||Date.now()),rows=coopParticipants(record).map(item=>{const events=coopEventValues(record,kind).filter(event=>event.uid===item.uid),score=events.reduce((sum,event)=>sum+Math.max(0,Number(event.value||0)),0),last=events.reduce((value,event)=>Math.max(value,Number(event.createdAtClient||0)),0);return{...item,score,elapsed:last?Math.max(0,last-started):0};});return rows.sort((a,b)=>b.score-a.score||(a.elapsed||Infinity)-(b.elapsed||Infinity)||a.name.localeCompare(b.name));
-  }
-  function coopRaceTargetReached(record=activeCoopRecord()){const target=record?.type==='ovalRace'?3:4,standings=coopRaceStandings(record);return record?.mode==='competitive'?Number(standings[0]?.score||0)>=target:coopProgress(record).counter>=target;}
-  function coopMissionMapLocations(){
-    const active=activeCoopMission(),record=activeCoopRecord(),template=coopMissionTemplate(record?.type||active?.type);if(!active||!template)return[];
-    const target=coopCurrentTarget(active,record);if(!target)return[];
-    return[{id:`coop-${active.id}-${target.id||'target'}`,name:target.name||template.title,icon:target.icon||template.icon,group:'Missão cooperativa',x:target.x,z:target.z,navX:target.navX??target.x,navZ:target.navZ??target.z,missionTarget:true,coopTarget:true,description:target.description||coopCurrentInstruction(active,record),actions:[`Função: ${coopRoleLabel(coopOwnParticipant(record)?.role||active.role)}`,'Siga o GPS','Use AÇÃO no ponto marcado']}];
-  }
-  function coopServiceKind(type){return['firefighter','paramedic','police'].includes(type)?type:'';}
-  function coopMissionHash(value=''){let hash=2166136261;for(const char of String(value||'')){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619);}return hash>>>0;}
-  function coopSceneTarget(type,missionId=activeCoopMission()?.id||'coop'){
-    const seed=coopMissionHash(`${missionId}:${type}`);
-    if(type==='firefighter'){const site=FIRE_SITES[seed%FIRE_SITES.length],fire=world.fires.find(item=>item.id===site?.id&&item.active)||activateFireIncident(site?.id||'',true);if(fire){fire.coopMissionId=missionId;fire.coopIntensity=1;for(const truck of world.fireTrucks||[]){if(truck.targetFireId===fire.id){truck.targetFireId='';truck.serviceRoute=[];truck.serviceRouteIndex=0;}}}return fire?{id:`fire-${fire.id}`,name:fire.name,icon:'🔥',x:fire.x,z:fire.z,navX:fire.navX,navZ:fire.navZ,ref:fire}:null;}
-    if(type==='paramedic'){let incident=world.activeIncident;if(!incident){const site=TRAINING_INCIDENT_SITES[seed%TRAINING_INCIDENT_SITES.length],projection=nearestRoadProjection(site)?.point||site;incident=createTrafficIncidentAt(projection.x,projection.z,'minor',[]);}if(incident){incident.coopMissionId=missionId;incident.playerAssigned={police:true,paramedic:true,firefighter:true};incident.responders={};for(const vehicle of serviceVehiclePools()){if(vehicle.incidentTargetId===incident.id){vehicle.incidentTargetId='';vehicle.responseRoute=[];vehicle.responseIndex=0;}}}return incident?{id:`incident-${incident.id}`,name:'Área segura do resgate',icon:'⚠️',x:incident.x,z:incident.z,navX:incident.navX,navZ:incident.navZ,ref:incident}:null;}
-    if(type==='police'){const candidates=(world.npcs||[]).filter(item=>!item.coopRaceBot),npc=candidates[seed%Math.max(1,candidates.length)]||world.npcs[0];return npc?{id:`police-${npc.id}`,name:'Abordagem educativa',icon:'👮',x:npc.group.position.x,z:npc.group.position.z,ref:npc}:null;}
-    return null;
-  }
-  function coopNearestSchool(){return(world.schools||[]).sort((a,b)=>Math.hypot(player.x-a.x,player.z-a.z)-Math.hypot(player.x-b.x,player.z-b.z))[0]||world.school;}
-  function coopNearestInvitableNpc(active){const events=coopProgress(activeCoopRecord()).events||{};return(world.npcs||[]).filter(n=>!n.coopRaceBot&&!active.invitedNpcIds?.includes(n.id)&&!n.coopSchoolDelivered&&!events[coopEventSubjectId('student',n.id)]&&!events[coopEventSubjectId('student-delivered',n.id)]).sort((a,b)=>Math.hypot(player.x-a.group.position.x,player.z-a.group.position.z)-Math.hypot(player.x-b.group.position.x,player.z-b.group.position.z))[0]||null;}
-  function coopCurrentTarget(active=activeCoopMission(),record=activeCoopRecord()){
-    if(!active||!record)return null;const type=record.type,progress=coopProgress(record),phase=progress.phase;
-    if(coopServiceKind(type)){
-      if(phase<1){const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)return{id:`service-${vehicle.id}`,name:vehicle.label,icon:type==='police'?'🚓':type==='firefighter'?'🚒':'🚑',x:vehicle.group.position.x,z:vehicle.group.position.z,ref:vehicle,description:'Veículo reservado para esta equipe.'};}
-      if(type==='paramedic'&&phase>=5)return coopMedicalDestination();
-      if(type==='paramedic'&&phase>=4){const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)return{id:`service-${vehicle.id}`,name:'Colocar o paciente na ambulância',icon:'🚑',x:vehicle.group.position.x,z:vehicle.group.position.z,ref:vehicle};}
-      if(type==='police'&&phase>=4){const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)return{id:`service-${vehicle.id}`,name:'Acompanhar até a viatura',icon:'🚓',x:vehicle.group.position.x,z:vehicle.group.position.z,ref:vehicle};}
-      return active.sceneTarget||coopSceneTarget(type);
-    }
-    if(type==='fishing'){const camp=active.coopCampfirePoint||{x:-70,z:-62};return phase<2?{id:'coop-lake',name:'Ponto de pescaria do lago',icon:'🎣',x:-63,z:52,navX:-55,navZ:52}:{id:'coop-campfire',name:'Fogueira da equipe',icon:'🔥',x:camp.x,z:camp.z};}
-    if(type==='school'){
-      if(progress.counter>=4){const school=coopNearestSchool();return school?{id:school.id,name:school.name,icon:'🏫',x:school.x,z:school.z,ref:school}:null;}
-      const follower=(world.npcs||[]).find(n=>active.followingNpcIds?.includes(n.id));if(follower){const school=coopNearestSchool();return school?{id:school.id,name:`Levar ${follower.name} à escola`,icon:'🏫',x:school.x,z:school.z,ref:school}:null;}
-      const npc=coopNearestInvitableNpc(active);return npc?{id:`student-${npc.id}`,name:`Convidar ${npc.name}`,icon:'🧒',x:npc.group.position.x,z:npc.group.position.z,ref:npc}:null;
-    }
-    if(type==='streetRace'){const race=active.race||{},index=race.started?Math.min(4,Number(race.checkpoints||0)+1):0,point=COOP_STREET_ROUTE[index]||COOP_STREET_ROUTE.at(-1);return{id:`coop-street-${index}`,name:race.started?point.name:'Largada da corrida de rua',icon:'🏁',x:point.x,z:point.z,description:race.started?'Passe pelo checkpoint na ordem indicada.':'Use AÇÃO na largada para iniciar a cronometragem.'};}
-    if(type==='ovalRace'){const gym=world.gym||{centerX:51,centerZ:75.5,radiusX:25,radiusZ:8},race=active.race||{};return{id:'coop-oval-race',name:race.started?'Linha de chegada da pista oval':'Largada da pista oval',icon:'🏟️',x:gym.centerX+gym.radiusX,z:gym.centerZ,description:race.started?'Complete a sequência inteira de quatro setores para validar cada volta.':'Use AÇÃO na linha para iniciar a cronometragem.'};}
-    return null;
-  }
-  function coopCurrentInstruction(active=activeCoopMission(),record=activeCoopRecord()){
-    if(!active||!record)return'Sem missão cooperativa ativa.';const template=coopMissionTemplate(record.type),p=coopProgress(record),role=coopRoleLabel(coopOwnParticipant(record)?.role||active.role),step=template?.steps[Math.min(p.phase,(template.steps?.length||1)-1)]||template?.description;
-    if(record.status==='lobby')return`Aguarde a equipe. Sua função: ${role}.`;
-    if(record.type==='firefighter'&&p.phase===3)return`Fogo controlado: ${p.counter}/4. A pessoa da mangueira deve aplicar água até zerar o risco.`;
-    if(record.type==='firefighter'&&p.phase>=4)return'A pessoa de apoio deve isolar e liberar a área.';
-    if(record.type==='paramedic'&&p.phase===4)return'Leve a maca até a ambulância e use AÇÃO para acomodar o paciente.';
-    if(record.type==='paramedic'&&p.phase>=5)return'O motorista deve levar a ambulância ao ponto médico marcado.';
-    if(record.type==='police'&&p.phase>=4)return'Acompanhe o personagem com calma até a viatura marcada.';
-    if(record.type==='fishing'&&p.phase===1)return`Equipe: ${p.counter}/6 peixes. Pesque junto com os outros jogadores.`;
-    if(record.type==='fishing'&&p.phase>=2)return`Equipe: ${p.counter}/3 peixes assados. Vá à fogueira.`;
-    if(record.type==='school')return`Alunos levados: ${p.counter}/4. Convide um personagem e conduza-o até a escola.`;
-    if(record.type==='streetRace')return active.race?.started?`${record.mode==='competitive'?'Seus checkpoints':'Checkpoints da equipe'}: ${record.mode==='competitive'?coopIndividualCount(record,'street-checkpoint'):p.counter}/4. Siga o próximo marcador na ordem.`:'Vá à largada e use AÇÃO para iniciar a corrida.';
-    if(record.type==='ovalRace')return active.race?.started?`${record.mode==='competitive'?'Suas voltas':'Voltas da equipe'}: ${record.mode==='competitive'?coopIndividualCount(record,'oval-lap'):p.counter}/3. Passe pelos quatro setores na ordem.`:'Vá à linha de largada e use AÇÃO para iniciar as voltas.';
-    return`${step} • sua função: ${role}.`;
-  }
-  function coopMissionProgressLabel(){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record)return null;const template=coopMissionTemplate(record.type),p=coopProgress(record),total=Math.max(1,template.steps.length),percent=record.status==='completed'?100:clamp((p.phase/total)*100,4,96);return{title:`${template.icon} ${template.title}`,label:coopCurrentInstruction(active,record),percent};}
-  function coopMissionBriefingMarkup(record=activeCoopRecord()){
-    const active=activeCoopMission(),template=coopMissionTemplate(record?.type);if(!active||!record||!template)return'';const p=coopProgress(record),participants=coopParticipants(record),own=coopOwnParticipant(record),steps=template.steps.map((text,index)=>`<li class="${index<p.phase?'done':index===p.phase?'current':''}"><i>${index<p.phase?'✓':index+1}</i><span>${text}</span></li>`).join(''),isRace=['streetRace','ovalRace'].includes(record.type),standings=isRace?coopRaceStandings(record):[],raceMarkup=isRace&&record.status==='active'?`<div class="coop-race-standings"><b>CLASSIFICAÇÃO</b>${standings.map((item,index)=>`<span><i>${index+1}º</i><strong>${item.name}</strong><em>${item.score} ${record.type==='ovalRace'?'voltas':'checkpoints'}${item.elapsed?` • ${(item.elapsed/1000).toFixed(1)}s`:''}</em></span>`).join('')}</div>`:'',fishMarkup=record.type==='fishing'?`<div class="coop-individual-counter"><b>Seu contador</b><span>${p.phase<2?coopIndividualCount(record,'fish-caught'):coopIndividualCount(record,'cooked-fish')} ${p.phase<2?'peixes pescados':'peixes assados'} • equipe ${p.counter}/${p.target}</span></div>`:'';
-    return`<section class="coop-briefing"><header><span>${template.icon}</span><div><small>MISSÃO ${record.mode==='solo'?'SOLO':record.mode==='competitive'?'COMPETITIVA':'COOPERATIVA'} • ${record.status.toUpperCase()}</small><h3>${template.title}</h3><p>${template.description}</p></div></header><div class="coop-team-strip">${participants.map(item=>`<article class="${item.uid===coopUid()?'me':''}"><b>${item.name||'Jogador'}</b><span>${coopRoleLabel(item.role)}</span></article>`).join('')}</div><div class="coop-role-now"><b>SUA FUNÇÃO</b><span>${coopRoleLabel(own?.role||active.role)}</span></div><div class="coop-vehicle-now"><b>VEÍCULO</b><span>${template.vehicle}</span></div><ol class="mission-step-list">${steps}</ol>${fishMarkup}${raceMarkup}<div class="mission-current-instruction">Agora: ${coopCurrentInstruction(active,record)}</div><div class="job-progress"><i style="width:${coopMissionProgressLabel()?.percent||0}%"></i></div></section>`;
-  }
-  function coopPermissionDenied(error=''){return/permission|denied|permiss[aã]o/i.test(String(error||''));}
-  async function coopBackendCall(name,...args){const fn=window.OTTHOS_RTDB?.[name];if(typeof fn!=='function')return{ok:false,error:'O multiplayer cooperativo ainda não está pronto.'};try{return await fn(...args);}catch(error){return{ok:false,error:error?.message||String(error)}}}
-  function bindCoopActionButton(button,handler){if(!button||typeof handler!=='function')return;button.addEventListener('click',async()=>{if(button.dataset.coopBusy==='1')return;button.dataset.coopBusy='1';button.disabled=true;try{await handler(button);}finally{if(button.isConnected){delete button.dataset.coopBusy;button.disabled=false;}}});}
-  function coopLocalRecord(template,mode='solo',role='helper'){
-    const id=`local-${template.id}-${Date.now()}`;return{id,type:template.id,title:template.title,icon:template.icon,hostUid:coopUid(),room:state.multiplayer?.room||'bairro-central',status:'lobby',mode,minPlayers:1,maxPlayers:template.maxPlayers,createdAtClient:Date.now(),updatedAtClient:Date.now(),participants:{[coopUid()]:{uid:coopUid(),name:publicPlayerName(),role,ready:true,joinedAtClient:Date.now(),updatedAtClient:Date.now()}},progress:{phase:0,counter:0,target:1,events:{},updatedAtClient:Date.now()}};
-  }
-  function coopActiveState(record,remote=false){return{id:record.id,type:record.type,role:record.participants?.[coopUid()]?.role||'helper',remote,record,createdAt:Date.now(),baselineRawFish:Number(state.inventory.rawFish||0),baselineCookedFish:Number(state.inventory.cookedFish||0),invitedNpcIds:[],followingNpcIds:[],deliveredNpcIds:[],previousUniform:state.avatar.uniform||'none',serviceJob:null,sceneTarget:null,race:{startedAt:0,checkpoints:0,lastCheckpoint:-1,lastAngle:null,angleTravel:0,laps:0}};}
-  async function createCooperativeMission(templateId,mode='coop'){
-    ensureCooperativeState();if(state.cooperative.active){toast('Conclua ou saia da missão cooperativa atual.','warn');return false;}if(state.career?.activeJob){toast('Conclua ou cancele o trabalho atual antes de iniciar uma missão cooperativa.','warn',2600);return false;}const template=coopMissionTemplate(templateId);if(!template)return false;const preflight=coopMissionPreflight(template.id);if(!preflight.ok){toast(`Missão indisponível: ${preflight.errors.join('; ')}.`,'bad',4200);return false;}const role=template.roles[0][0];let record,remote=false;
-    if(mode!=='solo'&&window.OTTHOS_RTDB?.connected?.()){const target=template.id==='fishing'?6:template.id==='school'?4:template.id==='streetRace'?4:template.id==='ovalRace'?3:template.id==='firefighter'?4:1,result=await coopBackendCall('createCoopMission',template.id,{title:template.title,icon:template.icon,minPlayers:template.minPlayers,maxPlayers:template.maxPlayers,role,target,mode});if(!result?.ok){if(coopPermissionDenied(result?.error)){record=coopLocalRecord(template,'solo',role);toast('O servidor ainda usa regras antigas. A atividade foi aberta no modo solo para nenhum botão ficar bloqueado.','warn',4200);}else{toast(result?.error||'Não foi possível criar a equipe.','warn',2800);return false;}}else{record=result.mission;record.id=result.id;remote=true;coopRemoteMissions[result.id]=record;}}else{record=coopLocalRecord(template,'solo',role);}
-    state.cooperative.active=coopActiveState(record,remote);saveState(true);openCoopLobby(record.id);return true;
-  }
-  async function joinCooperativeMission(id,role='helper'){
-    ensureCooperativeState();if(state.career?.activeJob||state.cooperative.active){toast('Finalize a missão atual antes de entrar em outra equipe.','warn');return false;}const result=await coopBackendCall('joinCoopMission',id,role);if(!result?.ok){if(coopPermissionDenied(result?.error)){const remote=coopRemoteMissions[id],template=coopMissionTemplate(remote?.type);if(template){toast('A entrada online foi recusada pelas regras antigas. Abrindo a versão solo equivalente.','warn',3800);return createCooperativeMission(template.id,'solo');}}toast(result?.error||'Não foi possível entrar na equipe.','warn');return false;}const record=result.mission;coopRemoteMissions[id]=record;state.cooperative.active=coopActiveState(record,true);saveState(true);openCoopLobby(id);return true;
-  }
-  async function selectCoopRole(role){const active=activeCoopMission(),record=activeCoopRecord(),template=coopMissionTemplate(record?.type);if(!active||!template||!template.roles.some(item=>item[0]===role))return false;if(coopRoleTaken(record,role)>=coopRoleCapacity(template,role)){toast('Essa função já está ocupada. Escolha outra função da equipe.','warn');return false;}if(active.remote){const result=await coopBackendCall('updateCoopParticipant',active.id,{role});if(!result?.ok){toast(result?.error||'Não foi possível trocar a função.','warn');return false;}if(record.participants?.[coopUid()])record.participants[coopUid()].role=role;}else active.record.participants[coopUid()].role=role;active.role=role;saveState(true);openCoopLobby(active.id);return true;}
-  async function toggleCoopReady(){const active=activeCoopMission(),record=activeCoopRecord(),own=coopOwnParticipant(record);if(!active||!own)return false;const ready=!own.ready;if(active.remote){const result=await coopBackendCall('updateCoopParticipant',active.id,{ready});if(!result?.ok){toast(result?.error||'Não foi possível atualizar o estado da equipe.','warn');return false;}own.ready=ready;}else active.record.participants[coopUid()].ready=ready;openCoopLobby(active.id);return true;}
-  async function startActiveCoopMission(forceSolo=false){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record)return false;const preflight=coopMissionPreflight(record.type);if(!preflight.ok){toast(`A missão não pode iniciar: ${preflight.errors.join('; ')}.`,'bad',4200);return false;}const participants=coopParticipants(record),isHost=record.hostUid===coopUid();if(!isHost&&active.remote){toast('Aguarde quem criou a equipe iniciar.','warn');return false;}if(!forceSolo&&participants.length<Number(record.minPlayers||1)){toast(`Esta missão foi planejada para pelo menos ${record.minPlayers} jogadores. Use “Iniciar solo” para a versão adaptada.`,'warn',3200);return false;}if(!forceSolo&&participants.some(item=>!item.ready)){toast('Todos os participantes precisam marcar “Estou pronto” antes da largada.','warn',2800);return false;}const nextMode=forceSolo?'solo':record.mode==='competitive'?'competitive':'coop';if(active.remote){const result=await coopBackendCall('setCoopMissionStatus',active.id,'active',{mode:nextMode});if(!result?.ok){if(coopPermissionDenied(result?.error)){toast('As regras antigas impediram a largada online. Continuando esta missão no modo solo.','warn',3600);return continueCoopMissionOffline();}toast(result?.error||'Não foi possível iniciar.','warn');return false;}record.mode=result.mode||record.mode;record.status='active';}else{active.record.status='active';active.record.mode=nextMode;}
-    if(forceSolo){record.mode='solo';if(!active.remote)active.record.mode='solo';}
-    prepareCoopMissionRuntime();closeModal();updateMissionHUD();toast(`Missão iniciada: ${coopMissionTemplate(record.type).title}`,'good',2800);return true;
-  }
-  function continueCoopMissionOffline(){
-    const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||!active.remote)return false;
-    const uid=coopUid(),own=record.participants?.[uid]||{uid,name:publicPlayerName(),role:active.role,ready:true,joinedAtClient:Date.now(),updatedAtClient:Date.now()},copy={...record,id:`offline-${record.type}-${Date.now()}`,hostUid:uid,status:'active',mode:'solo',minPlayers:1,participants:{[uid]:{...own,ready:true}},progress:{...coopProgress(record),events:{...coopProgress(record).events},updatedAtClient:Date.now()}};
-    active.id=copy.id;active.remote=false;active.record=copy;active.role=own.role||active.role;active.runtimePrepared=false;prepareCoopMissionRuntime();saveState(true);closeModal();updateMissionHUD();toast('Missão retomada no modo solo. O progresso online original não foi apagado.','good',3200);return true;
-  }
-  function prepareCoopMissionRuntime(){
-    const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||record.status!=='active')return;if(!active.previousUniform)active.previousUniform=state.avatar.uniform||'none';const template=coopMissionTemplate(record.type),kind=coopServiceKind(record.type);
-    if(kind){active.serviceJob=active.serviceJob||{id:kind,title:template.title,icon:template.icon,instanceId:`coop-${active.id}`,cooperative:true,serviceVehicleId:'',serviceVehicleKind:kind,serviceVehicleBoarded:false,serviceVehicleArrived:false};reserveMissionServiceVehicle(active.serviceJob,{waypoint:true});active.sceneTarget=active.sceneTarget||coopSceneTarget(kind);equipJobUniform(kind);}
-    else if(record.type==='school')equipJobUniform('teacher');
-    else if(record.type==='fishing'){const fireId=`coop-fire-${String(active.id).replace(/[^A-Za-z0-9_-]/g,'').slice(-32)}`;let fire=world.campfires.find(item=>item.data?.id===fireId);if(!fire){const safe=safePointNear(-70,-62,{ignoreTraffic:true,allowWater:false,radius:1.2,distances:[0,1,2,3,4]});spawnCampfire({id:fireId,ownerId:state.profile.playerId,x:safe.x,z:safe.z,createdAt:Date.now(),expiresAt:Date.now()+60*60*1000,cooking:null},false);fire=world.campfires.find(item=>item.data?.id===fireId);}active.coopCampfireId=fireId;active.coopCampfirePoint={x:Number(fire?.data?.x??-70),z:Number(fire?.data?.z??-62)};}
-    else if(record.type==='streetRace'||record.type==='ovalRace'){state.avatar.uniform='sport';applyAvatarCustomization();active.race={...(active.race||{}),started:false,startedAt:0,checkpoints:0,lastCheckpoint:-1,expectedSector:1,angleTravel:0,laps:0};activateCoopRaceBots(record.type);}
-    const target=coopCurrentTarget(active,record);if(target)coopSetWaypoint(target);saveState(true);
-  }
-  function coopSetWaypoint(target){if(!target)return;state.waypoint={id:`coop-${target.id||'target'}`,name:target.name||'Objetivo cooperativo',x:Number(target.x||0),z:Number(target.z||0),navX:Number(target.navX??target.x??0),navZ:Number(target.navZ??target.z??0),arrived:false};world.routePath=buildRoutePoints(player,state.waypoint);updateWaypointMarker();updateNavigation(0,true);}
-  function onCoopServiceVehicleBoarded(vehicle,job){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||active.serviceJob!==job)return;job.serviceVehicleBoarded=true;coopRecordEvent('driver-boarded','driver',1,1);active.sceneTarget=active.sceneTarget||coopSceneTarget(record.type);if(active.sceneTarget)coopSetWaypoint(active.sceneTarget);toast('Veículo correto. Leve a equipe ao ponto marcado.','good',2500);}
-  async function coopRecordEvent(kind,role='',value=1,nextPhase=null){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record)return false;const id=`${coopUid().replace(/[^A-Za-z0-9_-]/g,'').slice(-24)}-${kind}-${Math.floor(Date.now()/1200)}`;if(active.remote){const result=await coopBackendCall('updateCoopMissionProgress',active.id,{eventId:id,kind,value,phase:nextPhase});return!!result?.ok;}const progress=active.record.progress||(active.record.progress={phase:0,counter:0,target:1,events:{}});progress.events[id]={uid:coopUid(),role:role||active.role,kind,value,createdAtClient:Date.now()};if(Number.isFinite(Number(nextPhase)))progress.phase=Math.max(progress.phase,Number(nextPhase));progress.updatedAtClient=Date.now();return true;}
-  async function coopAddCounter(kind,amount=1,target=1,nextPhase=null){const active=activeCoopMission(),record=activeCoopRecord();if(!active)return false;const competitive=['streetRace','ovalRace'].includes(record?.type)&&record.mode==='competitive',counterDelta=competitive?0:amount;if(active.remote){const result=await coopBackendCall('updateCoopMissionProgress',active.id,{eventId:`${coopUid().slice(-12)}-${kind}-${Date.now()}`,kind,value:amount,counterDelta,target,phase:nextPhase});return!!result?.ok;}const p=active.record.progress;p.counter=Math.min(999,Number(p.counter||0)+counterDelta);p.target=target;if(Number.isFinite(Number(nextPhase)))p.phase=Math.max(p.phase,Number(nextPhase));p.events[`${kind}-${Date.now()}`]={uid:coopUid(),role:active.role,kind,value:amount,createdAtClient:Date.now()};return true;}
-  async function coopReserveEvent(eventId,kind,value=1,options={}){
-    const active=activeCoopMission();if(!active)return{ok:false,eventOwner:''};const id=String(eventId||'').replace(/[^A-Za-z0-9_-]/g,'').slice(0,80);if(!id)return{ok:false,eventOwner:''};
-    if(active.remote)return await coopBackendCall('updateCoopMissionProgress',active.id,{eventId:id,kind,value,reserveEvent:true,counterDelta:Number(options.counterDelta||0),target:options.target,phase:options.phase});
-    const progress=active.record.progress||(active.record.progress={phase:0,counter:0,target:1,events:{}}),existing=progress.events[id];if(existing)return{ok:existing.uid===coopUid(),eventOwner:existing.uid,progress};
-    progress.events[id]={uid:coopUid(),role:active.role,kind,value,createdAtClient:Date.now()};progress.counter=Math.max(0,Number(progress.counter||0)+Math.max(0,Number(options.counterDelta||0)));if(Number.isFinite(Number(options.target)))progress.target=Math.max(1,Number(options.target));if(Number.isFinite(Number(options.phase)))progress.phase=Math.max(Number(progress.phase||0),Number(options.phase));return{ok:true,eventOwner:coopUid(),progress};
-  }
-  function coopNearbyParticipantCount(radius=7){const record=activeCoopRecord(),presence=window.OTTHOS_RTDB?.getPresence?.()||{};let count=1;for(const participant of coopParticipants(record)){if(participant.uid===coopUid())continue;const remote=presence[participant.uid];if(remote&&Math.hypot(player.x-Number(remote.x||0),player.z-Number(remote.z||0))<=radius)count++;}return count;}
-  async function performCoopMissionAction(){
-    const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||record.status!=='active')return false;const type=record.type,p=coopProgress(record),role=coopOwnParticipant(record)?.role||active.role,target=coopCurrentTarget(active,record);if(target&&Math.hypot(player.x-(target.navX??target.x),player.z-(target.navZ??target.z))>6){toast('Chegue ao ponto marcado no GPS.','warn');return false;}
-    if(coopServiceKind(type)){
-      if(p.phase<1){toast(role==='driver'?'Entre no veículo reservado usando AÇÃO.':'Aguarde o motorista e entre como passageiro pelo menu do jogador online.','warn',2800);return false;}
-      if(p.phase===1){toast('O motorista precisa estacionar no ponto marcado.','warn');return false;}
-      if(type==='paramedic'&&p.phase>=5){toast('O motorista deve levar a ambulância até o ponto médico marcado.','warn');return false;}
-      if(player.vehicle){toast('Estacione e saia do veículo para executar a tarefa.','warn');return false;}
-      if(type==='firefighter'){
-        if(p.counter<4){if(role!=='hose'&&record.mode!=='solo'){toast('Você está no apoio; a pessoa da mangueira deve controlar o fogo.','warn');return false;}const fire=active.sceneTarget?.ref||ensureActiveFire(true),next=Math.min(4,p.counter+1);if(fire)fire.coopIntensity=Math.max(.08,1-next/4);await coopAddCounter('water-pulse',1,4,3);if(next>=4)await coopRecordEvent('fire-controlled',role,1,4);toast(`Água aplicada. Intensidade do fogo: ${Math.max(0,Math.round((1-next/4)*100))}%.`,'good',2200);return true;}
-        if(role!=='rescuer'&&record.mode!=='solo'){toast('A pessoa de apoio precisa isolar e liberar a área.','warn');return false;}await coopRecordEvent('safety-release',role,1,5);toast('Área isolada, verificada e liberada com segurança.','good');return true;
-      }
-      if(type==='paramedic'){
-        if(!coopHasEvent('first-aid')){if(role!=='medic'&&record.mode!=='solo'){toast('O socorrista precisa atender o paciente primeiro.','warn');return false;}await coopRecordEvent('first-aid',role,1,3);player.sitUntil=performance.now()+1500;toast('Primeiros socorros feitos com cuidado.','good');return true;}
-        if(!coopHasEvent('stretcher')){if(record.mode!=='solo'&&coopNearbyParticipantCount(5)<2){toast('A maca precisa de duas pessoas próximas. Chame outro integrante da equipe.','warn',2800);return false;}await coopRecordEvent('stretcher',role,1,4);toast('Maca carregada por duas pessoas. Leve o paciente até a ambulância.','good',2600);const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)coopSetWaypoint({id:`service-${vehicle.id}`,name:'Colocar o paciente na ambulância',icon:'🚑',x:vehicle.group.position.x,z:vehicle.group.position.z});return true;}
-        if(!coopHasEvent('patient-loaded')){await coopRecordEvent('patient-loaded',role,1,5);toast('Paciente acomodado com segurança. Motorista: siga até o ponto médico.','good',2800);coopSetWaypoint(coopMedicalDestination());return true;}
-        return false;
-      }
-      if(type==='police'){
-        if(!coopHasEvent('approach')){if(role!=='officer'&&record.mode!=='solo'){toast('O policial deve iniciar a abordagem educativa.','warn');return false;}await coopRecordEvent('approach',role,1,3);toast('Abordagem calma: converse antes de concluir.','good');return true;}
-        if(!coopHasEvent('you-are-arrested')){const npc=active.sceneTarget?.ref;if(npc){npc.following=true;npc.emoteType='wave';npc.emoteUntil=performance.now()+1800;}await coopRecordEvent('you-are-arrested',role,1,4);toast('“Você está preso.” Agora acompanhe o personagem, sem armas ou agressões, até a viatura.','good',3200);const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)coopSetWaypoint({id:`service-${vehicle.id}`,name:'Acompanhar até a viatura',icon:'🚓',x:vehicle.group.position.x,z:vehicle.group.position.z});return true;}
-        const npc=active.sceneTarget?.ref;if(npc)npc.following=false;await coopRecordEvent('suspect-escorted',role,1,5);toast('Personagem acompanhado com segurança até a viatura.','good');return true;
-      }
-    }
-    if(type==='fishing'){
-      if(p.phase<1){await coopRecordEvent('at-lake',role,1,1);toast('Equipe reunida no lago. Comece a pescar.','good');return true;}
-      if(p.phase===1){if(state.inventory.bait<1){toast('Você precisa de isca.','warn');return false;}startFishing('shore',{cooperative:true,requestId:active.id});return true;}
-      if(Number(state.inventory.rawFish||0)<1){toast('A equipe precisa de peixe cru para assar.','warn');return false;}state.inventory.rawFish--;setTimeout(async()=>{state.inventory.cookedFish=(state.inventory.cookedFish||0)+1;saveState(true);await coopAddCounter('cooked-fish',1,3);toast('Peixe assado para a equipe!','good');},1800);toast('Peixe na grelha...','good');return true;
-    }
-    if(type==='school'){
-      const follower=(world.npcs||[]).find(n=>active.followingNpcIds?.includes(n.id));
-      if(follower){const school=coopNearestSchool();if(!school||Math.hypot(player.x-school.x,player.z-school.z)>8){toast('Conduza o aluno até a escola marcada.','warn');return false;}const result=await coopReserveEvent(coopEventSubjectId('student-delivered',follower.id),'student-delivered',1,{counterDelta:1,target:4,phase:4});if(!result?.ok||result.eventOwner!==coopUid()){active.followingNpcIds=active.followingNpcIds.filter(id=>id!==follower.id);follower.following=false;toast('Esse aluno já foi entregue por outro integrante.','warn');return false;}follower.following=false;follower.coopSchoolDelivered=true;follower.baseX=school.x+(Math.random()-.5)*5;follower.baseZ=school.z+5+(Math.random()*2);active.followingNpcIds=active.followingNpcIds.filter(id=>id!==follower.id);if(!active.deliveredNpcIds.includes(follower.id))active.deliveredNpcIds.push(follower.id);toast(`${follower.name} chegou à escola. +1 aluno para a equipe.`,'good',2300);return true;}
-      const npc=coopNearestInvitableNpc(active);if(!npc||Math.hypot(player.x-npc.group.position.x,player.z-npc.group.position.z)>4){toast('Chegue perto de um personagem para convidá-lo.','warn');return false;}const result=await coopReserveEvent(coopEventSubjectId('student',npc.id),'student-invited',1);if(!result?.ok||result.eventOwner!==coopUid()){toast('Outro integrante acabou de convidar esse aluno. Procure o próximo marcador.','warn',2600);return false;}if(!active.invitedNpcIds.includes(npc.id))active.invitedNpcIds.push(npc.id);if(!active.followingNpcIds.includes(npc.id))active.followingNpcIds.push(npc.id);npc.following=true;toast(`${npc.name}: “Sim! Vou seguir você até a escola.”`,'good',2600);const school=coopNearestSchool();if(school)coopSetWaypoint({id:school.id,name:school.name,icon:'🏫',x:school.x,z:school.z});saveState(true);return true;
-    }
-    if(type==='streetRace'||type==='ovalRace'){
-      const race=active.race||(active.race={});if(!race.started){race.started=true;race.startedAt=Date.now();race.checkpoints=0;race.lastCheckpoint=-1;race.expectedSector=1;race.laps=0;race.lastSectorAt=0;await coopAdvancePhase(1,{counterSet:0,target:type==='ovalRace'?3:4});const next=coopCurrentTarget(active,activeCoopRecord());if(next)coopSetWaypoint(next);toast('3… 2… 1… valendo! Siga os marcadores na ordem.','good',2600);return true;}toast(coopCurrentInstruction(active,record),'good',1800);return true;
-    }
-    return false;
-  }
-  function updateCoopFishingProgress(active,record){const p=coopProgress(record);if(record.type!=='fishing'||record.status!=='active')return;const caught=Math.max(0,Number(state.inventory.rawFish||0)-Number(active.baselineRawFish||0));if(p.phase===1&&caught>Number(active.reportedFish||0)){const delta=caught-Number(active.reportedFish||0);active.reportedFish=caught;coopAddCounter('fish-caught',delta,6).catch(()=>{});}const latest=coopProgress(activeCoopRecord());if(latest.phase===1&&latest.counter>=6&&!active.fishingCookPhaseStarted){active.fishingCookPhaseStarted=true;coopAdvancePhase(2,{counterSet:0,target:3}).then(()=>{active.baselineCookedFish=Number(state.inventory.cookedFish||0);const camp=active.coopCampfirePoint||{x:-70,z:-62};coopSetWaypoint({id:'coop-campfire',name:'Fogueira da equipe',icon:'🔥',x:camp.x,z:camp.z});updateMissionHUD();});}}
-  function updateCoopSchoolFollowers(active){active.followingNpcIds=[...new Set(active.followingNpcIds||[])];for(const id of active.followingNpcIds){const npc=world.npcs.find(n=>n.id===id);if(!npc)continue;npc.following=true;const distance=Math.hypot(player.x-npc.group.position.x,player.z-npc.group.position.z);if(!Number.isFinite(distance)||distance>22){npc.group.position.set(player.x-1.4,0,player.z-1.4);npc.baseX=player.x-1.4;npc.baseZ=player.z-1.4;}}}
-  function activateCoopRaceBots(type){coopRaceBots.forEach((bot,index)=>{bot.group.visible=true;bot.coopRaceMode=type;bot.coopRaceIndex=index;bot.coopRaceLane=index%3;bot.coopRaceT=0;bot.coopRaceFinished=false;bot.coopRaceSpeed=.055+index*.004;if(type==='streetRace'){const start=coopStreetRoutePoint(0,(Number(bot.coopRaceLane||0)-1)*.78);bot.group.position.set(start.x,0,start.z);bot.group.rotation.y=start.heading;}});}
-  function deactivateCoopRaceBots(){for(const bot of coopRaceBots){bot.coopRaceMode='';bot.coopRaceFinished=false;bot.coopRaceT=0;bot.group.visible=false;}}
-  function updateCoopRaceVisuals(dt){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||!['streetRace','ovalRace'].includes(record.type)||record.status!=='active')return;for(const bot of coopRaceBots){if(!bot.coopRaceMode)continue;const nearPlayer=Math.hypot(player.x-bot.group.position.x,player.z-bot.group.position.z)<1.8,pace=nearPlayer?.55:1;if(record.type==='ovalRace'){bot.coopRaceT=(bot.coopRaceT+dt*bot.coopRaceSpeed*pace)%1;const a=bot.coopRaceT*Math.PI*2,rx=23.6+Number(bot.coopRaceLane||0)*1.35,rz=6.8+Number(bot.coopRaceLane||0)*.65;bot.group.position.set(51+Math.cos(a)*rx,0,75.5+Math.sin(a)*rz);bot.group.rotation.y=Math.atan2(-Math.sin(a)*rx,Math.cos(a)*rz);}else if(!bot.coopRaceFinished){bot.coopRaceT=Math.min(1,bot.coopRaceT+dt*bot.coopRaceSpeed*pace);const point=coopStreetRoutePoint(bot.coopRaceT,(Number(bot.coopRaceLane||0)-1)*.78);bot.group.position.set(point.x,0,point.z);bot.group.rotation.y=point.heading;if(bot.coopRaceT>=1)bot.coopRaceFinished=true;}}
-  }
-  function updateCoopRaceProgress(active,record){
-    const p=coopProgress(record),race=active.race||(active.race={started:false,checkpoints:0,lastCheckpoint:-1,expectedSector:1,laps:0});if(!race.started)return;
-    if(record.type==='streetRace'){
-      const nextIndex=Math.min(4,Number(race.checkpoints||0)+1),point=COOP_STREET_ROUTE[nextIndex];
-      if(point&&Math.hypot(player.x-point.x,player.z-point.z)<4.2&&race.lastCheckpoint!==nextIndex){race.lastCheckpoint=nextIndex;race.checkpoints=nextIndex;coopAddCounter('street-checkpoint',1,4).catch(()=>{});toast(`Checkpoint ${race.checkpoints}/4 validado.`,'good');const next=coopCurrentTarget(active,activeCoopRecord());if(race.checkpoints<4&&next)coopSetWaypoint(next);}
-    }else{
-      const gym=world.gym||{centerX:51,centerZ:75.5,radiusX:25,radiusZ:8},sectors=[{x:gym.centerX+gym.radiusX,z:gym.centerZ,name:'Leste'},{x:gym.centerX,z:gym.centerZ+gym.radiusZ,name:'Sul'},{x:gym.centerX-gym.radiusX,z:gym.centerZ,name:'Oeste'},{x:gym.centerX,z:gym.centerZ-gym.radiusZ,name:'Norte'}],index=Math.max(0,Math.min(3,Number(race.expectedSector||1))),sector=sectors[index];
-      if(sector&&Math.hypot(player.x-sector.x,player.z-sector.z)<3.7&&Date.now()-Number(race.lastSectorAt||0)>700){race.lastSectorAt=Date.now();race.expectedSector=(index+1)%4;if(race.expectedSector===1&&index===0){race.laps++;coopAddCounter('oval-lap',1,3).catch(()=>{});toast(`Volta ${race.laps}/3 validada pelos quatro setores.`,'good');}}
-    }
-    if(coopRaceTargetReached(activeCoopRecord()))coopAdvancePhase(coopMissionTemplate(record.type).steps.length);
-  }
-  async function coopAdvancePhase(phase,options={}){const active=activeCoopMission();if(!active)return false;const patch={phase,...options};if(active.remote){const result=await coopBackendCall('updateCoopMissionProgress',active.id,patch);return!!result?.ok;}const progress=active.record.progress||(active.record.progress={phase:0,counter:0,target:1,events:{}});progress.phase=Math.max(Number(progress.phase||0),Number(phase||0));if(Number.isFinite(Number(options.counterSet)))progress.counter=Math.max(0,Math.min(999,Number(options.counterSet)));if(Number.isFinite(Number(options.target)))progress.target=Math.max(1,Math.min(99,Number(options.target)));progress.updatedAtClient=Date.now();return true;}
-  async function maybeCompleteCoopMission(){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||record.status!=='active')return;const template=coopMissionTemplate(record.type),p=coopProgress(record);let done=p.phase>=template.steps.length;
-    if(record.type==='firefighter')done=p.counter>=4&&coopHasEvent('fire-controlled')&&coopHasEvent('safety-release');
-    else if(record.type==='paramedic')done=coopHasEvent('first-aid')&&coopHasEvent('stretcher')&&coopHasEvent('patient-loaded')&&coopHasEvent('patient-delivered');
-    else if(record.type==='police')done=coopHasEvent('approach')&&coopHasEvent('you-are-arrested')&&coopHasEvent('suspect-escorted');
-    else if(record.type==='fishing')done=p.phase>=2&&p.counter>=3;
-    else if(record.type==='school')done=p.counter>=4;
-    else if(record.type==='streetRace'||record.type==='ovalRace')done=coopRaceTargetReached(record);
-    if(!done||active.completionPending)return;active.completionPending=true;if(active.remote){if(record.hostUid===coopUid()){const result=await coopBackendCall('setCoopMissionStatus',active.id,'completed');if(!result?.ok)active.completionPending=false;}else active.completionPending=false;}else{active.record.status='completed';completeCoopMissionLocal(active.record);}}
-  function removeCoopCampfire(active=activeCoopMission()){const id=active?.coopCampfireId;if(!id)return;const record=world.campfires.find(item=>item.data?.id===id);if(record){record.interactable&&(record.interactable.disabled=true);worldGroup?.remove(record.group);world.campfires=world.campfires.filter(item=>item!==record);}active.coopCampfireId='';}
-  function resolveCoopMissionScene(active=activeCoopMission(),record=activeCoopRecord(),completed=true){const scene=active?.sceneTarget?.ref;if(record?.type==='firefighter'&&scene?.active){scene.coopMissionId='';if(completed)extinguishFireIncident(scene,true);else{scene.active=false;scene.group.visible=false;scene.playerHelping=false;scene.truckHelping=false;for(const truck of world.fireTrucks||[])if(truck.targetFireId===scene.id){truck.targetFireId='';truck.serviceRoute=[];truck.serviceRouteIndex=0;}}}else if(record?.type==='paramedic'&&scene&&!scene.resolved){scene.coopMissionId='';if(completed){scene.arrived={police:true,paramedic:true,firefighter:true};scene.tasks={police:true,paramedic:true,firefighter:true};resolveTrafficIncident(scene);}else{scene.resolved=true;scene.group.visible=false;releaseIncidentActorStates(scene);for(const vehicle of serviceVehiclePools())if(vehicle.incidentTargetId===scene.id){vehicle.incidentTargetId='';vehicle.responseRoute=[];vehicle.responseIndex=0;}if(world.activeIncident===scene)world.activeIncident=null;setTimeout(()=>worldGroup.remove(scene.group),500);}}}
-  function resetCoopMissionNpcs(active=activeCoopMission()){for(const npc of world.npcs||[]){if(!npc)continue;if(active?.followingNpcIds?.includes(npc.id)||active?.invitedNpcIds?.includes(npc.id)||active?.deliveredNpcIds?.includes(npc.id)||npc.coopSchoolDelivered){npc.following=false;npc.coopSchoolDelivered=false;if(npc.group)npc.group.visible=npc.coopRaceBot?false:true;}}}
-  function completeCoopMissionLocal(record=activeCoopRecord()){
-    const active=activeCoopMission(),template=coopMissionTemplate(record?.type);if(!active||!template)return false;const token=`coop-${active.id}`;if(state.cooperative.completed.includes(token)){state.cooperative.active=null;return false;}state.cooperative.completed.push(token);state.cooperative.completed=state.cooperative.completed.slice(-100);state.cooperative.history.push({id:token,type:record.type,title:template.title,completedAt:Date.now(),participants:coopParticipants(record).length});state.cooperative.history=state.cooperative.history.slice(-80);addCoins(template.reward);addReputation(template.rep);addXP(120);awardMedal(`Equipe: ${template.title}`);resolveCoopMissionScene(active,record);removeCoopCampfire(active);if(active.serviceJob)releaseMissionServiceVehicle(active.serviceJob);resetCoopMissionNpcs(active);deactivateCoopRaceBots();state.avatar.uniform=active.previousUniform||'none';applyAvatarCustomization();state.cooperative.active=null;state.waypoint=null;world.routePath=[];updateWaypointMarker();updateNavigation(0,true);saveState(true);updateMissionHUD();toast(`Missão cooperativa concluída! +${template.reward} moedas`,'good',3200);return true;
-  }
-  async function leaveActiveCoopMission(){const active=activeCoopMission(),record=activeCoopRecord();if(!active)return;if(!(await confirmModal('Sair da missão','A missão será encerrada somente para você; as etapas sincronizadas não serão corrompidas.','Sair','Continuar')))return;if(active.remote){if(record?.hostUid===coopUid())await coopBackendCall('setCoopMissionStatus',active.id,'cancelled');await coopBackendCall('leaveCoopMission',active.id);}resolveCoopMissionScene(active,record,false);removeCoopCampfire(active);if(active.serviceJob)releaseMissionServiceVehicle(active.serviceJob);deactivateCoopRaceBots();resetCoopMissionNpcs(active);state.avatar.uniform=active.previousUniform||'none';state.cooperative.active=null;state.waypoint=null;updateWaypointMarker();saveState(true);closeModal();updateMissionHUD();toast('Você saiu da missão cooperativa.','good');}
-  function openCoopLobby(id){
-    const active=activeCoopMission(),record=active?.id===id?activeCoopRecord():coopRemoteMissions[id];if(!record)return openCoopMissionCenter();
-    const template=coopMissionTemplate(record.type),participants=coopParticipants(record),own=record.participants?.[coopUid()],host=record.hostUid===coopUid(),running=record.status==='active',offline=active?.remote&&!window.OTTHOS_RTDB?.connected?.(),modeLabel=record.mode==='solo'?'VERSÃO SOLO':record.mode==='competitive'?'COMPETIÇÃO ONLINE':'MISSÃO COOPERATIVA';
-    const roles=template.roles.map(([role,label])=>{const full=coopRoleTaken(record,role)>=coopRoleCapacity(template,role)&&own?.role!==role;return`<button class="choice ${own?.role===role?'selected':''}" data-coop-role="${role}" ${full||running?'disabled':''}><b>${label}</b><span>${full?'Função ocupada':role==='driver'?'Conduz o veículo reservado':'Executa uma etapa definida'}</span></button>`}).join('');
-    const actions=running?`<button class="btn primary" data-coop-gps>Marcar próximo passo no GPS</button>${offline?'<button class="btn good" data-coop-offline>Continuar solo neste aparelho</button>':''}<button class="btn danger" data-coop-leave>Cancelar / sair</button>`:`<button class="btn ${own?.ready?'good':'primary'}" data-coop-ready>${own?.ready?'Pronto ✓':'Estou pronto'}</button>${host?'<button class="btn primary" data-coop-start>Iniciar com a equipe</button><button class="btn" data-coop-solo>Iniciar versão solo</button>':''}<button class="btn danger" data-coop-leave>Sair da equipe</button>`;
-    openModal('Equipe da missão',`<div class="coop-lobby"><header><span>${template.icon}</span><div><small>${modeLabel}</small><h3>${template.title}</h3><p>${template.description}</p></div></header>${offline?'<p class="coop-offline-alert">Conexão perdida. O progresso sincronizado foi preservado; você pode aguardar a reconexão ou continuar uma cópia solo.</p>':''}<section class="coop-lobby-members"><b>Equipe ${participants.length}/${record.maxPlayers}</b>${participants.map(item=>`<article><span>${item.uid===record.hostUid?'⭐':'👤'}</span><div><b>${item.name||'Jogador'}</b><small>${coopRoleLabel(item.role)}${item.ready?' • pronto':' • aguardando'}</small></div></article>`).join('')}</section>${running?coopMissionBriefingMarkup(record):`<section><b>Escolha sua função</b><div class="coop-role-grid">${roles}</div></section>`}<div class="modal-actions">${actions}</div></div>`,root=>{$$('[data-coop-role]',root).forEach(btn=>bindCoopActionButton(btn,()=>selectCoopRole(btn.dataset.coopRole)));bindCoopActionButton($('[data-coop-ready]',root),toggleCoopReady);bindCoopActionButton($('[data-coop-start]',root),()=>startActiveCoopMission(false));bindCoopActionButton($('[data-coop-solo]',root),()=>startActiveCoopMission(true));$('[data-coop-gps]',root)?.addEventListener('click',()=>{const target=coopCurrentTarget();if(target)coopSetWaypoint(target);closeModal();});bindCoopActionButton($('[data-coop-offline]',root),continueCoopMissionOffline);bindCoopActionButton($('[data-coop-leave]',root),leaveActiveCoopMission);});
-  }
-  function openCoopMissionCenter(){
-    ensureCooperativeState();const active=activeCoopMission(),lobbies=Object.values(coopRemoteMissions).filter(m=>m.status==='lobby'&&m.room===(window.OTTHOS_RTDB?.getRoom?.()||state.multiplayer.room)&&!m.participants?.[coopUid()]);
-    const templates=Object.values(COOP_MISSION_TEMPLATES).map(t=>{const race=['streetRace','ovalRace'].includes(t.id);return`<article class="coop-template"><header><span>${t.icon}</span><div><b>${t.title}</b><small>${t.minPlayers}-${t.maxPlayers} jogadores • solo adaptado</small></div></header><p>${t.description}</p><div class="coop-template-roles">${t.roles.map(r=>`<i>${r[1]}</i>`).join('')}</div><small class="coop-required-vehicle">Veículo: ${t.vehicle}</small><footer><button class="btn primary" data-create-coop="${t.id}">Criar equipe</button>${race?`<button class="btn good" data-create-competitive="${t.id}">Competição online</button>`:''}<button class="btn" data-create-solo="${t.id}">Jogar solo</button></footer></article>`}).join('');
-    const lobbyMarkup=lobbies.length?lobbies.map(m=>{const t=coopMissionTemplate(m.type);return`<article class="coop-open-lobby"><span>${t.icon}</span><div><b>${t.title}</b><small>${coopParticipants(m).length}/${m.maxPlayers} jogadores • ${m.mode==='competitive'?'competição':'equipe'}</small></div><button class="btn good" data-join-coop="${m.id}">Entrar voluntariamente</button></article>`}).join(''):'<p class="empty-online">Nenhuma equipe aguardando neste bairro. Você pode criar uma ou jogar a versão solo.</p>';
-    openModal('Missões cooperativas',`${active?`${coopMissionBriefingMarkup()}<div class="modal-actions"><button class="btn primary" data-open-active-coop>Abrir missão</button><button class="btn" data-coop-gps>Marcar próximo passo no GPS</button></div>`:''}<section class="coop-center-intro"><span>🤝</span><div><h3>Objetivos para jogar junto</h3><p>Papéis definidos, progresso sincronizado, entrada voluntária e alternativa solo quando faltarem parceiros.</p></div></section><h3 class="panel-subtitle">Equipes aguardando neste bairro</h3><div class="coop-open-lobbies">${lobbyMarkup}</div><h3 class="panel-subtitle">Criar uma missão</h3><div class="coop-template-grid">${templates}</div>`,root=>{$$('[data-create-coop]',root).forEach(btn=>bindCoopActionButton(btn,()=>createCooperativeMission(btn.dataset.createCoop,'coop')));$$('[data-create-competitive]',root).forEach(btn=>bindCoopActionButton(btn,()=>createCooperativeMission(btn.dataset.createCompetitive,'competitive')));$$('[data-create-solo]',root).forEach(btn=>bindCoopActionButton(btn,()=>createCooperativeMission(btn.dataset.createSolo,'solo')));$$('[data-join-coop]',root).forEach(btn=>bindCoopActionButton(btn,()=>joinCooperativeMission(btn.dataset.joinCoop,'helper')));$('[data-open-active-coop]',root)?.addEventListener('click',()=>openCoopLobby(active.id));$('[data-coop-gps]',root)?.addEventListener('click',()=>{const target=coopCurrentTarget();if(target)coopSetWaypoint(target);closeModal();});});
-  }
-  function createCoopOvalTrackWorld(){
-    const shape=new THREE.Shape();shape.absellipse(0,0,30,10,0,Math.PI*2,false,0);const hole=new THREE.Path();hole.absellipse(0,0,21.5,5.2,0,Math.PI*2,true,0);shape.holes.push(hole);
-    const surface=new THREE.Mesh(new THREE.ShapeGeometry(shape,64),materials.road.clone());surface.name='coop-oval-track';surface.rotation.x=-Math.PI/2;surface.position.set(51,.055,75.5);surface.receiveShadow=true;worldGroup.add(surface);
-    for(const factor of[0,1,2,3]){const rx=22.6+factor*2.05,rz=5.9+factor*.95,points=[];for(let i=0;i<96;i++){const angle=i/96*Math.PI*2;points.push(new THREE.Vector3(51+Math.cos(angle)*rx,.085,75.5+Math.sin(angle)*rz));}const edge=factor===0||factor===3,line=new THREE.LineLoop(new THREE.BufferGeometry().setFromPoints(points),new THREE.LineBasicMaterial({color:edge?0xf4f7fb:0xd7dde6,transparent:true,opacity:edge ? .92 : .62}));line.name=`coop-oval-lane-${factor}`;worldGroup.add(line);}
-  }
-  function createCooperativeMissionWorld(){
-    ensureCooperativeState();createCoopOvalTrackWorld();registerInteractable({id:'coop-mission-board',type:'coopMission',icon:'🤝',label:'Missões cooperativas',x:45,z:85.5,radius:3,priority:246,action:openCoopMissionCenter});coopActionInteractable=registerInteractable({id:'coop-dynamic-action',type:'coopAction',icon:'🤝',label:'Executar etapa da equipe',radius:4.8,priority:260,getPos:()=>{const target=coopCurrentTarget();return{x:Number(target?.x||9999),z:Number(target?.z||9999)}},available:()=>!!activeCoopMission()&&activeCoopRecord()?.status==='active'&&!player.vehicle,action:performCoopMissionAction});
-    for(let i=0;i<5;i++){const bot=createNPC(`track-bot-${i}`,`Atleta ${i+1}`,45+i,82,0x55a8ff,0);bot.coopRaceBot=true;bot.coopRaceMode='';bot.group.visible=false;const interaction=(world.interactables||[]).find(item=>item.id===`npc-track-bot-${i}`);if(interaction)interaction.available=()=>bot.group.visible;coopRaceBots.push(bot);}
-    addEventListener('otthi:coop-missions',event=>{coopRemoteMissions={...(event.detail?.missions||{})};const active=activeCoopMission();if(active?.remote&&coopRemoteMissions[active.id]){active.record=coopRemoteMissions[active.id];if(active.record.status==='active'&&!active.runtimePrepared){active.runtimePrepared=true;prepareCoopMissionRuntime();}if(active.record.status==='completed')completeCoopMissionLocal(active.record);updateMissionHUD();}else if(!active){const waiting=Object.values(coopRemoteMissions).filter(m=>m.status==='lobby').length;if(waiting&&Date.now()-Number(state.cooperative.lastLobbyNotice||0)>30000){state.cooperative.lastLobbyNotice=Date.now();toast(`${waiting} equipe(s) cooperativa(s) aguardando neste bairro.`,'good',2600);}}});
-  }
-  function updateCoopMissions(dt=0){const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record)return;if(record.status==='lobby')return;if(record.status==='completed'){completeCoopMissionLocal(record);return;}if(record.status==='cancelled'){resolveCoopMissionScene(active,record,false);removeCoopCampfire(active);if(active.serviceJob)releaseMissionServiceVehicle(active.serviceJob);resetCoopMissionNpcs(active);deactivateCoopRaceBots();state.avatar.uniform=active.previousUniform||'none';state.cooperative.active=null;state.waypoint=null;updateWaypointMarker();saveState(true);updateMissionHUD();toast('A missão cooperativa foi cancelada sem apagar o progresso anterior.','warn');return;}if(record.status!=='active')return;if(!active.runtimePrepared){active.runtimePrepared=true;active.previousUniform=state.avatar.uniform||'none';prepareCoopMissionRuntime();}
-    updateCoopSchoolFollowers(active);updateCoopFishingProgress(active,record);if(record.type==='streetRace'||record.type==='ovalRace')updateCoopRaceProgress(active,record);
-    if(coopServiceKind(record.type)&&active.serviceJob?.serviceVehicleBoarded&&!active.serviceJob.serviceVehicleArrived&&active.sceneTarget){const d=Math.hypot(player.x-(active.sceneTarget.navX??active.sceneTarget.x),player.z-(active.sceneTarget.navZ??active.sceneTarget.z));if(isDrivingServiceVehicle(record.type)&&d<6){active.serviceJob.serviceVehicleArrived=true;coopRecordEvent('vehicle-arrived','driver',1,2).catch(()=>{});toast('Veículo posicionado. Estacione, saia e cumpra sua função.','good',2800);}}
-    const p=coopProgress(record);if(record.type==='firefighter'&&active.sceneTarget?.ref)active.sceneTarget.ref.coopIntensity=Math.max(.08,1-Math.min(4,p.counter)/4);
-    if(record.type==='paramedic'&&p.phase>=5&&!coopHasEvent('patient-delivered')&&!active.patientDeliveryPending){const destination=coopMedicalDestination(),d=Math.hypot(player.x-(destination.navX??destination.x),player.z-(destination.navZ??destination.z));if(isDrivingServiceVehicle('paramedic')&&d<7){active.patientDeliveryPending=true;coopRecordEvent('patient-delivered','driver',1,6).then(()=>{toast('Paciente entregue com segurança no ponto médico.','good',2800);}).finally(()=>{active.patientDeliveryPending=false;});}}
-    maybeCompleteCoopMission().catch(()=>{});const label=coopMissionProgressLabel();if(label&&updateCoopMissions.lastLabel!==label.label){updateCoopMissions.lastLabel=label.label;updateMissionHUD();}const now=Date.now();if(now-Number(updateCoopMissions.lastSavedAt||0)>2500){updateCoopMissions.lastSavedAt=now;saveState();}
-  }
-  function updateCoopVisuals(dt){coopVisualAcc+=dt;updateCoopRaceVisuals(dt);}
-  window.OTTHI_COOP={open:openCoopMissionCenter,templates:()=>COOP_MISSION_TEMPLATES,active:activeCoopMission,performAction:performCoopMissionAction,mapLocations:coopMissionMapLocations,preflight:coopMissionPreflight,objective:coopObjectiveSnapshot,streetRoute:()=>COOP_STREET_ROUTE.map(point=>({...point}))};
 
   // ===== MODULE: 33-otthi-world-professional-core.js =====
   const OTTHI_WORLD_VERSION = 702;
@@ -6221,12 +6562,61 @@
       $$('[data-world-vehicle-field]',root).forEach(button=>button.onclick=()=>{const target=worldVehicleParts(id),field=button.dataset.worldVehicleField,value=button.dataset.worldVehicleValue;target[field]=value;state.vehicles.modularParts[id]=target;$$(`[data-world-vehicle-field="${field}"]`,root).forEach(item=>item.classList.toggle('selected',item===button));if(vehicle?.group)applyWorldVehicleModulesToGroup(vehicle.group,id);if(player.vehicle&&player.car.id===id)applyWorldVehicleModulesToGroup(vehicleVisual,id);});
       $$('[data-world-vehicle-color]',root).forEach(input=>input.oninput=()=>{const target=worldVehicleParts(id);target[input.dataset.worldVehicleColor]=safeAvatarColor(input.value,target[input.dataset.worldVehicleColor]);state.vehicles.modularParts[id]=target;if(vehicle?.group)applyWorldVehicleModulesToGroup(vehicle.group,id);if(player.vehicle&&player.car.id===id)applyWorldVehicleModulesToGroup(vehicleVisual,id);});
       $('[data-world-vehicle-save]',root).onclick=()=>{saveState(true).finally(()=>syncCloudProgress(true));closeModal();toast('Montagem do veículo salva no mesmo progresso.','good',2200);};
-      $('[data-world-vehicle-repair]',root).onclick=()=>{state.vehicles.partDurability[id]=100;if(vehicle?.group)applyWorldVehicleModulesToGroup(vehicle.group,id);if(player.vehicle&&player.car.id===id)applyWorldVehicleModulesToGroup(vehicleVisual,id);saveState(true);openWorldModularGarage(id);toast('Peças reparadas.','good',1600);};
+      $('[data-world-vehicle-repair]',root).onclick=()=>{if(typeof repairVehicleV704==='function'){if(repairVehicleV704(vehicle||id))openWorldModularGarage(id);return;}state.vehicles.partDurability[id]=100;if(vehicle?.group)applyWorldVehicleModulesToGroup(vehicle.group,id);if(player.vehicle&&player.car.id===id)applyWorldVehicleModulesToGroup(vehicleVisual,id);saveState(true);openWorldModularGarage(id);toast('Peças reparadas.','good',1600);};
     });
   }
   function createWorldModularGarageInteractable(){
     const index=world.interactables?.findIndex?.(item=>item.id==='otthi-world-garage')??-1;if(index>=0)world.interactables.splice(index,1);otthiWorldRuntime.modularVehiclesReady=true;return true;
   }
+
+  // ===== MODULE: 36a-vehicle-damage-repair-v704.js =====
+  const VEHICLE_DAMAGE_V704={debris:[],lastImpactAt:0};
+  function ensureVehicleDamageStateV704(){
+    state.vehicles=state.vehicles||{lastUsedId:'',parked:{}};state.vehicles.partDurability=state.vehicles.partDurability||{};state.vehicles.broken=state.vehicles.broken||{};state.vehicles.damageHistory=Array.isArray(state.vehicles.damageHistory)?state.vehicles.damageHistory:[];return state.vehicles;
+  }
+  function vehicleIdV704(vehicle=currentVehicleRef?.()){return String(vehicle?.id||player.car.id||'');}
+  function vehicleDurabilityV704(vehicle=currentVehicleRef?.()){ensureVehicleDamageStateV704();const id=vehicleIdV704(vehicle);if(!id)return 100;const value=Number(state.vehicles.partDurability[id]);return Number.isFinite(value)?clamp(value,0,100):100;}
+  function vehicleBrokenV704(vehicle=currentVehicleRef?.()){const id=vehicleIdV704(vehicle);return!!(id&&(vehicleDurabilityV704(vehicle)<=0||state.vehicles.broken[id]));}
+  function vehiclePerformanceV704(vehicle=currentVehicleRef?.()){const d=vehicleDurabilityV704(vehicle);if(d<=0)return 0;if(d<20)return .28;if(d<45)return .55;if(d<70)return .78;return 1;}
+  function setVehicleDurabilityV704(vehicle,value,reason='damage'){
+    const id=vehicleIdV704(vehicle);if(!id)return 100;ensureVehicleDamageStateV704();const before=vehicleDurabilityV704(vehicle),after=clamp(Math.round(Number(value)||0),0,100);state.vehicles.partDurability[id]=after;state.vehicles.broken[id]=after<=0;
+    state.vehicles.damageHistory.push({id,before,after,reason:String(reason).slice(0,32),at:Date.now()});state.vehicles.damageHistory=state.vehicles.damageHistory.slice(-40);
+    if(vehicle?.group&&typeof applyWorldVehicleModulesToGroup==='function')applyWorldVehicleModulesToGroup(vehicle.group,id);if(player.vehicle&&player.car.id===id&&vehicleVisual&&typeof applyWorldVehicleModulesToGroup==='function')applyWorldVehicleModulesToGroup(vehicleVisual,id);
+    return after;
+  }
+  function spawnVehicleDebrisV704(vehicle,severity=1){
+    if(!worldGroup||VEHICLE_DAMAGE_V704.debris.length>=9)return;const heading=Number(player.car.heading||vehicle?.heading||0),count=Math.min(3,Math.max(1,Math.ceil(severity)));
+    for(let i=0;i<count;i++){const mesh=box(.22+Math.random()*.28,.12+Math.random()*.18,.34+Math.random()*.3,i%2?0x283747:0xd1d5db,player.x+(Math.random()-.5)*1.1,.55+Math.random()*.45,player.z+(Math.random()-.5)*1.1);mesh.userData.vehicleDebris=true;VEHICLE_DAMAGE_V704.debris.push({mesh,life:2.6+Math.random(),vx:(Math.random()-.5)*4+Math.sin(heading)*1.5,vy:2+Math.random()*2.2,vz:(Math.random()-.5)*4+Math.cos(heading)*1.5});}
+  }
+  function updateVehicleDebrisV704(dt){for(let i=VEHICLE_DAMAGE_V704.debris.length-1;i>=0;i--){const p=VEHICLE_DAMAGE_V704.debris[i];p.life-=dt;p.vy-=8.5*dt;p.mesh.position.x+=p.vx*dt;p.mesh.position.y=Math.max(.08,p.mesh.position.y+p.vy*dt);p.mesh.position.z+=p.vz*dt;p.mesh.rotation.x+=dt*3;p.mesh.rotation.z+=dt*2.2;if(p.mesh.position.y<=.08){p.vx*=.82;p.vz*=.82;p.vy=0;}if(p.life<=0){worldGroup.remove(p.mesh);if(typeof disposeDetachedVisual==='function')disposeDetachedVisual(p.mesh);VEHICLE_DAMAGE_V704.debris.splice(i,1);}}}
+  function applyVehicleImpactDamageV704(vehicle,impactSpeed,baseline=null){
+    const speed=Math.abs(Number(impactSpeed||0));if(speed<1.2)return vehicleDurabilityV704(vehicle);const before=Number.isFinite(Number(baseline))?clamp(Number(baseline),0,100):vehicleDurabilityV704(vehicle),damage=speed<4?4:speed<8?10:speed<12?20:speed<16?35:before,after=setVehicleDurabilityV704(vehicle,before-damage,speed>=16?'destructive-impact':speed>=12?'strong-impact':'impact');
+    if(speed>=8)spawnVehicleDebrisV704(vehicle,damage/12);if(after<=0){player.car.speed=0;player.vx=0;player.vz=0;player.car.broken=true;if(typeof stopEngineSound==='function')stopEngineSound();vibrate([70,60,90]);toast('O veículo quebrou. Ele não pode continuar: repare ou solicite reboque.','warn',3600);setTimeout(()=>{const active=typeof currentVehicleRef==='function'?currentVehicleRef():vehicle;if(player.vehicle&&vehicleBrokenV704(active))openBrokenVehicleOptionsV704(active);},650);}else if(after<25)toast(`Veículo muito danificado: ${after}% de integridade. Procure a oficina.`,'warn',2800);else toast(`Batida: integridade ${after}%.`,'warn',1300);saveState(true);return after;
+  }
+  function nearestRepairableVehicleV704(){let best=null,dist=Infinity;for(const v of world.vehicles||[]){const x=v===currentVehicleRef?.()?player.x:Number(v.group?.position?.x??v.x),z=v===currentVehicleRef?.()?player.z:Number(v.group?.position?.z??v.z),d=Math.hypot(player.x-x,player.z-z);if(d<dist){dist=d;best=v;}}return best;}
+  function repairVehicleV704(idOrVehicle,vehicleMaybe=null){
+    const vehicle=typeof idOrVehicle==='object'?idOrVehicle:(vehicleMaybe||vehicleById?.(String(idOrVehicle))),id=typeof idOrVehicle==='string'?idOrVehicle:vehicle?.id;if(!id)return false;ensureVehicleDamageStateV704();const current=vehicleDurabilityV704(vehicle||{id});if(current>=100){toast('Este veículo já está em perfeito estado.','good');return true;}
+    const missing=100-current,coins=Math.max(8,Math.ceil(missing*.42)),stone=Math.max(1,Math.ceil(missing/35)),wood=Math.max(1,Math.ceil(missing/50));if(state.profile.coins<coins||(state.inventory.stone||0)<stone||(state.inventory.wood||0)<wood){toast(`Reparo exige ${coins} moedas, ${stone} pedra(s) e ${wood} madeira(s).`,'warn',3000);return false;}
+    addCoins(-coins);state.inventory.stone-=stone;state.inventory.wood-=wood;setVehicleDurabilityV704(vehicle||{id},100,'repair');state.vehicles.broken[id]=false;if(player.car.id===id)player.car.broken=false;saveState(true);updateHUD();toast('Veículo reparado e liberado para dirigir.','good',2200);return true;
+  }
+  function towVehicleToWorkshopV704(vehicle=nearestRepairableVehicleV704()){
+    if(!vehicle){toast('Nenhum veículo encontrado para rebocar.','warn');return false;}const cost=20;if(state.profile.coins<cost){toast(`O reboque custa ${cost} moedas.`,'warn');return false;}if(player.vehicle&&currentVehicleRef?.()===vehicle)exitVehicle(true);addCoins(-cost);const w=worldLayoutPoint('workshop');vehicle.group.position.set(w.x+7,groundHeightAt(w.x+7,w.z),w.z-1);vehicle.group.rotation.y=Math.PI/2;vehicle.x=w.x+7;vehicle.z=w.z-1;vehicle.heading=Math.PI/2;persistParkedVehicle(vehicle);saveState(true);toast('Veículo rebocado para a oficina. Use a bancada para reparar.','good',2400);return true;
+  }
+  function openBrokenVehicleOptionsV704(vehicle){const d=vehicleDurabilityV704(vehicle);openModal('Veículo quebrado',`<p><b>${escapeHtml(vehicle?.label||'Veículo')}</b> está com ${d}% de integridade e não pode continuar.</p><div class="modal-actions"><button class="btn primary" data-v704-tow>🚚 Rebocar para oficina • 20 moedas</button><button class="btn good" data-v704-repair>🛠 Reparar agora</button></div>`,root=>{$('[data-v704-tow]',root).onclick=()=>{if(towVehicleToWorkshopV704(vehicle))closeModal();};$('[data-v704-repair]',root).onclick=()=>{if(repairVehicleV704(vehicle)){closeModal();}};});}
+  const legacyEnterVehicleV704=enterVehicle;
+  enterVehicle=function enterVehicleDamageV704(vehicle=world.vehicle){if(vehicleBrokenV704(vehicle)){openBrokenVehicleOptionsV704(vehicle);return false;}const ok=legacyEnterVehicleV704(vehicle);if(ok)player.car.broken=false;return ok;};
+  const legacyRegisterVehicleImpactV704=registerVehicleImpact;
+  registerVehicleImpact=function registerVehicleImpactDamageV704(){const now=performance.now(),vehicle=typeof currentVehicleRef==='function'?currentVehicleRef():null,impact=Math.abs(Number(player.car.speed||Math.hypot(player.vx,player.vz)||0)),baseline=vehicleDurabilityV704(vehicle);if(now-VEHICLE_DAMAGE_V704.lastImpactAt<420){player.car.speed*=.08;player.vx*=.1;player.vz*=.1;return;}VEHICLE_DAMAGE_V704.lastImpactAt=now;legacyRegisterVehicleImpactV704();applyVehicleImpactDamageV704(vehicle,impact,baseline);};
+  const legacyUpdateVehiclePhysicsV704=updateVehiclePhysics;
+  updateVehiclePhysics=function updateVehiclePhysicsDamageV704(dt,ix,iz){const vehicle=currentVehicleRef?.();if(vehicleBrokenV704(vehicle)){player.car.broken=true;player.car.speed=0;player.vx=0;player.vz=0;updateMobilityControlLabels();return;}legacyUpdateVehiclePhysicsV704(dt,ix,iz);const factor=vehiclePerformanceV704(vehicle),limit=(player.car.kind==='kart'?18:23.5)*factor;player.car.speed=clamp(player.car.speed,-Math.max(3,8.5*factor),limit);if(factor<1){player.vx*=.72+.28*factor;player.vz*=.72+.28*factor;}};
+  const legacyUpdateVehicleFXV704=updateVehicleFX;
+  updateVehicleFX=function updateVehicleFXDamageV704(dt){legacyUpdateVehicleFXV704(dt);updateVehicleDebrisV704(dt);if(player.vehicle&&!player.car.passengerOf&&els.vehicleBadge){const d=vehicleDurabilityV704();els.vehicleBadge.textContent+=` • Integridade ${d}%${d<=0?' • QUEBRADO':d<25?' • CRÍTICO':''}`;}};
+  const legacyOpenWorldModularGarageV704=typeof openWorldModularGarage==='function'?openWorldModularGarage:null;
+  if(legacyOpenWorldModularGarageV704){openWorldModularGarage=function openWorldModularGarageV704(vehicleId=''){legacyOpenWorldModularGarageV704(vehicleId);};}
+  function createVehicleRepairStationV704(){if(world?.interactables?.some(item=>item.id==='vehicle-repair-v704'))return;const w=worldLayoutPoint('workshop');registerInteractable({id:'vehicle-repair-v704',type:'repair',icon:'🛠️',label:'Oficina — reparar ou montar veículo',x:w.x,z:w.z+4.8,radius:2.7,priority:235,action:()=>{const vehicle=nearestRepairableVehicleV704();if(vehicle&&vehicleDurabilityV704(vehicle)<100){openBrokenVehicleOptionsV704(vehicle);}else if(typeof openWorldModularGarage==='function')openWorldModularGarage(vehicle?.id||'');}});}
+  const legacyCreateWorldModularGarageInteractableV704=typeof createWorldModularGarageInteractable==='function'?createWorldModularGarageInteractable:null;
+  if(legacyCreateWorldModularGarageInteractableV704){createWorldModularGarageInteractable=function createWorldModularGarageInteractableV704(){const ok=legacyCreateWorldModularGarageInteractableV704();createVehicleRepairStationV704();return ok;};}
+  window.OTTHI_VEHICLE_DAMAGE_V704={durability:vehicleDurabilityV704,broken:vehicleBrokenV704,damage:applyVehicleImpactDamageV704,repair:repairVehicleV704,tow:towVehicleToWorkshopV704,diagnostics:()=>({debris:VEHICLE_DAMAGE_V704.debris.length,currentId:vehicleIdV704(),durability:vehicleDurabilityV704(),broken:vehicleBrokenV704()})};
 
   // ===== MODULE: 37-hero-platform-gameplay.js =====
   const OTTHI_WORLD_HERO_POWERS=Object.freeze({
@@ -6306,7 +6696,7 @@
   };
   function bootstrapOtthiWorldShell(){
     ensureOtthiWorldState();injectOtthiWorldButtons();ensureWorldHeroHud();if(els.avatarBtn)els.avatarBtn.onclick=openAvatarStudio;
-    document.documentElement.dataset.otthiWorld='702';document.body.classList.add('otthi-world-shell');
+    document.documentElement.dataset.otthiWorld='704';document.body.classList.add('otthi-world-shell');
   }
   bootstrapOtthiWorldShell();
   dbReady.then(()=>{ensureOtthiWorldState();bootstrapOtthiWorldShell();updateWorldHeroHud();}).catch(()=>{});
@@ -6468,7 +6858,7 @@
   window.OTTHI_GM_PANEL=Object.freeze({openAccess:openGMAccessGate,close:closeGMPanel,refresh:gmRefreshPanel,queueGrant:queueGMGrant,state:()=>({users:gmUsers.length,selectedUid:gmSelectedUid,open:!!gmPanel&&!gmPanel.hidden})});
 
   // ===== MODULE: 40-world-evolution-v702.js =====
-  const OTTHI_WORLD_EVOLUTION_VERSION=702;
+  const OTTHI_WORLD_EVOLUTION_VERSION=704;
   const WORLD_V702={initialized:false,terrain:null,waterLayers:[],farmPlots:new Map(),digSites:new Map(),citizens:[],cameraButtonsReady:false,waterTime:0};
   const FARM_GROW_MS=90000; // 90 segundos por ciclo completo, persistente
   const V702_DIG_COOLDOWN=22000;
@@ -6484,9 +6874,9 @@
 
   function professionalTerrainHeightAt(x,z){
     if(!Number.isFinite(x)||!Number.isFinite(z))return 0;
-    // Montanha nordeste: começa depois do castelo e cresce de forma suave.
-    const nx=(x-91)/24,nz=(z-98)/24,r=Math.hypot(nx,nz);let mountain=0;
-    if(r<1.12&&z>77){const dome=Math.pow(Math.max(0,1-r/1.12),1.55)*15.5;const ridges=(Math.sin(x*.22)+Math.cos(z*.18))*1.05*Math.max(0,1-r);mountain=Math.max(0,dome+ridges);}
+    // Montanha noroeste: zona própria, longe de ruas, estádio, castelo e construções.
+    const mountainPoint=worldLayoutPoint('mountain',{x:-88,z:104}),nx=(x-mountainPoint.x)/24,nz=(z-mountainPoint.z)/20,r=Math.hypot(nx,nz);let mountain=0;
+    if(r<1.12&&z>82){const dome=Math.pow(Math.max(0,1-r/1.12),1.55)*15.5;const ridges=(Math.sin(x*.22)+Math.cos(z*.18))*1.05*Math.max(0,1-r);mountain=Math.max(0,dome+ridges);}
     // Colinas do deserto, baixas o suficiente para não cobrir prédios ou vias.
     let dune=0;if(x>70&&z>-61&&z<-24){const a=Math.max(0,1-Math.hypot((x-91)/25,(z+42)/20));dune=Math.max(0,Math.sin((x+z)*.12)*.45+.55)*a*2.1;}
     return Math.max(0,mountain,dune);
@@ -6504,20 +6894,20 @@
   }
   function terrainVertexColor(height,kind){if(kind==='mountain')return new THREE.Color(height>9?0xd5d8cf:height>4?0x75825f:0x5d9949);return new THREE.Color(0xd9ae5f);}
   function createMountainTerrain(){
-    const geometry=new THREE.PlaneGeometry(54,48,36,32);geometry.rotateX(-Math.PI/2);const position=geometry.attributes.position,colors=[];
-    for(let i=0;i<position.count;i++){const wx=91+position.getX(i),wz=98+position.getZ(i),h=professionalTerrainHeightAt(wx,wz);position.setY(i,h-.02);const c=terrainVertexColor(h,'mountain');colors.push(c.r,c.g,c.b);}
+    const mountainPoint=worldLayoutPoint('mountain',{x:-88,z:104}),geometry=new THREE.PlaneGeometry(50,36,34,26);geometry.rotateX(-Math.PI/2);const position=geometry.attributes.position,colors=[];
+    for(let i=0;i<position.count;i++){const wx=mountainPoint.x+position.getX(i),wz=mountainPoint.z+position.getZ(i),h=professionalTerrainHeightAt(wx,wz);position.setY(i,h-.02);const c=terrainVertexColor(h,'mountain');colors.push(c.r,c.g,c.b);}
     geometry.setAttribute('color',new THREE.Float32BufferAttribute(colors,3));geometry.computeVertexNormals();geometry.computeBoundingSphere();
     const material=v702TextureMaterial('cliff',0xffffff,{repeat:[10,9],roughness:.92,normalScale:.65});material.vertexColors=true;
-    const mesh=new THREE.Mesh(geometry,material);mesh.position.set(91,0,98);mesh.receiveShadow=true;mesh.castShadow=qualityTier()==='high'&&!perf.mobile;mesh.name='OTTHI_V702_MOUNTAIN';worldGroup.add(mesh);
-    for(const [x,z]of[[82,86],[88,92],[96,101],[102,108]]){const tree=createTree(x,z,.72,false);tree.position.y=professionalTerrainHeightAt(x,z);}
-    createSignpost(73,82,'Montanha OTTHI',Math.PI/2);
+    const mesh=new THREE.Mesh(geometry,material);mesh.position.set(mountainPoint.x,0,mountainPoint.z);mesh.receiveShadow=true;mesh.castShadow=qualityTier()==='high'&&!perf.mobile;mesh.name='OTTHI_V702_MOUNTAIN';worldGroup.add(mesh);
+    for(const [x,z]of[[-104,92],[-96,100],[-86,108],[-74,112]]){const tree=createTree(x,z,.72,false);tree.position.y=professionalTerrainHeightAt(x,z);}
+    const entrance=worldLayoutPoint('mountainEntrance');createSignpost(entrance.x,entrance.z,'Montanha OTTHI',-Math.PI/2);
     world.worldEvolution.mountain=mesh;return mesh;
   }
   function createDesertBiome(){
     const matSand=v702TextureMaterial('sand',0xe3ba6c,{repeat:[12,9],roughness:.95,normalScale:.48}),group=new THREE.Group();group.name='OTTHI_V702_DESERT';worldGroup.add(group);
-    const patch=new THREE.Mesh(new THREE.BoxGeometry(48,.08,36),matSand);patch.position.set(91,.01,-42);patch.receiveShadow=true;group.add(patch);
+    const patch=new THREE.Mesh(new THREE.BoxGeometry(40,.08,34),matSand);patch.position.set(94,.01,-42);patch.receiveShadow=true;group.add(patch);
     const duneMat=v702TextureMaterial('sand',0xe9c579,{repeat:[3,3],roughness:.96,normalScale:.32});
-    for(const [x,z,s]of[[78,-34,1],[87,-50,1.2],[101,-38,.9],[107,-52,1.1]]){const dune=new THREE.Mesh(new THREE.SphereGeometry(3.6*s,14,8,0,Math.PI*2,0,Math.PI/2),duneMat);dune.scale.y=.38;dune.position.set(x,.05,z);dune.receiveShadow=true;group.add(dune);}
+    for(const [x,z,s]of[[80,-34,1],[89,-50,1.2],[100,-38,.9],[108,-52,1.1]]){const dune=new THREE.Mesh(new THREE.SphereGeometry(3.6*s,14,8,0,Math.PI*2,0,Math.PI/2),duneMat);dune.scale.y=.38;dune.position.set(x,.05,z);dune.receiveShadow=true;group.add(dune);}
     createSignpost(72,-24,'Deserto dos Brinquedos',Math.PI/2);world.worldEvolution.desert=group;return group;
   }
   function createLakeDepthLayers(){
@@ -6540,13 +6930,13 @@
     }else{toast('A plantação ainda está crescendo.','warn',1400);return;}saveState(true);updateHUD();updateFarmPlotVisual(plot);}
   function createFarmingSystem(){
     if(world.worldEvolution?.farming)return false;const group=new THREE.Group();group.name='OTTHI_V702_FARM';worldGroup.add(group);const empty=v702TextureMaterial('farmland',0x79502e,{repeat:[2,2],roughness:.96,normalScale:.52}),wet=v702TextureMaterial('mud',0x543522,{repeat:[2,2],roughness:.88,normalScale:.48});
-    const positions=[];for(let x=42;x<=62;x+=4)for(let z=27;z<=39;z+=4)positions.push([x,z]);
+    const farmPoint=worldLayoutPoint('farm',{x:98,z:25}),positions=[];for(let x=farmPoint.x-8;x<=farmPoint.x+8;x+=4)for(let z=farmPoint.z-6;z<=farmPoint.z+6;z+=4)positions.push([x,z]);
     positions.forEach(([x,z],index)=>{const id=`farm-${index}`,soil=new THREE.Mesh(new THREE.BoxGeometry(3.25,.12,3.25),empty);soil.position.set(x,.13,z);soil.receiveShadow=true;group.add(soil);const crop=new THREE.Group();crop.position.set(x,.2,z);group.add(crop);for(const dx of[-.72,-.24,.24,.72])for(const dz of[-.72,0,.72]){premiumBox(.07,.72,.07,0x4b9f3e,dx,.36,dz,crop);premiumBox(.25,.19,.25,(index+Math.round(dx*10))%2?0xf0c84c:0x6fc44e,dx,.76,dz,crop);}const interactable={id:`farm-plot-${id}`,type:'farm',icon:'🌱',label:'Preparar e plantar',x,z,radius:2.25,priority:178,action:null};const plot={id,x,z,soil,crop,interactable,soilMaterials:{empty,wet}};interactable.action=()=>useFarmPlot(plot);registerInteractable(interactable);WORLD_V702.farmPlots.set(id,plot);updateFarmPlotVisual(plot);});
-    createSignpost(52,23,'Fazenda Comunitária',Math.PI);world.worldEvolution.farming=group;return true;
+    createSignpost(farmPoint.x,farmPoint.z-10,'Fazenda Comunitária',Math.PI);world.worldEvolution.farming=group;return true;
   }
   function useDigSite(site){ensureWorldEvolutionState();if(!['hoe','shovel','pickaxe'].includes(state.tools.equipped)){toast('Equipe Enxada, Pá ou Picareta para cavar.','warn',1900);return;}const previous=Number(state.farming.digSites[site.id]||0),remaining=V702_DIG_COOLDOWN-(Date.now()-previous);if(remaining>0){toast(`A terra precisa descansar por ${Math.ceil(remaining/1000)} s.`,'warn',1300);return;}state.farming.digSites[site.id]=Date.now();playToolAnimation();const bait=1+Math.floor(Math.random()*3),seeds=Math.random()<.46?1:0,clay=site.biome==='shore'||site.biome==='farm'?(Math.random()<.55?1:0):0;state.inventory.bait=(state.inventory.bait||0)+bait;state.inventory.seeds=(state.inventory.seeds||0)+seeds;state.inventory.clay=(state.inventory.clay||0)+clay;state.tools.harvested.bait=(state.tools.harvested.bait||0)+bait;state.tools.harvested.clay=(state.tools.harvested.clay||0)+clay;state.stats.dugBait=(state.stats.dugBait||0)+bait;addXP(7+bait*2);saveState(true);updateHUD();toast(`Escavação: +${bait} isca${bait>1?'s':''}${seeds?`, +${seeds} semente`:''}${clay?', +1 argila':''}.`,'good',2200);}
   function createDigSites(){
-    if(world.worldEvolution?.digSites)return false;const sites=[[-47,-45,'forest'],[-62,-34,'forest'],[40,29,'farm'],[63,38,'farm'],[-55,43,'shore'],[-91,76,'shore'],[81,-36,'desert'],[104,-48,'desert']];
+    if(world.worldEvolution?.digSites)return false;const farm=worldLayoutPoint('farm'),sites=[[-47,-45,'forest'],[-62,-34,'forest'],[farm.x-7,farm.z-5,'farm'],[farm.x+7,farm.z+5,'farm'],[-55,43,'shore'],[-91,76,'shore'],[81,-36,'desert'],[104,-48,'desert']];
     for(const [x,z,biome]of sites){const id=`dig-${biome}-${x}-${z}`,mat=v702TextureMaterial(biome==='desert'?'sand':biome==='shore'?'shore':'dirt',biome==='desert'?0xdcb266:0x795333,{repeat:[2,2],roughness:.95});const patch=new THREE.Mesh(new THREE.CylinderGeometry(1.35,1.55,.08,16),mat);patch.position.set(x,groundHeightAt(x,z)+.05,z);worldGroup.add(patch);const site={id,x,z,biome,mesh:patch};WORLD_V702.digSites.set(id,site);registerInteractable({id,type:'dig',icon:'🪱',label:'Cavar por iscas e recursos',x,z,radius:2.35,priority:165,action:()=>useDigSite(site)});}
     world.worldEvolution.digSites=true;return true;
   }
@@ -6559,7 +6949,7 @@
     npc.theme=theme;return npc;
   }
   function createThemedCitizens(){
-    if(world.worldEvolution?.citizens)return false;const specs=[['nox','Nox',-8,-28,0x25365f,'shadow',3.2],['arani','Arani',16,-34,0xd9454d,'web',3.2],['tico','Tico',38,34,0xe44739,'adventure',2.8],['plim','Plim',82,-39,0xf0c743,'toy',3],['byte','Byte',76,86,0x45b7da,'block',2.8],['flora','Flora',-46,44,0x6bbf55,'toy',3.2]];
+    if(world.worldEvolution?.citizens)return false;const specs=[['nox','Nox',-8,-28,0x25365f,'shadow',3.2],['arani','Arani',16,-34,0xd9454d,'web',3.2],['tico','Tico',38,34,0xe44739,'adventure',2.8],['plim','Plim',82,-39,0xf0c743,'toy',3],['byte','Byte',82,70,0x45b7da,'block',2.8],['flora','Flora',-46,44,0x6bbf55,'toy',3.2]];
     for(const [id,name,x,z,color,theme,radius]of specs){if(world.npcs.some(n=>n.id===id))continue;const npc=decorateThemedCitizen(createNPC(id,name,x,z,color,radius),theme);WORLD_V702.citizens.push(npc);}world.worldEvolution.citizens=true;return true;
   }
   function createCameraPitchButtons(){
@@ -6568,7 +6958,7 @@
     up.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();change(.18);},{passive:false});down.addEventListener('pointerdown',e=>{e.preventDefault();e.stopPropagation();change(-.18);},{passive:false});WORLD_V702.cameraButtonsReady=true;
   }
   function initializeWorldEvolution(){
-    if(WORLD_V702.initialized||!worldGroup)return false;ensureWorldEvolutionState();createV702GroundRecovery();world.worldEvolution=world.worldEvolution||{};createDesertBiome();createMountainTerrain();createLakeDepthLayers();createFarmingSystem();createDigSites();createThemedCitizens();createCameraPitchButtons();WORLD_V702.initialized=true;document.documentElement.dataset.otthiWorld='702';document.body.classList.add('otthi-v702-world');return true;
+    if(WORLD_V702.initialized||!worldGroup)return false;ensureWorldEvolutionState();createV702GroundRecovery();world.worldEvolution=world.worldEvolution||{};createDesertBiome();createMountainTerrain();createLakeDepthLayers();createFarmingSystem();createDigSites();createThemedCitizens();createCameraPitchButtons();WORLD_V702.initialized=true;document.documentElement.dataset.otthiWorld='704';document.body.classList.add('otthi-v702-world','otthi-v704-world');setTimeout(()=>{try{world.layoutAuditRuntime=v704RuntimeWorldAudit();}catch(error){console.error('[OTTHI V704] falha na auditoria runtime',error);}},900);return true;
   }
   function updateWorldEvolution(dt){
     if(!WORLD_V702.initialized)return;WORLD_V702.waterTime+=dt;for(const layer of WORLD_V702.waterLayers){if(layer.material?.normalMap){layer.material.normalMap.offset.x=(layer.material.normalMap.offset.x+dt*.012)%1;layer.material.normalMap.offset.y=(layer.material.normalMap.offset.y+dt*.007)%1;}layer.position.y=.105+Math.sin(WORLD_V702.waterTime*1.45+layer.position.x*.01)*.018;}
@@ -6577,7 +6967,7 @@
   const legacyV702InitThree=initThree;initThree=function initThreeV702(){const ok=legacyV702InitThree();if(ok)try{initializeWorldEvolution();}catch(error){console.error('[OTTHI V702] evolução em fallback',error);toast('O mundo principal foi preservado; uma melhoria visual iniciou em fallback.','warn',2600);}return ok;};
   const legacyV702Environment=updateOtthiWorldEnvironment;updateOtthiWorldEnvironment=function updateOtthiWorldEnvironmentV702(dt){legacyV702Environment(dt);updateWorldEvolution(dt);};
   createCameraPitchButtons();dbReady.then(()=>{ensureWorldEvolutionState();createCameraPitchButtons();}).catch(()=>{});
-  window.OTTHI_WORLD_V702={state:()=>ensureWorldEvolutionState(),initialize:initializeWorldEvolution,terrainHeight:professionalTerrainHeightAt,farm:()=>[...WORLD_V702.farmPlots.values()].map(p=>({id:p.id,...farmPlotRecord(p.id)})),dig:()=>[...WORLD_V702.digSites.keys()],citizens:()=>WORLD_V702.citizens.map(n=>({id:n.id,name:n.name,theme:n.theme})),diagnostics:()=>({version:702,initialized:WORLD_V702.initialized,swimming:!!player.swimming,farmPlots:WORLD_V702.farmPlots.size,digSites:WORLD_V702.digSites.size,citizens:WORLD_V702.citizens.length,waterLayers:WORLD_V702.waterLayers.length})};
+  window.OTTHI_WORLD_V702={state:()=>ensureWorldEvolutionState(),initialize:initializeWorldEvolution,terrainHeight:professionalTerrainHeightAt,farm:()=>[...WORLD_V702.farmPlots.values()].map(p=>({id:p.id,...farmPlotRecord(p.id)})),dig:()=>[...WORLD_V702.digSites.keys()],citizens:()=>WORLD_V702.citizens.map(n=>({id:n.id,name:n.name,theme:n.theme})),diagnostics:()=>({version:704,initialized:WORLD_V702.initialized,swimming:!!player.swimming,farmPlots:WORLD_V702.farmPlots.size,digSites:WORLD_V702.digSites.size,citizens:WORLD_V702.citizens.length,waterLayers:WORLD_V702.waterLayers.length})};
   if(window.OTTHI_TEST_API)window.OTTHI_TEST_API.worldEvolution=window.OTTHI_WORLD_V702;
 
 })();

@@ -196,7 +196,7 @@ async function testWorkerUsesCacheFor503() {
     cache,
   );
   const networkFirst = vm.runInContext('networkFirst', runtime);
-  const response = await networkFirst(new Request('https://example.test/app.js?v=7030'), false);
+  const response = await networkFirst(new Request('https://example.test/app.js?v=7040'), false);
   assert.equal(await response.text(), 'cached-app');
   assert.ok(cacheReads > 0, 'o fallback precisa consultar o cache');
 }
@@ -206,8 +206,8 @@ async function testFailedInstallKeepsPreviousRevision() {
   const revision = source.match(/const REVISION = '([a-f0-9]+)'/)?.[1];
   assert.ok(revision, 'a revisão imutável deve ser gerada antes do teste');
   const manifest = {
-    version: 703,
-    build: '703.0-recovery-functional-world',
+    version: 704,
+    build: '704.0-world-reconstruction-complete',
     revision,
     algorithm: 'SHA-256',
     files: {},
@@ -229,7 +229,7 @@ async function testFailedInstallKeepsPreviousRevision() {
   listeners.install({ waitUntil(promise) { installPromise = promise; } });
   await assert.rejects(installPromise);
   assert.ok(fetchCount >= 2);
-  assert.ok(deletedCaches.includes(`otthi-v7030-${revision}`));
+  assert.ok(deletedCaches.includes(`otthi-v7040-${revision}`));
   assert.ok(!deletedCaches.includes('otthi-v645-stable'));
 }
 
@@ -241,8 +241,8 @@ function testRevisionCoherence() {
   const workerRevision = sw.match(/const REVISION = '([a-f0-9]+)'/)?.[1];
   assert.equal(indexRevision, release.revision);
   assert.equal(workerRevision, release.revision);
-  assert.ok(sw.includes('const CACHE = `otthi-v7030-${REVISION}`'));
-  assert.ok(index.includes('./assets/vendor/three-r128.min.js?v=7030'));
+  assert.ok(sw.includes('const CACHE = `otthi-v7040-${REVISION}`'));
+  assert.ok(index.includes('./assets/vendor/three-r128.min.js?v=7040'));
   assert.ok(!index.includes('cdnjs.cloudflare.com/ajax/libs/three.js'));
 }
 
@@ -251,7 +251,7 @@ function testRevisionCoherence() {
   await testWorkerUsesCacheFor503();
   await testFailedInstallKeepsPreviousRevision();
   testRevisionCoherence();
-  console.log('V703 runtime: slots reais, fallback 503, instalação incompleta e revisão coerente aprovados.');
+  console.log('V704 runtime: slots reais, fallback 503, instalação incompleta e revisão coerente aprovados.');
 })().catch(error => {
   console.error(error);
   process.exitCode = 1;

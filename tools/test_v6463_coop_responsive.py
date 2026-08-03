@@ -66,11 +66,13 @@ class CoopResponsiveTests(unittest.TestCase):
             'counterSet:0','resetCoopMissionNpcs','coopMissionHash','resolveCoopMissionScene'
         ]:
             self.assertIn(token, source)
-        world = text('src/modules/13-houses-npcs-vehicles-base.js')
-        self.assertIn('createAthleticsGym', world)
-        self.assertIn('Math.PI*2', world)
-        self.assertIn('Ginásio oval', world)
-        self.assertIn('OTTHI ARENA • 3 VOLTAS', world)
+        legacy = text('src/modules/13-houses-npcs-vehicles-base.js')
+        sports = text('src/modules/13a-sports-kart-v704.js')
+        self.assertIn('createAthleticsGym', legacy)
+        self.assertIn('createSportsComplexV704', legacy)
+        self.assertIn('Math.PI*2', sports)
+        self.assertIn('Atletismo — corridas e voltas', sports)
+        self.assertIn('OTTHI ARENA', sports)
 
     def test_uniform_and_build_order_are_complete(self):
         avatar = text('src/modules/11-render-materials-player-model.js')

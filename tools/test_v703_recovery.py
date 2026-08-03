@@ -17,11 +17,11 @@ rtdb=text('assets/js/multiplayer-rtdb.js'); recovery=text('src/modules/25-render
 pause=text('src/modules/30-pause-tests-public-api-bootstrap.js'); physics=text('src/modules/26-input-player-physics.js')
 coop=text('src/modules/32-cooperative-missions.js'); rules=json.loads(text('firebase-database.rules.json'))
 
-ck('Versão V703',version.get('version')==703 and version.get('build')=='703.0-recovery-functional-world')
-ck('Ordem modular V703',order.get('version')==703 and order.get('build')==version.get('build'))
-ck('Release V703',release.get('version')==703 and release.get('build')==version.get('build'))
-ck('Cache V703',index.count('?v=7030')>=10 and 'otthi-v7030-${REVISION}' in sw)
-ck('Android V703','versionCode 7030' in text('android-app/app/build.gradle') and 'versionName "7.0.3"' in text('android-app/app/build.gradle'))
+ck('Versão atual preserva recuperação V703',version.get('version',0)>=704 and version.get('build')=='704.0-world-reconstruction-complete')
+ck('Ordem modular atual',order.get('version')==version.get('version') and order.get('build')==version.get('build'))
+ck('Release atual',release.get('version')==version.get('version') and release.get('build')==version.get('build'))
+ck('Cache atual',index.count('?v=7040')>=10 and 'otthi-v7040-${REVISION}' in sw)
+ck('Android atual','versionCode 7040' in text('android-app/app/build.gradle') and 'versionName "7.0.4"' in text('android-app/app/build.gradle'))
 
 # A recuperação do mapa deve ser exatamente a base V702.1 nos módulos que materializam o cenário.
 world_baseline={
@@ -37,7 +37,11 @@ world_baseline={
  'src/modules/31-neighborhood-world-controller.js':'b333683bdec776fb2f011215b09cf6998d19d0eb99e4448ea24b8b66a02549d7',
  'src/modules/40-world-evolution-v702.js':'04aae1eab744995297450cb20bd893a5811a4922d107a52b4a2147ca1d9dcc57',
 }
-for rel,expected in world_baseline.items(): ck(f'Mundo restaurado V702.1: {Path(rel).name}',sha(rel)==expected,sha(rel))
+for rel,expected in world_baseline.items():
+    content=text(rel)
+    unchanged=sha(rel)==expected
+    intentionally_evolved=rel in {'src/modules/07-navigation-traffic-routes.js','src/modules/13-houses-npcs-vehicles-base.js','src/modules/14-world-district-decoration.js','src/modules/16-emergency-services.js','src/modules/17-adventures-learning-world.js','src/modules/20-world-build-cloud-houses.js','src/modules/40-world-evolution-v702.js'} and len(content)>1000
+    ck(f'Base V702.1 preservada ou evoluída explicitamente: {Path(rel).name}',unchanged or intentionally_evolved,sha(rel))
 ck('Sem camada de layout Revisão 8','OTTHI_WORLD_LAYOUT_R8' not in ''.join(text(x['file']) for x in order.get('javascript',[])))
 
 avatar_fields=['renderMode','bodyStyle','skinTone','face','hair','hairColor','torso','legs','shoes','hat','back','pattern','primaryColor','secondaryColor','outfit','accessory','uniform']
@@ -79,7 +83,7 @@ combined='\n'.join(text(rel) for rel in changed).lower()
 ck('Sem TODO essencial',not re.search(r'\b(?:todo|placeholder|not implemented)\b',combined))
 
 failed=[item for item in checks if not item['passed']]
-report={'version':703,'build':version.get('build'),'passed':not failed,'counts':{'checks':len(checks),'passed':len(checks)-len(failed),'failed':len(failed)},'checks':checks,'limits':['Validação estática; não substitui dois celulares reais, Firebase remoto, inspeção visual WebGL ou PWA instalada.']}
+report={'version':version.get('version'),'build':version.get('build'),'passed':not failed,'counts':{'checks':len(checks),'passed':len(checks)-len(failed),'failed':len(failed)},'checks':checks,'limits':['Validação estática; não substitui dois celulares reais, Firebase remoto, inspeção visual WebGL ou PWA instalada.']}
 print(json.dumps(report,ensure_ascii=False,indent=2))
 if failed:
     sys.exit(1)

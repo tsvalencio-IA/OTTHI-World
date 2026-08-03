@@ -41,7 +41,12 @@ add('CSS GM permanece no build',any(x.get('file')=='src/styles/17-gm-admin-panel
 baseline=json.loads(text('docs/BASELINE-V6466-VISUAL-FOUNDATION.json'))
 functions=re.findall(r'^  (?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(',app,re.M)
 base=baseline['orderedFunctions']
-add('Todas as funções-base permanecem na ordem relativa',ordered_subsequence(base,functions),f'{len(base)} base / {len(functions)} atuais')
+coop_source=text('src/modules/32-cooperative-missions.js')
+coop_functions=set(re.findall(r'^  (?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(',coop_source,re.M))
+base_without_relocated_coop=[name for name in base if name not in coop_functions]
+functions_without_relocated_coop=[name for name in functions if name not in coop_functions]
+add('Funções-base fora do módulo cooperativo permanecem na ordem relativa',ordered_subsequence(base_without_relocated_coop,functions_without_relocated_coop),f'{len(base_without_relocated_coop)} base / {len(functions_without_relocated_coop)} atuais')
+add('Módulo cooperativo foi somente realocado antes do render',all(name in functions for name in coop_functions) and app.find('// ===== MODULE: 32-cooperative-missions.js =====')<app.find('// ===== MODULE: 25-render-init-resize-position-collision.js ====='),len(coop_functions))
 add('Nenhuma função-base foi removida',set(base).issubset(functions),sorted(set(base)-set(functions))[:10])
 add('Funções ampliadas',len(functions)>=820,len(functions))
 
@@ -52,7 +57,7 @@ critical={
 for rel,expected in critical.items(): add(f'Arquivo crítico preservado: {rel}',sha(rel)==expected,sha(rel))
 add('Mesmo Realtime Database e mesma raiz',"firebaseRoot: 'otthosWorld'" in text('assets/js/core/runtime-config.js') and "ROOT=window.OTTHI_CONFIG?.firebaseRoot||'otthosWorld'" in rtdb)
 add('Save V700 preservado sem reset',"const STORAGE_KEY = 'otthos_life_world_roleplay_v700'" in app and "'otthos_life_world_roleplay_v646'" in app)
-add('Three.js r128 local preservado',f"./assets/vendor/three-r128.min.js?v={version.get('version')}0" in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
+add('Three.js r128 local preservado',f"./assets/vendor/three-r128.min.js?v={version.get('assetVersion',version.get('version')*10)}" in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
 
 packs=assets.get('packs',{})
 channels={'baseColor','normal','roughness','ao','height','emissive'}
@@ -100,9 +105,9 @@ add('Recibo exige concessão real e dono correto',"gmGrants" in receipt_rule and
 add('Recibo aplicado não pode ser reaberto',"data.child('state').val() !== 'applied'" in receipt_rule)
 add('Auditoria é imutável e exclusiva do GM','!data.exists()' in root_rules['gmAudit']['$grantId']['.write'] and 'admins' in root_rules['gmAudit']['$grantId']['.write'])
 
-cache_token=f"?v={version.get('version')}0"
+asset_version=version.get('assetVersion',version.get('version')*10); cache_token=f"?v={asset_version}"
 add('Index versionado na release atual',index.count(cache_token)>=10,index.count(cache_token))
-add('Service Worker na release atual',f"const CACHE = `otthi-v{version.get('version')}0-${{REVISION}}`" in sw and f"const BUILD = '{version.get('build')}';" in sw)
+add('Service Worker na release atual',f"const CACHE = `otthi-v{asset_version}-${{REVISION}}`" in sw and f"const BUILD = '{version.get('build')}';" in sw)
 add('Manifesto PWA preservado',json.loads(text('manifest.webmanifest')).get('name')=='OTTHI World' and cache_token in json.loads(text('manifest.webmanifest')).get('start_url',''))
 gradle=text('android-app/app/build.gradle')
 add('Android na release atual',f"versionCode {version.get('androidVersionCode')}" in gradle and f"versionName \"{version.get('androidVersionName')}\"" in gradle)
