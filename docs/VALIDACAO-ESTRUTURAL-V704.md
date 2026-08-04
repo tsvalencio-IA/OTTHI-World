@@ -1,8 +1,8 @@
-# Validação estrutural automática — OTTHI World V702
+# Validação estrutural automática — OTTHI World V704
 
-- Resultado: **REPROVADO**
-- Verificações: **175 aprovadas / 6 falhas**
-- Funções incluindo async: **870**
+- Resultado: **APROVADO**
+- Verificações: **196 aprovadas / 0 falhas**
+- Funções incluindo async: **936**
 
 ## Verificações
 
@@ -20,6 +20,9 @@
 - [x] Arquivo obrigatório assets/world/pbr-manifest.json
 - [x] Arquivo obrigatório tools/build_project.py
 - [x] Arquivo obrigatório tools/test_v701_gm_panel.py
+- [x] Arquivo obrigatório tools/test_v703_recovery.py
+- [x] Arquivo obrigatório tools/test_v7031_startup_order.py
+- [x] Arquivo obrigatório tools/test_v704_world_reconstruction.py
 - [x] Arquivo obrigatório src/modules/33-otthi-world-professional-core.js
 - [x] Arquivo obrigatório src/modules/34-avatar-studio-professional-v3.js
 - [x] Arquivo obrigatório src/modules/35-world-render-pbr-environment.js
@@ -39,13 +42,13 @@
 - [x] JSON release-manifest.json
 - [x] JSON firebase-database.rules.json
 - [x] JSON assets/world/pbr-manifest.json
-- [x] 42 módulos JavaScript — 42
+- [x] Módulos JavaScript encontrados — 45
 - [x] 19 módulos CSS — 19
 - [x] Manifesto JS completo
 - [x] Manifesto CSS completo
-- [x] Ordem JS corresponde aos arquivos
+- [x] Manifesto JS corresponde exatamente aos arquivos
 - [x] Ordem CSS corresponde aos arquivos
-- [ ] Versão central V702
+- [x] Versão central V704
 - [x] Sintaxe app.js
 - [x] Sintaxe sw.js
 - [x] Sintaxe src/modules/00-runtime-foundation.js
@@ -55,6 +58,7 @@
 - [x] Sintaxe src/modules/03-ui-modal-install-pwa.js
 - [x] Sintaxe src/modules/04-education-daily-quiz.js
 - [x] Sintaxe src/modules/05-avatar-life-customization.js
+- [x] Sintaxe src/modules/05a-world-layout-v704.js
 - [x] Sintaxe src/modules/06-missions-profile-hud-inventory-tools.js
 - [x] Sintaxe src/modules/07-navigation-traffic-routes.js
 - [x] Sintaxe src/modules/08-map-parent-settings.js
@@ -63,6 +67,7 @@
 - [x] Sintaxe src/modules/11-render-materials-player-model.js
 - [x] Sintaxe src/modules/12-world-resources-nature.js
 - [x] Sintaxe src/modules/13-houses-npcs-vehicles-base.js
+- [x] Sintaxe src/modules/13a-sports-kart-v704.js
 - [x] Sintaxe src/modules/14-world-district-decoration.js
 - [x] Sintaxe src/modules/15-transit-bus-metro.js
 - [x] Sintaxe src/modules/16-emergency-services.js
@@ -86,6 +91,7 @@
 - [x] Sintaxe src/modules/34-avatar-studio-professional-v3.js
 - [x] Sintaxe src/modules/35-world-render-pbr-environment.js
 - [x] Sintaxe src/modules/36-modular-build-machines.js
+- [x] Sintaxe src/modules/36a-vehicle-damage-repair-v704.js
 - [x] Sintaxe src/modules/37-hero-platform-gameplay.js
 - [x] Sintaxe src/modules/38-otthi-world-integration-bootstrap.js
 - [x] Sintaxe src/modules/39-gm-admin-panel.js
@@ -257,7 +263,8 @@
     }
   ]
 }
-- [ ] Bairros, mapa e salas —       "name": "Mapa completo mapRegionsMarkup",
+- [x] Bairros, mapa e salas — {
+      "name": "Mapa completo mapRegionsMarkup",
       "passed": true,
       "detail": ""
     },
@@ -398,51 +405,29 @@
     },
     {
       "name": "Versão consolidada no index",
-      "passed": false,
-      "detail": "0"
+      "passed": true,
+      "detail": "16"
     },
     {
       "name": "Runtime consolidado",
-      "passed": false,
+      "passed": true,
       "detail": ""
     },
     {
       "name": "Service Worker consolidado",
-      "passed": false,
+      "passed": true,
       "detail": ""
     }
   ]
 }
-- [x] Slots, PWA e revisão — V702 runtime: slots reais, fallback 503, instalação incompleta e revisão coerente aprovados.
-- [ ] Permissões e botões — node:internal/assert/utils:281
-    throw err;
-    ^
-
-AssertionError [ERR_ASSERTION]: presence: gameplay autenticado
-    at check (/mnt/data/otthi_recovery_work/OTTHI-World-main/tools/test_v6466_permissions_buttons.js:16:10)
-    at Object.<anonymous> (/mnt/data/otthi_recovery_work/OTTHI-World-main/tools/test_v6466_permissions_buttons.js:62:3)
-    at Module._compile (node:internal/modules/cjs/loader:1730:14)
-    at Object..js (node:internal/modules/cjs/loader:1895:10)
-    at Module.load (node:internal/modules/cjs/loader:1465:32)
-    at Function._load (node:internal/modules/cjs/loader:1282:12)
-    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
-    at node:internal/main/run_main_module:36:49 {
-  generatedMessage: false,
-  code: 'ERR_ASSERTION',
-  actual: false,
-  expected: true,
-  operator: '=='
-}
-
-Node.js v22.16.0
+- [x] Slots, PWA e revisão — V704 runtime: slots reais, fallback 503, instalação incompleta e revisão coerente aprovados.
+- [x] Permissões e botões — V646.6 permissões e botões: 60/60 aprovados.
 - [x] Multiplayer e missões — {
   "passed": true,
   "counts": {
-    "passed": 31,
+    "passed": 32,
     "failed": 0,
-    "total": 31
+    "total": 32
   },
   "checks": [
     {
@@ -542,11 +527,15 @@ Node.js v22.16.0
       "passed": true
     },
     {
-      "name": "Bots usam posições e velocidade determinísticas",
+      "name": "Bots usam rota viária e velocidade determinísticas",
       "passed": true
     },
     {
       "name": "Bots desaceleram perto do jogador",
+      "passed": true
+    },
+    {
+      "name": "Bots não fecham volta em diagonal",
       "passed": true
     },
     {
@@ -579,7 +568,7 @@ test_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.Profession
 test_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.002s
+Ran 6 tests in 0.009s
 
 OK
 - [x] Mapa, móveis e roupas — test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok
@@ -590,7 +579,7 @@ test_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.t
 test_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.027s
+Ran 6 tests in 0.068s
 
 OK
 - [x] Cooperativo e responsividade — test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok
@@ -601,10 +590,10 @@ test_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests
 test_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.012s
+Ran 6 tests in 0.062s
 
 OK
-- [ ] Painel GM V701 preservado — assed": true,
+- [x] Painel GM V701 preservado —  "passed": true,
       "detail": ""
     },
     {
@@ -694,22 +683,22 @@ OK
     },
     {
       "name": "Index versionado na release atual",
-      "passed": false,
-      "detail": "0"
+      "passed": true,
+      "detail": "16"
     },
     {
       "name": "Service Worker na release atual",
-      "passed": false,
+      "passed": true,
       "detail": ""
     },
     {
       "name": "Manifesto PWA preservado",
-      "passed": false,
+      "passed": true,
       "detail": ""
     },
     {
       "name": "Android na release atual",
-      "passed": false,
+      "passed": true,
       "detail": ""
     },
     {
@@ -742,56 +731,390 @@ OK
     "Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado."
   ]
 }
-- [ ] Evolução integral OTTHI World V702 — V702: 58/59
-FALHOU: version 702
+- [x] Camada mundial V702 preservada — Versão atual / camada V702: 59/59
+- [x] Recuperação funcional V703 — ar",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: rememberSafePlayerPosition",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: resetPlayerModesForRecovery",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: recoverPlayerToLastSafe",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: recoverPlayerIfInvalid",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: belowWorld",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: deepFall",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: penetrated",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Autosave não persiste estados transitórios",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação executada no loop",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Botão manual Desprender",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "API de teste para recuperação",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: firefighter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: paramedic",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: police",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: fishing",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: school",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: streetRace",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: ovalRace",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Pré-validação cooperativa",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Objetivo cooperativo verificável",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Corrida de rua em checkpoints sequenciais",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Bots não atravessam o mapa em diagonal",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Fogueira e GPS usam a mesma posição",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Corrida oval exige quatro setores",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Pescaria cria e remove fogueira de missão",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "API cooperativa expõe diagnóstico",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sem TODO essencial",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "limits": [
+    "Validação estática; não substitui dois celulares reais, Firebase remoto, inspeção visual WebGL ou PWA instalada."
+  ]
+}
+- [x] Ordem de inicialização V703.1 — OK - Módulo cooperativo antes do render 29 < 30
+OK - Módulo cooperativo antes do bootstrap 29 < 35
+OK - Bundle cooperativo antes do render 591276 < 656536
+OK - Bundle cooperativo antes do bootstrap 591276 < 788133
+OK - Declaração inicializada antes de initThree 594943 < 656605
+OK - Chamada cooperativa preservada 
+OK - Build atual coerente 
+OK - Cache atual 7040 
+RESULTADO: 8/8
+- [x] Reconstrução mundial V704 —    "name": "Esporte jogável: updateFootballV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Esporte jogável: v704UpdateScoreboard",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Esporte jogável: startCourtV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Esporte jogável: courtHitV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Esporte jogável: courtPointV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Esporte jogável: startKartRaceV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Esporte jogável: updateKartRaceV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Esporte jogável: Atalho inválido",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Esportes atualizados no game loop",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Bots cooperativos usam a pista oval real",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Anel aleatório de prédios invasores removido",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Skyline decorativo fora da área jogável",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Veículo: vehicleDurabilityV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Veículo: vehicleBrokenV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Veículo: vehiclePerformanceV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Veículo: applyVehicleImpactDamageV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Veículo: repairVehicleV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Veículo: towVehicleToWorkshopV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Veículo: openBrokenVehicleOptionsV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Veículo: lastImpactAt<420",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Veículo quebrado é imobilizado",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Migração de construções: migrateLegacyWorldBuildsV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Migração de construções: legacyPositionV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Migração de construções: v704NearestConstructionSlot",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Migração de construções: buildConflictsWithMasterWorldV704",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Login não depende da reserva de sala",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Save protegido não exige connected",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Bundle contém V704",
+      "passed": true,
+      "detail": ""
+    }
+  ]
+}
+- [x] Materialização real do mundo V704 — {"passed":true,"checks":38,"counts":{"roads":11,"houses":11,"vehicles":7,"largeDecorativeBuildings":1,"waters":2,"systems":{"sports":1,"kart":1,"castle":1}}}
+- [x] Dano, quebra, reboque e reparo V704 — {"passed":true,"checks":14,"durability":80,"coins":438,"modalOpened":1,"legacyImpactCalls":0,"legacyPhysicsCalls":0,"towed":1,"saves":4}
+- [x] Auditoria geométrica, rotas e áreas jogáveis V704 — {
+  "version": 704,
+  "passed": true,
+  "staticAudit": {
+    "version": 704,
+    "passed": true,
+    "problems": [],
+    "roads": 11,
+    "structures": 27,
+    "zones": 16,
+    "paths": 11
+  },
+  "routeAudit": {
+    "routes": 5,
+    "segments": 58,
+    "problems": []
+  },
+  "playAreaAudit": {
+    "areas": [
+      "stadium",
+      "football-field",
+      "volley",
+      "footvolley",
+      "kart-circuit",
+      "kart-boxes"
+    ],
+    "problems": []
+  },
+  "counts": {
+    "roads": 11,
+    "zones": 16,
+    "structures": 27,
+    "paths": 11,
+    "busRoutes": 5
+  }
+}
 - [x] IDs HTML únicos — []
 - [x] Referências locais existem — []
-- [x] Cache-busting V702 — 16
+- [x] Cache-busting V704 — 16
 - [x] Three.js local
-- [x] Manifesto PWA V702
-- [x] Service Worker V702
-- [x] Hash-fonte src/modules/00-runtime-foundation.js — 2c3f602c0468771bfad79d20add668ca4b4f96d6ac869dda6689ac69f4e4ec25
+- [x] Manifesto PWA V704
+- [x] Service Worker V704
+- [x] Hash-fonte src/modules/00-runtime-foundation.js — bfa0d0b0c61ef85d9b179c40cb524d390e30165b2edc9c60b2f58549cab9d5a5
 - [x] Hash-fonte src/modules/00a-visual-foundation-avatar-v2.js — 66e94b2cd90c68e43a7455afa3045b6449799c9710b602558166d6e5f0e03d39
-- [x] Hash-fonte src/modules/01-build-persistence.js — a4102196b4a308ab8779c6f9505c7c054e0d2a261a4d60dcca0b88e29d7f3bdf
-- [x] Hash-fonte src/modules/02-state-save-cloud-account.js — 2203a92065490d6b0ad77013a98b85568dc39eaec2a540827226def050b8ad2a
+- [x] Hash-fonte src/modules/01-build-persistence.js — 3c063dc04de636d8724bd7c3b8df0f129fcefbfecbc457970c3279b2da69da08
+- [x] Hash-fonte src/modules/02-state-save-cloud-account.js — bcaf631b4aab91c1ca9ef4ff46f362f8ee0a5ca9ae2765454e70015689a4ae39
 - [x] Hash-fonte src/modules/03-ui-modal-install-pwa.js — d49232561be91aabe54e17ae6d1e18c9699c67ee5cf1848e731cbd811b8950ff
 - [x] Hash-fonte src/modules/04-education-daily-quiz.js — 28bfae12189a8bfd6118d93fdeb881fff8c23a4fc4bccd32bfa8dd9cebd2baba
 - [x] Hash-fonte src/modules/05-avatar-life-customization.js — 48eee0d596cf07cfffb597d2b8c5b3a3a8423b77fa4dcee070740827f04ffdd1
-- [x] Hash-fonte src/modules/06-missions-profile-hud-inventory-tools.js — 5df8566ee771d21108b1d3c3f615f59c98b670e5d75a313a9d6e71629e6dca1c
-- [x] Hash-fonte src/modules/07-navigation-traffic-routes.js — 2d042aa04eb6877c0ae464e09a866b3566a0814283cb0d4d481ce31c2a320ecc
+- [x] Hash-fonte src/modules/05a-world-layout-v704.js — f0e23ce07c34a907a9d4013e84e6c61cb0cd96f00cd975e0fb0d34145c2e5f75
+- [x] Hash-fonte src/modules/06-missions-profile-hud-inventory-tools.js — 73db927a29e186535b6e8f598f955694df99d92a58720a07d760a237c4c2cf19
+- [x] Hash-fonte src/modules/07-navigation-traffic-routes.js — f2fb2b29abe13f85217e159dcd1f20c066b609758c0eb530426bbe36997f177d
 - [x] Hash-fonte src/modules/08-map-parent-settings.js — f0c69a7ef66cebbb77b19f1d1d8e09a6f362776f70036aab0f15442d0c906a3b
 - [x] Hash-fonte src/modules/09-responsive-ar-quality-diagnostics.js — 4bf052224af00a5488c9ded850349e9063aae26bc703dcb73cf3304131fecef1
 - [x] Hash-fonte src/modules/10-player-skills.js — aea3d85401c518ddf4cbfefffe2e0ad720ae4faf46d27310a886b4d966674715
 - [x] Hash-fonte src/modules/11-render-materials-player-model.js — fd64f45cbfb038e111bdc952f5f2eeae332ac7c25708fda9c263767d333aa207
 - [x] Hash-fonte src/modules/12-world-resources-nature.js — ba7ee4fe809b208029fb66b9817d56d943e227c472c5ecb9cebd65441a513bf8
-- [x] Hash-fonte src/modules/13-houses-npcs-vehicles-base.js — e4aca2245b2704c140cdae177332129e5b25365e5d69f9a3e4f3b49361907976
-- [x] Hash-fonte src/modules/14-world-district-decoration.js — b134bf487383f09375cf4967dd2107b2a3051750c3267f6227b4fff511bde87e
+- [x] Hash-fonte src/modules/13-houses-npcs-vehicles-base.js — 2937d1d293fe0b487a14beda6f899b28bff24dbb8cb761930d52f986e75aa9e8
+- [x] Hash-fonte src/modules/13a-sports-kart-v704.js — 3f2814eda562b36232b4303cfd2f59e9b43d8682885b6a1b5051e2fda057e5af
+- [x] Hash-fonte src/modules/14-world-district-decoration.js — 051e3271c37674b2d20a32e0aedba7e7d43acd9f4217b36fa48c897ae96cc03c
 - [x] Hash-fonte src/modules/15-transit-bus-metro.js — f31250d84ed4d69dfad67a2c4bccd41eceecf88efba217ac907237972c34656c
-- [x] Hash-fonte src/modules/16-emergency-services.js — 05ca8dc1c1d2ff6acd0c0f913e232f7e92fa076b95b819ae64bd8bab41e28d51
-- [x] Hash-fonte src/modules/17-adventures-learning-world.js — 735b30a5f026eb52467df35c61c3d5e4af5c73d7bdc879581d1070c18d07a201
+- [x] Hash-fonte src/modules/16-emergency-services.js — 387a214e393eb259ecc6dc500b93ebc7803099d3ee9cffdb7f0b41c34b9c29a3
+- [x] Hash-fonte src/modules/17-adventures-learning-world.js — ed109312f584cc409313032922e0dc4fe4fe8e21b42fd6c6628409c30a5f5ab5
 - [x] Hash-fonte src/modules/18-water-fishing-boats.js — f81fdb6bdde4e190b8f744440adaf644b890f4fc7c715495433d1c4ddf026166
-- [x] Hash-fonte src/modules/19-campfire-hunting-house-extensions.js — 6ea68178a5f6831171335b9c20dd59b6d8985ba0cc1ff587ab95b4ab1d44e977
-- [x] Hash-fonte src/modules/20-world-build-cloud-houses.js — 712fcc110bd8927592ba637c22f8c81b4ab42f6ba5d1d1863f5e2ad3978e21b9
+- [x] Hash-fonte src/modules/19-campfire-hunting-house-extensions.js — ffdc32479d3d650f81ea304e7d68b2ef5f5bf7a785d1ddca36ebb525bd8401de
+- [x] Hash-fonte src/modules/20-world-build-cloud-houses.js — 3d6438a11a2d8f3ef7ba0e87b38fd82e43f76cf36e3b1b8ecb7edd23d806d1ae
 - [x] Hash-fonte src/modules/21-interactions-shop-social-races.js — 7f219d03a2a5879ad9b3c236baa8515acc66d5f215a99bbc45694168415b0eaf
 - [x] Hash-fonte src/modules/22-careers-jobs-uniforms.js — 5b8ccea7fe11dfd5bb6c050c6706dbecea3e5f8bf36ec666cf4baa6a7bf0e169
 - [x] Hash-fonte src/modules/23-vehicle-effects-driving.js — e9310ba6bc960c093e1bc1950ff75998bc8ccb8f4ac6db9589a2f696fd8c3e75
-- [x] Hash-fonte src/modules/24-construction-system.js — ecbecef3564a5d94f76ffd3d537aa25ad451c20514d64d05f6dca5519768ab48
+- [x] Hash-fonte src/modules/24-construction-system.js — 632c2a8b3679a9c792a91543f0680cfd9c71101c6c5c76531de1cecf76bd91bb
+- [x] Hash-fonte src/modules/32-cooperative-missions.js — 9c9070f1ee307f64f0bce21372af4ba014481ddef99067144a373784e0187570
 - [x] Hash-fonte src/modules/25-render-init-resize-position-collision.js — d1541b35c584a3ac6585f92b0a6b74a09611dd821f6a093ce6806236fb211791
 - [x] Hash-fonte src/modules/26-input-player-physics.js — 73dbbd53e34e13a2e7d5b7c8fc809b2642b4398c50d15c30f9b87314c0906bbd
-- [x] Hash-fonte src/modules/27-npc-enemies-combat-camera-action.js — 9bd86324345b8efcabc96eaca8678fb4346a7888ae81e9f8b7f371c88d8abfbf
-- [x] Hash-fonte src/modules/28-multiplayer-social-online.js — 09ffc366d0829450ce15ef9f4efecb716cde5989eba9fe3dd187b62b6e33b420
-- [x] Hash-fonte src/modules/29-game-loop-controls-gamepad.js — e1bbb0de13ec5399a666fe5e8d2cb35c04267c526ba43e6fd3b41d7077fc930b
+- [x] Hash-fonte src/modules/27-npc-enemies-combat-camera-action.js — 43343a587daaae0448ddedd1b9503ce5c30e9093b03fb89a56da11ff5612a972
+- [x] Hash-fonte src/modules/28-multiplayer-social-online.js — 056bcb81a9e0ac32f0ef3651bf8f2e792d9c3923df1c703d194dc2f3fecfaf68
+- [x] Hash-fonte src/modules/29-game-loop-controls-gamepad.js — 65fef48863baa26596d2a3f52c6ae589ad2d887b335b1f687fa433f50a58e45f
 - [x] Hash-fonte src/modules/30-pause-tests-public-api-bootstrap.js — d9bccd75ebbbe64cbbc5a41a484709a8592672dba1fc23e056f3fea77db401f4
 - [x] Hash-fonte src/modules/31-neighborhood-world-controller.js — c077d7777f196bc9dc03bc62dd3f73c9c15e8f8b5222cff0b94c926d78058ba7
-- [x] Hash-fonte src/modules/32-cooperative-missions.js — dc96c793a3a92f2791c237599b24a48f978950e7ea1a62d28468b0549d010ce1
 - [x] Hash-fonte src/modules/33-otthi-world-professional-core.js — 0c263732046930ead7b5951e2c318ce131473316d792fb752a8f26690e6bcdca
 - [x] Hash-fonte src/modules/34-avatar-studio-professional-v3.js — 5a106a18e5ed42cde13541c913eaef14fc5b8ba684289bcbc04db1abfb5d7657
 - [x] Hash-fonte src/modules/35-world-render-pbr-environment.js — 9738993dc27cc6b48be41fb05e2e5e036a1495559a8b02470ec3b3fbe0c25e68
-- [x] Hash-fonte src/modules/36-modular-build-machines.js — 895d4c7a3285f1768206868083e10431b6db5b6e8fab2d5816e47b30ee85aaf5
+- [x] Hash-fonte src/modules/36-modular-build-machines.js — 1de7b0cc4028bab47a6a3bf15fdaf8afdcb6166daf000b1409bb079407e7dcf6
+- [x] Hash-fonte src/modules/36a-vehicle-damage-repair-v704.js — 617e526f5c6377f800d850c9a5e0d042a4f715e6d9bb6e6dfa4f583b3d69ecdc
 - [x] Hash-fonte src/modules/37-hero-platform-gameplay.js — a4e83de8cef4f4be7e4467c6c56446feb2fb3edc75246fb2bc296556db60402a
-- [x] Hash-fonte src/modules/38-otthi-world-integration-bootstrap.js — 6ea150470c494ed27900673045a87288bb453368c7f9e740b289acb7e869395c
+- [x] Hash-fonte src/modules/38-otthi-world-integration-bootstrap.js — acab13285787b50ec9385519c8c81145560568c1bde7447c46ce38004011837b
 - [x] Hash-fonte src/modules/39-gm-admin-panel.js — 3e2f85c595bc2f1f9fe13db95573e4d35b17c88728fecf74d3d53f9700cf7a7b
-- [x] Hash-fonte src/modules/40-world-evolution-v702.js — 35a805dd6de3e967f4e8c5e2c4111086a44350ae4f5a75dc5ede09c749c2571b
+- [x] Hash-fonte src/modules/40-world-evolution-v702.js — ba0edb6e50e5fcc9e3cfe781cf0ba6198e1c6dbb622406e956e69c7bb55b5243
 - [x] Hash-fonte src/styles/00-foundation-lobby-game-modal.css — ff7d8c3bf3169c75f4299c794fa9e874665a16a220ee1c4e6dbba19ee41759b8
 - [x] Hash-fonte src/styles/01-legacy-v607-v613.css — 4bcd18c1b61afa8822aca9c4ba3e7a5d77165544d4bd49faa06ba3650d35815e
 - [x] Hash-fonte src/styles/02-art-direction-v614-v617.css — c0f3710d71a87fb0d9f4b9e9cb0c9bac130a7522eb76bfa3a65634616236d666
@@ -813,8 +1136,8 @@ FALHOU: version 702
 - [x] Hash-fonte src/styles/18-world-evolution-v702.css — ea2595137c241f91b896cba1d62b4e63ce94c78c69193f5ff74f968f194f7526
 - [x] app.js sincronizado com fontes
 - [x] style.css sincronizado com fontes
-- [x] Funções preservadas e ampliadas — 870
-- [ ] Release V702 coerente
+- [x] Funções preservadas e ampliadas — 936
+- [x] Release V704 coerente
 - [x] Hashes da release conferem — []
 - [x] Revisão HTML/SW/manifesto coerente
 - [x] Firebase remoto ainda não declarado aprovado

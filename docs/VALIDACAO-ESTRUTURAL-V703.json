@@ -1,12 +1,12 @@
 {
-  "version": 702,
-  "build": "703.0-recovery-functional-world",
-  "passed": false,
+  "version": 703,
+  "build": "703.1-startup-initialization-fix",
+  "passed": true,
   "counts": {
-    "checks": 181,
-    "passed": 175,
-    "failed": 6,
-    "functionsIncludingAsync": 870,
+    "checks": 184,
+    "passed": 184,
+    "failed": 0,
+    "functionsIncludingAsync": 873,
     "javascriptModules": 42,
     "styleModules": 19,
     "htmlIds": 105
@@ -79,6 +79,16 @@
     },
     {
       "name": "Arquivo obrigatório tools/test_v701_gm_panel.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v703_recovery.py",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Arquivo obrigatório tools/test_v7031_startup_order.py",
       "passed": true,
       "detail": ""
     },
@@ -198,7 +208,7 @@
       "detail": ""
     },
     {
-      "name": "Ordem JS corresponde aos arquivos",
+      "name": "Manifesto JS corresponde exatamente aos arquivos",
       "passed": true,
       "detail": ""
     },
@@ -208,8 +218,8 @@
       "detail": ""
     },
     {
-      "name": "Versão central V702",
-      "passed": false,
+      "name": "Versão central V703",
+      "passed": true,
       "detail": ""
     },
     {
@@ -499,48 +509,53 @@
     },
     {
       "name": "Bairros, mapa e salas",
-      "passed": false,
-      "detail": "      \"name\": \"Mapa completo mapRegionsMarkup\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapHouseLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo quadrado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa retrato responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa paisagem responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Canvas minimapa acompanha caixa\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regras possuem slots fixos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-01\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-02\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-03\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-04\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-05\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-06\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-07\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-08\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-09\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-10\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regra de vaga não aceita numChildren\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga aceita qualquer jogador autenticado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva ocorre por vaga individual\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva não grava o conjunto inteiro\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga sem validação bloqueadora\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI mostra ocupação\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI bloqueia lotado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI só seleciona após sucesso\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Módulo 31 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS 13 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Versão consolidada no index\",\n      \"passed\": false,\n      \"detail\": \"0\"\n    },\n    {\n      \"name\": \"Runtime consolidado\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Service Worker consolidado\",\n      \"passed\": false,\n      \"detail\": \"\"\n    }\n  ]\n}"
+      "passed": true,
+      "detail": "{\n      \"name\": \"Mapa completo mapRegionsMarkup\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapHouseLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo quadrado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa retrato responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa paisagem responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Canvas minimapa acompanha caixa\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regras possuem slots fixos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-01\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-02\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-03\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-04\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-05\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-06\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-07\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-08\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-09\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-10\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regra de vaga não aceita numChildren\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga aceita qualquer jogador autenticado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva ocorre por vaga individual\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva não grava o conjunto inteiro\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga sem validação bloqueadora\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI mostra ocupação\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI bloqueia lotado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI só seleciona após sucesso\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Módulo 31 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS 13 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Versão consolidada no index\",\n      \"passed\": true,\n      \"detail\": \"16\"\n    },\n    {\n      \"name\": \"Runtime consolidado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Service Worker consolidado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    }\n  ]\n}"
     },
     {
       "name": "Slots, PWA e revisão",
       "passed": true,
-      "detail": "V702 runtime: slots reais, fallback 503, instalação incompleta e revisão coerente aprovados."
+      "detail": "V703 runtime: slots reais, fallback 503, instalação incompleta e revisão coerente aprovados."
     },
     {
       "name": "Permissões e botões",
-      "passed": false,
-      "detail": "node:internal/assert/utils:281\n    throw err;\n    ^\n\nAssertionError [ERR_ASSERTION]: presence: gameplay autenticado\n    at check (/mnt/data/otthi_recovery_work/OTTHI-World-main/tools/test_v6466_permissions_buttons.js:16:10)\n    at Object.<anonymous> (/mnt/data/otthi_recovery_work/OTTHI-World-main/tools/test_v6466_permissions_buttons.js:62:3)\n    at Module._compile (node:internal/modules/cjs/loader:1730:14)\n    at Object..js (node:internal/modules/cjs/loader:1895:10)\n    at Module.load (node:internal/modules/cjs/loader:1465:32)\n    at Function._load (node:internal/modules/cjs/loader:1282:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.16.0"
+      "passed": true,
+      "detail": "V646.6 permissões e botões: 60/60 aprovados."
     },
     {
       "name": "Multiplayer e missões",
       "passed": true,
-      "detail": "{\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 31,\n    \"failed\": 0,\n    \"total\": 31\n  },\n  \"checks\": [\n    {\n      \"name\": \"Navegação aguarda worldGroup\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Reserva atômica de sala preservada\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Fallback por transação individual\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Reserva individual testável\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Participante fica registrado ao desconectar\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Evento cooperativo idempotente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Cancelamento pelo remetente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Modo competitivo sincronizado\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Regras aceitam transação individual\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Convites autenticados sem bloqueio adicional\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem Controlar o fogo progressivamente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem safety-release\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem patient-loaded\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem patient-delivered\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem suspect-escorted\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem student-delivered\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopReserveEvent\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopIndividualCount\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopRaceStandings\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem continueCoopMissionOffline\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem createCoopOvalTrackWorld\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Maca exige dois participantes\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Papéis não podem exceder a capacidade\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Todos precisam estar prontos\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Bots usam posições e velocidade determinísticas\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Bots desaceleram perto do jogador\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Mapa inclui participantes online\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missão ativa tem prioridade no agrupamento\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Mapa recalcula em resize e orientação\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Tela baixa tem regra dedicada\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Modal usa dimensões reais do aparelho\",\n      \"passed\": true\n    }\n  ]\n}"
+      "detail": "{\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 32,\n    \"failed\": 0,\n    \"total\": 32\n  },\n  \"checks\": [\n    {\n      \"name\": \"Navegação aguarda worldGroup\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Reserva atômica de sala preservada\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Fallback por transação individual\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Reserva individual testável\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Participante fica registrado ao desconectar\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Evento cooperativo idempotente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Cancelamento pelo remetente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Modo competitivo sincronizado\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Regras aceitam transação individual\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Convites autenticados sem bloqueio adicional\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem Controlar o fogo progressivamente\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem safety-release\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem patient-loaded\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem patient-delivered\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem suspect-escorted\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem student-delivered\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopReserveEvent\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopIndividualCount\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem coopRaceStandings\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem continueCoopMissionOffline\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missões incluem createCoopOvalTrackWorld\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Maca exige dois participantes\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Papéis não podem exceder a capacidade\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Todos precisam estar prontos\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Bots usam rota viária e velocidade determinísticas\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Bots desaceleram perto do jogador\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Bots não fecham volta em diagonal\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Mapa inclui participantes online\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Missão ativa tem prioridade no agrupamento\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Mapa recalcula em resize e orientação\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Tela baixa tem regra dedicada\",\n      \"passed\": true\n    },\n    {\n      \"name\": \"Modal usa dimensões reais do aparelho\",\n      \"passed\": true\n    }\n  ]\n}"
     },
     {
       "name": "Serviços profissionais",
       "passed": true,
-      "detail": "test_accidents_stop_and_require_all_services (__main__.ProfessionalEmergencyServicesTests.test_accidents_stop_and_require_all_services) ... ok\ntest_buses_and_traffic_have_collision_protection (__main__.ProfessionalEmergencyServicesTests.test_buses_and_traffic_have_collision_protection) ... ok\ntest_missions_require_correct_vehicle (__main__.ProfessionalEmergencyServicesTests.test_missions_require_correct_vehicle) ... ok\ntest_service_jobs_and_visual_uniforms_exist (__main__.ProfessionalEmergencyServicesTests.test_service_jobs_and_visual_uniforms_exist) ... ok\ntest_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.ProfessionalEmergencyServicesTests.test_service_vehicle_visuals_are_local_and_multiplayer_safe) ... ok\ntest_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.002s\n\nOK"
+      "detail": "test_accidents_stop_and_require_all_services (__main__.ProfessionalEmergencyServicesTests.test_accidents_stop_and_require_all_services) ... ok\ntest_buses_and_traffic_have_collision_protection (__main__.ProfessionalEmergencyServicesTests.test_buses_and_traffic_have_collision_protection) ... ok\ntest_missions_require_correct_vehicle (__main__.ProfessionalEmergencyServicesTests.test_missions_require_correct_vehicle) ... ok\ntest_service_jobs_and_visual_uniforms_exist (__main__.ProfessionalEmergencyServicesTests.test_service_jobs_and_visual_uniforms_exist) ... ok\ntest_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.ProfessionalEmergencyServicesTests.test_service_vehicle_visuals_are_local_and_multiplayer_safe) ... ok\ntest_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.011s\n\nOK"
     },
     {
       "name": "Mapa, móveis e roupas",
       "passed": true,
-      "detail": "test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok\ntest_map_is_dynamic_square_and_viewport_fitted (__main__.CommercialPolishTests.test_map_is_dynamic_square_and_viewport_fitted) ... ok\ntest_mission_card_opens_one_clear_briefing (__main__.CommercialPolishTests.test_mission_card_opens_one_clear_briefing) ... ok\ntest_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match) ... ok\ntest_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.test_room_furniture_is_persistent_and_editable) ... ok\ntest_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.027s\n\nOK"
+      "detail": "test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok\ntest_map_is_dynamic_square_and_viewport_fitted (__main__.CommercialPolishTests.test_map_is_dynamic_square_and_viewport_fitted) ... ok\ntest_mission_card_opens_one_clear_briefing (__main__.CommercialPolishTests.test_mission_card_opens_one_clear_briefing) ... ok\ntest_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match) ... ok\ntest_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.test_room_furniture_is_persistent_and_editable) ... ok\ntest_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.083s\n\nOK"
     },
     {
       "name": "Cooperativo e responsividade",
       "passed": true,
-      "detail": "test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok\ntest_map_is_clustered_and_responsive_in_both_orientations (__main__.CoopResponsiveTests.test_map_is_clustered_and_responsive_in_both_orientations) ... ok\ntest_roles_and_shared_progress_are_online (__main__.CoopResponsiveTests.test_roles_and_shared_progress_are_online) ... ok\ntest_school_fishing_and_race_runtime_contracts (__main__.CoopResponsiveTests.test_school_fishing_and_race_runtime_contracts) ... ok\ntest_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests.test_state_persists_and_existing_systems_integrate) ... ok\ntest_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.012s\n\nOK"
+      "detail": "test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok\ntest_map_is_clustered_and_responsive_in_both_orientations (__main__.CoopResponsiveTests.test_map_is_clustered_and_responsive_in_both_orientations) ... ok\ntest_roles_and_shared_progress_are_online (__main__.CoopResponsiveTests.test_roles_and_shared_progress_are_online) ... ok\ntest_school_fishing_and_race_runtime_contracts (__main__.CoopResponsiveTests.test_school_fishing_and_race_runtime_contracts) ... ok\ntest_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests.test_state_persists_and_existing_systems_integrate) ... ok\ntest_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.078s\n\nOK"
     },
     {
       "name": "Painel GM V701 preservado",
-      "passed": false,
-      "detail": "assed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aplicação soma sem substituir saldos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Limite de segurança por concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"API GM completa no RTDB\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Concessão e auditoria são gravadas juntas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Usuários recebem concessões online ou na próxima conexão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ledger GM é salvo localmente e na nuvem\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Concessão é idempotente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Login aguarda recuperação antes de aplicar concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo só conclui após persistência\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Admins não podem ser criados pelo cliente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente UID GM lê todos os usuários\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente GM cria concessão imutável\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Itens negativos e zero são recusados\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Moedas negativas são recusadas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo exige concessão real e dono correto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo aplicado não pode ser reaberto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Auditoria é imutável e exclusiva do GM\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Index versionado na release atual\",\n      \"passed\": false,\n      \"detail\": \"0\"\n    },\n    {\n      \"name\": \"Service Worker na release atual\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto PWA preservado\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Android na release atual\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aprovação física permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Firebase remoto permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto de release coerente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Hashes de release conferem\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Revisão PWA coerente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    }\n  ],\n  \"limits\": [\n    \"Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado.\"\n  ]\n}"
+      "passed": true,
+      "detail": " \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aplicação soma sem substituir saldos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Limite de segurança por concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"API GM completa no RTDB\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Concessão e auditoria são gravadas juntas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Usuários recebem concessões online ou na próxima conexão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ledger GM é salvo localmente e na nuvem\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Concessão é idempotente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Login aguarda recuperação antes de aplicar concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo só conclui após persistência\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Admins não podem ser criados pelo cliente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente UID GM lê todos os usuários\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente GM cria concessão imutável\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Itens negativos e zero são recusados\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Moedas negativas são recusadas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo exige concessão real e dono correto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo aplicado não pode ser reaberto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Auditoria é imutável e exclusiva do GM\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Index versionado na release atual\",\n      \"passed\": true,\n      \"detail\": \"16\"\n    },\n    {\n      \"name\": \"Service Worker na release atual\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto PWA preservado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Android na release atual\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aprovação física permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Firebase remoto permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto de release coerente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Hashes de release conferem\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Revisão PWA coerente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    }\n  ],\n  \"limits\": [\n    \"Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado.\"\n  ]\n}"
     },
     {
-      "name": "Evolução integral OTTHI World V702",
-      "passed": false,
-      "detail": "V702: 58/59\nFALHOU: version 702"
+      "name": "Camada mundial V702 preservada",
+      "passed": true,
+      "detail": "V703 / camada V702: 59/59"
+    },
+    {
+      "name": "Recuperação funcional V703",
+      "passed": true,
+      "detail": "ar\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recuperação: rememberSafePlayerPosition\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recuperação: resetPlayerModesForRecovery\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recuperação: recoverPlayerToLastSafe\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recuperação: recoverPlayerIfInvalid\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recuperação: belowWorld\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recuperação: deepFall\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recuperação: penetrated\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Autosave não persiste estados transitórios\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recuperação executada no loop\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Botão manual Desprender\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"API de teste para recuperação\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Missão com modelo real: firefighter\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Missão com modelo real: paramedic\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Missão com modelo real: police\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Missão com modelo real: fishing\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Missão com modelo real: school\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Missão com modelo real: streetRace\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Missão com modelo real: ovalRace\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Pré-validação cooperativa\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Objetivo cooperativo verificável\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Corrida de rua em checkpoints sequenciais\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Bots não atravessam o mapa em diagonal\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Fogueira e GPS usam a mesma posição\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Corrida oval exige quatro setores\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Pescaria cria e remove fogueira de missão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"API cooperativa expõe diagnóstico\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Sem TODO essencial\",\n      \"passed\": true,\n      \"detail\": \"\"\n    }\n  ],\n  \"limits\": [\n    \"Validação estática; não substitui dois celulares reais, Firebase remoto, inspeção visual WebGL ou PWA instalada.\"\n  ]\n}"
     },
     {
       "name": "IDs HTML únicos",
@@ -553,7 +568,7 @@
       "detail": "[]"
     },
     {
-      "name": "Cache-busting V702",
+      "name": "Cache-busting V703",
       "passed": true,
       "detail": "16"
     },
@@ -563,19 +578,19 @@
       "detail": ""
     },
     {
-      "name": "Manifesto PWA V702",
+      "name": "Manifesto PWA V703",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Service Worker V702",
+      "name": "Service Worker V703",
       "passed": true,
       "detail": ""
     },
     {
       "name": "Hash-fonte src/modules/00-runtime-foundation.js",
       "passed": true,
-      "detail": "2c3f602c0468771bfad79d20add668ca4b4f96d6ac869dda6689ac69f4e4ec25"
+      "detail": "e99f35ee47ac635bbd48be6bd2d692add32a002eb18589860a6b4cc976bf450c"
     },
     {
       "name": "Hash-fonte src/modules/00a-visual-foundation-avatar-v2.js",
@@ -703,6 +718,11 @@
       "detail": "ecbecef3564a5d94f76ffd3d537aa25ad451c20514d64d05f6dca5519768ab48"
     },
     {
+      "name": "Hash-fonte src/modules/32-cooperative-missions.js",
+      "passed": true,
+      "detail": "b4f6aa6a2c5fc2f9ebdf8ea95199c87cdb3605ff4bc9eac5432a3bbacfda65f4"
+    },
+    {
       "name": "Hash-fonte src/modules/25-render-init-resize-position-collision.js",
       "passed": true,
       "detail": "d1541b35c584a3ac6585f92b0a6b74a09611dd821f6a093ce6806236fb211791"
@@ -720,7 +740,7 @@
     {
       "name": "Hash-fonte src/modules/28-multiplayer-social-online.js",
       "passed": true,
-      "detail": "09ffc366d0829450ce15ef9f4efecb716cde5989eba9fe3dd187b62b6e33b420"
+      "detail": "056bcb81a9e0ac32f0ef3651bf8f2e792d9c3923df1c703d194dc2f3fecfaf68"
     },
     {
       "name": "Hash-fonte src/modules/29-game-loop-controls-gamepad.js",
@@ -736,11 +756,6 @@
       "name": "Hash-fonte src/modules/31-neighborhood-world-controller.js",
       "passed": true,
       "detail": "c077d7777f196bc9dc03bc62dd3f73c9c15e8f8b5222cff0b94c926d78058ba7"
-    },
-    {
-      "name": "Hash-fonte src/modules/32-cooperative-missions.js",
-      "passed": true,
-      "detail": "dc96c793a3a92f2791c237599b24a48f978950e7ea1a62d28468b0549d010ce1"
     },
     {
       "name": "Hash-fonte src/modules/33-otthi-world-professional-core.js",
@@ -890,11 +905,11 @@
     {
       "name": "Funções preservadas e ampliadas",
       "passed": true,
-      "detail": "870"
+      "detail": "873"
     },
     {
-      "name": "Release V702 coerente",
-      "passed": false,
+      "name": "Release V703 coerente",
+      "passed": true,
       "detail": ""
     },
     {
@@ -918,19 +933,12 @@
       "detail": ""
     }
   ],
-  "errors": [
-    "Versão central V702: ",
-    "Bairros, mapa e salas:       \"name\": \"Mapa completo mapRegionsMarkup\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapHouseLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo mapLocations\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa completo quadrado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa retrato responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Mapa paisagem responsivo\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Canvas minimapa acompanha caixa\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regras possuem slots fixos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-01\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-02\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-03\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-04\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-05\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-06\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-07\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-08\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-09\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Cliente gera slot-10\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Regra de vaga não aceita numChildren\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga aceita qualquer jogador autenticado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva ocorre por vaga individual\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Reserva não grava o conjunto inteiro\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Vaga sem validação bloqueadora\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI mostra ocupação\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI bloqueia lotado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"UI só seleciona após sucesso\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Módulo 31 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"CSS 13 no manifesto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Versão consolidada no index\",\n      \"passed\": false,\n      \"detail\": \"0\"\n    },\n    {\n      \"name\": \"Runtime consolidado\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Service Worker consolidado\",\n      \"passed\": false,\n      \"detail\": \"\"\n    }\n  ]\n}",
-    "Permissões e botões: node:internal/assert/utils:281\n    throw err;\n    ^\n\nAssertionError [ERR_ASSERTION]: presence: gameplay autenticado\n    at check (/mnt/data/otthi_recovery_work/OTTHI-World-main/tools/test_v6466_permissions_buttons.js:16:10)\n    at Object.<anonymous> (/mnt/data/otthi_recovery_work/OTTHI-World-main/tools/test_v6466_permissions_buttons.js:62:3)\n    at Module._compile (node:internal/modules/cjs/loader:1730:14)\n    at Object..js (node:internal/modules/cjs/loader:1895:10)\n    at Module.load (node:internal/modules/cjs/loader:1465:32)\n    at Function._load (node:internal/modules/cjs/loader:1282:12)\n    at TracingChannel.traceSync (node:diagnostics_channel:322:14)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)\n    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)\n    at node:internal/main/run_main_module:36:49 {\n  generatedMessage: false,\n  code: 'ERR_ASSERTION',\n  actual: false,\n  expected: true,\n  operator: '=='\n}\n\nNode.js v22.16.0",
-    "Painel GM V701 preservado: assed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aplicação soma sem substituir saldos\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Limite de segurança por concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"API GM completa no RTDB\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Concessão e auditoria são gravadas juntas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Usuários recebem concessões online ou na próxima conexão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Ledger GM é salvo localmente e na nuvem\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Concessão é idempotente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Login aguarda recuperação antes de aplicar concessão\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo só conclui após persistência\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Admins não podem ser criados pelo cliente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente UID GM lê todos os usuários\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Somente GM cria concessão imutável\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Itens negativos e zero são recusados\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Moedas negativas são recusadas\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo exige concessão real e dono correto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Recibo aplicado não pode ser reaberto\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Auditoria é imutável e exclusiva do GM\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Index versionado na release atual\",\n      \"passed\": false,\n      \"detail\": \"0\"\n    },\n    {\n      \"name\": \"Service Worker na release atual\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto PWA preservado\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Android na release atual\",\n      \"passed\": false,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Aprovação física permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Firebase remoto permanece pendente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Manifesto de release coerente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Hashes de release conferem\",\n      \"passed\": true,\n      \"detail\": \"[]\"\n    },\n    {\n      \"name\": \"Revisão PWA coerente\",\n      \"passed\": true,\n      \"detail\": \"\"\n    }\n  ],\n  \"limits\": [\n    \"Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado.\"\n  ]\n}",
-    "Evolução integral OTTHI World V702: V702: 58/59\nFALHOU: version 702",
-    "Release V702 coerente: "
-  ],
+  "errors": [],
   "hashes": {
-    "app.js": "a7c68d82c6468e3f62bfacd5110fc567cdaa184ccfb548e50aaa4b7e61d77992",
+    "app.js": "588faf3bcb7637ccaabbfc34fdb5c0daa9526ab139d83d1af4caaf5949eff5ed",
     "style.css": "aeaa2279d4068e50207fe0c1108573596bccd2480f64220fdb426e85236a914f",
-    "src/module-order.json": "97c52a05b7caf29839c67a89deef75d14addf61e4d83b87053d75bdfe2b3efb5",
-    "release-manifest.json": "58e312f5c8844899f1a3c1cc23e2ce0a28e326d03f7028308723a09671eb4aad",
+    "src/module-order.json": "b139d68a34ef6a1e9a94fff25307a732fed5717352e3f7c6ad7765a8dfd05dce",
+    "release-manifest.json": "92f9d02b65ebe4e6bd3b1ea6b27fd85235115bd2a4c661da566d26fad422d522",
     "firebase-config.js": "72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd",
     "firebase-database.rules.json": "ebf8cd036b4d9ee61286b5d64fc8bfb405c7d390459d9e517126ceb03c855958"
   },

@@ -1,6 +1,6 @@
 {
-  "version": 702,
-  "build": "702.0-world-evolution-complete",
+  "version": 704,
+  "build": "704.0-world-reconstruction-complete",
   "baseline": {
     "build": "646.6-authenticated-gameplay-open",
     "checks": 203,
@@ -11,13 +11,13 @@
     "checks": 43,
     "passed": 43,
     "failed": 0,
-    "currentFunctionsIncludingAsync": 852
+    "currentFunctionsIncludingAsync": 936
   },
   "checks": [
     {
-      "name": "Todas as funções V646.6 permanecem na mesma ordem relativa",
+      "name": "Funções históricas preservam a ordem, exceto o módulo cooperativo movido antes do bootstrap",
       "passed": true,
-      "detail": "727 base / 852 atuais"
+      "detail": "727 base / 936 atuais / 71 cooperativas reposicionadas"
     },
     {
       "name": "Nenhuma função V646.6 foi removida",
@@ -57,7 +57,7 @@
     {
       "name": "Fundação V646.7 preservada na versão atual",
       "passed": true,
-      "detail": "V702 / 702.0-world-evolution-complete"
+      "detail": "V704 / 704.0-world-reconstruction-complete"
     },
     {
       "name": "Aprovação física continua pendente",
@@ -67,7 +67,7 @@
     {
       "name": "Módulos JavaScript preservam a fundação e aceitam extensões posteriores",
       "passed": true,
-      "detail": "42"
+      "detail": "45"
     },
     {
       "name": "Three.js r128 foi mantido e não há CDN",

@@ -105,7 +105,7 @@
 98,b,,,settingsBtn
 98,span,,,settingsBtn
 100,p,installHint,install-hint,aside
-103,footer,,,lobby
+103,footer,gmSignature,gm-signature,lobby
 106,section,game,screen game,app
 107,div,stage,stage,game
 108,div,screenTint,screen-tint,game

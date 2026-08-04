@@ -1,8 +1,8 @@
-# Validação estrutural automática — OTTHI World V702
+# Validação estrutural automática — OTTHI World V703
 
-- Resultado: **REPROVADO**
-- Verificações: **175 aprovadas / 6 falhas**
-- Funções incluindo async: **870**
+- Resultado: **APROVADO**
+- Verificações: **184 aprovadas / 0 falhas**
+- Funções incluindo async: **873**
 
 ## Verificações
 
@@ -20,6 +20,8 @@
 - [x] Arquivo obrigatório assets/world/pbr-manifest.json
 - [x] Arquivo obrigatório tools/build_project.py
 - [x] Arquivo obrigatório tools/test_v701_gm_panel.py
+- [x] Arquivo obrigatório tools/test_v703_recovery.py
+- [x] Arquivo obrigatório tools/test_v7031_startup_order.py
 - [x] Arquivo obrigatório src/modules/33-otthi-world-professional-core.js
 - [x] Arquivo obrigatório src/modules/34-avatar-studio-professional-v3.js
 - [x] Arquivo obrigatório src/modules/35-world-render-pbr-environment.js
@@ -43,9 +45,9 @@
 - [x] 19 módulos CSS — 19
 - [x] Manifesto JS completo
 - [x] Manifesto CSS completo
-- [x] Ordem JS corresponde aos arquivos
+- [x] Manifesto JS corresponde exatamente aos arquivos
 - [x] Ordem CSS corresponde aos arquivos
-- [ ] Versão central V702
+- [x] Versão central V703
 - [x] Sintaxe app.js
 - [x] Sintaxe sw.js
 - [x] Sintaxe src/modules/00-runtime-foundation.js
@@ -257,7 +259,8 @@
     }
   ]
 }
-- [ ] Bairros, mapa e salas —       "name": "Mapa completo mapRegionsMarkup",
+- [x] Bairros, mapa e salas — {
+      "name": "Mapa completo mapRegionsMarkup",
       "passed": true,
       "detail": ""
     },
@@ -398,51 +401,29 @@
     },
     {
       "name": "Versão consolidada no index",
-      "passed": false,
-      "detail": "0"
+      "passed": true,
+      "detail": "16"
     },
     {
       "name": "Runtime consolidado",
-      "passed": false,
+      "passed": true,
       "detail": ""
     },
     {
       "name": "Service Worker consolidado",
-      "passed": false,
+      "passed": true,
       "detail": ""
     }
   ]
 }
-- [x] Slots, PWA e revisão — V702 runtime: slots reais, fallback 503, instalação incompleta e revisão coerente aprovados.
-- [ ] Permissões e botões — node:internal/assert/utils:281
-    throw err;
-    ^
-
-AssertionError [ERR_ASSERTION]: presence: gameplay autenticado
-    at check (/mnt/data/otthi_recovery_work/OTTHI-World-main/tools/test_v6466_permissions_buttons.js:16:10)
-    at Object.<anonymous> (/mnt/data/otthi_recovery_work/OTTHI-World-main/tools/test_v6466_permissions_buttons.js:62:3)
-    at Module._compile (node:internal/modules/cjs/loader:1730:14)
-    at Object..js (node:internal/modules/cjs/loader:1895:10)
-    at Module.load (node:internal/modules/cjs/loader:1465:32)
-    at Function._load (node:internal/modules/cjs/loader:1282:12)
-    at TracingChannel.traceSync (node:diagnostics_channel:322:14)
-    at wrapModuleLoad (node:internal/modules/cjs/loader:235:24)
-    at Function.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:171:5)
-    at node:internal/main/run_main_module:36:49 {
-  generatedMessage: false,
-  code: 'ERR_ASSERTION',
-  actual: false,
-  expected: true,
-  operator: '=='
-}
-
-Node.js v22.16.0
+- [x] Slots, PWA e revisão — V703 runtime: slots reais, fallback 503, instalação incompleta e revisão coerente aprovados.
+- [x] Permissões e botões — V646.6 permissões e botões: 60/60 aprovados.
 - [x] Multiplayer e missões — {
   "passed": true,
   "counts": {
-    "passed": 31,
+    "passed": 32,
     "failed": 0,
-    "total": 31
+    "total": 32
   },
   "checks": [
     {
@@ -542,11 +523,15 @@ Node.js v22.16.0
       "passed": true
     },
     {
-      "name": "Bots usam posições e velocidade determinísticas",
+      "name": "Bots usam rota viária e velocidade determinísticas",
       "passed": true
     },
     {
       "name": "Bots desaceleram perto do jogador",
+      "passed": true
+    },
+    {
+      "name": "Bots não fecham volta em diagonal",
       "passed": true
     },
     {
@@ -579,7 +564,7 @@ test_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.Profession
 test_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.002s
+Ran 6 tests in 0.011s
 
 OK
 - [x] Mapa, móveis e roupas — test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok
@@ -590,7 +575,7 @@ test_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.t
 test_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.027s
+Ran 6 tests in 0.083s
 
 OK
 - [x] Cooperativo e responsividade — test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok
@@ -601,10 +586,10 @@ test_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests
 test_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.012s
+Ran 6 tests in 0.078s
 
 OK
-- [ ] Painel GM V701 preservado — assed": true,
+- [x] Painel GM V701 preservado —  "passed": true,
       "detail": ""
     },
     {
@@ -694,22 +679,22 @@ OK
     },
     {
       "name": "Index versionado na release atual",
-      "passed": false,
-      "detail": "0"
+      "passed": true,
+      "detail": "16"
     },
     {
       "name": "Service Worker na release atual",
-      "passed": false,
+      "passed": true,
       "detail": ""
     },
     {
       "name": "Manifesto PWA preservado",
-      "passed": false,
+      "passed": true,
       "detail": ""
     },
     {
       "name": "Android na release atual",
-      "passed": false,
+      "passed": true,
       "detail": ""
     },
     {
@@ -742,15 +727,158 @@ OK
     "Validação estática e local não substitui Android físico, publicação das regras no Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR ou APK assinado."
   ]
 }
-- [ ] Evolução integral OTTHI World V702 — V702: 58/59
-FALHOU: version 702
+- [x] Camada mundial V702 preservada — V703 / camada V702: 59/59
+- [x] Recuperação funcional V703 — ar",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: rememberSafePlayerPosition",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: resetPlayerModesForRecovery",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: recoverPlayerToLastSafe",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: recoverPlayerIfInvalid",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: belowWorld",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: deepFall",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação: penetrated",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Autosave não persiste estados transitórios",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Recuperação executada no loop",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Botão manual Desprender",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "API de teste para recuperação",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: firefighter",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: paramedic",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: police",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: fishing",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: school",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: streetRace",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Missão com modelo real: ovalRace",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Pré-validação cooperativa",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Objetivo cooperativo verificável",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Corrida de rua em checkpoints sequenciais",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Bots não atravessam o mapa em diagonal",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Fogueira e GPS usam a mesma posição",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Corrida oval exige quatro setores",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Pescaria cria e remove fogueira de missão",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "API cooperativa expõe diagnóstico",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sem TODO essencial",
+      "passed": true,
+      "detail": ""
+    }
+  ],
+  "limits": [
+    "Validação estática; não substitui dois celulares reais, Firebase remoto, inspeção visual WebGL ou PWA instalada."
+  ]
+}
 - [x] IDs HTML únicos — []
 - [x] Referências locais existem — []
-- [x] Cache-busting V702 — 16
+- [x] Cache-busting V703 — 16
 - [x] Three.js local
-- [x] Manifesto PWA V702
-- [x] Service Worker V702
-- [x] Hash-fonte src/modules/00-runtime-foundation.js — 2c3f602c0468771bfad79d20add668ca4b4f96d6ac869dda6689ac69f4e4ec25
+- [x] Manifesto PWA V703
+- [x] Service Worker V703
+- [x] Hash-fonte src/modules/00-runtime-foundation.js — e99f35ee47ac635bbd48be6bd2d692add32a002eb18589860a6b4cc976bf450c
 - [x] Hash-fonte src/modules/00a-visual-foundation-avatar-v2.js — 66e94b2cd90c68e43a7455afa3045b6449799c9710b602558166d6e5f0e03d39
 - [x] Hash-fonte src/modules/01-build-persistence.js — a4102196b4a308ab8779c6f9505c7c054e0d2a261a4d60dcca0b88e29d7f3bdf
 - [x] Hash-fonte src/modules/02-state-save-cloud-account.js — 2203a92065490d6b0ad77013a98b85568dc39eaec2a540827226def050b8ad2a
@@ -776,14 +904,14 @@ FALHOU: version 702
 - [x] Hash-fonte src/modules/22-careers-jobs-uniforms.js — 5b8ccea7fe11dfd5bb6c050c6706dbecea3e5f8bf36ec666cf4baa6a7bf0e169
 - [x] Hash-fonte src/modules/23-vehicle-effects-driving.js — e9310ba6bc960c093e1bc1950ff75998bc8ccb8f4ac6db9589a2f696fd8c3e75
 - [x] Hash-fonte src/modules/24-construction-system.js — ecbecef3564a5d94f76ffd3d537aa25ad451c20514d64d05f6dca5519768ab48
+- [x] Hash-fonte src/modules/32-cooperative-missions.js — b4f6aa6a2c5fc2f9ebdf8ea95199c87cdb3605ff4bc9eac5432a3bbacfda65f4
 - [x] Hash-fonte src/modules/25-render-init-resize-position-collision.js — d1541b35c584a3ac6585f92b0a6b74a09611dd821f6a093ce6806236fb211791
 - [x] Hash-fonte src/modules/26-input-player-physics.js — 73dbbd53e34e13a2e7d5b7c8fc809b2642b4398c50d15c30f9b87314c0906bbd
 - [x] Hash-fonte src/modules/27-npc-enemies-combat-camera-action.js — 9bd86324345b8efcabc96eaca8678fb4346a7888ae81e9f8b7f371c88d8abfbf
-- [x] Hash-fonte src/modules/28-multiplayer-social-online.js — 09ffc366d0829450ce15ef9f4efecb716cde5989eba9fe3dd187b62b6e33b420
+- [x] Hash-fonte src/modules/28-multiplayer-social-online.js — 056bcb81a9e0ac32f0ef3651bf8f2e792d9c3923df1c703d194dc2f3fecfaf68
 - [x] Hash-fonte src/modules/29-game-loop-controls-gamepad.js — e1bbb0de13ec5399a666fe5e8d2cb35c04267c526ba43e6fd3b41d7077fc930b
 - [x] Hash-fonte src/modules/30-pause-tests-public-api-bootstrap.js — d9bccd75ebbbe64cbbc5a41a484709a8592672dba1fc23e056f3fea77db401f4
 - [x] Hash-fonte src/modules/31-neighborhood-world-controller.js — c077d7777f196bc9dc03bc62dd3f73c9c15e8f8b5222cff0b94c926d78058ba7
-- [x] Hash-fonte src/modules/32-cooperative-missions.js — dc96c793a3a92f2791c237599b24a48f978950e7ea1a62d28468b0549d010ce1
 - [x] Hash-fonte src/modules/33-otthi-world-professional-core.js — 0c263732046930ead7b5951e2c318ce131473316d792fb752a8f26690e6bcdca
 - [x] Hash-fonte src/modules/34-avatar-studio-professional-v3.js — 5a106a18e5ed42cde13541c913eaef14fc5b8ba684289bcbc04db1abfb5d7657
 - [x] Hash-fonte src/modules/35-world-render-pbr-environment.js — 9738993dc27cc6b48be41fb05e2e5e036a1495559a8b02470ec3b3fbe0c25e68
@@ -813,8 +941,8 @@ FALHOU: version 702
 - [x] Hash-fonte src/styles/18-world-evolution-v702.css — ea2595137c241f91b896cba1d62b4e63ce94c78c69193f5ff74f968f194f7526
 - [x] app.js sincronizado com fontes
 - [x] style.css sincronizado com fontes
-- [x] Funções preservadas e ampliadas — 870
-- [ ] Release V702 coerente
+- [x] Funções preservadas e ampliadas — 873
+- [x] Release V703 coerente
 - [x] Hashes da release conferem — []
 - [x] Revisão HTML/SW/manifesto coerente
 - [x] Firebase remoto ainda não declarado aprovado

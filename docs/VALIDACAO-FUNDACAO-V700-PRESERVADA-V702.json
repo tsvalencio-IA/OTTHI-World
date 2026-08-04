@@ -1,12 +1,12 @@
 {
-  "version": 702,
-  "build": "702.0-world-evolution-complete",
+  "version": 704,
+  "build": "704.0-world-reconstruction-complete",
   "passed": true,
   "counts": {
     "checks": 67,
     "passed": 67,
     "failed": 0,
-    "functionsIncludingAsync": 852,
+    "functionsIncludingAsync": 936,
     "pbrPacks": 33
   },
   "checks": [
@@ -23,7 +23,7 @@
     {
       "name": "Módulos JavaScript V700 preservados e ampliados",
       "passed": true,
-      "detail": "42"
+      "detail": "45"
     },
     {
       "name": "Módulos CSS V700 preservados e ampliados",
@@ -41,9 +41,9 @@
       "detail": ""
     },
     {
-      "name": "Todas as funções-base permanecem na ordem relativa",
+      "name": "Todas as funções-base permanecem na ordem relativa, exceto módulo cooperativo movido antes do bootstrap",
       "passed": true,
-      "detail": "727 base / 852 atuais"
+      "detail": "661 base ordenadas / 936 atuais"
     },
     {
       "name": "Nenhuma função-base foi removida",
@@ -53,7 +53,7 @@
     {
       "name": "Funções ampliadas",
       "passed": true,
-      "detail": "852"
+      "detail": "936"
     },
     {
       "name": "Arquivo crítico preservado: firebase-config.js",
