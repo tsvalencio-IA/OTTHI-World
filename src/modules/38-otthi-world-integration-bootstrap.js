@@ -15,7 +15,7 @@
   };
   function bootstrapOtthiWorldShell(){
     ensureOtthiWorldState();injectOtthiWorldButtons();ensureWorldHeroHud();if(els.avatarBtn)els.avatarBtn.onclick=openAvatarStudio;
-    document.documentElement.dataset.otthiWorld='704';document.body.classList.add('otthi-world-shell');
+    document.documentElement.dataset.otthiWorld='705';document.body.classList.add('otthi-world-shell','otthi-v705-world');
   }
   bootstrapOtthiWorldShell();
   dbReady.then(()=>{ensureOtthiWorldState();bootstrapOtthiWorldShell();updateWorldHeroHud();}).catch(()=>{});
