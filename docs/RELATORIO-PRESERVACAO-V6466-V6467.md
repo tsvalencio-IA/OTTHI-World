@@ -3,11 +3,11 @@
 - Resultado: **APROVADO**
 - Verificações: **43 aprovadas / 0 falhas**
 - Funções-base preservadas: **727 incluindo async**
-- Funções atuais: **936 incluindo async**
+- Funções atuais: **958 incluindo async**
 
 ## Verificações
 
-- [x] Funções históricas preservam a ordem, exceto o módulo cooperativo movido antes do bootstrap — 727 base / 936 atuais / 71 cooperativas reposicionadas
+- [x] Funções históricas preservam a ordem, exceto o módulo cooperativo movido antes do bootstrap — 727 base / 958 atuais / 71 cooperativas reposicionadas
 - [x] Nenhuma função V646.6 foi removida — 0 ausentes
 - [x] Baseline reproduz a auditoria original
 - [x] Arquivo crítico imutável preservado: firebase-config.js — 72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd
@@ -15,7 +15,7 @@
 - [x] Arquivo crítico imutável preservado: athos.glb — 98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb
 - [x] Realtime Database original preservado e ampliado com segurança
 - [x] Bundle CSS continua reproduzível pela arquitetura modular — 19 módulos CSS / 223366 caracteres
-- [x] Fundação V646.7 preservada na versão atual — V704 / 704.0-world-reconstruction-complete
+- [x] Fundação V646.7 preservada na versão atual — V705 / 705.0-playable-sports-realistic-npcs-kart
 - [x] Aprovação física continua pendente
 - [x] Módulos JavaScript preservam a fundação e aceitam extensões posteriores — 45
 - [x] Three.js r128 foi mantido e não há CDN

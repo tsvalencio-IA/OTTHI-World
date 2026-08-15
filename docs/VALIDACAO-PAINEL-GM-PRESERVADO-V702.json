@@ -1,12 +1,12 @@
 {
-  "version": 704,
-  "build": "704.0-world-reconstruction-complete",
+  "version": 705,
+  "build": "705.0-playable-sports-realistic-npcs-kart",
   "passed": true,
   "counts": {
     "checks": 57,
     "passed": 57,
     "failed": 0,
-    "functionsIncludingAsync": 936,
+    "functionsIncludingAsync": 958,
     "pbrPacks": 33
   },
   "checks": [
@@ -43,7 +43,7 @@
     {
       "name": "Funções-base fora do módulo cooperativo permanecem na ordem relativa",
       "passed": true,
-      "detail": "661 base / 865 atuais"
+      "detail": "661 base / 887 atuais"
     },
     {
       "name": "Módulo cooperativo foi somente realocado antes do render",
@@ -58,7 +58,7 @@
     {
       "name": "Funções ampliadas",
       "passed": true,
-      "detail": "936"
+      "detail": "958"
     },
     {
       "name": "Arquivo crítico preservado: firebase-config.js",

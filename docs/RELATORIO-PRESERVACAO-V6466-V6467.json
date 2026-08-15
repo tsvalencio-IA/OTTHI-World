@@ -1,6 +1,6 @@
 {
-  "version": 704,
-  "build": "704.0-world-reconstruction-complete",
+  "version": 705,
+  "build": "705.0-playable-sports-realistic-npcs-kart",
   "baseline": {
     "build": "646.6-authenticated-gameplay-open",
     "checks": 203,
@@ -11,13 +11,13 @@
     "checks": 43,
     "passed": 43,
     "failed": 0,
-    "currentFunctionsIncludingAsync": 936
+    "currentFunctionsIncludingAsync": 958
   },
   "checks": [
     {
       "name": "Funções históricas preservam a ordem, exceto o módulo cooperativo movido antes do bootstrap",
       "passed": true,
-      "detail": "727 base / 936 atuais / 71 cooperativas reposicionadas"
+      "detail": "727 base / 958 atuais / 71 cooperativas reposicionadas"
     },
     {
       "name": "Nenhuma função V646.6 foi removida",
@@ -57,7 +57,7 @@
     {
       "name": "Fundação V646.7 preservada na versão atual",
       "passed": true,
-      "detail": "V704 / 704.0-world-reconstruction-complete"
+      "detail": "V705 / 705.0-playable-sports-realistic-npcs-kart"
     },
     {
       "name": "Aprovação física continua pendente",

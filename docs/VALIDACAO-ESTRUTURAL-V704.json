@@ -1,13 +1,13 @@
 {
-  "version": 704,
-  "build": "704.0-world-reconstruction-complete",
+  "version": 705,
+  "build": "705.0-playable-sports-realistic-npcs-kart",
   "passed": true,
   "counts": {
-    "checks": 196,
-    "passed": 196,
+    "checks": 198,
+    "passed": 198,
     "failed": 0,
-    "functionsIncludingAsync": 936,
-    "javascriptModules": 45,
+    "functionsIncludingAsync": 958,
+    "javascriptModules": 46,
     "styleModules": 19,
     "htmlIds": 105
   },
@@ -223,7 +223,7 @@
       "detail": ""
     },
     {
-      "name": "Versão central V704",
+      "name": "Versão central V705",
       "passed": true,
       "detail": ""
     },
@@ -319,6 +319,11 @@
     },
     {
       "name": "Sintaxe src/modules/13a-sports-kart-v704.js",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Sintaxe src/modules/13a-sports-kart-v705.js",
       "passed": true,
       "detail": ""
     },
@@ -550,17 +555,17 @@
     {
       "name": "Serviços profissionais",
       "passed": true,
-      "detail": "test_accidents_stop_and_require_all_services (__main__.ProfessionalEmergencyServicesTests.test_accidents_stop_and_require_all_services) ... ok\ntest_buses_and_traffic_have_collision_protection (__main__.ProfessionalEmergencyServicesTests.test_buses_and_traffic_have_collision_protection) ... ok\ntest_missions_require_correct_vehicle (__main__.ProfessionalEmergencyServicesTests.test_missions_require_correct_vehicle) ... ok\ntest_service_jobs_and_visual_uniforms_exist (__main__.ProfessionalEmergencyServicesTests.test_service_jobs_and_visual_uniforms_exist) ... ok\ntest_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.ProfessionalEmergencyServicesTests.test_service_vehicle_visuals_are_local_and_multiplayer_safe) ... ok\ntest_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.009s\n\nOK"
+      "detail": "test_accidents_stop_and_require_all_services (__main__.ProfessionalEmergencyServicesTests.test_accidents_stop_and_require_all_services) ... ok\ntest_buses_and_traffic_have_collision_protection (__main__.ProfessionalEmergencyServicesTests.test_buses_and_traffic_have_collision_protection) ... ok\ntest_missions_require_correct_vehicle (__main__.ProfessionalEmergencyServicesTests.test_missions_require_correct_vehicle) ... ok\ntest_service_jobs_and_visual_uniforms_exist (__main__.ProfessionalEmergencyServicesTests.test_service_jobs_and_visual_uniforms_exist) ... ok\ntest_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.ProfessionalEmergencyServicesTests.test_service_vehicle_visuals_are_local_and_multiplayer_safe) ... ok\ntest_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.006s\n\nOK"
     },
     {
       "name": "Mapa, móveis e roupas",
       "passed": true,
-      "detail": "test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok\ntest_map_is_dynamic_square_and_viewport_fitted (__main__.CommercialPolishTests.test_map_is_dynamic_square_and_viewport_fitted) ... ok\ntest_mission_card_opens_one_clear_briefing (__main__.CommercialPolishTests.test_mission_card_opens_one_clear_briefing) ... ok\ntest_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match) ... ok\ntest_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.test_room_furniture_is_persistent_and_editable) ... ok\ntest_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.068s\n\nOK"
+      "detail": "test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok\ntest_map_is_dynamic_square_and_viewport_fitted (__main__.CommercialPolishTests.test_map_is_dynamic_square_and_viewport_fitted) ... ok\ntest_mission_card_opens_one_clear_briefing (__main__.CommercialPolishTests.test_mission_card_opens_one_clear_briefing) ... ok\ntest_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match) ... ok\ntest_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.test_room_furniture_is_persistent_and_editable) ... ok\ntest_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.041s\n\nOK"
     },
     {
       "name": "Cooperativo e responsividade",
       "passed": true,
-      "detail": "test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok\ntest_map_is_clustered_and_responsive_in_both_orientations (__main__.CoopResponsiveTests.test_map_is_clustered_and_responsive_in_both_orientations) ... ok\ntest_roles_and_shared_progress_are_online (__main__.CoopResponsiveTests.test_roles_and_shared_progress_are_online) ... ok\ntest_school_fishing_and_race_runtime_contracts (__main__.CoopResponsiveTests.test_school_fishing_and_race_runtime_contracts) ... ok\ntest_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests.test_state_persists_and_existing_systems_integrate) ... ok\ntest_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.062s\n\nOK"
+      "detail": "test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok\ntest_map_is_clustered_and_responsive_in_both_orientations (__main__.CoopResponsiveTests.test_map_is_clustered_and_responsive_in_both_orientations) ... ok\ntest_roles_and_shared_progress_are_online (__main__.CoopResponsiveTests.test_roles_and_shared_progress_are_online) ... ok\ntest_school_fishing_and_race_runtime_contracts (__main__.CoopResponsiveTests.test_school_fishing_and_race_runtime_contracts) ... ok\ntest_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests.test_state_persists_and_existing_systems_integrate) ... ok\ntest_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.041s\n\nOK"
     },
     {
       "name": "Painel GM V701 preservado",
@@ -580,12 +585,17 @@
     {
       "name": "Ordem de inicialização V703.1",
       "passed": true,
-      "detail": "OK - Módulo cooperativo antes do render 29 < 30\nOK - Módulo cooperativo antes do bootstrap 29 < 35\nOK - Bundle cooperativo antes do render 591276 < 656536\nOK - Bundle cooperativo antes do bootstrap 591276 < 788133\nOK - Declaração inicializada antes de initThree 594943 < 656605\nOK - Chamada cooperativa preservada \nOK - Build atual coerente \nOK - Cache atual 7040 \nRESULTADO: 8/8"
+      "detail": "OK - Módulo cooperativo antes do render 29 < 30\nOK - Módulo cooperativo antes do bootstrap 29 < 35\nOK - Bundle cooperativo antes do render 599859 < 665119\nOK - Bundle cooperativo antes do bootstrap 599859 < 800922\nOK - Declaração inicializada antes de initThree 603526 < 665188\nOK - Chamada cooperativa preservada \nOK - Build atual coerente \nOK - Cache atual 7050 \nRESULTADO: 8/8"
     },
     {
       "name": "Reconstrução mundial V704",
       "passed": true,
-      "detail": "   \"name\": \"Esporte jogável: updateFootballV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: v704UpdateScoreboard\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: startCourtV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: courtHitV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: courtPointV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: startKartRaceV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: updateKartRaceV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: Atalho inválido\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esportes atualizados no game loop\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Bots cooperativos usam a pista oval real\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Anel aleatório de prédios invasores removido\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Skyline decorativo fora da área jogável\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: vehicleDurabilityV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: vehicleBrokenV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: vehiclePerformanceV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: applyVehicleImpactDamageV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: repairVehicleV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: towVehicleToWorkshopV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: openBrokenVehicleOptionsV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: lastImpactAt<420\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo quebrado é imobilizado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Migração de construções: migrateLegacyWorldBuildsV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Migração de construções: legacyPositionV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Migração de construções: v704NearestConstructionSlot\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Migração de construções: buildConflictsWithMasterWorldV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Login não depende da reserva de sala\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Save protegido não exige connected\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Bundle contém V704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    }\n  ]\n}"
+      "detail": "     \"name\": \"Esporte jogável: updateFootballV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: v705UpdateScoreboard\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: startCourtV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: courtHitV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: v705CourtPoint\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: startKartRaceV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: updateKartRaceV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esporte jogável: Fora da pista\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Esportes atualizados no game loop\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Bots cooperativos usam a pista oval real\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Anel aleatório de prédios invasores removido\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Skyline decorativo fora da área jogável\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: vehicleDurabilityV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: vehicleBrokenV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: vehiclePerformanceV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: applyVehicleImpactDamageV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: repairVehicleV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: towVehicleToWorkshopV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: openBrokenVehicleOptionsV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo: lastImpactAt<420\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Veículo quebrado é imobilizado\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Migração de construções: migrateLegacyWorldBuildsV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Migração de construções: legacyPositionV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Migração de construções: v704NearestConstructionSlot\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Migração de construções: buildConflictsWithMasterWorldV704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Login não depende da reserva de sala\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Save protegido não exige connected\",\n      \"passed\": true,\n      \"detail\": \"\"\n    },\n    {\n      \"name\": \"Bundle contém V704\",\n      \"passed\": true,\n      \"detail\": \"\"\n    }\n  ]\n}"
+    },
+    {
+      "name": "Esportes, NPCs e kart V705",
+      "passed": true,
+      "detail": "OK - Release V705 \nOK - Uma única fonte esportiva \nOK - Futebol 3x3 real no contrato \nOK - Futebol possui chute e passe \nOK - Futebol possui goleiros e IA de cobertura \nOK - Vôlei/futevôlei 2x2 \nOK - Regra de três toques \nOK - Levantamento contextual \nOK - Pontuação de set até 11 com dois de vantagem \nOK - Kart usa spline técnica \nOK - Kart tem no mínimo 10 pontos de controle \nOK - Kart tem dez checkpoints \nOK - Kart tem grid e três adversários \nOK - Kart tem boxes, zebras e barreiras \nOK - Kart penaliza fora da pista \nOK - NPC visual arredondado \nOK - NPC possui memória e estado \nOK - NPC percebe veículo \nOK - NPC reage à buzina \nOK - NPC evita vias e obstáculos \nOK - NPC desvia do veículo \nOK - Botão poder integrado a esporte \nOK - Bundle contém V705 \nOK - Traçado cabe na zona reservada [(16, -7), (14, -12), (6, -15), (-4, -14), (-14, -9), (-17, -1), (-13, 8), (-5, 13), (5, 14), (14, 9), (17, 2)]\nOK - Traçado não é oval matemático raios 13.93..18.44\nRESULTADO: 25/25"
     },
     {
       "name": "Materialização real do mundo V704",
@@ -613,7 +623,7 @@
       "detail": "[]"
     },
     {
-      "name": "Cache-busting V704",
+      "name": "Cache-busting V705",
       "passed": true,
       "detail": "16"
     },
@@ -623,19 +633,19 @@
       "detail": ""
     },
     {
-      "name": "Manifesto PWA V704",
+      "name": "Manifesto PWA V705",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Service Worker V704",
+      "name": "Service Worker V705",
       "passed": true,
       "detail": ""
     },
     {
       "name": "Hash-fonte src/modules/00-runtime-foundation.js",
       "passed": true,
-      "detail": "bfa0d0b0c61ef85d9b179c40cb524d390e30165b2edc9c60b2f58549cab9d5a5"
+      "detail": "27f1a5ea5a0f3ee8060a1ac49b264035ebb1815a9a079d1496a4efc65a986751"
     },
     {
       "name": "Hash-fonte src/modules/00a-visual-foundation-avatar-v2.js",
@@ -710,12 +720,12 @@
     {
       "name": "Hash-fonte src/modules/13-houses-npcs-vehicles-base.js",
       "passed": true,
-      "detail": "2937d1d293fe0b487a14beda6f899b28bff24dbb8cb761930d52f986e75aa9e8"
+      "detail": "9b4ef29675bbdfbbf6824647ac5510dbe09120d6ceb492ae35ecd1da71bf3eee"
     },
     {
-      "name": "Hash-fonte src/modules/13a-sports-kart-v704.js",
+      "name": "Hash-fonte src/modules/13a-sports-kart-v705.js",
       "passed": true,
-      "detail": "3f2814eda562b36232b4303cfd2f59e9b43d8682885b6a1b5051e2fda057e5af"
+      "detail": "df976a821a99c5112b735876a76191887975b33abd24e5e59ae00492299eb2a4"
     },
     {
       "name": "Hash-fonte src/modules/14-world-district-decoration.js",
@@ -790,7 +800,7 @@
     {
       "name": "Hash-fonte src/modules/27-npc-enemies-combat-camera-action.js",
       "passed": true,
-      "detail": "43343a587daaae0448ddedd1b9503ce5c30e9093b03fb89a56da11ff5612a972"
+      "detail": "bb15098f619753461f85a9a12800d323182732efcbc89a89ff06be54f64f5adb"
     },
     {
       "name": "Hash-fonte src/modules/28-multiplayer-social-online.js",
@@ -845,7 +855,7 @@
     {
       "name": "Hash-fonte src/modules/38-otthi-world-integration-bootstrap.js",
       "passed": true,
-      "detail": "acab13285787b50ec9385519c8c81145560568c1bde7447c46ce38004011837b"
+      "detail": "fc774d56be3da8b45c3ff3a5a81ff65b8840c0a704d8f7a8fee4161d9a1e2395"
     },
     {
       "name": "Hash-fonte src/modules/39-gm-admin-panel.js",
@@ -855,7 +865,7 @@
     {
       "name": "Hash-fonte src/modules/40-world-evolution-v702.js",
       "passed": true,
-      "detail": "ba0edb6e50e5fcc9e3cfe781cf0ba6198e1c6dbb622406e956e69c7bb55b5243"
+      "detail": "e46b774de428c030c0255cb8c6b2501d22a9e3c02c15c7a0575d62210de322d8"
     },
     {
       "name": "Hash-fonte src/styles/00-foundation-lobby-game-modal.css",
@@ -965,10 +975,10 @@
     {
       "name": "Funções preservadas e ampliadas",
       "passed": true,
-      "detail": "936"
+      "detail": "958"
     },
     {
-      "name": "Release V704 coerente",
+      "name": "Release V705 coerente",
       "passed": true,
       "detail": ""
     },
@@ -995,10 +1005,10 @@
   ],
   "errors": [],
   "hashes": {
-    "app.js": "3e015332e54fc1ebe1b4a288230df3c37798c61ef743c024ef1b93ce39d832f2",
+    "app.js": "4e7982737d6eac986987dadb8540b2f11dcb87d4a8028c3a206bdf316ec56cc8",
     "style.css": "aeaa2279d4068e50207fe0c1108573596bccd2480f64220fdb426e85236a914f",
-    "src/module-order.json": "d87073ff319c2d715a38d76b5895765c1689a0899b1884b9c9fa21ed82df8b31",
-    "release-manifest.json": "4e1b106a4c167084995b40ee2208c7568b0fb20d8a4b7a5c3928298c378f3a09",
+    "src/module-order.json": "a11b880d08f30c35acdc8ca4c627f81c0893e732c620cac2da617c397ad7b067",
+    "release-manifest.json": "7cac6888f7fa8cdfa2538b70aeec9d92ca15ff681842897ac29aa7afebf6e8c1",
     "firebase-config.js": "72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd",
     "firebase-database.rules.json": "ebf8cd036b4d9ee61286b5d64fc8bfb405c7d390459d9e517126ceb03c855958"
   },

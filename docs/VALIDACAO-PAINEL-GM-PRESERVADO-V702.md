@@ -2,7 +2,7 @@
 
 - Resultado: **APROVADO**
 - Verificações: **57 aprovadas / 0 falhas**
-- Funções incluindo async: **936**
+- Funções incluindo async: **958**
 
 ## Verificações
 
@@ -12,10 +12,10 @@
 - [x] Módulos CSS preservados e ampliados — 19
 - [x] Painel GM permanece no build
 - [x] CSS GM permanece no build
-- [x] Funções-base fora do módulo cooperativo permanecem na ordem relativa — 661 base / 865 atuais
+- [x] Funções-base fora do módulo cooperativo permanecem na ordem relativa — 661 base / 887 atuais
 - [x] Módulo cooperativo foi somente realocado antes do render — 71
 - [x] Nenhuma função-base foi removida — []
-- [x] Funções ampliadas — 936
+- [x] Funções ampliadas — 958
 - [x] Arquivo crítico preservado: firebase-config.js — 72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd
 - [x] Arquivo crítico preservado: assets/vendor/three-r128.min.js — 9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2
 - [x] Arquivo crítico preservado: athos.glb — 98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb

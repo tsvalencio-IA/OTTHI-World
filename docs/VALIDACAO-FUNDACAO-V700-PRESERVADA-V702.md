@@ -2,7 +2,7 @@
 
 - Resultado: **APROVADO**
 - Verificações: **67 aprovadas / 0 falhas**
-- Funções incluindo async: **936**
+- Funções incluindo async: **958**
 - Pacotes PBR: **33**
 
 ## Verificações
@@ -13,9 +13,9 @@
 - [x] Módulos CSS V700 preservados e ampliados — 19
 - [x] Seis módulos profissionais V700 preservados
 - [x] CSS profissional V700 preservado
-- [x] Todas as funções-base permanecem na ordem relativa, exceto módulo cooperativo movido antes do bootstrap — 661 base ordenadas / 936 atuais
+- [x] Todas as funções-base permanecem na ordem relativa, exceto módulo cooperativo movido antes do bootstrap — 661 base ordenadas / 958 atuais
 - [x] Nenhuma função-base foi removida — []
-- [x] Funções ampliadas — 936
+- [x] Funções ampliadas — 958
 - [x] Arquivo crítico preservado: firebase-config.js — 72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd
 - [x] Arquivo crítico preservado: assets/vendor/three-r128.min.js — 9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2
 - [x] Arquivo crítico preservado: athos.glb — 98c8acdbd7e4160eeb34347a3706041b50fa12d2875a03d852e3b218b7959cdb
