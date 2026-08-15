@@ -6,10 +6,10 @@ checks=[]
 def add(name,ok,detail=''): checks.append({'name':name,'passed':bool(ok),'detail':str(detail)})
 def text(p): return (ROOT/p).read_text('utf-8')
 version=json.loads(text('VERSION.json')); manifest=json.loads(text('src/module-order.json'))
-layout=text('src/modules/05a-world-layout-v704.js'); sports=text('src/modules/13a-sports-kart-v704.js'); damage=text('src/modules/36a-vehicle-damage-repair-v704.js'); build=text('src/modules/24-construction-system.js'); world=text('src/modules/20-world-build-cloud-houses.js'); base=text('src/modules/13-houses-npcs-vehicles-base.js'); rtdb=text('assets/js/multiplayer-rtdb.js'); loop=text('src/modules/29-game-loop-controls-gamepad.js'); coop=text('src/modules/32-cooperative-missions.js'); district=text('src/modules/14-world-district-decoration.js')
-add('Versão V704 sincronizada',version.get('version')==704 and manifest.get('version')==704 and version.get('build')==manifest.get('build'))
+layout=text('src/modules/05a-world-layout-v704.js'); sports=text('src/modules/13a-sports-kart-v705.js'); damage=text('src/modules/36a-vehicle-damage-repair-v704.js'); build=text('src/modules/24-construction-system.js'); world=text('src/modules/20-world-build-cloud-houses.js'); base=text('src/modules/13-houses-npcs-vehicles-base.js'); rtdb=text('assets/js/multiplayer-rtdb.js'); loop=text('src/modules/29-game-loop-controls-gamepad.js'); coop=text('src/modules/32-cooperative-missions.js'); district=text('src/modules/14-world-district-decoration.js')
+add('Versão V705 sincronizada',version.get('version')==705 and manifest.get('version')==705 and version.get('build')==manifest.get('build'))
 order=[x['file'] for x in manifest['javascript']]
-for f in ['src/modules/05a-world-layout-v704.js','src/modules/13a-sports-kart-v704.js','src/modules/32-cooperative-missions.js','src/modules/36a-vehicle-damage-repair-v704.js']:
+for f in ['src/modules/05a-world-layout-v704.js','src/modules/13a-sports-kart-v705.js','src/modules/32-cooperative-missions.js','src/modules/36a-vehicle-damage-repair-v704.js']:
  add(f'Módulo presente: {f}',f in order)
 add('Missões cooperativas antes do render/bootstrap',order.index('src/modules/32-cooperative-missions.js')<order.index('src/modules/25-render-init-resize-position-collision.js'))
 node="""const fs=require('fs'),vm=require('vm');const c={window:{},console};vm.createContext(c);vm.runInContext(fs.readFileSync('src/modules/05a-world-layout-v704.js','utf8'),c);console.log(JSON.stringify(c.window.OTTHI_WORLD_LAYOUT_V704.staticAudit()));"""
@@ -21,7 +21,7 @@ for token in ['v704RuntimeWorldAudit','house-on-road','collider-in-protected-are
 add('Ginásio legado não cria segunda geometria',"return typeof createSportsComplexV704==='function'?createSportsComplexV704():world.gym" in base)
 add('Mundo cria um único complexo esportivo',world.count('createSportsComplexV704()')==1,world.count('createSportsComplexV704()'))
 add('Mundo cria um único kartódromo',world.count('createKartCircuitV704()')==1,world.count('createKartCircuitV704()'))
-for token in ['startFootballV704','footballKickV704','updateFootballV704','v704UpdateScoreboard','startCourtV704','courtHitV704','courtPointV704','startKartRaceV704','updateKartRaceV704','Atalho inválido']:
+for token in ['startFootballV704','footballKickV704','updateFootballV704','v705UpdateScoreboard','startCourtV704','courtHitV704','v705CourtPoint','startKartRaceV704','updateKartRaceV704','Fora da pista']:
  add(f'Esporte jogável: {token}',token in sports)
 add('Esportes atualizados no game loop','updateWorldSportsV704(dt)' in loop)
 add('Bots cooperativos usam a pista oval real','rx=23.7+Number(bot.coopRaceLane||0)*.9' in coop and 'rz=12.4+Number(bot.coopRaceLane||0)*.45' in coop)
@@ -36,5 +36,5 @@ add('Login não depende da reserva de sala',"connect({name:publicName}).catch(()
 add('Save protegido não exige connected',"if(!api||!db)return{ok:false,error:'Serviço de conta indisponível'}" in rtdb)
 add('Bundle contém V704','WORLD_LAYOUT_V704' in text('app.js') and 'vehicleBrokenV704' in text('app.js'))
 failed=[c for c in checks if not c['passed']]
-print(json.dumps({'version':704,'passed':not failed,'counts':{'passed':len(checks)-len(failed),'failed':len(failed),'total':len(checks)},'checks':checks},ensure_ascii=False,indent=2))
+print(json.dumps({'version':705,'passed':not failed,'counts':{'passed':len(checks)-len(failed),'failed':len(failed),'total':len(checks)},'checks':checks},ensure_ascii=False,indent=2))
 sys.exit(1 if failed else 0)

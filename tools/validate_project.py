@@ -58,13 +58,14 @@ def main():
     for rel in required: add(f'Arquivo obrigatório {rel}',(ROOT/rel).is_file())
     version=read_json('VERSION.json'); order=read_json('src/module-order.json'); webmanifest=read_json('manifest.webmanifest'); release=read_json('release-manifest.json'); read_json('firebase-database.rules.json'); read_json('assets/world/pbr-manifest.json')
     js_modules=sorted((ROOT/'src/modules').glob('*.js')); css_modules=sorted((ROOT/'src/styles').glob('*.css'))
-    add('Módulos JavaScript encontrados',len(js_modules)>=45,len(js_modules)); add('19 módulos CSS',len(css_modules)==19,len(css_modules))
-    add('Manifesto JS completo',len(order.get('javascript',[]))==len(js_modules))
+    active_js_modules=[p for p in js_modules if 'OTTHI_COMPATIBILITY_STUB' not in p.read_text('utf-8',errors='ignore')]
+    add('Módulos JavaScript encontrados',len(active_js_modules)>=45,len(active_js_modules)); add('19 módulos CSS',len(css_modules)==19,len(css_modules))
+    add('Manifesto JS completo',len(order.get('javascript',[]))==len(active_js_modules))
     add('Manifesto CSS completo',len(order.get('styles',[]))==len(css_modules)==19)
     manifest_js=[Path(x['file']).name for x in order.get('javascript',[])]
-    add('Manifesto JS corresponde exatamente aos arquivos',len(manifest_js)==len(set(manifest_js)) and set(manifest_js)=={p.name for p in js_modules})
+    add('Manifesto JS corresponde exatamente aos arquivos',len(manifest_js)==len(set(manifest_js)) and set(manifest_js)=={p.name for p in active_js_modules})
     add('Ordem CSS corresponde aos arquivos',[Path(x['file']).name for x in order.get('styles',[])]==[p.name for p in css_modules])
-    add('Versão central V704',version.get('version')==704 and version.get('build')=='704.0-world-reconstruction-complete' and order.get('version')==704 and order.get('build')==version.get('build'))
+    add('Versão central V705',version.get('version')==705 and version.get('build')=='705.0-playable-sports-realistic-npcs-kart' and order.get('version')==705 and order.get('build')==version.get('build'))
 
     run([NODE,'--check','app.js'],'Sintaxe app.js'); run([NODE,'--check','sw.js'],'Sintaxe sw.js')
     for path in js_modules: run([NODE,'--check',str(path.relative_to(ROOT))],f'Sintaxe {path.relative_to(ROOT)}')
@@ -85,6 +86,7 @@ def main():
       ([PYTHON,'tools/test_v703_recovery.py'],'Recuperação funcional V703'),
       ([PYTHON,'tools/test_v7031_startup_order.py'],'Ordem de inicialização V703.1'),
       ([PYTHON,'tools/test_v704_world_reconstruction.py'],'Reconstrução mundial V704'),
+      ([PYTHON,'tools/test_v705_playable_world.py'],'Esportes, NPCs e kart V705'),
       ([NODE,'tools/test_v704_world_materialization.js'],'Materialização real do mundo V704'),
       ([NODE,'tools/test_v704_vehicle_runtime.js'],'Dano, quebra, reboque e reparo V704'),
       ([PYTHON,'tools/audit_world_v704.py'],'Auditoria geométrica, rotas e áreas jogáveis V704')]
@@ -94,17 +96,17 @@ def main():
     audit=HtmlAudit(); audit.feed(index)
     duplicates=sorted({x for x in audit.ids if audit.ids.count(x)>1}); missing=sorted(x for x in audit.local if not (ROOT/x).exists())
     add('IDs HTML únicos',not duplicates,duplicates); add('Referências locais existem',not missing,missing)
-    add('Cache-busting V704',index.count('?v=7040')>=10,index.count('?v=7040'))
-    add('Three.js local','./assets/vendor/three-r128.min.js?v=7040' in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
-    add('Manifesto PWA V704',webmanifest.get('name')=='OTTHI World' and 'v=7040' in webmanifest.get('start_url',''))
-    add('Service Worker V704',"const CACHE = `otthi-v7040-${REVISION}`" in sw and "const BUILD = '704.0-world-reconstruction-complete'" in sw and "const VERSION = '704'" in sw)
+    add('Cache-busting V705',index.count('?v=7050')>=10,index.count('?v=7050'))
+    add('Three.js local','./assets/vendor/three-r128.min.js?v=7050' in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
+    add('Manifesto PWA V705',webmanifest.get('name')=='OTTHI World' and 'v=7050' in webmanifest.get('start_url',''))
+    add('Service Worker V705',"const CACHE = `otthi-v7050-${REVISION}`" in sw and "const BUILD = '705.0-playable-sports-realistic-npcs-kart'" in sw and "const VERSION = '705'" in sw)
 
     expected_app,expected_style=expected_bundles(order)
     add('app.js sincronizado com fontes',app==expected_app); add('style.css sincronizado com fontes',style==expected_style)
     functions=re.findall(r'^  (?:async\s+)?function\s+([A-Za-z_$][\w$]*)\s*\(',app,re.M)
     add('Funções preservadas e ampliadas',len(functions)>=800,len(functions))
     bad=[rel for rel,digest in release.get('files',{}).items() if not (ROOT/rel).is_file() or hashlib.sha256((ROOT/rel).read_bytes()).hexdigest()!=digest]
-    add('Release V704 coerente',release.get('version')==704 and release.get('build')==version.get('build') and release.get('algorithm')=='SHA-256')
+    add('Release V705 coerente',release.get('version')==705 and release.get('build')==version.get('build') and release.get('algorithm')=='SHA-256')
     add('Hashes da release conferem',not bad,bad)
     rev_i=re.search(r'data-otthi-revision="([a-f0-9]{16})"',index); rev_s=re.search(r"const REVISION = '([a-f0-9]{16})';",sw)
     add('Revisão HTML/SW/manifesto coerente',bool(rev_i and rev_s) and release.get('revision')==rev_i.group(1)==rev_s.group(1))

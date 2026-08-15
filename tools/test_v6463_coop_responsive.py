@@ -67,7 +67,7 @@ class CoopResponsiveTests(unittest.TestCase):
         ]:
             self.assertIn(token, source)
         legacy = text('src/modules/13-houses-npcs-vehicles-base.js')
-        sports = text('src/modules/13a-sports-kart-v704.js')
+        sports = text('src/modules/13a-sports-kart-v705.js')
         self.assertIn('createAthleticsGym', legacy)
         self.assertIn('createSportsComplexV704', legacy)
         self.assertIn('Math.PI*2', sports)
