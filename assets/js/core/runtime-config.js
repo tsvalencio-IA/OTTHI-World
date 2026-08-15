@@ -10,8 +10,8 @@
     } catch { return ''; }
   })();
   window.OTTHI_CONFIG = {
-    version: 704,
-    build: '704.0-world-reconstruction-complete',
+    version: 705,
+    build: '705.0-playable-sports-realistic-npcs-kart',
     repository: repo,
     baseUrl,
     firebaseRoot: 'otthosWorld',
