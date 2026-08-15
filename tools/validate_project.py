@@ -58,11 +58,15 @@ def main():
     for rel in required: add(f'Arquivo obrigatório {rel}',(ROOT/rel).is_file())
     version=read_json('VERSION.json'); order=read_json('src/module-order.json'); webmanifest=read_json('manifest.webmanifest'); release=read_json('release-manifest.json'); read_json('firebase-database.rules.json'); read_json('assets/world/pbr-manifest.json')
     js_modules=sorted((ROOT/'src/modules').glob('*.js')); css_modules=sorted((ROOT/'src/styles').glob('*.css'))
-    add('Módulos JavaScript encontrados',len(js_modules)>=45,len(js_modules)); add('Módulos CSS encontrados',len(css_modules)>=19,len(css_modules))
-    add('Manifesto JS completo',len(order.get('javascript',[]))==len(js_modules))
+    # Stubs de compatibilidade permanecem fisicamente no repositório para permitir
+    # atualização manual pelo celular sem exigir exclusão de arquivos antigos.
+    # Eles não são módulos ativos, não entram no module-order.json nem no app.js.
+    active_js_modules=[p for p in js_modules if 'OTTHI_COMPATIBILITY_STUB' not in p.read_text('utf-8',errors='ignore')]
+    add('Módulos JavaScript encontrados',len(active_js_modules)>=45,len(active_js_modules)); add('Módulos CSS encontrados',len(css_modules)>=19,len(css_modules))
+    add('Manifesto JS completo',len(order.get('javascript',[]))==len(active_js_modules))
     add('Manifesto CSS completo',len(order.get('styles',[]))==len(css_modules))
     manifest_js=[Path(x['file']).name for x in order.get('javascript',[])]
-    add('Manifesto JS corresponde exatamente aos arquivos',len(manifest_js)==len(set(manifest_js)) and set(manifest_js)=={p.name for p in js_modules})
+    add('Manifesto JS corresponde exatamente aos arquivos',len(manifest_js)==len(set(manifest_js)) and set(manifest_js)=={p.name for p in active_js_modules})
     add('Ordem CSS corresponde aos arquivos',[Path(x['file']).name for x in order.get('styles',[])]==[p.name for p in css_modules])
     add('Versão central V705',version.get('version')==705 and version.get('build')=='705.0-playable-sports-realistic-npcs-kart' and order.get('version')==705 and order.get('build')==version.get('build'))
 
