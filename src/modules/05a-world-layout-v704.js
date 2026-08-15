@@ -42,7 +42,7 @@
       well:{x:38,z:10},foundry:{x:43,z:-35},mine:{x:-92,z:-92},cabin:{x:-88,z:-42},
       camp:{x:-78,z:-62},hunt:{x:-101,z:-78},lake:{x:-72,z:52},lakeNorth:{x:-100,z:70},pier:{x:-30,z:52},
       farm:{x:101,z:22},farmEntrance:{x:91,z:34},garage:{x:84,z:30},jobBoard:{x:86,z:34},
-      sports:{x:42,z:88},sportsEntrance:{x:42,z:66},volley:{x:82,z:95},footvolley:{x:100,z:95},
+      sports:{x:42,z:88},sportsEntrance:{x:42,z:66},footballEntrance:{x:50,z:69},volley:{x:82,z:95},volleyEntrance:{x:82,z:84},footvolley:{x:100,z:95},footvolleyEntrance:{x:100,z:84},
       kart:{x:94,z:-91},kartEntrance:{x:94,z:-70},kartBoxes:{x:94,z:-91},
       castle:{x:100,z:55},castleEntrance:{x:100,z:40},mountain:{x:-88,z:97},mountainEntrance:{x:-62,z:84},
       lava:{x:35,z:-104},giantGate:{x:18,z:-54},miniTunnel:{x:-38,z:34},crouchTunnel:{x:-42,z:24},
@@ -73,6 +73,7 @@
     paths:Object.freeze([
       {id:'casa-inicial',x1:-18,z1:37.2,x2:-18,z2:45,w:2.2,destination:'home'},
       {id:'complexo-esportivo',x1:42,z1:62,x2:42,z2:67,w:3.2,destination:'stadium'},
+      {id:'entrada-futebol',x1:42,z1:67,x2:50,z2:69,w:2.6,destination:'football-field'},
       {id:'quadras-leste-a',x1:68,z1:62,x2:76,z2:64,w:2.2},
       {id:'quadras-leste-b',x1:76,z1:64,x2:76,z2:82,w:2.2},
       {id:'quadra-volei',x1:76,z1:82,x2:82,z2:84,w:2.2,destination:'volley'},
@@ -154,7 +155,7 @@
     const protectedGameplay=protectedRects.filter(rect=>['sport','kart','farm','castle'].includes(rect.kind));for(const collider of world?.colliders||[]){const rect={x:Number(collider.x),z:Number(collider.z),w:Number(collider.w),d:Number(collider.d)};if(!Number.isFinite(rect.x)||collider.sportsV704||collider.kartV704)continue;for(const protectedRect of protectedGameplay)if(v704RectOverlap(rect,protectedRect,.15))add('collider-in-protected-area',collider.houseId||collider.buildId||collider.landmark||'collider',protectedRect.id);}
     for(const vehicle of vehicles){const x=Number(vehicle.group?.position?.x??vehicle.x),z=Number(vehicle.group?.position?.z??vehicle.z),id=String(vehicle.id||'vehicle');if(!Number.isFinite(x)||!Number.isFinite(z)){add('vehicle-invalid-position',id);continue;}const isKart=String(vehicle.kind||'')==='kart';if(!isKart)for(const road of roads)if(v704PointInRect({x,z},road,Number(vehicle.radius||1.35)))add('vehicle-on-road',id,road.id);for(const structure of protectedRects){if(isKart&&['kart-circuit','kart-boxes'].includes(structure.id))continue;if(v704PointInRect({x,z},structure,1.2))add('vehicle-inside-structure',id,structure.id);}}
     const spawn=worldLayoutPoint('spawn');if(typeof positionBlockedForPlayer==='function'&&positionBlockedForPlayer(spawn.x,spawn.z,.42,{ignoreTraffic:true,allowWater:false}))add('spawn-blocked','spawn');
-    const important=['sportsEntrance','volley','footvolley','kartEntrance','farmEntrance','castleEntrance','mountainEntrance','constructionEntrance'];for(const id of important){const p=worldLayoutPoint(id);if(typeof nearestRoadProjection==='function'){const projection=nearestRoadProjection(p);if(!projection||projection.distance>18||projection.clear===false)add('destination-inaccessible',id,'road',projection?`distance=${projection.distance.toFixed(1)}`:'no-projection');}}
+    const important=['sportsEntrance','footballEntrance','volleyEntrance','footvolleyEntrance','kartEntrance','farmEntrance','castleEntrance','mountainEntrance','constructionEntrance'];for(const id of important){const p=worldLayoutPoint(id);if(typeof nearestRoadProjection==='function'){const projection=nearestRoadProjection(p);if(!projection||projection.distance>18||projection.clear===false)add('destination-inaccessible',id,'road',projection?`distance=${projection.distance.toFixed(1)}`:'no-projection');}}
     const names={};worldGroup?.traverse?.(object=>{const name=String(object.name||'');if(name)names[name]=(names[name]||0)+1;});for(const name of['OTTHI_V702_FARM','OTTHI_V702_MOUNTAIN','OTTHI_V704_SPORTS','OTTHI_V704_KART'])if((names[name]||0)>1)add('duplicate-world-system',name,String(names[name]));
     const result={version:704,passed:problems.length===0,problems,houses:houses.length,vehicles:vehicles.length,colliders:world?.colliders?.length||0,hazards:hazards.length,interactables:world?.interactables?.length||0,at:Date.now()};world.layoutAuditRuntime=result;if(!result.passed)console.error('[OTTHI V704] auditoria geométrica do mundo real',problems);return result;
   }
