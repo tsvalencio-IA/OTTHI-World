@@ -3,6 +3,8 @@ from pathlib import Path
 import json, sys
 ROOT=Path(__file__).resolve().parents[1]
 order=json.loads((ROOT/'src/module-order.json').read_text('utf-8'))
+version=json.loads((ROOT/'VERSION.json').read_text('utf-8'))
+asset_version=str(version.get('assetVersion', version.get('version',0)*10))
 app=(ROOT/'app.js').read_text('utf-8')
 index=(ROOT/'index.html').read_text('utf-8')
 sw=(ROOT/'sw.js').read_text('utf-8')
@@ -26,7 +28,7 @@ ck('Bundle cooperativo antes do bootstrap', 0<=coop_marker<bootstrap_marker, f'{
 ck('Declaração inicializada antes de initThree', 0<=decl<init, f'{decl} < {init}')
 ck('Chamada cooperativa preservada', 'createCooperativeMissionWorld();' in app)
 ck('Build atual coerente', order.get('build')=='705.0-playable-sports-realistic-npcs-kart' and '705.0-playable-sports-realistic-npcs-kart' in index and "705.0-playable-sports-realistic-npcs-kart" in sw)
-ck('Cache atual 7050', index.count('?v=7050')>=10 and 'otthi-v7050-${REVISION}' in sw)
+ck('Cache atual coerente', index.count(f'?v={asset_version}')>=10 and f'otthi-v{asset_version}-${{REVISION}}' in sw)
 failed=[name for name,ok,_ in checks if not ok]
 print(f'RESULTADO: {len(checks)-len(failed)}/{len(checks)}')
 sys.exit(1 if failed else 0)

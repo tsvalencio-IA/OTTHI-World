@@ -130,7 +130,7 @@ add(
     == 'src/modules/00a-visual-foundation-avatar-v2.js',
     len(manifest.get('javascript', [])),
 )
-cache_version = f"{current_version}0"
+cache_version = str(version.get('assetVersion', current_version * 10))
 add(
     'Three.js r128 foi mantido e não há CDN',
     f'./assets/vendor/three-r128.min.js?v={cache_version}' in text('index.html')

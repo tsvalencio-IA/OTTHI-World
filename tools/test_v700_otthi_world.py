@@ -56,7 +56,8 @@ for rel,expected in critical.items(): add(f'Arquivo crítico preservado: {rel}',
 add('Mesmo Realtime Database e mesma raiz',"firebaseRoot: 'otthosWorld'" in text('assets/js/core/runtime-config.js') and "ROOT=window.OTTHI_CONFIG?.firebaseRoot||'otthosWorld'" in text('assets/js/multiplayer-rtdb.js') and sha('firebase-config.js')==critical['firebase-config.js'])
 add('Regras e backend V701/V702 preservam o painel GM','gmGrants' in text('firebase-database.rules.json') and 'gmCreateGrant' in text('assets/js/multiplayer-rtdb.js'))
 add('Migração do save V646 para V700',"const STORAGE_KEY = 'otthos_life_world_roleplay_v700'" in app and "'otthos_life_world_roleplay_v646'" in app)
-add('Three.js r128 local preservado',f"./assets/vendor/three-r128.min.js?v={version.get('version')}0" in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
+asset_version=version.get('assetVersion',version.get('version',0)*10)
+add('Three.js r128 local preservado',f"./assets/vendor/three-r128.min.js?v={asset_version}" in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
 
 packs=assets.get('packs',{})
 channels={'baseColor','normal','roughness','ao','height','emissive'}
@@ -76,9 +77,9 @@ add('Novas atualizações ligadas ao game loop','updateOtthiWorldEnvironment(dt)
 add('Fallback seguro no bootstrap','Camada profissional em fallback' in source and 'legacyWorldInitThree' in source and 'legacyWorldInitMaterials' in source)
 add('Identidade original sem ativos de marcas',not any(token in source.lower() for token in ['minecraft','lego','playmobil','marvel','mario']))
 
-cache=f"?v={version.get('version')}0"
+cache=f"?v={asset_version}"
 add('Index versionado na release atual',index.count(cache)>=10,index.count(cache))
-add('Service Worker na release atual',f"const CACHE = `otthi-v{version.get('version')}0-${{REVISION}}`" in sw and version.get('build') in sw)
+add('Service Worker na release atual',f"const CACHE = `otthi-v{asset_version}-${{REVISION}}`" in sw and version.get('build') in sw)
 add('Manifesto PWA preservado',json.loads(text('manifest.webmanifest')).get('name')=='OTTHI World' and cache in json.loads(text('manifest.webmanifest')).get('start_url',''))
 gradle=text('android-app/app/build.gradle')
 add('Android na release atual',f"versionCode {version.get('androidVersionCode')}" in gradle and f"versionName \"{version.get('androidVersionName')}\"" in gradle)

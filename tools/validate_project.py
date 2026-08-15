@@ -58,12 +58,11 @@ def main():
     for rel in required: add(f'Arquivo obrigatório {rel}',(ROOT/rel).is_file())
     version=read_json('VERSION.json'); order=read_json('src/module-order.json'); webmanifest=read_json('manifest.webmanifest'); release=read_json('release-manifest.json'); read_json('firebase-database.rules.json'); read_json('assets/world/pbr-manifest.json')
     js_modules=sorted((ROOT/'src/modules').glob('*.js')); css_modules=sorted((ROOT/'src/styles').glob('*.css'))
-    active_js_modules=[p for p in js_modules if 'OTTHI_COMPATIBILITY_STUB' not in p.read_text('utf-8',errors='ignore')]
-    add('Módulos JavaScript encontrados',len(active_js_modules)>=45,len(active_js_modules)); add('19 módulos CSS',len(css_modules)==19,len(css_modules))
-    add('Manifesto JS completo',len(order.get('javascript',[]))==len(active_js_modules))
-    add('Manifesto CSS completo',len(order.get('styles',[]))==len(css_modules)==19)
+    add('Módulos JavaScript encontrados',len(js_modules)>=45,len(js_modules)); add('Módulos CSS encontrados',len(css_modules)>=19,len(css_modules))
+    add('Manifesto JS completo',len(order.get('javascript',[]))==len(js_modules))
+    add('Manifesto CSS completo',len(order.get('styles',[]))==len(css_modules))
     manifest_js=[Path(x['file']).name for x in order.get('javascript',[])]
-    add('Manifesto JS corresponde exatamente aos arquivos',len(manifest_js)==len(set(manifest_js)) and set(manifest_js)=={p.name for p in active_js_modules})
+    add('Manifesto JS corresponde exatamente aos arquivos',len(manifest_js)==len(set(manifest_js)) and set(manifest_js)=={p.name for p in js_modules})
     add('Ordem CSS corresponde aos arquivos',[Path(x['file']).name for x in order.get('styles',[])]==[p.name for p in css_modules])
     add('Versão central V705',version.get('version')==705 and version.get('build')=='705.0-playable-sports-realistic-npcs-kart' and order.get('version')==705 and order.get('build')==version.get('build'))
 
@@ -93,13 +92,14 @@ def main():
     for command,name in suites: run(command,name)
 
     index=(ROOT/'index.html').read_text('utf-8'); app=(ROOT/'app.js').read_text('utf-8'); style=(ROOT/'style.css').read_text('utf-8'); sw=(ROOT/'sw.js').read_text('utf-8')
+    asset_version=version.get('assetVersion',version.get('version',0)*10); cache_token=f'?v={asset_version}'
     audit=HtmlAudit(); audit.feed(index)
     duplicates=sorted({x for x in audit.ids if audit.ids.count(x)>1}); missing=sorted(x for x in audit.local if not (ROOT/x).exists())
     add('IDs HTML únicos',not duplicates,duplicates); add('Referências locais existem',not missing,missing)
-    add('Cache-busting V705',index.count('?v=7050')>=10,index.count('?v=7050'))
-    add('Three.js local','./assets/vendor/three-r128.min.js?v=7050' in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
-    add('Manifesto PWA V705',webmanifest.get('name')=='OTTHI World' and 'v=7050' in webmanifest.get('start_url',''))
-    add('Service Worker V705',"const CACHE = `otthi-v7050-${REVISION}`" in sw and "const BUILD = '705.0-playable-sports-realistic-npcs-kart'" in sw and "const VERSION = '705'" in sw)
+    add('Cache-busting V705',index.count(cache_token)>=10,index.count(cache_token))
+    add('Three.js local',f'./assets/vendor/three-r128.min.js{cache_token}' in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
+    add('Manifesto PWA V705',webmanifest.get('name')=='OTTHI World' and f'v={asset_version}' in webmanifest.get('start_url',''))
+    add('Service Worker V705',f"const CACHE = `otthi-v{asset_version}-${{REVISION}}`" in sw and "const BUILD = '705.0-playable-sports-realistic-npcs-kart'" in sw and "const VERSION = '705'" in sw)
 
     expected_app,expected_style=expected_bundles(order)
     add('app.js sincronizado com fontes',app==expected_app); add('style.css sincronizado com fontes',style==expected_style)

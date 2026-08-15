@@ -7,6 +7,8 @@ const vm = require('node:vm');
 const { webcrypto } = require('node:crypto');
 
 const ROOT = path.resolve(__dirname, '..');
+const VERSION_INFO = JSON.parse(fs.readFileSync(path.join(ROOT, 'VERSION.json'), 'utf8'));
+const ASSET_VERSION = String(VERSION_INFO.assetVersion ?? (Number(VERSION_INFO.version || 0) * 10));
 
 function loadMultiplayerTestingApi() {
   const source = fs.readFileSync(path.join(ROOT, 'assets/js/multiplayer-rtdb.js'), 'utf8');
@@ -196,7 +198,7 @@ async function testWorkerUsesCacheFor503() {
     cache,
   );
   const networkFirst = vm.runInContext('networkFirst', runtime);
-  const response = await networkFirst(new Request('https://example.test/app.js?v=7050'), false);
+  const response = await networkFirst(new Request(`https://example.test/app.js?v=${ASSET_VERSION}`), false);
   assert.equal(await response.text(), 'cached-app');
   assert.ok(cacheReads > 0, 'o fallback precisa consultar o cache');
 }
@@ -229,7 +231,7 @@ async function testFailedInstallKeepsPreviousRevision() {
   listeners.install({ waitUntil(promise) { installPromise = promise; } });
   await assert.rejects(installPromise);
   assert.ok(fetchCount >= 2);
-  assert.ok(deletedCaches.includes(`otthi-v7050-${revision}`));
+  assert.ok(deletedCaches.includes(`otthi-v${ASSET_VERSION}-${revision}`));
   assert.ok(!deletedCaches.includes('otthi-v645-stable'));
 }
 
@@ -241,8 +243,8 @@ function testRevisionCoherence() {
   const workerRevision = sw.match(/const REVISION = '([a-f0-9]+)'/)?.[1];
   assert.equal(indexRevision, release.revision);
   assert.equal(workerRevision, release.revision);
-  assert.ok(sw.includes('const CACHE = `otthi-v7050-${REVISION}`'));
-  assert.ok(index.includes('./assets/vendor/three-r128.min.js?v=7050'));
+  assert.ok(sw.includes(`const CACHE = \`otthi-v${ASSET_VERSION}-\${REVISION}\``));
+  assert.ok(index.includes(`./assets/vendor/three-r128.min.js?v=${ASSET_VERSION}`));
   assert.ok(!index.includes('cdnjs.cloudflare.com/ajax/libs/three.js'));
 }
 

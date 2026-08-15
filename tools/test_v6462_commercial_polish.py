@@ -76,7 +76,8 @@ class CommercialPolishTests(unittest.TestCase):
         self.assertLess([item['file'] for item in order['styles']].index('src/styles/15-coop-map-responsive-v6463.css'), [item['file'] for item in order['styles']].index('src/styles/16-otthi-world-professional-v700.css'))
         self.assertLess([item['file'] for item in order['styles']].index('src/styles/16-otthi-world-professional-v700.css'), [item['file'] for item in order['styles']].index('src/styles/17-gm-admin-panel-v701.css'))
         self.assertLess([item['file'] for item in order['styles']].index('src/styles/17-gm-admin-panel-v701.css'), [item['file'] for item in order['styles']].index('src/styles/18-world-evolution-v702.css'))
-        self.assertEqual(order['styles'][-1]['file'], 'src/styles/18-world-evolution-v702.css')
+        self.assertLess([item['file'] for item in order['styles']].index('src/styles/18-world-evolution-v702.css'), [item['file'] for item in order['styles']].index('src/styles/19-mobile-landscape-authority-v7051.css'))
+        self.assertEqual(order['styles'][-1]['file'], 'src/styles/19-mobile-landscape-authority-v7051.css')
         app = text('app.js')
         style = text('style.css')
         for token in ['serviceVehicleMapLocation', 'openFurnitureManager', 'dressAnimatedAvatar']:

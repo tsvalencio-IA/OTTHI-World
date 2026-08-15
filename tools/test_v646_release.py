@@ -42,7 +42,8 @@ class ReleaseV646Tests(unittest.TestCase):
         self.assertEqual(module_order['build'], version['build'])
         self.assertIn(f'data-otthi-build="{version["build"]}"', text('index.html'))
         self.assertRegex(text('index.html'), r'data-otthi-revision="[a-f0-9]{16}"')
-        self.assertGreaterEqual(text('index.html').count(f'?v={version["version"]}0'), 10)
+        asset_version = version.get('assetVersion', version['version'] * 10)
+        self.assertGreaterEqual(text('index.html').count(f'?v={asset_version}'), 10)
 
     def test_save_migration_is_explicit(self):
         source = text('src/modules/00-runtime-foundation.js')
@@ -202,7 +203,8 @@ class ReleaseV646Tests(unittest.TestCase):
             self.assertIn(token, sw)
         self.assertNotIn('await caches.match(request)', sw)
         version = json.loads(text('VERSION.json'))
-        self.assertIn(f'./assets/vendor/three-r128.min.js?v={version["version"]}0', sw)
+        asset_version = version.get('assetVersion', version['version'] * 10)
+        self.assertIn(f'./assets/vendor/three-r128.min.js?v={asset_version}', sw)
         self.assertNotIn('cdnjs.cloudflare.com/ajax/libs/three.js', text('index.html'))
 
     def test_loading_failure_preserves_save(self):
