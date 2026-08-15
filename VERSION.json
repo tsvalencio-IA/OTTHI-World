@@ -42,6 +42,11 @@
     }
   },
   "changes": [
+    "HUD paisagem ganhou uma autoridade CSS final com zonas exclusivas para joystick, habilidades, ações, minimapa e menu; controles de câmera redundantes são ocultados em paisagem",
+    "Vôlei e futevôlei receberam sombra de queda da bola, área de contato mobile maior e controles contextuais",
+    "Futebol mobile recebeu condução assistida, mira parcial para o gol, reposição lateral e botões contextuais Chutar/Passe",
+    "Destinos GPS de futebol, vôlei e futevôlei apontam para as entradas jogáveis reais, não para o centro geométrico das áreas",
+    "Central de Esportes criada na entrada do complexo para localizar futebol, vôlei, futevôlei, atletismo e kart sem procurar interações escondidas",
     "Futebol reconstruído como partida 3 contra 3 com jogador, companheiro, goleiros e dois adversários controlados por IA",
     "Vôlei e futevôlei reconstruídos como partidas 2 contra 2 com saque, até três toques, levantamento, ataque, rede, limites e placar",
     "Kartódromo elíptico substituído por circuito fechado técnico com curvas variadas, chicane, zebras, barreiras, boxes, grid, 10 checkpoints e classificação",
@@ -80,14 +85,14 @@
     "npcPerceptionStaticApproved": false,
     "kartCircuitStaticApproved": false
   },
-  "release": "705.0-playable-world",
+  "release": "705.1-sports-ux-landscape",
   "notes": [
     "A V705 substitui o protótipo esportivo V704 em uma única fonte; não carrega os dois sistemas em paralelo.",
     "Os validadores locais comprovam sintaxe, integração, regras e geometria. Jogabilidade em celular físico continua separada e não é declarada antes do teste no aparelho.",
     "O vídeo enviado foi usado como referência conceitual para NPCs orientados por percepção, contexto, decisão e ação; nenhum ativo, código ou propriedade intelectual do vídeo foi copiado."
   ],
-  "hotfix": "705.0",
-  "assetVersion": 7050,
+  "hotfix": "705.1",
+  "assetVersion": 7051,
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",
