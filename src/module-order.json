@@ -1,13 +1,13 @@
 {
-  "version": 704,
-  "build": "704.0-world-reconstruction-complete",
+  "version": 705,
+  "build": "705.0-playable-sports-realistic-npcs-kart",
   "javascript": [
     {
       "file": "src/modules/00-runtime-foundation.js",
       "startLine": 4,
       "endLine": 49,
       "description": "Runtime, utilitários, versão, storage e chaves de migração",
-      "sha256Body": "bfa0d0b0c61ef85d9b179c40cb524d390e30165b2edc9c60b2f58549cab9d5a5"
+      "sha256Body": "27f1a5ea5a0f3ee8060a1ac49b264035ebb1815a9a079d1496a4efc65a986751"
     },
     {
       "file": "src/modules/00a-visual-foundation-avatar-v2.js",
@@ -112,14 +112,14 @@
       "startLine": 2743,
       "endLine": 2991,
       "description": "Casas, interiores, NPCs, inimigos, cristais, veículos e academia",
-      "sha256Body": "2937d1d293fe0b487a14beda6f899b28bff24dbb8cb761930d52f986e75aa9e8"
+      "sha256Body": "9b4ef29675bbdfbbf6824647ac5510dbe09120d6ceb492ae35ecd1da71bf3eee"
     },
     {
-      "file": "src/modules/13a-sports-kart-v704.js",
+      "file": "src/modules/13a-sports-kart-v705.js",
       "startLine": 0,
       "endLine": 0,
-      "description": "Complexo esportivo, futebol, vôlei, futevôlei e kartódromo jogáveis V704",
-      "sha256Body": "3f2814eda562b36232b4303cfd2f59e9b43d8682885b6a1b5051e2fda057e5af"
+      "description": "Esportes jogáveis 3v3/2v2 e kartódromo de circuito técnico V705",
+      "sha256Body": "df976a821a99c5112b735876a76191887975b33abd24e5e59ae00492299eb2a4"
     },
     {
       "file": "src/modules/14-world-district-decoration.js",
@@ -224,7 +224,7 @@
       "startLine": 4767,
       "endLine": 4928,
       "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
-      "sha256Body": "43343a587daaae0448ddedd1b9503ce5c30e9093b03fb89a56da11ff5612a972"
+      "sha256Body": "bb15098f619753461f85a9a12800d323182732efcbc89a89ff06be54f64f5adb"
     },
     {
       "file": "src/modules/28-multiplayer-social-online.js",
@@ -301,7 +301,7 @@
       "startLine": 6124,
       "endLine": 6152,
       "description": "Integração, fallbacks e bootstrap das cinco etapas",
-      "sha256Body": "acab13285787b50ec9385519c8c81145560568c1bde7447c46ce38004011837b"
+      "sha256Body": "fc774d56be3da8b45c3ff3a5a81ff65b8840c0a704d8f7a8fee4161d9a1e2395"
     },
     {
       "file": "src/modules/39-gm-admin-panel.js",
@@ -315,7 +315,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Evolução integral V702: HUD, câmera, terreno, água, natação, fazenda, escavação e cidadãos temáticos",
-      "sha256Body": "ba0edb6e50e5fcc9e3cfe781cf0ba6198e1c6dbb622406e956e69c7bb55b5243"
+      "sha256Body": "e46b774de428c030c0255cb8c6b2501d22a9e3c02c15c7a0575d62210de322d8"
     }
   ],
   "styles": [
