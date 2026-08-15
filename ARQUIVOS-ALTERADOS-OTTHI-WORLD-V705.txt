@@ -1,0 +1,50 @@
+OTTHI World V705 — atualização manual sobre a V704 atualmente publicada no GitHub
+Repositório-base: tsvalencio-IA/OTTHI-World | branch main | version 704 / build 704.0-world-reconstruction-complete
+
+NOVOS (7 arquivos funcionais/documentais + este manifesto)
+ANALISE-VIDEO-NPCS-V705.md
+AUDITORIA-JOGABILIDADE-OTTHI-WORLD-V705.json
+CHANGELOG-OTTHI-WORLD-V705.md
+RELATORIO-AUDITORIA-OTTHI-WORLD-V705.md
+RESULTADOS-TESTES-OTTHI-WORLD-V705.md
+src/modules/13a-sports-kart-v705.js
+tools/test_v705_playable_world.py
+ARQUIVOS-ALTERADOS-OTTHI-WORLD-V705.txt
+
+MODIFICADOS (33)
+404.html
+README.md
+SHA256SUMS.txt
+VERSION.json
+android-app/app/build.gradle
+app.js
+assets/js/core/runtime-config.js
+docs/RELATORIO-PRESERVACAO-V6466-V6467.json
+docs/RELATORIO-PRESERVACAO-V6466-V6467.md
+docs/RELATORIO-TESTE-BAIRROS-V646.json
+docs/VALIDACAO-ESTRUTURAL-V704.json
+docs/VALIDACAO-ESTRUTURAL-V704.md
+docs/VALIDACAO-FUNDACAO-V700-PRESERVADA-V702.json
+docs/VALIDACAO-FUNDACAO-V700-PRESERVADA-V702.md
+docs/VALIDACAO-PAINEL-GM-PRESERVADO-V702.json
+docs/VALIDACAO-PAINEL-GM-PRESERVADO-V702.md
+index.html
+manifest.webmanifest
+release-manifest.json
+src/module-order.json
+src/modules/00-runtime-foundation.js
+src/modules/13-houses-npcs-vehicles-base.js
+src/modules/13a-sports-kart-v704.js
+src/modules/27-npc-enemies-combat-camera-action.js
+src/modules/38-otthi-world-integration-bootstrap.js
+src/modules/40-world-evolution-v702.js
+sw.js
+tools/test_v6463_coop_responsive.py
+tools/test_v646_runtime.js
+tools/test_v7031_startup_order.py
+tools/test_v703_recovery.py
+tools/test_v704_world_reconstruction.py
+tools/validate_project.py
+
+REMOVIDOS: NENHUM.
+O arquivo src/modules/13a-sports-kart-v704.js foi convertido em stub de compatibilidade e não é carregado pelo module-order; portanto não é necessário excluir arquivos manualmente pelo celular.

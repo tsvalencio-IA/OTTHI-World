@@ -47,7 +47,7 @@ A publicação correta substitui integralmente os arquivos da versão anterior p
 - `src/module-order.json` — ordem e hashes das fontes.
 - `app.js` e `style.css` — bundles gerados e sincronizados.
 - `tools/` — build, auditorias e testes.
-- `android-app/` — wrapper Android V7.0.4.
+- `android-app/` — wrapper Android V7.0.5.
 - `firebase-database.rules.json` — regras do Realtime Database.
 
 ## Validação local executada

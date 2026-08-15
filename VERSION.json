@@ -1,12 +1,12 @@
 {
-  "version": 704,
-  "build": "704.0-world-reconstruction-complete",
+  "version": 705,
+  "build": "705.0-playable-sports-realistic-npcs-kart",
   "name": "OTTHI World",
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 7040,
-  "androidVersionName": "7.0.4",
+  "androidVersionCode": 7050,
+  "androidVersionName": "7.0.5",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -35,21 +35,20 @@
     "7": {
       "name": "Veículos com dano, quebra, reboque e reparo",
       "status": "implemented"
+    },
+    "8": {
+      "name": "Esportes jogáveis, NPCs contextuais e kartódromo técnico",
+      "status": "implemented"
     }
   },
   "changes": [
-    "Autoridade única WORLD_LAYOUT_V704 para vias, zonas, estruturas, acessos, GPS e áreas protegidas",
-    "Criação antiga do ginásio desativada e redirecionada ao único complexo esportivo V704",
-    "Estádio, campo, pista de atletismo, vôlei, futevôlei e kartódromo reconstruídos em áreas independentes",
-    "Auditoria estática e auditoria do mundo materializado verificam casas, colliders, veículos, hazards e destinos",
-    "Construções antigas que ocupavam ruas ou áreas protegidas são realocadas com registro para a zona de construção",
-    "Futebol com bola, chute, adversário, goleiro, gols, placar e cronômetro",
-    "Vôlei e futevôlei com saque, rally, rede, adversário, limites e pontuação",
-    "Kart com veículo próprio, contagem regressiva, checkpoints, três voltas, adversários e penalização de atalhos",
-    "Veículos possuem integridade persistente, perda de desempenho, quebra total, imobilização, reboque e reparo",
-    "Login de conta desacoplado da disponibilidade da sala multiplayer",
-    "Entrada no mundo preserva a correção da ordem de inicialização das missões cooperativas",
-    "Firebase, saves, multiplayer, painel GM, casas, profissões, escolas, inventário, PWA e controles preservados"
+    "Futebol reconstruído como partida 3 contra 3 com jogador, companheiro, goleiros e dois adversários controlados por IA",
+    "Vôlei e futevôlei reconstruídos como partidas 2 contra 2 com saque, até três toques, levantamento, ataque, rede, limites e placar",
+    "Kartódromo elíptico substituído por circuito fechado técnico com curvas variadas, chicane, zebras, barreiras, boxes, grid, 10 checkpoints e classificação",
+    "NPCs procedurais deixaram o corpo cúbico simples e passaram a usar cabeça arredondada, membros cilíndricos, proporções e aparência variáveis",
+    "NPCs pedestres agora percebem veículo se aproximando, buzina, jogador próximo e obstáculos; reagem, desviam, guardam memória curta e evitam ruas/água/colliders",
+    "PODER ganha função contextual nos esportes: passe no futebol e levantamento no vôlei/futevôlei",
+    "Compatibilidade pública V704 mantida para os módulos existentes sem carregar simultaneamente dois sistemas esportivos"
   ],
   "preserves": [
     "Firebase existente e raiz otthosWorld",
@@ -76,17 +75,19 @@
     "firebaseRemoteApproved": false,
     "multiplayerTwoDevicesApproved": false,
     "pwaInstalledApproved": false,
-    "apkApproved": false
+    "apkApproved": false,
+    "playableSportsStaticApproved": false,
+    "npcPerceptionStaticApproved": false,
+    "kartCircuitStaticApproved": false
   },
-  "release": "704.0-world-reconstruction",
+  "release": "705.0-playable-world",
   "notes": [
-    "Validação estrutural, build idempotente, hashes, 19 suítes locais, auditoria geométrica, materialização simulada do mundo e runtime de dano veicular aprovados na V704.",
-    "A auditoria do mundo materializado também está incorporada ao runtime e registra conflitos reais no console quando executada com WebGL.",
-    "Teste em aparelho físico, Firebase remoto, multiplayer entre dois aparelhos, PWA instalada e APK permanecem separados e não foram declarados como aprovados.",
-    "Os relatórios V703 mantidos no pacote são históricos; a referência de publicação atual é exclusivamente a V704."
+    "A V705 substitui o protótipo esportivo V704 em uma única fonte; não carrega os dois sistemas em paralelo.",
+    "Os validadores locais comprovam sintaxe, integração, regras e geometria. Jogabilidade em celular físico continua separada e não é declarada antes do teste no aparelho.",
+    "O vídeo enviado foi usado como referência conceitual para NPCs orientados por percepção, contexto, decisão e ação; nenhum ativo, código ou propriedade intelectual do vídeo foi copiado."
   ],
-  "hotfix": "704.0",
-  "assetVersion": 7040,
+  "hotfix": "705.0",
+  "assetVersion": 7050,
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

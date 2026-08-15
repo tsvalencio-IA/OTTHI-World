@@ -1,0 +1,58 @@
+{
+  "version": 705,
+  "build": "705.0-playable-sports-realistic-npcs-kart",
+  "worldLayoutAuthority": "src/modules/05a-world-layout-v704.js",
+  "duplicateSportsSource": false,
+  "sports": {
+    "football": {
+      "format": "3v3",
+      "shot": true,
+      "pass": true,
+      "keepers": 2,
+      "timerSeconds": 120
+    },
+    "volleyball": {
+      "format": "2v2",
+      "maxTouchesPerSide": 3,
+      "setTarget": 11,
+      "winBy": 2
+    },
+    "footvolley": {
+      "format": "2v2",
+      "maxTouchesPerSide": 3,
+      "setTarget": 11,
+      "winBy": 2
+    }
+  },
+  "kart": {
+    "curve": "THREE.CatmullRomCurve3",
+    "controlPoints": 11,
+    "trackSegments": 150,
+    "checkpoints": 10,
+    "aiKarts": 3,
+    "laps": 3,
+    "offTrackPenalty": true,
+    "pitArea": true,
+    "curbs": true,
+    "barriers": true
+  },
+  "npcs": {
+    "roundedProceduralBase": true,
+    "memory": true,
+    "stateMachine": true,
+    "vehicleThreatPerception": true,
+    "hornReaction": true,
+    "roadAvoidance": true,
+    "colliderAvoidance": true,
+    "hazardWaterAvoidance": true
+  },
+  "localValidation": {
+    "structural": "197/197",
+    "v705": "25/25",
+    "v704WorldReconstruction": "46/46",
+    "pythonSuites": "16/16"
+  },
+  "physicalDeviceApproved": false,
+  "realWebGLGpuApproved": false,
+  "twoDeviceMultiplayerApproved": false
+}
