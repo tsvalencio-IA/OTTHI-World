@@ -56,7 +56,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Fonte central de verdade do layout mundial V704",
-      "sha256Body": "f0e23ce07c34a907a9d4013e84e6c61cb0cd96f00cd975e0fb0d34145c2e5f75"
+      "sha256Body": "9bb89cc1b6ef19bb0a4a79f6ce9bd3990b1316d0873fb285e05b680cdb7e6d05"
     },
     {
       "file": "src/modules/06-missions-profile-hud-inventory-tools.js",
@@ -70,7 +70,7 @@
       "startLine": 1456,
       "endLine": 1604,
       "description": "Rotas, trânsito, grafo, GPS e minimapa",
-      "sha256Body": "f2fb2b29abe13f85217e159dcd1f20c066b609758c0eb530426bbe36997f177d"
+      "sha256Body": "b11dee390b33433ab269c02d96a6923e3e45c73dc8f0fc1d3d5638376c61ec1c"
     },
     {
       "file": "src/modules/08-map-parent-settings.js",
@@ -119,7 +119,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Esportes jogáveis 3v3/2v2 e kartódromo de circuito técnico V705",
-      "sha256Body": "df976a821a99c5112b735876a76191887975b33abd24e5e59ae00492299eb2a4"
+      "sha256Body": "d8933cd63bc18c456909cc35528bad2a7371417c2bb84f93ee2b40865f792004"
     },
     {
       "file": "src/modules/14-world-district-decoration.js",
@@ -451,6 +451,13 @@
       "endLine": 0,
       "description": "HUD paisagem e interface de mundo evoluído V702",
       "sha256Body": "ea2595137c241f91b896cba1d62b4e63ce94c78c69193f5ff74f968f194f7526"
+    },
+    {
+      "file": "src/styles/19-mobile-landscape-authority-v7051.css",
+      "startLine": 1,
+      "endLine": 36,
+      "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
+      "sha256Body": "8fe40bac078f4812322597b8a7f975a9b25c9f75ce04b4d5f77e56126b10438f"
     }
   ]
 }
