@@ -134,62 +134,59 @@
     });
   }
   function openRaceCenter(npc=null){
-    const name=npc?.name||'um corredor da vila';
-    openModal('Ginásio de Atletismo',`<p>Desafie ${name}. Os controles normais continuam funcionando.</p><div class="choice-grid"><button class="choice" data-race="sprint"><b>🏃 Corrida de velocidade</b><span>Chegue primeiro à linha final</span></button><button class="choice" data-race="coins"><b>🪙 Corrida pega-moedas</b><span>Colete 8 moedas antes do rival</span></button></div>`,root=>{
+    const name=npc?.name||'um atleta da vila';
+    openModal('🏃 Atletismo OTTHI',`<p>Corra <b>pela pista real</b>. As voltas só contam passando pelos setores na ordem — cortar pelo campo não funciona.</p><div class="choice-grid"><button class="choice" data-race="sprint"><b>⚡ Volta rápida</b><span>1 volta • duelo contra ${name}</span></button><button class="choice" data-race="twoLaps"><b>🏃 Duas voltas</b><span>ritmo, ultrapassagem e resistência</span></button><button class="choice" data-race="coins"><b>🏅 Pega-medalhas</b><span>colete 10 medalhas espalhadas nas raias</span></button></div>`,root=>{
       $$('[data-race]',root).forEach(btn=>btn.onclick=()=>{closeModal();startRace(btn.dataset.race,npc||world.npcs[0]);});
     });
   }
   function createRaceOpponent(npc){
+    if(typeof v705Athlete==='function'){const athlete=v705Athlete(npc?.color||0xff72b6,0,0,npc?.name||'Atleta','field',1.04);athlete.group.userData.raceAthlete=athlete;return athlete.group;}
     const group=new THREE.Group();worldGroup.add(group);box(.78,1.12,.55,npc?.color||0xff72b6,0,1.1,0,group);box(.68,.68,.68,0xffd3a0,0,2.0,0,group);box(.08,.08,.04,0x111827,-.15,2.05,.36,group);box(.08,.08,.04,0x111827,.15,2.05,.36,group);return group;
   }
+  function athleticsRacePoint(gym,t,lane=0){if(typeof v705AthleticsPoint==='function')return v705AthleticsPoint(gym,t,lane);const a=-Math.PI/2+((t%1+1)%1)*Math.PI*2,rx=(gym.radiusX||26)+lane,rz=(gym.radiusZ||14)+lane*.53;return{x:gym.centerX+Math.cos(a)*rx,z:gym.centerZ+Math.sin(a)*rz,heading:Math.atan2(-Math.sin(a)*rx,Math.cos(a)*rz)};}
+  function athleticsRaceProgress(gym,x,z){if(typeof v705AthleticsProgress==='function')return v705AthleticsProgress(gym,x,z);const a=Math.atan2((z-gym.centerZ)/(gym.radiusZ||14),(x-gym.centerX)/(gym.radiusX||26)),raw=(a+Math.PI/2)/(Math.PI*2);return(raw%1+1)%1;}
+  function athleticsTrackApproxLength(gym){const a=Math.max(gym.radiusX||26,gym.radiusZ||14),b=Math.min(gym.radiusX||26,gym.radiusZ||14);return Math.PI*(3*(a+b)-Math.sqrt((3*a+b)*(a+3*b)));}
   function clearRaceObjects(){
     if(activeRace?.opponent)worldGroup.remove(activeRace.opponent);
     for(const coin of world.raceCoins)worldGroup.remove(coin.mesh);
     world.raceCoins=[];
   }
-  function spawnRaceCoins(){
+  function spawnRaceCoins(gym=world.gym){
     world.raceCoins=[];
-    for(let i=0;i<12;i++){
-      const x=30+i*3.7,z=i%2?73:78;const mesh=cylinder(.35,.12,0xffd84d,x,.7,z,worldGroup,18);mesh.rotation.x=Math.PI/2;world.raceCoins.push({x,z,mesh,got:false});
-    }
+    for(let i=0;i<12;i++){const point=athleticsRacePoint(gym,(i+.5)/12,(i%3-1)*.75),mesh=cylinder(.35,.12,0xffd84d,point.x,.72,point.z,worldGroup,18);mesh.rotation.x=Math.PI/2;world.raceCoins.push({x:point.x,z:point.z,mesh,got:false,index:i});}
   }
   function startRace(type,npc,housePrize=null){
     if(activeRace){toast('Termine o desafio atual.','warn');return;}
     if(currentHouse)exitHouse();
-    const gym=world.gym;if(!gym){toast('Ginásio ainda não carregou.','warn');return;}
-    const opponent=createRaceOpponent(npc||world.npcs[0]);opponent.position.set(gym.startX,0,gym.lane2Z);
-    activeRace={type,npcId:npc?.id||'nino',npcName:npc?.name||'Nino',housePrize,startAt:performance.now()+3000,started:false,opponent,opponentX:gym.startX,opponentScore:0,playerScore:0,timeLimit:type==='coins'?45:30,lastOpponentCoin:0};
-    player.x=gym.startX;player.z=gym.lane1Z;player.y=0;player.vx=player.vz=player.vy=0;cameraYaw=Math.PI/2;cameraMode='openworld';state.waypoint={id:'gym',name:'Ginásio',x:gym.x,z:gym.z};updateWaypointMarker();
-    if(type==='coins')spawnRaceCoins();
-    els.raceBadge.hidden=false;els.raceTitle.textContent=type==='coins'?'Pega-moedas':housePrize?'Corrida pela casa':'Corrida de velocidade';els.raceStatus.textContent='3...';
-    toast(`Desafio contra ${activeRace.npcName}!`,'good',2200);saveState(true);
+    const gym=world.gym;if(!gym){toast('Pista de atletismo ainda não carregou.','warn');return;}
+    const opponent=createRaceOpponent(npc||world.npcs[0]),start=athleticsRacePoint(gym,0,0),opponentStart=athleticsRacePoint(gym,0,1.0),lapsTarget=type==='twoLaps'?2:1;
+    opponent.position.set(opponentStart.x,0,opponentStart.z);opponent.rotation.y=opponentStart.heading;
+    activeRace={type,npcId:npc?.id||'nino',npcName:npc?.name||'Nino',housePrize,startAt:performance.now()+3000,started:false,opponent,opponentT:0,opponentLap:0,opponentScore:0,playerScore:0,timeLimit:type==='coins'?55:type==='twoLaps'?72:38,lapsTarget,playerLap:0,nextGate:1,gateCount:12,lastGateAt:0,trackLength:athleticsTrackApproxLength(gym),lastOpponentCoin:0};
+    player.x=start.x;player.z=start.z;player.y=v705GroundY? v705GroundY(start.x,start.z):0;player.vx=player.vz=player.vy=0;player.facing=start.heading;cameraYaw=start.heading+Math.PI;cameraMode='openworld';const entrance=worldLayoutPoint('sportsEntrance');state.waypoint={id:'gym',name:'Pista de Atletismo',x:entrance.x,z:entrance.z};updateWaypointMarker();
+    if(type==='coins')spawnRaceCoins(gym);
+    els.raceBadge.hidden=false;els.raceTitle.textContent=type==='coins'?'🏅 Pega-medalhas':type==='twoLaps'?'🏃 Duas voltas':housePrize?'🏠 Corrida pela casa':'⚡ Volta rápida';els.raceStatus.textContent='3...';toast(`Na pista contra ${activeRace.npcName}. Passe pelos setores na ordem.`, 'good',2600);saveState(true);
   }
   function finishRace(won){
     if(!activeRace)return;const race=activeRace;state.stats.races++;trackDaily('race',1);clearRaceObjects();activeRace=null;els.raceBadge.hidden=true;
-    if(won){
-      state.races.wins++;if(race.type==='coins')state.races.coinWins++;
-      addCoins(race.type==='coins'?90:120);addReputation(18);addXP(70);setFlag(race.type==='coins'?'wonCoinRace':'wonRace');
-      if(race.housePrize){const old=state.houses[race.housePrize]||{};state.houses[race.housePrize]={...old,owned:true,locked:false};state.races.houseWins++;setFlag('wonHouseChallenge');setFlag('boughtHouse');awardMedal('Casa Conquistada');}
-      toast(race.housePrize?'Você venceu e conquistou a casa!':'Você venceu o desafio!','good',2600);
-    }else{state.races.losses++;toast(`${race.npcName} venceu. Tente novamente!`,'warn',2400);}
-    player.x=45;player.z=82;player.y=0;player.vx=player.vz=player.vy=0;state.waypoint=null;updateWaypointMarker();saveState(true);evaluateMissions();
+    if(won){state.races.wins++;if(race.type==='coins')state.races.coinWins++;addCoins(race.type==='coins'?90:race.type==='twoLaps'?145:120);addReputation(18);addXP(race.type==='twoLaps'?85:70);setFlag(race.type==='coins'?'wonCoinRace':'wonRace');if(race.housePrize){const old=state.houses[race.housePrize]||{};state.houses[race.housePrize]={...old,owned:true,locked:false};state.races.houseWins++;setFlag('wonHouseChallenge');setFlag('boughtHouse');awardMedal('Casa Conquistada');}toast(race.housePrize?'Você venceu e conquistou a casa!':'Você venceu na pista!','good',2600);}else{state.races.losses++;toast(`${race.npcName} venceu. Tente novamente!`,'warn',2400);}
+    const exit=worldLayoutPoint('sportsEntrance');player.x=exit.x;player.z=exit.z;player.y=v705GroundY? v705GroundY(exit.x,exit.z):0;player.vx=player.vz=player.vy=0;state.waypoint=null;updateWaypointMarker();saveState(true);evaluateMissions();
   }
+  function updateRaceOpponentVisual(race,dt){const p=athleticsRacePoint(world.gym,race.opponentT,1.0),athlete=race.opponent?.userData?.raceAthlete;if(athlete&&typeof v705AnimateAthlete==='function'){athlete.group.position.x=p.x;athlete.group.position.z=p.z;athlete.group.position.y=v705GroundY? v705GroundY(p.x,p.z):0;athlete.group.rotation.y=p.heading;const swing=Math.sin(animTime*11)*.62;athlete.limbs.leftArm.rotation.x=lerp(athlete.limbs.leftArm.rotation.x,swing,.25);athlete.limbs.rightArm.rotation.x=lerp(athlete.limbs.rightArm.rotation.x,-swing,.25);athlete.limbs.leftLeg.rotation.x=lerp(athlete.limbs.leftLeg.rotation.x,-swing*.8,.25);athlete.limbs.rightLeg.rotation.x=lerp(athlete.limbs.rightLeg.rotation.x,swing*.8,.25);}else{race.opponent.position.set(p.x,0,p.z);race.opponent.rotation.y=p.heading;}}
   function updateRace(dt){
     if(!activeRace)return;const race=activeRace,gym=world.gym,now=performance.now();
     if(now<race.startAt){els.raceStatus.textContent=`${Math.max(1,Math.ceil((race.startAt-now)/1000))}...`;return;}
     if(!race.started){race.started=true;race.startedAt=now;els.raceStatus.textContent='VALENDO!';beep(880,100);}
     const elapsed=(now-race.startedAt)/1000;race.timeLeft=Math.max(0,race.timeLimit-elapsed);
-    if(race.type==='sprint'){
-      race.opponentX+=6.15*dt;race.opponent.position.x=race.opponentX;race.opponent.position.z=gym.lane2Z;race.opponent.rotation.y=Math.PI/2;
-      els.raceStatus.textContent=`Chegue em ${gym.finishX}m • ${race.timeLeft.toFixed(1)}s`;
-      if(player.x>=gym.finishX)finishRace(true);else if(race.opponentX>=gym.finishX||race.timeLeft<=0)finishRace(false);
-    }else{
-      race.opponent.position.x=lerp(race.opponent.position.x,gym.startX+Math.min(46,elapsed*1.1),dt*2);race.opponent.position.z=gym.lane2Z;
-      if(elapsed-race.lastOpponentCoin>3.2){race.lastOpponentCoin=elapsed;race.opponentScore++;}
+    if(race.type==='coins'){
+      race.opponentT=(race.opponentT+dt*.047)%1;updateRaceOpponentVisual(race,dt);if(elapsed-race.lastOpponentCoin>3.8){race.lastOpponentCoin=elapsed;race.opponentScore++;}
       for(const coin of world.raceCoins){if(coin.got)continue;coin.mesh.rotation.y+=dt*5;if(Math.hypot(player.x-coin.x,player.z-coin.z)<1.25){coin.got=true;coin.mesh.visible=false;race.playerScore++;beep(920,45);}}
-      els.raceStatus.textContent=`Você ${race.playerScore}/8 • ${race.npcName} ${race.opponentScore}/8 • ${Math.ceil(race.timeLeft)}s`;
-      if(race.playerScore>=8)finishRace(true);else if(race.opponentScore>=8)finishRace(false);else if(race.timeLeft<=0)finishRace(race.playerScore>race.opponentScore);
+      els.raceStatus.textContent=`Você ${race.playerScore}/10 • ${race.npcName} ${race.opponentScore}/10 • ${Math.ceil(race.timeLeft)}s`;if(race.playerScore>=10)finishRace(true);else if(race.opponentScore>=10)finishRace(false);else if(race.timeLeft<=0)finishRace(race.playerScore>race.opponentScore);return;
     }
+    const opponentPace=race.type==='twoLaps'?.050:.053;race.opponentT+=opponentPace*dt;if(race.opponentT>=1){race.opponentT-=1;race.opponentLap++;}updateRaceOpponentVisual(race,dt);
+    const gate=athleticsRacePoint(gym,race.nextGate/race.gateCount,0),gateDist=Math.hypot(player.x-gate.x,player.z-gate.z);if(gateDist<3.0&&now-Number(race.lastGateAt||0)>450){race.lastGateAt=now;if(race.nextGate===0){race.playerLap++;race.nextGate=1;beep(980,65);toast(`Volta ${race.playerLap}/${race.lapsTarget}`,'good',850);}else{race.nextGate++;if(race.nextGate>=race.gateCount)race.nextGate=0;}}
+    const trackProgress=athleticsRaceProgress(gym,player.x,player.z),trackPoint=athleticsRacePoint(gym,trackProgress,0),offTrack=Math.hypot(player.x-trackPoint.x,player.z-trackPoint.z);if(offTrack>4.8&&now-Number(race.offTrackWarnAt||0)>1500){race.offTrackWarnAt=now;toast('Volte para as raias — cortar o campo não valida a volta.','warn',1200);}
+    const playerProgress=race.playerLap+trackProgress,opponentProgress=race.opponentLap+race.opponentT,pos=playerProgress>=opponentProgress?1:2;els.raceStatus.textContent=`Volta ${Math.min(race.lapsTarget,race.playerLap+1)}/${race.lapsTarget} • ${pos}º/2 • setor ${race.nextGate}/${race.gateCount-1} • ${race.timeLeft.toFixed(1)}s`;
+    if(race.playerLap>=race.lapsTarget)finishRace(true);else if(race.opponentLap>=race.lapsTarget||race.timeLeft<=0)finishRace(false);
   }
 
 

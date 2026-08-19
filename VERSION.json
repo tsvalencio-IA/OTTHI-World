@@ -42,18 +42,15 @@
     }
   },
   "changes": [
-    "HUD paisagem ganhou uma autoridade CSS final com zonas exclusivas para joystick, habilidades, ações, minimapa e menu; controles de câmera redundantes são ocultados em paisagem",
-    "Vôlei e futevôlei receberam sombra de queda da bola, área de contato mobile maior e controles contextuais",
-    "Futebol mobile recebeu condução assistida, mira parcial para o gol, reposição lateral e botões contextuais Chutar/Passe",
-    "Destinos GPS de futebol, vôlei e futevôlei apontam para as entradas jogáveis reais, não para o centro geométrico das áreas",
-    "Central de Esportes criada na entrada do complexo para localizar futebol, vôlei, futevôlei, atletismo e kart sem procurar interações escondidas",
-    "Futebol reconstruído como partida 3 contra 3 com jogador, companheiro, goleiros e dois adversários controlados por IA",
-    "Vôlei e futevôlei reconstruídos como partidas 2 contra 2 com saque, até três toques, levantamento, ataque, rede, limites e placar",
-    "Kartódromo elíptico substituído por circuito fechado técnico com curvas variadas, chicane, zebras, barreiras, boxes, grid, 10 checkpoints e classificação",
-    "NPCs procedurais deixaram o corpo cúbico simples e passaram a usar cabeça arredondada, membros cilíndricos, proporções e aparência variáveis",
-    "NPCs pedestres agora percebem veículo se aproximando, buzina, jogador próximo e obstáculos; reagem, desviam, guardam memória curta e evitam ruas/água/colliders",
-    "PODER ganha função contextual nos esportes: passe no futebol e levantamento no vôlei/futevôlei",
-    "Compatibilidade pública V704 mantida para os módulos existentes sem carregar simultaneamente dois sistemas esportivos"
+    "Atletismo corrigido na origem: largada e chegada deixam de coincidir; voltas exigem setores sequenciais na pista e o corta-campo não valida resultado",
+    "Futebol ampliado para 4 × 4 com dois companheiros de linha, três adversários, goleiros, condução, passe, chute e desarme contextual",
+    "Vôlei e futevôlei refinados com janela de contato móvel, recepção, levantamento, ataque, três toques, sombra da bola e IA de cobertura",
+    "Kartódromo redesenhado dentro da zona já reservada com 18 pontos de traçado, hairpins, chicanes, 14 checkpoints, três boosts, IA sensível às curvas, melhor volta e classificação",
+    "Karts ganham velocidade e turbo próprios sem remover o sistema de dano, quebra e reparo",
+    "Missões cooperativas passam a dirigir automaticamente o próximo objetivo: GPS, instrução AGORA, distância do alvo e ação contextual mudam junto com cada etapa",
+    "NPCs ganham traços individuais, tempo para colisão com veículos, memória maior, espaço pessoal, encontros sociais e estados de observação/recuperação",
+    "HUD paisagem passa a usar faixas exclusivas: habilidades acima dos controles, menu rápido em painel lateral e contexto oculto quando painéis estão abertos",
+    "Compatibilidade pública V704/V705, Firebase, contas, saves, PWA, casas, profissões, construção e demais sistemas preservados"
   ],
   "preserves": [
     "Firebase existente e raiz otthosWorld",
@@ -85,14 +82,14 @@
     "npcPerceptionStaticApproved": false,
     "kartCircuitStaticApproved": false
   },
-  "release": "705.1-sports-ux-landscape",
+  "release": "705.2-gameplay-sports-missions-landscape",
   "notes": [
     "A V705 substitui o protótipo esportivo V704 em uma única fonte; não carrega os dois sistemas em paralelo.",
     "Os validadores locais comprovam sintaxe, integração, regras e geometria. Jogabilidade em celular físico continua separada e não é declarada antes do teste no aparelho.",
     "O vídeo enviado foi usado como referência conceitual para NPCs orientados por percepção, contexto, decisão e ação; nenhum ativo, código ou propriedade intelectual do vídeo foi copiado."
   ],
-  "hotfix": "705.1",
-  "assetVersion": 7051,
+  "hotfix": "705.2",
+  "assetVersion": 7052,
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",
