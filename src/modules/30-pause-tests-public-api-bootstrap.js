@@ -52,8 +52,8 @@
     for(let i=0;i<count;i++){
       updateVehiclePhysics(dt,sx,sz);
       const prevX=player.x,prevZ=player.z;
-      player.x=clamp(player.x+player.vx*dt,-116,116);
-      player.z=clamp(player.z+player.vz*dt,-116,116);
+      {const b=v704WorldBounds();player.x=clamp(player.x+player.vx*dt,b.minX,b.maxX);
+      player.z=clamp(player.z+player.vz*dt,b.minZ,b.maxZ);}
       resolveCollisions(prevX,prevZ);
       const ground=groundHeightAt(player.x,player.z);player.y=ground;player.vy=0;player.grounded=true;
     }

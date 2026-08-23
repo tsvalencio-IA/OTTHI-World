@@ -52,7 +52,7 @@
       if(player.vehicle)updateVehicleFX(dt);
       if(typeof fxParticles!=='undefined'&&fxParticles.length)updateFX(dt);
       if(world.fireballs?.length)updateFireballs(dt);
-      if(activeRace)updateRace(dt);if(typeof updateCoopVisuals==='function')updateCoopVisuals(dt);if(typeof updateWorldSportsV704==='function')updateWorldSportsV704(dt);
+      if(activeRace)updateRace(dt);if(typeof updateCoopVisuals==='function')updateCoopVisuals(dt);if(typeof updateWorldSportsV704==='function')updateWorldSportsV704(dt);if(typeof updateOttoviasHighway==='function')updateOttoviasHighway(dt);
 
       perf.uiAcc+=dt;const uiRate=tier==='high'?1/20:tier==='balanced'?1/12:1/8;
       if(perf.uiAcc>=uiRate){const step=perf.uiAcc;perf.uiAcc=0;updateCareerMissions();if(typeof updateCoopMissions==='function')updateCoopMissions(step);updateNeeds(step);updateNavigation(step);}

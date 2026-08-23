@@ -32,7 +32,7 @@ add('Cinco geometrias interpretadas',len(rooms)==5,len(rooms))
 for room in rooms:
     add(f"Entrada dentro dos limites {room['id']}",room['xMin']<=room['entryX']<=room['xMax'] and room['zMin']<=room['entryZ']<=room['zMax'],room)
     add(f"Limites dentro do mundo {room['id']}",all(-116<=room[k]<=116 for k in ['xMin','xMax','zMin','zMax']),room)
-add('Mapa completo usa a mesma escala X/Z','(x+116)/232*100' in mapjs and '(116-z)/232*100' in mapjs)
+add('Mapa completo usa os limites dinâmicos do mundo',all(token in mapjs for token in ['const b=v704WorldBounds()','b.maxX-b.minX','b.maxZ-b.minZ','(x-b.minX)/w*100','(b.maxZ-z)/d*100']))
 add('Minimapa usa uma escala única X/Z','(x-player.x)*scale' in nav and '(z-player.z)*scale' in nav)
 for token in ['fixedRoomSlotKeys','validRoomSlots','roomSlotCount','reserveRoomSlot','watchRoomCounts','refreshRoomCounts','roomCapacity','otthi:room-changing','otthi:room-changed','onDisconnect(reservation.slotRef).remove','runTransaction']:
     add(f'RTDB {token}',token in rtdb)

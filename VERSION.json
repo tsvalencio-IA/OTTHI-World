@@ -42,6 +42,13 @@
     }
   },
   "changes": [
+    "Rodovia OTTOVIAS adicionada como circuito viário real conectado à cidade, sem substituir ou sobrepor o mapa existente",
+    "Mundo expandido com limites dinâmicos para acomodar a rodovia externa preservando todas as coordenadas e sistemas anteriores",
+    "OTTOVIAS percorre quatro novos trechos visuais: deserto, campo, neve e praia, retornando ao acesso da cidade",
+    "Três praças de pedágio funcionais com cobrança, cancelas animadas e redução/parada do veículo enquanto a cancela está fechada",
+    "Central de Comunicação OTTOVIAS com Michelle, informações dos trechos e Volta OTTOVIAS guiada por GPS",
+    "Equipe de inspeção OTTOVIAS circula pela própria rodovia usando o grafo viário oficial",
+    "Mapa, GPS, minimapa, detecção de vias, limites de física e salvamento usam a nova extensão do mundo sem apagar saves antigos",
     "Atletismo corrigido na origem: largada e chegada deixam de coincidir; voltas exigem setores sequenciais na pista e o corta-campo não valida resultado",
     "Futebol ampliado para 4 × 4 com dois companheiros de linha, três adversários, goleiros, condução, passe, chute e desarme contextual",
     "Vôlei e futevôlei refinados com janela de contato móvel, recepção, levantamento, ataque, três toques, sombra da bola e IA de cobertura",
@@ -80,16 +87,17 @@
     "apkApproved": false,
     "playableSportsStaticApproved": false,
     "npcPerceptionStaticApproved": false,
-    "kartCircuitStaticApproved": false
+    "kartCircuitStaticApproved": false,
+    "ottoviasStaticApproved": true
   },
-  "release": "705.2-gameplay-sports-missions-landscape",
+  "release": "705.4-ottovias-highway-biomes-tolls",
   "notes": [
-    "A V705 substitui o protótipo esportivo V704 em uma única fonte; não carrega os dois sistemas em paralelo.",
-    "Os validadores locais comprovam sintaxe, integração, regras e geometria. Jogabilidade em celular físico continua separada e não é declarada antes do teste no aparelho.",
-    "O vídeo enviado foi usado como referência conceitual para NPCs orientados por percepção, contexto, decisão e ação; nenhum ativo, código ou propriedade intelectual do vídeo foi copiado."
+    "A OTTOVIAS foi adicionada fora da área urbana original para preservar estádio, quadras, kartódromo, casas, serviços e construções existentes.",
+    "Firebase, contas, saves, multiplayer e regras permanecem preservados; a expansão usa o mesmo estado e o mesmo grafo de navegação.",
+    "Validação em aparelho físico continua separada e não é declarada antes do teste real no celular."
   ],
-  "hotfix": "705.2",
-  "assetVersion": 7052,
+  "hotfix": "705.4",
+  "assetVersion": 7054,
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

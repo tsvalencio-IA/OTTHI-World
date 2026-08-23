@@ -11,13 +11,13 @@
   function createLifeExpansionWorld(){createLakeExpansion();createCampfireZone();createHuntingArea();restoreLifeExpansion();applyCloudWorldObjects();}
   function buildWorld(){
     worldGroup=new THREE.Group();scene.add(worldGroup);
-    const ground=stableBox(250,.3,250,materials.grass,0,-.15,0,worldGroup,0);ground.receiveShadow=false;
+    const worldSize=v704WorldSize(),ground=stableBox(worldSize.w+8,.3,worldSize.d+8,materials.grass,0,-.15,0,worldGroup,0);ground.receiveShadow=false;
     createSkyDome();scene.background=new THREE.Color(0x79cfff);scene.fog=new THREE.Fog(0xbce8ff,235,560);
     const P=(id,fallback={x:0,z:0})=>worldLayoutPoint(id,fallback),L=WORLD_LAYOUT_V704;
 
     // Uma única fonte de verdade cria todas as ruas. Nenhum módulo paralelo desenha vias alternativas.
     for(const road of L.roads)createRoad(road.x,road.z,road.w,road.d);
-    createDistrictVisuals();createLearningPlaza();
+    createDistrictVisuals();createLearningPlaza();createOttoviasWorld();
 
     // Água, ponte e zona de lava preservadas, fora das áreas urbanas e esportivas.
     const lake=P('lake'),lakeNorth=P('lakeNorth');createWater(lake.x,lake.z,88,18);createWater(lakeNorth.x,lakeNorth.z,32,14);

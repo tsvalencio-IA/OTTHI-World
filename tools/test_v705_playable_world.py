@@ -6,7 +6,8 @@ def text(p): return (ROOT/p).read_text('utf-8')
 checks=[]
 def ck(name,ok,detail=''): checks.append((name,bool(ok),detail)); print(('OK' if ok else 'FALHA'),'-',name,detail)
 v=json.loads(text('VERSION.json')); order=json.loads(text('src/module-order.json')); sports=text('src/modules/13a-sports-kart-v705.js'); race=text('src/modules/21-interactions-shop-social-races.js'); npcbase=text('src/modules/13-houses-npcs-vehicles-base.js'); npclogic=text('src/modules/27-npc-enemies-combat-camera-action.js'); coop=text('src/modules/32-cooperative-missions.js'); css=text('src/styles/19-mobile-landscape-authority-v7051.css'); damage=text('src/modules/36a-vehicle-damage-repair-v704.js'); app=text('app.js')
-ck('Release V705.2',v.get('version')==705 and v.get('assetVersion',0)>=7052 and v.get('hotfix')=='705.2')
+hotfix_parts=str(v.get('hotfix','0.0')).split('.',1); hotfix_minor=int(hotfix_parts[1]) if len(hotfix_parts)>1 and hotfix_parts[1].isdigit() else -1
+ck('Release V705.2 ou posterior',v.get('version')==705 and v.get('assetVersion',0)>=7052 and hotfix_parts[0]=='705' and hotfix_minor>=2)
 legacy=text('src/modules/13a-sports-kart-v704.js') if (ROOT/'src/modules/13a-sports-kart-v704.js').exists() else ''
 ck('Uma única fonte esportiva','src/modules/13a-sports-kart-v705.js' in [x['file'] for x in order['javascript']] and 'src/modules/13a-sports-kart-v704.js' not in [x['file'] for x in order['javascript']] and 'retired' in legacy)
 ck('Futebol 4x4 com papéis reais',all(token in sports for token in ['Ala azul','Meia azul','Goleiro azul','Marcador vermelho','Ala vermelho','Atacante vermelho','Goleiro vermelho']))

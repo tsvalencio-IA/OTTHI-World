@@ -6,7 +6,7 @@
 // @otthi-module-body
   const WORLD_LAYOUT_V704=Object.freeze({
     version:704,
-    bounds:Object.freeze({minX:-116,maxX:116,minZ:-116,maxZ:116}),
+    bounds:Object.freeze({minX:-190,maxX:190,minZ:-190,maxZ:190}),
     roads:Object.freeze([
       {id:'avenida-central-ns',x:0,z:0,w:18,d:210,kind:'avenue'},
       {id:'avenida-central-ew',x:0,z:0,w:210,d:18,kind:'avenue'},
@@ -20,13 +20,55 @@
       {id:'acesso-castelo-fazenda',x:84,z:38,w:32,d:7,kind:'street'},
       {id:'acesso-kart',x:80,z:-65,w:30,d:9,kind:'street'}
     ]),
+    highways:Object.freeze([
+      Object.freeze({
+        id:'ottovias',name:'Rodovia OTTOVIAS',width:12.4,shoulder:1.6,closed:true,
+        points:Object.freeze([
+          {x:0,z:-108,biome:'city'},{x:20,z:-128,biome:'city'},{x:55,z:-145,biome:'desert'},{x:95,z:-148,biome:'desert'},{x:132,z:-130,biome:'desert'},
+          {x:153,z:-98,biome:'desert'},{x:158,z:-55,biome:'field'},{x:158,z:-10,biome:'field'},{x:154,z:38,biome:'field'},{x:142,z:82,biome:'field'},
+          {x:112,z:124,biome:'snow'},{x:72,z:150,biome:'snow'},{x:24,z:166,biome:'snow'},{x:-28,z:166,biome:'snow'},{x:-78,z:164,biome:'snow'},
+          {x:-126,z:156,biome:'snow'},{x:-156,z:126,biome:'beach'},{x:-168,z:80,biome:'beach'},{x:-170,z:25,biome:'beach'},{x:-168,z:-30,biome:'beach'},
+          {x:-150,z:-72,biome:'beach'},{x:-124,z:-108,biome:'country'},{x:-88,z:-132,biome:'country'},{x:-48,z:-145,biome:'country'},{x:-15,z:-130,biome:'city'}
+        ]),
+        tolls:Object.freeze([
+          {id:'ottovias-toll-sul',name:'Praça Sul',routeIndex:2,t:.72,cost:5},
+          {id:'ottovias-toll-campo',name:'Praça Campo',routeIndex:7,t:.55,cost:5},
+          {id:'ottovias-toll-praia',name:'Praça Praia',routeIndex:18,t:.55,cost:5}
+        ])
+      })
+    ]),
     nodes:Object.freeze({
       VS:{x:0,z:-105},V65S:{x:0,z:-65},V18S:{x:0,z:-18},C:{x:0,z:0},V18N:{x:0,z:18},V58N:{x:0,z:58},VN:{x:0,z:105},
       HW:{x:-105,z:0},H55W:{x:-55,z:0},H25W:{x:-25,z:0},H25E:{x:25,z:0},H65E:{x:65,z:0},H88E:{x:88,z:0},HE:{x:105,z:0},
       W105S:{x:-55,z:-105},W55S:{x:-55,z:-55},W28N:{x:-55,z:28},W56N:{x:-55,z:56},W80N:{x:-55,z:80},BUILD78:{x:-15,z:78},
       E105S:{x:65,z:-105},E65S:{x:65,z:-65},E18S:{x:65,z:-18},E0:{x:65,z:0},E58N:{x:68,z:58},
       N34:{x:34,z:58},N68:{x:68,z:58},C38:{x:68,z:38},CASTLE38:{x:100,z:38},
-      K65:{x:65,z:-65},K80:{x:80,z:-65},K94:{x:94,z:-65}
+      K65:{x:65,z:-65},K80:{x:80,z:-65},K94:{x:94,z:-65},
+      OV0:{x:0,z:-108},
+      OV1:{x:20,z:-128},
+      OV2:{x:55,z:-145},
+      OV3:{x:95,z:-148},
+      OV4:{x:132,z:-130},
+      OV5:{x:153,z:-98},
+      OV6:{x:158,z:-55},
+      OV7:{x:158,z:-10},
+      OV8:{x:154,z:38},
+      OV9:{x:142,z:82},
+      OV10:{x:112,z:124},
+      OV11:{x:72,z:150},
+      OV12:{x:24,z:166},
+      OV13:{x:-28,z:166},
+      OV14:{x:-78,z:164},
+      OV15:{x:-126,z:156},
+      OV16:{x:-156,z:126},
+      OV17:{x:-168,z:80},
+      OV18:{x:-170,z:25},
+      OV19:{x:-168,z:-30},
+      OV20:{x:-150,z:-72},
+      OV21:{x:-124,z:-108},
+      OV22:{x:-88,z:-132},
+      OV23:{x:-48,z:-145},
+      OV24:{x:-15,z:-130}
     }),
     edges:Object.freeze([
       ['VS','V65S'],['V65S','V18S'],['V18S','C'],['C','V18N'],['V18N','V58N'],['V58N','VN'],
@@ -34,7 +76,8 @@
       ['W105S','W55S'],['W55S','H55W'],['H55W','W28N'],['W28N','W56N'],['W56N','W80N'],['W80N','BUILD78'],
       ['E105S','E65S'],['E65S','E18S'],['E18S','E0'],['E0','H65E'],['E0','C38'],['C38','E58N'],
       ['V58N','N34'],['N34','N68'],['N68','E58N'],['C38','CASTLE38'],
-      ['V65S','E65S'],['E65S','K65'],['K65','K80'],['K80','K94']
+      ['V65S','E65S'],['E65S','K65'],['K65','K80'],['K80','K94'],
+      ['VS','OV0'],['OV0','OV1'],['OV1','OV2'],['OV2','OV3'],['OV3','OV4'],['OV4','OV5'],['OV5','OV6'],['OV6','OV7'],['OV7','OV8'],['OV8','OV9'],['OV9','OV10'],['OV10','OV11'],['OV11','OV12'],['OV12','OV13'],['OV13','OV14'],['OV14','OV15'],['OV15','OV16'],['OV16','OV17'],['OV17','OV18'],['OV18','OV19'],['OV19','OV20'],['OV20','OV21'],['OV21','OV22'],['OV22','OV23'],['OV23','OV24'],['OV24','OV0']
     ]),
     points:Object.freeze({
       spawn:{x:-18,z:39},home:{x:-18,z:34},blue:{x:-30,z:17},pink:{x:24,z:17},shop:{x:-22,z:-18},workshop:{x:22,z:-18},
@@ -50,7 +93,10 @@
       playground:{x:-28,z:-40},fountain:{x:-14,z:-8},portal:{x:82,z:53},
       construction:{x:-33,z:96},constructionEntrance:{x:-33,z:78},
       platformCircuit:{x:94,z:-52},platformEntrance:{x:76,z:-35},
-      repairParking:{x:32,z:-18}
+      repairParking:{x:32,z:-18},
+      ottoviasEntry:{x:0,z:-108},ottoviasOperations:{x:50,z:-120},ottoviasMichelle:{x:50,z:-114},
+      ottoviasTollSouth:{x:84,z:-147},ottoviasTollField:{x:156,z:16},ottoviasTollBeach:{x:-169,z:-5},
+      ottoviasDesert:{x:111,z:-137},ottoviasField:{x:151,z:61},ottoviasSnow:{x:24,z:166},ottoviasBeach:{x:-168,z:80}
     }),
     zones:Object.freeze({
       urban:{id:'urban',name:'Centro urbano',x:0,z:0,w:118,d:104},
@@ -68,7 +114,11 @@
       mountain:{id:'mountain',name:'Montanhas e trilhas',x:-88,z:97,w:50,d:36},
       construction:{id:'construction',name:'Construção dos jogadores',x:-33,z:96,w:36,d:32},
       education:{id:'education',name:'Academia Kids',x:22,z:-40,w:18,d:24},
-      platform:{id:'platform',name:'Circuito das plataformas',x:94,z:-52,w:38,d:42}
+      platform:{id:'platform',name:'Circuito das plataformas',x:94,z:-52,w:38,d:42},
+      ottoviasDesert:{id:'ottoviasDesert',name:'OTTOVIAS — trecho Deserto',x:112,z:-135,w:108,d:62},
+      ottoviasField:{id:'ottoviasField',name:'OTTOVIAS — trecho Campo',x:151,z:40,w:54,d:142},
+      ottoviasSnow:{id:'ottoviasSnow',name:'OTTOVIAS — trecho Neve',x:8,z:164,w:270,d:44},
+      ottoviasBeach:{id:'ottoviasBeach',name:'OTTOVIAS — trecho Praia',x:-168,z:32,w:40,d:210}
     }),
     paths:Object.freeze([
       {id:'casa-inicial',x1:-18,z1:37.2,x2:-18,z2:45,w:2.2,destination:'home'},
@@ -111,7 +161,8 @@
       {id:'giant-gate',kind:'challenge',point:'giantGate',w:10,d:2,margin:1.0},
       {id:'mini-tunnel',kind:'challenge',point:'miniTunnel',w:8,d:6,margin:1.0},
       {id:'crouch-tunnel',kind:'challenge',point:'crouchTunnel',w:8,d:5,margin:1.0},
-      {id:'construction-zone',kind:'construction',point:'construction',w:36,d:32,margin:0,allowRoadOverlap:false}
+      {id:'construction-zone',kind:'construction',point:'construction',w:36,d:32,margin:0,allowRoadOverlap:false},
+      {id:'ottovias-operations',kind:'transport',point:'ottoviasOperations',w:15,d:9,margin:1.0}
     ])
   });
   function worldLayoutPoint(id,fallback={x:0,z:0}){const p=WORLD_LAYOUT_V704.points[id];return p?{x:Number(p.x),z:Number(p.z)}:{x:Number(fallback.x||0),z:Number(fallback.z||0)};}
@@ -120,22 +171,31 @@
   function v704RectOverlap(a,b,margin=0){return Math.abs(Number(a.x)-Number(b.x))<(Number(a.w)+Number(b.w))/2+margin&&Math.abs(Number(a.z)-Number(b.z))<(Number(a.d)+Number(b.d))/2+margin;}
   function v704PointInRect(point,rect,margin=0){return Math.abs(Number(point.x)-Number(rect.x))<=Number(rect.w)/2+margin&&Math.abs(Number(point.z)-Number(rect.z))<=Number(rect.d)/2+margin;}
   function v704RoadFootprint(road,includeSidewalk=true){const side=includeSidewalk?2.7:0;return{...road,w:Number(road.w)+(Number(road.w)>=Number(road.d)?0:side),d:Number(road.d)+(Number(road.w)>=Number(road.d)?side:0)};}
-  function v704RoadAt(x,z,margin=0,includeSidewalk=false){return WORLD_LAYOUT_V704.roads.some(road=>v704PointInRect({x,z},v704RoadFootprint(road,includeSidewalk),margin));}
+  function v704WorldBounds(){return WORLD_LAYOUT_V704.bounds;}
+  function v704WorldSize(){const b=v704WorldBounds();return{w:b.maxX-b.minX,d:b.maxZ-b.minZ};}
+  function v704ClampWorldPoint(x,z,margin=1){const b=v704WorldBounds();return{x:Math.max(b.minX+margin,Math.min(b.maxX-margin,Number(x)||0)),z:Math.max(b.minZ+margin,Math.min(b.maxZ-margin,Number(z)||0))};}
+  function v704DistanceToSegment(point,a,b){const dx=b.x-a.x,dz=b.z-a.z,len2=dx*dx+dz*dz||1,t=Math.max(0,Math.min(1,((point.x-a.x)*dx+(point.z-a.z)*dz)/len2)),x=a.x+dx*t,z=a.z+dz*t;return{distance:Math.hypot(point.x-x,point.z-z),x,z,t};}
+  function v704HighwaySegments(){const out=[];for(const highway of WORLD_LAYOUT_V704.highways||[]){const points=highway.points||[];for(let i=0;i<points.length-(highway.closed?0:1);i++){const a=points[i],b=points[(i+1)%points.length];out.push({id:`${highway.id}-${i}`,highwayId:highway.id,index:i,a,b,width:Number(highway.width||10),shoulder:Number(highway.shoulder||0)});}}return out;}
+  function v704HighwayAt(x,z,margin=0,includeShoulder=true){const point={x:Number(x),z:Number(z)};return v704HighwaySegments().some(seg=>v704DistanceToSegment(point,seg.a,seg.b).distance<=seg.width/2+(includeShoulder?seg.shoulder:0)+margin);}
+  function v704HighwayIntersectsRect(highwayId,rect,margin=0){for(const seg of v704HighwaySegments().filter(x=>x.highwayId===highwayId)){const width=seg.width/2+seg.shoulder+margin,len=Math.hypot(seg.b.x-seg.a.x,seg.b.z-seg.a.z),steps=Math.max(2,Math.ceil(len/1.25));for(let i=0;i<=steps;i++){const t=i/steps,p={x:seg.a.x+(seg.b.x-seg.a.x)*t,z:seg.a.z+(seg.b.z-seg.a.z)*t};if(v704PointInRect(p,rect,width))return true;}}return false;}
+  function v704RoadAt(x,z,margin=0,includeSidewalk=false){return WORLD_LAYOUT_V704.roads.some(road=>v704PointInRect({x,z},v704RoadFootprint(road,includeSidewalk),margin))||v704HighwayAt(x,z,margin,includeSidewalk);}
   function v704ZoneAt(x,z,margin=0){return Object.values(WORLD_LAYOUT_V704.zones).filter(zone=>v704PointInRect({x,z},zone,margin)).map(zone=>zone.id);}
   function v704ConstructionAt(x,z,margin=0){return v704PointInRect({x,z},WORLD_LAYOUT_V704.zones.construction,-Math.abs(margin));}
   function v704ProtectedRectangles(){return WORLD_LAYOUT_V704.structures.filter(item=>item.kind!=='sport-inner'&&item.kind!=='construction').map(item=>worldLayoutStructure(item.id));}
   function v704ReservedAt(x,z,margin=0){if(v704RoadAt(x,z,margin,true))return true;return v704ProtectedRectangles().some(rect=>v704PointInRect({x,z},rect,Number(rect.margin||0)+margin));}
-  function v704BuildAllowedAt(x,z,w=1.5,d=1.5){const zone=WORLD_LAYOUT_V704.zones.construction,rect={x,z,w,d};if(x-w/2<zone.x-zone.w/2||x+w/2>zone.x+zone.w/2||z-d/2<zone.z-zone.d/2||z+d/2>zone.z+zone.d/2)return false;return !WORLD_LAYOUT_V704.roads.some(road=>v704RectOverlap(rect,v704RoadFootprint(road,true),.25));}
+  function v704BuildAllowedAt(x,z,w=1.5,d=1.5){const zone=WORLD_LAYOUT_V704.zones.construction,rect={x,z,w,d};if(x-w/2<zone.x-zone.w/2||x+w/2>zone.x+zone.w/2||z-d/2<zone.z-zone.d/2||z+d/2>zone.z+zone.d/2)return false;if(WORLD_LAYOUT_V704.roads.some(road=>v704RectOverlap(rect,v704RoadFootprint(road,true),.25)))return false;return !(WORLD_LAYOUT_V704.highways||[]).some(highway=>v704HighwayIntersectsRect(highway.id,rect,.25));}
   function v704NearestConstructionSlot(index=0){const zone=WORLD_LAYOUT_V704.zones.construction,columns=6,spacingX=5,spacingZ=5,row=Math.floor(index/columns),column=index%columns;return{x:zone.x-zone.w/2+3+column*spacingX,z:zone.z-zone.d/2+3+row*spacingZ};}
   function v704PathRect(path){const dx=Number(path.x2)-Number(path.x1),dz=Number(path.z2)-Number(path.z1),length=Math.hypot(dx,dz);return{id:path.id,x:(path.x1+path.x2)/2,z:(path.z1+path.z2)/2,w:Math.abs(dx)+Number(path.w||2),d:Math.abs(dz)+Number(path.w||2),rotation:Math.atan2(dx,dz),length};}
   function v704StaticWorldAudit(){
     const problems=[],roads=WORLD_LAYOUT_V704.roads.map(road=>v704RoadFootprint(road,true)),structures=WORLD_LAYOUT_V704.structures.map(item=>worldLayoutStructure(item.id)),bounds=WORLD_LAYOUT_V704.bounds;
     const compatible=new Set(['stadium|football-field','football-field|stadium']);
     for(const road of roads){if(road.x-road.w/2<bounds.minX||road.x+road.w/2>bounds.maxX||road.z-road.d/2<bounds.minZ||road.z+road.d/2>bounds.maxZ)problems.push({type:'road-out-of-bounds',a:road.id});}
+    for(const highway of WORLD_LAYOUT_V704.highways||[])for(const point of highway.points||[]){const margin=Number(highway.width||10)/2+Number(highway.shoulder||0);if(point.x-margin<bounds.minX||point.x+margin>bounds.maxX||point.z-margin<bounds.minZ||point.z+margin>bounds.maxZ)problems.push({type:'highway-out-of-bounds',a:highway.id});}
     for(const item of structures){
       if(item.x-item.w/2<bounds.minX||item.x+item.w/2>bounds.maxX||item.z-item.d/2<bounds.minZ||item.z+item.d/2>bounds.maxZ)problems.push({type:'structure-out-of-bounds',a:item.id});
       if(item.kind==='construction')continue;
       for(const road of roads){if((item.allowedRoads||[]).includes(road.id))continue;if(v704RectOverlap(item,road,Number(item.margin||0)))problems.push({type:'structure-on-road',a:item.id,b:road.id});}
+      for(const highway of WORLD_LAYOUT_V704.highways||[]){if((item.allowedHighways||[]).includes(highway.id))continue;if(v704HighwayIntersectsRect(highway.id,item,Number(item.margin||0)))problems.push({type:'structure-on-highway',a:item.id,b:highway.id});}
     }
     for(let i=0;i<structures.length;i++)for(let j=i+1;j<structures.length;j++){
       const a=structures[i],b=structures[j];if(a.kind==='construction'||b.kind==='construction'||compatible.has(`${a.id}|${b.id}`)||a.inside===b.id||b.inside===a.id)continue;
@@ -143,20 +203,20 @@
     }
     const water=[WORLD_LAYOUT_V704.zones.lake,WORLD_LAYOUT_V704.zones.lakeNorth];for(const item of structures.filter(s=>!['terrain'].includes(s.kind)))for(const hazard of water)if(v704RectOverlap(item,hazard,.1))problems.push({type:'structure-in-water',a:item.id,b:hazard.id});
     for(const path of WORLD_LAYOUT_V704.paths){const rect=v704PathRect(path);for(const structure of structures){if(['construction-zone'].includes(structure.id)||path.destination===structure.id)continue;const startInside=v704PointInRect({x:path.x1,z:path.z1},structure,.1),endInside=v704PointInRect({x:path.x2,z:path.z2},structure,.1);if(!startInside&&!endInside&&v704RectOverlap(rect,structure,.2))problems.push({type:'path-through-structure',a:path.id,b:structure.id});}}
-    return{version:704,passed:problems.length===0,problems,roads:roads.length,structures:structures.length,zones:Object.keys(WORLD_LAYOUT_V704.zones).length,paths:WORLD_LAYOUT_V704.paths.length};
+    return{version:704,passed:problems.length===0,problems,roads:roads.length,highways:(WORLD_LAYOUT_V704.highways||[]).length,structures:structures.length,zones:Object.keys(WORLD_LAYOUT_V704.zones).length,paths:WORLD_LAYOUT_V704.paths.length};
   }
   function v704ActualHouseRect(house){if(!house)return null;if(house.id==='castle-hall')return worldLayoutStructure('castle');return{id:String(house.id||'house'),kind:'runtime-house',x:Number(house.x),z:Number(house.z),w:Number(house.w||9),d:Number(house.d||7)};}
   function v704RuntimeWorldAudit(){
     const problems=[],roads=WORLD_LAYOUT_V704.roads.map(road=>v704RoadFootprint(road,true)),protectedRects=v704ProtectedRectangles(),houses=(world?.houses||[]).map(v704ActualHouseRect).filter(Boolean),vehicles=world?.vehicles||[],hazards=world?.hazards||[];
     const add=(type,a,b='',detail='')=>problems.push({type,a:String(a||''),b:String(b||''),detail:String(detail||'')});
-    for(const house of houses)for(const road of roads)if(v704RectOverlap(house,road,1.0))add('house-on-road',house.id,road.id);
+    for(const house of houses)for(const road of roads)if(v704RectOverlap(house,road,1.0))add('house-on-road',house.id,road.id);for(const house of houses)for(const highway of WORLD_LAYOUT_V704.highways||[])if(v704HighwayIntersectsRect(highway.id,house,1.0))add('house-on-highway',house.id,highway.id);
     for(let i=0;i<houses.length;i++)for(let j=i+1;j<houses.length;j++)if(v704RectOverlap(houses[i],houses[j],1.0))add('house-overlap',houses[i].id,houses[j].id);
     for(const house of houses)for(const hazard of hazards)if(Number.isFinite(hazard.w)&&v704RectOverlap(house,hazard,.25))add('house-in-hazard',house.id,hazard.type);
     const protectedGameplay=protectedRects.filter(rect=>['sport','kart','farm','castle'].includes(rect.kind));for(const collider of world?.colliders||[]){const rect={x:Number(collider.x),z:Number(collider.z),w:Number(collider.w),d:Number(collider.d)};if(!Number.isFinite(rect.x)||collider.sportsV704||collider.kartV704)continue;for(const protectedRect of protectedGameplay)if(v704RectOverlap(rect,protectedRect,.15))add('collider-in-protected-area',collider.houseId||collider.buildId||collider.landmark||'collider',protectedRect.id);}
     for(const vehicle of vehicles){const x=Number(vehicle.group?.position?.x??vehicle.x),z=Number(vehicle.group?.position?.z??vehicle.z),id=String(vehicle.id||'vehicle');if(!Number.isFinite(x)||!Number.isFinite(z)){add('vehicle-invalid-position',id);continue;}const isKart=String(vehicle.kind||'')==='kart';if(!isKart)for(const road of roads)if(v704PointInRect({x,z},road,Number(vehicle.radius||1.35)))add('vehicle-on-road',id,road.id);for(const structure of protectedRects){if(isKart&&['kart-circuit','kart-boxes'].includes(structure.id))continue;if(v704PointInRect({x,z},structure,1.2))add('vehicle-inside-structure',id,structure.id);}}
     const spawn=worldLayoutPoint('spawn');if(typeof positionBlockedForPlayer==='function'&&positionBlockedForPlayer(spawn.x,spawn.z,.42,{ignoreTraffic:true,allowWater:false}))add('spawn-blocked','spawn');
-    const important=['sportsEntrance','footballEntrance','volleyEntrance','footvolleyEntrance','kartEntrance','farmEntrance','castleEntrance','mountainEntrance','constructionEntrance'];for(const id of important){const p=worldLayoutPoint(id);if(typeof nearestRoadProjection==='function'){const projection=nearestRoadProjection(p);if(!projection||projection.distance>18||projection.clear===false)add('destination-inaccessible',id,'road',projection?`distance=${projection.distance.toFixed(1)}`:'no-projection');}}
+    const important=['sportsEntrance','footballEntrance','volleyEntrance','footvolleyEntrance','kartEntrance','farmEntrance','castleEntrance','mountainEntrance','constructionEntrance','ottoviasEntry','ottoviasOperations','ottoviasTollSouth','ottoviasTollField','ottoviasTollBeach'];for(const id of important){const p=worldLayoutPoint(id);if(typeof nearestRoadProjection==='function'){const projection=nearestRoadProjection(p);if(!projection||projection.distance>18||projection.clear===false)add('destination-inaccessible',id,'road',projection?`distance=${projection.distance.toFixed(1)}`:'no-projection');}}
     const names={};worldGroup?.traverse?.(object=>{const name=String(object.name||'');if(name)names[name]=(names[name]||0)+1;});for(const name of['OTTHI_V702_FARM','OTTHI_V702_MOUNTAIN','OTTHI_V704_SPORTS','OTTHI_V704_KART'])if((names[name]||0)>1)add('duplicate-world-system',name,String(names[name]));
     const result={version:704,passed:problems.length===0,problems,houses:houses.length,vehicles:vehicles.length,colliders:world?.colliders?.length||0,hazards:hazards.length,interactables:world?.interactables?.length||0,at:Date.now()};world.layoutAuditRuntime=result;if(!result.passed)console.error('[OTTHI V704] auditoria geométrica do mundo real',problems);return result;
   }
-  window.OTTHI_WORLD_LAYOUT_V704={layout:WORLD_LAYOUT_V704,point:worldLayoutPoint,zone:worldLayoutRect,structure:worldLayoutStructure,staticAudit:v704StaticWorldAudit,runtimeAudit:v704RuntimeWorldAudit,audit:v704StaticWorldAudit,roadAt:v704RoadAt,reservedAt:v704ReservedAt,buildAllowedAt:v704BuildAllowedAt,constructionSlot:v704NearestConstructionSlot,zonesAt:v704ZoneAt};
+  window.OTTHI_WORLD_LAYOUT_V704={layout:WORLD_LAYOUT_V704,point:worldLayoutPoint,zone:worldLayoutRect,structure:worldLayoutStructure,staticAudit:v704StaticWorldAudit,runtimeAudit:v704RuntimeWorldAudit,audit:v704StaticWorldAudit,roadAt:v704RoadAt,highwayAt:v704HighwayAt,highwaySegments:v704HighwaySegments,reservedAt:v704ReservedAt,buildAllowedAt:v704BuildAllowedAt,constructionSlot:v704NearestConstructionSlot,zonesAt:v704ZoneAt,bounds:v704WorldBounds,clamp:v704ClampWorldPoint};

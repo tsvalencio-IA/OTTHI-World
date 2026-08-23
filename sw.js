@@ -1,28 +1,28 @@
-const REVISION = 'df20c64e570ec7a7';
-const CACHE = `otthi-v7052-${REVISION}`;
+const REVISION = 'dd48e28a6e02c5df';
+const CACHE = `otthi-v7054-${REVISION}`;
 const CACHE_PREFIXES = ['otthi-','otthi-game-web-','otthos-life-world-main-'];
 const BUILD = '705.0-playable-sports-realistic-npcs-kart';
 const VERSION = '705';
-const RELEASE_MANIFEST = './release-manifest.json?v=7052';
+const RELEASE_MANIFEST = './release-manifest.json?v=7054';
 
 const REQUIRED_SHELL = [
-  './index.html?v=7052',
-  './style.css?v=7052',
-  './assets/vendor/three-r128.min.js?v=7052',
-  './assets/js/core/runtime-config.js?v=7052',
-  './assets/js/core/safe-pointer.js?v=7052',
-  './assets/js/core/viewport-manager.js?v=7052',
-  './assets/js/save-db.js?v=7052',
-  './firebase-config.js?v=7052',
-  './assets/js/game-account.js?v=7052',
-  './assets/js/multiplayer-rtdb.js?v=7052',
-  './app.js?v=7052',
-  './assets/js/ui/shared-modal.js?v=7052',
-  './assets/js/core/performance-guardian.js?v=7052',
-  './assets/js/multiplayer/room-manager.js?v=7052',
-  './assets/js/education/adaptive-learning.js?v=7052',
-  './assets/js/safety/child-safety.js?v=7052',
-  './manifest.webmanifest?v=7052'
+  './index.html?v=7054',
+  './style.css?v=7054',
+  './assets/vendor/three-r128.min.js?v=7054',
+  './assets/js/core/runtime-config.js?v=7054',
+  './assets/js/core/safe-pointer.js?v=7054',
+  './assets/js/core/viewport-manager.js?v=7054',
+  './assets/js/save-db.js?v=7054',
+  './firebase-config.js?v=7054',
+  './assets/js/game-account.js?v=7054',
+  './assets/js/multiplayer-rtdb.js?v=7054',
+  './app.js?v=7054',
+  './assets/js/ui/shared-modal.js?v=7054',
+  './assets/js/core/performance-guardian.js?v=7054',
+  './assets/js/multiplayer/room-manager.js?v=7054',
+  './assets/js/education/adaptive-learning.js?v=7054',
+  './assets/js/safety/child-safety.js?v=7054',
+  './manifest.webmanifest?v=7054'
 ];
 
 const OPTIONAL_ASSETS = [
@@ -179,7 +179,7 @@ async function activeReleaseManifest(cache) {
 
 async function cachedFallback(cache, request, navigation) {
   if (navigation) {
-    return await cache.match('./index.html?v=7052') || await cache.match('./') || null;
+    return await cache.match('./index.html?v=7054') || await cache.match('./') || null;
   }
   return await cache.match(request, { ignoreSearch:false })
     || await cache.match(new URL(request.url).pathname, { ignoreSearch:true })

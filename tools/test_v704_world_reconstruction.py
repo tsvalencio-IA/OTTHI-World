@@ -26,7 +26,16 @@ for token in ['startFootballV704','footballKickV704','updateFootballV704','v705U
 add('Esportes atualizados no game loop','updateWorldSportsV704(dt)' in loop)
 add('Bots cooperativos usam a pista oval real','rx=23.7+Number(bot.coopRaceLane||0)*.9' in coop and 'rz=12.4+Number(bot.coopRaceLane||0)*.45' in coop)
 add('Anel aleatório de prédios invasores removido','118+Math.random' not in world and 'antigo anel aleatório de prédios foi removido' in world)
-add('Skyline decorativo fora da área jogável','Skyline apenas fora dos limites jogáveis' in district and '-130' in district and '132' in district)
+bounds_match=re.search(r"bounds:Object\.freeze\(\{minX:(-?\d+(?:\.\d+)?),maxX:(-?\d+(?:\.\d+)?),minZ:(-?\d+(?:\.\d+)?),maxZ:(-?\d+(?:\.\d+)?)\}\)",layout)
+skyline_groups=re.findall(r"(\[\[.*?\]\])\.forEach\(v=>createBackdropBuilding",district,re.S)
+skyline_z=[]
+for group in skyline_groups:
+ try:
+  skyline_z.extend(float(item[1]) for item in __import__('ast').literal_eval(group))
+ except Exception:
+  pass
+skyline_outside=bool(bounds_match and skyline_z) and all(z<float(bounds_match.group(3)) or z>float(bounds_match.group(4)) for z in skyline_z)
+add('Skyline decorativo fora da área jogável','Skyline deslocado para fora dos novos limites da OTTOVIAS' in district and skyline_outside,skyline_z)
 for token in ['vehicleDurabilityV704','vehicleBrokenV704','vehiclePerformanceV704','applyVehicleImpactDamageV704','repairVehicleV704','towVehicleToWorkshopV704','openBrokenVehicleOptionsV704','lastImpactAt<420']:
  add(f'Veículo: {token}',token in damage)
 add('Veículo quebrado é imobilizado',all(x in damage for x in ['player.car.speed=0','player.vx=0','player.vz=0','não pode continuar']))

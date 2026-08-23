@@ -60,10 +60,10 @@
     const coinMat=mat(0xffd52e,{emissive:0xb26b00,emissiveIntensity:.32,metalness:.18,roughness:.3});points.forEach(([x,z],i)=>{const c=new THREE.Mesh(new THREE.TorusGeometry(.34,.11,7,14),coinMat);c.position.set(x,1.15+Math.sin(i*.7)*.18,z);c.rotation.y=Math.PI/2;worldGroup.add(c);world.landmarks.push(c);});
   }
   function createCommercialDistrict(){
-    // Skyline apenas fora dos limites jogáveis: nenhum prédio decorativo entra nas zonas ativas.
-    [[-112,-130,12,12,10,0xe77a32,0xffd75a],[-84,-132,11,17,9,0x35a8e8,0xffffff],[-54,-132,13,14,9,0x8b5cf6,0xf4d35e],[-24,-131,11,18,9,0x46b96a,0xffffff],[24,-131,12,16,9,0xe84a6f,0xffef98],[58,-132,13,20,10,0x2f7fd8,0xffffff],[96,-130,12,14,10,0xf09c35,0x45d7ff]].forEach(v=>createBackdropBuilding(...v));
-    [[-108,130,13,16,10,0x4f9fd7,0xffffff],[-74,132,11,19,9,0xe86a3d,0xffed84],[-36,132,12,14,9,0x65b85d,0xffffff],[18,132,12,18,10,0x8a62d4,0x5ee7ff],[58,132,13,15,9,0xe44a4a,0xffffff],[102,130,11,20,10,0x3b91d1,0xffed84]].forEach(v=>createBackdropBuilding(...v));
-    createFloatingIsland(-78,36,-148,.75);createFloatingIsland(18,48,-158,.9);createFloatingIsland(96,30,-142,.65);
+    // Skyline deslocado para fora dos novos limites da OTTOVIAS: nenhum prédio decorativo invade a rodovia ou os biomas.
+    [[-112,-205,12,12,10,0xe77a32,0xffd75a],[-84,-207,11,17,9,0x35a8e8,0xffffff],[-54,-207,13,14,9,0x8b5cf6,0xf4d35e],[-24,-206,11,18,9,0x46b96a,0xffffff],[24,-206,12,16,9,0xe84a6f,0xffef98],[58,-207,13,20,10,0x2f7fd8,0xffffff],[96,-205,12,14,10,0xf09c35,0x45d7ff]].forEach(v=>createBackdropBuilding(...v));
+    [[-108,205,13,16,10,0x4f9fd7,0xffffff],[-74,207,11,19,9,0xe86a3d,0xffed84],[-36,207,12,14,9,0x65b85d,0xffffff],[18,207,12,18,10,0x8a62d4,0x5ee7ff],[58,207,13,15,9,0xe44a4a,0xffffff],[102,205,11,20,10,0x3b91d1,0xffed84]].forEach(v=>createBackdropBuilding(...v));
+    createFloatingIsland(-78,36,-226,.75);createFloatingIsland(18,48,-236,.9);createFloatingIsland(96,30,-220,.65);
     [[-28,-28],[-38,-28],[38,-28],[48,-28],[-28,44],[-38,44],[22,44],[32,44]].forEach(([x,z])=>{if(!v704ReservedAt(x,z,.8))createStreetTree(x,z,.72);});
     createCoinTrail([[72,-35],[77,-39],[82,-43],[87,-47],[92,-51],[97,-55]]);
   }

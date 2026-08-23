@@ -120,6 +120,7 @@
     transport: { metroTrips:0, metroDestinations:[], busStops:[], busTrips:0, busWaiting:null },
     vehicles: { lastUsedId:'', parked:{}, modularParts:{}, partDurability:{}, broken:{}, damageHistory:[] },
     worldLayout: { version:704, migratedAt:0, migratedBuilds:0 },
+    ottovias: { passes:0, spent:0, lastTollId:'', lastTollAt:0, tour:{ active:false, index:0, startedAt:0, bestMs:0, completed:0 } },
     objectives: { pinnedChapterId:'', history:[] },
     adventures: { completed:[], bestTimes:{}, active:null },
     hunting: { lastAttempt: 0, tracksFound: 0, successful: 0, failed: 0, cooperativeRewards: [] },

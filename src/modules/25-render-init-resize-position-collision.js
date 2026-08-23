@@ -71,7 +71,7 @@
   function savePlayerPosition(immediate=false){
     if(player.boating&&player.boat)state.boats.lastPosition={x:+player.x.toFixed(2),z:+player.z.toFixed(2),heading:+player.boat.heading.toFixed(3)};
     const transient=!!currentHouse||!!player.transit.mode||!!player.car.passengerOf||!!player.boat.passengerOf||!!player.vehicle||!!player.boating||!!player.swimming;
-    const currentSafe=!transient&&Number.isFinite(player.x)&&Number.isFinite(player.y)&&Number.isFinite(player.z)&&Math.abs(player.x)<=116&&Math.abs(player.z)<=116&&!isInsideLakeNavigable(player.x,player.z)&&!positionBlockedForPlayer(player.x,player.z,.26,{ignoreTraffic:true,allowWater:false})&&player.y>=groundHeightAt(player.x,player.z)-.35;
+    const currentSafe=!transient&&Number.isFinite(player.x)&&Number.isFinite(player.y)&&Number.isFinite(player.z)&&(()=>{const b=v704WorldBounds();return player.x>=b.minX&&player.x<=b.maxX&&player.z>=b.minZ&&player.z<=b.maxZ;})()&&!isInsideLakeNavigable(player.x,player.z)&&!positionBlockedForPlayer(player.x,player.z,.26,{ignoreTraffic:true,allowWater:false})&&player.y>=groundHeightAt(player.x,player.z)-.35;
     const x=currentSafe?player.x:Number(player.lastSafeX??state.position?.x??0),z=currentSafe?player.z:Number(player.lastSafeZ??state.position?.z??8),y=currentSafe?player.y:Number(player.lastSafeY??groundHeightAt(x,z)),yaw=currentHouse?Number(enterHouse.outdoorYaw||cameraYaw):cameraYaw;
     if(Number.isFinite(x)&&Number.isFinite(z)&&!isInsideLakeNavigable(x,z))state.position={x:+x.toFixed(2),y:+Number(y||0).toFixed(2),z:+z.toFixed(2),yaw:+Number(yaw||0).toFixed(3)};
     saveState(immediate);
@@ -85,10 +85,10 @@
     let top=typeof professionalTerrainHeightAt==='function'?professionalTerrainHeightAt(x,z):0;for(const p of world.platforms){if(p.bridgePart!==undefined&&!state.flags.bridgeFixed&&p.bridgePart%2===1)continue;if(Math.abs(x-p.x)<=p.w/2+.35&&Math.abs(z-p.z)<=p.d/2+.35&&p.top>top&&player.y>=p.top-.75)top=p.top;}return top;
   }
   function positionBlockedForPlayer(x,z,radius=.48,options={}){
-    if(!Number.isFinite(x)||!Number.isFinite(z)||Math.abs(x)>116||Math.abs(z)>116)return true;
+    if(!Number.isFinite(x)||!Number.isFinite(z))return true;const bounds=v704WorldBounds();if(x<bounds.minX||x>bounds.maxX||z<bounds.minZ||z>bounds.maxZ)return true;
     if(!options.allowWater&&waterAt(x,z)&&groundHeightAt(x,z)<=.24)return true;
     for(const c of world.colliders){
-      if(options.ignoreHouseId&&c.houseId===options.ignoreHouseId)continue;
+      if(c.disabled)continue;if(options.ignoreHouseId&&c.houseId===options.ignoreHouseId)continue;
       if(c.houseId&&currentHouse&&c.houseId===currentHouse.id)continue;
       if(Math.abs(x-c.x)<=c.w/2+radius&&Math.abs(z-c.z)<=c.d/2+radius)return true;
     }
@@ -103,8 +103,8 @@
   }
   function safePointNear(x,z,options={}){
     const radius=Number(options.radius||.48),heading=Number(options.heading||0),distances=options.distances||[0,1.4,2.2,3.1,4.2],angles=options.angles||[0,Math.PI/2,-Math.PI/2,Math.PI,-Math.PI/4,Math.PI/4];
-    for(const distance of distances)for(const offset of angles){const angle=heading+offset,cx=clamp(x+Math.sin(angle)*distance,-115,115),cz=clamp(z+Math.cos(angle)*distance,-115,115);if(!positionBlockedForPlayer(cx,cz,radius,options))return{x:cx,z:cz,y:groundHeightAt(cx,cz)};}
-    const fallback={x:clamp(Number(player.lastSafeX)||0,-115,115),z:clamp(Number(player.lastSafeZ)||8,-115,115)};return{x:fallback.x,z:fallback.z,y:groundHeightAt(fallback.x,fallback.z)};
+    for(const distance of distances)for(const offset of angles){const angle=heading+offset,b=v704WorldBounds(),cx=clamp(x+Math.sin(angle)*distance,b.minX+1,b.maxX-1),cz=clamp(z+Math.cos(angle)*distance,b.minZ+1,b.maxZ-1);if(!positionBlockedForPlayer(cx,cz,radius,options))return{x:cx,z:cz,y:groundHeightAt(cx,cz)};}
+    const b=v704WorldBounds(),fallback={x:clamp(Number(player.lastSafeX)||0,b.minX+1,b.maxX-1),z:clamp(Number(player.lastSafeZ)||8,b.minZ+1,b.maxZ-1)};return{x:fallback.x,z:fallback.z,y:groundHeightAt(fallback.x,fallback.z)};
   }
   function rememberSafePlayerPosition(force=false){
     const now=performance.now();if(!force&&now-Number(player.lastSafeAt||0)<450)return false;
@@ -140,7 +140,7 @@
     const h=player.car.heading,fx=Math.sin(h),fz=Math.cos(h),rx=Math.cos(h),rz=-Math.sin(h),active=currentVehicleRef();
     const probes=[[0,0,.38],[fx*1.12,fz*1.12,.34],[-fx*1.08,-fz*1.08,.34],[fx*.88+rx*.72,fz*.88+rz*.72,.30],[fx*.88-rx*.72,fz*.88-rz*.72,.30],[-fx*.84+rx*.72,-fz*.84+rz*.72,.30],[-fx*.84-rx*.72,-fz*.84-rz*.72,.30]];
     const hitBox=c=>probes.some(([ox,oz,pad])=>Math.abs(x+ox-c.x)<=c.w/2+pad&&Math.abs(z+oz-c.z)<=c.d/2+pad);
-    if(world.colliders.some(c=>!(c.houseId&&currentHouse&&c.houseId===currentHouse.id)&&hitBox(c)))return true;
+    if(world.colliders.some(c=>!c.disabled&&!(c.houseId&&currentHouse&&c.houseId===currentHouse.id)&&hitBox(c)))return true;
     for(const v of world.vehicles||[]){if(v===active||!v.group?.visible)continue;if(Math.hypot(x-v.group.position.x,z-v.group.position.z)<2.05)return true;}
     for(const actor of trafficActorList()){if(actor.ref===active)continue;if(Math.hypot(x-actor.group.position.x,z-actor.group.position.z)<(actor.radius||1.5)+1.0)return true;}
     return false;
@@ -156,7 +156,7 @@
     }
     const radius=.43*playerScaleValue()*(player.crouched?.82:1);
     for(const c of world.colliders){
-      if(c.houseId&&currentHouse&&c.houseId===currentHouse.id)continue;
+      if(c.disabled)continue;if(c.houseId&&currentHouse&&c.houseId===currentHouse.id)continue;
       if(Math.abs(player.x-c.x)>c.w/2+radius||Math.abs(player.z-c.z)>c.d/2+radius)continue;
       const fromLeft=prevX<=c.x-c.w/2-radius,fromRight=prevX>=c.x+c.w/2+radius,fromTop=prevZ<=c.z-c.d/2-radius,fromBottom=prevZ>=c.z+c.d/2+radius;
       if(fromLeft)player.x=c.x-c.w/2-radius;else if(fromRight)player.x=c.x+c.w/2+radius;else if(fromTop)player.z=c.z-c.d/2-radius;else if(fromBottom)player.z=c.z+c.d/2+radius;else{player.x=prevX;player.z=prevZ;}

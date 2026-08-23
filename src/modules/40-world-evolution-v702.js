@@ -35,7 +35,7 @@
   function createV702GroundRecovery(){
     if(world.worldEvolution?.groundRecovery)return false;
     const material=v702TextureMaterial('grass',0x5fae4d,{repeat:[42,42],roughness:.94,normalScale:.28});
-    const ground=new THREE.Mesh(new THREE.BoxGeometry(249,.04,249),material);ground.position.set(0,.025,0);ground.receiveShadow=true;ground.frustumCulled=false;ground.renderOrder=0;ground.userData.criticalSurface=true;ground.name='OTTHI_V702_GRASS_RECOVERY';worldGroup.add(ground);world.criticalSurfaces.push(ground);
+    const worldSize=v704WorldSize(),ground=new THREE.Mesh(new THREE.BoxGeometry(worldSize.w+7,.04,worldSize.d+7),material);ground.position.set(0,.025,0);ground.receiveShadow=true;ground.frustumCulled=false;ground.renderOrder=0;ground.userData.criticalSurface=true;ground.name='OTTHI_V702_GRASS_RECOVERY';worldGroup.add(ground);world.criticalSurfaces.push(ground);
     world.worldEvolution={...(world.worldEvolution||{}),groundRecovery:ground};return true;
   }
   function terrainVertexColor(height,kind){if(kind==='mountain')return new THREE.Color(height>9?0xd5d8cf:height>4?0x75825f:0x5d9949);return new THREE.Color(0xd9ae5f);}
