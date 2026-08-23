@@ -42,6 +42,12 @@
     }
   },
   "changes": [
+    "Correção da recuperação do jogador para usar os limites reais do mundo expandido, removendo o limite antigo de 130 unidades que resetava o jogador na OTTOVIAS",
+    "Central OTTOVIAS recebe ponto de acesso separado do prédio; GPS, Michelle e retorno da ronda deixam de apontar para dentro do collider",
+    "Colisão leve deixa de provocar reset completo: o jogador é reposicionado localmente quando existe ponto seguro próximo",
+    "Runtime da OTTOVIAS deixa de recriar estado e lista de segmentos em todo frame; segmentos da rodovia passam a usar cache",
+    "Rodovia e biomas recebem culling por distância e detalhes de bioma deixam de ser superfícies críticas sempre renderizadas",
+    "Contador de tempo de jogo deixa de recriar o objeto de uso em todo frame, reduzindo pressão de memória e garbage collection em celular",
     "Rodovia OTTOVIAS adicionada como circuito viário real conectado à cidade, sem substituir ou sobrepor o mapa existente",
     "Mundo expandido com limites dinâmicos para acomodar a rodovia externa preservando todas as coordenadas e sistemas anteriores",
     "OTTOVIAS percorre quatro novos trechos visuais: deserto, campo, neve e praia, retornando ao acesso da cidade",
@@ -88,16 +94,18 @@
     "playableSportsStaticApproved": false,
     "npcPerceptionStaticApproved": false,
     "kartCircuitStaticApproved": false,
-    "ottoviasStaticApproved": true
+    "ottoviasStaticApproved": true,
+    "performanceStaticApproved": true
   },
-  "release": "705.4-ottovias-highway-biomes-tolls",
+  "release": "705.5-performance-recovery-ottovias",
   "notes": [
+    "V705.5 corrige recuperação na OTTOVIAS e reduz trabalho por frame; teste físico em celular continua pendente.",
     "A OTTOVIAS foi adicionada fora da área urbana original para preservar estádio, quadras, kartódromo, casas, serviços e construções existentes.",
     "Firebase, contas, saves, multiplayer e regras permanecem preservados; a expansão usa o mesmo estado e o mesmo grafo de navegação.",
     "Validação em aparelho físico continua separada e não é declarada antes do teste real no celular."
   ],
-  "hotfix": "705.4",
-  "assetVersion": 7054,
+  "hotfix": "705.5",
+  "assetVersion": 7055,
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

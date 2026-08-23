@@ -1418,7 +1418,7 @@
       construction:{x:-33,z:96},constructionEntrance:{x:-33,z:78},
       platformCircuit:{x:94,z:-52},platformEntrance:{x:76,z:-35},
       repairParking:{x:32,z:-18},
-      ottoviasEntry:{x:0,z:-108},ottoviasOperations:{x:50,z:-120},ottoviasMichelle:{x:50,z:-114},
+      ottoviasEntry:{x:0,z:-108},ottoviasOperations:{x:50,z:-120},ottoviasOperationsAccess:{x:50,z:-109.2},ottoviasMichelle:{x:50,z:-112},
       ottoviasTollSouth:{x:84,z:-147},ottoviasTollField:{x:156,z:16},ottoviasTollBeach:{x:-169,z:-5},
       ottoviasDesert:{x:111,z:-137},ottoviasField:{x:151,z:61},ottoviasSnow:{x:24,z:166},ottoviasBeach:{x:-168,z:80}
     }),
@@ -1539,7 +1539,7 @@
     const protectedGameplay=protectedRects.filter(rect=>['sport','kart','farm','castle'].includes(rect.kind));for(const collider of world?.colliders||[]){const rect={x:Number(collider.x),z:Number(collider.z),w:Number(collider.w),d:Number(collider.d)};if(!Number.isFinite(rect.x)||collider.sportsV704||collider.kartV704)continue;for(const protectedRect of protectedGameplay)if(v704RectOverlap(rect,protectedRect,.15))add('collider-in-protected-area',collider.houseId||collider.buildId||collider.landmark||'collider',protectedRect.id);}
     for(const vehicle of vehicles){const x=Number(vehicle.group?.position?.x??vehicle.x),z=Number(vehicle.group?.position?.z??vehicle.z),id=String(vehicle.id||'vehicle');if(!Number.isFinite(x)||!Number.isFinite(z)){add('vehicle-invalid-position',id);continue;}const isKart=String(vehicle.kind||'')==='kart';if(!isKart)for(const road of roads)if(v704PointInRect({x,z},road,Number(vehicle.radius||1.35)))add('vehicle-on-road',id,road.id);for(const structure of protectedRects){if(isKart&&['kart-circuit','kart-boxes'].includes(structure.id))continue;if(v704PointInRect({x,z},structure,1.2))add('vehicle-inside-structure',id,structure.id);}}
     const spawn=worldLayoutPoint('spawn');if(typeof positionBlockedForPlayer==='function'&&positionBlockedForPlayer(spawn.x,spawn.z,.42,{ignoreTraffic:true,allowWater:false}))add('spawn-blocked','spawn');
-    const important=['sportsEntrance','footballEntrance','volleyEntrance','footvolleyEntrance','kartEntrance','farmEntrance','castleEntrance','mountainEntrance','constructionEntrance','ottoviasEntry','ottoviasOperations','ottoviasTollSouth','ottoviasTollField','ottoviasTollBeach'];for(const id of important){const p=worldLayoutPoint(id);if(typeof nearestRoadProjection==='function'){const projection=nearestRoadProjection(p);if(!projection||projection.distance>18||projection.clear===false)add('destination-inaccessible',id,'road',projection?`distance=${projection.distance.toFixed(1)}`:'no-projection');}}
+    const important=['sportsEntrance','footballEntrance','volleyEntrance','footvolleyEntrance','kartEntrance','farmEntrance','castleEntrance','mountainEntrance','constructionEntrance','ottoviasEntry','ottoviasOperationsAccess','ottoviasTollSouth','ottoviasTollField','ottoviasTollBeach'];for(const id of important){const p=worldLayoutPoint(id);if(typeof nearestRoadProjection==='function'){const projection=nearestRoadProjection(p);if(!projection||projection.distance>18||projection.clear===false)add('destination-inaccessible',id,'road',projection?`distance=${projection.distance.toFixed(1)}`:'no-projection');}}
     const names={};worldGroup?.traverse?.(object=>{const name=String(object.name||'');if(name)names[name]=(names[name]||0)+1;});for(const name of['OTTHI_V702_FARM','OTTHI_V702_MOUNTAIN','OTTHI_V704_SPORTS','OTTHI_V704_KART'])if((names[name]||0)>1)add('duplicate-world-system',name,String(names[name]));
     const result={version:704,passed:problems.length===0,problems,houses:houses.length,vehicles:vehicles.length,colliders:world?.colliders?.length||0,hazards:hazards.length,interactables:world?.interactables?.length||0,at:Date.now()};world.layoutAuditRuntime=result;if(!result.passed)console.error('[OTTHI V704] auditoria geométrica do mundo real',problems);return result;
   }
@@ -1816,7 +1816,7 @@
     { id:'footvolley', name:'Futevôlei — entrada da quadra', icon:'🏖️', ...mapPointV704('footvolleyEntrance'), group:'Esportes' },
     { id:'kart', name:'Kartódromo OTTHI', icon:'🏁', ...mapPointV704('kartEntrance'), group:'Esportes' },
     { id:'ottovias-entry', name:'Rodovia OTTOVIAS — acesso cidade', icon:'🛣️', ...mapPointV704('ottoviasEntry'), group:'OTTOVIAS' },
-    { id:'ottovias-operations', name:'Central OTTOVIAS — Michelle', icon:'📡', ...mapPointV704('ottoviasOperations'), group:'OTTOVIAS' },
+    { id:'ottovias-operations', name:'Central OTTOVIAS — Michelle', icon:'📡', ...mapPointV704('ottoviasOperationsAccess'), group:'OTTOVIAS' },
     { id:'ottovias-toll-south', name:'Pedágio OTTOVIAS — Praça Sul', icon:'🎫', ...mapPointV704('ottoviasTollSouth'), group:'OTTOVIAS' },
     { id:'ottovias-toll-field', name:'Pedágio OTTOVIAS — Praça Campo', icon:'🎫', ...mapPointV704('ottoviasTollField'), group:'OTTOVIAS' },
     { id:'ottovias-toll-beach', name:'Pedágio OTTOVIAS — Praça Praia', icon:'🎫', ...mapPointV704('ottoviasTollBeach'), group:'OTTOVIAS' },
@@ -3420,36 +3420,33 @@
   const BUS_LANE_OFFSET=1.55;
 
   // ===== MODULE: 14a-ottovias-highway-v7054.js =====
-  const OTTOVIAS_RUNTIME={initialized:false,root:null,highway:null,tolls:new Map(),michelle:null,patrol:null,lastNoticeAt:0,lastBiome:'',tourCheckAt:0};
+  const OTTOVIAS_RUNTIME={initialized:false,root:null,highway:null,tolls:new Map(),michelle:null,patrol:null,lastNoticeAt:0,lastBiome:'',tourCheckAt:0,cullAt:0,segments:[],biomeGroups:[],cachedSegments:null,stateReady:false};
   const OTTOVIAS_TOUR_STOPS=Object.freeze([
     {id:'ottovias-desert',name:'Trecho Deserto',icon:'🏜️',point:'ottoviasDesert'},
     {id:'ottovias-field',name:'Trecho Campo',icon:'🌾',point:'ottoviasField'},
     {id:'ottovias-snow',name:'Trecho Neve',icon:'❄️',point:'ottoviasSnow'},
     {id:'ottovias-beach',name:'Trecho Praia',icon:'🏖️',point:'ottoviasBeach'},
-    {id:'ottovias-operations',name:'Central OTTOVIAS',icon:'📡',point:'ottoviasOperations'}
+    {id:'ottovias-operations',name:'Central OTTOVIAS',icon:'📡',point:'ottoviasOperationsAccess'}
   ]);
   function ottoviasHighway(){return (WORLD_LAYOUT_V704.highways||[]).find(item=>item.id==='ottovias')||null;}
-  function ensureOttoviasState(){state.ottovias={passes:0,spent:0,lastTollId:'',lastTollAt:0,tour:{active:false,index:0,startedAt:0,bestMs:0,completed:0},...(state.ottovias||{})};state.ottovias.tour={active:false,index:0,startedAt:0,bestMs:0,completed:0,...(state.ottovias.tour||{})};return state.ottovias;}
+  function ensureOttoviasState(){
+    if(!state.ottovias||typeof state.ottovias!=='object')state.ottovias={};
+    const data=state.ottovias;if(!Number.isFinite(Number(data.passes)))data.passes=0;if(!Number.isFinite(Number(data.spent)))data.spent=0;if(typeof data.lastTollId!=='string')data.lastTollId='';if(!Number.isFinite(Number(data.lastTollAt)))data.lastTollAt=0;
+    if(!data.tour||typeof data.tour!=='object')data.tour={};const tour=data.tour;if(typeof tour.active!=='boolean')tour.active=false;if(!Number.isFinite(Number(tour.index)))tour.index=0;if(!Number.isFinite(Number(tour.startedAt)))tour.startedAt=0;if(!Number.isFinite(Number(tour.bestMs)))tour.bestMs=0;if(!Number.isFinite(Number(tour.completed)))tour.completed=0;OTTOVIAS_RUNTIME.stateReady=true;return data;
+  }
   function ottoviasSegmentPoint(index,t=.5,offset=0){const h=ottoviasHighway(),points=h?.points||[];if(!points.length)return{x:0,z:0,heading:0};const a=points[((index%points.length)+points.length)%points.length],b=points[(index+1)%points.length],dx=b.x-a.x,dz=b.z-a.z,len=Math.hypot(dx,dz)||1,heading=Math.atan2(dx,dz),rx=Math.cos(heading),rz=-Math.sin(heading);return{x:a.x+dx*t+rx*offset,z:a.z+dz*t+rz*offset,heading};}
-  function ottoviasNearestInfo(x,z){let best=null;const h=ottoviasHighway();if(!h)return null;for(const seg of v704HighwaySegments().filter(s=>s.highwayId===h.id)){const p=v704DistanceToSegment({x,z},seg.a,seg.b);if(!best||p.distance<best.distance)best={...p,index:seg.index,a:seg.a,b:seg.b,biome:seg.a.biome||seg.b.biome||'country',width:seg.width};}return best;}
+  function ottoviasSegments(){if(OTTOVIAS_RUNTIME.cachedSegments)return OTTOVIAS_RUNTIME.cachedSegments;const h=ottoviasHighway(),points=h?.points||[],out=[];for(let i=0;i<points.length;i++){const a=points[i],b=points[(i+1)%points.length];if(!a||!b)continue;out.push({index:i,a,b,width:Number(h.width||12.4),biome:a.biome||b.biome||'country'});}OTTOVIAS_RUNTIME.cachedSegments=out;return out;}
+  function ottoviasNearestInfo(x,z){let best=null;const pos={x,z};for(const seg of ottoviasSegments()){const p=v704DistanceToSegment(pos,seg.a,seg.b);if(!best||p.distance<best.distance)best={distance:p.distance,x:p.x,z:p.z,t:p.t,index:seg.index,a:seg.a,b:seg.b,biome:seg.biome,width:seg.width};}return best;}
   function ottoviasMaterial(color,options={}){return renderMat(color,{roughness:options.roughness??.9,metalness:options.metalness??0,emissive:options.emissive??0,emissiveIntensity:options.emissiveIntensity??0});}
-  function ottoviasFlatPatch(x,z,w,d,color,y=.012){const mesh=stableBox(w,.045,d,ottoviasMaterial(color,{roughness:.96}),x,y,z,worldGroup,0);mesh.userData.ottoviasBiome=true;return mesh;}
+  function ottoviasFlatPatch(x,z,w,d,color,y=.012,parent=worldGroup){const mesh=box(w,.045,d,ottoviasMaterial(color,{roughness:.96}),x,y,z,parent);mesh.castShadow=false;mesh.receiveShadow=false;mesh.userData.ottoviasBiome=true;return mesh;}
+  function ottoviasBiomeGroup(id,cx,cz,radius){const group=new THREE.Group();group.name=`OTTHI_OTTOVIAS_BIOME_${id.toUpperCase()}`;worldGroup.add(group);OTTOVIAS_RUNTIME.biomeGroups.push({id,group,cx,cz,radius});return group;}
   function createOttoviasBiomes(){
     const root=new THREE.Group();root.name='OTTHI_OTTOVIAS_BIOMES';worldGroup.add(root);
-    // Deserto a sudeste: área nova, fora do mapa urbano anterior.
-    ottoviasFlatPatch(111,-151,118,56,0xdcb56a);ottoviasFlatPatch(156,-112,45,70,0xe2bd72);
-    for(const [x,z,s] of [[74,-160,1],[101,-168,.8],[128,-151,1.15],[151,-119,.9]]){const dune=new THREE.Mesh(new THREE.SphereGeometry(4.3*s,12,7,0,Math.PI*2,0,Math.PI/2),ottoviasMaterial(0xe7c57c));dune.scale.y=.32;dune.position.set(x,.02,z);root.add(dune);}
-    for(const [x,z] of [[82,-166],[119,-160],[145,-127]]){premiumBox(.34,3.5,.34,0x43844a,x,1.75,z,root);premiumBox(1.3,.32,.32,0x43844a,x+.55,2.2,z,root);premiumBox(.32,1.0,.32,0x43844a,x+1.05,2.55,z,root);}
-    // Campo a leste/nordeste.
-    ottoviasFlatPatch(171,38,34,180,0x75b84d);ottoviasFlatPatch(151,116,70,74,0x83bd55);
-    for(let z=-48;z<=112;z+=16){for(const x of [170,176])premiumBox(.08,.7,10,0x8a673e,x,.34,z,root);}
-    for(const [x,z] of [[170,-32],[174,2],[169,54],[175,94],[140,128]]){const bale=premiumCylinder(1.2,1.7,0xd9ae48,x,.85,z,root,14);bale.rotation.z=Math.PI/2;}
-    // Neve no arco norte, próxima da montanha porém sem atravessá-la.
-    ottoviasFlatPatch(16,178,330,22,0xe9f4f7);ottoviasFlatPatch(-119,163,95,30,0xe5f0f3);
-    for(const [x,z] of [[118,174],[80,180],[38,176],[-12,181],[-60,176],[-112,171],[-150,148]]){const trunk=premiumBox(.45,2.2,.45,0x73513c,x,1.1,z,root);for(let y=2.0;y<=4.3;y+=.7){const crown=new THREE.Mesh(new THREE.ConeGeometry(2.2-(y-2)*.24,1.65,10),ottoviasMaterial(0xdff1e9));crown.position.set(x,y,z);root.add(crown);}trunk.userData.ottoviasSnow=true;}
-    // Praia no oeste: faixa de areia entre a rodovia e o oceano.
-    ottoviasFlatPatch(-177,34,18,225,0xe4ca88);createWater(-187,35,6,225);
-    for(const [x,z,c] of [[-177,105,0xff6f61],[-178,65,0x3b82f6],[-177,15,0xf6c445],[-178,-38,0x8b5cf6]]){premiumCylinder(.12,2.4,0x8a6848,x,1.2,z,root,8);const shade=new THREE.Mesh(new THREE.ConeGeometry(2.1,.65,18),ottoviasMaterial(c));shade.position.set(x,2.45,z);shade.rotation.x=Math.PI;root.add(shade);}
+    const desert=ottoviasBiomeGroup('desert',125,-138,88);ottoviasFlatPatch(111,-151,118,56,0xdcb56a,.012,desert);ottoviasFlatPatch(156,-112,45,70,0xe2bd72,.012,desert);
+    for(const [x,z,scale] of [[74,-160,1],[101,-168,.8],[128,-151,1.15],[151,-119,.9]]){const dune=new THREE.Mesh(new THREE.SphereGeometry(4.3*scale,10,6,0,Math.PI*2,0,Math.PI/2),ottoviasMaterial(0xe7c57c));dune.scale.y=.32;dune.position.set(x,.02,z);dune.castShadow=false;dune.receiveShadow=false;desert.add(dune);}for(const [x,z] of [[82,-166],[119,-160],[145,-127]]){premiumBox(.34,3.5,.34,0x43844a,x,1.75,z,desert);premiumBox(1.3,.32,.32,0x43844a,x+.55,2.2,z,desert);premiumBox(.32,1.0,.32,0x43844a,x+1.05,2.55,z,desert);}
+    const field=ottoviasBiomeGroup('field',160,42,104);ottoviasFlatPatch(171,38,34,180,0x75b84d,.012,field);ottoviasFlatPatch(151,116,70,74,0x83bd55,.012,field);for(let z=-48;z<=112;z+=20){for(const x of [170,176])box(.08,.7,10,0x8a673e,x,.34,z,field);}for(const [x,z] of [[170,-32],[174,2],[169,54],[175,94],[140,128]]){const bale=cylinder(1.2,1.7,0xd9ae48,x,.85,z,field,12);bale.rotation.z=Math.PI/2;}
+    const snow=ottoviasBiomeGroup('snow',4,165,156);ottoviasFlatPatch(16,178,330,22,0xe9f4f7,.012,snow);ottoviasFlatPatch(-119,163,95,30,0xe5f0f3,.012,snow);for(const [x,z] of [[118,174],[80,180],[38,176],[-12,181],[-60,176],[-112,171],[-150,148]]){box(.45,2.2,.45,0x73513c,x,1.1,z,snow);for(let y=2.0;y<=4.3;y+=.85){const crown=new THREE.Mesh(new THREE.ConeGeometry(2.2-(y-2)*.24,1.65,9),ottoviasMaterial(0xdff1e9));crown.position.set(x,y,z);crown.castShadow=false;snow.add(crown);}}
+    const beach=ottoviasBiomeGroup('beach',-174,34,126);ottoviasFlatPatch(-177,34,18,225,0xe4ca88,.012,beach);createWater(-187,35,6,225);for(const [x,z,color] of [[-177,105,0xff6f61],[-178,65,0x3b82f6],[-177,15,0xf6c445],[-178,-38,0x8b5cf6]]){cylinder(.12,2.4,0x8a6848,x,1.2,z,beach,8);const shade=new THREE.Mesh(new THREE.ConeGeometry(2.1,.65,14),ottoviasMaterial(color));shade.position.set(x,2.45,z);shade.rotation.x=Math.PI;shade.castShadow=false;beach.add(shade);}
     world.ottoviasBiomes=root;return root;
   }
   function createOttoviasRoadSegment(a,b,index,parent=worldGroup){const dx=b.x-a.x,dz=b.z-a.z,len=Math.hypot(dx,dz),heading=Math.atan2(dx,dz),h=ottoviasHighway(),g=new THREE.Group();g.position.set((a.x+b.x)/2,.02,(a.z+b.z)/2);g.rotation.y=heading;g.name=`OTTHI_OTTOVIAS_SEGMENT_${index}`;parent.add(g);
@@ -3458,9 +3455,9 @@
     box(.13,.022,len+.18,yellow,-.16,.125,0,g);box(.13,.022,len+.18,yellow,.16,.125,0,g);box(.12,.022,len+.18,white,-width/2+.65,.127,0,g);box(.12,.022,len+.18,white,width/2-.65,.127,0,g);
     for(let z=-len/2+3;z<len/2-2;z+=7){box(.09,.024,3.2,white,-3.15,.13,z,g);box(.09,.024,3.2,white,3.15,.13,z,g);}
     const rail=ottoviasMaterial(0xb9c2c9,{roughness:.5,metalness:.32});if(index%2===0||['snow','beach'].includes(a.biome)){for(const side of[-1,1]){box(.11,.48,len+.15,rail,side*(width/2+1.0),.58,0,g);for(let z=-len/2+2;z<len/2;z+=6)box(.12,1.0,.12,0x66727b,side*(width/2+1.0),.5,z,g);}}
-    return g;
+    OTTOVIAS_RUNTIME.segments.push({index,group:g,a,b,cx:(a.x+b.x)/2,cz:(a.z+b.z)/2,radius:len/2+10});return g;
   }
-  function createOttoviasHighwayGeometry(){const h=ottoviasHighway();if(!h)return null;const root=new THREE.Group();root.name='OTTHI_OTTOVIAS_HIGHWAY';worldGroup.add(root);OTTOVIAS_RUNTIME.root=root;OTTOVIAS_RUNTIME.highway=h;
+  function createOttoviasHighwayGeometry(){const h=ottoviasHighway();if(!h)return null;OTTOVIAS_RUNTIME.segments.length=0;const root=new THREE.Group();root.name='OTTHI_OTTOVIAS_HIGHWAY';root.userData.ottoviasHighway=true;worldGroup.add(root);OTTOVIAS_RUNTIME.root=root;OTTOVIAS_RUNTIME.highway=h;
     for(let i=0;i<h.points.length;i++)createOttoviasRoadSegment(h.points[i],h.points[(i+1)%h.points.length],i,root);
     for(const p of h.points){const joint=new THREE.Mesh(new THREE.CylinderGeometry(Number(h.width||12.4)/2+.1,Number(h.width||12.4)/2+.1,.105,18),ottoviasMaterial(0x343b43,{roughness:.82}));joint.rotation.x=Math.PI/2;joint.position.set(p.x,.075,p.z);root.add(joint);}
     return root;
@@ -3486,8 +3483,9 @@
   function createOttoviasPatrol(){const h=ottoviasHighway();if(!h)return null;const start=h.points[1],patrol=createNPC('ottovias-patrol','Equipe OTTOVIAS',start.x,start.z,0x15745b,1);const route=h.points.map(p=>[p.x,p.z]);route.push([h.points[0].x,h.points[0].z]);createNpcMobility(patrol,'car',route,6.1);patrol.ottoviasRole='inspecao';OTTOVIAS_RUNTIME.patrol=patrol;return patrol;}
   function createOttoviasWorld(){if(OTTOVIAS_RUNTIME.initialized)return world.ottovias;ensureOttoviasState();createOttoviasBiomes();createOttoviasHighwayGeometry();const h=ottoviasHighway();for(const toll of h.tolls||[])createOttoviasToll(toll);createOttoviasOperations();createOttoviasPatrol();
     const entry=worldLayoutPoint('ottoviasEntry');createOttoviasHighwaySign(entry.x+4,entry.z-8,'OTTOVIAS','DESERTO • CAMPO • NEVE • PRAIA',Math.PI);createOttoviasHighwaySign(134,-139,'DESERTO','Praça Sul • 5 moedas',-.55);createOttoviasHighwaySign(164,74,'CAMPO','Acesso rural • siga em frente',Math.PI);createOttoviasHighwaySign(62,174,'NEVE','Reduza a velocidade',Math.PI/2);createOttoviasHighwaySign(-174,92,'PRAIA','Trecho costeiro',0);
-    registerInteractable({id:'ottovias-entry',type:'transport',icon:'🛣️',label:'Rodovia OTTOVIAS',x:entry.x,z:entry.z,radius:4,priority:170,action:()=>{setWaypoint('ottovias-operations');}});OTTOVIAS_RUNTIME.initialized=true;world.ottovias={root:OTTOVIAS_RUNTIME.root,tolls:OTTOVIAS_RUNTIME.tolls,michelle:OTTOVIAS_RUNTIME.michelle,patrol:OTTOVIAS_RUNTIME.patrol};return world.ottovias;}
-  function updateOttoviasHighway(dt){if(!OTTOVIAS_RUNTIME.initialized)return;const now=Date.now(),data=ensureOttoviasState();for(const toll of OTTOVIAS_RUNTIME.tolls.values()){const open=now<toll.openUntil,target=open?-1.35:0;for(const arm of toll.gates)arm.rotation.z=lerp(arm.rotation.z,target,Math.min(1,dt*7));if(player.vehicle){const d=Math.hypot(player.x-toll.x,player.z-toll.z);if(d<10&&!open){if(d<6)player.car.speed=Math.sign(player.car.speed||1)*Math.min(Math.abs(player.car.speed||0),1.7);if(d<3.8)player.car.speed=0;if(now-Number(toll.lastWarnAt||0)>4200){toll.lastWarnAt=now;toast(`Pedágio ${toll.name}: ${toll.cost} moedas • use AÇÃO para liberar a cancela.`,'warn',2400);}}}}
+    registerInteractable({id:'ottovias-entry',type:'transport',icon:'🛣️',label:'Rodovia OTTOVIAS',x:entry.x,z:entry.z,radius:4,priority:170,action:()=>{setWaypoint('ottovias-operations');}});OTTOVIAS_RUNTIME.initialized=true;updateOttoviasVisibility(true);world.ottovias={root:OTTOVIAS_RUNTIME.root,tolls:OTTOVIAS_RUNTIME.tolls,michelle:OTTOVIAS_RUNTIME.michelle,patrol:OTTOVIAS_RUNTIME.patrol};return world.ottovias;}
+  function updateOttoviasVisibility(force=false){const now=performance.now();if(!force&&now-OTTOVIAS_RUNTIME.cullAt<320)return;OTTOVIAS_RUNTIME.cullAt=now;const tier=typeof qualityTier==='function'?qualityTier():'balanced',range=tier==='low'?68:tier==='high'?135:90,px=player.x,pz=player.z;for(const item of OTTOVIAS_RUNTIME.segments){const nearest=v704DistanceToSegment({x:px,z:pz},item.a,item.b);item.group.visible=nearest.distance<range;}for(const item of OTTOVIAS_RUNTIME.biomeGroups){item.group.visible=Math.hypot(px-item.cx,pz-item.cz)<range+item.radius;}if(OTTOVIAS_RUNTIME.root)OTTOVIAS_RUNTIME.root.visible=true;}
+  function updateOttoviasHighway(dt){if(!OTTOVIAS_RUNTIME.initialized)return;const now=Date.now(),data=state.ottovias||ensureOttoviasState();updateOttoviasVisibility();for(const toll of OTTOVIAS_RUNTIME.tolls.values()){const open=now<toll.openUntil,target=open?-1.35:0;for(const arm of toll.gates)arm.rotation.z=lerp(arm.rotation.z,target,Math.min(1,dt*7));if(player.vehicle){const d=Math.hypot(player.x-toll.x,player.z-toll.z);if(d<10&&!open){if(d<6)player.car.speed=Math.sign(player.car.speed||1)*Math.min(Math.abs(player.car.speed||0),1.7);if(d<3.8)player.car.speed=0;if(now-Number(toll.lastWarnAt||0)>4200){toll.lastWarnAt=now;toast(`Pedágio ${toll.name}: ${toll.cost} moedas • use AÇÃO para liberar a cancela.`,'warn',2400);}}}}
     if(player.vehicle){const info=ottoviasNearestInfo(player.x,player.z);if(info&&info.distance<Number(info.width||12)/2+3){if(info.biome!==OTTOVIAS_RUNTIME.lastBiome){OTTOVIAS_RUNTIME.lastBiome=info.biome;const labels={city:'Acesso Cidade',desert:'Trecho Deserto',field:'Trecho Campo',snow:'Trecho Neve',beach:'Trecho Praia',country:'Trecho Rural'};if(labels[info.biome]&&now-OTTOVIAS_RUNTIME.lastNoticeAt>2200){OTTOVIAS_RUNTIME.lastNoticeAt=now;toast(`OTTOVIAS • ${labels[info.biome]}`,'good',1300);}}}}
     if(data.tour.active&&now-OTTOVIAS_RUNTIME.tourCheckAt>300){OTTOVIAS_RUNTIME.tourCheckAt=now;const target=ottoviasTourTarget();if(target){const p=worldLayoutPoint(target.point),d=Math.hypot(player.x-p.x,player.z-p.z);if(d<10){if(data.tour.index>=OTTOVIAS_TOUR_STOPS.length-1){completeOttoviasTour();}else{data.tour.index++;saveState(true);const next=ottoviasTourTarget();toast(`Michelle: trecho confirmado. Próximo: ${next.icon} ${next.name}.`,'good',2200);ottoviasSetTourWaypoint();}}}}
   }
@@ -5341,11 +5339,13 @@
     if(notify)toast('Você voltou ao último ponto seguro.','warn',2200);console.warn(`[OTTHOS] Recuperação do jogador: ${reason}.`);return true;
   }
   function recoverPlayerIfInvalid(){
-    const finite=Number.isFinite(player.x)&&Number.isFinite(player.y)&&Number.isFinite(player.z),ground=finite?groundHeightAt(player.x,player.z):0,outside=!finite||Math.abs(player.x)>130||Math.abs(player.z)>130||player.y>80,belowWorld=finite&&!player.swimming&&player.y<ground-2.25,deepFall=finite&&!player.swimming&&!player.vehicle&&!player.boating&&!player.transit.mode&&!player.grounded&&player.vy<0&&player.y<ground-1.05;
+    const finite=Number.isFinite(player.x)&&Number.isFinite(player.y)&&Number.isFinite(player.z),ground=finite?groundHeightAt(player.x,player.z):0,bounds=typeof v704WorldBounds==='function'?v704WorldBounds():{minX:-130,maxX:130,minZ:-130,maxZ:130};
+    const outside=!finite||player.x<bounds.minX-1||player.x>bounds.maxX+1||player.z<bounds.minZ-1||player.z>bounds.maxZ+1||player.y>Math.max(80,ground+80),belowWorld=finite&&!player.swimming&&player.y<ground-2.25,deepFall=finite&&!player.swimming&&!player.vehicle&&!player.boating&&!player.transit.mode&&!player.grounded&&player.vy<0&&player.y<ground-1.05;
     const penetrated=finite&&!player.vehicle&&!player.boating&&!player.transit.mode&&positionBlockedForPlayer(player.x,player.z,.24,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming});
     const reason=outside?'fora dos limites':belowWorld?'abaixo do terreno':deepFall?'queda sem retorno':penetrated?'preso em colisão':'';
     if(!reason){player.invalidSince=0;rememberSafePlayerPosition();return false;}
-    player.invalidSince=player.invalidSince||performance.now();const immediate=outside||belowWorld;if(!immediate&&performance.now()-player.invalidSince<900)return false;
+    player.invalidSince=player.invalidSince||performance.now();const elapsed=performance.now()-player.invalidSince,immediate=outside||belowWorld;if(!immediate&&elapsed<900)return false;
+    if(penetrated&&!outside&&!belowWorld&&!deepFall){const local=safePointNear(player.x,player.z,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming,radius:.34,distances:[.55,.85,1.15,1.55,2.1],angles:[0,Math.PI/2,-Math.PI/2,Math.PI,Math.PI/4,-Math.PI/4,3*Math.PI/4,-3*Math.PI/4]});if(local&&Math.hypot(local.x-player.x,local.z-player.z)<=2.2){player.x=local.x;player.z=local.z;player.y=local.y;player.vx=player.vz=0;player.grounded=true;player.invalidSince=0;playerGroup?.position?.set(player.x,player.y,player.z);contactShadow?.position?.set(player.x,player.y+.025,player.z);rememberSafePlayerPosition(true);return true;}}
     return recoverPlayerToLastSafe(reason,true);
   }
   function safeVehicleExitPoint(vehicleRef=null){
@@ -5942,10 +5942,10 @@
   function updatePlayUsage(){
     const now=Date.now(),elapsed=clamp((now-usageLastTickAt)/1000,0,5);usageLastTickAt=now;
     if(!running||paused||document.hidden)return;
-    state.usage={totalSeconds:0,sessionSeconds:0,sessionStartedAt:0,lastPlayedAt:0,sessionLockedAt:0,...(state.usage||{})};
-    state.usage.totalSeconds=Number(state.usage.totalSeconds||0)+elapsed;
-    state.usage.sessionSeconds=Number(state.usage.sessionSeconds||0)+elapsed;
-    state.usage.lastPlayedAt=now;
+    const usage=state.usage||(state.usage={totalSeconds:0,sessionSeconds:0,sessionStartedAt:0,lastPlayedAt:0,sessionLockedAt:0});
+    usage.totalSeconds=Number(usage.totalSeconds||0)+elapsed;
+    usage.sessionSeconds=Number(usage.sessionSeconds||0)+elapsed;
+    usage.lastPlayedAt=now;
     if(now-usageLastSaveAt>=30000){usageLastSaveAt=now;saveState();}
     const limit=Math.max(0,Number(state.guardian?.sessionLimitMinutes||0))*60;
     if(limit>0&&state.usage.sessionSeconds>=limit&&!sessionLimitHandled){

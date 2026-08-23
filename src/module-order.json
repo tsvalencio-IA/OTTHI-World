@@ -56,7 +56,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Fonte central de verdade do layout mundial V704",
-      "sha256Body": "28b936d2879fa1458ae830907f89fc44d0af6a4affc58d944f4b6189625d3320"
+      "sha256Body": "a7a9b81d031b60ba33d23ce70b70941dda469435de0d4c7c3cb0c8fb9123ea71"
     },
     {
       "file": "src/modules/06-missions-profile-hud-inventory-tools.js",
@@ -70,7 +70,7 @@
       "startLine": 1456,
       "endLine": 1604,
       "description": "Rotas, trânsito, grafo, GPS e minimapa",
-      "sha256Body": "f78779ebf644ecceda844e823a4ff202da2b0e867c609dd2793caf38dc1e3fee"
+      "sha256Body": "0947a86d788536c58920f281f6b97a4cbbafa0b291d6ec174474940a1326e3bd"
     },
     {
       "file": "src/modules/08-map-parent-settings.js",
@@ -133,7 +133,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Rodovia OTTOVIAS integrada: circuito, biomas, pedágios, Michelle e ronda guiada",
-      "sha256Body": "d77fdc7e1a30aa924b981212325945c451b2e26903d03643c2bfaa26cdaa999e"
+      "sha256Body": "58a90df372d740bd8983dffb755c234d28254ebbcddfc076eac29eefcc63471c"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -217,7 +217,7 @@
       "startLine": 4495,
       "endLine": 4635,
       "description": "Three.js, qualidade, viewport, resize, posição segura e colisões",
-      "sha256Body": "82a1e7e243da4b6e3661a75c227a3c320b36a96974726686f54b52dd63db8294"
+      "sha256Body": "91a2b614fd3900ac3ecef0b3893082aadf2a20cd0e5c525c02faef0b6b64e616"
     },
     {
       "file": "src/modules/26-input-player-physics.js",
@@ -245,7 +245,7 @@
       "startLine": 5124,
       "endLine": 5238,
       "description": "Loop principal, controles, gamepad e início do jogo",
-      "sha256Body": "5ce913fc76d16d1348faed5f7802d1b320c8d3aacabe16e0f49f19689754484c"
+      "sha256Body": "3caf550981313731f1451b7c210673df90709b999bac040e8168870ad8b84e86"
     },
     {
       "file": "src/modules/30-pause-tests-public-api-bootstrap.js",

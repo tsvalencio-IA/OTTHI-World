@@ -28,7 +28,8 @@ if r.returncode:
     print(r.stderr);sys.exit(1)
 data=json.loads(r.stdout.strip()); layout=data['layout']; audit=data['audit']
 
-ck('Release V705.4 OTTOVIAS',version.get('version')==705 and version.get('hotfix')=='705.4' and version.get('assetVersion')==7054 and version.get('release')=='705.4-ottovias-highway-biomes-tolls')
+hotfix=str(version.get('hotfix','')); minor=int(hotfix.split('.')[-1]) if hotfix.startswith('705.') and hotfix.split('.')[-1].isdigit() else -1
+ck('Release preserva OTTOVIAS V705.4 ou posterior',version.get('version')==705 and minor>=4 and int(version.get('assetVersion',0))>=7054)
 files=[x['file'] for x in order['javascript']]
 newmod='src/modules/14a-ottovias-highway-v7054.js'
 ck('Módulo OTTOVIAS ativo exatamente uma vez',files.count(newmod)==1)
@@ -71,7 +72,7 @@ ck('Pedágios estão em segmentos distintos',len({x.get('routeIndex') for x in t
 edges={tuple(x) for x in layout.get('edges',[])}
 expected={('VS','OV0'),('OV24','OV0')}|{(f'OV{i}',f'OV{i+1}') for i in range(24)}
 ck('Rodovia conectada ao grafo da cidade e fechada',expected.issubset(edges),sorted(expected-edges))
-for point in ['ottoviasEntry','ottoviasOperations','ottoviasMichelle','ottoviasTollSouth','ottoviasTollField','ottoviasTollBeach','ottoviasDesert','ottoviasField','ottoviasSnow','ottoviasBeach']:
+for point in ['ottoviasEntry','ottoviasOperations','ottoviasOperationsAccess','ottoviasMichelle','ottoviasTollSouth','ottoviasTollField','ottoviasTollBeach','ottoviasDesert','ottoviasField','ottoviasSnow','ottoviasBeach']:
     ck(f'Ponto mestre presente: {point}',point in layout.get('points',{}))
 for zone in ['ottoviasDesert','ottoviasField','ottoviasSnow','ottoviasBeach']:
     ck(f'Zona de bioma presente: {zone}',zone in layout.get('zones',{}))
@@ -80,7 +81,7 @@ for zone in ['ottoviasDesert','ottoviasField','ottoviasSnow','ottoviasBeach']:
 for token in ['createOttoviasBiomes','createOttoviasHighwayGeometry','createOttoviasToll','payOttoviasToll','openMichelleOttovias','createOttoviasOperations','createOttoviasPatrol','startOttoviasTour','completeOttoviasTour','updateOttoviasHighway']:
     ck(f'Runtime OTTOVIAS: {token}',token in ott)
 ck('Michelle é NPC fixo da comunicação',all(x in ott for x in ["createNPC('michelle-ottovias','Michelle'","michelle.ottoviasRole='comunicacao'","michelle.stationary=true","Falar com Michelle • OTTOVIAS"]))
-ck('Ronda passa por deserto, campo, neve, praia e central',all(x in ott for x in ["point:'ottoviasDesert'","point:'ottoviasField'","point:'ottoviasSnow'","point:'ottoviasBeach'","point:'ottoviasOperations'"]))
+ck('Ronda passa por deserto, campo, neve, praia e central',all(x in ott for x in ["point:'ottoviasDesert'","point:'ottoviasField'","point:'ottoviasSnow'","point:'ottoviasBeach'","point:'ottoviasOperationsAccess'"]))
 ck('Cancela realmente bloqueia veículo até liberar',all(x in ott for x in ['d<6)player.car.speed','d<3.8)player.car.speed=0','toll.openUntil=now+13000']))
 ck('Equipe de inspeção percorre todos os pontos da rodovia',"const route=h.points.map(p=>[p.x,p.z])" in ott)
 ck('buildWorld inicializa OTTOVIAS uma vez',world.count('createOttoviasWorld()')==1,world.count('createOttoviasWorld()'))
@@ -99,9 +100,10 @@ ck('Cloud save envia progresso OTTOVIAS','ottovias:{...(state.ottovias||{}),tour
 ck('Cloud merge recupera progresso OTTOVIAS','...(remote.ottovias||{})' in persistence and 'remote.ottovias?.tour' in persistence)
 
 # Cache e bundle final.
-ck('Cache 7054 no index',index.count('?v=7054')>=10,index.count('?v=7054'))
-ck('Service Worker 7054','otthi-v7054-${REVISION}' in sw and './app.js?v=7054' in sw)
-ck('Manifesto PWA 7054','v=7054' in manifest.get('start_url',''))
+asset_version=int(version.get('assetVersion',7054)); token=f'?v={asset_version}'
+ck('Cache da release atual no index',index.count(token)>=10,index.count(token))
+ck('Service Worker da release atual',f'otthi-v{asset_version}-${{REVISION}}' in sw and f'./app.js?v={asset_version}' in sw)
+ck('Manifesto PWA da release atual',f'v={asset_version}' in manifest.get('start_url',''))
 ck('Bundle contém OTTOVIAS','OTTHI_OTTOVIAS' in app and 'createOttoviasWorld' in app and 'Michelle • Comunicação OTTOVIAS' in app)
 
 failed=[x for x in checks if not x['passed']]

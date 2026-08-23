@@ -12,10 +12,10 @@
   function updatePlayUsage(){
     const now=Date.now(),elapsed=clamp((now-usageLastTickAt)/1000,0,5);usageLastTickAt=now;
     if(!running||paused||document.hidden)return;
-    state.usage={totalSeconds:0,sessionSeconds:0,sessionStartedAt:0,lastPlayedAt:0,sessionLockedAt:0,...(state.usage||{})};
-    state.usage.totalSeconds=Number(state.usage.totalSeconds||0)+elapsed;
-    state.usage.sessionSeconds=Number(state.usage.sessionSeconds||0)+elapsed;
-    state.usage.lastPlayedAt=now;
+    const usage=state.usage||(state.usage={totalSeconds:0,sessionSeconds:0,sessionStartedAt:0,lastPlayedAt:0,sessionLockedAt:0});
+    usage.totalSeconds=Number(usage.totalSeconds||0)+elapsed;
+    usage.sessionSeconds=Number(usage.sessionSeconds||0)+elapsed;
+    usage.lastPlayedAt=now;
     if(now-usageLastSaveAt>=30000){usageLastSaveAt=now;saveState();}
     const limit=Math.max(0,Number(state.guardian?.sessionLimitMinutes||0))*60;
     if(limit>0&&state.usage.sessionSeconds>=limit&&!sessionLimitHandled){
