@@ -117,7 +117,7 @@
     if(player.vehicle){const vehicle=currentVehicleRef?.();if(vehicle){vehicle.occupied=false;vehicle.group.visible=true;}player.vehicle=false;activeVehicleRef=null;world.activeVehicle=null;player.car.id='';player.car.speed=0;player.car.passengerOf='';player.car.passengerUid='';player.car.passengerBotId='';vehicleVisual&&(vehicleVisual.visible=false);stopEngineSound?.();}
     if(player.boating){player.boating=false;player.boat.speed=0;player.boat.passengerOf='';player.boat.passengerUid='';player.boat.passengerBotId='';}
     if(player.transit?.mode){player.transit.mode='';player.transit.busId='';player.transit.metroUntil=0;if(metroOverlay){metroOverlay.hidden=true;metroOverlay.classList.remove('travelling','arriving');}}
-    player.swimming=false;player.sitUntil=0;if(playerModel)playerModel.visible=true;if(avatarLayer)avatarLayer.visible=true;if(contactShadow)contactShadow.visible=true;
+    player.swimming=false;player.sitUntil=0;player.airJumpAvailable=true;player.lastJumpWasAir=false;if(playerModel)playerModel.visible=true;if(avatarLayer)avatarLayer.visible=true;if(contactShadow)contactShadow.visible=true;
   }
   function recoverPlayerToLastSafe(reason='posição inválida',notify=true){
     resetPlayerModesForRecovery();const baseX=Number.isFinite(Number(player.lastSafeX))?Number(player.lastSafeX):Number(state.position?.x||0),baseZ=Number.isFinite(Number(player.lastSafeZ))?Number(player.lastSafeZ):Number(state.position?.z||8),safe=safePointNear(baseX,baseZ,{ignoreTraffic:true,allowWater:false,radius:.42,distances:[0,.8,1.4,2.2,3.2,4.4]});
@@ -128,10 +128,15 @@
     const finite=Number.isFinite(player.x)&&Number.isFinite(player.y)&&Number.isFinite(player.z),ground=finite?groundHeightAt(player.x,player.z):0,bounds=typeof v704WorldBounds==='function'?v704WorldBounds():{minX:-130,maxX:130,minZ:-130,maxZ:130};
     const outside=!finite||player.x<bounds.minX-1||player.x>bounds.maxX+1||player.z<bounds.minZ-1||player.z>bounds.maxZ+1||player.y>Math.max(80,ground+80),belowWorld=finite&&!player.swimming&&player.y<ground-2.25,deepFall=finite&&!player.swimming&&!player.vehicle&&!player.boating&&!player.transit.mode&&!player.grounded&&player.vy<0&&player.y<ground-1.05;
     const penetrated=finite&&!player.vehicle&&!player.boating&&!player.transit.mode&&positionBlockedForPlayer(player.x,player.z,.24,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming});
-    const reason=outside?'fora dos limites':belowWorld?'abaixo do terreno':deepFall?'queda sem retorno':penetrated?'preso em colisão':'';
-    if(!reason){player.invalidSince=0;rememberSafePlayerPosition();return false;}
+    const reason=outside?'fora dos limites':belowWorld?'abaixo do terreno':deepFall?'queda sem retorno':'';
+    if(!reason){
+      // Colisão com prédio/objeto nunca deve teleportar o jogador para outro ponto do mapa.
+      // A resolução normal de colisão impede a entrada; se um save antigo nascer alguns centímetros
+      // dentro de um collider, fazemos apenas uma correção local curta e silenciosa.
+      if(penetrated){const local=safePointNear(player.x,player.z,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming,radius:.30,distances:[.38,.58,.82,1.08,1.38],angles:[0,Math.PI/2,-Math.PI/2,Math.PI,Math.PI/4,-Math.PI/4,3*Math.PI/4,-3*Math.PI/4]});if(local&&Math.hypot(local.x-player.x,local.z-player.z)<=1.45){player.x=local.x;player.z=local.z;player.y=local.y;player.vx=player.vz=0;player.invalidSince=0;playerGroup?.position?.set(player.x,player.y,player.z);contactShadow?.position?.set(player.x,player.y+.025,player.z);return true;}player.invalidSince=0;return false;}
+      player.invalidSince=0;rememberSafePlayerPosition();return false;
+    }
     player.invalidSince=player.invalidSince||performance.now();const elapsed=performance.now()-player.invalidSince,immediate=outside||belowWorld;if(!immediate&&elapsed<900)return false;
-    if(penetrated&&!outside&&!belowWorld&&!deepFall){const local=safePointNear(player.x,player.z,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming,radius:.34,distances:[.55,.85,1.15,1.55,2.1],angles:[0,Math.PI/2,-Math.PI/2,Math.PI,Math.PI/4,-Math.PI/4,3*Math.PI/4,-3*Math.PI/4]});if(local&&Math.hypot(local.x-player.x,local.z-player.z)<=2.2){player.x=local.x;player.z=local.z;player.y=local.y;player.vx=player.vz=0;player.grounded=true;player.invalidSince=0;playerGroup?.position?.set(player.x,player.y,player.z);contactShadow?.position?.set(player.x,player.y+.025,player.z);rememberSafePlayerPosition(true);return true;}}
     return recoverPlayerToLastSafe(reason,true);
   }
   function safeVehicleExitPoint(vehicleRef=null){

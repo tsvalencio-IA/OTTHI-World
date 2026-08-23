@@ -37,9 +37,11 @@
     input.x=0;input.z=0;input.targetX=0;input.targetZ=0;updateRunUI();
     if(els.joystickKnob)els.joystickKnob.style.transform='translate(-50%,-50%)';
   }
-  function canJump(){return !player.vehicle&&!player.boating&&!player.transit.mode&&(player.swimming||player.grounded||performance.now()-player.lastGrounded<125);}
-  function requestJump(){if(!els.modal.hidden||paused||player.vehicle||player.boating||player.transit.mode)return;player.jumpBuffer=performance.now()+150;if(canJump())doJump();}
-  function doJump(){if(!canJump())return;state.stats.jumps++;trackDaily('jump',1);player.vy=player.swimming?3.1:10.2;player.grounded=false;player.jumpBuffer=0;beep(player.swimming?420:540);vibrate(18);}
+  function canGroundJump(){return !player.vehicle&&!player.boating&&!player.transit.mode&&(player.swimming||player.grounded||performance.now()-player.lastGrounded<125);}
+  function canAirJump(){return !player.vehicle&&!player.boating&&!player.transit.mode&&!player.swimming&&!player.grounded&&player.airJumpAvailable!==false&&performance.now()-player.lastGrounded>=90;}
+  function canJump(){return canGroundJump()||canAirJump();}
+  function requestJump(){if(!els.modal.hidden||paused||player.vehicle||player.boating||player.transit.mode)return;player.jumpBuffer=performance.now()+170;if(canGroundJump())doJump(false);else if(canAirJump())doJump(true);}
+  function doJump(aerial=false){if(aerial?!canAirJump():!canGroundJump())return;state.stats.jumps++;trackDaily('jump',1);player.lastJumpWasAir=!!aerial;if(aerial){player.airJumpAvailable=false;player.vy=Math.max(1.4,player.vy*.18)+8.7;beep(720,65,'sine');vibrate([12,18,12]);}else{player.vy=player.swimming?3.1:10.2;beep(player.swimming?420:540);vibrate(18);}player.grounded=false;player.jumpBuffer=0;}
   function updatePlayer(dt){
     // Entrada é atualizada em todos os estados. O veículo tem prioridade absoluta:
     // uma animação anterior de sofá/cama/TV nunca pode bloquear aceleração ou direção.
@@ -67,9 +69,9 @@
     const prevX=player.x,prevZ=player.z;player.x+=player.vx*dt;player.z+=player.vz*dt;{const b=v704WorldBounds();player.x=clamp(player.x,b.minX,b.maxX);player.z=clamp(player.z,b.minZ,b.maxZ);}if(player.boating)constrainBoat(prevX,prevZ);else if(!(player.vehicle&&player.car.passengerOf)){resolveCollisions(prevX,prevZ);resolveWaterWalking(prevX,prevZ);}
     const movedNow=Math.hypot(player.x-prevX,player.z-prevZ);if(movedNow>.001){if(player.vehicle||player.boating){state.stats.driven+=movedNow;trackDaily('drive',movedNow);}else if(player.swimming){state.stats.swum=(state.stats.swum||0)+movedNow;trackDaily('walk',movedNow*.5);}else{state.stats.walked+=movedNow;trackDaily('walk',movedNow);}}
     const ground=player.boating?.78:groundHeightAt(player.x,player.z);
-    if(player.swimming){const waterLevel=.02,targetY=-.62+Math.sin(animTime*2.6)*.035;player.vy=lerp(player.vy,0,Math.min(1,dt*4));player.y=lerp(player.y,targetY,Math.min(1,dt*5.5));player.grounded=true;player.lastGrounded=performance.now();state.needs.energy=clamp(state.needs.energy-dt*(input.isSprinting?.22:.08),0,100);}
-    else{if(!player.grounded)player.vy-=31*dt;player.y+=player.vy*dt;if(player.y<=ground&&player.vy<=0){const landed=!player.grounded&&player.vy<-4;player.y=ground;player.vy=0;player.grounded=true;player.lastGrounded=performance.now();if(landed){vibrate(20);beep(180,35,'sine');}}else if(player.y>ground+.03)player.grounded=false;}
-    if(player.jumpBuffer&&player.jumpBuffer>performance.now()&&canJump())doJump();
+    if(player.swimming){const waterLevel=.02,targetY=-.62+Math.sin(animTime*2.6)*.035;player.vy=lerp(player.vy,0,Math.min(1,dt*4));player.y=lerp(player.y,targetY,Math.min(1,dt*5.5));player.grounded=true;player.airJumpAvailable=true;player.lastJumpWasAir=false;player.lastGrounded=performance.now();state.needs.energy=clamp(state.needs.energy-dt*(input.isSprinting?.22:.08),0,100);}
+    else{if(!player.grounded)player.vy-=31*dt;player.y+=player.vy*dt;if(player.y<=ground&&player.vy<=0){const landed=!player.grounded&&player.vy<-4;player.y=ground;player.vy=0;player.grounded=true;player.airJumpAvailable=true;player.lastJumpWasAir=false;player.lastGrounded=performance.now();if(landed){vibrate(20);beep(180,35,'sine');}}else if(player.y>ground+.03)player.grounded=false;}
+    if(player.jumpBuffer&&player.jumpBuffer>performance.now()){if(canGroundJump())doJump(false);else if(canAirJump())doJump(true);}
     if(!player.vehicle&&!player.boating&&Math.hypot(player.vx,player.vz)>.15)player.facing=Math.atan2(player.vx,player.vz);
     playerGroup.position.set(player.x,player.y,player.z);playerGroup.rotation.y=performance.now()<player.spinUntil?player.facing+(1-(player.spinUntil-performance.now())/980)*Math.PI*4:player.facing;syncPlayerRootScale();contactShadow.position.set(player.x,ground+.025,player.z);contactShadow.visible=!player.swimming&&!player.boating&&!player.transit.mode;const air=Math.max(0,player.y-ground);const ss=clamp(1-air*.08,.48,1);contactShadow.scale.setScalar(ss);contactShadow.material.opacity=clamp(.27-air*.035,.06,.27);vehicleVisual.visible=player.vehicle&&!player.car.passengerOf;if(world.boat)world.boat.group.visible=true;updateBoatPanel();
     if(!recoverPlayerIfInvalid())rememberSafePlayerPosition();

@@ -42,6 +42,16 @@
     }
   },
   "changes": [
+    "Revisão integral V705.6: OTTOVIAS passa pela cidade usando a Avenida Central existente como travessia urbana, sem duplicar asfalto nem criar um segundo mapa",
+    "Ligação norte conecta a travessia urbana ao circuito externo e mantém a conexão sul já existente, formando uma única rede viária OTTOVIAS",
+    "Pedestres podem acessar a rodovia; tráfego passa a detectar jogador à frente, frear progressivamente, parar com distância de segurança e buzinar com cooldown",
+    "Recuperação de segurança deixa definitivamente de usar colisão com prédio/objeto como motivo para teleporte distante; somente queda real ou saída do mundo aciona recuperação completa",
+    "Michelle corrigida como personagem morena de cabelos cacheados, fixa na Comunicação OTTOVIAS e com uma única interação prioritária e acessível",
+    "Michelle recebe Plantão de Comunicação jogável e missão especial Operação Repórter Mirim para jogadores Otto/Ottinho/Otinho, com rota, GPS, objetivos e recompensa",
+    "Pulo duplo implementado para o personagem a pé, com segundo impulso aéreo independente e recarga somente ao tocar o chão",
+    "Sinalização de navegação centralizada no layout mestre, com textos revisados e posições auditadas fora de vias, água e estruturas; placas OTTOVIAS derivam da geometria real da rodovia",
+    "NPCs profissionais estacionários deixam de receber eventos sociais aleatórios, preservando função e posição",
+    "Firebase, contas, saves, multiplayer, esportes, kart, casas, profissões, missões existentes e demais sistemas preservados",
     "Correção da recuperação do jogador para usar os limites reais do mundo expandido, removendo o limite antigo de 130 unidades que resetava o jogador na OTTOVIAS",
     "Central OTTOVIAS recebe ponto de acesso separado do prédio; GPS, Michelle e retorno da ronda deixam de apontar para dentro do collider",
     "Colisão leve deixa de provocar reset completo: o jogador é reposicionado localmente quando existe ponto seguro próximo",
@@ -95,17 +105,18 @@
     "npcPerceptionStaticApproved": false,
     "kartCircuitStaticApproved": false,
     "ottoviasStaticApproved": true,
-    "performanceStaticApproved": true
+    "performanceStaticApproved": true,
+    "worldPrecisionStaticApproved": true
   },
-  "release": "705.5-performance-recovery-ottovias",
+  "release": "705.6-world-precision-city-highway",
   "notes": [
-    "V705.5 corrige recuperação na OTTOVIAS e reduz trabalho por frame; teste físico em celular continua pendente.",
-    "A OTTOVIAS foi adicionada fora da área urbana original para preservar estádio, quadras, kartódromo, casas, serviços e construções existentes.",
-    "Firebase, contas, saves, multiplayer e regras permanecem preservados; a expansão usa o mesmo estado e o mesmo grafo de navegação.",
-    "Validação em aparelho físico continua separada e não é declarada antes do teste real no celular."
+    "V705.6 revisa geometria, sinalização, recuperação, tráfego, Michelle e mobilidade do personagem sem substituir os sistemas existentes.",
+    "A travessia urbana da OTTOVIAS reutiliza a Avenida Central como a mesma via física, evitando sobreposição de mapas e superfícies.",
+    "Validação automática cobre geometria, integração, sinais, pulo duplo, reação do tráfego e missões da Michelle; teste físico no celular permanece separado.",
+    "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
-  "hotfix": "705.5",
-  "assetVersion": 7055,
+  "hotfix": "705.6",
+  "assetVersion": 7056,
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

@@ -35,6 +35,18 @@
           {id:'ottovias-toll-campo',name:'Praça Campo',routeIndex:7,t:.55,cost:5},
           {id:'ottovias-toll-praia',name:'Praça Praia',routeIndex:18,t:.55,cost:5}
         ])
+      }),
+      Object.freeze({
+        id:'ottovias-urban',name:'OTTOVIAS — Travessia Urbana',width:12.0,shoulder:.9,closed:false,usesExistingRoad:true,
+        points:Object.freeze([
+          {x:0,z:-108,biome:'city'},{x:0,z:-65,biome:'city'},{x:0,z:-18,biome:'city'},{x:0,z:18,biome:'city'},{x:0,z:58,biome:'city'},{x:0,z:105,biome:'city'}
+        ])
+      }),
+      Object.freeze({
+        id:'ottovias-north-connector',name:'OTTOVIAS — Ligação Norte',width:12.4,shoulder:1.6,closed:false,
+        points:Object.freeze([
+          {x:0,z:105,biome:'city'},{x:0,z:132,biome:'snow'},{x:24,z:166,biome:'snow'}
+        ])
       })
     ]),
     nodes:Object.freeze({
@@ -68,7 +80,7 @@
       OV21:{x:-124,z:-108},
       OV22:{x:-88,z:-132},
       OV23:{x:-48,z:-145},
-      OV24:{x:-15,z:-130}
+      OV24:{x:-15,z:-130},OVN1:{x:0,z:132}
     }),
     edges:Object.freeze([
       ['VS','V65S'],['V65S','V18S'],['V18S','C'],['C','V18N'],['V18N','V58N'],['V58N','VN'],
@@ -77,7 +89,7 @@
       ['E105S','E65S'],['E65S','E18S'],['E18S','E0'],['E0','H65E'],['E0','C38'],['C38','E58N'],
       ['V58N','N34'],['N34','N68'],['N68','E58N'],['C38','CASTLE38'],
       ['V65S','E65S'],['E65S','K65'],['K65','K80'],['K80','K94'],
-      ['VS','OV0'],['OV0','OV1'],['OV1','OV2'],['OV2','OV3'],['OV3','OV4'],['OV4','OV5'],['OV5','OV6'],['OV6','OV7'],['OV7','OV8'],['OV8','OV9'],['OV9','OV10'],['OV10','OV11'],['OV11','OV12'],['OV12','OV13'],['OV13','OV14'],['OV14','OV15'],['OV15','OV16'],['OV16','OV17'],['OV17','OV18'],['OV18','OV19'],['OV19','OV20'],['OV20','OV21'],['OV21','OV22'],['OV22','OV23'],['OV23','OV24'],['OV24','OV0']
+      ['VS','OV0'],['VN','OVN1'],['OVN1','OV12'],['OV0','OV1'],['OV1','OV2'],['OV2','OV3'],['OV3','OV4'],['OV4','OV5'],['OV5','OV6'],['OV6','OV7'],['OV7','OV8'],['OV8','OV9'],['OV9','OV10'],['OV10','OV11'],['OV11','OV12'],['OV12','OV13'],['OV13','OV14'],['OV14','OV15'],['OV15','OV16'],['OV16','OV17'],['OV17','OV18'],['OV18','OV19'],['OV19','OV20'],['OV20','OV21'],['OV21','OV22'],['OV22','OV23'],['OV23','OV24'],['OV24','OV0']
     ]),
     points:Object.freeze({
       spawn:{x:-18,z:39},home:{x:-18,z:34},blue:{x:-30,z:17},pink:{x:24,z:17},shop:{x:-22,z:-18},workshop:{x:22,z:-18},
@@ -96,7 +108,7 @@
       repairParking:{x:32,z:-18},
       ottoviasEntry:{x:0,z:-108},ottoviasOperations:{x:50,z:-120},ottoviasOperationsAccess:{x:50,z:-109.2},ottoviasMichelle:{x:50,z:-112},
       ottoviasTollSouth:{x:84,z:-147},ottoviasTollField:{x:156,z:16},ottoviasTollBeach:{x:-169,z:-5},
-      ottoviasDesert:{x:111,z:-137},ottoviasField:{x:151,z:61},ottoviasSnow:{x:24,z:166},ottoviasBeach:{x:-168,z:80}
+      ottoviasDesert:{x:111,z:-137},ottoviasField:{x:151,z:61},ottoviasSnow:{x:24,z:166},ottoviasBeach:{x:-168,z:80},ottoviasCityCenter:{x:0,z:18},ottoviasCityNorth:{x:0,z:105}
     }),
     zones:Object.freeze({
       urban:{id:'urban',name:'Centro urbano',x:0,z:0,w:118,d:104},
@@ -133,6 +145,24 @@
       {id:'kart',x1:94,z1:-69,x2:94,z2:-72.1,w:3.2,destination:'kart-circuit'},
       {id:'montanha',x1:-55,z1:80,x2:-63,z2:84,w:2.2,destination:'mountain'},
       {id:'construcao',x1:-35,z1:81,x2:-33,z2:82,w:3.0,destination:'construction-zone'}
+    ]),
+    signs:Object.freeze([
+      {id:'guide-vila',kind:'guide',text:'Vila do Sol',x:12,z:12,rotationY:0},
+      {id:'guide-market',kind:'guide',text:'Mercadinho',x:-22,z:-12,rotationY:0},
+      {id:'guide-workshop',kind:'guide',text:'Oficina',x:22,z:-12,rotationY:0},
+      {id:'guide-forest',kind:'guide',text:'Floresta',x:-62,z:-25,rotationY:1.5708},
+      {id:'guide-farm',kind:'guide',text:'Fazenda • Garagem',x:82,z:44,rotationY:0},
+      {id:'guide-castle',kind:'guide',text:'Castelo',x:106,z:34,rotationY:0},
+      {id:'guide-lake',kind:'guide',text:'Lago • Píer',x:-24,z:42,rotationY:1.5708},
+      {id:'guide-sports',kind:'guide',text:'Complexo Esportivo',x:42,z:64.6,rotationY:0},
+      {id:'guide-kart',kind:'guide',text:'Kartódromo OTTHI',x:94,z:-71.4,rotationY:0},
+      {id:'ov-urban-south',kind:'highway',highwayId:'ottovias-urban',segmentIndex:0,t:.52,side:1,offset:3.2,title:'OTTOVIAS',subtitle:'CENTRO • SAÍDA NORTE'},
+      {id:'ov-urban-center',kind:'highway',highwayId:'ottovias-urban',segmentIndex:3,t:.48,side:1,offset:3.2,title:'OTTOVIAS',subtitle:'NEVE • PRAIA • PEDÁGIOS'},
+      {id:'ov-north',kind:'highway',highwayId:'ottovias-north-connector',segmentIndex:0,t:.56,side:-1,offset:2.5,title:'OTTOVIAS',subtitle:'LIGAÇÃO NORTE • NEVE'},
+      {id:'ov-desert',kind:'highway',highwayId:'ottovias',segmentIndex:2,t:.42,side:-1,offset:2.5,title:'DESERTO',subtitle:'PEDÁGIO PRAÇA SUL'},
+      {id:'ov-field',kind:'highway',highwayId:'ottovias',segmentIndex:8,t:.55,side:1,offset:2.5,title:'CAMPO',subtitle:'ACESSOS RURAIS'},
+      {id:'ov-snow',kind:'highway',highwayId:'ottovias',segmentIndex:12,t:.48,side:1,offset:2.5,title:'NEVE',subtitle:'REDUZA A VELOCIDADE'},
+      {id:'ov-beach',kind:'highway',highwayId:'ottovias',segmentIndex:17,t:.52,side:-1,offset:2.5,title:'PRAIA',subtitle:'TRECHO COSTEIRO'}
     ]),
     structures:Object.freeze([
       {id:'home',kind:'house',point:'home',w:9,d:7,margin:1.2,access:'spawn'},
@@ -175,6 +205,8 @@
   function v704WorldSize(){const b=v704WorldBounds();return{w:b.maxX-b.minX,d:b.maxZ-b.minZ};}
   function v704ClampWorldPoint(x,z,margin=1){const b=v704WorldBounds();return{x:Math.max(b.minX+margin,Math.min(b.maxX-margin,Number(x)||0)),z:Math.max(b.minZ+margin,Math.min(b.maxZ-margin,Number(z)||0))};}
   function v704DistanceToSegment(point,a,b){const dx=b.x-a.x,dz=b.z-a.z,len2=dx*dx+dz*dz||1,t=Math.max(0,Math.min(1,((point.x-a.x)*dx+(point.z-a.z)*dz)/len2)),x=a.x+dx*t,z=a.z+dz*t;return{distance:Math.hypot(point.x-x,point.z-z),x,z,t};}
+  function v704HighwayById(id){return (WORLD_LAYOUT_V704.highways||[]).find(highway=>highway.id===id)||null;}
+  function v704HighwaySignPoint(spec){const highway=v704HighwayById(spec?.highwayId),points=highway?.points||[],index=Number(spec?.segmentIndex);if(!highway||!Number.isInteger(index)||index<0||index>=points.length-(highway.closed?0:1))return null;const a=points[index],b=points[(index+1)%points.length],t=Math.max(0,Math.min(1,Number(spec.t??.5))),dx=b.x-a.x,dz=b.z-a.z,heading=Math.atan2(dx,dz),rx=Math.cos(heading),rz=-Math.sin(heading),side=Number(spec.side||1)>=0?1:-1,offset=Number(highway.width||10)/2+Number(highway.shoulder||0)+Number(spec.offset||2.2);return{x:a.x+dx*t+rx*offset*side,z:a.z+dz*t+rz*offset*side,heading,highwayId:highway.id};}
   function v704HighwaySegments(){const out=[];for(const highway of WORLD_LAYOUT_V704.highways||[]){const points=highway.points||[];for(let i=0;i<points.length-(highway.closed?0:1);i++){const a=points[i],b=points[(i+1)%points.length];out.push({id:`${highway.id}-${i}`,highwayId:highway.id,index:i,a,b,width:Number(highway.width||10),shoulder:Number(highway.shoulder||0)});}}return out;}
   function v704HighwayAt(x,z,margin=0,includeShoulder=true){const point={x:Number(x),z:Number(z)};return v704HighwaySegments().some(seg=>v704DistanceToSegment(point,seg.a,seg.b).distance<=seg.width/2+(includeShoulder?seg.shoulder:0)+margin);}
   function v704HighwayIntersectsRect(highwayId,rect,margin=0){for(const seg of v704HighwaySegments().filter(x=>x.highwayId===highwayId)){const width=seg.width/2+seg.shoulder+margin,len=Math.hypot(seg.b.x-seg.a.x,seg.b.z-seg.a.z),steps=Math.max(2,Math.ceil(len/1.25));for(let i=0;i<=steps;i++){const t=i/steps,p={x:seg.a.x+(seg.b.x-seg.a.x)*t,z:seg.a.z+(seg.b.z-seg.a.z)*t};if(v704PointInRect(p,rect,width))return true;}}return false;}
@@ -203,7 +235,8 @@
     }
     const water=[WORLD_LAYOUT_V704.zones.lake,WORLD_LAYOUT_V704.zones.lakeNorth];for(const item of structures.filter(s=>!['terrain'].includes(s.kind)))for(const hazard of water)if(v704RectOverlap(item,hazard,.1))problems.push({type:'structure-in-water',a:item.id,b:hazard.id});
     for(const path of WORLD_LAYOUT_V704.paths){const rect=v704PathRect(path);for(const structure of structures){if(['construction-zone'].includes(structure.id)||path.destination===structure.id)continue;const startInside=v704PointInRect({x:path.x1,z:path.z1},structure,.1),endInside=v704PointInRect({x:path.x2,z:path.z2},structure,.1);if(!startInside&&!endInside&&v704RectOverlap(rect,structure,.2))problems.push({type:'path-through-structure',a:path.id,b:structure.id});}}
-    return{version:704,passed:problems.length===0,problems,roads:roads.length,highways:(WORLD_LAYOUT_V704.highways||[]).length,structures:structures.length,zones:Object.keys(WORLD_LAYOUT_V704.zones).length,paths:WORLD_LAYOUT_V704.paths.length};
+    for(const sign of WORLD_LAYOUT_V704.signs||[]){const point=sign.kind==='highway'?v704HighwaySignPoint(sign):{x:Number(sign.x),z:Number(sign.z)};if(!point||!Number.isFinite(point.x)||!Number.isFinite(point.z)){problems.push({type:'sign-invalid',a:sign.id});continue;}if(point.x<bounds.minX||point.x>bounds.maxX||point.z<bounds.minZ||point.z>bounds.maxZ)problems.push({type:'sign-out-of-bounds',a:sign.id});if(sign.kind==='guide'){if(roads.some(road=>v704PointInRect(point,road,.18)))problems.push({type:'guide-sign-on-road',a:sign.id});for(const highway of WORLD_LAYOUT_V704.highways||[])if(v704HighwayIntersectsRect(highway.id,{x:point.x,z:point.z,w:.3,d:.3},.1))problems.push({type:'guide-sign-on-highway',a:sign.id,b:highway.id});for(const hazard of water)if(v704PointInRect(point,hazard,.2))problems.push({type:'guide-sign-in-water',a:sign.id,b:hazard.id});for(const structure of structures)if(structure.kind!=='construction'&&v704PointInRect(point,structure,.15))problems.push({type:'guide-sign-in-structure',a:sign.id,b:structure.id});}else if(sign.kind==='highway'){const highway=v704HighwayById(sign.highwayId);if(!highway)problems.push({type:'highway-sign-route-missing',a:sign.id,b:sign.highwayId});}}
+    return{version:704,passed:problems.length===0,problems,roads:roads.length,highways:(WORLD_LAYOUT_V704.highways||[]).length,structures:structures.length,zones:Object.keys(WORLD_LAYOUT_V704.zones).length,paths:WORLD_LAYOUT_V704.paths.length,signs:(WORLD_LAYOUT_V704.signs||[]).length};
   }
   function v704ActualHouseRect(house){if(!house)return null;if(house.id==='castle-hall')return worldLayoutStructure('castle');return{id:String(house.id||'house'),kind:'runtime-house',x:Number(house.x),z:Number(house.z),w:Number(house.w||9),d:Number(house.d||7)};}
   function v704RuntimeWorldAudit(){
@@ -219,4 +252,4 @@
     const names={};worldGroup?.traverse?.(object=>{const name=String(object.name||'');if(name)names[name]=(names[name]||0)+1;});for(const name of['OTTHI_V702_FARM','OTTHI_V702_MOUNTAIN','OTTHI_V704_SPORTS','OTTHI_V704_KART'])if((names[name]||0)>1)add('duplicate-world-system',name,String(names[name]));
     const result={version:704,passed:problems.length===0,problems,houses:houses.length,vehicles:vehicles.length,colliders:world?.colliders?.length||0,hazards:hazards.length,interactables:world?.interactables?.length||0,at:Date.now()};world.layoutAuditRuntime=result;if(!result.passed)console.error('[OTTHI V704] auditoria geométrica do mundo real',problems);return result;
   }
-  window.OTTHI_WORLD_LAYOUT_V704={layout:WORLD_LAYOUT_V704,point:worldLayoutPoint,zone:worldLayoutRect,structure:worldLayoutStructure,staticAudit:v704StaticWorldAudit,runtimeAudit:v704RuntimeWorldAudit,audit:v704StaticWorldAudit,roadAt:v704RoadAt,highwayAt:v704HighwayAt,highwaySegments:v704HighwaySegments,reservedAt:v704ReservedAt,buildAllowedAt:v704BuildAllowedAt,constructionSlot:v704NearestConstructionSlot,zonesAt:v704ZoneAt,bounds:v704WorldBounds,clamp:v704ClampWorldPoint};
+  window.OTTHI_WORLD_LAYOUT_V704={layout:WORLD_LAYOUT_V704,point:worldLayoutPoint,zone:worldLayoutRect,structure:worldLayoutStructure,staticAudit:v704StaticWorldAudit,runtimeAudit:v704RuntimeWorldAudit,audit:v704StaticWorldAudit,roadAt:v704RoadAt,highwayAt:v704HighwayAt,highwayById:v704HighwayById,highwaySignPoint:v704HighwaySignPoint,highwaySegments:v704HighwaySegments,reservedAt:v704ReservedAt,buildAllowedAt:v704BuildAllowedAt,constructionSlot:v704NearestConstructionSlot,zonesAt:v704ZoneAt,bounds:v704WorldBounds,clamp:v704ClampWorldPoint};

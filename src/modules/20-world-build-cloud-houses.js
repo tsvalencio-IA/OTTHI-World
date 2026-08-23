@@ -71,7 +71,7 @@
 
     createLifeExpansionWorld();createSportsComplexV704();createKartCircuitV704();createSizeChallenges();createTransitWorld();createPoliceSystem();createFireServiceWorld();decorateCityServices();createWaypointMarker();createCooperativeMissionWorld();
 
-    createSignpost(12,4,'Vila do Sol',Math.PI/2);createSignpost(-30,-5,'Mercado e Oficina',Math.PI/2);createSignpost(-62,-30,'Floresta',Math.PI*.15);createSignpost(91,38,'Fazenda e Garagem',-Math.PI/2);createSignpost(100,40,'Castelo',Math.PI*.7);createSignpost(-58,50,'Lago',Math.PI*.4);createSignpost(42,64,'Complexo Esportivo',Math.PI);createSignpost(94,-69,'Kartódromo',Math.PI);
+    for(const sign of L.signs||[]){if(sign.kind!=='guide')continue;createSignpost(sign.x,sign.z,sign.text,Number(sign.rotationY||0));}
 
     // Circuito de plataformas deslocado para uma área própria, sem ocupar o kartódromo.
     const circuit=P('platformCircuit'),coords=[[-16,0,15],[-10,1.2,10],[-4,2.3,5],[2,3.5,0],[8,4.6,-5],[14,5.8,-10]].map(([dx,y,dz])=>[circuit.x+dx,y,circuit.z+dz]);coords.forEach(([x,y,z],i)=>{createPlatform(x,y+.5,z,3.2,3.2,i%2?0x7a4ed0:0x3e9fd8);createCrystal(x,y+1.7,z,i===coords.length-1);});world.secretChest=createChest('secret',circuit.x+16,circuit.z-13,true);

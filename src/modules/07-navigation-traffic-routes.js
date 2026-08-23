@@ -39,6 +39,18 @@
   }
 
   function trafficPriority(actor){if(actor?.incidentTargetId||actor?.targetFireId)return 50;let type=actor?.route?.schoolBus?'school':actor?.route?'bus':actor?.type||actor?.kind||actor?.trafficType||'';if(!type&&world.ambulances?.includes(actor))type='ambulance';else if(!type&&world.fireTrucks?.includes(actor))type='fire';else if(!type&&world.policeCars?.includes(actor))type='police';return({ambulance:45,fire:44,police:43,school:28,bus:22,car:16,moto:14,bike:10,skate:8})[type]||18;}
+  function trafficPedestrianFactor(actor,heading,lookAhead=7){
+    if(!actor?.group||player.vehicle||player.boating||player.transit?.mode||currentHouse)return 1;
+    const ax=actor.group.position.x,az=actor.group.position.z,fx=Math.sin(heading),fz=Math.cos(heading),rx=Math.cos(heading),rz=-Math.sin(heading),dx=player.x-ax,dz=player.z-az,forward=dx*fx+dz*fz,side=Math.abs(dx*rx+dz*rz),speed=Math.max(.1,Math.abs(actor.currentSpeed||actor.speed||0)),radius=Number(actor.radius||(actor.route?3.05:1.55)),lane=radius+.82,horizon=Math.max(lookAhead,4.8+speed*1.85);
+    if(forward<=-.25||forward>horizon+lane||side>lane)return 1;
+    const clearance=forward-(radius+.78);let factor=clearance<=.2?0:clamp(clearance/Math.max(1.45,horizon*.58),0,1),now=performance.now(),type=actor?.route?.schoolBus?'bus':actor?.type||actor?.kind||actor?.trafficType||'';
+    if(factor<.48&&forward<10&&now>Number(actor.pedestrianHornAt||0)&&!['bike','skate'].includes(type)){
+      actor.pedestrianHornAt=now+2400+Math.random()*1200;
+      if(Math.hypot(dx,dz)<14){beep(type==='moto'?470:385,70,'square');setTimeout(()=>beep(type==='moto'?520:425,65,'square'),85);}
+    }
+    if(factor<=.04){actor.trafficHoldUntil=Math.max(Number(actor.trafficHoldUntil||0),now+180);actor.currentSpeed=0;}
+    return factor;
+  }
   function trafficSpeedFactor(actor,heading,lookAhead=7){
     if(!actor?.group)return 1;const now=performance.now();if(actor.incidentLocked||now<Number(actor.incidentUntil||0)||now<Number(actor.trafficHoldUntil||0))return 0;
     const ax=actor.group.position.x,az=actor.group.position.z,fx=Math.sin(heading),fz=Math.cos(heading),rx=Math.cos(heading),rz=-Math.sin(heading),actorSpeed=Math.max(.15,Math.abs(actor.currentSpeed||actor.speed||0)),actorRadius=Number(actor.radius||(actor.route?3.05:1.55));let factor=1;
@@ -46,7 +58,9 @@
       if(forward>-.15&&forward<lookAhead+gap&&side<gap*.9){const clearance=forward-gap;if(other.ref?.incidentLocked||other.ref?.incidentUntil===Number.MAX_SAFE_INTEGER||clearance<=.22)factor=0;else factor=Math.min(factor,clamp(clearance/Math.max(1.2,lookAhead*.72),0,1));}
       const otherHeading=Number(other.group.rotation?.y||0),horizon=clamp(.8+gap/Math.max(2,actorSpeed+other.speed),.65,1.65),futureAx=ax+fx*actorSpeed*horizon,futureAz=az+fz*actorSpeed*horizon,futureBx=other.group.position.x+Math.sin(otherHeading)*other.speed*horizon,futureBz=other.group.position.z+Math.cos(otherHeading)*other.speed*horizon,futureGap=Math.hypot(futureBx-futureAx,futureBz-futureAz);
       if(futureGap<gap*1.28&&Math.hypot(dx,dz)<lookAhead+gap+5){const myPriority=trafficPriority(actor),otherPriority=trafficPriority(other);if(myPriority<=otherPriority)factor=Math.min(factor,clamp((futureGap-gap*.82)/(gap*.65),0,.48));}
-    }return clamp(factor,0,1);
+    }
+    factor=Math.min(factor,trafficPedestrianFactor(actor,heading,lookAhead));
+    return clamp(factor,0,1);
   }
 
   function captureTrafficPositions(){const before=new Map();world.trafficSnapshot=null;for(const actor of trafficActorList())before.set(actor.id,{x:actor.group.position.x,z:actor.group.position.z,heading:Number(actor.group.rotation?.y||0)});return before;}

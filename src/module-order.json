@@ -56,7 +56,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Fonte central de verdade do layout mundial V704",
-      "sha256Body": "a7a9b81d031b60ba33d23ce70b70941dda469435de0d4c7c3cb0c8fb9123ea71"
+      "sha256Body": "eab746ab7a86fb4e91bae4dcd68c947ecd84022b6bf483e716073142b75993ed"
     },
     {
       "file": "src/modules/06-missions-profile-hud-inventory-tools.js",
@@ -70,7 +70,7 @@
       "startLine": 1456,
       "endLine": 1604,
       "description": "Rotas, trânsito, grafo, GPS e minimapa",
-      "sha256Body": "0947a86d788536c58920f281f6b97a4cbbafa0b291d6ec174474940a1326e3bd"
+      "sha256Body": "c3c79311b3a21d0b2f5d583c29dbeb975e52db008a20d3f7770691b42c0c68b1"
     },
     {
       "file": "src/modules/08-map-parent-settings.js",
@@ -84,7 +84,7 @@
       "startLine": 1808,
       "endLine": 2074,
       "description": "Responsividade, AR, modos, qualidade, LOD e diagnóstico",
-      "sha256Body": "4bf052224af00a5488c9ded850349e9063aae26bc703dcb73cf3304131fecef1"
+      "sha256Body": "0d07a7c018120cf4719602e2563fbc459c0dcd0d43a676d75dec30cced02093e"
     },
     {
       "file": "src/modules/10-player-skills.js",
@@ -133,7 +133,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Rodovia OTTOVIAS integrada: circuito, biomas, pedágios, Michelle e ronda guiada",
-      "sha256Body": "58a90df372d740bd8983dffb755c234d28254ebbcddfc076eac29eefcc63471c"
+      "sha256Body": "367f6605f9b178041e5f751ce661f06323303f6ba41a0c51d7ed4b1bedf99616"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -175,7 +175,7 @@
       "startLine": 3805,
       "endLine": 3948,
       "description": "Construção do mundo, recursos, baús, casas em nuvem e interiores",
-      "sha256Body": "84da7a993dfe980e650ed2c9e2452ab4980123bd0db305ff1e608df9954fad27"
+      "sha256Body": "2a8b60e7b37e3f89f526b67a97348bba215a2f623a1f00dd6a651cef0388f6c1"
     },
     {
       "file": "src/modules/21-interactions-shop-social-races.js",
@@ -217,21 +217,21 @@
       "startLine": 4495,
       "endLine": 4635,
       "description": "Three.js, qualidade, viewport, resize, posição segura e colisões",
-      "sha256Body": "91a2b614fd3900ac3ecef0b3893082aadf2a20cd0e5c525c02faef0b6b64e616"
+      "sha256Body": "ffef573f1e71c490a9980d3c2ef6fcf57dd3dd254158134a38322ae1d525998e"
     },
     {
       "file": "src/modules/26-input-player-physics.js",
       "startLine": 4637,
       "endLine": 4765,
       "description": "Entrada, corrida, pulo, física do jogador/veículo e animação",
-      "sha256Body": "b284e44a19ab3bc23d6f07642cb20c281434b3223ad58e72162004b80ba6e289"
+      "sha256Body": "ef270fe98c36bbdd5d114350aa9278fbdc38c24fcec7b77dc2c14eebf88a4e10"
     },
     {
       "file": "src/modules/27-npc-enemies-combat-camera-action.js",
       "startLine": 4767,
       "endLine": 4928,
       "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
-      "sha256Body": "5be5977ab60a9ae8b2e6ecfbd3becb5cf278e5ca08bff9cf88a379b13d1c5904"
+      "sha256Body": "daa19a9ba94044207234b91143245bc1e088b9aba0c8e12dee119bedcaae6249"
     },
     {
       "file": "src/modules/28-multiplayer-social-online.js",

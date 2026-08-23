@@ -37,8 +37,13 @@ ck('Módulo OTTOVIAS depois da decoração e antes do trânsito pesado',files.in
 ck('Auditoria mestre sem conflitos',audit.get('passed') is True,audit.get('problems'))
 
 bounds=layout['bounds']; highways=layout.get('highways',[])
-ck('Existe uma única Rodovia OTTOVIAS',len(highways)==1 and highways[0].get('id')=='ottovias',len(highways))
-h=highways[0] if highways else {}
+routes={item.get('id'):item for item in highways if str(item.get('id','')).startswith('ottovias')}
+ck('Rede OTTOVIAS possui circuito externo, travessia urbana e ligação norte',set(routes)=={'ottovias','ottovias-urban','ottovias-north-connector'},sorted(routes))
+h=routes.get('ottovias',{})
+urban=routes.get('ottovias-urban',{})
+north=routes.get('ottovias-north-connector',{})
+ck('Travessia urbana reutiliza a Avenida Central',urban.get('closed') is False and urban.get('usesExistingRoad') is True and len(urban.get('points',[]))>=6,urban)
+ck('Ligação norte é rodovia física aberta',north.get('closed') is False and not north.get('usesExistingRoad',False) and len(north.get('points',[]))>=3,north)
 pts=h.get('points',[])
 ck('OTTOVIAS é circuito fechado',h.get('closed') is True and len(pts)>=25,len(pts))
 ck('Rodovia tem pista larga e acostamento',float(h.get('width',0))>=12 and float(h.get('shoulder',0))>=1.5,(h.get('width'),h.get('shoulder')))
@@ -70,8 +75,8 @@ ck('Três praças de pedágio',len(tolls)==3,[x.get('id') for x in tolls])
 ck('Todos os pedágios custam 5 moedas',len(tolls)==3 and all(x.get('cost')==5 for x in tolls))
 ck('Pedágios estão em segmentos distintos',len({x.get('routeIndex') for x in tolls})==3)
 edges={tuple(x) for x in layout.get('edges',[])}
-expected={('VS','OV0'),('OV24','OV0')}|{(f'OV{i}',f'OV{i+1}') for i in range(24)}
-ck('Rodovia conectada ao grafo da cidade e fechada',expected.issubset(edges),sorted(expected-edges))
+expected={('VS','OV0'),('VN','OVN1'),('OVN1','OV12'),('OV24','OV0')}|{(f'OV{i}',f'OV{i+1}') for i in range(24)}
+ck('Rede OTTOVIAS conectada ao sul e ao norte da cidade',expected.issubset(edges),sorted(expected-edges))
 for point in ['ottoviasEntry','ottoviasOperations','ottoviasOperationsAccess','ottoviasMichelle','ottoviasTollSouth','ottoviasTollField','ottoviasTollBeach','ottoviasDesert','ottoviasField','ottoviasSnow','ottoviasBeach']:
     ck(f'Ponto mestre presente: {point}',point in layout.get('points',{}))
 for zone in ['ottoviasDesert','ottoviasField','ottoviasSnow','ottoviasBeach']:
@@ -80,7 +85,7 @@ for zone in ['ottoviasDesert','ottoviasField','ottoviasSnow','ottoviasBeach']:
 # Implementação funcional, não apenas geometria.
 for token in ['createOttoviasBiomes','createOttoviasHighwayGeometry','createOttoviasToll','payOttoviasToll','openMichelleOttovias','createOttoviasOperations','createOttoviasPatrol','startOttoviasTour','completeOttoviasTour','updateOttoviasHighway']:
     ck(f'Runtime OTTOVIAS: {token}',token in ott)
-ck('Michelle é NPC fixo da comunicação',all(x in ott for x in ["createNPC('michelle-ottovias','Michelle'","michelle.ottoviasRole='comunicacao'","michelle.stationary=true","Falar com Michelle • OTTOVIAS"]))
+ck('Michelle é NPC fixo da comunicação',all(x in ott for x in ["createNPC('michelle-ottovias','Michelle'","michelle.ottoviasRole='comunicacao'","michelle.stationary=true","Michelle • Comunicação OTTOVIAS",'styleMichelleOttovias']))
 ck('Ronda passa por deserto, campo, neve, praia e central',all(x in ott for x in ["point:'ottoviasDesert'","point:'ottoviasField'","point:'ottoviasSnow'","point:'ottoviasBeach'","point:'ottoviasOperationsAccess'"]))
 ck('Cancela realmente bloqueia veículo até liberar',all(x in ott for x in ['d<6)player.car.speed','d<3.8)player.car.speed=0','toll.openUntil=now+13000']))
 ck('Equipe de inspeção percorre todos os pontos da rodovia',"const route=h.points.map(p=>[p.x,p.z])" in ott)
