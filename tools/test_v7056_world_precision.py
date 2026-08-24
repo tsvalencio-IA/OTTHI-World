@@ -25,7 +25,7 @@ if r.returncode:
     print(r.stderr);sys.exit(1)
 data=json.loads(r.stdout); layout=data['layout']; audit=data['audit']; signs=data['signs']
 
-ck('Release V705.6',version.get('hotfix')=='705.6' and version.get('assetVersion')==7056 and version.get('release')=='705.6-world-precision-city-highway')
+ck('Release V705.7 R2',version.get('hotfix')=='705.7' and version.get('assetVersion')==70572 and version.get('release')=='705.7-exhibition-readiness-r2')
 ck('Auditoria mestre integral aprovada',audit.get('passed') is True,audit.get('problems'))
 ck('Auditoria cobre estruturas, zonas, caminhos e sinalização',audit.get('structures',0)>=28 and audit.get('zones',0)>=20 and audit.get('paths',0)>=12 and audit.get('signs',0)>=16,audit)
 
@@ -87,9 +87,9 @@ ck('Segundo pulo só existe no ar','!player.grounded&&player.airJumpAvailable!==
 ck('Pulo aéreo recarrega ao pousar','player.grounded=true;player.airJumpAvailable=true;player.lastJumpWasAir=false' in physics)
 
 # Cache/release.
-ck('Index usa cache 7056',index.count('?v=7056')>=10,index.count('?v=7056'))
-ck('Service Worker usa cache 7056','otthi-v7056-${REVISION}' in sw and './app.js?v=7056' in sw)
-ck('Manifesto usa cache 7056','v=7056' in manifest.get('start_url','') and 'v=7056' in manifest.get('id',''))
+ck('Index usa cache 70572',index.count('?v=70572')>=10,index.count('?v=70572'))
+ck('Service Worker usa cache 70572','otthi-v70572-${REVISION}' in sw and './app.js?v=70572' in sw)
+ck('Manifesto usa cache 70572','v=70572' in manifest.get('start_url','') and 'v=70572' in manifest.get('id',''))
 
 failed=[c for c in checks if not c['passed']]
 print(json.dumps({'passed':not failed,'counts':{'passed':len(checks)-len(failed),'failed':len(failed),'total':len(checks)},'failed':failed},ensure_ascii=False,indent=2))

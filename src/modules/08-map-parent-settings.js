@@ -207,4 +207,6 @@
   els.mapBtn.onclick = openMap;
   els.dailyBtn.onclick = () => openEducationHub('math');
   els.onlineBtn.onclick = openSocialHub;
+  els.newsQuickBtn.onclick = () => { if(window.OTTHI_OTTOVIAS?.openNews) window.OTTHI_OTTOVIAS.openNews(); else toast('O noticiário estará disponível quando o mundo terminar de carregar.','warn'); };
+  els.neighborhoodQuickBtn.onclick = openMultiplayerConfig;
   els.gameSettingsBtn.onclick = () => openSettings(true);

@@ -40,6 +40,7 @@
       $('[data-close-world-error]',root).onclick=closeModal;
     });
   }
+  function targetRenderFrameRate(){return perf.mobile?(qualityTier()==='low'?30:qualityTier()==='balanced'?45:60):60;}
   function gameLoop(){
     if(!running)return;raf=requestAnimationFrame(gameLoop);const dt=Math.min(.033,clock.getDelta());samplePerformance(dt);
     updatePlayUsage();
@@ -69,6 +70,7 @@
       perf.modeAuditAcc+=dt;if(perf.modeAuditAcc>=.75){perf.modeAuditAcc=0;ensureViewportCoherence();auditPlayerMode('loop');}
       perf.panelAcc+=dt;if(perf.panelAcc>=1){perf.panelAcc=0;refreshTechnicalPanel();}
     }
+    const renderInterval=1/targetRenderFrameRate();perf.renderAcc+=dt;if(perf.renderAcc<renderInterval*.92)return;perf.renderAcc%=renderInterval;perf.renderedFrames++;
     const renderW=Math.max(1,perf.lastRenderW||els.stage?.clientWidth||innerWidth),renderH=Math.max(1,perf.lastRenderH||els.stage?.clientHeight||innerHeight);renderer.setScissorTest(false);renderer.setViewport(0,0,renderW,renderH);renderer.autoClear=true;renderer.render(scene,camera);
   }
 
@@ -109,6 +111,10 @@
     const camX=gp.axes[2]||0;if(Math.abs(camX)>.18)cameraYaw-=camX*.035;const camY=gp.axes[3]||0;if(Math.abs(camY)>.18)cameraPitch=clamp(cameraPitch+camY*.022,-.55,1.35);state.settings.cameraPitch=+cameraPitch.toFixed(3);
   }
 
+  async function requestPreferredGameOrientation(){
+    const mobile=matchMedia('(pointer:coarse)').matches&&Math.min(screen.width||innerWidth,screen.height||innerHeight)<900,orientation=window.screen?.orientation;if(!mobile||!orientation?.lock)return false;
+    try{await orientation.lock('landscape');document.body.classList.add('otthi-landscape-requested');scheduleStableResize?.(40,true);return true;}catch{return false;}
+  }
   async function startGame(resetPosition=false){
     await dbReady;
     if(!window.OTTHI_RELEASE_COHERENT){openModal('Atualização incompleta','<p>Os arquivos do jogo pertencem a versões diferentes. Termine o envio da V700 e atualize a página; seu progresso está preservado.</p>');return;}

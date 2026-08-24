@@ -21,7 +21,7 @@
   const toggleMission = () => openObjectivesPanel();
   els.missionCard.onclick = toggleMission;
   els.missionCard.onkeydown = e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleMission(); } };
-  [els.avatarGameBtn,els.inventoryBtn,els.buildBtn,els.toolsBtn,els.mapBtn,els.dailyBtn,els.onlineBtn,els.gameSettingsBtn].forEach(btn => btn?.addEventListener('click', () => { state.ui.quickOpen=false; els.quickBar.hidden=true; els.quickToggleBtn.classList.remove('active'); }));
+  [els.avatarGameBtn,els.inventoryBtn,els.buildBtn,els.toolsBtn,els.mapBtn,els.dailyBtn,els.onlineBtn,els.newsQuickBtn,els.neighborhoodQuickBtn,els.gameSettingsBtn].forEach(btn => btn?.addEventListener('click', () => { state.ui.quickOpen=false; els.quickBar.hidden=true; els.quickToggleBtn.classList.remove('active'); }));
   async function ensureModelViewerReady({activateAR=false}={}) {
     if (!els.nativeViewer || !window.loadModelViewerLib) throw new Error('Visualizador indisponível');
     if (els.viewerStatus) els.viewerStatus.textContent = 'Carregando visualizador 3D…';
@@ -110,7 +110,7 @@
     keys:new Set(),cameraDrag:null,cameraPointers:new Map(),pinchDistance:0
   };
   const world = {
-    houses: [], npcs: [], interactables: [], enemies: [], fireballs: [], resources: [], crystals: [], platforms: [], colliders: [], hazards: [], builds: [], ghosts: new Map(),
+    houses: [], npcs: [], interactables: [], enemies: [], fireballs: [], resources: [], crystals: [], platforms: [], colliders: [], hazards: [], builds: [], ghosts: new Map(), navigationSigns: [],
     bridgeParts: [], secretChest: null, vehicle: null, activeVehicle:null, vehicles:[], buses:[], busStops:[], metroStations:[], policeCars:[], policeAlert:null, policeStations:[], school:null, schools:[], policeStation:null, fireStation:null, fireTrucks:[], ambulances:[], fires:[], trafficIncidents:[], activeIncident:null, nextFireAt:0, emergencySeq:0, mine:null, well:null, deliveryPoint: null, raceCoins: [], waypointMarker: null, gym: null, routeGuide: null, routeArrows: [], routeLastBuild: 0, routeLastX: Infinity, routeLastZ: Infinity, routePath: [], navCache: new Map(), landmarks: [], outlines: [], glows: [], criticalSurfaces: [], boat:null, campfires:[], animals:[], houseExtensions:[], extensionFurniture:[], remoteCampfires:new Map(), remoteExtensions:new Map(), challengeTokens:[], activeChallenge:null, activityAcc:0, shoreFishers:[], waterSurfaces:[]
   };
   const textures = {};
@@ -126,7 +126,7 @@
   const initialAutoTier=state.settings?.autoTier||detectStableAutoTier();
   const perf = {
     tier:initialAutoTier, sessionTier:initialAutoTier, fps:60, frameAcc:0, frameCount:0, sampleMs:0, lastNow:performance.now(),
-    lowSamples:0, highSamples:0, recommendationSamples:0, aiAcc:0, trafficAcc:0, cloudAcc:0, lodAcc:0, uiAcc:0, panelAcc:0, modeAuditAcc:0, aiTicks:0, trafficTicks:0, mobile:matchMedia('(pointer:coarse)').matches,
+    lowSamples:0, highSamples:0, recommendationSamples:0, aiAcc:0, trafficAcc:0, cloudAcc:0, lodAcc:0, uiAcc:0, panelAcc:0, modeAuditAcc:0, renderAcc:0, renderedFrames:0, aiTicks:0, trafficTicks:0, mobile:matchMedia('(pointer:coarse)').matches,
     appliedTier:'',appliedDpr:0,recommendation:initialAutoTier,lastRecommendationSaved:0,lastRenderW:0,lastRenderH:0,resizeTimer:0,cullingEnabled:0,cullingBypassed:0
   };
   const PLAYER_MODES=Object.freeze({
@@ -255,6 +255,12 @@
   function updateVisualLOD(){
     updateManagedVisualLODs(camera);
     updateManagedOutlineVisibility();
+    const signRange=qualityTier()==='low'?30:qualityTier()==='high'?58:42;
+    for(const sign of world.navigationSigns||[]){
+      if(!sign?.group)continue;
+      const range=sign.kind==='highway'?signRange+28:signRange;
+      sign.group.visible=Math.hypot(player.x-sign.x,player.z-sign.z)<=range;
+    }
     for(const mesh of world.criticalSurfaces){if(mesh&&!mesh.visible)mesh.visible=true;}
   }
 

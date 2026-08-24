@@ -6,8 +6,8 @@
     "checks": 57,
     "passed": 57,
     "failed": 0,
-    "functionsIncludingAsync": 958,
-    "pbrPacks": 33
+    "functionsIncludingAsync": 1049,
+    "pbrPacks": 40
   },
   "checks": [
     {
@@ -23,12 +23,12 @@
     {
       "name": "Módulos JavaScript preservados e ampliados",
       "passed": true,
-      "detail": "45"
+      "detail": "46"
     },
     {
       "name": "Módulos CSS preservados e ampliados",
       "passed": true,
-      "detail": "19"
+      "detail": "20"
     },
     {
       "name": "Painel GM permanece no build",
@@ -43,12 +43,12 @@
     {
       "name": "Funções-base fora do módulo cooperativo permanecem na ordem relativa",
       "passed": true,
-      "detail": "661 base / 887 atuais"
+      "detail": "661 base / 976 atuais"
     },
     {
       "name": "Módulo cooperativo foi somente realocado antes do render",
       "passed": true,
-      "detail": "71"
+      "detail": "73"
     },
     {
       "name": "Nenhuma função-base foi removida",
@@ -58,7 +58,7 @@
     {
       "name": "Funções ampliadas",
       "passed": true,
-      "detail": "958"
+      "detail": "1049"
     },
     {
       "name": "Arquivo crítico preservado: firebase-config.js",
@@ -93,7 +93,7 @@
     {
       "name": "Ao menos 26 pacotes PBR locais",
       "passed": true,
-      "detail": "33"
+      "detail": "40"
     },
     {
       "name": "Todos os pacotes PBR completos",

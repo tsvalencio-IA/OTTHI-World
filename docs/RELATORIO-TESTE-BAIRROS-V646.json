@@ -113,7 +113,7 @@
       "detail": "{'id': 'bairro-escola', 'name': 'Bairro da Academia', 'capacity': 10, 'entryX': 18.0, 'entryZ': -32.0, 'xMin': 8.0, 'xMax': 46.0, 'zMin': -62.0, 'zMax': -20.0}"
     },
     {
-      "name": "Mapa completo usa a mesma escala X/Z",
+      "name": "Mapa completo usa os limites dinâmicos do mundo",
       "passed": true,
       "detail": ""
     },

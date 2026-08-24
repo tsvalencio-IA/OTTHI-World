@@ -4,6 +4,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.CookieManager;
@@ -56,6 +57,7 @@ public class MainActivity extends Activity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 loadingProgress.setVisibility(View.GONE);
+                refreshGameViewport();
             }
 
             @Override
@@ -79,6 +81,35 @@ public class MainActivity extends Activity {
         } else {
             gameWebView.restoreState(savedInstanceState);
         }
+    }
+
+    private void refreshGameViewport() {
+        if (gameWebView == null) {
+            return;
+        }
+        Runnable refresh = () -> {
+            gameWebView.requestLayout();
+            gameWebView.invalidate();
+            gameWebView.evaluateJavascript(
+                    "window.OTTHI_VIEWPORT?.measure?.();window.dispatchEvent(new Event('orientationchange'));",
+                    null
+            );
+        };
+        gameWebView.post(refresh);
+        gameWebView.postDelayed(refresh, 140);
+        gameWebView.postDelayed(refresh, 420);
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        refreshGameViewport();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshGameViewport();
     }
 
     private void requestWebPermissions(PermissionRequest request) {

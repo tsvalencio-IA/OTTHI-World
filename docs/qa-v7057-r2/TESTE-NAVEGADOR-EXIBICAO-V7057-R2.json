@@ -1,0 +1,248 @@
+{
+  "generatedAt": "2026-08-24T23:27:48.856Z",
+  "url": "http://127.0.0.1:8790/",
+  "passed": true,
+  "counts": {
+    "passed": 47,
+    "failed": 0,
+    "total": 47
+  },
+  "errors": [],
+  "results": [
+    {
+      "name": "Menu profileNameBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"profileNameBtn\",\"exists\":true,\"wired\":true,\"reacts\":true}"
+    },
+    {
+      "name": "Menu arBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"arBtn\",\"exists\":true,\"wired\":true,\"reacts\":false}"
+    },
+    {
+      "name": "Menu quizBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"quizBtn\",\"exists\":true,\"wired\":true,\"reacts\":true}"
+    },
+    {
+      "name": "Menu learningPathBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"learningPathBtn\",\"exists\":true,\"wired\":false,\"reacts\":true}"
+    },
+    {
+      "name": "Menu neighborhoodBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"neighborhoodBtn\",\"exists\":true,\"wired\":false,\"reacts\":true}"
+    },
+    {
+      "name": "Menu collectionBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"collectionBtn\",\"exists\":true,\"wired\":true,\"reacts\":true}"
+    },
+    {
+      "name": "Menu avatarBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"avatarBtn\",\"exists\":true,\"wired\":true,\"reacts\":true}"
+    },
+    {
+      "name": "Menu accountBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"accountBtn\",\"exists\":true,\"wired\":true,\"reacts\":true}"
+    },
+    {
+      "name": "Menu moldsBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"moldsBtn\",\"exists\":true,\"wired\":true,\"reacts\":true}"
+    },
+    {
+      "name": "Menu howBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"howBtn\",\"exists\":true,\"wired\":true,\"reacts\":true}"
+    },
+    {
+      "name": "Menu settingsBtn responde",
+      "passed": true,
+      "detail": "{\"id\":\"settingsBtn\",\"exists\":true,\"wired\":true,\"reacts\":true}"
+    },
+    {
+      "name": "Jogo iniciou",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Mundo sem violações espaciais",
+      "passed": true,
+      "detail": "[]"
+    },
+    {
+      "name": "Sistemas de mundo evoluído inicializados",
+      "passed": true,
+      "detail": "{\"version\":704,\"initialized\":true,\"swimming\":false,\"farmPlots\":20,\"digSites\":8,\"citizens\":6,\"waterLayers\":3}"
+    },
+    {
+      "name": "Banco local disponível",
+      "passed": true,
+      "detail": "{\"available\":true,\"name\":\"otthos-life-world\",\"schema\":610,\"lastSaved\":1787613719196,\"autoSaveMs\":8000}"
+    },
+    {
+      "name": "Renderizador ativo",
+      "passed": true,
+      "detail": "{\"fps\":60,\"targetRenderFps\":60,\"renderedFrames\":2,\"tier\":\"balanced\",\"requested\":\"auto\",\"dpr\":1,\"drawCalls\":1610,\"triangles\":31502,\"textures\":{\"grass\":{\"name\":\"./assets/textures/grass-v628.png\",\"status\":\"loaded\",\"width\":256,\"height\":256},\"road\":{\"name\":\"./assets/textures/asphalt-v628.png\",\"status\":\"loaded\",\"width\":256,\"height\":256},\"sidewalk\":{\"name\":\"./assets/textures/sidewalk-v632.png\",\"status\":\"loaded\",\"width\":512,\"height\":512},\"water\":{\"name\":\"fallback:./assets/textures/water-ripples-v643.png\",\"status\":\"fallback\",\"width\":256,\"height\":256},\"wood\":{\"name\":\"./assets/textures/wood-v628.png\",\"status\":\"loaded\",\"width\":256,\"height\":256},\"brick\":{\"name\":\"./assets/textures/brick-v628.png\",\"status\":\"loaded\",\"width\":256,\"height\":256},\"stone\":{\"name\":\"./assets/textures/stone-v628.png\",\"status\":\"loaded\",\"width\":256,\"height\":256},\"roof\":{\"name\":\"./assets/textures/roof-v628.png\",\"status\":\"loaded\",\"width\":256,\"height\":256},\"busSeat\":{\"name\":\"./assets/textures/bus-seat-v628.png\",\"status\":\"loaded\",\"width\":256,\"height\":256},\"schoolWall\":{\"name\":\"./assets/textures/school-wall-v628.png\",\"status\":\"loaded\",\"width\":512,\"height\":512},\"policeWall\":{\"name\":\"./assets/textures/police-wall-v628.png\",\"status\":\"loaded\",\"width\":512,\"height\":512},\"goldOre\":{\"name\":\"./assets/textures/gold-ore-v628.png\",\"status\":\"loaded\",\"width\":512,\"height\":512},\"interiorFloor\":{\"name\":\"./assets/textures/home-floor-v632.png\",\"status\":\"loaded\",\"width\":512,\"height\":512},\"interiorWall\":{\"name\":\"./assets/textures/interior-wall-v632.png\",\"status\":\"loaded\",\"width\":512,\"height\":512},\"marketFloor\":{\"name\":\"./assets/textures/market-floor-v632.png\",\"status\":\"loaded\",\"width\":512,\"height\":512},\"marketWall\":{\"name\":\"./assets/textures/market-wall-v632.png\",\"status\":\"loaded\",\"width\":512,\"height\":512},\"schoolFloor\":{\"name\":\"./assets/textures/school-floor-v632.png\",\"status\":\"loaded\",\"width\":512,\"height\":512},\"fireWall\":{\"name\":\"fallback:./assets/textures/fire-station-wall-v632.png\",\"status\":\"fallback\",\"width\":256,\"height\":256},\"concrete\":{\"name\":\"fallback:./assets/textures/concrete-v632.png\",\"status\":\"fallback\",\"width\":256,\"height\":256},\"cityGlass\":{\"name\":\"fallback:./assets/textures/city-glass-v632.png\",\"status\":\"fallback\",\"width\":256,\"height\":256},\"emergencyMetal\":{\"name\":\"fallback:./assets/textures/emergency-metal-v632.png\",\"status\":\"fallback\",\"width\":256,\"height\":256},\"tile\":{\"name\":\"\",\"status\":\"generated\",\"width\":256,\"height\":256},\"fabric\":{\"name\":\"./assets/textures/bus-seat-v628.png\",\"status\":\"loaded\",\"width\":256,\"height\":256},\"metal\":{\"name\":\"\",\"status\":\"generated\",\"width\":256,\"height\":256}}}"
+    },
+    {
+      "name": "Academia math",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Academia portuguese",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Academia english",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "name": "Trabalho delivery",
+      "passed": true,
+      "detail": "{\"started\":true,\"active\":\"delivery\",\"completed\":true,\"reward\":120}"
+    },
+    {
+      "name": "Trabalho police",
+      "passed": true,
+      "detail": "{\"started\":true,\"active\":\"police\",\"completed\":true,\"reward\":160}"
+    },
+    {
+      "name": "Trabalho firefighter",
+      "passed": true,
+      "detail": "{\"started\":true,\"active\":\"firefighter\",\"completed\":true,\"reward\":180}"
+    },
+    {
+      "name": "Trabalho paramedic",
+      "passed": true,
+      "detail": "{\"started\":true,\"active\":\"paramedic\",\"completed\":true,\"reward\":175}"
+    },
+    {
+      "name": "Trabalho teacher",
+      "passed": true,
+      "detail": "{\"started\":true,\"active\":\"teacher\",\"completed\":true,\"reward\":1050}"
+    },
+    {
+      "name": "Trabalho gather",
+      "passed": true,
+      "detail": "{\"started\":true,\"active\":\"gather\",\"completed\":true,\"reward\":90}"
+    },
+    {
+      "name": "Trabalho crystals",
+      "passed": true,
+      "detail": "{\"started\":true,\"active\":\"crystals\",\"completed\":true,\"reward\":140}"
+    },
+    {
+      "name": "Trabalho builder",
+      "passed": true,
+      "detail": "{\"started\":true,\"active\":\"builder\",\"completed\":true,\"reward\":110}"
+    },
+    {
+      "name": "Construção e colocação",
+      "passed": true,
+      "detail": "{\"prepared\":true,\"preview\":{\"x\":-33,\"z\":92.5,\"y\":0,\"rotation\":0,\"valid\":true},\"placed\":true,\"before\":0,\"after\":1}"
+    },
+    {
+      "name": "GPS e rota",
+      "passed": true,
+      "detail": "{\"waypoint\":\"school\",\"route\":8,\"cleared\":true,\"current\":null}"
+    },
+    {
+      "name": "Habilidades de tamanho e abaixar",
+      "passed": true,
+      "detail": "{\"crouched\":true,\"standing\":true}"
+    },
+    {
+      "name": "Entrada e saída de casa",
+      "passed": true,
+      "detail": "{\"entered\":true,\"inside\":{\"house\":\"home\",\"camera\":\"interior\"},\"exited\":true,\"outside\":{\"house\":null,\"camera\":\"openworld\"}}"
+    },
+    {
+      "name": "Direção de veículo",
+      "passed": true,
+      "detail": "{\"prepared\":{\"x\":56,\"z\":-109.2,\"active\":true,\"heading\":1.5707963267948966,\"vehicleId\":\"ottovias-service\"},\"moving\":{\"frames\":180,\"seconds\":3,\"distance\":40.49096502226459,\"speed\":22.299536567046104,\"x\":87.14401078445607,\"z\":-83.32397169788342,\"impacts\":0},\"state\":{\"active\":true,\"activeVehicleId\":\"ottovias-service\",\"parkedVehicles\":[{\"id\":\"ottovias-service\",\"visible\":false,\"occupied\":true,\"x\":56,\"z\":-109.2},{\"id\":\"garage-orange\",\"visible\":true,\"occupied\":false,\"x\":84,\"z\":30},{\"id\":\"market-blue\",\"visible\":true,\"occupied\":false,\"x\":-31,\"z\":-13},{\"id\":\"workshop-red\",\"visible\":true,\"occupied\":false,\"x\":31,\"z\":-13},{\"id\":\"home-green\",\"visible\":true,\"occupied\":false,\"x\":14,\"z\":35},{\"id\":\"royal-purple\",\"visible\":true,\"occupied\":false,\"x\":76,\"z\":31},{\"id\":\"gym-yellow\",\"visible\":true,\"occupied\":false,\"x\":78,\"z\":68},{\"id\":\"forest-teal\",\"visible\":true,\"occupied\":false,\"x\":-78,\"z\":-15},{\"id\":\"kart-red\",\"visible\":true,\"occupied\":false,\"x\":109.54321562633486,\"z\":-96.84229568168506},{\"id\":\"kart-blue\",\"visible\":true,\"occupied\":false,\"x\":110.6435618272762,\"z\":-94.39092091676764},{\"id\":\"kart-yellow\",\"visible\":true,\"occupied\":false,\"x\":108.19218706235878,\"z\":-93.2905747158263},{\"id\":\"kart-green\",\"visible\":true,\"occupied\":false,\"x\":109.29253326330011,\"z\":-90.83919995090888}],\"speed\":22.299536567046104,\"heading\":0.4752105471199549,\"drift\":0.10079999999998013,\"sitUntilRemaining\":0,\"driveInput\":{\"x\":0,\"z\":0,\"targetX\":0,\"targetZ\":0,\"virtualActive\":false,\"joyX\":0,\"joyZ\":0,\"gamepadActive\":false},\"playerVisible\":false,\"accessoriesVisible\":false,\"vehicleVisible\":true,\"parkedVisible\":false,\"preVehicleAbilities\":{\"scaleMode\":\"normal\",\"crouched\":false},\"specialLabel\":\"Buzina\",\"fireballs\":0,\"engineActive\":true,\"wheelCount\":4,\"frontWheelCount\":2,\"impactCount\":0,\"rootScale\":{\"x\":1,\"y\":1,\"z\":1}},\"exited\":true}"
+    },
+    {
+      "name": "Ônibus e metrô",
+      "passed": true,
+      "detail": "{\"boarded\":true,\"modeBoarded\":\"bus\",\"exited\":true,\"metro\":true,\"modeDuringMetro\":\"metro\",\"modeAfterMetro\":\"\"}"
+    },
+    {
+      "name": "Barco e desembarque seguro",
+      "passed": true,
+      "detail": "{\"forced\":{\"canExit\":true,\"distance\":2},\"moved\":{\"x\":-39.26418605207786,\"z\":59.99101704990847,\"heading\":-0.2666234720076811,\"speed\":0.5666666666666667,\"deltaHeading\":-0.2666234720076811,\"distance\":8.090396768156435},\"returned\":{\"canExit\":true,\"distance\":0},\"exited\":true,\"boating\":false}"
+    },
+    {
+      "name": "Serviços de incêndio e polícia",
+      "passed": true,
+      "detail": "{\"fireStarted\":true,\"activeFires\":1,\"prepared\":{\"x\":87.14401078445607,\"z\":-83.32397169788342,\"active\":true,\"heading\":0.4752105471199549,\"vehicleId\":\"ottovias-service\"},\"policeStarted\":true,\"alert\":true}"
+    },
+    {
+      "name": "Presença multiplayer simulada",
+      "passed": true,
+      "detail": "{\"id\":\"remote-exhibition\",\"ghost\":{\"id\":\"remote-exhibition\",\"vehicle\":true,\"boat\":false,\"target\":{\"uid\":\"remote-exhibition\",\"name\":\"Jogador TION\",\"x\":70,\"y\":0,\"z\":-12.2,\"r\":0.4752105471199549,\"vehicle\":true,\"vehicleId\":\"remote-car\",\"vehicleRole\":\"\",\"boating\":false,\"boatId\":\"\",\"boatRole\":\"\",\"scaleMode\":\"normal\",\"color\":5953791,\"avatar\":{\"v\":3,\"renderMode\":\"procedural-fallback\",\"bodyStyle\":\"block\",\"skinTone\":\"tone-03\",\"face\":\"face-athos-01\",\"hair\":\"hair-athos-01\",\"hairColor\":\"#352317\",\"torso\":\"legacy-outfit-classic\",\"legs\":\"legacy-pants-01\",\"shoes\":\"legacy-sneakers-01\",\"hat\":\"none\",\"back\":\"none\",\"pattern\":\"none\",\"primaryColor\":\"#1267d6\",\"secondaryColor\":\"#111827\",\"outfit\":\"classic\",\"accessory\":\"none\",\"uniform\":\"none\"}}}}"
+    },
+    {
+      "name": "Esportes iniciam e encerram",
+      "passed": true,
+      "detail": "{\"football\":\"football\",\"stopped\":\"\",\"volley\":\"volley\",\"final\":\"\"}"
+    },
+    {
+      "name": "Noticiário configurável e consultável",
+      "passed": true,
+      "detail": "{\"modes\":[\"critical\",\"all\",\"silent\"],\"selected\":\"silent\",\"answer\":\"Acidente em atendimento. 19 veículos estão em movimento e 0 aguardam por retenção ou segurança. Você está em fora da faixa principal.\"}"
+    },
+    {
+      "name": "Persistência após recarregar",
+      "passed": true,
+      "detail": "{\"crystals\":72,\"db\":{\"available\":true,\"name\":\"otthos-life-world\",\"schema\":610,\"lastSaved\":1787613827085,\"autoSaveMs\":8000}}"
+    },
+    {
+      "name": "PWA abre o shell sem rede",
+      "passed": true,
+      "detail": "{\"title\":\"OTTHI World V705\",\"api\":true,\"controller\":true,\"release\":true}"
+    },
+    {
+      "name": "Responsividade 320x568",
+      "passed": true,
+      "detail": "{\"noOverflow\":true,\"inViewport\":true,\"orientation\":true,\"body\":\"otthi-world-shell otthi-v705-world otthi-portrait ui-portrait ui-narrow ui-tiny ui-compact otthi-world-render otthi-world-details otthi-v702-world otthi-v704-world\",\"controls\":[{\"id\":\"actionBtn\",\"visible\":true,\"left\":210,\"top\":512,\"right\":258,\"bottom\":560},{\"id\":\"jumpBtn\",\"visible\":true,\"left\":264,\"top\":512,\"right\":312,\"bottom\":560},{\"id\":\"quickToggleBtn\",\"visible\":true,\"left\":275.20001220703125,\"top\":156,\"right\":313,\"bottom\":192},{\"id\":\"skillsToggleBtn\",\"visible\":true,\"left\":135.5,\"top\":514,\"right\":184.5,\"bottom\":559}]}"
+    },
+    {
+      "name": "Responsividade 568x320",
+      "passed": true,
+      "detail": "{\"noOverflow\":true,\"inViewport\":true,\"orientation\":true,\"body\":\"otthi-world-shell otthi-v705-world otthi-portrait ui-tiny ui-compact otthi-world-render otthi-world-details otthi-v702-world otthi-v704-world ui-orientation-changing ui-landscape ui-short ui-ultra-short\",\"controls\":[{\"id\":\"actionBtn\",\"visible\":true,\"left\":474,\"top\":273,\"right\":514,\"bottom\":313},{\"id\":\"jumpBtn\",\"visible\":true,\"left\":520,\"top\":273,\"right\":560,\"bottom\":313},{\"id\":\"quickToggleBtn\",\"visible\":true,\"left\":413.96563720703125,\"top\":48,\"right\":451.765625,\"bottom\":82.19999694824219},{\"id\":\"skillsToggleBtn\",\"visible\":true,\"left\":109,\"top\":271,\"right\":153,\"bottom\":313}]}"
+    },
+    {
+      "name": "Responsividade 390x844",
+      "passed": true,
+      "detail": "{\"noOverflow\":true,\"inViewport\":true,\"orientation\":true,\"body\":\"otthi-world-shell otthi-v705-world ui-compact otthi-world-render otthi-world-details otthi-v702-world otthi-v704-world otthi-landscape ui-orientation-changing ui-portrait\",\"controls\":[{\"id\":\"actionBtn\",\"visible\":true,\"left\":256,\"top\":776,\"right\":316,\"bottom\":836},{\"id\":\"jumpBtn\",\"visible\":true,\"left\":322,\"top\":776,\"right\":382,\"bottom\":836},{\"id\":\"quickToggleBtn\",\"visible\":true,\"left\":345.20001220703125,\"top\":156,\"right\":383,\"bottom\":192},{\"id\":\"skillsToggleBtn\",\"visible\":true,\"left\":170.5,\"top\":790,\"right\":219.5,\"bottom\":835}]}"
+    },
+    {
+      "name": "Responsividade 844x390",
+      "passed": true,
+      "detail": "{\"noOverflow\":true,\"inViewport\":true,\"orientation\":true,\"body\":\"otthi-world-shell otthi-v705-world ui-compact otthi-world-render otthi-world-details otthi-v702-world otthi-v704-world otthi-portrait ui-orientation-changing ui-landscape ui-short ui-ultra-short ui-tiny\",\"controls\":[{\"id\":\"actionBtn\",\"visible\":true,\"left\":750,\"top\":343,\"right\":790,\"bottom\":383},{\"id\":\"jumpBtn\",\"visible\":true,\"left\":796,\"top\":343,\"right\":836,\"bottom\":383},{\"id\":\"quickToggleBtn\",\"visible\":true,\"left\":664.2000122070312,\"top\":48,\"right\":702,\"bottom\":82.19999694824219},{\"id\":\"skillsToggleBtn\",\"visible\":true,\"left\":109,\"top\":341,\"right\":153,\"bottom\":383}]}"
+    },
+    {
+      "name": "Responsividade 768x1024",
+      "passed": true,
+      "detail": "{\"noOverflow\":true,\"inViewport\":true,\"orientation\":true,\"body\":\"otthi-world-shell otthi-v705-world otthi-world-render otthi-world-details otthi-v702-world otthi-v704-world otthi-landscape ui-portrait\",\"controls\":[{\"id\":\"actionBtn\",\"visible\":true,\"left\":626,\"top\":952,\"right\":690,\"bottom\":1016},{\"id\":\"jumpBtn\",\"visible\":true,\"left\":696,\"top\":952,\"right\":760,\"bottom\":1016},{\"id\":\"quickToggleBtn\",\"visible\":true,\"left\":719,\"top\":156,\"right\":761,\"bottom\":196},{\"id\":\"skillsToggleBtn\",\"visible\":true,\"left\":359.5,\"top\":970,\"right\":408.5,\"bottom\":1015}]}"
+    },
+    {
+      "name": "Responsividade 1024x768",
+      "passed": true,
+      "detail": "{\"noOverflow\":true,\"inViewport\":true,\"orientation\":true,\"body\":\"otthi-world-shell otthi-v705-world otthi-landscape ui-landscape otthi-world-render otthi-world-details otthi-v702-world otthi-v704-world\",\"controls\":[{\"id\":\"actionBtn\",\"visible\":true,\"left\":910,\"top\":711,\"right\":960,\"bottom\":761},{\"id\":\"jumpBtn\",\"visible\":true,\"left\":966,\"top\":711,\"right\":1016,\"bottom\":761},{\"id\":\"quickToggleBtn\",\"visible\":true,\"left\":817,\"top\":48,\"right\":859,\"bottom\":86},{\"id\":\"skillsToggleBtn\",\"visible\":true,\"left\":137,\"top\":719,\"right\":181,\"bottom\":761}]}"
+    },
+    {
+      "name": "Responsividade 1366x768",
+      "passed": true,
+      "detail": "{\"noOverflow\":true,\"inViewport\":true,\"orientation\":true,\"body\":\"otthi-world-shell otthi-v705-world otthi-landscape ui-landscape otthi-world-render otthi-world-details otthi-v702-world otthi-v704-world\",\"controls\":[{\"id\":\"actionBtn\",\"visible\":true,\"left\":1252,\"top\":711,\"right\":1302,\"bottom\":761},{\"id\":\"jumpBtn\",\"visible\":true,\"left\":1308,\"top\":711,\"right\":1358,\"bottom\":761},{\"id\":\"quickToggleBtn\",\"visible\":true,\"left\":1159,\"top\":48,\"right\":1201,\"bottom\":86},{\"id\":\"skillsToggleBtn\",\"visible\":true,\"left\":137,\"top\":719,\"right\":181,\"bottom\":761}]}"
+    }
+  ]
+}

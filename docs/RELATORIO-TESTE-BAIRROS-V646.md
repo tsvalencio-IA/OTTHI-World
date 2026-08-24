@@ -27,7 +27,7 @@
 - [x] Limites dentro do mundo bairro-montanha — {'id': 'bairro-montanha', 'name': 'Bairro da Montanha', 'capacity': 10, 'entryX': 82.0, 'entryZ': 62.0, 'xMin': 48.0, 'xMax': 116.0, 'zMin': 30.0, 'zMax': 112.0}
 - [x] Entrada dentro dos limites bairro-escola — {'id': 'bairro-escola', 'name': 'Bairro da Academia', 'capacity': 10, 'entryX': 18.0, 'entryZ': -32.0, 'xMin': 8.0, 'xMax': 46.0, 'zMin': -62.0, 'zMax': -20.0}
 - [x] Limites dentro do mundo bairro-escola — {'id': 'bairro-escola', 'name': 'Bairro da Academia', 'capacity': 10, 'entryX': 18.0, 'entryZ': -32.0, 'xMin': 8.0, 'xMax': 46.0, 'zMin': -62.0, 'zMax': -20.0}
-- [x] Mapa completo usa a mesma escala X/Z
+- [x] Mapa completo usa os limites dinâmicos do mundo
 - [x] Minimapa usa uma escala única X/Z
 - [x] RTDB fixedRoomSlotKeys
 - [x] RTDB validRoomSlots

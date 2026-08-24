@@ -114,4 +114,4 @@
   const legacyV702Environment=updateOtthiWorldEnvironment;updateOtthiWorldEnvironment=function updateOtthiWorldEnvironmentV702(dt){legacyV702Environment(dt);updateWorldEvolution(dt);};
   createCameraPitchButtons();dbReady.then(()=>{ensureWorldEvolutionState();createCameraPitchButtons();}).catch(()=>{});
   window.OTTHI_WORLD_V702={state:()=>ensureWorldEvolutionState(),initialize:initializeWorldEvolution,terrainHeight:professionalTerrainHeightAt,farm:()=>[...WORLD_V702.farmPlots.values()].map(p=>({id:p.id,...farmPlotRecord(p.id)})),dig:()=>[...WORLD_V702.digSites.keys()],citizens:()=>WORLD_V702.citizens.map(n=>({id:n.id,name:n.name,theme:n.theme})),diagnostics:()=>({version:704,initialized:WORLD_V702.initialized,swimming:!!player.swimming,farmPlots:WORLD_V702.farmPlots.size,digSites:WORLD_V702.digSites.size,citizens:WORLD_V702.citizens.length,waterLayers:WORLD_V702.waterLayers.length})};
-  if(window.OTTHI_TEST_API)window.OTTHI_TEST_API.worldEvolution=window.OTTHI_WORLD_V702;
+  if(window.OTTHOS_TEST_API)window.OTTHOS_TEST_API.worldEvolution=window.OTTHI_WORLD_V702;

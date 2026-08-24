@@ -30,4 +30,4 @@
     challenge:()=>startWorldHeroChallenge(),
     open:openOtthiWorldCenter
   };
-  if(window.OTTHI_TEST_API)window.OTTHI_TEST_API.world=window.OTTHI_WORLD_TESTS;
+  if(window.OTTHOS_TEST_API)window.OTTHOS_TEST_API.world=window.OTTHI_WORLD_TESTS;

@@ -65,7 +65,7 @@
     createToyCar(31,-13,{id:'workshop-red',label:'Esportivo Vermelho',primary:0xe5484d,secondary:0xf3b33d,heading:-Math.PI/2});
     createToyCar(14,35,{id:'home-green',label:'Carro Verde',primary:0x31a76a,secondary:0x8edb65,heading:Math.PI});
     createToyCar(76,31,{id:'royal-purple',label:'Carro Real',primary:0x7d58c9,secondary:0xf1c94d});
-    createToyCar(86,68,{id:'gym-yellow',label:'Carro do Complexo Esportivo',primary:0xf1c943,secondary:0xef6c3d,heading:Math.PI});
+    createToyCar(78,68,{id:'gym-yellow',label:'Carro do Complexo Esportivo',primary:0xf1c943,secondary:0xef6c3d,heading:Math.PI});
     createToyCar(-78,-15,{id:'forest-teal',label:'Carro da Floresta',primary:0x138d83,secondary:0x6bc08b,heading:Math.PI/2});
     const job=P('jobBoard');registerInteractable({id:'job-board',type:'job',icon:'📦',label:'Central de trabalhos',x:job.x,z:job.z,radius:2.3,action:openJobCenter});world.deliveryPoint={x:86,z:34};
 

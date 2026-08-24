@@ -12,7 +12,7 @@
     if(buildMode)endBuildMode('cancelled',true);
     world.policeAlert=null;updateSafetyPanel('');if(player.boating){player.x=-24.7;player.z=52;exitBoat(true);}if(player.vehicle)exitVehicle(true);if(player.transit.mode==='bus'){const bus=world.buses.find(b=>b.id===player.transit.busId);if(bus)exitBusAtStop(bus,{stopId:bus.lastStopId,stopName:bus.lastStopName});}if(player.transit.mode==='metro'){player.transit.mode='';if(metroOverlay)metroOverlay.hidden=true;if(playerModel)playerModel.visible=true;if(avatarLayer)avatarLayer.visible=true;if(contactShadow)contactShadow.visible=true;}running=false;paused=false;pauseMenuOpen=false;cancelAnimationFrame(raf);stopEngineSound();savePlayerPosition(true);showScreen('lobby');updateLobbyStats();
   }
-  els.playBtn.onclick=()=>startGame(true);els.continueBtn.onclick=()=>startGame(false);
+  els.playBtn.onclick=()=>requestPreferredGameOrientation().finally(()=>startGame(true));els.continueBtn.onclick=()=>requestPreferredGameOrientation().finally(()=>startGame(false));
 
   function openPauseMenu(){
     if(!running||pauseMenuOpen)return;
@@ -31,20 +31,20 @@
 
 
   function prepareVehicleTestArea(){
-    if(currentHouse){
-      const h=currentHouse;h.roof.visible=true;h.front.visible=true;h.door.visible=true;currentHouse=null;cameraMode='openworld';
-    }
+    if(currentHouse)exitHouse();
     if(player.vehicle)exitVehicle(true);
     clearMovementInputs();
-    player.x=0;player.z=-70;player.y=groundHeightAt(0,-70);
+    const vehicle=(world.vehicles||[]).find(item=>item?.group&&!item.occupied&&!vehicleBrokenV704?.(item))||(world.vehicles||[]).find(item=>item?.group&&!item.occupied)||world.vehicle;
+    if(!vehicle)return {x:player.x,z:player.z,active:false,heading:player.car.heading,vehicleId:'',error:'no-available-vehicle'};
+    player.x=vehicle.group.position.x;player.z=vehicle.group.position.z;player.y=groundHeightAt(player.x,player.z);
     player.vx=0;player.vy=0;player.vz=0;player.grounded=true;player.sitUntil=0;
     player.facing=0;player.car.heading=0;player.car.speed=0;player.car.steerVisual=0;player.car.drift=0;player.car._prevSpeed=0;
     vehicleImpactCount=0;
-    enterVehicle();
-    return {x:player.x,z:player.z,active:player.vehicle,heading:player.car.heading};
+    const entered=enterVehicle(vehicle);
+    return {x:player.x,z:player.z,active:!!entered&&player.vehicle,heading:player.car.heading,vehicleId:player.car.id||''};
   }
   function stepVehicleSimulation(frames=120,steer=.35,throttle=1){
-    if(!player.vehicle)prepareVehicleTestArea();
+    if(!player.vehicle){const prepared=prepareVehicleTestArea();if(!prepared.active)return {...prepared,frames:0,seconds:0,distance:0,speed:0,impacts:0};}
     const count=clamp(Math.round(Number(frames)||120),1,600);
     const sx=clamp(Number(steer)||0,-1,1),sz=clamp(Number(throttle)||0,-1,1);
     const dt=1/60,startX=player.x,startZ=player.z,startImpacts=vehicleImpactCount;
@@ -80,7 +80,7 @@
     construction:()=>({mode:buildMode,placement:buildPlacement?{...buildPlacement}:null,stateBuilds:JSON.parse(JSON.stringify(state.builds)),tombstones:JSON.parse(JSON.stringify(state.buildTombstones||[])),worldBuilds:world.builds.map(item=>({id:item.data.id,type:item.data.type,x:item.data.x,z:item.data.z,groundY:item.data.groundY,ownerId:item.data.ownerId}))}),
     reconcileBuilds:()=>reconcileWorldBuilds(),
     saveNow:()=>{savePlayerPosition(true);return JSON.parse(JSON.stringify(state.position));},
-    performance:()=>({fps:+perf.fps.toFixed(1),tier:qualityTier(),requested:requestedQuality(),dpr:renderer?.getPixelRatio?.()||0,drawCalls:renderer?.info?.render?.calls||0,triangles:renderer?.info?.render?.triangles||0,textures:Object.fromEntries(Object.entries(textures).map(([id,t])=>[id,{name:t?.name||'',status:t?.userData?.status||'generated',width:t?.image?.naturalWidth||t?.image?.width||0,height:t?.image?.naturalHeight||t?.image?.height||0}]))}),
+    performance:()=>({fps:+perf.fps.toFixed(1),targetRenderFps:targetRenderFrameRate(),renderedFrames:perf.renderedFrames,tier:qualityTier(),requested:requestedQuality(),dpr:renderer?.getPixelRatio?.()||0,drawCalls:renderer?.info?.render?.calls||0,triangles:renderer?.info?.render?.triangles||0,textures:Object.fromEntries(Object.entries(textures).map(([id,t])=>[id,{name:t?.name||'',status:t?.userData?.status||'generated',width:t?.image?.naturalWidth||t?.image?.width||0,height:t?.image?.naturalHeight||t?.image?.height||0}]))}),
     setQuality:(quality='auto')=>{const value=['auto','low','high'].includes(quality)?quality:'auto';state.settings.quality=value;if(value==='auto')perf.sessionTier=state.settings.autoTier||detectStableAutoTier();applyAdaptiveRenderSettings(true);lockStableSceneVisibility();saveState(true);return{requested:requestedQuality(),tier:qualityTier(),dpr:renderer?.getPixelRatio?.()||0};},
     getState:()=>JSON.parse(JSON.stringify(state)),
     getGame:()=>({running,paused,currentHouse:currentHouse?.id||null,cameraMode,player:{...player},objects:{houses:world.houses.length,npcs:world.npcs.length,enemies:world.enemies.length,interactables:world.interactables.length,builds:world.builds.length,vehicles:world.vehicles.length,buses:world.buses.length,metroStations:world.metroStations.length,policeCars:world.policeCars.length,resources:world.resources.length,school:!!world.school,policeStation:!!world.policeStation,mine:!!world.mine,well:!!world.well}}),
@@ -116,7 +116,7 @@
     sprint:active=>{input.touchSprint=!!active;updateRunUI();return sprintRequested();},
     joystickVector:(dx,dy)=>{input.joyX=clamp(dx,-1,1);input.joyZ=clamp(dy,-1,1);return resolveMovementInput();},
     stepPlayer:(frames=1,dt=1/60)=>{const n=clamp(Math.round(Number(frames)||1),1,600),step=clamp(Number(dt)||1/60,.001,.1);for(let i=0;i<n;i++)updatePlayer(step);return{x:player.x,y:player.y,z:player.z,facing:player.facing};},
-    enterHouseById:(id)=>{const h=world.houses.find(x=>x.id===id);if(!h)return false;enterHouse(h);return true;},
+    enterHouseById:(id)=>{const h=world.houses.find(x=>x.id===id);return h?enterHouse(h):false;},
     exitHouse,
     returnHome,
     recoverToSafe:(reason='teste')=>recoverPlayerToLastSafe(reason,false),
@@ -143,6 +143,8 @@
       wheelTotalCount:vehicleVisual?.userData?.wheels?.length||0
     }),
     navigation:()=>({waypoint:state.waypoint,route:world.routePath.map(p=>({...p})),progress:state.waypoint?routeProgressInfo(world.routePath,player):null}),
+    trafficAudit:()=>trafficActorList().map(actor=>{const x=actor.group.position.x,z=actor.group.position.z,route=projectPointToPolyline({x,z},actor.group.userData?.roadPath);return{id:actor.id,type:actor.type,x:+x.toFixed(2),z:+z.toFixed(2),roadSafe:trafficFootprintOnRoad(actor),routeDistance:Number.isFinite(route?.distance)?+route.distance.toFixed(2):null};}),
+    navigationSigns:()=>({total:(world.navigationSigns||[]).length,visible:(world.navigationSigns||[]).filter(sign=>sign.group?.visible!==false).length,items:(world.navigationSigns||[]).map(sign=>({label:sign.label,kind:sign.kind,x:sign.x,z:sign.z,visible:sign.group?.visible!==false}))}),
     sceneStability:()=>({critical:world.criticalSurfaces.length,hiddenCritical:world.criticalSurfaces.filter(m=>m&&!m.visible).length,frustumCulledCritical:world.criticalSurfaces.filter(m=>m?.frustumCulled).length,staticRenderObjects:world.staticRenderObjects||0,frustumEnabledStatic:(()=>{let n=0;worldGroup?.traverse?.(o=>{if((o.isMesh||o.isLine||o.isSprite)&&o.frustumCulled)n++;});return n;})(),mobile:perf.mobile,shadows:!!renderer?.shadowMap?.enabled}),
     mobileLayout:()=>({portrait:document.body.classList.contains('ui-portrait'),landscape:document.body.classList.contains('ui-landscape'),tiny:document.body.classList.contains('ui-tiny'),skillsOpen:!!state.ui.skillsOpen,quickOpen:!!state.ui.quickOpen}),
     playerIdentity:()=>({name:state.profile.name,confirmed:!!state.profile.nameConfirmed}),
@@ -150,8 +152,8 @@
     educationRounds:(subject='math',level=1,seed=123)=>generateEducationRounds(subject,Number(level)||1,Number(seed)||123,5),
     lifeExpansion:()=>({boating:player.boating,boat:{...player.boat,dockDistance:+distanceToBoatDock().toFixed(2),canExit:validBoatExit()},fishing:JSON.parse(JSON.stringify(state.fishing)),fishingVisual:fishingVisual?{active:fishingVisual.active,phase:fishingVisual.phase,source:fishingVisual.source}:null,campfires:JSON.parse(JSON.stringify(state.campfires)),hunting:JSON.parse(JSON.stringify(state.hunting)),houseExtensions:JSON.parse(JSON.stringify(state.houseExtensions)),animals:world.animals.map(a=>({id:a.id,type:a.type,available:a.available}))}),
     transport:()=>({state:JSON.parse(JSON.stringify(state.transport)),mode:player.transit.mode,stations:METRO_STATIONS.map(s=>({...s,group:undefined})),stops:world.busStops.map(s=>({id:s.id,name:s.name,routes:[...s.routes],x:s.x,z:s.z})),buses:world.buses.map(b=>({id:b.id,route:b.route.id,line:b.route.number,x:b.group.position.x,z:b.group.position.z,visible:b.group.visible!==false,stopped:busAtStop(b),lastStopId:b.lastStopId,interiorSeats:b.interiorSeats||0}))}),
-    rideMetro:(destinationId='village',stationId='central')=>{const destination=MAP_LOCATIONS.find(x=>x.id===destinationId),station=METRO_STATIONS.find(x=>x.id===stationId)||METRO_STATIONS[0];if(!destination)return false;rideMetroTo(station,destination);return true;},
-    boardBus:id=>{const bus=world.buses.find(b=>b.id===id)||world.buses[0];if(!bus)return false;player.x=bus.group.position.x;player.z=bus.group.position.z;bus.stopUntil=performance.now()+2000;bus.lastStopId=bus.lastStopId||'test-stop';bus.lastStopName=bus.lastStopName||'Parada de teste';return enterBus(bus);},
+    rideMetro:(destinationId='village',stationId='central')=>{const destination=MAP_LOCATIONS.find(x=>x.id===destinationId),station=METRO_STATIONS.find(x=>x.id===stationId)||METRO_STATIONS[0];return destination?rideMetroTo(station,destination):false;},
+    boardBus:id=>{const bus=world.buses.find(b=>b.id===id)||world.buses[0];if(!bus)return false;player.x=bus.group.position.x;player.z=bus.group.position.z;bus.currentSpeed=0;bus.doorsOpen=true;bus.stopUntil=performance.now()+2000;bus.lastStopId=bus.lastStopId||'test-stop';bus.lastStopName=bus.lastStopName||'Parada de teste';setBusState(bus,BUS_STATES.DOORS_OPEN,'test-board-ready');return enterBus(bus);},
     exitBus:()=>{const bus=world.buses.find(b=>b.id===player.transit.busId);return bus?exitBusAtStop(bus,{stopId:'test-stop',stopName:'Parada de teste'}):false;},
     stepTransit:(frames=60,dt=1/60)=>{const n=clamp(Math.round(Number(frames)||60),1,1200),step=clamp(Number(dt)||1/60,.001,.1);for(let i=0;i<n;i++)updateTransitWorld(step);return world.buses.map(b=>({id:b.id,x:b.group.position.x,z:b.group.position.z,stopped:busAtStop(b)}));},
     fleet:()=>world.vehicles.map(v=>({id:v.id,label:v.label,x:v.group.position.x,z:v.group.position.z,visible:v.group.visible,occupied:v.occupied})),

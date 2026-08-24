@@ -79,10 +79,10 @@
 
   const BUS_ROUTES=[
     {id:'solar',name:'Linha Solar',number:'101',color:0x168de2,speed:6.6,copies:2,dwell:3600,laneOffset:1.72,points:[
-      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:58},{x:34,z:58,stopId:'complexo-esportivo',stopName:'Complexo Esportivo'},{x:68,z:58},{x:68,z:38},{x:91,z:38,stopId:'fazenda',stopName:'Fazenda'},{x:100,z:38,stopId:'castelo',stopName:'Castelo'},{x:68,z:38},{x:68,z:0},{x:0,z:0}
+      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:58},{x:34,z:58,stopId:'complexo-esportivo',stopName:'Complexo Esportivo'},{x:68,z:58},{x:68,z:38},{x:91,z:38,stopId:'fazenda',stopName:'Fazenda'},{x:96.5,z:38,stopId:'castelo',stopName:'Castelo'},{x:68,z:38},{x:68,z:0},{x:0,z:0}
     ]},
     {id:'verde',name:'Linha Verde',number:'202',color:0x27b36a,speed:6.4,copies:2,dwell:3600,laneOffset:1.38,points:[
-      {x:0,z:-10,stopId:'central-sul',stopName:'Central Sul'},{x:0,z:0},{x:65,z:0},{x:65,z:-65},{x:94,z:-65,stopId:'kartodromo',stopName:'Kartódromo'},{x:65,z:-65},{x:65,z:0},{x:0,z:0},{x:-55,z:0},{x:-55,z:-65,stopId:'floresta',stopName:'Floresta'},{x:-55,z:0},{x:0,z:0}
+      {x:0,z:-10,stopId:'central-sul',stopName:'Central Sul'},{x:0,z:0},{x:65,z:0},{x:65,z:-65},{x:91.5,z:-65,stopId:'kartodromo',stopName:'Kartódromo'},{x:65,z:-65},{x:65,z:0},{x:0,z:0},{x:-55,z:0},{x:-55,z:-65,stopId:'floresta',stopName:'Floresta'},{x:-55,z:0},{x:0,z:0}
     ]},
     {id:'escolar',name:'Circular Escolar',number:'E10',color:0xf0b62d,speed:5.9,copies:1,dwell:4200,schoolBus:true,laneOffset:1.18,points:[
       {x:-68,z:0,stopId:'escola-sol',stopName:'Escola Vila do Sol'},{x:-55,z:0},{x:0,z:0,stopId:'central-escolar',stopName:'Praça Central'},{x:65,z:0},{x:68,z:24,stopId:'escola-horizonte',stopName:'Escola Horizonte'},{x:68,z:0},{x:0,z:0},{x:-55,z:0}
@@ -91,7 +91,7 @@
       {x:0,z:0,stopId:'praca-central',stopName:'Praça Central'},{x:65,z:0,stopId:'delegacia-central',stopName:'Delegacia Central'},{x:65,z:-18},{x:65,z:-65,stopId:'bombeiros',stopName:'Corpo de Bombeiros'},{x:65,z:-18},{x:65,z:0},{x:0,z:0,stopId:'comercio',stopName:'Mercado e Oficina'},{x:-55,z:0},{x:-55,z:-18},{x:-55,z:22,stopId:'posto-bairro',stopName:'Posto Policial do Bairro'},{x:-55,z:0},{x:0,z:0}
     ]},
     {id:'turismo',name:'Linha Turismo Kids',number:'404',color:0xe05c42,speed:6.1,copies:1,dwell:3900,laneOffset:1.28,points:[
-      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:0},{x:-55,z:0},{x:-55,z:58,stopId:'lago-acesso',stopName:'Acesso ao Lago'},{x:-55,z:80,stopId:'montanha',stopName:'Trilha da Montanha'},{x:-55,z:58},{x:-55,z:0},{x:0,z:0},{x:0,z:58},{x:34,z:58,stopId:'complexo-esportivo',stopName:'Complexo Esportivo'},{x:68,z:58},{x:68,z:38},{x:100,z:38,stopId:'castelo',stopName:'Castelo'},{x:68,z:38},{x:68,z:0},{x:0,z:0}
+      {x:0,z:10,stopId:'central-norte',stopName:'Central Norte'},{x:0,z:0},{x:-55,z:0},{x:-55,z:58,stopId:'lago-acesso',stopName:'Acesso ao Lago'},{x:-55,z:76.5,stopId:'montanha',stopName:'Trilha da Montanha'},{x:-55,z:58},{x:-55,z:0},{x:0,z:0},{x:0,z:58},{x:34,z:58,stopId:'complexo-esportivo',stopName:'Complexo Esportivo'},{x:68,z:58},{x:68,z:38},{x:96.5,z:38,stopId:'castelo',stopName:'Castelo'},{x:68,z:38},{x:68,z:0},{x:0,z:0}
     ]}
   ];
   window.OTTHI_BUS_ROUTES_V704=BUS_ROUTES;

@@ -1,0 +1,63 @@
+OTTHI WORLD V705.7 R1 — ARQUIVOS ALTERADOS NA AUDITORIA INDEPENDENTE
+
+Comparação: OTTHI-WORLD-V7057-COMPLETO.zip recebido em 24/08/2026.
+Recomendação: usar o ZIP completo R1. O pacote parcial pressupõe exatamente a mesma base V705.7.
+
+ANDROID / RELEASE / PWA
+android-app/app/build.gradle
+android-app/app/src/main/java/br/com/thiaguinhosolucoes/otthos/MainActivity.java
+index.html
+manifest.webmanifest
+sw.js
+VERSION.json
+
+FONTES DO JOGO
+src/modules/01-build-persistence.js
+src/modules/05a-world-layout-v704.js
+src/modules/07-navigation-traffic-routes.js
+src/modules/08-map-parent-settings.js
+src/modules/09-responsive-ar-quality-diagnostics.js
+src/modules/12-world-resources-nature.js
+src/modules/13-houses-npcs-vehicles-base.js
+src/modules/14-world-district-decoration.js
+src/modules/14a-ottovias-highway-v7054.js
+src/modules/15-transit-bus-metro.js
+src/modules/16-emergency-services.js
+src/modules/25-render-init-resize-position-collision.js
+src/modules/29-game-loop-controls-gamepad.js
+src/modules/30-pause-tests-public-api-bootstrap.js
+
+TESTES
+tools/test_v703_recovery.py
+tools/test_v7056_world_precision.py
+tools/test_v7057_professional_stability.py
+
+GERADOS E RESULTADOS DE VALIDAÇÃO
+app.js
+release-manifest.json
+src/module-order.json
+AUDITORIA-LAYOUT-V704.json
+docs/AUDITORIA-LAYOUT-V704.json
+docs/RELATORIO-TESTE-BAIRROS-V646.json
+docs/RELATORIO-TESTE-BAIRROS-V646.md
+docs/RELATORIO-TESTE-MUNDO-V643.json
+docs/VALIDACAO-ESTRUTURAL-V704.json
+docs/VALIDACAO-ESTRUTURAL-V704.md
+docs/VALIDACAO-PAINEL-GM-PRESERVADO-V702.json
+docs/VALIDACAO-PAINEL-GM-PRESERVADO-V702.md
+SHA256SUMS.txt
+
+DOCUMENTAÇÃO NOVA
+RELATORIO-AUDITORIA-INDEPENDENTE-V7057-R1.md
+ARQUIVOS-ALTERADOS-V7057-R1.txt
+
+ARQUIVOS REMOVIDOS NESTA R1
+Nenhum. A fotografia real da Michelle já estava ausente no ZIP V705.7 recebido e permanece ausente.
+
+VALIDAÇÃO LOCAL
+Estrutural: 210/210.
+Estabilização R1: 23/23.
+Navegador: 23 atores de tráfego, 0 inseguros, 0 fora da rota; 5 de 32 placas visíveis perto do jogador; noticiário funcional e sem erros de página.
+
+LIMITES
+Não substitui homologação em Android físico, APK assinado, Firebase remoto, multiplayer entre aparelhos, PWA instalada, AR, FPS sustentado ou rede escolar.
