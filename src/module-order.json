@@ -21,14 +21,14 @@
       "startLine": 369,
       "endLine": 488,
       "description": "Normalização, merge, tombstones e persistência das construções",
-      "sha256Body": "ec131f4adf53983a9d105a796d25a97418ba1a799f8b6dfd2bdeccc103c7eab9"
+      "sha256Body": "aceafa2001a63a2a1d3d93923d59bce0bd122af1a78f4dbdfc53fb4f9c52bc5b"
     },
     {
       "file": "src/modules/02-state-save-cloud-account.js",
       "startLine": 490,
       "endLine": 756,
       "description": "Estado, save local, IndexedDB, nuvem e conta",
-      "sha256Body": "eeb7cb79a50e46bdd4d91d7ab4876396302beb13bfdba8b35033a91da61e2626"
+      "sha256Body": "2d1542407c7e536574b95643908da1c4404cb24e3722f3432fee303624c99165"
     },
     {
       "file": "src/modules/03-ui-modal-install-pwa.js",
@@ -133,7 +133,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Rodovia OTTOVIAS integrada: circuito, biomas, pedágios, Michelle e ronda guiada",
-      "sha256Body": "367f6605f9b178041e5f751ce661f06323303f6ba41a0c51d7ed4b1bedf99616"
+      "sha256Body": "b2886478dbabf75b2943c24812effd850ab609ed40588ac3644c410d4608a313"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -464,7 +464,7 @@
       "startLine": 1,
       "endLine": 36,
       "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
-      "sha256Body": "e43a15c25e41897b3a0ec1936f919b0c5209bc2a1d0fa71a7f42e5b86f5a1563"
+      "sha256Body": "659dfe8a3351c6a6f2d64888f065107ee70496786b937edc4ec9103a6e1452ae"
     }
   ]
 }
