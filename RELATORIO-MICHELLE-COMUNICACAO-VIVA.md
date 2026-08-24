@@ -24,11 +24,26 @@ A única NPC `michelle-ottovias` foi preservada e remodelada proceduralmente com
 - roupa preta;
 - alças de mochila;
 - óculos pendurados no peito;
-- crachá da Comunicação OTTOVIAS;
 - movimentos discretos de cabeça e braços;
-- sinal visual de alerta quando existe ocorrência ativa.
+- orientação dinâmica para olhar para o jogador quando ele se aproxima.
 
-A foto original não foi copiada para os arquivos públicos do jogo. Ela foi utilizada somente como referência de modelagem.
+A foto enviada e autorizada foi incluída como retrato local da Michelle dentro do painel de conversa. O nome temporário do upload não aparece no projeto. A modelagem 3D continua procedural, adequada ao estilo do mundo, sem projetar a fotografia sobre uma esfera.
+
+### 1.1. Correção visual após teste no celular
+
+As capturas reais em 691 × 1536 revelaram problemas que foram corrigidos nesta revisão:
+
+- removido o marcador flutuante genérico com a letra “M”;
+- reduzidos coque e volumes de cabelo que deformavam a silhueta;
+- removido o crachá branco desproporcional no peito;
+- Michelle passa a olhar para o jogador próximo;
+- rótulo de interação reduzido para não ficar cortado;
+- painel limitado a 78% da altura em celular estreito;
+- conversa e notícias separadas em abas, sem excluir conteúdo;
+- todos os botões receberam fundo, borda e cor de texto explícitos;
+- missões foram organizadas em grade legível;
+- a foto real passou a identificar a Michelle no cabeçalho.
+- o retrato foi incluído nos recursos opcionais do PWA para permanecer disponível após o cache.
 
 ### 2. Boletim realmente ligado ao jogo
 
@@ -119,7 +134,7 @@ A Michelle somente observa as APIs e estados que esses sistemas já produzem.
 
 - Build modular: concluído.
 - Parser JavaScript do bundle: aprovado.
-- Teste específico Michelle/Comunicação Viva: 51/51.
+- Teste específico Michelle/Comunicação Viva: 59/59.
 - Validador estrutural geral: 207/207.
 - Total de arquivos de teste executados: 24/24 sem falha.
 - OTTOVIAS: 60/60.
@@ -135,4 +150,3 @@ A Michelle somente observa as APIs e estados que esses sistemas já produzem.
 ## Limites da validação
 
 Os testes executados cobrem sintaxe, build, estrutura, persistência, integração, geometria e simulações automatizadas existentes. Não foi possível executar inspeção visual automatizada porque o navegador headless não estava instalado no ambiente. Também não se declara teste físico em celular, PWA instalada ou multiplayer em dois aparelhos.
-

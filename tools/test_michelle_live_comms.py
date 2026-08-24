@@ -53,6 +53,8 @@ check('Retenção e normalização do trânsito são observadas', 'Atenção par
 for subject in ['acidente', 'incendio', 'pedagio', 'transito', 'missao', 'otto', 'noticia', 'mapa']:
     check(f'Conversa entende assunto: {subject}', subject in source)
 check('Campo aceita pergunta por botão e Enter', 'data-michelle-ask' in source and "event.key==='Enter'" in source)
+check('Conversa compacta separa conversa e notícias em abas', all(token in source for token in ['data-michelle-tab-button="conversation"', 'data-michelle-tab-button="news"', 'data-michelle-pane="news"', 'activateTab=id']))
+check('Botões da conversa usam as classes visuais do jogo', source.count('class="btn michelle-chip"') == 4 and 'class="btn primary" data-michelle-ask' in source)
 check('Resposta usa região ao vivo do jogador', 'currentBiome' in source and 'ottoviasNearestInfo(player.x,player.z)' in source)
 check('Voz em português é opcional e tem fallback', "utterance.lang='pt-BR'" in source and 'Voz não disponível neste aparelho' in source)
 check('API pública permite diagnóstico sem alterar mundo', all(token in source for token in ['liveReport:michelleCurrentReport', 'news:()=>', 'askMichelle:michelleAnswer']))
@@ -60,7 +62,10 @@ check('API pública permite diagnóstico sem alterar mundo', all(token in source
 for token in ['roupa-preta-oculos', 'TorusGeometry', 'bun.position', 'eyebrow.rotation', 'michelleVisual', 'updateMichelleOttovias']:
     check(f'Skin e presença visual: {token}', token in source)
 check('Características-base da Michelle foram preservadas', all(token in source for token in ['0xa66f50', '0x24160f', 'cabelos-cacheados', 'assessora-comunicacao-ottovias']))
-check('A foto de referência não foi incorporada ao repositório', '0e9c36e9-020f-4ff0-9c01-85ae2255f91a' not in '\n'.join(str(p) for p in ROOT.rglob('*')))
+check('Foto autorizada da Michelle existe como perfil local', (ROOT / 'assets/images/michelle-profile.png').is_file() and 'assets/images/michelle-profile.png' in source)
+check('Nome temporário do upload não vazou no repositório', '0e9c36e9-020f-4ff0-9c01-85ae2255f91a' not in '\n'.join(str(p) for p in ROOT.rglob('*')))
+check('Marcador flutuante genérico foi removido da Michelle', 'if(npc.badge)npc.badge.visible=false' in source and 'action.label=\'Michelle • OTTOVIAS\'' in source)
+check('Michelle passa a olhar para o jogador próximo', 'npc.stationaryHeading=lerpAngle' in source and 'Math.atan2(player.x-npc.group.position.x' in source)
 
 check('Estado padrão inclui comunicação e notícias', all(token in defaults for token in ['questionsAnswered:0', 'news:[]', 'lastBulletinAt:0']))
 check('Normalização limita notícias antigas', 'saved.ottovias.news.slice(0,16)' in persistence)
@@ -69,7 +74,10 @@ check('Cloud merge recupera comunicação e notícias', 'remote.ottovias?.commun
 
 for token in ['.michelle-console', '.michelle-live-report', '.michelle-quick-questions', '.michelle-news-list', '@keyframes michelle-pulse']:
     check(f'Interface responsiva: {token}', token in styles and token in bundle_css)
-check('Interface tem adaptação para celular', '@media(max-width:620px)' in styles and 'orientation:landscape' in styles)
+check('Interface tem adaptação para celular', '@media(max-width:420px)' in styles and 'orientation:landscape' in styles)
+check('Contraste dos botões foi definido explicitamente', all(token in styles for token in ['.michelle-chip', 'background:#123e55!important', 'color:#fff!important', 'opacity:1!important']))
+check('Modal da Michelle possui limite próprio de tela', '.modal-card:has(.michelle-console)' in styles and 'max-height:78dvh!important' in styles)
+check('Abas ocultam apenas o painel inativo', '.michelle-pane[hidden]{display:none!important}' in styles)
 
 node = subprocess.run(['node', '--check', 'app.js'], cwd=ROOT, text=True, capture_output=True)
 check('Bundle final passa no parser JavaScript', node.returncode == 0, node.stderr.strip())

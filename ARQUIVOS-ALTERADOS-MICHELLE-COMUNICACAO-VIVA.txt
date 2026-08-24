@@ -8,6 +8,9 @@ src/modules/02-state-save-cloud-account.js
 src/modules/14a-ottovias-highway-v7054.js
 src/styles/19-mobile-landscape-authority-v7051.css
 
+IMAGEM LOCAL ADICIONADA COM AUTORIZAÇÃO DO USUÁRIO
+assets/images/michelle-profile.png
+
 ARQUIVO DE TESTE ADICIONADO
 tools/test_michelle_live_comms.py
 
@@ -20,12 +23,15 @@ app.js
 style.css
 src/module-order.json
 index.html
-sw.js
 release-manifest.json
+
+SERVICE WORKER
+sw.js (revisão de release + cache opcional do retrato da Michelle)
 
 INTEGRIDADE
 SHA256SUMS.txt
 
 OBSERVAÇÃO
-index.html e sw.js tiveram somente a revisão de release atualizada pelo build.
+index.html teve somente a revisão de release atualizada pelo build.
 Nenhum módulo antigo foi removido. A NPC e a interação existentes foram reutilizadas.
+Esta revisão corrige as falhas de skin, contraste, corte e excesso de altura observadas nas capturas reais do celular.

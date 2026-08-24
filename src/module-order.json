@@ -133,7 +133,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Rodovia OTTOVIAS integrada: circuito, biomas, pedágios, Michelle e ronda guiada",
-      "sha256Body": "b2886478dbabf75b2943c24812effd850ab609ed40588ac3644c410d4608a313"
+      "sha256Body": "08238a7d4498a882002cfaf8990e63ed3cc71bad21651abeb3e29d819441b5cc"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -464,7 +464,7 @@
       "startLine": 1,
       "endLine": 36,
       "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
-      "sha256Body": "659dfe8a3351c6a6f2d64888f065107ee70496786b937edc4ec9103a6e1452ae"
+      "sha256Body": "96c7f5e0d72f4a7a7cde0aa5fdcc7842682608e1def14b9ec18aafaaedc5008a"
     }
   ]
 }

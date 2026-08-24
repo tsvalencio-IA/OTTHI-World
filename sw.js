@@ -1,4 +1,4 @@
-const REVISION = 'e2abd54521dd8f79';
+const REVISION = 'dfff8b0897355dd1';
 const CACHE = `otthi-v7056-${REVISION}`;
 const CACHE_PREFIXES = ['otthi-','otthi-game-web-','otthos-life-world-main-'];
 const BUILD = '705.0-playable-sports-realistic-npcs-kart';
@@ -28,6 +28,7 @@ const REQUIRED_SHELL = [
 const OPTIONAL_ASSETS = [
   './404.html',
   './athos.glb',
+  './assets/images/michelle-profile.png',
   './assets/textures/asphalt-v628.png',
   './assets/textures/brick-v628.png',
   './assets/textures/bus-seat-v628.png',
