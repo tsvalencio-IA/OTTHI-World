@@ -25,9 +25,11 @@ resources = read('src/modules/12-world-resources-nature.js')
 police = read('src/modules/16-emergency-services.js')
 action = read('src/modules/27-npc-enemies-combat-camera-action.js')
 android = read('android-app/app/src/main/AndroidManifest.xml')
+equivalence = read('tools/verify_equivalence.py')
 
 check('Release R3 da OTTOVIAS', version.get('assetVersion') == 70573 and version.get('release') == '705.7-ottovias-flow-r3')
 check('Android responde ao sensor completo', 'android:screenOrientation="fullSensor"' in android)
+check('Manifesto fullSensor possui hash aprovado e restrito', "'android-app/app/src/main/AndroidManifest.xml': {" in equivalence and '325c878dda188d14b23572b4aa605cbd7ec204312cd3e4640fd95ce937a92ef4' in equivalence)
 
 for token in ['vehicleOnly:true', 'getActionLabel:()=>ottoviasTollActionLabel', 'handleOttoviasTollAction', 'payOttoviasToll', 'raiseOttoviasTollGate']:
     check(f'Fluxo contextual do pedágio: {token}', token in ottovias)
