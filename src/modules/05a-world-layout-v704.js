@@ -109,7 +109,7 @@
       ottoviasEntry:{x:0,z:-108},ottoviasOperations:{x:50,z:-120},ottoviasOperationsAccess:{x:50,z:-109.2},ottoviasMichelle:{x:50,z:-112},
       ottoviasTollSouth:{x:84,z:-147},ottoviasTollField:{x:156,z:16},ottoviasTollBeach:{x:-169,z:-5},
       ottoviasDesert:{x:111,z:-137},ottoviasField:{x:151,z:61},ottoviasSnow:{x:24,z:166},ottoviasBeach:{x:-168,z:80},ottoviasCityCenter:{x:0,z:18},ottoviasCityNorth:{x:0,z:105},
-      ottoviasTunnel:{x:-141,z:141},ottoviasFootbridge:{x:0,z:43}
+      ottoviasFootbridge:{x:0,z:43}
     }),
     zones:Object.freeze({
       urban:{id:'urban',name:'Centro urbano',x:0,z:0,w:118,d:104},
@@ -196,7 +196,6 @@
       {id:'construction-zone',kind:'construction',point:'construction',w:36,d:32,margin:0,allowRoadOverlap:false},
       {id:'ottovias-operations',kind:'transport',point:'ottoviasOperations',w:15,d:9,margin:1.0},
       {id:'metro-lake',kind:'transport',point:'metroLake',w:4.6,d:4.6,margin:.4,allowedRoads:['via-floresta-norte']},
-      {id:'ottovias-tunnel',kind:'transport',point:'ottoviasTunnel',w:20,d:38,margin:.3,allowedHighways:['ottovias']},
       {id:'ottovias-footbridge',kind:'transport',x:0,z:46,w:28,d:10,margin:.2,allowedRoads:['avenida-central-ns'],allowedHighways:['ottovias-urban']}
     ])
   });

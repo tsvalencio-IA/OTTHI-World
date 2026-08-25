@@ -12,7 +12,7 @@
     if(buildMode)endBuildMode('cancelled',true);
     world.policeAlert=null;updateSafetyPanel('');if(player.boating){player.x=-24.7;player.z=52;exitBoat(true);}if(player.vehicle)exitVehicle(true);if(player.transit.mode==='bus'){const bus=world.buses.find(b=>b.id===player.transit.busId);if(bus)exitBusAtStop(bus,{stopId:bus.lastStopId,stopName:bus.lastStopName});}if(player.transit.mode==='metro'){player.transit.mode='';if(metroOverlay)metroOverlay.hidden=true;if(playerModel)playerModel.visible=true;if(avatarLayer)avatarLayer.visible=true;if(contactShadow)contactShadow.visible=true;}running=false;paused=false;pauseMenuOpen=false;cancelAnimationFrame(raf);stopEngineSound();savePlayerPosition(true);showScreen('lobby');updateLobbyStats();
   }
-  els.playBtn.onclick=()=>requestPreferredGameOrientation().finally(()=>startGame(true));els.continueBtn.onclick=()=>requestPreferredGameOrientation().finally(()=>startGame(false));
+  els.playBtn.onclick=()=>requestPreferredGameOrientation().finally(()=>startGame(false));els.continueBtn.onclick=()=>requestPreferredGameOrientation().finally(()=>startGame(false));
 
   function openPauseMenu(){
     if(!running||pauseMenuOpen)return;
@@ -105,7 +105,7 @@
     crouch:()=>toggleCrouch(),
     setSize:setScaleMode,
     spin:spinPlayer,
-    controls:()=>({crouch:!!els.crouchBtn,mini:!!els.miniBtn,normal:!!els.normalBtn,giant:!!els.giantBtn,spin:!!els.spinBtn,action:!!els.actionBtn,jump:!!els.jumpBtn,power:!!els.specialBtn}),
+    controls:()=>({crouch:!!els.crouchBtn,mini:!!els.miniBtn,normal:!!els.normalBtn,giant:!!els.giantBtn,spin:!!els.spinBtn,action:!!els.actionBtn,vehicleAction:!!els.vehicleActionBtn,jump:!!els.jumpBtn,power:!!els.specialBtn}),
     race:()=>activeRace?{type:activeRace.type,npc:activeRace.npcName,playerScore:activeRace.playerScore,opponentScore:activeRace.opponentScore,timeLeft:activeRace.timeLeft}:null,
     startRace:(type='sprint')=>startRace(type,world.npcs[0]),
     map:()=>({player:{x:player.x,z:player.z},waypoint:state.waypoint,route:state.waypoint?buildRoutePoints(player,state.waypoint):[],locations:MAP_LOCATIONS.map(x=>({...x}))}),

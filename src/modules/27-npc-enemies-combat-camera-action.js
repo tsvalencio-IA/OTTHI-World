@@ -88,7 +88,7 @@
   function firePower(){
     if(!els.modal.hidden||paused||player.transit.mode)return;
     if(typeof handleActiveSportSpecialV704==='function'&&handleActiveSportSpecialV704()){updateContext(true);return;}
-    if(player.vehicle||player.boating){vehicleHorn();return;}
+    if(player.vehicle||player.boating){vehicleUtilityAction();return;}
     if(currentHouse){toast('Use o poder do lado de fora.','warn');return;}
     const dir={x:Math.sin(player.facing),z:Math.cos(player.facing)};const mesh=new THREE.Mesh(new THREE.BoxGeometry(.42,.42,.42),mat(0xff5a12,{emissive:0xff2a00,emissiveIntensity:.9}));mesh.position.set(player.x,player.y+1.35,player.z);worldGroup.add(mesh);world.fireballs.push({mesh,x:player.x,y:player.y+1.35,z:player.z,vx:dir.x*12,vz:dir.z*12,life:1.4});beep(220,90,'sawtooth');vibrate(18);
   }
@@ -135,7 +135,7 @@
     if(player.transit.mode==='metro')return null;
     if(player.transit.mode==='bus')return{id:'request-bus-stop',type:'bus',icon:'🔔',label:player.transit.requestStop?'Parada já solicitada':'Pedir próxima parada',radius:999,priority:999,action:()=>{player.transit.requestStop=true;updateTransitPanel();toast('Parada solicitada.','good',1200);}};
     if(player.boating){const free=!player.boat.passengerOf&&!player.boat.passengerUid&&!player.boat.passengerBotId,remote=free?nearestRemotePlayer():null,npc=free?nearestBoardableNpc():null;if(remote)return{id:`boat-remote-${remote.uid}`,type:'remote-player',icon:'🌐',label:`Convidar ${remote.ghost.userData.displayName||'Jogador'} para o barco`,radius:999,priority:1001,action:()=>openRemotePlayerActions(remote.uid,remote.ghost)};if(npc)return{id:`boat-invite-${npc.id}`,type:'boat',icon:'🛶',label:`Convidar ${npc.name} para o barco`,radius:999,priority:1000,action:()=>boardNpcPassenger(npc,'boat')};return{id:'exit-boat',type:'boat',icon:'🛶',label:'Sair do barco no píer',radius:999,priority:999,action:exitBoat};}
-    if(player.vehicle){let vehicleAction=null,bestVehicleAction=Infinity;for(const it of world.interactables){if(!it.vehicleOnly||!isInteractionAvailable(it))continue;const pos=worldPos(it),d=Math.hypot(player.x-pos.x,player.z-pos.z);if(d>(it.radius||2))continue;const score=d-(it.priority||0)*.006;if(score<bestVehicleAction){bestVehicleAction=score;vehicleAction=it;}}if(vehicleAction)return vehicleAction;const free=!player.car.passengerOf&&!player.car.passengerUid&&!player.car.passengerBotId,remote=free?nearestRemotePlayer():null,npc=free?nearestBoardableNpc():null;if(remote)return{id:`car-remote-${remote.uid}`,type:'remote-player',icon:'🌐',label:`Convidar ${remote.ghost.userData.displayName||'Jogador'} para o carro`,radius:999,priority:1001,action:()=>openRemotePlayerActions(remote.uid,remote.ghost)};if(npc)return{id:`car-invite-${npc.id}`,type:'vehicle',icon:'🚗',label:`Convidar ${npc.name} para o carro`,radius:999,priority:1000,action:()=>boardNpcPassenger(npc,'car')};return{id:'exit-vehicle',type:'vehicle',icon:'🚗',label:'Sair do carro',radius:999,priority:999,action:exitVehicle};}
+    if(player.vehicle)return{id:'exit-vehicle',type:'vehicle',icon:'🚗',label:'Sair do carro',actionLabel:'Sair',radius:999,priority:999,action:exitVehicle};
     if(buildMode)return{id:'place-build',type:'build',icon:'🧱',label:`Confirmar ${BUILD_RECIPES[buildMode]?.name||'construção'}`,radius:999,priority:999,action:placeBuild};
     const remote=nearestRemotePlayer();if(remote)return{id:`remote-${remote.uid}`,type:'remote-player',icon:'🌐',label:`Interagir: ${remote.ghost.userData.displayName||'Jogador'}`,radius:2.8,priority:980,x:remote.ghost.position.x,z:remote.ghost.position.z,action:()=>openRemotePlayerActions(remote.uid,remote.ghost)};
     let nearest=null,best=Infinity;
@@ -148,14 +148,26 @@
     }
     return nearest;
   }
+  function nearestVehicleContextInteractable(){
+    if(!player.vehicle||player.car.passengerOf)return null;let nearest=null,best=Infinity;for(const it of world.interactables){if(!it.vehicleOnly||!isInteractionAvailable(it))continue;const pos=worldPos(it),distance=Math.hypot(player.x-pos.x,player.z-pos.z);if(distance>(it.radius||2))continue;const score=distance-(it.priority||0)*.006;if(score<best){best=score;nearest=it;}}return nearest;
+  }
+  function updateVehicleContextButton(){
+    const button=els.vehicleActionBtn,target=nearestVehicleContextInteractable();currentVehicleContext=target;if(!button)return target;const available=!!target;button.hidden=!available;button.classList.toggle('is-available',available);button.classList.toggle('pulse',available);if(!available)return null;const label=typeof target.getActionLabel==='function'?target.getActionLabel():(target.actionLabel||'Ação'),icon=$('b',button),span=$('span',button);if(icon)icon.textContent=target.icon||'✋';if(span)span.textContent=label;button.setAttribute('aria-label',`${label}: ${typeof target.getLabel==='function'?target.getLabel():target.label||'ação veicular'}`);return target;
+  }
+  function doVehicleContextAction(){
+    if(paused||!els.modal.hidden||!player.vehicle||player.car.passengerOf)return false;let target=currentVehicleContext;if(target){const pos=worldPos(target);if(!isInteractionAvailable(target)||Math.hypot(player.x-pos.x,player.z-pos.z)>(target.radius||2)+.25)target=null;}if(!target)target=nearestVehicleContextInteractable();if(!target){updateVehicleContextButton();return false;}target.action();updateContext(true);return true;
+  }
   function updateContext(force=false){
     const now=performance.now(),moved=Math.hypot(player.x-lastContextScanX,player.z-lastContextScanZ);if(!force&&now-lastContextScanAt<85&&moved<.18)return;lastContextScanAt=now;lastContextScanX=player.x;lastContextScanZ=player.z;
+    if(player.vehicle){const vehicleTarget=updateVehicleContextButton(),vehicleLabel=vehicleTarget?(typeof vehicleTarget.getLabel==='function'?vehicleTarget.getLabel():vehicleTarget.label):'',vehicleAction=vehicleTarget?(typeof vehicleTarget.getActionLabel==='function'?vehicleTarget.getActionLabel():(vehicleTarget.actionLabel||'Ação')):'';currentContext={id:'exit-vehicle',type:'vehicle',icon:'🚗',label:'Sair do carro',actionLabel:'Sair',radius:999,action:exitVehicle};lastContextId=`exit-vehicle:${vehicleTarget?.id||''}:${vehicleAction}`;els.actionBtn.classList.remove('pulse');const span=$('span',els.actionBtn),icon=$('b',els.actionBtn);if(span)span.textContent='Sair';if(icon)icon.textContent='🚗';els.contextPrompt.hidden=!vehicleTarget;els.contextIcon.textContent=vehicleTarget?.icon||'🚗';els.contextLabel.textContent=vehicleLabel||'Ação veicular';els.contextHint.textContent=vehicleTarget?`Use o botão extra: ${String(vehicleAction).toUpperCase()}`:'O botão SAIR permanece disponível';return;}
+    if(els.vehicleActionBtn){els.vehicleActionBtn.hidden=true;els.vehicleActionBtn.classList.remove('is-available','pulse');currentVehicleContext=null;}
     const next=nearestInteractable(),label=next?(typeof next.getLabel==='function'?next.getLabel():next.label):'Atacar',actionLabel=next?(typeof next.getActionLabel==='function'?next.getActionLabel():(next.actionLabel||'Ação')):'Espada',id=`${next?.id||''}:${label}:${actionLabel}`;if(!force&&id===lastContextId)return;lastContextId=id;currentContext=next;els.contextPrompt.hidden=!next;els.actionBtn.classList.toggle('pulse',!!next);els.contextIcon.textContent=next?.icon||'⚔';els.contextLabel.textContent=label;els.contextHint.textContent=next?`Toque em ${String(actionLabel).toUpperCase()}`:'Ataque próximo';const span=$('span',els.actionBtn);const icon=$('b',els.actionBtn);if(span)span.textContent=actionLabel;if(icon)icon.textContent=next?.icon||'⚔';
   }
   function doAction(){
     if(paused||!els.modal.hidden||performance.now()<actionLockedUntil)return;
     actionLockedUntil=performance.now()+90;state.stats.actions++;
     if(state.ui.quickOpen){state.ui.quickOpen=false;syncMobilePanels();}
+    if(player.vehicle){exitVehicle();updateContext(true);return;}if(player.boating){exitBoat();updateContext(true);return;}
     if(typeof handleActiveSportActionV704==='function'&&handleActiveSportActionV704()){updateContext(true);return;}
     let target=currentContext;
     if(target&&target.radius!==999){const pos=worldPos(target);if(!isInteractionAvailable(target)||Math.hypot(player.x-pos.x,player.z-pos.z)>(target.radius||2)+.2)target=null;}
