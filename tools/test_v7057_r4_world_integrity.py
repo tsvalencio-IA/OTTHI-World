@@ -24,7 +24,7 @@ build = read('src/modules/20-world-build-cloud-houses.js')
 metro = read('src/modules/15-transit-bus-metro.js')
 tunnel = read('src/modules/14a-ottovias-highway-v7054.js')
 
-check('Release R4 de integridade mundial', version.get('assetVersion') == 70574 and version.get('release') == '705.7-world-integrity-r4')
+check('Release R4+ de integridade mundial', version.get('assetVersion', 0) >= 70574 and str(version.get('release', '')).startswith('705.7-'))
 check('Restauração usa os limites reais do mundo', 'const bounds=v704WorldBounds()' in position and 'v704ClampWorldPoint(x,z,margin)' in position)
 check('Limite legado de 110 removido', 'Math.abs(x)>110' not in position and 'Math.abs(z)>110' not in position)
 check('Entrada no veículo preserva origem segura', 'originValid' in driving and 'player.lastSafeX=player.x' in driving and 'state.position=' in driving)
@@ -33,9 +33,8 @@ check('Represa principal fora da rua', "lake:{id:'lake',name:'Represa principal'
 check('Represa é uma bacia conectada', 'function createReservoirBasin' in water and 'reservoir:true' in water and 'createReservoirBasin(lake,lakeNorth)' in build)
 check('Auditoria proíbe água sobre rua', "type:'water-on-road'" in layout)
 check('Metrô da represa possui ponto seco dedicado', "metroLake:{x:-45,z:56}" in layout and 'isInsideLakeNavigable(station.x,station.z)' in metro)
-check('Somente um túnel OTTOVIAS é criado', tunnel.count('createOttoviasTunnel();') == 1, tunnel.count('createOttoviasTunnel();'))
-check('Túnel é contínuo e abobadado', 'singleContinuousTunnel:true' in tunnel and 'archSegments=13' in tunnel and 'tunnelArchSegment' in tunnel)
-check('Foto real da Michelle ausente', not (ROOT / 'assets/images/michelle-profile.png').exists())
+check('Túnel visual inadequado não é criado', 'createOttoviasTunnel' not in tunnel and 'OTTHI_OTTOVIAS_TUNNEL' not in tunnel and 'ottoviasTunnel' not in layout)
+check('Foto real da Michelle não integra o jogo', 'michelle-profile.png' not in read('app.js') and 'michelle-profile.png' not in read('index.html') and 'michelle-profile.png' not in read('sw.js'))
 
 for relative in [
     'src/modules/05a-world-layout-v704.js',

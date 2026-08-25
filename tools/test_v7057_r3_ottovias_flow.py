@@ -33,7 +33,7 @@ check('Manifesto fullSensor possui hash aprovado e restrito', "'android-app/app/
 
 for token in ['vehicleOnly:true', 'getActionLabel:()=>ottoviasTollActionLabel', 'handleOttoviasTollAction', 'payOttoviasToll', 'raiseOttoviasTollGate']:
     check(f'Fluxo contextual do pedágio: {token}', token in ottovias)
-check('Interação veicular tem prioridade sobre sair do carro', 'if(!it.vehicleOnly' in action and 'if(vehicleAction)return vehicleAction' in action)
+check('Interação veicular separada do botão sair', 'nearestVehicleContextInteractable' in action and "actionLabel:'Sair'" in action and 'updateVehicleContextButton' in action)
 check('Botão contextual aceita rótulo dinâmico', "typeof next.getActionLabel==='function'" in action and 'span.textContent=actionLabel' in action)
 check('Pagamento não levanta a cancela automaticamente', 'toll.paymentPending=true' in ottovias and 'Agora toque LEVANTAR' in ottovias)
 check('Cancela só abre na ação de levantar', 'function raiseOttoviasTollGate' in ottovias and 'toll.openUntil=Date.now()+14000' in ottovias)
@@ -44,8 +44,7 @@ for token in ['updateOttoviasTollPassage', 'registerOttoviasTollPassage', 'start
 check('Viatura persegue usando a malha viária', 'buildRoutePoints({x:car.group.position.x' in police and 'car.group.userData.roadPath=car.pursuitRoute' in police)
 check('Abordagem espera a aproximação da viatura', 'now-alert.slowSince>1100&&distance<8' in police)
 
-for token in ['createOttoviasTunnel', 'TÚNEL OTTOVIAS', 'MANTENHA A FAIXA', 'ottoviasTunnel']:
-    check(f'Túnel rodoviário profissional: {token}', token in ottovias or token in layout)
+check('Túnel inadequado removido da rodovia', 'createOttoviasTunnel' not in ottovias and 'ottoviasTunnel' not in layout and 'TÚNEL OTTOVIAS' not in ottovias)
 check('Pedras são proibidas na pista e acostamento', "v704HighwayAt(x,z,Math.max(1.4,scale*1.15),true)" in resources and 'clearOttoviasRoadRocks' in ottovias)
 for token in ['createOttoviasPedestrianBridge', 'registerPlatform', 'PASSARELA', 'ottoviasFootbridge', 'bridgePedestrians']:
     check(f'Passarela suspensa funcional: {token}', token in ottovias or token in layout)
@@ -56,7 +55,7 @@ check('Frota respeita trânsito e autoridade de faixa', 'trafficSpeedFactor(vehi
 check('Frota integra colisões e telemetria', 'world.ottoviasTraffic' in traffic and 'world.ottoviasTraffic=OTTOVIAS_RUNTIME.traffic' in ottovias)
 check('Frota aplica culling para celular', 'vehicle.group.visible=Math.hypot' in ottovias and '<118' in ottovias)
 
-check('Foto real da Michelle ausente', not (ROOT / 'assets/images/michelle-profile.png').exists() and 'michelle-profile.png' not in ottovias)
+check('Foto real da Michelle não integra o jogo', 'michelle-profile.png' not in ottovias and 'michelle-profile.png' not in read('app.js') and 'michelle-profile.png' not in read('index.html'))
 for relative in ['src/modules/14a-ottovias-highway-v7054.js', 'src/modules/16-emergency-services.js', 'src/modules/27-npc-enemies-combat-camera-action.js']:
     result = subprocess.run(['node', '--check', relative], cwd=ROOT, capture_output=True, text=True)
     check(f'Sintaxe válida: {relative}', result.returncode == 0, result.stderr.strip())

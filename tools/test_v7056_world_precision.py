@@ -78,7 +78,7 @@ road_geometry=ott[ott.find('function createOttoviasRoadSegment'):ott.find('funct
 ck('Pedestre não é proibido na OTTOVIAS','player.vehicle||player.boating||player.transit?.mode||currentHouse' in nav and 'registerCollider' not in road_geometry)
 
 # Recuperação: colisão normal nunca teleporta longe.
-ck('Recuperação total só para limites/queda',"const reason=outside?'fora dos limites':belowWorld?'abaixo do terreno':deepFall?'queda sem retorno':''" in recovery)
+ck('Limite/queda finitos recebem correção local',"const reason=!finite?'coordenada inválida':outside?'fora dos limites':heightInvalid?'altura inválida':belowWorld?'abaixo do terreno':deepFall?'queda sem retorno':''" in recovery and 'const bounded=v704ClampWorldPoint(player.x,player.z,1)' in recovery)
 ck('Penetração tenta correção local curta','distances:[.38,.58,.82,1.08,1.38]' in recovery and 'Math.hypot(local.x-player.x,local.z-player.z)<=1.45' in recovery)
 ck('Penetração falha sem teleporte distante','player.invalidSince=0;return false;' in recovery)
 
