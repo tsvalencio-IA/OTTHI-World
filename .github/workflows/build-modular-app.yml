@@ -44,6 +44,7 @@ jobs:
           node tools/test_v704_world_materialization.js
           node tools/test_v704_vehicle_runtime.js
           python tools/audit_world_v704.py
+          python tools/test_v7057_r4_world_integrity.py
           python tools/validate_project.py
       - name: Validar JavaScript
         run: node --check app.js
