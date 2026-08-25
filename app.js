@@ -1419,7 +1419,7 @@
       spawn:{x:-18,z:39},home:{x:-18,z:34},blue:{x:-30,z:17},pink:{x:24,z:17},shop:{x:-22,z:-18},workshop:{x:22,z:-18},
       school:{x:-68,z:-18},schoolEast:{x:82,z:24},police:{x:78,z:-18},policeWest:{x:-68,z:22},fireStation:{x:96,z:-18},
       well:{x:38,z:10},foundry:{x:43,z:-35},mine:{x:-92,z:-92},cabin:{x:-88,z:-42},
-      camp:{x:-78,z:-62},hunt:{x:-101,z:-78},lake:{x:-72,z:52},lakeNorth:{x:-100,z:70},pier:{x:-30,z:52},
+      camp:{x:-78,z:-62},hunt:{x:-101,z:-78},lake:{x:-88,z:54},lakeNorth:{x:-104,z:69},pier:{x:-67,z:54},metroLake:{x:-45,z:56},
       farm:{x:101,z:22},farmEntrance:{x:91,z:34},garage:{x:84,z:30},jobBoard:{x:86,z:34},
       sports:{x:42,z:88},sportsEntrance:{x:42,z:66},footballEntrance:{x:50,z:69},volley:{x:82,z:95},volleyEntrance:{x:82,z:84},footvolley:{x:100,z:95},footvolleyEntrance:{x:100,z:84},
       kart:{x:94,z:-91},kartEntrance:{x:94,z:-70},kartBoxes:{x:94,z:-91},
@@ -1443,8 +1443,8 @@
       courts:{id:'courts',name:'Quadras de vôlei e futevôlei',x:91,z:95,w:34,d:24},
       kart:{id:'kart',name:'Kartódromo',x:94,z:-91,w:44,d:38},
       rural:{id:'rural',name:'Fazenda',x:101,z:22,w:26,d:22},
-      lake:{id:'lake',name:'Lago principal',x:-72,z:52,w:88,d:18},
-      lakeNorth:{id:'lakeNorth',name:'Braço norte do lago',x:-100,z:70,w:32,d:14},
+      lake:{id:'lake',name:'Represa principal',x:-88,z:54,w:50,d:22},
+      lakeNorth:{id:'lakeNorth',name:'Enseada norte da represa',x:-104,z:69,w:24,d:14},
       forest:{id:'forest',name:'Floresta e acampamento',x:-86,z:-58,w:60,d:58},
       mine:{id:'mine',name:'Mina',x:-92,z:-92,w:28,d:24},
       castle:{id:'castle',name:'Castelo e aventura',x:100,z:55,w:32,d:28},
@@ -1479,7 +1479,7 @@
       {id:'guide-forest',kind:'guide',text:'Floresta',x:-62,z:-25,rotationY:1.5708},
       {id:'guide-farm',kind:'guide',text:'Fazenda • Garagem',x:82,z:44,rotationY:0},
       {id:'guide-castle',kind:'guide',text:'Castelo',x:106,z:34,rotationY:0},
-      {id:'guide-lake',kind:'guide',text:'Lago • Píer',x:-24,z:42,rotationY:1.5708},
+      {id:'guide-lake',kind:'guide',text:'Represa • Píer',x:-62,z:40,rotationY:1.5708},
       {id:'guide-sports',kind:'guide',text:'Complexo Esportivo',x:42,z:64.6,rotationY:0},
       {id:'guide-kart',kind:'guide',text:'Kartódromo OTTHI',x:94,z:-71.4,rotationY:0},
       {id:'ov-urban-south',kind:'highway',highwayId:'ottovias-urban',segmentIndex:0,t:.52,side:1,offset:3.2,title:'OTTOVIAS',subtitle:'CENTRO • SAÍDA NORTE'},
@@ -1519,7 +1519,8 @@
       {id:'crouch-tunnel',kind:'challenge',point:'crouchTunnel',w:8,d:5,margin:1.0},
       {id:'construction-zone',kind:'construction',point:'construction',w:36,d:32,margin:0,allowRoadOverlap:false},
       {id:'ottovias-operations',kind:'transport',point:'ottoviasOperations',w:15,d:9,margin:1.0},
-      {id:'ottovias-tunnel',kind:'transport',point:'ottoviasTunnel',w:28,d:22,margin:.3,allowedHighways:['ottovias']},
+      {id:'metro-lake',kind:'transport',point:'metroLake',w:4.6,d:4.6,margin:.4,allowedRoads:['via-floresta-norte']},
+      {id:'ottovias-tunnel',kind:'transport',point:'ottoviasTunnel',w:20,d:38,margin:.3,allowedHighways:['ottovias']},
       {id:'ottovias-footbridge',kind:'transport',x:0,z:46,w:28,d:10,margin:.2,allowedRoads:['avenida-central-ns'],allowedHighways:['ottovias-urban']}
     ])
   });
@@ -1572,7 +1573,9 @@
       const a=structures[i],b=structures[j];if(a.kind==='construction'||b.kind==='construction'||compatible.has(`${a.id}|${b.id}`)||a.inside===b.id||b.inside===a.id)continue;
       if(v704RectOverlap(a,b,Math.max(Number(a.margin||0),Number(b.margin||0))))problems.push({type:'structure-overlap',a:a.id,b:b.id});
     }
-    const water=[WORLD_LAYOUT_V704.zones.lake,WORLD_LAYOUT_V704.zones.lakeNorth];for(const item of structures.filter(s=>!['terrain'].includes(s.kind)))for(const hazard of water)if(v704RectOverlap(item,hazard,.1))problems.push({type:'structure-in-water',a:item.id,b:hazard.id});
+    const water=[WORLD_LAYOUT_V704.zones.lake,WORLD_LAYOUT_V704.zones.lakeNorth];
+    for(const hazard of water)for(const road of roads)if(v704RectOverlap(hazard,road,.15))problems.push({type:'water-on-road',a:hazard.id,b:road.id});
+    for(const item of structures.filter(s=>!['terrain'].includes(s.kind)))for(const hazard of water)if(v704RectOverlap(item,hazard,.1))problems.push({type:'structure-in-water',a:item.id,b:hazard.id});
     for(const path of WORLD_LAYOUT_V704.paths){const rect=v704PathRect(path);for(const structure of structures){if(['construction-zone'].includes(structure.id)||path.destination===structure.id)continue;const startInside=v704PointInRect({x:path.x1,z:path.z1},structure,.1),endInside=v704PointInRect({x:path.x2,z:path.z2},structure,.1);if(!startInside&&!endInside&&v704RectOverlap(rect,structure,.2))problems.push({type:'path-through-structure',a:path.id,b:structure.id});}}
     for(const sign of WORLD_LAYOUT_V704.signs||[]){const point=sign.kind==='highway'?v704HighwaySignPoint(sign):{x:Number(sign.x),z:Number(sign.z)};if(!point||!Number.isFinite(point.x)||!Number.isFinite(point.z)){problems.push({type:'sign-invalid',a:sign.id});continue;}if(point.x<bounds.minX||point.x>bounds.maxX||point.z<bounds.minZ||point.z>bounds.maxZ)problems.push({type:'sign-out-of-bounds',a:sign.id});if(sign.kind==='guide'){if(roads.some(road=>v704PointInRect(point,road,.18)))problems.push({type:'guide-sign-on-road',a:sign.id});for(const highway of WORLD_LAYOUT_V704.highways||[])if(v704HighwayIntersectsRect(highway.id,{x:point.x,z:point.z,w:.3,d:.3},.1))problems.push({type:'guide-sign-on-highway',a:sign.id,b:highway.id});for(const hazard of water)if(v704PointInRect(point,hazard,.2))problems.push({type:'guide-sign-in-water',a:sign.id,b:hazard.id});for(const structure of structures)if(structure.kind!=='construction'&&v704PointInRect(point,structure,.15))problems.push({type:'guide-sign-in-structure',a:sign.id,b:structure.id});}else if(sign.kind==='highway'){const highway=v704HighwayById(sign.highwayId);if(!highway)problems.push({type:'highway-sign-route-missing',a:sign.id,b:sign.highwayId});}}
     return{version:704,passed:problems.length===0,problems,roads:roads.length,highways:(WORLD_LAYOUT_V704.highways||[]).length,structures:structures.length,zones:Object.keys(WORLD_LAYOUT_V704.zones).length,paths:WORLD_LAYOUT_V704.paths.length,signs:(WORLD_LAYOUT_V704.signs||[]).length};
@@ -1871,11 +1874,12 @@
   function routeSvgMarkup(points){const mapped=points.map(p=>worldToMap(p.x,p.z));return `<svg class="map-route" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true"><polyline points="${mapped.map(p=>`${p.left},${p.top}`).join(' ')}"/></svg>`;}
   function worldHighwaysSvgMarkup(){return (WORLD_LAYOUT_V704.highways||[]).map(highway=>{const mapped=(highway.points||[]).map(p=>worldToMap(p.x,p.z));if(highway.closed&&mapped.length)mapped.push(mapped[0]);return `<svg class="map-highway" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:1"><polyline points="${mapped.map(p=>`${p.left},${p.top}`).join(' ')}" fill="none" stroke="#202a31" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"/><polyline points="${mapped.map(p=>`${p.left},${p.top}`).join(' ')}" fill="none" stroke="#f2cf36" stroke-width=".35" stroke-dasharray="2 1.5"/></svg>`;}).join('');}
 
+  const METRO_LAKE_POINT=worldLayoutPoint('metroLake',{x:-45,z:56});
   const METRO_STATIONS = [
     { id:'central', name:'Estação Central', x:-12, z:5, navX:0, navZ:5, line:'Linha Solar' },
     { id:'academia', name:'Estação Academia', x:-4, z:-40, navX:0, navZ:-40, line:'Linha Solar' },
     { id:'floresta', name:'Estação Floresta', x:-55, z:-34, navX:-55, navZ:-34, line:'Linha Verde' },
-    { id:'lago', name:'Estação Lago', x:-55, z:56, navX:-55, navZ:56, line:'Linha Verde' },
+    { id:'lago', name:'Estação Represa', x:METRO_LAKE_POINT.x, z:METRO_LAKE_POINT.z, navX:METRO_LAKE_POINT.x, navZ:METRO_LAKE_POINT.z, line:'Linha Verde' },
     { id:'castelo', name:'Estação Castelo', x:100, z:38, navX:100, navZ:38, line:'Linha Real' },
     { id:'esportes', name:'Estação Complexo Esportivo', x:34, z:58, navX:34, navZ:58, line:'Linha Esportiva' },
     { id:'kart', name:'Estação Kartódromo', x:94, z:-65, navX:94, navZ:-65, line:'Linha Esportiva' }
@@ -1896,9 +1900,9 @@
     { id:'well', name:'Poço da Vila', icon:'🪣', ...mapPointV704('well'), group:'Recursos' },
     { id:'mine', name:'Mina Dourada', icon:'⛏️', ...mapPointV704('mine',6), group:'Recursos' },
     { id:'forest', name:'Floresta', icon:'🌲', ...mapPointV704('cabin',6), group:'Exploração' },
-    { id:'lake', name:'Represa / Lago', icon:'🌊', x:-36, z:52, navX:-28, navZ:52, group:'Água e Natureza' },
+    { id:'lake', name:'Represa OTTHI', icon:'🌊', x:-88, z:54, navX:-61, navZ:54, group:'Água e Natureza' },
     { id:'pier', name:'Píer do Lago', icon:'🛶', ...mapPointV704('pier'), group:'Água e Natureza' },
-    { id:'fishing', name:'Área de Pesca', icon:'🎣', x:-31, z:45, navX:-28, navZ:45, group:'Água e Natureza' },
+    { id:'fishing', name:'Área de Pesca', icon:'🎣', x:-72, z:42, navX:-64, navZ:42, group:'Água e Natureza' },
     { id:'camp', name:'Acampamento', icon:'🔥', ...mapPointV704('camp'), group:'Floresta e Campo' },
     { id:'hunt', name:'Área de Rastreamento', icon:'🐾', ...mapPointV704('hunt'), group:'Floresta e Campo' },
     { id:'cabin', name:'Cabana da Floresta', icon:'🛖', ...mapPointV704('cabin',5.3), group:'Floresta e Campo' },
@@ -3016,7 +3020,21 @@
       stableBox(.13,.02,d,edgeMaterial,x-w/2+.78,.132,z,worldGroup,3);stableBox(.13,.02,d,edgeMaterial,x+w/2-.78,.132,z,worldGroup,3);
     }
   }
-  function createWater(x,z,w,d){const water=stableBox(w,.12,d,materials.water,x,.04,z,worldGroup,1);water.material.depthWrite=false;for(let px=x-w/2+2;px<x+w/2;px+=4){stableBox(3.2,.18,.7,0x9fadb8,px,.09,z-d/2-.35,worldGroup,2);stableBox(3.2,.18,.7,0x9fadb8,px,.09,z+d/2+.35,worldGroup,2);}world.hazards.push({type:'water',x,z,w,d});}
+  function createWater(x,z,w,d,options={}){const water=stableBox(w,.12,d,materials.water,x,.04,z,worldGroup,1);water.material.depthWrite=false;water.userData={...(water.userData||{}),waterId:options.id||'',reservoir:!!options.reservoir};if(options.shore!==false)for(let px=x-w/2+2;px<x+w/2;px+=4){stableBox(3.2,.18,.7,0x9fadb8,px,.09,z-d/2-.35,worldGroup,2);stableBox(3.2,.18,.7,0x9fadb8,px,.09,z+d/2+.35,worldGroup,2);}world.hazards.push({type:'water',id:options.id||'',reservoir:!!options.reservoir,x,z,w,d});return water;}
+  function createReservoirBasin(main,north){
+    if(!main||!north)return null;const root=new THREE.Group();root.name='OTTHI_RESERVOIR_SINGLE_CONNECTED';worldGroup.add(root);const bank=renderMat(0xc9b77f,{roughness:.96}),stone=renderMat(0x73808a,{roughness:.92});
+    const mainWater=createWater(main.x,main.z,main.w,main.d,{id:'lake',reservoir:true,shore:false}),northWater=createWater(north.x,north.z,north.w,north.d,{id:'lakeNorth',reservoir:true,shore:false});
+    const banks=[
+      [main.x,main.z-main.d/2-.55,main.w+1.8,1.15],[main.x+main.w/2+.55,main.z,1.15,main.d+2.1],
+      [main.x-7.5,main.z+main.d/2+.55,main.w-15,1.15],[main.x-main.w/2-.55,main.z-1.4,1.15,main.d-2.8],
+      [north.x,north.z+north.d/2+.55,north.w+1.8,1.15],[north.x-north.w/2-.55,north.z,1.15,north.d+2.0],
+      [north.x+north.w/2+.55,north.z+2.2,1.15,north.d-4.4]
+    ];
+    for(const [x,z,w,d] of banks)stableBox(w,.16,d,bank,x,.085,z,root,2);
+    const rocks=[[-113.5,45],[-112.8,58],[-109,76.1],[-97,76.2],[-91.2,73],[-73,65.5],[-63.1,59],[-63.3,47]];for(const [x,z] of rocks){const mesh=new THREE.Mesh(new THREE.DodecahedronGeometry(.42,0),stone);mesh.position.set(x,.22,z);mesh.scale.set(1.45,.55,1);mesh.castShadow=false;root.add(mesh);}
+    const reedMat=renderMat(0x4f8f42,{roughness:.88});for(const [x,z] of [[-111,43],[-102,43],[-94,43],[-84,43],[-75,43],[-66,43],[-113,50],[-113,61],[-115,68],[-113,75],[-101,76],[-94,74],[-63,51],[-63,61]])for(const dx of[-.16,.05,.23]){const reed=new THREE.Mesh(new THREE.CylinderGeometry(.025,.035,.72+Math.abs(dx),6),reedMat);reed.position.set(x+dx,.38,z);reed.rotation.z=dx*.35;root.add(reed);}
+    world.reservoir={id:'otthi-reservoir',group:root,waters:[mainWater,northWater],main:{...main},north:{...north}};return world.reservoir;
+  }
   function createLava(x,z,w,d){const m=stableBox(w,.12,d,mat(0xff3a00,{emissive:0xff2200,emissiveIntensity:.9}),x,.04,z,worldGroup,1);world.hazards.push({type:'lava',x,z,w,d});return m;}
 
   function createFurniture(house, type, lx, lz, color=0xffffff, label='Usar') {
@@ -3279,7 +3297,7 @@
     if(!vehicle||!state.vehicles)return;state.vehicles.parked[vehicle.id]={x:+vehicle.group.position.x.toFixed(2),z:+vehicle.group.position.z.toFixed(2),heading:+vehicle.group.rotation.y.toFixed(3)};state.vehicles.lastUsedId=vehicle.id;
   }
   function createToyCar(x,z,options={}){
-    const id=options.id||`city-car-${world.vehicles.length+1}`,saved=state.vehicles?.parked?.[id]||{},heading=Number(saved.heading??options.heading??0),group=new THREE.Group();group.position.set(Number(saved.x??x),0,Number(saved.z??z));group.rotation.y=heading;group.userData.vehicleId=id;worldGroup.add(group);
+    const id=options.id||`city-car-${world.vehicles.length+1}`,saved=state.vehicles?.parked?.[id]||{},heading=Number(saved.heading??options.heading??0),group=new THREE.Group(),rawX=Number(saved.x??x),rawZ=Number(saved.z??z),spawn=v704ClampWorldPoint(Number.isFinite(rawX)?rawX:x,Number.isFinite(rawZ)?rawZ:z,.9);group.position.set(spawn.x,0,spawn.z);group.rotation.y=heading;group.userData.vehicleId=id;worldGroup.add(group);
     const appearance={chassis:options.chassis??0x26384e,primary:options.primary??0xf28a22,primaryDark:options.primaryDark??options.primary??0xc85b16,secondary:options.secondary??0x0aa7b8,glass:options.glass??0x102338};
     const chassis=renderMat(appearance.chassis,{roughness:.5,metalness:.16}),orange=renderMat(appearance.primary,{roughness:.4,metalness:.18}),teal=renderMat(appearance.secondary,{roughness:.38,metalness:.22}),glass=renderMat(appearance.glass,{roughness:.12,metalness:.38,transparent:true,opacity:.84});
     box(1.84,.36,2.56,chassis,0,.28,0,group);box(1.72,.48,1.35,orange,0,.55,.55,group);box(1.48,.46,.92,teal,0,.78,-.48,group);box(1.32,.31,.72,glass,0,.93,-.42,group);
@@ -3588,8 +3606,19 @@
     OTTOVIAS_RUNTIME.cachedSegments=null;return root;
   }
   function clearOttoviasRoadRocks(){const removed=[];for(const resource of world.resources||[]){if(resource?.type!=='stone'||!v704HighwayAt(resource.x,resource.z,1.6,true))continue;resource.mesh?.parent?.remove(resource.mesh);removed.push(resource.id);}if(!removed.length)return 0;world.resources=world.resources.filter(item=>!removed.includes(item.id));for(const interaction of world.interactables||[])if(removed.includes(interaction.id))interaction.disabled=true;return removed.length;}
-  function createOttoviasTunnel(){const p=ottoviasSegmentPoint(15,.5),root=new THREE.Group();root.position.set(p.x,0,p.z);root.rotation.y=p.heading;root.name='OTTHI_OTTOVIAS_TUNNEL';worldGroup.add(root);const concrete=ottoviasMaterial(0x59636d,{roughness:.94}),edge=ottoviasMaterial(0x89939b,{roughness:.84}),dark=ottoviasMaterial(0x252d34,{roughness:.96}),light=ottoviasMaterial(0xe7f7ff,{emissive:0x85dfff,emissiveIntensity:1.15,roughness:.3});
-    premiumBox(2.0,6.5,27,concrete,-9.0,3.25,0,root);premiumBox(2.0,6.5,27,concrete,9.0,3.25,0,root);premiumBox(20,1.35,27,dark,0,6.55,0,root);for(const z of[-13.25,13.25]){premiumBox(2.35,7.2,1.0,edge,-8.8,3.6,z,root);premiumBox(2.35,7.2,1.0,edge,8.8,3.6,z,root);premiumBox(19.9,1.0,1.0,edge,0,6.75,z,root);}for(const z of[-9,-3,3,9]){premiumBox(3.2,.12,.7,light,-4.2,5.75,z,root);premiumBox(3.2,.12,.7,light,4.2,5.75,z,root);}const sign=new THREE.Mesh(new THREE.PlaneGeometry(9.2,1.05),new THREE.MeshStandardMaterial({map:signTexture('TÚNEL OTTOVIAS\nMANTENHA A FAIXA','#20313d','#ffffff'),roughness:.55,side:THREE.DoubleSide}));sign.position.set(0,5.68,-13.78);root.add(sign);registerInteractable({id:'ottovias-tunnel-info',type:'transport',icon:'🚇',label:'Túnel OTTOVIAS • passagem livre',x:p.x,z:p.z,radius:8,priority:145,action:()=>toast('Túnel rodoviário: mantenha a faixa, reduza e não pare no interior.','good',2200)});OTTOVIAS_RUNTIME.biomeGroups.push({id:'tunnel',group:root,cx:p.x,cz:p.z,radius:30});OTTOVIAS_RUNTIME.tunnel=root;return root;}
+  function createOttoviasTunnel(){
+    if(OTTOVIAS_RUNTIME.tunnel)return OTTOVIAS_RUNTIME.tunnel;
+    const p=ottoviasSegmentPoint(15,.5),root=new THREE.Group(),length=36,archSegments=13,outerRadius=8.35,wallHeight=4.65;root.position.set(p.x,0,p.z);root.rotation.y=p.heading;root.name='OTTHI_OTTOVIAS_TUNNEL';root.userData={ottoviasTunnel:true,singleContinuousTunnel:true,length,clearWidth:14.4};worldGroup.add(root);
+    const concrete=ottoviasMaterial(0x56616a,{roughness:.93}),liner=ottoviasMaterial(0x737f87,{roughness:.82}),portal=ottoviasMaterial(0x9aa4aa,{roughness:.76}),dark=ottoviasMaterial(0x242c32,{roughness:.97}),walkway=ottoviasMaterial(0xb4bec2,{roughness:.88}),light=ottoviasMaterial(0xeaf8ff,{emissive:0x78d8ff,emissiveIntensity:1.35,roughness:.25}),reflector=ottoviasMaterial(0xffd653,{emissive:0xffba2d,emissiveIntensity:.85,roughness:.3});
+    premiumBox(1.25,wallHeight,length,concrete,-8.45,wallHeight/2,0,root);premiumBox(1.25,wallHeight,length,concrete,8.45,wallHeight/2,0,root);
+    for(let i=0;i<archSegments;i++){const theta=i/(archSegments-1)*Math.PI,x=Math.cos(theta)*outerRadius,y=wallHeight+Math.sin(theta)*3.8,slab=premiumBox(1.55,.62,length,liner,x,y,0,root);slab.rotation.z=theta-Math.PI/2;slab.userData.tunnelArchSegment=i;}
+    for(const z of[-length/2,length/2]){premiumBox(2.0,wallHeight+.45,1.15,portal,-8.42,(wallHeight+.45)/2,z,root);premiumBox(2.0,wallHeight+.45,1.15,portal,8.42,(wallHeight+.45)/2,z,root);for(let i=0;i<archSegments;i++){const theta=i/(archSegments-1)*Math.PI,x=Math.cos(theta)*outerRadius,y=wallHeight+Math.sin(theta)*3.8,frame=premiumBox(1.8,.85,1.15,portal,x,y,z,root);frame.rotation.z=theta-Math.PI/2;}}
+    for(const side of[-1,1]){premiumBox(.92,.22,length-1.3,walkway,side*7.48,.13,0,root);premiumBox(.18,.38,length-1.3,portal,side*7.0,.27,0,root);for(let z=-15;z<=15;z+=5){premiumBox(.16,.32,.12,reflector,side*7.84,.78,z,root);premiumBox(.16,1.3,.12,dark,side*8.02,1.52,z,root);}}
+    for(const z of[-14,-8,-2,4,10,16]){premiumBox(3.4,.12,.62,light,-3.7,7.65,z,root);premiumBox(3.4,.12,.62,light,3.7,7.65,z,root);}
+    for(const z of[-9,9]){premiumBox(.75,1.25,.28,0xd14b45,-7.72,1.45,z,root);premiumBox(.75,.28,.34,light,-7.72,2.22,z,root);}
+    const sign=new THREE.Mesh(new THREE.PlaneGeometry(9.2,1.05),new THREE.MeshStandardMaterial({map:signTexture('TÚNEL OTTOVIAS\nMANTENHA A FAIXA','#20313d','#ffffff'),roughness:.55,side:THREE.DoubleSide}));sign.position.set(0,6.0,-length/2-.62);root.add(sign);
+    registerInteractable({id:'ottovias-tunnel-info',type:'transport',icon:'🚇',label:'Túnel OTTOVIAS • passagem livre',x:p.x,z:p.z,radius:9,priority:145,action:()=>toast('Túnel rodoviário: mantenha a faixa, acenda os faróis e não pare no interior.','good',2200)});OTTOVIAS_RUNTIME.biomeGroups.push({id:'tunnel',group:root,cx:p.x,cz:p.z,radius:34});OTTOVIAS_RUNTIME.tunnel=root;return root;
+  }
   function createOttoviasBridgePedestrian(root,x,color,phase){const person=new THREE.Group();person.position.set(x,5.93,0);root.add(person);const body=premiumBox(.45,.8,.3,color,0,1.05,0,person),head=new THREE.Mesh(new THREE.SphereGeometry(.24,10,8),ottoviasMaterial(0xc78967,{roughness:.7}));head.position.set(0,1.68,0);person.add(head);const left=premiumBox(.13,.72,.14,0x26384b,-.14,.38,0,person),right=premiumBox(.13,.72,.14,0x26384b,.14,.38,0,person);person.userData={phase,direction:phase%2?1:-1,body,left,right};OTTOVIAS_RUNTIME.bridgePedestrians.push(person);return person;}
   function createOttoviasPedestrianBridge(){const p=worldLayoutPoint('ottoviasFootbridge',{x:0,z:43}),root=new THREE.Group();root.position.set(p.x,0,p.z);root.name='OTTHI_OTTOVIAS_PEDESTRIAN_BRIDGE';worldGroup.add(root);const steel=ottoviasMaterial(0x49697b,{roughness:.55,metalness:.28}),deck=ottoviasMaterial(0xbac6cc,{roughness:.82}),rail=ottoviasMaterial(0xe4edf0,{roughness:.42,metalness:.22});premiumBox(28,.38,2.8,deck,0,5.72,0,root);registerPlatform(p.x,p.z,28,2.8,5.91,{landmark:'ottovias-footbridge'});for(const x of[-12.1,12.1]){premiumBox(.55,5.7,.55,steel,x,2.85,0,root);registerCollider(p.x+x,p.z,.55,.55,{landmark:'ottovias-footbridge-support'});}for(const z of[-1.25,1.25]){premiumBox(28,.11,.11,rail,0,6.75,z,root);for(let x=-13.4;x<=13.4;x+=2.1)premiumBox(.08,1.5,.08,rail,x,6.38,z,root);}for(const side of[-1,1])for(let i=0;i<12;i++){const top=.44+i*.47,z=7.25-i*.52,x=side*13.55;premiumBox(3.15,top,.66,deck,x,top/2,z,root);registerPlatform(p.x+x,p.z+z,3.15,.72,top,{landmark:'ottovias-footbridge-stairs'});}for(const side of[-1,1]){const x=side*13.55;registerInteractable({id:`ottovias-footbridge-${side>0?'east':'west'}`,type:'transport',icon:'🚶',label:'Passarela suspensa • travessia segura',x:p.x+x,z:p.z+7.35,radius:3.8,priority:150,action:()=>toast('Use a passarela para atravessar a OTTOVIAS a pé com segurança.','good',2100)});}const sign=new THREE.Mesh(new THREE.PlaneGeometry(6.8,.85),new THREE.MeshStandardMaterial({map:signTexture('PASSARELA\nPEDESTRES','#1b5a72','#ffffff'),roughness:.55,side:THREE.DoubleSide}));sign.position.set(0,6.8,1.37);root.add(sign);createOttoviasBridgePedestrian(root,-7.5,0xe86a52,0);createOttoviasBridgePedestrian(root,5.5,0x4f83d8,1);OTTOVIAS_RUNTIME.footbridge=root;return root;}
   function ottoviasLaneRoute(points,offset=2.45,reverse=false){const source=(reverse?[...points].reverse():[...points]).map(p=>({x:Number(p.x),z:Number(p.z)})),count=source.length;return source.map((p,index)=>{const prev=source[(index-1+count)%count],next=source[(index+1)%count],dx=next.x-prev.x,dz=next.z-prev.z,len=Math.hypot(dx,dz)||1,rx=dz/len,rz=-dx/len;for(const factor of[1,.72,.4,0]){const candidate={x:p.x+rx*offset*factor,z:p.z+rz*offset*factor};if(v704HighwayAt(candidate.x,candidate.z,.25,false))return candidate;}return p;});}
@@ -3714,6 +3743,7 @@
   }
 
   function createMetroEntrance(station){
+    if(isInsideLakeNavigable(station.x,station.z)){const dry=safePointNear(station.x,station.z,{radius:.55,ignoreTraffic:true,allowWater:false,distances:[5,7,9,12]});station.x=dry.x;station.z=dry.z;}
     const g=new THREE.Group();g.position.set(station.x,0,station.z);worldGroup.add(g);
     premiumBox(4.3,.24,4.6,0x27384a,0,.12,0,g);premiumBox(3.65,.24,3.9,0xc9d6df,0,.3,0,g);
     for(let i=0;i<5;i++)premiumBox(2.8,.16,.58,0x718291,0,.35-i*.02,.6+i*.5,g);
@@ -4143,11 +4173,11 @@
   function rectOverlap(a,b,pad=0){return Math.abs(a.x-b.x)<(a.w+b.w)/2+pad&&Math.abs(a.z-b.z)<(a.d+b.d)/2+pad;}
   function insideWater(x,z,h){return Math.abs(x-h.x)<=h.w/2&&Math.abs(z-h.z)<=h.d/2;}
   function waterAt(x,z){return(world.hazards||[]).find(h=>h.type==='water'&&insideWater(x,z,h));}
-  function isInsideLakeNavigable(x,z){return (x>=-113&&x<=-29&&z>=44&&z<=60)||(x>=-116&&x<=-82&&z>=55&&z<=84);}
-  function isNearFishingArea(){return player.boating||Math.hypot(player.x+28,player.z-45)<9||Math.hypot(player.x+27,player.z-57)<9;}
+  function isInsideLakeNavigable(x,z){const water=waterAt(x,z);return !!water?.reservoir;}
+  function isNearFishingArea(){const pier=worldLayoutPoint('pier',{x:-67,z:54}),lake=worldLayoutRect('lake')||{x:-88,z:54,w:50,d:22};return player.boating||Math.hypot(player.x-pier.x,player.z-pier.z)<9||Math.abs(player.z-(lake.z-lake.d/2))<4&&Math.abs(player.x-lake.x)<lake.w/2-2||Math.abs(player.z-(lake.z+lake.d/2))<4&&Math.abs(player.x-lake.x)<lake.w/2-2;}
   function resolveWaterWalking(prevX,prevZ){if(player.boating||player.vehicle||currentHouse){player.swimming=false;return;}const h=waterAt(player.x,player.z);const nowSwimming=!!h&&groundHeightAt(player.x,player.z)<=.24;if(nowSwimming&&!player.swimming&&performance.now()-waterWarningAt>900){waterWarningAt=performance.now();toast('Você entrou na água. Use o joystick para nadar e PULAR para uma braçada.','good',2400);}if(!nowSwimming&&player.swimming&&performance.now()-waterWarningAt>700){waterWarningAt=performance.now();toast('Você saiu da água.','good',1100);}player.swimming=nowSwimming;if(player.swimming){player.vx*=.985;player.vz*=.985;}}
 
-  const BOAT_DOCK={minX:-36,maxX:-24,minZ:50.5,maxZ:53.5,exitX:-23.25,touchDistance:4.4};
+  const BOAT_DOCK={minX:-72,maxX:-62,minZ:52.5,maxZ:55.5,exitX:-60.8,touchDistance:4.4};
   function distanceToBoatDock(x=player.x,z=player.z){const nx=clamp(x,BOAT_DOCK.minX,BOAT_DOCK.maxX),nz=clamp(z,BOAT_DOCK.minZ,BOAT_DOCK.maxZ);return Math.hypot(x-nx,z-nz);}
   function validBoatExit(){return distanceToBoatDock()<=BOAT_DOCK.touchDistance;}
   function safeBoatExitPoint(){return{x:BOAT_DOCK.exitX,z:clamp(player.z,BOAT_DOCK.minZ+.25,BOAT_DOCK.maxZ-.25)};}
@@ -4169,9 +4199,9 @@
   function setFishingLine(a,b){const v=fishingVisual;if(!v)return;const attr=v.line.geometry.getAttribute('position'),arr=attr.array;arr[0]=a.x;arr[1]=a.y;arr[2]=a.z;arr[3]=b.x;arr[4]=b.y;arr[5]=b.z;attr.needsUpdate=true;}
   function fishingCastTarget(source){
     let dx,dz,dist=source==='boat'?5.4:5.0;
-    if(source==='boat'){const heading=player.boat.heading;dx=Math.sin(heading);dz=Math.cos(heading);}else{dx=-45-player.x;dz=52-player.z;const m=Math.hypot(dx,dz)||1;dx/=m;dz/=m;}
+    if(source==='boat'){const heading=player.boat.heading;dx=Math.sin(heading);dz=Math.cos(heading);}else{const lake=worldLayoutPoint('lake',{x:-88,z:54});dx=lake.x-player.x;dz=lake.z-player.z;const m=Math.hypot(dx,dz)||1;dx/=m;dz/=m;}
     let x=player.x+dx*dist,z=player.z+dz*dist;
-    if(!isInsideLakeNavigable(x,z)){dx=-72-player.x;dz=52-player.z;const m=Math.hypot(dx,dz)||1;x=player.x+dx/m*dist;z=player.z+dz/m*dist;}
+    if(!isInsideLakeNavigable(x,z)){const lake=worldLayoutPoint('lake',{x:-88,z:54});dx=lake.x-player.x;dz=lake.z-player.z;const m=Math.hypot(dx,dz)||1;x=player.x+dx/m*dist;z=player.z+dz/m*dist;}
     return new THREE.Vector3(x,.16,z);
   }
   function beginFishingVisual(source){
@@ -4239,7 +4269,7 @@
   }
   function createShoreFishingLife(){
     if(world.shoreFishers.length)return;[
-      ['shore-fisher-otto','Otto',-24.8,44.1,-2.72,0x2f78d1],['shore-fisher-luna','Luna',-27.7,43.3,-2.95,0xe35d9c],['shore-fisher-pedro','Pedro',-31.0,43.9,2.95,0x2faa68],['shore-fisher-maya','Maya',-25.3,59.7,.22,0xf09a31],['shore-fisher-caio','Caio',-29.2,60.2,-.12,0x805ad5]
+      ['shore-fisher-otto','Otto',-72.5,42.2,0,0x2f78d1],['shore-fisher-luna','Luna',-79.0,42.1,0,0xe35d9c],['shore-fisher-pedro','Pedro',-86.0,42.2,0,0x2faa68],['shore-fisher-maya','Maya',-73.5,65.8,Math.PI,0xf09a31],['shore-fisher-caio','Caio',-81.0,65.9,Math.PI,0x805ad5]
     ].forEach(args=>createShoreFisher(...args));
   }
   function updateShoreFishers(dt){
@@ -4248,8 +4278,8 @@
   }
   function createBoatModel(){
     const g=new THREE.Group();const hull=renderMat(0x7b3f20,{roughness:.72}),edge=renderMat(0xe3ad55,{roughness:.62}),seat=renderMat(0x374151,{roughness:.72});
-    premiumBox(2.4,.42,4.4,hull,0,.38,0,g);premiumBox(2.75,.25,3.85,edge,0,.67,0,g);premiumBox(1.85,.23,3.15,renderMat(0x2d6f8d,{roughness:.48}),0,.83,0,g);premiumBox(1.75,.25,.55,seat,0,1.02,-.65,g);premiumBox(1.75,.25,.55,seat,0,1.02,.72,g);premiumBox(.12,1.8,.12,0xd8c28d,.95,1.35,.1,g);premiumBox(1.45,.05,.72,0xf5f1df,.25,2.05,.1,g);g.position.set(-38,.1,52);worldGroup.add(g);world.boat={id:'lake-boat',group:g,x:-38,z:52,heading:0,driverUid:'',passengerUid:''};
-    registerInteractable({id:'lake-boat-entry',type:'boat',icon:'🛶',label:'Entrar no barco',radius:3.1,priority:180,getPos:()=>({x:world.boat?.group.position.x||-38,z:world.boat?.group.position.z||52}),action:enterBoat});
+    premiumBox(2.4,.42,4.4,hull,0,.38,0,g);premiumBox(2.75,.25,3.85,edge,0,.67,0,g);premiumBox(1.85,.23,3.15,renderMat(0x2d6f8d,{roughness:.48}),0,.83,0,g);premiumBox(1.75,.25,.55,seat,0,1.02,-.65,g);premiumBox(1.75,.25,.55,seat,0,1.02,.72,g);premiumBox(.12,1.8,.12,0xd8c28d,.95,1.35,.1,g);premiumBox(1.45,.05,.72,0xf5f1df,.25,2.05,.1,g);g.position.set(-70,.1,54);worldGroup.add(g);world.boat={id:'lake-boat',group:g,x:-70,z:54,heading:0,driverUid:'',passengerUid:''};
+    registerInteractable({id:'lake-boat-entry',type:'boat',icon:'🛶',label:'Entrar no barco',radius:3.1,priority:180,getPos:()=>({x:world.boat?.group.position.x||-70,z:world.boat?.group.position.z||54}),action:enterBoat});
   }
   function ensureBoatPanel(){
     if(boatPanel)return boatPanel;boatPanel=document.createElement('div');boatPanel.id='boatActivityPanel';boatPanel.className='boat-activity-panel';boatPanel.innerHTML='<button type="button" data-boat-fish>🎣<span>Pescar</span></button><button type="button" data-boat-exit>🏝️<span>Sair</span></button>';document.body.appendChild(boatPanel);boatPanel.querySelector('[data-boat-fish]').onclick=()=>startFishing('boat');boatPanel.querySelector('[data-boat-exit]').onclick=()=>exitBoat();return boatPanel;
@@ -4281,7 +4311,7 @@
     const safe=safeBoatExitPoint();player.x=safe.x;player.z=safe.z;player.y=groundHeightAt(safe.x,safe.z);player.vx=player.vy=player.vz=0;player.grounded=true;rememberSafePlayerPosition(true);updateBoatPanel();updateVehicleControlsUI();auditPlayerMode('exit-boat');if(!silent)toast('Você desembarcou no píer.','good');saveState(true);return true;
   }
   function updateBoatPhysics(dt,ix,iz){
-    const boat=player.boat;if(boat.passengerOf){const ghost=world.ghosts.get(boat.passengerOf),target=ghost?.userData?.target;if(!ghost||!target){boat.hostMissingAt=boat.hostMissingAt||performance.now();if(performance.now()-boat.hostMissingAt>3500){toast('O motorista saiu. Você voltou ao píer.','warn');player.x=-24.7;player.z=52;exitBoat(true);}player.vx=player.vz=0;return;}boat.hostMissingAt=0;const tx=Number(target.x||ghost.position.x),tz=Number(target.z||ghost.position.z);player.vx=clamp((tx-player.x)*8,-18,18);player.vz=clamp((tz-player.z)*8,-18,18);boat.heading=Number(target.r||boat.heading);player.facing=boat.heading;return;}
+    const boat=player.boat;if(boat.passengerOf){const ghost=world.ghosts.get(boat.passengerOf),target=ghost?.userData?.target;if(!ghost||!target){boat.hostMissingAt=boat.hostMissingAt||performance.now();if(performance.now()-boat.hostMissingAt>3500){toast('O motorista saiu. Você voltou ao píer.','warn');player.x=BOAT_DOCK.exitX;player.z=54;exitBoat(true);}player.vx=player.vz=0;return;}boat.hostMissingAt=0;const tx=Number(target.x||ghost.position.x),tz=Number(target.z||ghost.position.z);player.vx=clamp((tx-player.x)*8,-18,18);player.vz=clamp((tz-player.z)*8,-18,18);boat.heading=Number(target.r||boat.heading);player.facing=boat.heading;return;}
     // V643: mesma convenção do carro — manche para a direita vira para a direita.
     const steer=Math.abs(ix)<.07?0:-ix,command=mobilityThrottleIntent(iz,boat.speed),throttle=command.throttle;
     if(command.brake)boat.speed=approachNumber(boat.speed,0,(7.2+Math.abs(boat.speed)*.8)*dt);else{const crossing=boat.speed*throttle<-.08;boat.speed+=throttle*8.5*(crossing?1.8:1)*dt;}
@@ -4375,9 +4405,9 @@
   function openHouseExtensionPlanner(type){const house=nearestOwnedHouseForExtension();if(!house||distance2D(player,house)>16){toast('Chegue perto de uma casa que você possui.','warn');return;}let side=0;const spec=ROOM_SPECS[type];const place=extensionPlacement(house,side);extensionDraft={id:uid(),houseId:house.id,type,side,...place,ownerId:state.profile.playerId,ownerName:playerDisplayName()};renderExtensionPreview();openModal(`Ampliar: ${spec.name}`,`<p>A prévia transparente aparece ao lado da casa. Ajuste o lado e a rotação antes de confirmar.</p><div class="extension-status" data-extension-status></div><div class="modal-actions"><button class="btn" data-side>Próximo lado</button><button class="btn" data-rotate>Girar</button><button class="btn primary" data-confirm-extension>Confirmar • ${costText(spec.cost)}</button><button class="btn danger" data-cancel-extension>Cancelar</button></div>`,root=>{const status=$('[data-extension-status]',root),update=()=>{const p=extensionPlacement(house,side);extensionDraft={...extensionDraft,side,x:p.x,z:p.z};renderExtensionPreview();status.textContent=extensionValid(extensionDraft)?'✓ Terreno válido':'⚠ Este local está bloqueado';status.className=`extension-status ${extensionValid(extensionDraft)?'good':'bad'}`;};update();$('[data-side]',root).onclick=()=>{side=(side+1)%4;update();};$('[data-rotate]',root).onclick=()=>{extensionDraft.rotation=(Number(extensionDraft.rotation||0)+Math.PI/2)%(Math.PI*2);renderExtensionPreview();};$('[data-cancel-extension]',root).onclick=closeModal;$('[data-confirm-extension]',root).onclick=()=>{if(!extensionValid(extensionDraft)){toast('Escolha um lado livre da casa.','warn');return;}if(!resourcesEnough(spec.cost)){toast(`Faltam recursos: ${costText(spec.cost)}.`,'warn',2600);return;}for(const[k,v]of Object.entries(spec.cost))state.inventory[k]-=v;const data={...extensionDraft,createdAt:Date.now()};state.houseExtensions.push(data);clearExtensionPreview();closeModal();spawnHouseExtension(data);saveState(true);window.OTTHOS_RTDB?.syncHouseExtensions?.(state.houseExtensions);toast(`${spec.name} construído. Aproxime-se e use AÇÃO para colocar móveis.`,'good',3400);};});}
   function openHouseExtensionMenu(){openModal('Ampliação modular da casa',`<p>Escolha o novo cômodo. Os interiores e móveis existentes serão preservados.</p><div class="choice-grid">${Object.entries(ROOM_SPECS).map(([id,r])=>`<button class="choice" data-room="${id}"><b>${r.icon} ${r.name}</b><span>${costText(r.cost)}</span></button>`).join('')}</div>`,root=>{$$('[data-room]',root).forEach(btn=>btn.onclick=()=>{closeModal();openHouseExtensionPlanner(btn.dataset.room);});});}
   function createLakeExpansion(){
-    premiumBox(12,.32,3,materials.wood,-30,.34,52);registerPlatform(-30,52,12,3,.5,{pier:true});for(const z of [44.8,59.2])premiumBox(2.2,.35,.35,0xd7c7a0,-25.5,.25,z);createSignpost(-22,47,'Píer e Pesca',Math.PI/2);
-    for(const [x,z,s] of [[-23.8,42.9,.75],[-26.5,42.4,.55],[-29.4,42.7,.68],[-32.2,43.1,.52],[-23.9,60.8,.68],[-27.1,61.2,.55],[-30.4,61.0,.72]]){premiumBox(1.1*s,.28*s,.8*s,materials.stone,x,.1,z);for(let i=0;i<3;i++){const reed=premiumCylinder(.035,.85+Math.random()*.35,0x4f8f42,x+(i-1)*.18,.45,z+(Math.random()-.5)*.28,worldGroup,6);reed.rotation.z=(Math.random()-.5)*.12;}}
-    registerInteractable({id:'shore-fishing',type:'fishing',icon:'🎣',label:'Pescar na margem',x:-25.5,z:45,radius:3.2,priority:160,action:()=>startFishing('shore')});createShoreFishingLife();createBoatModel();
+    const pier=worldLayoutPoint('pier',{x:-67,z:54}),lake=worldLayoutRect('lake')||{x:-88,z:54,w:50,d:22};premiumBox(12,.32,3,materials.wood,pier.x,.34,pier.z);registerPlatform(pier.x,pier.z,12,3,.5,{pier:true});for(const z of [lake.z-lake.d/2-.8,lake.z+lake.d/2+.8])premiumBox(2.2,.35,.35,0xd7c7a0,pier.x+2.5,.25,z);createSignpost(pier.x+7,pier.z-7,'Píer e Pesca',Math.PI/2);
+    for(const [x,z,s] of [[-72.5,42.4,.75],[-79.5,42.2,.55],[-86.5,42.3,.68],[-94.0,42.5,.52],[-72.5,65.6,.68],[-80.0,65.8,.55],[-87.5,65.7,.72]]){premiumBox(1.1*s,.28*s,.8*s,materials.stone,x,.1,z);for(let i=0;i<3;i++){const reed=premiumCylinder(.035,.85+Math.random()*.35,0x4f8f42,x+(i-1)*.18,.45,z+(Math.random()-.5)*.28,worldGroup,6);reed.rotation.z=(Math.random()-.5)*.12;}}
+    registerInteractable({id:'shore-fishing',type:'fishing',icon:'🎣',label:'Pescar na margem',x:pier.x+2,z:pier.z-5.6,radius:3.2,priority:160,action:()=>startFishing('shore')});createShoreFishingLife();createBoatModel();
   }
   function restoreLifeExpansion(){for(const c of state.campfires){if(Number(c.expiresAt||0)>Date.now())spawnCampfire(c);if(c.cooking&&Number(c.cooking.endsAt||0)<=Date.now())finishCampfireCooking(c,c.cooking.id);}for(const e of state.houseExtensions)spawnHouseExtension(e);}
   function updateLifeActivities(dt){updateShoreFishers(dt);world.activityAcc+=dt;if(world.activityAcc<.5)return;world.activityAcc=0;const now=Date.now();for(const c of [...world.campfires]){if(c.flame)c.flame.scale.y=.85+Math.sin(performance.now()*.009+c.data.x)*.18;if(c.data.cooking&&Number(c.data.cooking.endsAt||0)<=now)finishCampfireCooking(c.data,c.data.cooking.id);if(Number(c.data.expiresAt||0)<=now){c.data.expired=true;c.interactable.disabled=true;worldGroup.remove(c.group);world.campfires=world.campfires.filter(x=>x!==c);if(!c.data.remote)state.campfires=state.campfires.filter(x=>x.id!==c.data.id);}}
@@ -4397,8 +4427,8 @@
     for(const road of L.roads)createRoad(road.x,road.z,road.w,road.d);
     createDistrictVisuals();createLearningPlaza();createOttoviasWorld();
 
-    // Água, ponte e zona de lava preservadas, fora das áreas urbanas e esportivas.
-    const lake=P('lake'),lakeNorth=P('lakeNorth');createWater(lake.x,lake.z,88,18);createWater(lakeNorth.x,lakeNorth.z,32,14);
+    // A represa usa a geometria oficial do layout e permanece fisicamente separada da via.
+    const lake=worldLayoutRect('lake'),lakeNorth=worldLayoutRect('lakeNorth');createReservoirBasin(lake,lakeNorth);
     for(let i=-5;i<=5;i++){const part=box(2.1,.35,5,materials.wood,-12+i*2.15,.25,52);world.bridgeParts.push(part);registerPlatform(-12+i*2.15,52,2.1,5,.43,{bridgePart:i+5});}
     const lava=P('lava');createLava(lava.x,lava.z,26,20);
 
@@ -4954,8 +4984,9 @@
   }
   function enterVehicle(vehicle=world.vehicle){
     if(player.vehicle||player.boating||player.transit.mode||!vehicle||vehicle.occupied||!canEnterMobility(PLAYER_MODES.VEHICLE_DRIVER))return false;
+    const bounds=v704WorldBounds(),margin=.9,rawX=Number(vehicle.group?.position?.x),rawZ=Number(vehicle.group?.position?.z);if(!Number.isFinite(rawX)||!Number.isFinite(rawZ)){toast('Veículo indisponível nesta posição.','warn');return false;}const board=v704ClampWorldPoint(rawX,rawZ,margin);if(board.x!==rawX||board.z!==rawZ){vehicle.group.position.x=board.x;vehicle.group.position.z=board.z;vehicle.x=board.x;vehicle.z=board.z;persistParkedVehicle(vehicle);}const originValid=Number.isFinite(player.x)&&Number.isFinite(player.z)&&player.x>=bounds.minX+margin&&player.x<=bounds.maxX-margin&&player.z>=bounds.minZ+margin&&player.z<=bounds.maxZ-margin&&!isInsideLakeNavigable(player.x,player.z)&&!positionBlockedForPlayer(player.x,player.z,.26,{ignoreActor:vehicle,ignoreTraffic:true,allowWater:false});if(originValid){player.lastSafeX=player.x;player.lastSafeZ=player.z;player.lastSafeY=groundHeightAt(player.x,player.z);player.lastSafeAt=performance.now();state.position={x:+player.x.toFixed(2),y:+player.lastSafeY.toFixed(2),z:+player.z.toFixed(2),yaw:+Number(cameraYaw||0).toFixed(3)};}
     activeVehicleRef=vehicle;world.activeVehicle=vehicle;player.preVehicleAbilities={scaleMode:player.scaleMode,crouched:player.crouched};player.sitUntil=0;player.attackUntil=0;player.spinUntil=0;player.jumpBuffer=0;player.vy=0;player.grounded=true;clearMovementInputs();
-    input.mobilityAccelerate=false;input.mobilityBrake=false;player.vehicle=true;player.car.id=vehicle.id;player.car.kind=vehicle.serviceType||vehicle.kind||'car';player.car.label=vehicle.label||'Veículo';player.car.passengerOf='';player.car.passengerUid='';player.car.passengerBotId='';player.car.heading=vehicle.group.rotation.y||player.facing;player.car.speed=0;player.car.steerVisual=0;player.car.drift=0;player.car._prevSpeed=0;player.x=vehicle.group.position.x;player.z=vehicle.group.position.z;player.y=groundHeightAt(player.x,player.z);player.facing=player.car.heading;vehicle.occupied=true;
+    input.mobilityAccelerate=false;input.mobilityBrake=false;player.vehicle=true;player.car.id=vehicle.id;player.car.kind=vehicle.serviceType||vehicle.kind||'car';player.car.label=vehicle.label||'Veículo';player.car.passengerOf='';player.car.passengerUid='';player.car.passengerBotId='';player.car.heading=vehicle.group.rotation.y||player.facing;player.car.speed=0;player.car.steerVisual=0;player.car.drift=0;player.car._prevSpeed=0;player.x=board.x;player.z=board.z;player.y=groundHeightAt(player.x,player.z);player.facing=player.car.heading;vehicle.occupied=true;
     player.scaleMode='normal';player.crouched=false;syncPlayerRootScale();updateAbilityUI();if(playerModel)playerModel.visible=false;if(avatarLayer)avatarLayer.visible=false;applyVehicleAppearance(vehicle);vehicleVisual.visible=true;vehicleVisual.scale.set(1,1,1);vehicleVisual.rotation.set(0,0,0);vehicle.group.visible=false;els.vehicleBadge.hidden=false;updateVehicleControlsUI();updateRunUI();setFlag('gotVehicle');state.vehicles.lastUsedId=vehicle.id;if(typeof onServiceVehicleBoarded==='function')onServiceVehicleBoarded(vehicle);
     if(state.career.activeJob?.id==='delivery'){setMissionState(state.career.activeJob,MISSION_STATES.TRAVELLING,'vehicle-boarded');state.waypoint={id:'delivery-maya',name:'Entregar para Maya',x:65,z:54,navX:55,navZ:48,arrived:false};world.routePath=buildRoutePoints(player,state.waypoint);updateWaypointMarker();}
     const companion=nearestRideCompanion();if(companion)boardNpcPassenger(companion,'car');toast(`${serviceVehicleIcon(player.car.kind)} ${vehicle.label||'Veículo'} ligado! Use o manche para dirigir.`,'good');startEngineSound();saveState(true);return true;
@@ -5158,7 +5189,7 @@
     if(type==='firefighter'){if(!(world.fireTrucks||[]).length)errors.push('caminhão de bombeiros ausente');if(!(typeof FIRE_SITES!=='undefined'&&FIRE_SITES.length))errors.push('ocorrências de incêndio ausentes');}
     else if(type==='paramedic'){if(!(world.ambulances||[]).length)errors.push('ambulância ausente');if(!(typeof TRAINING_INCIDENT_SITES!=='undefined'&&TRAINING_INCIDENT_SITES.length))errors.push('pontos de resgate ausentes');}
     else if(type==='police'){if(!(world.policeCars||[]).length)errors.push('viatura ausente');if(!(world.npcs||[]).some(item=>!item.coopRaceBot))errors.push('personagem da abordagem ausente');}
-    else if(type==='fishing'){if(!waterAt(-63,52))errors.push('ponto de pesca fora da água');if(!coopPointAccessible(worldLayoutPoint('camp'),1.4))warnings.push('fogueira será posicionada no ponto seguro mais próximo');}
+    else if(type==='fishing'){if(!waterAt(-72,54))errors.push('ponto de pesca fora da água');if(!coopPointAccessible(worldLayoutPoint('camp'),1.4))warnings.push('fogueira será posicionada no ponto seguro mais próximo');}
     else if(type==='school'){if(!(world.schools||[]).length&&!world.school)errors.push('escola ausente');if((world.npcs||[]).filter(item=>!item.coopRaceBot).length<4)errors.push('menos de quatro alunos disponíveis');}
     else if(type==='streetRace'){for(const point of COOP_STREET_ROUTE)if(!pointOnRoad(point.x,point.z,1.2))errors.push(`${point.name} fora da malha viária`);}
     else if(type==='ovalRace'){if(!world.gym||!Number.isFinite(world.gym.centerX)||!Number.isFinite(world.gym.centerZ))errors.push('pista oval ausente');}
@@ -5213,7 +5244,7 @@
       if(type==='police'&&phase>=4){const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)return{id:`service-${vehicle.id}`,name:'Acompanhar até a viatura',icon:'🚓',x:vehicle.group.position.x,z:vehicle.group.position.z,ref:vehicle};}
       return active.sceneTarget||coopSceneTarget(type);
     }
-    if(type==='fishing'){const camp=active.coopCampfirePoint||worldLayoutPoint('camp');return phase<2?{id:'coop-lake',name:'Ponto de pescaria do lago',icon:'🎣',x:-63,z:52,navX:-55,navZ:52}:{id:'coop-campfire',name:'Fogueira da equipe',icon:'🔥',x:camp.x,z:camp.z};}
+    if(type==='fishing'){const camp=active.coopCampfirePoint||worldLayoutPoint('camp');return phase<2?{id:'coop-lake',name:'Ponto de pescaria da represa',icon:'🎣',x:-72,z:54,navX:-61,navZ:54}:{id:'coop-campfire',name:'Fogueira da equipe',icon:'🔥',x:camp.x,z:camp.z};}
     if(type==='school'){
       if(progress.counter>=4){const school=coopNearestSchool();return school?{id:school.id,name:school.name,icon:'🏫',x:school.x,z:school.z,ref:school}:null;}
       const follower=(world.npcs||[]).find(n=>active.followingNpcIds?.includes(n.id));if(follower){const school=coopNearestSchool();return school?{id:school.id,name:`Levar ${follower.name} à escola`,icon:'🏫',x:school.x,z:school.z,ref:school}:null;}
@@ -5448,7 +5479,9 @@
   function restorePosition(){
     const pos=state.position||{x:0,y:0,z:8,yaw:0};let x=Number.isFinite(pos.x)?pos.x:0,z=Number.isFinite(pos.z)?pos.z:8;
     cameraYaw=Number.isFinite(pos.yaw)?pos.yaw:0;
-    if(Math.abs(x)>110||Math.abs(z)>110||isInsideLakeNavigable(x,z)){x=0;z=8;state.boats.activeBoatId='';state.boats.passengerOf='';}
+    const bounds=v704WorldBounds(),margin=.85,insideWorld=x>=bounds.minX+margin&&x<=bounds.maxX-margin&&z>=bounds.minZ+margin&&z<=bounds.maxZ-margin;
+    if(!insideWorld||isInsideLakeNavigable(x,z)){const lastX=Number(player.lastSafeX),lastZ=Number(player.lastSafeZ),lastValid=Number.isFinite(lastX)&&Number.isFinite(lastZ)&&lastX>=bounds.minX+margin&&lastX<=bounds.maxX-margin&&lastZ>=bounds.minZ+margin&&lastZ<=bounds.maxZ-margin&&!isInsideLakeNavigable(lastX,lastZ);x=lastValid?lastX:0;z=lastValid?lastZ:8;state.boats.activeBoatId='';state.boats.passengerOf='';}
+    const bounded=v704ClampWorldPoint(x,z,margin);x=bounded.x;z=bounded.z;
     const safe=safePointNear(x,z,{ignoreTraffic:true,allowWater:false});player.x=safe.x;player.z=safe.z;player.y=safe.y;player.vx=player.vy=player.vz=0;player.grounded=true;rememberSafePlayerPosition(true);
   }
   function returnHome(){
@@ -7206,9 +7239,7 @@
     for(const hazard of(world.hazards||[]).filter(h=>h.type==='water')){
       const bottomMat=v702TextureMaterial('deep-water',0x0b5578,{repeat:[8,4],roughness:.72,normalScale:.18});const bottom=new THREE.Mesh(new THREE.BoxGeometry(hazard.w-.8,.12,hazard.d-.8),bottomMat);bottom.position.set(hazard.x,-1.58,hazard.z);bottom.receiveShadow=true;group.add(bottom);
       const deepMat=v702TextureMaterial('deep-water',0x137ca3,{repeat:[9,5],roughness:.2,normalScale:.36,transparent:true,opacity:.56});deepMat.depthWrite=false;const deep=new THREE.Mesh(new THREE.BoxGeometry(hazard.w-.45,.04,hazard.d-.45),deepMat);deep.position.set(hazard.x,.105,hazard.z);deep.renderOrder=4;group.add(deep);WORLD_V702.waterLayers.push(deep);
-      const shoreMat=v702TextureMaterial('shore',0xd7c888,{repeat:[12,2],roughness:.9,normalScale:.35});
-      const north=new THREE.Mesh(new THREE.BoxGeometry(hazard.w+2.8,.06,2.2),shoreMat),south=north.clone();north.position.set(hazard.x,.01,hazard.z-hazard.d/2-1.12);south.position.set(hazard.x,.01,hazard.z+hazard.d/2+1.12);group.add(north,south);
-      for(let ix=-hazard.w/2+3;ix<hazard.w/2-2;ix+=8){const reeds=new THREE.Group();reeds.position.set(hazard.x+ix,.1,hazard.z-hazard.d/2-.35);group.add(reeds);for(const dx of[-.22,0,.22])premiumBox(.05,.72+Math.abs(dx),.05,0x4f8b43,dx,.36,0,reeds);}
+      if(!hazard.reservoir){const shoreMat=v702TextureMaterial('shore',0xd7c888,{repeat:[12,2],roughness:.9,normalScale:.35});const north=new THREE.Mesh(new THREE.BoxGeometry(hazard.w+2.8,.06,2.2),shoreMat),south=north.clone();north.position.set(hazard.x,.01,hazard.z-hazard.d/2-1.12);south.position.set(hazard.x,.01,hazard.z+hazard.d/2+1.12);group.add(north,south);for(let ix=-hazard.w/2+3;ix<hazard.w/2-2;ix+=8){const reeds=new THREE.Group();reeds.position.set(hazard.x+ix,.1,hazard.z-hazard.d/2-.35);group.add(reeds);for(const dx of[-.22,0,.22])premiumBox(.05,.72+Math.abs(dx),.05,0x4f8b43,dx,.36,0,reeds);}}
     }
     world.worldEvolution.lakeDepth=group;return true;
   }
@@ -7227,7 +7258,7 @@
   }
   function useDigSite(site){ensureWorldEvolutionState();if(!['hoe','shovel','pickaxe'].includes(state.tools.equipped)){toast('Equipe Enxada, Pá ou Picareta para cavar.','warn',1900);return;}const previous=Number(state.farming.digSites[site.id]||0),remaining=V702_DIG_COOLDOWN-(Date.now()-previous);if(remaining>0){toast(`A terra precisa descansar por ${Math.ceil(remaining/1000)} s.`,'warn',1300);return;}state.farming.digSites[site.id]=Date.now();playToolAnimation();const bait=1+Math.floor(Math.random()*3),seeds=Math.random()<.46?1:0,clay=site.biome==='shore'||site.biome==='farm'?(Math.random()<.55?1:0):0;state.inventory.bait=(state.inventory.bait||0)+bait;state.inventory.seeds=(state.inventory.seeds||0)+seeds;state.inventory.clay=(state.inventory.clay||0)+clay;state.tools.harvested.bait=(state.tools.harvested.bait||0)+bait;state.tools.harvested.clay=(state.tools.harvested.clay||0)+clay;state.stats.dugBait=(state.stats.dugBait||0)+bait;addXP(7+bait*2);saveState(true);updateHUD();toast(`Escavação: +${bait} isca${bait>1?'s':''}${seeds?`, +${seeds} semente`:''}${clay?', +1 argila':''}.`,'good',2200);}
   function createDigSites(){
-    if(world.worldEvolution?.digSites)return false;const farm=worldLayoutPoint('farm'),sites=[[-47,-45,'forest'],[-62,-34,'forest'],[farm.x-7,farm.z-5,'farm'],[farm.x+7,farm.z+5,'farm'],[-55,43,'shore'],[-91,76,'shore'],[81,-36,'desert'],[104,-48,'desert']];
+    if(world.worldEvolution?.digSites)return false;const farm=worldLayoutPoint('farm'),sites=[[-47,-45,'forest'],[-62,-34,'forest'],[farm.x-7,farm.z-5,'farm'],[farm.x+7,farm.z+5,'farm'],[-65,42,'shore'],[-91,76,'shore'],[81,-36,'desert'],[104,-48,'desert']];
     for(const [x,z,biome]of sites){const id=`dig-${biome}-${x}-${z}`,mat=v702TextureMaterial(biome==='desert'?'sand':biome==='shore'?'shore':'dirt',biome==='desert'?0xdcb266:0x795333,{repeat:[2,2],roughness:.95});const patch=new THREE.Mesh(new THREE.CylinderGeometry(1.35,1.55,.08,16),mat);patch.position.set(x,groundHeightAt(x,z)+.05,z);worldGroup.add(patch);const site={id,x,z,biome,mesh:patch};WORLD_V702.digSites.set(id,site);registerInteractable({id,type:'dig',icon:'🪱',label:'Cavar por iscas e recursos',x,z,radius:2.35,priority:165,action:()=>useDigSite(site)});}
     world.worldEvolution.digSites=true;return true;
   }

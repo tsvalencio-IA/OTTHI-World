@@ -61,6 +61,7 @@
   }
 
   function createMetroEntrance(station){
+    if(isInsideLakeNavigable(station.x,station.z)){const dry=safePointNear(station.x,station.z,{radius:.55,ignoreTraffic:true,allowWater:false,distances:[5,7,9,12]});station.x=dry.x;station.z=dry.z;}
     const g=new THREE.Group();g.position.set(station.x,0,station.z);worldGroup.add(g);
     premiumBox(4.3,.24,4.6,0x27384a,0,.12,0,g);premiumBox(3.65,.24,3.9,0xc9d6df,0,.3,0,g);
     for(let i=0;i<5;i++)premiumBox(2.8,.16,.58,0x718291,0,.35-i*.02,.6+i*.5,g);

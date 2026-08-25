@@ -25,7 +25,7 @@
     if(type==='firefighter'){if(!(world.fireTrucks||[]).length)errors.push('caminhão de bombeiros ausente');if(!(typeof FIRE_SITES!=='undefined'&&FIRE_SITES.length))errors.push('ocorrências de incêndio ausentes');}
     else if(type==='paramedic'){if(!(world.ambulances||[]).length)errors.push('ambulância ausente');if(!(typeof TRAINING_INCIDENT_SITES!=='undefined'&&TRAINING_INCIDENT_SITES.length))errors.push('pontos de resgate ausentes');}
     else if(type==='police'){if(!(world.policeCars||[]).length)errors.push('viatura ausente');if(!(world.npcs||[]).some(item=>!item.coopRaceBot))errors.push('personagem da abordagem ausente');}
-    else if(type==='fishing'){if(!waterAt(-63,52))errors.push('ponto de pesca fora da água');if(!coopPointAccessible(worldLayoutPoint('camp'),1.4))warnings.push('fogueira será posicionada no ponto seguro mais próximo');}
+    else if(type==='fishing'){if(!waterAt(-72,54))errors.push('ponto de pesca fora da água');if(!coopPointAccessible(worldLayoutPoint('camp'),1.4))warnings.push('fogueira será posicionada no ponto seguro mais próximo');}
     else if(type==='school'){if(!(world.schools||[]).length&&!world.school)errors.push('escola ausente');if((world.npcs||[]).filter(item=>!item.coopRaceBot).length<4)errors.push('menos de quatro alunos disponíveis');}
     else if(type==='streetRace'){for(const point of COOP_STREET_ROUTE)if(!pointOnRoad(point.x,point.z,1.2))errors.push(`${point.name} fora da malha viária`);}
     else if(type==='ovalRace'){if(!world.gym||!Number.isFinite(world.gym.centerX)||!Number.isFinite(world.gym.centerZ))errors.push('pista oval ausente');}
@@ -80,7 +80,7 @@
       if(type==='police'&&phase>=4){const vehicle=serviceMissionVehicle(active.serviceJob);if(vehicle)return{id:`service-${vehicle.id}`,name:'Acompanhar até a viatura',icon:'🚓',x:vehicle.group.position.x,z:vehicle.group.position.z,ref:vehicle};}
       return active.sceneTarget||coopSceneTarget(type);
     }
-    if(type==='fishing'){const camp=active.coopCampfirePoint||worldLayoutPoint('camp');return phase<2?{id:'coop-lake',name:'Ponto de pescaria do lago',icon:'🎣',x:-63,z:52,navX:-55,navZ:52}:{id:'coop-campfire',name:'Fogueira da equipe',icon:'🔥',x:camp.x,z:camp.z};}
+    if(type==='fishing'){const camp=active.coopCampfirePoint||worldLayoutPoint('camp');return phase<2?{id:'coop-lake',name:'Ponto de pescaria da represa',icon:'🎣',x:-72,z:54,navX:-61,navZ:54}:{id:'coop-campfire',name:'Fogueira da equipe',icon:'🔥',x:camp.x,z:camp.z};}
     if(type==='school'){
       if(progress.counter>=4){const school=coopNearestSchool();return school?{id:school.id,name:school.name,icon:'🏫',x:school.x,z:school.z,ref:school}:null;}
       const follower=(world.npcs||[]).find(n=>active.followingNpcIds?.includes(n.id));if(follower){const school=coopNearestSchool();return school?{id:school.id,name:`Levar ${follower.name} à escola`,icon:'🏫',x:school.x,z:school.z,ref:school}:null;}

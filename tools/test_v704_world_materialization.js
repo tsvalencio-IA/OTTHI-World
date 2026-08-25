@@ -10,7 +10,7 @@ const c={window:{},console,Math,Date,Number,String,Array,Object,JSON,setTimeout:
  stableBox:()=>({receiveShadow:false}),createSkyDome:()=>{},
  createRoad:(x,z,w,d)=>records.roads.push({x,z,w,d}),
  createDistrictVisuals:()=>{},createLearningPlaza:()=>{},createOttoviasWorld:()=>{records.systems.ottovias++;},
- createWater:(x,z,w,d)=>records.waters.push({x,z,w,d}),createLava:()=>{},
+ createWater:(x,z,w,d)=>records.waters.push({x,z,w,d}),createReservoirBasin:(main,north)=>records.waters.push({x:main.x,z:main.z,w:main.w,d:main.d},{x:north.x,z:north.z,w:north.w,d:north.d}),createLava:()=>{},
  box:(w,h,d,mat,x,y,z)=>{const item={w,h,d,x,z};if(w>=8&&h>=6&&d>=8)records.largeBoxes.push(item);return group();},registerPlatform:()=>{},
  createTree:()=>{},createRock:()=>{},createFlower:()=>{},
  playerDisplayName:()=> 'Teste',
@@ -38,5 +38,6 @@ const protectedIds=['stadium','volley','footvolley','kart-circuit'];const protec
 for(const h of records.houses)for(const a of protectedAreas)assert(!overlap(h,a,.1),`casa ${h.id} dentro de ${a.id}`);
 for(const b of records.largeBoxes){if(b.id==='castle')continue;for(const a of protectedAreas)assert(!overlap(b,a,.1),`prédio decorativo dentro de ${a.id}`);}
 for(const v of records.vehicles){for(const a of protectedAreas)assert(!overlap({x:v.x,z:v.z,w:2.7,d:2.7},a,.1),`veículo ${v.id} dentro de ${a.id}`);}
-assert.deepStrictEqual(records.waters,[{x:-72,z:52,w:88,d:18},{x:-100,z:70,w:32,d:14}]);
+assert.deepStrictEqual(records.waters,[{x:-88,z:54,w:50,d:22},{x:-104,z:69,w:24,d:14}]);
+for(const water of records.waters)for(const road of roadRects)assert(!overlap(water,road,0),`água da represa sobre via ${road.x},${road.z}`);
 console.log(JSON.stringify({passed:true,checks:records.roads.length+records.houses.length+records.vehicles.length+records.largeBoxes.length+8,counts:{roads:records.roads.length,houses:records.houses.length,vehicles:records.vehicles.length,largeDecorativeBuildings:records.largeBoxes.length,waters:records.waters.length,systems:records.systems}}));

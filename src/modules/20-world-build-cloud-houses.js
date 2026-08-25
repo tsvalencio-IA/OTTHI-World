@@ -19,8 +19,8 @@
     for(const road of L.roads)createRoad(road.x,road.z,road.w,road.d);
     createDistrictVisuals();createLearningPlaza();createOttoviasWorld();
 
-    // Água, ponte e zona de lava preservadas, fora das áreas urbanas e esportivas.
-    const lake=P('lake'),lakeNorth=P('lakeNorth');createWater(lake.x,lake.z,88,18);createWater(lakeNorth.x,lakeNorth.z,32,14);
+    // A represa usa a geometria oficial do layout e permanece fisicamente separada da via.
+    const lake=worldLayoutRect('lake'),lakeNorth=worldLayoutRect('lakeNorth');createReservoirBasin(lake,lakeNorth);
     for(let i=-5;i<=5;i++){const part=box(2.1,.35,5,materials.wood,-12+i*2.15,.25,52);world.bridgeParts.push(part);registerPlatform(-12+i*2.15,52,2.1,5,.43,{bridgePart:i+5});}
     const lava=P('lava');createLava(lava.x,lava.z,26,20);
 

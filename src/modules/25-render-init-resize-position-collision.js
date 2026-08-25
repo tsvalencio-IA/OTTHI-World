@@ -58,7 +58,9 @@
   function restorePosition(){
     const pos=state.position||{x:0,y:0,z:8,yaw:0};let x=Number.isFinite(pos.x)?pos.x:0,z=Number.isFinite(pos.z)?pos.z:8;
     cameraYaw=Number.isFinite(pos.yaw)?pos.yaw:0;
-    if(Math.abs(x)>110||Math.abs(z)>110||isInsideLakeNavigable(x,z)){x=0;z=8;state.boats.activeBoatId='';state.boats.passengerOf='';}
+    const bounds=v704WorldBounds(),margin=.85,insideWorld=x>=bounds.minX+margin&&x<=bounds.maxX-margin&&z>=bounds.minZ+margin&&z<=bounds.maxZ-margin;
+    if(!insideWorld||isInsideLakeNavigable(x,z)){const lastX=Number(player.lastSafeX),lastZ=Number(player.lastSafeZ),lastValid=Number.isFinite(lastX)&&Number.isFinite(lastZ)&&lastX>=bounds.minX+margin&&lastX<=bounds.maxX-margin&&lastZ>=bounds.minZ+margin&&lastZ<=bounds.maxZ-margin&&!isInsideLakeNavigable(lastX,lastZ);x=lastValid?lastX:0;z=lastValid?lastZ:8;state.boats.activeBoatId='';state.boats.passengerOf='';}
+    const bounded=v704ClampWorldPoint(x,z,margin);x=bounded.x;z=bounded.z;
     const safe=safePointNear(x,z,{ignoreTraffic:true,allowWater:false});player.x=safe.x;player.z=safe.z;player.y=safe.y;player.vx=player.vy=player.vz=0;player.grounded=true;rememberSafePlayerPosition(true);
   }
   function returnHome(){

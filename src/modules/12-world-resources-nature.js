@@ -144,7 +144,21 @@
       stableBox(.13,.02,d,edgeMaterial,x-w/2+.78,.132,z,worldGroup,3);stableBox(.13,.02,d,edgeMaterial,x+w/2-.78,.132,z,worldGroup,3);
     }
   }
-  function createWater(x,z,w,d){const water=stableBox(w,.12,d,materials.water,x,.04,z,worldGroup,1);water.material.depthWrite=false;for(let px=x-w/2+2;px<x+w/2;px+=4){stableBox(3.2,.18,.7,0x9fadb8,px,.09,z-d/2-.35,worldGroup,2);stableBox(3.2,.18,.7,0x9fadb8,px,.09,z+d/2+.35,worldGroup,2);}world.hazards.push({type:'water',x,z,w,d});}
+  function createWater(x,z,w,d,options={}){const water=stableBox(w,.12,d,materials.water,x,.04,z,worldGroup,1);water.material.depthWrite=false;water.userData={...(water.userData||{}),waterId:options.id||'',reservoir:!!options.reservoir};if(options.shore!==false)for(let px=x-w/2+2;px<x+w/2;px+=4){stableBox(3.2,.18,.7,0x9fadb8,px,.09,z-d/2-.35,worldGroup,2);stableBox(3.2,.18,.7,0x9fadb8,px,.09,z+d/2+.35,worldGroup,2);}world.hazards.push({type:'water',id:options.id||'',reservoir:!!options.reservoir,x,z,w,d});return water;}
+  function createReservoirBasin(main,north){
+    if(!main||!north)return null;const root=new THREE.Group();root.name='OTTHI_RESERVOIR_SINGLE_CONNECTED';worldGroup.add(root);const bank=renderMat(0xc9b77f,{roughness:.96}),stone=renderMat(0x73808a,{roughness:.92});
+    const mainWater=createWater(main.x,main.z,main.w,main.d,{id:'lake',reservoir:true,shore:false}),northWater=createWater(north.x,north.z,north.w,north.d,{id:'lakeNorth',reservoir:true,shore:false});
+    const banks=[
+      [main.x,main.z-main.d/2-.55,main.w+1.8,1.15],[main.x+main.w/2+.55,main.z,1.15,main.d+2.1],
+      [main.x-7.5,main.z+main.d/2+.55,main.w-15,1.15],[main.x-main.w/2-.55,main.z-1.4,1.15,main.d-2.8],
+      [north.x,north.z+north.d/2+.55,north.w+1.8,1.15],[north.x-north.w/2-.55,north.z,1.15,north.d+2.0],
+      [north.x+north.w/2+.55,north.z+2.2,1.15,north.d-4.4]
+    ];
+    for(const [x,z,w,d] of banks)stableBox(w,.16,d,bank,x,.085,z,root,2);
+    const rocks=[[-113.5,45],[-112.8,58],[-109,76.1],[-97,76.2],[-91.2,73],[-73,65.5],[-63.1,59],[-63.3,47]];for(const [x,z] of rocks){const mesh=new THREE.Mesh(new THREE.DodecahedronGeometry(.42,0),stone);mesh.position.set(x,.22,z);mesh.scale.set(1.45,.55,1);mesh.castShadow=false;root.add(mesh);}
+    const reedMat=renderMat(0x4f8f42,{roughness:.88});for(const [x,z] of [[-111,43],[-102,43],[-94,43],[-84,43],[-75,43],[-66,43],[-113,50],[-113,61],[-115,68],[-113,75],[-101,76],[-94,74],[-63,51],[-63,61]])for(const dx of[-.16,.05,.23]){const reed=new THREE.Mesh(new THREE.CylinderGeometry(.025,.035,.72+Math.abs(dx),6),reedMat);reed.position.set(x+dx,.38,z);reed.rotation.z=dx*.35;root.add(reed);}
+    world.reservoir={id:'otthi-reservoir',group:root,waters:[mainWater,northWater],main:{...main},north:{...north}};return world.reservoir;
+  }
   function createLava(x,z,w,d){const m=stableBox(w,.12,d,mat(0xff3a00,{emissive:0xff2200,emissiveIntensity:.9}),x,.04,z,worldGroup,1);world.hazards.push({type:'lava',x,z,w,d});return m;}
 
   function createFurniture(house, type, lx, lz, color=0xffffff, label='Usar') {

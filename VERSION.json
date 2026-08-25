@@ -5,8 +5,8 @@
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70573,
-  "androidVersionName": "7.0.5.7.3",
+  "androidVersionCode": 70574,
+  "androidVersionName": "7.0.5.7.4",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -42,6 +42,9 @@
     }
   },
   "changes": [
+    "R4 elimina o teleporte indevido perto da Michelle e das bordas ao validar posições pelo limite real do mundo, preservando a última posição segura antes de entrar no veículo",
+    "Represa passa a formar uma única bacia conectada fora das ruas, com margens próprias; Estação Represa e pontos de pesca permanecem em terreno seco",
+    "OTTOVIAS mantém somente um túnel contínuo, agora com abóbada segmentada, pórticos, calçadas técnicas, balizadores, iluminação e vão rodoviário livre",
     "Pedágio veicular passa a expor no botão contextual a sequência PAGAR, LEVANTAR e PASSAR sem obrigar o jogador a sair do veículo",
     "Travessia sem pagamento registra infração, aciona uma viatura pela malha viária, inicia perseguição e aplica multa educativa no posto policial",
     "OTTOVIAS recebe túnel rodoviário com vão livre e iluminação; pedras e recursos naturais passam a ser proibidos sobre pista e acostamento",
@@ -132,7 +135,7 @@
     "performanceStaticApproved": true,
     "worldPrecisionStaticApproved": true
   },
-  "release": "705.7-ottovias-flow-r3",
+  "release": "705.7-world-integrity-r4",
   "notes": [
     "A inspeção visual final e a auditoria geométrica confirmaram a remoção do agrupamento de placas de parada no cruzamento central.",
     "R2 foi aprovada em matriz de navegador automatizada local e em todas as suítes estruturais; a homologação física continua obrigatória para rotação por sensor, FPS sustentado, APK e multiplayer entre dois aparelhos.",
@@ -146,8 +149,8 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70573,
-  "revisionLabel": "R3-ottovias-flow",
+  "assetVersion": 70574,
+  "revisionLabel": "R4-world-integrity",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",
