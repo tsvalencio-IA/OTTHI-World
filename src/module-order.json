@@ -21,7 +21,7 @@
       "startLine": 369,
       "endLine": 488,
       "description": "Normalização, merge, tombstones e persistência das construções",
-      "sha256Body": "2dcb39fb85fa1df0c2773a73ede600d87b7f4b0c2955e81a0bdf7fdde8147c2f"
+      "sha256Body": "ad6aa4ab1fd6ae94c11f9167716fb059d013f68e13204531fcd6567139eaa8de"
     },
     {
       "file": "src/modules/02-state-save-cloud-account.js",
@@ -56,7 +56,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Fonte central de verdade do layout mundial V704",
-      "sha256Body": "6f504ccf166193acbca123b73109c163ed38f8d0ccdc7da323b0f3a9a118727b"
+      "sha256Body": "43d58d2fda004fd483ca668e81fdb5b51e395e662b4dab857f71f39ceff60e79"
     },
     {
       "file": "src/modules/06-missions-profile-hud-inventory-tools.js",
@@ -84,7 +84,7 @@
       "startLine": 1808,
       "endLine": 2074,
       "description": "Responsividade, AR, modos, qualidade, LOD e diagnóstico",
-      "sha256Body": "ccb4734f21c9e744ea5c4d3058b953f2eeda3a290e9162851756ff7359a061f9"
+      "sha256Body": "b66bcbbe4f1e6c090520f93dd7ffd5ec5b53319150fadf79152a9c4c4d3cac1d"
     },
     {
       "file": "src/modules/10-player-skills.js",
@@ -133,7 +133,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Rodovia OTTOVIAS integrada: circuito, biomas, pedágios, Michelle e ronda guiada",
-      "sha256Body": "52aec938928d6faae769d2f9b2c217c0694ed00920372ca3a9ab947343660f67"
+      "sha256Body": "4c811074428ea4935158af7a10e93f3d427dd3d4de67eb586451214ef2d71b78"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -147,7 +147,7 @@
       "startLine": 3310,
       "endLine": 3495,
       "description": "Bombeiros, incêndios, polícia, ambulância, segurança e incidentes",
-      "sha256Body": "e6a7c86c2561e7fc41d9347b2ff3900c745374776d0bac9736ec738e8d7b15b8"
+      "sha256Body": "9425681ded8f0eebdf99d50ead0c75c47b2afe40d147360341116f09d89e020a"
     },
     {
       "file": "src/modules/17-adventures-learning-world.js",
@@ -196,7 +196,7 @@
       "startLine": 4245,
       "endLine": 4381,
       "description": "Poeira, som, efeitos, controles, direção, passageiros e ponte",
-      "sha256Body": "3dec168016a4a92f6d2f6cc17cd5d02aa2c35d3a82dcbd6d10effb3ba2962c69"
+      "sha256Body": "3761c4d94ff8661ac984484e8e1f5b401c60cb3457ddd2c6faa38285842c917d"
     },
     {
       "file": "src/modules/24-construction-system.js",
@@ -217,21 +217,21 @@
       "startLine": 4495,
       "endLine": 4635,
       "description": "Three.js, qualidade, viewport, resize, posição segura e colisões",
-      "sha256Body": "2c0c0da4f3b557e4e04921ace3b9b7f5d27f1eeb706b2546f5ca2685791b9580"
+      "sha256Body": "f0bf468ee7c7e0b56f132c7078081070f3c1b328c2b13380c0524fd86ffbad82"
     },
     {
       "file": "src/modules/26-input-player-physics.js",
       "startLine": 4637,
       "endLine": 4765,
       "description": "Entrada, corrida, pulo, física do jogador/veículo e animação",
-      "sha256Body": "ef270fe98c36bbdd5d114350aa9278fbdc38c24fcec7b77dc2c14eebf88a4e10"
+      "sha256Body": "175acd62c694012de4afc319c704000482642fc4f3f8ccf141c58faadded9b90"
     },
     {
       "file": "src/modules/27-npc-enemies-combat-camera-action.js",
       "startLine": 4767,
       "endLine": 4928,
       "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
-      "sha256Body": "a24fa14db119d3e7ca88616be26c936aeeaec3f67443808d46e8c61620308cfc"
+      "sha256Body": "ec24e10381ac83e7e806e7a1c8414592b70551241de7fcd3079f58b887b2f6e5"
     },
     {
       "file": "src/modules/28-multiplayer-social-online.js",
@@ -245,14 +245,14 @@
       "startLine": 5124,
       "endLine": 5238,
       "description": "Loop principal, controles, gamepad e início do jogo",
-      "sha256Body": "346217bb1fc10753c79896618d7d51325bd177ce615b4b73d9aa065a86fa15e4"
+      "sha256Body": "af4644b1da1e442f37b54e46e5e3020bd592c90a57602efb169ef6c535cd50d6"
     },
     {
       "file": "src/modules/30-pause-tests-public-api-bootstrap.js",
       "startLine": 5240,
       "endLine": 5422,
       "description": "Pausa, testes de veículo, API pública de auditoria e bootstrap final",
-      "sha256Body": "681c2923ff83d9d9275119db6af29e88d65a86a77a571d82a9da06fd8fd230a1"
+      "sha256Body": "10f8569fd4bb3f97121b141b4242e22312cc0855156fa0a8bde6fa460c41a1f6"
     },
     {
       "file": "src/modules/31-neighborhood-world-controller.js",
@@ -464,7 +464,7 @@
       "startLine": 1,
       "endLine": 36,
       "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
-      "sha256Body": "692dd2519e9116f85614a738ebf53f2f54d1ab13ddfd25066edb61dbb17996a3"
+      "sha256Body": "5e2ce4e654400cd65ea4979c65710f2a2f2d225f991ceb9e8d1b12c878e62717"
     }
   ]
 }
