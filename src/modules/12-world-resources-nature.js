@@ -52,6 +52,8 @@
     return group;
   }
   function createRock(x,z,scale=1,resource=true) {
+    /* Recursos naturais nunca ocupam a faixa nem o acostamento da OTTOVIAS. */
+    if(typeof v704HighwayAt==='function'&&v704HighwayAt(x,z,Math.max(1.4,scale*1.15),true))return null;
     const high=new THREE.Mesh(new THREE.DodecahedronGeometry(.8*scale,0),materials.stone);high.position.y=.55*scale;high.castShadow=true;high.receiveShadow=true;
     const low=new THREE.Mesh(sharedBoxGeometry(1.18*scale,.88*scale,1.08*scale),materials.stone);low.position.y=.48*scale;low.rotation.y=Math.PI/4;low.castShadow=false;low.receiveShadow=true;
     const id=`rock-${x.toFixed(1)}-${z.toFixed(1)}`,mesh=createManagedLOD(id,high,low,{distance:31,category:'nature'});mesh.position.set(x,0,z);worldGroup.add(mesh);

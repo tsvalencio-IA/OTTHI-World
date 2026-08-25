@@ -5,8 +5,8 @@
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70572,
-  "androidVersionName": "7.0.5.7.2",
+  "androidVersionCode": 70573,
+  "androidVersionName": "7.0.5.7.3",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -42,6 +42,11 @@
     }
   },
   "changes": [
+    "Pedágio veicular passa a expor no botão contextual a sequência PAGAR, LEVANTAR e PASSAR sem obrigar o jogador a sair do veículo",
+    "Travessia sem pagamento registra infração, aciona uma viatura pela malha viária, inicia perseguição e aplica multa educativa no posto policial",
+    "OTTOVIAS recebe túnel rodoviário com vão livre e iluminação; pedras e recursos naturais passam a ser proibidos sobre pista e acostamento",
+    "Travessia urbana recebe passarela suspensa funcional com escadas, plataforma, guarda-corpo e pedestres em circulação",
+    "Circuito externo recebe seis veículos autônomos distribuídos entre os dois sentidos, com autoridade de faixa, distância de segurança e culling móvel",
     "Paradas de ônibus coincidentes são consolidadas, placas respeitam a orientação da rota e escapam de cruzamentos; a auditoria de runtime reprova sinalização sobre pista ou passeio e placas duplicadas",
     "Revisão de exibição R2: matriz funcional em navegador cobre menus, academia, oito trabalhos, construção, GPS, habilidades, interiores, veículos, ônibus, metrô, barco, emergências, multiplayer simulado, esportes, noticiário, persistência e sete formatos responsivos",
     "Auditoria geométrica de runtime passa sem sobreposições: acessos esportivos conectados, veículos fora de estruturas e colliders próprios do castelo reconhecidos corretamente",
@@ -127,7 +132,7 @@
     "performanceStaticApproved": true,
     "worldPrecisionStaticApproved": true
   },
-  "release": "705.7-exhibition-readiness-r2",
+  "release": "705.7-ottovias-flow-r3",
   "notes": [
     "A inspeção visual final e a auditoria geométrica confirmaram a remoção do agrupamento de placas de parada no cruzamento central.",
     "R2 foi aprovada em matriz de navegador automatizada local e em todas as suítes estruturais; a homologação física continua obrigatória para rotação por sensor, FPS sustentado, APK e multiplayer entre dois aparelhos.",
@@ -141,8 +146,8 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70572,
-  "revisionLabel": "R2-exhibition-readiness",
+  "assetVersion": 70573,
+  "revisionLabel": "R3-ottovias-flow",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

@@ -1,0 +1,24 @@
+OTTHI WORLD V705.7 R3 — ATUALIZAÇÃO PELO CELULAR
+
+FORMA RECOMENDADA
+1. Use o ZIP completo desta entrega.
+2. Extraia em uma pasta nova.
+3. Envie todos os arquivos mantendo as mesmas pastas.
+4. Não misture parcialmente com versões antigas.
+5. Confirme que assets/images/michelle-profile.png NÃO existe no destino.
+6. Depois da publicação, feche o jogo/PWA e abra novamente para carregar o cache V70573.
+
+TESTE DO PEDÁGIO
+1. Entre em um veículo e pare na faixa.
+2. O botão deve mostrar PAGAR.
+3. Após pagar, deve mostrar LEVANTAR.
+4. Levante a cancela e atravesse; o botão mostra PASSAR enquanto ela está aberta.
+5. Em outro teste, contorne a cancela sem pagar: a viatura deve perseguir, solicitar que encoste e registrar a multa.
+
+TESTE DE ORIENTAÇÃO
+- No APK Android, deixe a rotação automática do aparelho ativada.
+- Gire o celular durante o jogo e confirme o reajuste do HUD em paisagem.
+
+OBSERVAÇÃO
+A validação automática foi aprovada, mas APK assinado, sensor físico, FPS sustentado, Firebase remoto e multiplayer em dois celulares ainda precisam de homologação nos aparelhos finais.
+

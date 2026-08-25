@@ -33,11 +33,11 @@ quick_ui = read('index.html') + read('src/modules/01-build-persistence.js') + re
 performance = read('src/modules/09-responsive-ar-quality-diagnostics.js') + read('src/modules/29-game-loop-controls-gamepad.js')
 sw = read('sw.js')
 
-check('Release V705.7 R2', version.get('hotfix') == '705.7' and version.get('assetVersion') == 70572 and version.get('release') == '705.7-exhibition-readiness-r2')
+check('Release V705.7 R2 ou posterior', version.get('hotfix') == '705.7' and int(version.get('assetVersion', 0)) >= 70572 and str(version.get('release', '')).startswith('705.7-'))
 check('Android usa sensor completo', 'android:screenOrientation="fullSensor"' in android)
 check('Entrada solicita paisagem com fallback', "orientation.lock('landscape')" in orientation and '.finally(()=>startGame' in orientation)
 check('Android força atualização do WebView ao girar', 'onConfigurationChanged(Configuration newConfig)' in android_activity and 'refreshGameViewport()' in android_activity)
-check('Versão Android incrementada', 'versionCode 70572' in android_gradle and 'versionName "7.0.5.7.2"' in android_gradle)
+check('Versão Android sincronizada', f"versionCode {version.get('androidVersionCode')}" in android_gradle and f'versionName "{version.get("androidVersionName")}"' in android_gradle)
 check('Placa considera largura física', 'signHalfWidth=2.9' in layout)
 check('Placa comum busca posição segura', 'function v704SafeSignPoint' in layout and 'v704RoadAt(sample.x,sample.z,.38,true)' in layout)
 check('Placas usam registro e visibilidade por distância', 'navigationSigns' in performance and 'world.navigationSigns.push' in read('src/modules/12-world-resources-nature.js'))

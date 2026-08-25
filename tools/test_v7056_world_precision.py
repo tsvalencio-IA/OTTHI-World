@@ -25,7 +25,8 @@ if r.returncode:
     print(r.stderr);sys.exit(1)
 data=json.loads(r.stdout); layout=data['layout']; audit=data['audit']; signs=data['signs']
 
-ck('Release V705.7 R2',version.get('hotfix')=='705.7' and version.get('assetVersion')==70572 and version.get('release')=='705.7-exhibition-readiness-r2')
+asset_version=int(version.get('assetVersion',0))
+ck('Release V705.7 R2 ou posterior',version.get('hotfix')=='705.7' and asset_version>=70572 and str(version.get('release','')).startswith('705.7-'))
 ck('Auditoria mestre integral aprovada',audit.get('passed') is True,audit.get('problems'))
 ck('Auditoria cobre estruturas, zonas, caminhos e sinalização',audit.get('structures',0)>=28 and audit.get('zones',0)>=20 and audit.get('paths',0)>=12 and audit.get('signs',0)>=16,audit)
 
@@ -73,7 +74,8 @@ for token in ['function trafficPedestrianFactor','forward=dx*fx+dz*fz','side=Mat
     ck(f'Tráfego reage ao pedestre: {token}',token in nav)
 ck('Fator de pedestre limita a velocidade normal','factor=Math.min(factor,trafficPedestrianFactor(actor,heading,lookAhead))' in nav)
 ck('Carros buzinam com cooldown em vez de spam','actor.pedestrianHornAt=now+2400+Math.random()*1200' in nav and "beep(type==='moto'?470:385" in nav)
-ck('Pedestre não é proibido na OTTOVIAS','player.vehicle||player.boating||player.transit?.mode||currentHouse' in nav and 'registerCollider' not in ott[ott.find('function createOttoviasRoadSegment'):ott.find('function createOttoviasHighwaySign')])
+road_geometry=ott[ott.find('function createOttoviasRoadSegment'):ott.find('function createOttoviasHighwayGeometry')]
+ck('Pedestre não é proibido na OTTOVIAS','player.vehicle||player.boating||player.transit?.mode||currentHouse' in nav and 'registerCollider' not in road_geometry)
 
 # Recuperação: colisão normal nunca teleporta longe.
 ck('Recuperação total só para limites/queda',"const reason=outside?'fora dos limites':belowWorld?'abaixo do terreno':deepFall?'queda sem retorno':''" in recovery)
@@ -87,9 +89,10 @@ ck('Segundo pulo só existe no ar','!player.grounded&&player.airJumpAvailable!==
 ck('Pulo aéreo recarrega ao pousar','player.grounded=true;player.airJumpAvailable=true;player.lastJumpWasAir=false' in physics)
 
 # Cache/release.
-ck('Index usa cache 70572',index.count('?v=70572')>=10,index.count('?v=70572'))
-ck('Service Worker usa cache 70572','otthi-v70572-${REVISION}' in sw and './app.js?v=70572' in sw)
-ck('Manifesto usa cache 70572','v=70572' in manifest.get('start_url','') and 'v=70572' in manifest.get('id',''))
+cache=f'?v={asset_version}'
+ck('Index usa cache da release',index.count(cache)>=10,index.count(cache))
+ck('Service Worker usa cache da release',f'otthi-v{asset_version}-${{REVISION}}' in sw and f'./app.js?v={asset_version}' in sw)
+ck('Manifesto usa cache da release',f'v={asset_version}' in manifest.get('start_url','') and f'v={asset_version}' in manifest.get('id',''))
 
 failed=[c for c in checks if not c['passed']]
 print(json.dumps({'passed':not failed,'counts':{'passed':len(checks)-len(failed),'failed':len(failed),'total':len(checks)},'failed':failed},ensure_ascii=False,indent=2))

@@ -3,10 +3,10 @@
   "build": "705.0-playable-sports-realistic-npcs-kart",
   "passed": true,
   "counts": {
-    "checks": 210,
-    "passed": 210,
+    "checks": 209,
+    "passed": 209,
     "failed": 0,
-    "functionsIncludingAsync": 1049,
+    "functionsIncludingAsync": 1069,
     "javascriptModules": 47,
     "styleModules": 20,
     "htmlIds": 105
@@ -113,12 +113,7 @@
       "detail": ""
     },
     {
-      "name": "Arquivo obrigatório tools/test_v7057_professional_stability.py",
-      "passed": true,
-      "detail": ""
-    },
-    {
-      "name": "Arquivo obrigatório PLANO-PROFISSIONAL-OTTHI-EDU-MUNDO-ABERTO.md",
+      "name": "Arquivo obrigatório tools/test_v7057_r3_ottovias_flow.py",
       "passed": true,
       "detail": ""
     },
@@ -263,292 +258,292 @@
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\00-runtime-foundation.js",
+      "name": "Sintaxe src/modules/00-runtime-foundation.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\00a-visual-foundation-avatar-v2.js",
+      "name": "Sintaxe src/modules/00a-visual-foundation-avatar-v2.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\01-build-persistence.js",
+      "name": "Sintaxe src/modules/01-build-persistence.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\02-state-save-cloud-account.js",
+      "name": "Sintaxe src/modules/02-state-save-cloud-account.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\03-ui-modal-install-pwa.js",
+      "name": "Sintaxe src/modules/03-ui-modal-install-pwa.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\04-education-daily-quiz.js",
+      "name": "Sintaxe src/modules/04-education-daily-quiz.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\05-avatar-life-customization.js",
+      "name": "Sintaxe src/modules/05-avatar-life-customization.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\05a-world-layout-v704.js",
+      "name": "Sintaxe src/modules/05a-world-layout-v704.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\06-missions-profile-hud-inventory-tools.js",
+      "name": "Sintaxe src/modules/06-missions-profile-hud-inventory-tools.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\07-navigation-traffic-routes.js",
+      "name": "Sintaxe src/modules/07-navigation-traffic-routes.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\08-map-parent-settings.js",
+      "name": "Sintaxe src/modules/08-map-parent-settings.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\09-responsive-ar-quality-diagnostics.js",
+      "name": "Sintaxe src/modules/09-responsive-ar-quality-diagnostics.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\10-player-skills.js",
+      "name": "Sintaxe src/modules/10-player-skills.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\11-render-materials-player-model.js",
+      "name": "Sintaxe src/modules/11-render-materials-player-model.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\12-world-resources-nature.js",
+      "name": "Sintaxe src/modules/12-world-resources-nature.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\13-houses-npcs-vehicles-base.js",
+      "name": "Sintaxe src/modules/13-houses-npcs-vehicles-base.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\13a-sports-kart-v704.js",
+      "name": "Sintaxe src/modules/13a-sports-kart-v704.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\13a-sports-kart-v705.js",
+      "name": "Sintaxe src/modules/13a-sports-kart-v705.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\14-world-district-decoration.js",
+      "name": "Sintaxe src/modules/14-world-district-decoration.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\14a-ottovias-highway-v7054.js",
+      "name": "Sintaxe src/modules/14a-ottovias-highway-v7054.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\15-transit-bus-metro.js",
+      "name": "Sintaxe src/modules/15-transit-bus-metro.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\16-emergency-services.js",
+      "name": "Sintaxe src/modules/16-emergency-services.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\17-adventures-learning-world.js",
+      "name": "Sintaxe src/modules/17-adventures-learning-world.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\18-water-fishing-boats.js",
+      "name": "Sintaxe src/modules/18-water-fishing-boats.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\19-campfire-hunting-house-extensions.js",
+      "name": "Sintaxe src/modules/19-campfire-hunting-house-extensions.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\20-world-build-cloud-houses.js",
+      "name": "Sintaxe src/modules/20-world-build-cloud-houses.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\21-interactions-shop-social-races.js",
+      "name": "Sintaxe src/modules/21-interactions-shop-social-races.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\22-careers-jobs-uniforms.js",
+      "name": "Sintaxe src/modules/22-careers-jobs-uniforms.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\23-vehicle-effects-driving.js",
+      "name": "Sintaxe src/modules/23-vehicle-effects-driving.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\24-construction-system.js",
+      "name": "Sintaxe src/modules/24-construction-system.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\25-render-init-resize-position-collision.js",
+      "name": "Sintaxe src/modules/25-render-init-resize-position-collision.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\26-input-player-physics.js",
+      "name": "Sintaxe src/modules/26-input-player-physics.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\27-npc-enemies-combat-camera-action.js",
+      "name": "Sintaxe src/modules/27-npc-enemies-combat-camera-action.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\28-multiplayer-social-online.js",
+      "name": "Sintaxe src/modules/28-multiplayer-social-online.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\29-game-loop-controls-gamepad.js",
+      "name": "Sintaxe src/modules/29-game-loop-controls-gamepad.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\30-pause-tests-public-api-bootstrap.js",
+      "name": "Sintaxe src/modules/30-pause-tests-public-api-bootstrap.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\31-neighborhood-world-controller.js",
+      "name": "Sintaxe src/modules/31-neighborhood-world-controller.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\32-cooperative-missions.js",
+      "name": "Sintaxe src/modules/32-cooperative-missions.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\33-otthi-world-professional-core.js",
+      "name": "Sintaxe src/modules/33-otthi-world-professional-core.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\34-avatar-studio-professional-v3.js",
+      "name": "Sintaxe src/modules/34-avatar-studio-professional-v3.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\35-world-render-pbr-environment.js",
+      "name": "Sintaxe src/modules/35-world-render-pbr-environment.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\36-modular-build-machines.js",
+      "name": "Sintaxe src/modules/36-modular-build-machines.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\36a-vehicle-damage-repair-v704.js",
+      "name": "Sintaxe src/modules/36a-vehicle-damage-repair-v704.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\37-hero-platform-gameplay.js",
+      "name": "Sintaxe src/modules/37-hero-platform-gameplay.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\38-otthi-world-integration-bootstrap.js",
+      "name": "Sintaxe src/modules/38-otthi-world-integration-bootstrap.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\39-gm-admin-panel.js",
+      "name": "Sintaxe src/modules/39-gm-admin-panel.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe src\\modules\\40-world-evolution-v702.js",
+      "name": "Sintaxe src/modules/40-world-evolution-v702.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\core\\performance-guardian.js",
+      "name": "Sintaxe assets/js/core/performance-guardian.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\core\\runtime-config.js",
+      "name": "Sintaxe assets/js/core/runtime-config.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\core\\safe-pointer.js",
+      "name": "Sintaxe assets/js/core/safe-pointer.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\core\\viewport-manager.js",
+      "name": "Sintaxe assets/js/core/viewport-manager.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\education\\adaptive-learning.js",
+      "name": "Sintaxe assets/js/education/adaptive-learning.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\game-account.js",
+      "name": "Sintaxe assets/js/game-account.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\multiplayer\\room-manager.js",
+      "name": "Sintaxe assets/js/multiplayer/room-manager.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\multiplayer-rtdb.js",
+      "name": "Sintaxe assets/js/multiplayer-rtdb.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\safety\\child-safety.js",
+      "name": "Sintaxe assets/js/safety/child-safety.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\save-db.js",
+      "name": "Sintaxe assets/js/save-db.js",
       "passed": true,
       "detail": ""
     },
     {
-      "name": "Sintaxe assets\\js\\ui\\shared-modal.js",
+      "name": "Sintaxe assets/js/ui/shared-modal.js",
       "passed": true,
       "detail": ""
     },
@@ -585,17 +580,17 @@
     {
       "name": "Serviços profissionais",
       "passed": true,
-      "detail": "test_accidents_stop_and_require_all_services (__main__.ProfessionalEmergencyServicesTests.test_accidents_stop_and_require_all_services) ... ok\ntest_buses_and_traffic_have_collision_protection (__main__.ProfessionalEmergencyServicesTests.test_buses_and_traffic_have_collision_protection) ... ok\ntest_missions_require_correct_vehicle (__main__.ProfessionalEmergencyServicesTests.test_missions_require_correct_vehicle) ... ok\ntest_service_jobs_and_visual_uniforms_exist (__main__.ProfessionalEmergencyServicesTests.test_service_jobs_and_visual_uniforms_exist) ... ok\ntest_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.ProfessionalEmergencyServicesTests.test_service_vehicle_visuals_are_local_and_multiplayer_safe) ... ok\ntest_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.009s\n\nOK"
+      "detail": "test_accidents_stop_and_require_all_services (__main__.ProfessionalEmergencyServicesTests.test_accidents_stop_and_require_all_services) ... ok\ntest_buses_and_traffic_have_collision_protection (__main__.ProfessionalEmergencyServicesTests.test_buses_and_traffic_have_collision_protection) ... ok\ntest_missions_require_correct_vehicle (__main__.ProfessionalEmergencyServicesTests.test_missions_require_correct_vehicle) ... ok\ntest_service_jobs_and_visual_uniforms_exist (__main__.ProfessionalEmergencyServicesTests.test_service_jobs_and_visual_uniforms_exist) ... ok\ntest_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.ProfessionalEmergencyServicesTests.test_service_vehicle_visuals_are_local_and_multiplayer_safe) ... ok\ntest_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.002s\n\nOK"
     },
     {
       "name": "Mapa, móveis e roupas",
       "passed": true,
-      "detail": "test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok\ntest_map_is_dynamic_square_and_viewport_fitted (__main__.CommercialPolishTests.test_map_is_dynamic_square_and_viewport_fitted) ... ok\ntest_mission_card_opens_one_clear_briefing (__main__.CommercialPolishTests.test_mission_card_opens_one_clear_briefing) ... ok\ntest_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match) ... ok\ntest_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.test_room_furniture_is_persistent_and_editable) ... ok\ntest_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.020s\n\nOK"
+      "detail": "test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok\ntest_map_is_dynamic_square_and_viewport_fitted (__main__.CommercialPolishTests.test_map_is_dynamic_square_and_viewport_fitted) ... ok\ntest_mission_card_opens_one_clear_briefing (__main__.CommercialPolishTests.test_mission_card_opens_one_clear_briefing) ... ok\ntest_new_style_is_last_and_build_outputs_match (__main__.CommercialPolishTests.test_new_style_is_last_and_build_outputs_match) ... ok\ntest_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.test_room_furniture_is_persistent_and_editable) ... ok\ntest_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.007s\n\nOK"
     },
     {
       "name": "Cooperativo e responsividade",
       "passed": true,
-      "detail": "test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok\ntest_map_is_clustered_and_responsive_in_both_orientations (__main__.CoopResponsiveTests.test_map_is_clustered_and_responsive_in_both_orientations) ... ok\ntest_roles_and_shared_progress_are_online (__main__.CoopResponsiveTests.test_roles_and_shared_progress_are_online) ... ok\ntest_school_fishing_and_race_runtime_contracts (__main__.CoopResponsiveTests.test_school_fishing_and_race_runtime_contracts) ... ok\ntest_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests.test_state_persists_and_existing_systems_integrate) ... ok\ntest_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.026s\n\nOK"
+      "detail": "test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok\ntest_map_is_clustered_and_responsive_in_both_orientations (__main__.CoopResponsiveTests.test_map_is_clustered_and_responsive_in_both_orientations) ... ok\ntest_roles_and_shared_progress_are_online (__main__.CoopResponsiveTests.test_roles_and_shared_progress_are_online) ... ok\ntest_school_fishing_and_race_runtime_contracts (__main__.CoopResponsiveTests.test_school_fishing_and_race_runtime_contracts) ... ok\ntest_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests.test_state_persists_and_existing_systems_integrate) ... ok\ntest_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok\n\n----------------------------------------------------------------------\nRan 6 tests in 0.017s\n\nOK"
     },
     {
       "name": "Painel GM V701 preservado",
@@ -615,7 +610,7 @@
     {
       "name": "Ordem de inicialização V703.1",
       "passed": true,
-      "detail": "OK - Módulo cooperativo antes do render 30 < 31\nOK - Módulo cooperativo antes do bootstrap 30 < 36\nOK - Bundle cooperativo antes do render 686262 < 752960\nOK - Bundle cooperativo antes do bootstrap 686262 < 894542\nOK - Declaração inicializada antes de initThree 689929 < 753029\nOK - Chamada cooperativa preservada \nOK - Build atual coerente \nOK - Cache atual coerente \nRESULTADO: 8/8"
+      "detail": "OK - Módulo cooperativo antes do render 30 < 31\nOK - Módulo cooperativo antes do bootstrap 30 < 36\nOK - Bundle cooperativo antes do render 702754 < 769452\nOK - Bundle cooperativo antes do bootstrap 702754 < 911649\nOK - Declaração inicializada antes de initThree 706421 < 769521\nOK - Chamada cooperativa preservada \nOK - Build atual coerente \nOK - Cache atual coerente \nRESULTADO: 8/8"
     },
     {
       "name": "Reconstrução mundial V704",
@@ -638,14 +633,14 @@
       "detail": "OK - Recuperação usa limites dinâmicos \nOK - Colisão local nunca cai em recuperação distante \nOK - Estado OTTOVIAS não é recriado a cada frame \nOK - Segmentos OTTOVIAS são cacheados \nOK - Rodovia possui culling por distância \nOK - Biomas podem ser ocultados por distância \nOK - Patches de bioma não são superfícies críticas globais \nOK - Contador de uso não recria objeto por frame \nOK - Pontos da Central/Michelle encontrados \nOK - Michelle fica fora do collider do prédio frente=-116.4, Michelle=-112.0\nOK - Acesso fica fora do collider do prédio frente=-116.4, acesso=-109.2\nOK - Acesso fica perto da Michelle 2.799999999999997\nOK - Mapa aponta para acesso, não para dentro do prédio \nOK - Final da ronda aponta para acesso seguro \nOK - Culling equilibrado limita segmentos simultâneos 7\nOK - Release V705.5 ou posterior \nRESULTADO: 16/16"
     },
     {
-      "name": "Precisão integral do mundo V705.7",
+      "name": "Precisão integral do mundo V705.6",
       "passed": true,
-      "detail": "de-market \nOK - Placa com texto: guide-workshop \nOK - Placa com texto: guide-forest \nOK - Placa com texto: guide-farm \nOK - Placa com texto: guide-castle \nOK - Placa com texto: guide-lake \nOK - Placa com texto: guide-sports \nOK - Placa com texto: guide-kart \nOK - Placa com texto: ov-urban-south \nOK - Placa com texto: ov-urban-center \nOK - Placa com texto: ov-north \nOK - Placa com texto: ov-desert \nOK - Placa com texto: ov-field \nOK - Placa com texto: ov-snow \nOK - Placa com texto: ov-beach \nOK - Placa fora da pista: ov-urban-south 13.00 >= 7.30\nOK - Placa fora da pista: ov-urban-center 13.00 >= 7.30\nOK - Placa fora da pista: ov-north 13.20 >= 8.20\nOK - Placa fora da pista: ov-desert 13.20 >= 8.20\nOK - Placa fora da pista: ov-field 13.20 >= 8.20\nOK - Placa fora da pista: ov-snow 13.20 >= 8.20\nOK - Placa fora da pista: ov-beach 13.20 >= 8.20\nOK - Guias antigos hardcoded removidos do buildWorld \nOK - Placas OTTOVIAS vêm do layout mestre \nOK - Texto incorreto ausente: Mercado e Oficina \nOK - Texto incorreto ausente: Praça Pedagio \nOK - Texto incorreto ausente: PEDAGIO PRAIA \nOK - Michelle: styleMichelleOttovias \nOK - Michelle: 0xa66f50 \nOK - Michelle: 0x24160f \nOK - Michelle: cabelos-cacheados \nOK - Michelle: assessora-comunicacao-ottovias \nOK - Michelle permanece fixa em seu posto \nOK - Michelle tem uma única ação reutilizando o NPC \nOK - Missão de comunicação: Plantão de Comunicação \nOK - Missão de comunicação: OTTOVIAS_COMM_STOPS \nOK - Missão de comunicação: startOttoviasCommunicationMission \nOK - Missão de comunicação: completeOttoviasCommunicationMission \nOK - Missão especial Otto: OTTOVIAS_OTTO_STOPS \nOK - Missão especial Otto: isOttoOttoviasPlayer \nOK - Missão especial Otto: Operação Repórter Mirim \nOK - Missão especial Otto: ottoviasReporterMirim \nOK - Missão da Michelle atualiza GPS por etapa \nOK - NPC profissional não recebe sociedade aleatória \nOK - Tráfego reage ao pedestre: function trafficPedestrianFactor \nOK - Tráfego reage ao pedestre: forward=dx*fx+dz*fz \nOK - Tráfego reage ao pedestre: side=Math.abs(dx*rx+dz*rz) \nOK - Tráfego reage ao pedestre: pedestrianHornAt \nOK - Tráfego reage ao pedestre: actor.currentSpeed=0 \nOK - Fator de pedestre limita a velocidade normal \nOK - Carros buzinam com cooldown em vez de spam \nOK - Pedestre não é proibido na OTTOVIAS \nOK - Recuperação total só para limites/queda \nOK - Penetração tenta correção local curta \nOK - Penetração falha sem teleporte distante \nOK - Pulo duplo: function canGroundJump \nOK - Pulo duplo: function canAirJump \nOK - Pulo duplo: player.airJumpAvailable!==false \nOK - Pulo duplo: doJump(true) \nOK - Pulo duplo: player.airJumpAvailable=false \nOK - Pulo duplo: +8.7 \nOK - Pulo duplo: player.airJumpAvailable=true \nOK - Segundo pulo só existe no ar \nOK - Pulo aéreo recarrega ao pousar \nOK - Index usa cache 70572 16\nOK - Service Worker usa cache 70572 \nOK - Manifesto usa cache 70572 \n{\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 81,\n    \"failed\": 0,\n    \"total\": 81\n  },\n  \"failed\": []\n}"
+      "detail": " Placa com texto: guide-workshop \nOK - Placa com texto: guide-forest \nOK - Placa com texto: guide-farm \nOK - Placa com texto: guide-castle \nOK - Placa com texto: guide-lake \nOK - Placa com texto: guide-sports \nOK - Placa com texto: guide-kart \nOK - Placa com texto: ov-urban-south \nOK - Placa com texto: ov-urban-center \nOK - Placa com texto: ov-north \nOK - Placa com texto: ov-desert \nOK - Placa com texto: ov-field \nOK - Placa com texto: ov-snow \nOK - Placa com texto: ov-beach \nOK - Placa fora da pista: ov-urban-south 13.00 >= 7.30\nOK - Placa fora da pista: ov-urban-center 13.00 >= 7.30\nOK - Placa fora da pista: ov-north 13.20 >= 8.20\nOK - Placa fora da pista: ov-desert 13.20 >= 8.20\nOK - Placa fora da pista: ov-field 13.20 >= 8.20\nOK - Placa fora da pista: ov-snow 13.20 >= 8.20\nOK - Placa fora da pista: ov-beach 13.20 >= 8.20\nOK - Guias antigos hardcoded removidos do buildWorld \nOK - Placas OTTOVIAS vêm do layout mestre \nOK - Texto incorreto ausente: Mercado e Oficina \nOK - Texto incorreto ausente: Praça Pedagio \nOK - Texto incorreto ausente: PEDAGIO PRAIA \nOK - Michelle: styleMichelleOttovias \nOK - Michelle: 0xa66f50 \nOK - Michelle: 0x24160f \nOK - Michelle: cabelos-cacheados \nOK - Michelle: assessora-comunicacao-ottovias \nOK - Michelle permanece fixa em seu posto \nOK - Michelle tem uma única ação reutilizando o NPC \nOK - Missão de comunicação: Plantão de Comunicação \nOK - Missão de comunicação: OTTOVIAS_COMM_STOPS \nOK - Missão de comunicação: startOttoviasCommunicationMission \nOK - Missão de comunicação: completeOttoviasCommunicationMission \nOK - Missão especial Otto: OTTOVIAS_OTTO_STOPS \nOK - Missão especial Otto: isOttoOttoviasPlayer \nOK - Missão especial Otto: Operação Repórter Mirim \nOK - Missão especial Otto: ottoviasReporterMirim \nOK - Missão da Michelle atualiza GPS por etapa \nOK - NPC profissional não recebe sociedade aleatória \nOK - Tráfego reage ao pedestre: function trafficPedestrianFactor \nOK - Tráfego reage ao pedestre: forward=dx*fx+dz*fz \nOK - Tráfego reage ao pedestre: side=Math.abs(dx*rx+dz*rz) \nOK - Tráfego reage ao pedestre: pedestrianHornAt \nOK - Tráfego reage ao pedestre: actor.currentSpeed=0 \nOK - Fator de pedestre limita a velocidade normal \nOK - Carros buzinam com cooldown em vez de spam \nOK - Pedestre não é proibido na OTTOVIAS \nOK - Recuperação total só para limites/queda \nOK - Penetração tenta correção local curta \nOK - Penetração falha sem teleporte distante \nOK - Pulo duplo: function canGroundJump \nOK - Pulo duplo: function canAirJump \nOK - Pulo duplo: player.airJumpAvailable!==false \nOK - Pulo duplo: doJump(true) \nOK - Pulo duplo: player.airJumpAvailable=false \nOK - Pulo duplo: +8.7 \nOK - Pulo duplo: player.airJumpAvailable=true \nOK - Segundo pulo só existe no ar \nOK - Pulo aéreo recarrega ao pousar \nOK - Index usa cache da release 16\nOK - Service Worker usa cache da release \nOK - Manifesto usa cache da release \n{\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 81,\n    \"failed\": 0,\n    \"total\": 81\n  },\n  \"failed\": []\n}"
     },
     {
-      "name": "Estabilização profissional V705.7",
+      "name": "Fluxo profissional da OTTOVIAS V705.7 R3",
       "passed": true,
-      "detail": "OK - Release V705.7 R2\nOK - Android usa sensor completo\nOK - Entrada solicita paisagem com fallback\nOK - Android força atualização do WebView ao girar\nOK - Versão Android incrementada\nOK - Placa considera largura física\nOK - Placa comum busca posição segura\nOK - Placas usam registro e visibilidade por distância\nOK - Tráfego corrige para rota mesmo dentro da rua\nOK - Tráfego usa grade espacial\nOK - Rotas motorizadas seguem o grafo viário\nOK - NPCs motorizados recebem rota de faixa\nOK - Ônibus usam autoridade de faixa\nOK - Emergência publica rota para correção\nOK - Noticiário possui modos\nOK - Noticiário reduz frequência e spam\nOK - Seletor do noticiário atualiza todos os botões\nOK - Noticiário possui atalho direto\nOK - Avatar do card é ficcional\nOK - Foto real ausente\nOK - Render móvel possui teto adaptativo\nOK - Plano escolar existe\nOK - Bundle JavaScript válido\n{\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 23,\n    \"failed\": 0,\n    \"total\": 23\n  },\n  \"failed\": []\n}"
+      "detail": "OK - Release R3 da OTTOVIAS \nOK - Android responde ao sensor completo \nOK - Fluxo contextual do pedágio: vehicleOnly:true \nOK - Fluxo contextual do pedágio: getActionLabel:()=>ottoviasTollActionLabel \nOK - Fluxo contextual do pedágio: handleOttoviasTollAction \nOK - Fluxo contextual do pedágio: payOttoviasToll \nOK - Fluxo contextual do pedágio: raiseOttoviasTollGate \nOK - Interação veicular tem prioridade sobre sair do carro \nOK - Botão contextual aceita rótulo dinâmico \nOK - Pagamento não levanta a cancela automaticamente \nOK - Cancela só abre na ação de levantar \nOK - Passagem autorizada consome o pagamento \nOK - Evasão, perseguição e multa: updateOttoviasTollPassage \nOK - Evasão, perseguição e multa: registerOttoviasTollPassage \nOK - Evasão, perseguição e multa: startTollEvasionPursuit \nOK - Evasão, perseguição e multa: reason:'toll-evasion' \nOK - Evasão, perseguição e multa: movePolicePursuit \nOK - Evasão, perseguição e multa: applyTollEvasionFine \nOK - Evasão, perseguição e multa: Multa registrada \nOK - Viatura persegue usando a malha viária \nOK - Abordagem espera a aproximação da viatura \nOK - Túnel rodoviário profissional: createOttoviasTunnel \nOK - Túnel rodoviário profissional: TÚNEL OTTOVIAS \nOK - Túnel rodoviário profissional: MANTENHA A FAIXA \nOK - Túnel rodoviário profissional: ottoviasTunnel \nOK - Pedras são proibidas na pista e acostamento \nOK - Passarela suspensa funcional: createOttoviasPedestrianBridge \nOK - Passarela suspensa funcional: registerPlatform \nOK - Passarela suspensa funcional: PASSARELA \nOK - Passarela suspensa funcional: ottoviasFootbridge \nOK - Passarela suspensa funcional: bridgePedestrians \nOK - Frota autônoma OTTOVIAS criada \nOK - Frota usa duas faixas e dois sentidos \nOK - Frota respeita trânsito e autoridade de faixa \nOK - Frota integra colisões e telemetria \nOK - Frota aplica culling para celular \nOK - Foto real da Michelle ausente \nOK - Sintaxe válida: src/modules/14a-ottovias-highway-v7054.js \nOK - Sintaxe válida: src/modules/16-emergency-services.js \nOK - Sintaxe válida: src/modules/27-npc-enemies-combat-camera-action.js \n{\n  \"passed\": true,\n  \"counts\": {\n    \"passed\": 40,\n    \"failed\": 0,\n    \"total\": 40\n  },\n  \"failed\": []\n}"
     },
     {
       "name": "Materialização real do mundo V704",
@@ -660,7 +655,7 @@
     {
       "name": "Auditoria geométrica, rotas e áreas jogáveis V704",
       "passed": true,
-      "detail": "{\n  \"version\": 704,\n  \"passed\": true,\n  \"staticAudit\": {\n    \"version\": 704,\n    \"passed\": true,\n    \"problems\": [],\n    \"roads\": 11,\n    \"highways\": 3,\n    \"structures\": 28,\n    \"zones\": 20,\n    \"paths\": 13,\n    \"signs\": 16\n  },\n  \"routeAudit\": {\n    \"routes\": 5,\n    \"segments\": 58,\n    \"problems\": []\n  },\n  \"playAreaAudit\": {\n    \"areas\": [\n      \"stadium\",\n      \"football-field\",\n      \"volley\",\n      \"footvolley\",\n      \"kart-circuit\",\n      \"kart-boxes\"\n    ],\n    \"problems\": []\n  },\n  \"counts\": {\n    \"roads\": 11,\n    \"zones\": 20,\n    \"structures\": 28,\n    \"paths\": 13,\n    \"busRoutes\": 5\n  }\n}"
+      "detail": "{\n  \"version\": 704,\n  \"passed\": true,\n  \"staticAudit\": {\n    \"version\": 704,\n    \"passed\": true,\n    \"problems\": [],\n    \"roads\": 11,\n    \"highways\": 3,\n    \"structures\": 30,\n    \"zones\": 20,\n    \"paths\": 13,\n    \"signs\": 16\n  },\n  \"routeAudit\": {\n    \"routes\": 5,\n    \"segments\": 58,\n    \"problems\": []\n  },\n  \"playAreaAudit\": {\n    \"areas\": [\n      \"stadium\",\n      \"football-field\",\n      \"volley\",\n      \"footvolley\",\n      \"kart-circuit\",\n      \"kart-boxes\"\n    ],\n    \"problems\": []\n  },\n  \"counts\": {\n    \"roads\": 11,\n    \"zones\": 20,\n    \"structures\": 30,\n    \"paths\": 13,\n    \"busRoutes\": 5\n  }\n}"
     },
     {
       "name": "IDs HTML únicos",
@@ -730,7 +725,7 @@
     {
       "name": "Hash-fonte src/modules/05a-world-layout-v704.js",
       "passed": true,
-      "detail": "dd75476790745ecbf8e054ca0169a4b02fbdada2072ffe87002d1c60950ce979"
+      "detail": "589b957c64a24b0284e010c9f4b60685f7d82ed12b7bd101254a971a15479a97"
     },
     {
       "name": "Hash-fonte src/modules/06-missions-profile-hud-inventory-tools.js",
@@ -740,7 +735,7 @@
     {
       "name": "Hash-fonte src/modules/07-navigation-traffic-routes.js",
       "passed": true,
-      "detail": "c2c1bf9f8f84864fafdc2d9ae4dc719602c031e00613a76478a31b411c815fea"
+      "detail": "80ac5091a3c49958a07821f3db5b8ab5271b0d8f2a6f164dd90b380e6dc3b909"
     },
     {
       "name": "Hash-fonte src/modules/08-map-parent-settings.js",
@@ -765,7 +760,7 @@
     {
       "name": "Hash-fonte src/modules/12-world-resources-nature.js",
       "passed": true,
-      "detail": "4c0412dd75e28d1aad86d32d94d024cae38ba1fe5be5378027a62950da8f9d56"
+      "detail": "50ccd46885cf093216f47a376155b56c3f39b284dc5b1f25f8fdb6df56ce2c8f"
     },
     {
       "name": "Hash-fonte src/modules/13-houses-npcs-vehicles-base.js",
@@ -785,7 +780,7 @@
     {
       "name": "Hash-fonte src/modules/14a-ottovias-highway-v7054.js",
       "passed": true,
-      "detail": "4317ec843a7738d4ddc8ad975364f8fa3ca276c75bbd8b1b3967cee4d13e6f8b"
+      "detail": "faa842a6a1d938ecbf6ee12b87bfd23fd0e906d04bb080b573e9be779acdda7d"
     },
     {
       "name": "Hash-fonte src/modules/15-transit-bus-metro.js",
@@ -795,7 +790,7 @@
     {
       "name": "Hash-fonte src/modules/16-emergency-services.js",
       "passed": true,
-      "detail": "a8fbd51f97219c74ba0b92b867a429173e4abde913ff89ba79b7b79c9fcf9987"
+      "detail": "e6a7c86c2561e7fc41d9347b2ff3900c745374776d0bac9736ec738e8d7b15b8"
     },
     {
       "name": "Hash-fonte src/modules/17-adventures-learning-world.js",
@@ -855,7 +850,7 @@
     {
       "name": "Hash-fonte src/modules/27-npc-enemies-combat-camera-action.js",
       "passed": true,
-      "detail": "daa19a9ba94044207234b91143245bc1e088b9aba0c8e12dee119bedcaae6249"
+      "detail": "a24fa14db119d3e7ca88616be26c936aeeaec3f67443808d46e8c61620308cfc"
     },
     {
       "name": "Hash-fonte src/modules/28-multiplayer-social-online.js",
@@ -1035,7 +1030,7 @@
     {
       "name": "Funções preservadas e ampliadas",
       "passed": true,
-      "detail": "1049"
+      "detail": "1069"
     },
     {
       "name": "Release V705 coerente",
@@ -1065,10 +1060,10 @@
   ],
   "errors": [],
   "hashes": {
-    "app.js": "831cf20e2c736edfcc1cb8ed748ac28eff0ea9a9e833396bcfa69e2d2d13c975",
+    "app.js": "359b7ba8699de435528f18e9b724e3d3e0c0c96b26cd0ef88823b0e9c6d29bdb",
     "style.css": "ee00dbe9aee0c48f77c0aef2e205a1e815a574b0b945b0e040b883dfece08c96",
-    "src/module-order.json": "7f92683c8fd7aeae87ed9f9fb196b428b39c7d622e8fe6ab681f97200d116941",
-    "release-manifest.json": "b68fbbd0c85af8c08c9ec81aa4a490e6d9a07fa43fce91fdfb85e9573c217269",
+    "src/module-order.json": "ea44440e2106c9923b8d5b5f873690c40b03f80ac1340ef7b1a7b3fe00f22482",
+    "release-manifest.json": "e8d9674c798672867dfeb2c7b39b5b3c076a18c9f001d5ff6546565b3c403598",
     "firebase-config.js": "72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd",
     "firebase-database.rules.json": "ebf8cd036b4d9ee61286b5d64fc8bfb405c7d390459d9e517126ceb03c855958"
   },

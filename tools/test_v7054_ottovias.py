@@ -87,7 +87,7 @@ for token in ['createOttoviasBiomes','createOttoviasHighwayGeometry','createOtto
     ck(f'Runtime OTTOVIAS: {token}',token in ott)
 ck('Michelle é NPC fixo da comunicação',all(x in ott for x in ["createNPC('michelle-ottovias','Michelle'","michelle.ottoviasRole='comunicacao'","michelle.stationary=true","Michelle • Comunicação OTTOVIAS",'styleMichelleOttovias']))
 ck('Ronda passa por deserto, campo, neve, praia e central',all(x in ott for x in ["point:'ottoviasDesert'","point:'ottoviasField'","point:'ottoviasSnow'","point:'ottoviasBeach'","point:'ottoviasOperationsAccess'"]))
-ck('Cancela realmente bloqueia veículo até liberar',all(x in ott for x in ['d<6)player.car.speed','d<3.8)player.car.speed=0','toll.openUntil=now+13000']))
+ck('Cancela realmente bloqueia veículo até liberar',all(x in ott for x in ['gateDistance<5.2)player.car.speed','gateDistance<1.45)player.car.speed=0','toll.openUntil=Date.now()+14000']))
 ck('Equipe de inspeção percorre todos os pontos da rodovia',"const route=h.points.map(p=>[p.x,p.z])" in ott)
 ck('buildWorld inicializa OTTOVIAS uma vez',world.count('createOttoviasWorld()')==1,world.count('createOttoviasWorld()'))
 ck('Game loop atualiza OTTOVIAS uma vez',loop.count('updateOttoviasHighway(dt)')==1,loop.count('updateOttoviasHighway(dt)'))

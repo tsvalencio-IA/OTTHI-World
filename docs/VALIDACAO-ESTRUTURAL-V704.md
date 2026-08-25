@@ -1,8 +1,8 @@
 # Validação estrutural automática — OTTHI World V704
 
 - Resultado: **APROVADO**
-- Verificações: **210 aprovadas / 0 falhas**
-- Funções incluindo async: **1049**
+- Verificações: **209 aprovadas / 0 falhas**
+- Funções incluindo async: **1069**
 
 ## Verificações
 
@@ -26,8 +26,7 @@
 - [x] Arquivo obrigatório tools/test_v7054_ottovias.py
 - [x] Arquivo obrigatório tools/test_v7055_performance_recovery.py
 - [x] Arquivo obrigatório tools/test_v7056_world_precision.py
-- [x] Arquivo obrigatório tools/test_v7057_professional_stability.py
-- [x] Arquivo obrigatório PLANO-PROFISSIONAL-OTTHI-EDU-MUNDO-ABERTO.md
+- [x] Arquivo obrigatório tools/test_v7057_r3_ottovias_flow.py
 - [x] Arquivo obrigatório src/modules/33-otthi-world-professional-core.js
 - [x] Arquivo obrigatório src/modules/34-avatar-studio-professional-v3.js
 - [x] Arquivo obrigatório src/modules/35-world-render-pbr-environment.js
@@ -56,64 +55,64 @@
 - [x] Versão central V705
 - [x] Sintaxe app.js
 - [x] Sintaxe sw.js
-- [x] Sintaxe src\modules\00-runtime-foundation.js
-- [x] Sintaxe src\modules\00a-visual-foundation-avatar-v2.js
-- [x] Sintaxe src\modules\01-build-persistence.js
-- [x] Sintaxe src\modules\02-state-save-cloud-account.js
-- [x] Sintaxe src\modules\03-ui-modal-install-pwa.js
-- [x] Sintaxe src\modules\04-education-daily-quiz.js
-- [x] Sintaxe src\modules\05-avatar-life-customization.js
-- [x] Sintaxe src\modules\05a-world-layout-v704.js
-- [x] Sintaxe src\modules\06-missions-profile-hud-inventory-tools.js
-- [x] Sintaxe src\modules\07-navigation-traffic-routes.js
-- [x] Sintaxe src\modules\08-map-parent-settings.js
-- [x] Sintaxe src\modules\09-responsive-ar-quality-diagnostics.js
-- [x] Sintaxe src\modules\10-player-skills.js
-- [x] Sintaxe src\modules\11-render-materials-player-model.js
-- [x] Sintaxe src\modules\12-world-resources-nature.js
-- [x] Sintaxe src\modules\13-houses-npcs-vehicles-base.js
-- [x] Sintaxe src\modules\13a-sports-kart-v704.js
-- [x] Sintaxe src\modules\13a-sports-kart-v705.js
-- [x] Sintaxe src\modules\14-world-district-decoration.js
-- [x] Sintaxe src\modules\14a-ottovias-highway-v7054.js
-- [x] Sintaxe src\modules\15-transit-bus-metro.js
-- [x] Sintaxe src\modules\16-emergency-services.js
-- [x] Sintaxe src\modules\17-adventures-learning-world.js
-- [x] Sintaxe src\modules\18-water-fishing-boats.js
-- [x] Sintaxe src\modules\19-campfire-hunting-house-extensions.js
-- [x] Sintaxe src\modules\20-world-build-cloud-houses.js
-- [x] Sintaxe src\modules\21-interactions-shop-social-races.js
-- [x] Sintaxe src\modules\22-careers-jobs-uniforms.js
-- [x] Sintaxe src\modules\23-vehicle-effects-driving.js
-- [x] Sintaxe src\modules\24-construction-system.js
-- [x] Sintaxe src\modules\25-render-init-resize-position-collision.js
-- [x] Sintaxe src\modules\26-input-player-physics.js
-- [x] Sintaxe src\modules\27-npc-enemies-combat-camera-action.js
-- [x] Sintaxe src\modules\28-multiplayer-social-online.js
-- [x] Sintaxe src\modules\29-game-loop-controls-gamepad.js
-- [x] Sintaxe src\modules\30-pause-tests-public-api-bootstrap.js
-- [x] Sintaxe src\modules\31-neighborhood-world-controller.js
-- [x] Sintaxe src\modules\32-cooperative-missions.js
-- [x] Sintaxe src\modules\33-otthi-world-professional-core.js
-- [x] Sintaxe src\modules\34-avatar-studio-professional-v3.js
-- [x] Sintaxe src\modules\35-world-render-pbr-environment.js
-- [x] Sintaxe src\modules\36-modular-build-machines.js
-- [x] Sintaxe src\modules\36a-vehicle-damage-repair-v704.js
-- [x] Sintaxe src\modules\37-hero-platform-gameplay.js
-- [x] Sintaxe src\modules\38-otthi-world-integration-bootstrap.js
-- [x] Sintaxe src\modules\39-gm-admin-panel.js
-- [x] Sintaxe src\modules\40-world-evolution-v702.js
-- [x] Sintaxe assets\js\core\performance-guardian.js
-- [x] Sintaxe assets\js\core\runtime-config.js
-- [x] Sintaxe assets\js\core\safe-pointer.js
-- [x] Sintaxe assets\js\core\viewport-manager.js
-- [x] Sintaxe assets\js\education\adaptive-learning.js
-- [x] Sintaxe assets\js\game-account.js
-- [x] Sintaxe assets\js\multiplayer\room-manager.js
-- [x] Sintaxe assets\js\multiplayer-rtdb.js
-- [x] Sintaxe assets\js\safety\child-safety.js
-- [x] Sintaxe assets\js\save-db.js
-- [x] Sintaxe assets\js\ui\shared-modal.js
+- [x] Sintaxe src/modules/00-runtime-foundation.js
+- [x] Sintaxe src/modules/00a-visual-foundation-avatar-v2.js
+- [x] Sintaxe src/modules/01-build-persistence.js
+- [x] Sintaxe src/modules/02-state-save-cloud-account.js
+- [x] Sintaxe src/modules/03-ui-modal-install-pwa.js
+- [x] Sintaxe src/modules/04-education-daily-quiz.js
+- [x] Sintaxe src/modules/05-avatar-life-customization.js
+- [x] Sintaxe src/modules/05a-world-layout-v704.js
+- [x] Sintaxe src/modules/06-missions-profile-hud-inventory-tools.js
+- [x] Sintaxe src/modules/07-navigation-traffic-routes.js
+- [x] Sintaxe src/modules/08-map-parent-settings.js
+- [x] Sintaxe src/modules/09-responsive-ar-quality-diagnostics.js
+- [x] Sintaxe src/modules/10-player-skills.js
+- [x] Sintaxe src/modules/11-render-materials-player-model.js
+- [x] Sintaxe src/modules/12-world-resources-nature.js
+- [x] Sintaxe src/modules/13-houses-npcs-vehicles-base.js
+- [x] Sintaxe src/modules/13a-sports-kart-v704.js
+- [x] Sintaxe src/modules/13a-sports-kart-v705.js
+- [x] Sintaxe src/modules/14-world-district-decoration.js
+- [x] Sintaxe src/modules/14a-ottovias-highway-v7054.js
+- [x] Sintaxe src/modules/15-transit-bus-metro.js
+- [x] Sintaxe src/modules/16-emergency-services.js
+- [x] Sintaxe src/modules/17-adventures-learning-world.js
+- [x] Sintaxe src/modules/18-water-fishing-boats.js
+- [x] Sintaxe src/modules/19-campfire-hunting-house-extensions.js
+- [x] Sintaxe src/modules/20-world-build-cloud-houses.js
+- [x] Sintaxe src/modules/21-interactions-shop-social-races.js
+- [x] Sintaxe src/modules/22-careers-jobs-uniforms.js
+- [x] Sintaxe src/modules/23-vehicle-effects-driving.js
+- [x] Sintaxe src/modules/24-construction-system.js
+- [x] Sintaxe src/modules/25-render-init-resize-position-collision.js
+- [x] Sintaxe src/modules/26-input-player-physics.js
+- [x] Sintaxe src/modules/27-npc-enemies-combat-camera-action.js
+- [x] Sintaxe src/modules/28-multiplayer-social-online.js
+- [x] Sintaxe src/modules/29-game-loop-controls-gamepad.js
+- [x] Sintaxe src/modules/30-pause-tests-public-api-bootstrap.js
+- [x] Sintaxe src/modules/31-neighborhood-world-controller.js
+- [x] Sintaxe src/modules/32-cooperative-missions.js
+- [x] Sintaxe src/modules/33-otthi-world-professional-core.js
+- [x] Sintaxe src/modules/34-avatar-studio-professional-v3.js
+- [x] Sintaxe src/modules/35-world-render-pbr-environment.js
+- [x] Sintaxe src/modules/36-modular-build-machines.js
+- [x] Sintaxe src/modules/36a-vehicle-damage-repair-v704.js
+- [x] Sintaxe src/modules/37-hero-platform-gameplay.js
+- [x] Sintaxe src/modules/38-otthi-world-integration-bootstrap.js
+- [x] Sintaxe src/modules/39-gm-admin-panel.js
+- [x] Sintaxe src/modules/40-world-evolution-v702.js
+- [x] Sintaxe assets/js/core/performance-guardian.js
+- [x] Sintaxe assets/js/core/runtime-config.js
+- [x] Sintaxe assets/js/core/safe-pointer.js
+- [x] Sintaxe assets/js/core/viewport-manager.js
+- [x] Sintaxe assets/js/education/adaptive-learning.js
+- [x] Sintaxe assets/js/game-account.js
+- [x] Sintaxe assets/js/multiplayer/room-manager.js
+- [x] Sintaxe assets/js/multiplayer-rtdb.js
+- [x] Sintaxe assets/js/safety/child-safety.js
+- [x] Sintaxe assets/js/save-db.js
+- [x] Sintaxe assets/js/ui/shared-modal.js
 - [x] Mobilidade determinística — ┌─────────┬──────────────────────────────────────────────────────────┬────────────┐
 │ (index) │ teste                                                    │ resultado  │
 ├─────────┼──────────────────────────────────────────────────────────┼────────────┤
@@ -575,7 +574,7 @@ test_service_vehicle_visuals_are_local_and_multiplayer_safe (__main__.Profession
 test_service_vehicles_are_distinct_enterable_and_reserved (__main__.ProfessionalEmergencyServicesTests.test_service_vehicles_are_distinct_enterable_and_reserved) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.009s
+Ran 6 tests in 0.002s
 
 OK
 - [x] Mapa, móveis e roupas — test_assigned_service_vehicle_is_real_map_target (__main__.CommercialPolishTests.test_assigned_service_vehicle_is_real_map_target) ... ok
@@ -586,7 +585,7 @@ test_room_furniture_is_persistent_and_editable (__main__.CommercialPolishTests.t
 test_uniforms_follow_animated_limbs (__main__.CommercialPolishTests.test_uniforms_follow_animated_limbs) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.020s
+Ran 6 tests in 0.007s
 
 OK
 - [x] Cooperativo e responsividade — test_all_requested_cooperative_missions_exist (__main__.CoopResponsiveTests.test_all_requested_cooperative_missions_exist) ... ok
@@ -597,7 +596,7 @@ test_state_persists_and_existing_systems_integrate (__main__.CoopResponsiveTests
 test_uniform_and_build_order_are_complete (__main__.CoopResponsiveTests.test_uniform_and_build_order_are_complete) ... ok
 
 ----------------------------------------------------------------------
-Ran 6 tests in 0.026s
+Ran 6 tests in 0.017s
 
 OK
 - [x] Painel GM V701 preservado —  "passed": true,
@@ -885,9 +884,9 @@ OK
 }
 - [x] Ordem de inicialização V703.1 — OK - Módulo cooperativo antes do render 30 < 31
 OK - Módulo cooperativo antes do bootstrap 30 < 36
-OK - Bundle cooperativo antes do render 686262 < 752960
-OK - Bundle cooperativo antes do bootstrap 686262 < 894542
-OK - Declaração inicializada antes de initThree 689929 < 753029
+OK - Bundle cooperativo antes do render 702754 < 769452
+OK - Bundle cooperativo antes do bootstrap 702754 < 911649
+OK - Declaração inicializada antes de initThree 706421 < 769521
 OK - Chamada cooperativa preservada 
 OK - Build atual coerente 
 OK - Cache atual coerente 
@@ -1155,8 +1154,7 @@ OK - Final da ronda aponta para acesso seguro
 OK - Culling equilibrado limita segmentos simultâneos 7
 OK - Release V705.5 ou posterior 
 RESULTADO: 16/16
-- [x] Precisão integral do mundo V705.7 — de-market 
-OK - Placa com texto: guide-workshop 
+- [x] Precisão integral do mundo V705.6 —  Placa com texto: guide-workshop 
 OK - Placa com texto: guide-forest 
 OK - Placa com texto: guide-farm 
 OK - Placa com texto: guide-castle 
@@ -1219,9 +1217,9 @@ OK - Pulo duplo: +8.7
 OK - Pulo duplo: player.airJumpAvailable=true 
 OK - Segundo pulo só existe no ar 
 OK - Pulo aéreo recarrega ao pousar 
-OK - Index usa cache 70572 16
-OK - Service Worker usa cache 70572 
-OK - Manifesto usa cache 70572 
+OK - Index usa cache da release 16
+OK - Service Worker usa cache da release 
+OK - Manifesto usa cache da release 
 {
   "passed": true,
   "counts": {
@@ -1231,35 +1229,52 @@ OK - Manifesto usa cache 70572
   },
   "failed": []
 }
-- [x] Estabilização profissional V705.7 — OK - Release V705.7 R2
-OK - Android usa sensor completo
-OK - Entrada solicita paisagem com fallback
-OK - Android força atualização do WebView ao girar
-OK - Versão Android incrementada
-OK - Placa considera largura física
-OK - Placa comum busca posição segura
-OK - Placas usam registro e visibilidade por distância
-OK - Tráfego corrige para rota mesmo dentro da rua
-OK - Tráfego usa grade espacial
-OK - Rotas motorizadas seguem o grafo viário
-OK - NPCs motorizados recebem rota de faixa
-OK - Ônibus usam autoridade de faixa
-OK - Emergência publica rota para correção
-OK - Noticiário possui modos
-OK - Noticiário reduz frequência e spam
-OK - Seletor do noticiário atualiza todos os botões
-OK - Noticiário possui atalho direto
-OK - Avatar do card é ficcional
-OK - Foto real ausente
-OK - Render móvel possui teto adaptativo
-OK - Plano escolar existe
-OK - Bundle JavaScript válido
+- [x] Fluxo profissional da OTTOVIAS V705.7 R3 — OK - Release R3 da OTTOVIAS 
+OK - Android responde ao sensor completo 
+OK - Fluxo contextual do pedágio: vehicleOnly:true 
+OK - Fluxo contextual do pedágio: getActionLabel:()=>ottoviasTollActionLabel 
+OK - Fluxo contextual do pedágio: handleOttoviasTollAction 
+OK - Fluxo contextual do pedágio: payOttoviasToll 
+OK - Fluxo contextual do pedágio: raiseOttoviasTollGate 
+OK - Interação veicular tem prioridade sobre sair do carro 
+OK - Botão contextual aceita rótulo dinâmico 
+OK - Pagamento não levanta a cancela automaticamente 
+OK - Cancela só abre na ação de levantar 
+OK - Passagem autorizada consome o pagamento 
+OK - Evasão, perseguição e multa: updateOttoviasTollPassage 
+OK - Evasão, perseguição e multa: registerOttoviasTollPassage 
+OK - Evasão, perseguição e multa: startTollEvasionPursuit 
+OK - Evasão, perseguição e multa: reason:'toll-evasion' 
+OK - Evasão, perseguição e multa: movePolicePursuit 
+OK - Evasão, perseguição e multa: applyTollEvasionFine 
+OK - Evasão, perseguição e multa: Multa registrada 
+OK - Viatura persegue usando a malha viária 
+OK - Abordagem espera a aproximação da viatura 
+OK - Túnel rodoviário profissional: createOttoviasTunnel 
+OK - Túnel rodoviário profissional: TÚNEL OTTOVIAS 
+OK - Túnel rodoviário profissional: MANTENHA A FAIXA 
+OK - Túnel rodoviário profissional: ottoviasTunnel 
+OK - Pedras são proibidas na pista e acostamento 
+OK - Passarela suspensa funcional: createOttoviasPedestrianBridge 
+OK - Passarela suspensa funcional: registerPlatform 
+OK - Passarela suspensa funcional: PASSARELA 
+OK - Passarela suspensa funcional: ottoviasFootbridge 
+OK - Passarela suspensa funcional: bridgePedestrians 
+OK - Frota autônoma OTTOVIAS criada 
+OK - Frota usa duas faixas e dois sentidos 
+OK - Frota respeita trânsito e autoridade de faixa 
+OK - Frota integra colisões e telemetria 
+OK - Frota aplica culling para celular 
+OK - Foto real da Michelle ausente 
+OK - Sintaxe válida: src/modules/14a-ottovias-highway-v7054.js 
+OK - Sintaxe válida: src/modules/16-emergency-services.js 
+OK - Sintaxe válida: src/modules/27-npc-enemies-combat-camera-action.js 
 {
   "passed": true,
   "counts": {
-    "passed": 23,
+    "passed": 40,
     "failed": 0,
-    "total": 23
+    "total": 40
   },
   "failed": []
 }
@@ -1274,7 +1289,7 @@ OK - Bundle JavaScript válido
     "problems": [],
     "roads": 11,
     "highways": 3,
-    "structures": 28,
+    "structures": 30,
     "zones": 20,
     "paths": 13,
     "signs": 16
@@ -1298,7 +1313,7 @@ OK - Bundle JavaScript válido
   "counts": {
     "roads": 11,
     "zones": 20,
-    "structures": 28,
+    "structures": 30,
     "paths": 13,
     "busRoutes": 5
   }
@@ -1316,20 +1331,20 @@ OK - Bundle JavaScript válido
 - [x] Hash-fonte src/modules/03-ui-modal-install-pwa.js — d49232561be91aabe54e17ae6d1e18c9699c67ee5cf1848e731cbd811b8950ff
 - [x] Hash-fonte src/modules/04-education-daily-quiz.js — 28bfae12189a8bfd6118d93fdeb881fff8c23a4fc4bccd32bfa8dd9cebd2baba
 - [x] Hash-fonte src/modules/05-avatar-life-customization.js — 48eee0d596cf07cfffb597d2b8c5b3a3a8423b77fa4dcee070740827f04ffdd1
-- [x] Hash-fonte src/modules/05a-world-layout-v704.js — dd75476790745ecbf8e054ca0169a4b02fbdada2072ffe87002d1c60950ce979
+- [x] Hash-fonte src/modules/05a-world-layout-v704.js — 589b957c64a24b0284e010c9f4b60685f7d82ed12b7bd101254a971a15479a97
 - [x] Hash-fonte src/modules/06-missions-profile-hud-inventory-tools.js — 73db927a29e186535b6e8f598f955694df99d92a58720a07d760a237c4c2cf19
-- [x] Hash-fonte src/modules/07-navigation-traffic-routes.js — c2c1bf9f8f84864fafdc2d9ae4dc719602c031e00613a76478a31b411c815fea
+- [x] Hash-fonte src/modules/07-navigation-traffic-routes.js — 80ac5091a3c49958a07821f3db5b8ab5271b0d8f2a6f164dd90b380e6dc3b909
 - [x] Hash-fonte src/modules/08-map-parent-settings.js — d0f0ac33dd254454340a499806a5ff1581a6688b80842b9d549ed83088fa39c4
 - [x] Hash-fonte src/modules/09-responsive-ar-quality-diagnostics.js — ccb4734f21c9e744ea5c4d3058b953f2eeda3a290e9162851756ff7359a061f9
 - [x] Hash-fonte src/modules/10-player-skills.js — aea3d85401c518ddf4cbfefffe2e0ad720ae4faf46d27310a886b4d966674715
 - [x] Hash-fonte src/modules/11-render-materials-player-model.js — fd64f45cbfb038e111bdc952f5f2eeae332ac7c25708fda9c263767d333aa207
-- [x] Hash-fonte src/modules/12-world-resources-nature.js — 4c0412dd75e28d1aad86d32d94d024cae38ba1fe5be5378027a62950da8f9d56
+- [x] Hash-fonte src/modules/12-world-resources-nature.js — 50ccd46885cf093216f47a376155b56c3f39b284dc5b1f25f8fdb6df56ce2c8f
 - [x] Hash-fonte src/modules/13-houses-npcs-vehicles-base.js — d267b3e6859a7ee95e95b954818c6611f0bfe04f12abf97828dd4055be32cce2
 - [x] Hash-fonte src/modules/13a-sports-kart-v705.js — 0d0f398a390dd05a1a9966e2caa0aa0b5fc54675d8ea59a067ed61a16290ce0d
 - [x] Hash-fonte src/modules/14-world-district-decoration.js — 44559ad6efdc06725a2a80ca29edbffb91b8eacd80da18fc74ae5ca64c308ea0
-- [x] Hash-fonte src/modules/14a-ottovias-highway-v7054.js — 4317ec843a7738d4ddc8ad975364f8fa3ca276c75bbd8b1b3967cee4d13e6f8b
+- [x] Hash-fonte src/modules/14a-ottovias-highway-v7054.js — faa842a6a1d938ecbf6ee12b87bfd23fd0e906d04bb080b573e9be779acdda7d
 - [x] Hash-fonte src/modules/15-transit-bus-metro.js — 94cf848b0c442c58858a6c63170f0806e31a7fff11bd91e94f60b3fc1cc71135
-- [x] Hash-fonte src/modules/16-emergency-services.js — a8fbd51f97219c74ba0b92b867a429173e4abde913ff89ba79b7b79c9fcf9987
+- [x] Hash-fonte src/modules/16-emergency-services.js — e6a7c86c2561e7fc41d9347b2ff3900c745374776d0bac9736ec738e8d7b15b8
 - [x] Hash-fonte src/modules/17-adventures-learning-world.js — ed109312f584cc409313032922e0dc4fe4fe8e21b42fd6c6628409c30a5f5ab5
 - [x] Hash-fonte src/modules/18-water-fishing-boats.js — f81fdb6bdde4e190b8f744440adaf644b890f4fc7c715495433d1c4ddf026166
 - [x] Hash-fonte src/modules/19-campfire-hunting-house-extensions.js — ffdc32479d3d650f81ea304e7d68b2ef5f5bf7a785d1ddca36ebb525bd8401de
@@ -1341,7 +1356,7 @@ OK - Bundle JavaScript válido
 - [x] Hash-fonte src/modules/32-cooperative-missions.js — d05f148f4e2ce9970d96cb031d7f0490c03741399e59069ead84c8c0a3026b69
 - [x] Hash-fonte src/modules/25-render-init-resize-position-collision.js — 58d4bfbffe9aec3e1165913c7e79789efabf3754a6c797eb6e229c8381d4086d
 - [x] Hash-fonte src/modules/26-input-player-physics.js — ef270fe98c36bbdd5d114350aa9278fbdc38c24fcec7b77dc2c14eebf88a4e10
-- [x] Hash-fonte src/modules/27-npc-enemies-combat-camera-action.js — daa19a9ba94044207234b91143245bc1e088b9aba0c8e12dee119bedcaae6249
+- [x] Hash-fonte src/modules/27-npc-enemies-combat-camera-action.js — a24fa14db119d3e7ca88616be26c936aeeaec3f67443808d46e8c61620308cfc
 - [x] Hash-fonte src/modules/28-multiplayer-social-online.js — 056bcb81a9e0ac32f0ef3651bf8f2e792d9c3923df1c703d194dc2f3fecfaf68
 - [x] Hash-fonte src/modules/29-game-loop-controls-gamepad.js — 346217bb1fc10753c79896618d7d51325bd177ce615b4b73d9aa065a86fa15e4
 - [x] Hash-fonte src/modules/30-pause-tests-public-api-bootstrap.js — 681c2923ff83d9d9275119db6af29e88d65a86a77a571d82a9da06fd8fd230a1
@@ -1377,7 +1392,7 @@ OK - Bundle JavaScript válido
 - [x] Hash-fonte src/styles/19-mobile-landscape-authority-v7051.css — 692dd2519e9116f85614a738ebf53f2f54d1ab13ddfd25066edb61dbb17996a3
 - [x] app.js sincronizado com fontes
 - [x] style.css sincronizado com fontes
-- [x] Funções preservadas e ampliadas — 1049
+- [x] Funções preservadas e ampliadas — 1069
 - [x] Release V705 coerente
 - [x] Hashes da release conferem — []
 - [x] Revisão HTML/SW/manifesto coerente
