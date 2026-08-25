@@ -5,8 +5,8 @@
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70574,
-  "androidVersionName": "7.0.5.7.4",
+  "androidVersionCode": 70575,
+  "androidVersionName": "7.0.5.7.5",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -42,12 +42,17 @@
     }
   },
   "changes": [
+    "R5 elimina resets automáticos para o centro: Jogar e Continuar preservam a posição, e falhas finitas de limite ou altura são corrigidas no próprio local sem desmontar o veículo",
+    "Botão SAIR passa a ser permanente e independente; um novo botão veicular executa PAGAR, LEVANTAR e PASSAR no pedágio",
+    "Botão de utilidade veicular passa a oferecer Turbo nos carros, Sirene em viaturas e ambulâncias, e Canhão de Água nos caminhões de bombeiros",
+    "Túnel visual inadequado foi integralmente removido da OTTOVIAS, preservando a rodovia aberta até existir um modelo verdadeiramente profissional",
+    "Praças de pedágio passam de quatro cabines apertadas para duas cabines externas, mantendo três corredores de passagem livres",
     "R4 elimina o teleporte indevido perto da Michelle e das bordas ao validar posições pelo limite real do mundo, preservando a última posição segura antes de entrar no veículo",
     "Represa passa a formar uma única bacia conectada fora das ruas, com margens próprias; Estação Represa e pontos de pesca permanecem em terreno seco",
-    "OTTOVIAS mantém somente um túnel contínuo, agora com abóbada segmentada, pórticos, calçadas técnicas, balizadores, iluminação e vão rodoviário livre",
+    "A tentativa anterior de túnel foi retirada na revisão R5 após validação visual em aparelho real",
     "Pedágio veicular passa a expor no botão contextual a sequência PAGAR, LEVANTAR e PASSAR sem obrigar o jogador a sair do veículo",
     "Travessia sem pagamento registra infração, aciona uma viatura pela malha viária, inicia perseguição e aplica multa educativa no posto policial",
-    "OTTOVIAS recebe túnel rodoviário com vão livre e iluminação; pedras e recursos naturais passam a ser proibidos sobre pista e acostamento",
+    "Pedras e recursos naturais permanecem proibidos sobre pista e acostamento da OTTOVIAS",
     "Travessia urbana recebe passarela suspensa funcional com escadas, plataforma, guarda-corpo e pedestres em circulação",
     "Circuito externo recebe seis veículos autônomos distribuídos entre os dois sentidos, com autoridade de faixa, distância de segurança e culling móvel",
     "Paradas de ônibus coincidentes são consolidadas, placas respeitam a orientação da rota e escapam de cruzamentos; a auditoria de runtime reprova sinalização sobre pista ou passeio e placas duplicadas",
@@ -135,7 +140,7 @@
     "performanceStaticApproved": true,
     "worldPrecisionStaticApproved": true
   },
-  "release": "705.7-world-integrity-r4",
+  "release": "705.7-vehicle-actions-r5",
   "notes": [
     "A inspeção visual final e a auditoria geométrica confirmaram a remoção do agrupamento de placas de parada no cruzamento central.",
     "R2 foi aprovada em matriz de navegador automatizada local e em todas as suítes estruturais; a homologação física continua obrigatória para rotação por sensor, FPS sustentado, APK e multiplayer entre dois aparelhos.",
@@ -149,8 +154,8 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70574,
-  "revisionLabel": "R4-world-integrity",
+  "assetVersion": 70575,
+  "revisionLabel": "R5-vehicle-actions-no-reset",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",
