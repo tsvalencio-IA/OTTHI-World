@@ -1,11 +1,11 @@
 {
   "version": 705,
   "build": "705.0-playable-sports-realistic-npcs-kart",
-  "revision": "650e8041fee6be46",
+  "revision": "89b2ca049b40a129",
   "algorithm": "SHA-256",
   "files": {
-    "index.html": "153173d6a46794944a9db3d9d79dc80ff8d870f3a02470752c9a3b55faae4452",
-    "style.css": "d9dc8dc4315354e2c723d0ad39e5fcc4cdfa7a31f6de624027f2497c25c082bf",
+    "index.html": "4da53fc6e7452cd0d0132163e6b742e52e056c24c18ec4aa7f0216d78d4dc446",
+    "style.css": "0ca226fab6aee74ab27cdf46517beeb32d809ced4c9b6c32223e7db2bc0675dd",
     "assets/vendor/three-r128.min.js": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
     "assets/js/core/runtime-config.js": "61a4377023ada3c7722d409de7023fa2dfdcf88ff6d1d5fd47673302961e72fa",
     "assets/js/core/safe-pointer.js": "4f11579e213b1d6704e9b03f3a15dcb4b0738900cc8eadb46a415224045aedb4",
@@ -23,6 +23,6 @@
     "manifest.webmanifest": "85aa03a701f19992df3a9bc6721f0d01d98720001b36b850aadc8a293f5eeec1",
     "404.html": "fa1b7eeb67a2364a67a2c0ea7d2e4ebb58a2a50d8d8f1c05de48931498b36ae8",
     "VERSION.json": "e45e93ff6d8f856fb74e1a058c9cd3e4d3cd2493709072b4c9417ca8ea36a890",
-    "sw.js": "0e641acffd529ec73bc248eec5ca8aad750bd5f7311abe566ac07d5064967526"
+    "sw.js": "e0c7e6b33475257399721458886fbc30f670c9da3ccf83fc7b85ee6ad1052668"
   }
 }

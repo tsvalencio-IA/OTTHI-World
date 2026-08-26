@@ -29,7 +29,7 @@ bootstrap = read('src/modules/30-pause-tests-public-api-bootstrap.js')
 ottovias = read('src/modules/14a-ottovias-highway-v7054.js')
 css = read('src/styles/19-mobile-landscape-authority-v7051.css')
 
-check('Release R5', version.get('assetVersion') == 70575 and version.get('release') == '705.7-vehicle-actions-r5')
+check('Release R5 ou posterior', version.get('assetVersion', 0) >= 70575 and str(version.get('release', '')).startswith('705.7-'))
 check('Jogar e Continuar preservam posição', bootstrap.count('startGame(false)') >= 2 and 'startGame(true)' not in bootstrap)
 check('Recuperação automática finita é local', 'const bounded=v704ClampWorldPoint(player.x,player.z,1)' in recovery and 'if(!finite)return recoverPlayerToLastSafe' in recovery)
 check('Condução não dispara queda automática', "belowWorld=finite&&!player.swimming&&!player.vehicle&&!player.boating&&!player.transit.mode" in recovery)

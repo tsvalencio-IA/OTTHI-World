@@ -1,4 +1,4 @@
-const REVISION = '650e8041fee6be46';
+const REVISION = '89b2ca049b40a129';
 const CACHE = `otthi-v70577-${REVISION}`;
 const CACHE_PREFIXES = ['otthi-','otthi-game-web-','otthos-life-world-main-'];
 const BUILD = '705.0-playable-sports-realistic-npcs-kart';

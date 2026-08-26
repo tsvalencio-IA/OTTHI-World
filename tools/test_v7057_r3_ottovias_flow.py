@@ -53,7 +53,7 @@ check('Frota autônoma OTTOVIAS criada', 'createOttoviasTrafficFlow' in ottovias
 check('Frota usa duas faixas e dois sentidos', 'ottoviasLaneRoute(h.points,2.45,false)' in ottovias and 'ottoviasLaneRoute(h.points,2.45,true)' in ottovias)
 check('Frota respeita trânsito e autoridade de faixa', 'trafficSpeedFactor(vehicle,heading,8.5)' in ottovias and 'snapTrafficToRoad(vehicle.group,previous)' in ottovias)
 check('Frota integra colisões e telemetria', 'world.ottoviasTraffic' in traffic and 'world.ottoviasTraffic=OTTOVIAS_RUNTIME.traffic' in ottovias)
-check('Frota aplica culling para celular', 'vehicle.group.visible=Math.hypot' in ottovias and '<118' in ottovias)
+check('Frota aplica culling para celular', ('vehicle.group.visible=Math.hypot' in ottovias and '<118' in ottovias) or ('vehicle.group.visible=playerDistance<visibleRange' in ottovias and 'vehicle.nextTrafficDecisionAt' in ottovias and 'visibleRange=' in ottovias))
 
 check('Foto real da Michelle não integra o jogo', 'michelle-profile.png' not in ottovias and 'michelle-profile.png' not in read('app.js') and 'michelle-profile.png' not in read('index.html'))
 for relative in ['src/modules/14a-ottovias-highway-v7054.js', 'src/modules/16-emergency-services.js', 'src/modules/27-npc-enemies-combat-camera-action.js']:

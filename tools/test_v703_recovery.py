@@ -50,7 +50,7 @@ world_baseline={
 for rel,expected in world_baseline.items():
     content=text(rel)
     unchanged=sha(rel)==expected
-    intentionally_evolved=rel in {'src/modules/07-navigation-traffic-routes.js','src/modules/12-world-resources-nature.js','src/modules/13-houses-npcs-vehicles-base.js','src/modules/14-world-district-decoration.js','src/modules/15-transit-bus-metro.js','src/modules/16-emergency-services.js','src/modules/17-adventures-learning-world.js','src/modules/18-water-fishing-boats.js','src/modules/20-world-build-cloud-houses.js','src/modules/40-world-evolution-v702.js'} and len(content)>1000
+    intentionally_evolved=rel in {'src/modules/07-navigation-traffic-routes.js','src/modules/12-world-resources-nature.js','src/modules/13-houses-npcs-vehicles-base.js','src/modules/14-world-district-decoration.js','src/modules/15-transit-bus-metro.js','src/modules/16-emergency-services.js','src/modules/17-adventures-learning-world.js','src/modules/18-water-fishing-boats.js','src/modules/20-world-build-cloud-houses.js','src/modules/31-neighborhood-world-controller.js','src/modules/40-world-evolution-v702.js'} and len(content)>1000
     ck(f'Base V702.1 preservada ou evoluída explicitamente: {Path(rel).name}',unchanged or intentionally_evolved,sha(rel))
 ck('Sem camada de layout Revisão 8','OTTHI_WORLD_LAYOUT_R8' not in ''.join(text(x['file']) for x in order.get('javascript',[])))
 

@@ -59,7 +59,8 @@
     const pos=state.position||{x:0,y:0,z:8,yaw:0};let x=Number.isFinite(pos.x)?pos.x:0,z=Number.isFinite(pos.z)?pos.z:8;
     cameraYaw=Number.isFinite(pos.yaw)?pos.yaw:0;
     const bounds=v704WorldBounds(),margin=.85,insideWorld=x>=bounds.minX+margin&&x<=bounds.maxX-margin&&z>=bounds.minZ+margin&&z<=bounds.maxZ-margin;
-    if(!insideWorld||isInsideLakeNavigable(x,z)){const lastX=Number(player.lastSafeX),lastZ=Number(player.lastSafeZ),lastValid=Number.isFinite(lastX)&&Number.isFinite(lastZ)&&lastX>=bounds.minX+margin&&lastX<=bounds.maxX-margin&&lastZ>=bounds.minZ+margin&&lastZ<=bounds.maxZ-margin&&!isInsideLakeNavigable(lastX,lastZ);x=lastValid?lastX:0;z=lastValid?lastZ:8;state.boats.activeBoatId='';state.boats.passengerOf='';}
+    if(!insideWorld){const bounded=v704ClampWorldPoint(x,z,margin);x=bounded.x;z=bounded.z;}
+    if(isInsideLakeNavigable(x,z)){const lastX=Number(player.lastSafeX),lastZ=Number(player.lastSafeZ),lastValid=Number.isFinite(lastX)&&Number.isFinite(lastZ)&&lastX>=bounds.minX+margin&&lastX<=bounds.maxX-margin&&lastZ>=bounds.minZ+margin&&lastZ<=bounds.maxZ-margin&&!isInsideLakeNavigable(lastX,lastZ);x=lastValid?lastX:x;z=lastValid?lastZ:z;state.boats.activeBoatId='';state.boats.passengerOf='';}
     const bounded=v704ClampWorldPoint(x,z,margin);x=bounded.x;z=bounded.z;
     const safe=safePointNear(x,z,{ignoreTraffic:true,allowWater:false});player.x=safe.x;player.z=safe.z;player.y=safe.y;player.vx=player.vy=player.vz=0;player.grounded=true;rememberSafePlayerPosition(true);
   }
@@ -68,7 +69,7 @@
     if(player.vehicle)exitVehicle(true);
     if(player.transit.mode==='bus'){const bus=world.buses.find(b=>b.id===player.transit.busId);if(bus&&busAtStop(bus))exitBusAtStop(bus,{stopId:bus.lastStopId,stopName:bus.lastStopName});else{player.transit.mode='';player.transit.busId='';}}
     if(player.transit.mode==='metro'){player.transit.mode='';player.transit.metroUntil=0;if(metroOverlay){metroOverlay.hidden=true;metroOverlay.classList.remove('travelling','arriving');}if(playerModel)playerModel.visible=true;if(avatarLayer)avatarLayer.visible=true;if(contactShadow)contactShadow.visible=true;}
-    if(currentHouse)exitHouse();const safe=safePointNear(0,23,{ignoreTraffic:true,allowWater:false});player.x=safe.x;player.z=safe.z;player.y=safe.y;player.vx=player.vz=player.vy=0;player.grounded=true;cameraYaw=Math.PI;rememberSafePlayerPosition(true);auditPlayerMode('return-home');toast('Você voltou para casa.','good');savePlayerPosition(true);
+    if(currentHouse)exitHouse();const home=worldLayoutPoint('spawn',{x:-18,z:39}),safe=safePointNear(home.x,home.z,{ignoreTraffic:true,allowWater:false});player.x=safe.x;player.z=safe.z;player.y=safe.y;player.vx=player.vz=player.vy=0;player.grounded=true;cameraYaw=Math.PI;rememberSafePlayerPosition(true);auditPlayerMode('return-home');toast('Você voltou para sua casa.','good');savePlayerPosition(true);
   }
   function savePlayerPosition(immediate=false){
     if(player.boating&&player.boat)state.boats.lastPosition={x:+player.x.toFixed(2),z:+player.z.toFixed(2),heading:+player.boat.heading.toFixed(3)};
@@ -129,14 +130,15 @@
   function recoverPlayerIfInvalid(){
     const finite=Number.isFinite(player.x)&&Number.isFinite(player.y)&&Number.isFinite(player.z),ground=finite?groundHeightAt(player.x,player.z):0,bounds=typeof v704WorldBounds==='function'?v704WorldBounds():{minX:-130,maxX:130,minZ:-130,maxZ:130};
     const outside=finite&&(player.x<bounds.minX-1||player.x>bounds.maxX+1||player.z<bounds.minZ-1||player.z>bounds.maxZ+1),heightInvalid=finite&&player.y>Math.max(80,ground+80),belowWorld=finite&&!player.swimming&&!player.vehicle&&!player.boating&&!player.transit.mode&&player.y<ground-2.25,deepFall=finite&&!player.swimming&&!player.vehicle&&!player.boating&&!player.transit.mode&&!player.grounded&&player.vy<0&&player.y<ground-1.05;
-    const penetrated=finite&&!player.vehicle&&!player.boating&&!player.transit.mode&&positionBlockedForPlayer(player.x,player.z,.24,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming});
+    const recoveryNow=performance.now(),scanPenetration=finite&&!player.vehicle&&!player.boating&&!player.transit.mode&&recoveryNow>=Number(player.nextRecoveryScanAt||0);if(scanPenetration)player.nextRecoveryScanAt=recoveryNow+(perf?.mobile?280:180);
+    const penetrated=scanPenetration&&positionBlockedForPlayer(player.x,player.z,.24,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming});
     const reason=!finite?'coordenada inválida':outside?'fora dos limites':heightInvalid?'altura inválida':belowWorld?'abaixo do terreno':deepFall?'queda sem retorno':'';
     if(!reason){
       // Colisão com prédio/objeto nunca deve teleportar o jogador para outro ponto do mapa.
       // A resolução normal de colisão impede a entrada; se um save antigo nascer alguns centímetros
       // dentro de um collider, fazemos apenas uma correção local curta e silenciosa.
       if(penetrated){const local=safePointNear(player.x,player.z,{ignoreTraffic:true,allowWater:!!currentHouse||!!player.swimming,radius:.30,distances:[.38,.58,.82,1.08,1.38],angles:[0,Math.PI/2,-Math.PI/2,Math.PI,Math.PI/4,-Math.PI/4,3*Math.PI/4,-3*Math.PI/4]});if(local&&Math.hypot(local.x-player.x,local.z-player.z)<=1.45){player.x=local.x;player.z=local.z;player.y=local.y;player.vx=player.vz=0;player.invalidSince=0;playerGroup?.position?.set(player.x,player.y,player.z);contactShadow?.position?.set(player.x,player.y+.025,player.z);return true;}player.invalidSince=0;return false;}
-      player.invalidSince=0;rememberSafePlayerPosition();return false;
+      player.invalidSince=0;return false;
     }
     if(!finite)return recoverPlayerToLastSafe(reason,true);
     const bounded=v704ClampWorldPoint(player.x,player.z,1),localGround=groundHeightAt(bounded.x,bounded.z);player.x=bounded.x;player.z=bounded.z;player.y=player.boating ? .78 : localGround;player.vx=player.vy=player.vz=0;player.grounded=true;player.lastGrounded=performance.now();player.invalidSince=0;playerGroup?.position?.set(player.x,player.y,player.z);contactShadow?.position?.set(player.x,player.y+.025,player.z);if(!player.vehicle&&!player.boating&&!player.transit.mode)rememberSafePlayerPosition(true);savePlayerPosition(true);console.warn(`[OTTHOS] Correção local do jogador: ${reason}.`);return true;
