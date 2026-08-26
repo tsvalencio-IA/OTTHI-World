@@ -46,6 +46,9 @@ jobs:
           python tools/audit_world_v704.py
           python tools/test_v7057_r4_world_integrity.py
           python tools/test_v7057_r5_vehicle_actions.py
+          python tools/test_v7057_r6_gameplay_integrity.py
+          python tools/test_v7057_r7_player_garage.py
+          node tools/test_v7057_r7_garage_runtime.js
           python tools/validate_project.py
       - name: Validar JavaScript
         run: node --check app.js
