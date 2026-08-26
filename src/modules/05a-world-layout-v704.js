@@ -92,7 +92,7 @@
       ['VS','OV0'],['VN','OVN1'],['OVN1','OV12'],['OV0','OV1'],['OV1','OV2'],['OV2','OV3'],['OV3','OV4'],['OV4','OV5'],['OV5','OV6'],['OV6','OV7'],['OV7','OV8'],['OV8','OV9'],['OV9','OV10'],['OV10','OV11'],['OV11','OV12'],['OV12','OV13'],['OV13','OV14'],['OV14','OV15'],['OV15','OV16'],['OV16','OV17'],['OV17','OV18'],['OV18','OV19'],['OV19','OV20'],['OV20','OV21'],['OV21','OV22'],['OV22','OV23'],['OV23','OV24'],['OV24','OV0']
     ]),
     points:Object.freeze({
-      spawn:{x:-18,z:39},home:{x:-18,z:34},blue:{x:-30,z:17},pink:{x:24,z:17},shop:{x:-22,z:-18},workshop:{x:22,z:-18},
+      spawn:{x:-18,z:39},home:{x:-18,z:34},homeGarage:{x:-31,z:46},blue:{x:-30,z:17},pink:{x:24,z:17},shop:{x:-22,z:-18},workshop:{x:22,z:-18},
       school:{x:-68,z:-18},schoolEast:{x:82,z:24},police:{x:78,z:-18},policeWest:{x:-68,z:22},fireStation:{x:96,z:-18},
       well:{x:38,z:10},foundry:{x:43,z:-35},mine:{x:-92,z:-92},cabin:{x:-88,z:-42},
       camp:{x:-78,z:-62},hunt:{x:-101,z:-78},lake:{x:-88,z:54},lakeNorth:{x:-104,z:69},pier:{x:-67,z:54},metroLake:{x:-45,z:56},
@@ -135,6 +135,7 @@
     }),
     paths:Object.freeze([
       {id:'casa-inicial',x1:-18,z1:37.2,x2:-18,z2:45,w:2.2,destination:'home'},
+      {id:'garagem-residencial',x1:-26,z1:46,x2:-10.8,z2:46,w:4.2,destination:'home-garage'},
       {id:'complexo-esportivo',x1:42,z1:62,x2:42,z2:67,w:3.2,destination:'stadium'},
       {id:'entrada-futebol',x1:42,z1:67,x2:50,z2:69,w:2.6,destination:'football-field'},
       {id:'quadras-leste-a',x1:68,z1:62,x2:76,z2:64,w:2.2},
@@ -168,6 +169,7 @@
     ]),
     structures:Object.freeze([
       {id:'home',kind:'house',point:'home',w:9,d:7,margin:1.2,access:'spawn'},
+      {id:'home-garage',kind:'garage',point:'homeGarage',w:10,d:10,margin:.8,access:'garagem-residencial'},
       {id:'blue',kind:'house',point:'blue',w:9,d:7,margin:1.2},
       {id:'pink',kind:'house',point:'pink',w:9,d:7,margin:1.2},
       {id:'shop',kind:'house',point:'shop',w:9,d:7,margin:1.2},
@@ -274,7 +276,7 @@
     for(let i=0;i<houses.length;i++)for(let j=i+1;j<houses.length;j++)if(v704RectOverlap(houses[i],houses[j],1.0))add('house-overlap',houses[i].id,houses[j].id);
     for(const house of houses)for(const hazard of hazards)if(Number.isFinite(hazard.w)&&v704RectOverlap(house,hazard,.25))add('house-in-hazard',house.id,hazard.type);
     const protectedGameplay=protectedRects.filter(rect=>['sport','kart','farm','castle'].includes(rect.kind));for(const collider of world?.colliders||[]){const rect={x:Number(collider.x),z:Number(collider.z),w:Number(collider.w),d:Number(collider.d)};if(!Number.isFinite(rect.x)||collider.sportsV704||collider.kartV704)continue;for(const protectedRect of protectedGameplay){if(protectedRect.kind==='castle'&&collider.castle)continue;if(v704RectOverlap(rect,protectedRect,.15))add('collider-in-protected-area',collider.houseId||collider.buildId||collider.landmark||'collider',protectedRect.id);}}
-    for(const vehicle of vehicles){const x=Number(vehicle.group?.position?.x??vehicle.x),z=Number(vehicle.group?.position?.z??vehicle.z),id=String(vehicle.id||'vehicle');if(!Number.isFinite(x)||!Number.isFinite(z)){add('vehicle-invalid-position',id);continue;}const isKart=String(vehicle.kind||'')==='kart';if(!isKart)for(const road of roads)if(v704PointInRect({x,z},road,Number(vehicle.radius||1.35)))add('vehicle-on-road',id,road.id);for(const structure of protectedRects){if(isKart&&['kart-circuit','kart-boxes'].includes(structure.id))continue;if(v704PointInRect({x,z},structure,1.2))add('vehicle-inside-structure',id,structure.id);}}
+    for(const vehicle of vehicles){const x=Number(vehicle.group?.position?.x??vehicle.x),z=Number(vehicle.group?.position?.z??vehicle.z),id=String(vehicle.id||'vehicle');if(!Number.isFinite(x)||!Number.isFinite(z)){add('vehicle-invalid-position',id);continue;}const isKart=String(vehicle.kind||'')==='kart',owned=Array.isArray(state?.vehicles?.owned)&&state.vehicles.owned.includes(id);if(!isKart)for(const road of roads)if(v704PointInRect({x,z},road,Number(vehicle.radius||1.35)))add('vehicle-on-road',id,road.id);for(const structure of protectedRects){if(isKart&&['kart-circuit','kart-boxes'].includes(structure.id))continue;if(structure.kind==='garage'&&owned)continue;if(v704PointInRect({x,z},structure,1.2))add('vehicle-inside-structure',id,structure.id);}}
     const busStops=world?.busStops||[];for(const stop of busStops){const x=Number(stop.sign?.position?.x??stop.x),z=Number(stop.sign?.position?.z??stop.z),rotation=Number(stop.sign?.rotation?.y||0),samples=[{x,z},{x:x+Math.cos(rotation)*1.08,z:z-Math.sin(rotation)*1.08},{x:x-Math.cos(rotation)*1.08,z:z+Math.sin(rotation)*1.08}];if(samples.some(sample=>v704RoadAt(sample.x,sample.z,.38,true)))add('bus-stop-sign-on-road',stop.id,'road-or-sidewalk');}for(let i=0;i<busStops.length;i++)for(let j=i+1;j<busStops.length;j++)if(Math.hypot(busStops[i].x-busStops[j].x,busStops[i].z-busStops[j].z)<3.5)add('duplicate-bus-stop-sign',busStops[i].id,busStops[j].id);
     const spawn=worldLayoutPoint('spawn');if(typeof positionBlockedForPlayer==='function'&&positionBlockedForPlayer(spawn.x,spawn.z,.42,{ignoreTraffic:true,allowWater:false}))add('spawn-blocked','spawn');
     const important=['sportsEntrance','footballEntrance','volleyEntrance','footvolleyEntrance','kartEntrance','farmEntrance','castleEntrance','mountainEntrance','constructionEntrance','ottoviasEntry','ottoviasOperationsAccess','ottoviasTollSouth','ottoviasTollField','ottoviasTollBeach'];for(const id of important){const p=worldLayoutPoint(id);if(typeof nearestRoadProjection==='function'){const projection=nearestRoadProjection(p),pathConnected=v704PathConnectedToRoad(p);if((!projection||projection.distance>18||projection.clear===false)&&!pathConnected)add('destination-inaccessible',id,'road-or-path',projection?`distance=${projection.distance.toFixed(1)}`:'no-projection');}}

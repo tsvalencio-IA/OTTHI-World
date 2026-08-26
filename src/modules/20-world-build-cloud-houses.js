@@ -50,6 +50,7 @@
     const policeStation=createHouse({id:'police',name:'Delegacia Central',x:ps.x,z:ps.z,color:0xe8edf3,roofColor:0x245da8,publicBuilding:true});addHouseInterior(policeStation,'police');world.policeStation=policeStation;
     const policeWest=createHouse({id:'police-west',name:'Posto Policial do Bairro',x:pw.x,z:pw.z,color:0xdfeaf2,roofColor:0x245da8,publicBuilding:true});addHouseInterior(policeWest,'police');world.policeStations=[policeStation,policeWest];
     const fireStation=createHouse({id:'fire-station',name:'Corpo de Bombeiros',x:fs.x,z:fs.z,color:0xc83e3c,roofColor:0x3d4652,publicBuilding:true});addHouseInterior(fireStation,'firestation');world.fireStation=fireStation;
+    if(typeof createPlayerGarageWorld==='function')createPlayerGarageWorld();
     const mine=P('mine'),well=P('well'),foundry=P('foundry');createGoldMine(mine.x,mine.z);createVillageWell(well.x,well.z);createGoldFoundry(foundry.x,foundry.z);
 
     createFenceLine(-36,26,-15,26,9);createFenceLine(15,26,36,26,9);for(const p of [[-9,9],[9,9],[-33,8],[33,8],[-10,-7],[10,-7]])createLamp(p[0],p[1]);
@@ -60,13 +61,16 @@
     createNpcMobility(nino,'bike',[[4,3],[4,10],[-18,10],[-18,0],[4,0]],3.2);createNpcMobility(luna,'skate',[[-22,8],[-34,8],[-34,0],[-12,0],[-12,8]],2.8);createNpcMobility(teo,'moto',[[22,7],[8,7],[8,-12],[35,-12],[35,7]],4.7);createNpcMobility(bia,'bike',[[-10,-10],[-10,0],[-48,0],[-48,-10]],3.4);createNpcMobility(maya,'car',[[68,42],[68,22],[65,0],[88,0],[88,42]],4.5);
 
     // Veículos estacionados em vagas livres, nunca sobre quadras/pistas/prédios.
-    createToyCar(P('garage').x,P('garage').z,{id:'garage-orange',label:'Carro da Garagem',primary:0xf28a22,secondary:0x0aa7b8});
+    const homeGarage=P('homeGarage');createToyCar(homeGarage.x+.5,homeGarage.z-2.8,{id:'garage-orange',label:'Clássico Laranja',primary:0xf28a22,secondary:0x0aa7b8,heading:Math.PI/2});
     createToyCar(-31,-13,{id:'market-blue',label:'Compacto Azul',primary:0x2787d8,secondary:0x43c6e8,heading:Math.PI/2});
     createToyCar(31,-13,{id:'workshop-red',label:'Esportivo Vermelho',primary:0xe5484d,secondary:0xf3b33d,heading:-Math.PI/2});
     createToyCar(14,35,{id:'home-green',label:'Carro Verde',primary:0x31a76a,secondary:0x8edb65,heading:Math.PI});
     createToyCar(76,31,{id:'royal-purple',label:'Carro Real',primary:0x7d58c9,secondary:0xf1c94d});
     createToyCar(78,68,{id:'gym-yellow',label:'Carro do Complexo Esportivo',primary:0xf1c943,secondary:0xef6c3d,heading:Math.PI});
     createToyCar(-78,-15,{id:'forest-teal',label:'Carro da Floresta',primary:0x138d83,secondary:0x6bc08b,heading:Math.PI/2});
+    createToyCar(14,-13,{id:'city-white',label:'Sedã Urbano Branco',primary:0xf0f3f5,secondary:0x3293d2,heading:-Math.PI/2});
+    createToyCar(-44,-13,{id:'adventure-black',label:'Aventura Grafite',primary:0x303944,secondary:0x59b88c,heading:Math.PI/2});
+    createToyCar(87,14,{id:'country-brown',label:'Utilitário do Campo',primary:0x9b642f,secondary:0xe0ad4f,heading:Math.PI});
     const job=P('jobBoard');registerInteractable({id:'job-board',type:'job',icon:'📦',label:'Central de trabalhos',x:job.x,z:job.z,radius:2.3,action:openJobCenter});world.deliveryPoint={x:86,z:34};
 
     createLifeExpansionWorld();createSportsComplexV704();createKartCircuitV704();createSizeChallenges();createTransitWorld();createPoliceSystem();createFireServiceWorld();decorateCityServices();createWaypointMarker();createCooperativeMissionWorld();
@@ -104,7 +108,7 @@
   function isMyCloudHouse(record){return !!record&&record.ownerUid===window.OTTHOS_RTDB?.uid;}
   function reconcileCloudHouses(){
     const uid=window.OTTHOS_RTDB?.uid;if(!uid)return;
-    for(const h of world.houses||[]){if(h.publicBuilding)continue;const cloud=cloudHouseRecord(h.id);if(cloud){state.houses[h.id]={...(state.houses[h.id]||{}),owned:cloud.ownerUid===uid,locked:!!cloud.locked,ownerUid:cloud.ownerUid,ownerName:cloud.ownerName||'Jogador',price:h.price};}}
+    for(const h of world.houses||[]){if(h.publicBuilding)continue;if(h.id==='home'){state.houses.home={...(state.houses.home||{}),owned:true,locked:false,home:true,price:h.price};continue;}const cloud=cloudHouseRecord(h.id);if(cloud){state.houses[h.id]={...(state.houses[h.id]||{}),owned:cloud.ownerUid===uid,locked:!!cloud.locked,ownerUid:cloud.ownerUid,ownerName:cloud.ownerName||'Jogador',price:h.price};}}
     saveState();
   }
   async function claimHouseOnline(house){
@@ -115,13 +119,16 @@
   }
   async function handleHouseDoor(house){
     const uid=window.OTTHOS_RTDB?.uid,cloud=cloudHouseRecord(house.id),mine=isMyCloudHouse(cloud),local=state.houses[house.id]||{};
+    if(house.id==='workshop')return enterHouse(house);
     if(house.publicBuilding){if(await confirmModal(house.name,'Deseja entrar?','Entrar','Cancelar'))enterHouse(house);return;}
+    if(house.id==='home'){openModal('Minha casa',`<p>Esta é a residência principal de <b>${escapeHtml(playerDisplayName())}</b>. Ela permanece acessível neste aparelho e não depende da propriedade compartilhada do bairro.</p><div class="modal-actions"><button class="btn primary" data-enter-home>Entrar</button><button class="btn" data-cancel>Cancelar</button></div>`,root=>{$('[data-enter-home]',root).onclick=()=>{closeModal();enterHouse(house);};$('[data-cancel]',root).onclick=closeModal;});return;}
     if(cloud&&!mine){
       if(cloud.locked){toast(`Casa trancada por ${cloud.ownerName||'outro jogador'}.`,'warn',2500);return;}
       if(await confirmModal(house.name,`Casa de ${cloud.ownerName||'outro jogador'}. A porta está aberta. Deseja visitar?`,'Visitar','Cancelar'))enterHouse(house);return;
     }
     if(!cloud&&!local.owned){
-      openModal(house.name,`<p>Casa disponível no mundo público por <b>${house.price} moedas</b>. Depois da compra, somente você poderá trancar ou destrancar.</p><div class="modal-actions"><button class="btn primary" data-buy-house>Comprar</button><button class="btn" data-race-house>Disputar em corrida</button><button class="btn" data-cancel>Cancelar</button></div>`,root=>{
+      openModal(house.name,`<p>Residência disponível para visita. Por <b>${house.price} moedas</b>, você também pode comprá-la e controlar a fechadura.</p><div class="modal-actions"><button class="btn primary" data-visit-house>Visitar</button><button class="btn" data-buy-house>Comprar</button><button class="btn" data-race-house>Disputar em corrida</button><button class="btn" data-cancel>Cancelar</button></div>`,root=>{
+        $('[data-visit-house]',root).onclick=()=>{closeModal();enterHouse(house);};
         $('[data-buy-house]',root).onclick=async()=>{if(state.profile.coins<house.price){toast('Moedas insuficientes.','warn');return;}const ok=await claimHouseOnline(house);if(!ok)return;addCoins(-house.price);setFlag('boughtHouse');awardMedal('Nova Propriedade');saveState(true);closeModal();handleHouseDoor(house);};
         $('[data-race-house]',root).onclick=()=>{closeModal();startRace('sprint',world.npcs[0],house.id);};$('[data-cancel]',root).onclick=closeModal;
       });return;

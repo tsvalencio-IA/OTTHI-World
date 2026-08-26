@@ -5,8 +5,8 @@
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70575,
-  "androidVersionName": "7.0.5.7.5",
+  "androidVersionCode": 70577,
+  "androidVersionName": "7.0.5.7.7",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -42,6 +42,15 @@
     }
   },
   "changes": [
+    "R7 corrige a entrada da Oficina ao separar a porta da vaga externa de reparo e dar à entrada ação direta e prioridade própria",
+    "Jogador recebe garagem residencial persistente com três vagas físicas, armazenamento, retirada, veículo principal, compra e personalização",
+    "Frota civil cresce de sete para dez veículos estacionados em posições auditadas fora das vias e estruturas",
+    "Veículos distantes ou guardados deixam de ser renderizados no celular, permitindo ampliar a frota sem aumentar o custo visual permanente",
+    "R6 transforma a abordagem policial em uma cena no local: a viatura encosta, o policial desce, aproxima-se, registra a multa e libera o veículo para seguir viagem sem teleporte",
+    "Reconexões Firebase na mesma sala deixam de ser tratadas como mudança de bairro; somente uma troca real de sala pode reposicionar o jogador na nova entrada",
+    "Mapa recebe zoom de 100% a 280%, botões, roda do mouse, pinça e arraste; Minha Casa ganha marcador permanente e atalho próprio",
+    "Casa principal permanece sempre acessível e independente da propriedade compartilhada; residências disponíveis também podem ser visitadas antes da compra",
+    "Desempenho móvel recebe teto seguro para qualidade automática, redução rápida sob FPS baixo, culling de contornos e cache das decisões do tráfego OTTOVIAS",
     "R5 elimina resets automáticos para o centro: Jogar e Continuar preservam a posição, e falhas finitas de limite ou altura são corrigidas no próprio local sem desmontar o veículo",
     "Botão SAIR passa a ser permanente e independente; um novo botão veicular executa PAGAR, LEVANTAR e PASSAR no pedágio",
     "Botão de utilidade veicular passa a oferecer Turbo nos carros, Sirene em viaturas e ambulâncias, e Canhão de Água nos caminhões de bombeiros",
@@ -51,7 +60,7 @@
     "Represa passa a formar uma única bacia conectada fora das ruas, com margens próprias; Estação Represa e pontos de pesca permanecem em terreno seco",
     "A tentativa anterior de túnel foi retirada na revisão R5 após validação visual em aparelho real",
     "Pedágio veicular passa a expor no botão contextual a sequência PAGAR, LEVANTAR e PASSAR sem obrigar o jogador a sair do veículo",
-    "Travessia sem pagamento registra infração, aciona uma viatura pela malha viária, inicia perseguição e aplica multa educativa no posto policial",
+    "Travessia sem pagamento registra infração, aciona uma viatura pela malha viária, inicia perseguição e aplica multa educativa no local da abordagem",
     "Pedras e recursos naturais permanecem proibidos sobre pista e acostamento da OTTOVIAS",
     "Travessia urbana recebe passarela suspensa funcional com escadas, plataforma, guarda-corpo e pedestres em circulação",
     "Circuito externo recebe seis veículos autônomos distribuídos entre os dois sentidos, com autoridade de faixa, distância de segurança e culling móvel",
@@ -139,9 +148,11 @@
     "ottoviasStaticApproved": true,
     "performanceStaticApproved": true,
     "worldPrecisionStaticApproved": true
+    ,"playerGarageStaticApproved": true
   },
-  "release": "705.7-vehicle-actions-r5",
+  "release": "705.7-player-garage-workshop-r7",
   "notes": [
+    "R7 mantém a garagem de trabalhos da fazenda e acrescenta uma garagem particular próxima à casa do jogador, sem ocupar a malha viária.",
     "A inspeção visual final e a auditoria geométrica confirmaram a remoção do agrupamento de placas de parada no cruzamento central.",
     "R2 foi aprovada em matriz de navegador automatizada local e em todas as suítes estruturais; a homologação física continua obrigatória para rotação por sensor, FPS sustentado, APK e multiplayer entre dois aparelhos.",
     "V705.7 estabiliza orientação, sinalização, autoridade de faixa, noticiário e desempenho sem substituir o mundo aberto existente.",
@@ -154,8 +165,8 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70575,
-  "revisionLabel": "R5-vehicle-actions-no-reset",
+  "assetVersion": 70577,
+  "revisionLabel": "R7-workshop-player-garage-vehicle-fleet",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

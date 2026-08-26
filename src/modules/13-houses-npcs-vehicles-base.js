@@ -54,7 +54,7 @@
     createLamp(x-3.7,z+4.0);createLamp(x+3.7,z+4.0);
     house.door=door;
     registerCollider(x,z-3.32,9,.35,{houseId:id});registerCollider(x-4.32,z,.35,7,{houseId:id});registerCollider(x+4.32,z,.35,7,{houseId:id});registerCollider(x-2.7,z+3.32,3.6,.35,{houseId:id});registerCollider(x+2.7,z+3.32,3.6,.35,{houseId:id});
-    world.houses.push(house);registerInteractable({id:`door-${id}`,type:'door',icon:'🚪',label:`Abrir: ${name}`,x,z:z+4.0,radius:2.5,priority:230,action:()=>handleHouseDoor(house)});
+    const publicDoor=!!publicBuilding,workshopDoor=id==='workshop';world.houses.push(house);registerInteractable({id:`door-${id}`,type:'door',icon:'🚪',label:workshopDoor?'Entrar na Oficina':`Abrir: ${name}`,x,z:z+4.0,radius:workshopDoor?3.5:publicDoor?3.0:2.5,priority:workshopDoor?480:publicDoor?320:230,action:()=>handleHouseDoor(house)});
     decorateHouseCommercial(house,config);return house;
   }
 
@@ -181,7 +181,7 @@
     const headlight=renderMat(0xfff1a8,{emissive:0xffd75b,emissiveIntensity:.9,roughness:.2});box(.3,.17,.08,headlight,-.58,.5,1.27,group);box(.3,.17,.08,headlight,.58,.5,1.27,group);
     for(const p of [[-.84,.24,-.79],[.84,.24,-.79],[-.84,.24,.79],[.84,.24,.79]]){const wheel=cylinder(.34,.28,0x10151d,p[0],p[1],p[2],group,14);wheel.rotation.z=Math.PI/2;const hub=cylinder(.12,.3,0xf5a623,p[0],p[1],p[2],group,10);hub.rotation.z=Math.PI/2;}
     group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.28);});
-    const vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:options.label||'Carro da cidade',kind:options.kind||'car',serviceType:options.serviceType||'',appearance,occupied:false,radius:Number(options.radius||1.55)};world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
+    const garageStored=!!state.vehicles?.garage?.stored?.[id],vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:options.label||'Carro da cidade',kind:options.kind||'car',serviceType:options.serviceType||'',appearance,occupied:false,radius:Number(options.radius||1.55),garageStored};group.visible=!garageStored;world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
     registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:'🚗',label:`Entrar: ${vehicle.label}`,radius:2.5,priority:155,getPos:()=>({x:vehicle.group.position.x,z:vehicle.group.position.z}),available:()=>!vehicle.occupied&&vehicle.group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
   }
 

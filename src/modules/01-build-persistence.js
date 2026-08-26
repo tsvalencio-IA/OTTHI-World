@@ -118,7 +118,7 @@
     campfires: [],
     boats: { activeBoatId: '', passengerOf: '', lastPosition: { x:-38, z:52, heading:0 } },
     transport: { metroTrips:0, metroDestinations:[], busStops:[], busTrips:0, busWaiting:null },
-    vehicles: { lastUsedId:'', parked:{}, modularParts:{}, partDurability:{}, broken:{}, damageHistory:[] },
+    vehicles: { lastUsedId:'garage-orange', owned:['garage-orange'], primaryId:'garage-orange', parked:{}, modularParts:{}, partDurability:{}, broken:{}, damageHistory:[], garage:{slots:{'1':'garage-orange'},stored:{},purchasedAt:{'garage-orange':0}} },
     worldLayout: { version:704, migratedAt:0, migratedBuilds:0 },
     ottovias: { passes:0, spent:0, lastTollId:'', lastTollAt:0, tour:{ active:false, index:0, startedAt:0, bestMs:0, completed:0 }, communication:{ active:false, mode:'', index:0, startedAt:0, completed:0, specialComplete:false, questionsAnswered:0 }, news:[], newsSeq:0, lastBulletinAt:0, newsMode:'critical' },
     objectives: { pinnedChapterId:'', history:[] },

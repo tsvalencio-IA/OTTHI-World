@@ -123,7 +123,8 @@
     if(!mobile&&memory>=8&&cores>=8)return 'high';
     return 'balanced';
   }
-  const initialAutoTier=state.settings?.autoTier||detectStableAutoTier();
+  function resolvedStableAutoTier(saved=state.settings?.autoTier){const detected=detectStableAutoTier(),mobile=matchMedia('(pointer:coarse)').matches;if(!['low','balanced','high'].includes(saved))return detected;if(mobile&&saved==='high')return detected==='low'?'low':'balanced';return saved;}
+  const initialAutoTier=resolvedStableAutoTier();
   const perf = {
     tier:initialAutoTier, sessionTier:initialAutoTier, fps:60, frameAcc:0, frameCount:0, sampleMs:0, lastNow:performance.now(),
     lowSamples:0, highSamples:0, recommendationSamples:0, aiAcc:0, trafficAcc:0, cloudAcc:0, lodAcc:0, uiAcc:0, panelAcc:0, modeAuditAcc:0, renderAcc:0, renderedFrames:0, aiTicks:0, trafficTicks:0, mobile:matchMedia('(pointer:coarse)').matches,
@@ -211,16 +212,16 @@
   }
   function samplePerformance(dt){
     perf.frameAcc+=dt;perf.frameCount++;perf.sampleMs+=dt;
-    if(perf.sampleMs<3)return;
+    if(perf.sampleMs<(perf.mobile?2:3))return;
     perf.fps=perf.frameCount/Math.max(.001,perf.frameAcc);perf.frameAcc=0;perf.frameCount=0;perf.sampleMs=0;
     if(requestedQuality()!=='auto')return;
-    const recommendation=perf.fps<28?'low':perf.fps>55?'high':'balanced';
+    const recommendation=perf.fps<28?'low':perf.fps>55&&!perf.mobile?'high':'balanced';
     if(recommendation===perf.recommendation)perf.recommendationSamples++;else{perf.recommendation=recommendation;perf.recommendationSamples=1;}
     perf.lowSamples=perf.fps<26?perf.lowSamples+1:Math.max(0,perf.lowSamples-1);
     perf.highSamples=perf.fps>54?perf.highSamples+1:Math.max(0,perf.highSamples-1);
     // V641: a qualidade automática reage durante a partida sem reiniciar o jogo.
-    if(perf.lowSamples>=2&&perf.sessionTier!=='low'){
-      perf.sessionTier=perf.sessionTier==='high'?'balanced':'low';perf.lowSamples=0;applyAdaptiveRenderSettings(true);lockStableSceneVisibility();
+    if(perf.lowSamples>=(perf.mobile?1:2)&&perf.sessionTier!=='low'){
+      perf.sessionTier=perf.mobile?'low':perf.sessionTier==='high'?'balanced':'low';perf.lowSamples=0;applyAdaptiveRenderSettings(true);lockStableSceneVisibility();
       toast(`Desempenho protegido: qualidade ${perf.sessionTier==='low'?'econômica':'equilibrada'}.`,'good',1800);
     }else if(!perf.mobile&&perf.highSamples>=7&&perf.sessionTier!=='high'){
       perf.sessionTier=perf.sessionTier==='low'?'balanced':'high';perf.highSamples=0;applyAdaptiveRenderSettings(true);lockStableSceneVisibility();
@@ -231,7 +232,7 @@
   }
   function lockStableSceneVisibility(){
     for(const mesh of world.criticalSurfaces){if(!mesh)continue;mesh.visible=true;mesh.frustumCulled=false;}
-    for(const line of world.outlines){if(line?.parent)line.visible=true;}
+    updateManagedOutlineVisibility();
     const glowVisible=visualQualityProfile(qualityTier()).glows;for(const light of world.glows){if(light?.parent)light.visible=glowVisible;}
     if(world.clouds){const max=qualityTier()==='high'?8:qualityTier()==='balanced'?6:4;world.clouds.forEach((cloud,i)=>cloud.group.visible=i<max);}
   }
@@ -255,6 +256,7 @@
   function updateVisualLOD(){
     updateManagedVisualLODs(camera);
     updateManagedOutlineVisibility();
+    if(typeof updateParkedVehicleVisibility==='function')updateParkedVehicleVisibility();
     const signRange=qualityTier()==='low'?30:qualityTier()==='high'?58:42;
     for(const sign of world.navigationSigns||[]){
       if(!sign?.group)continue;
