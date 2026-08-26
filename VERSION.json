@@ -5,8 +5,8 @@
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70577,
-  "androidVersionName": "7.0.5.7.7",
+  "androidVersionCode": 70578,
+  "androidVersionName": "7.0.5.7.8",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -136,7 +136,7 @@
     "allLocalTestsApproved": true,
     "staticWorldAuditApproved": true,
     "runtimeWorldAuditAvailable": true,
-    "browserSmokeApproved": true,
+    "browserSmokeApproved": false,
     "physicalDeviceApproved": false,
     "firebaseRemoteApproved": false,
     "multiplayerTwoDevicesApproved": false,
@@ -147,11 +147,15 @@
     "kartCircuitStaticApproved": true,
     "ottoviasStaticApproved": true,
     "performanceStaticApproved": true,
-    "worldPrecisionStaticApproved": true
-    ,"playerGarageStaticApproved": true
+    "worldPrecisionStaticApproved": true,
+    "playerGarageStaticApproved": true,
+    "policeRoadsideRuntimeApproved": true
   },
-  "release": "705.7-player-garage-workshop-r7",
+  "release": "705.7-police-roadside-interaction-r8",
   "notes": [
+    "R8 corrige a abordagem policial no local: a porta da viatura abre, o policial sai fisicamente do interior, fecha a porta, aproxima-se, conversa com o jogador, registra a multa e libera a viagem sem teleporte.",
+    "R8 adiciona teste de runtime dedicado à sequência da abordagem policial; a validação não aceita mais apenas a presença textual de nomes de fases.",
+    "O smoke test com navegador não é declarado aprovado nesta árvore porque Playwright não integra o ZIP; homologação visual em navegador/celular permanece separada.",
     "R7 mantém a garagem de trabalhos da fazenda e acrescenta uma garagem particular próxima à casa do jogador, sem ocupar a malha viária.",
     "A inspeção visual final e a auditoria geométrica confirmaram a remoção do agrupamento de placas de parada no cruzamento central.",
     "R2 foi aprovada em matriz de navegador automatizada local e em todas as suítes estruturais; a homologação física continua obrigatória para rotação por sensor, FPS sustentado, APK e multiplayer entre dois aparelhos.",
@@ -165,8 +169,8 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70577,
-  "revisionLabel": "R7-workshop-player-garage-vehicle-fleet",
+  "assetVersion": 70578,
+  "revisionLabel": "R8-roadside-police-door-dialogue-regression-guard",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

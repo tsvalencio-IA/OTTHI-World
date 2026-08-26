@@ -93,10 +93,11 @@
     const g=new THREE.Group(),white=renderMat(0xf4f7fb,{roughness:.38,metalness:.16}),blue=renderMat(0x215ea8,{roughness:.34,metalness:.25}),dark=renderMat(0x13253a,{roughness:.14,metalness:.35,transparent:true,opacity:.78});
     premiumBox(2.0,.4,3.0,0x26384e,0,.32,0,g);premiumBox(1.9,.5,1.65,white,0,.66,.46,g);premiumBox(1.58,.48,1.1,blue,0,.86,-.42,g);premiumBox(1.38,.32,.88,dark,0,1.02,-.36,g);
     premiumBox(2.02,.34,.24,blue,0,.56,.88,g);premiumBox(2.02,.34,.24,blue,0,.56,-.88,g);premiumBox(.12,.36,1.7,blue,-.96,.58,0,g);premiumBox(.12,.36,1.7,blue,.96,.58,0,g);
+    const roadsideDoorPivot=new THREE.Group();roadsideDoorPivot.position.set(1.015,.79,.66);g.add(roadsideDoorPivot);const roadsideDoor=premiumBox(.065,.62,.84,white,0,0,-.42,roadsideDoorPivot);premiumBox(.072,.12,.84,blue,.004,-.08,-.42,roadsideDoorPivot);
     const lightBar=new THREE.Group();lightBar.position.set(0,1.36,-.2);g.add(lightBar);const red=premiumBox(.62,.18,.34,mat(0xe9404a,{emissive:0xb10e22,emissiveIntensity:.9}),-.34,0,0,lightBar),cyan=premiumBox(.62,.18,.34,mat(0x35bfff,{emissive:0x087db4,emissiveIntensity:.9}),.34,0,0,lightBar);
     const sign=new THREE.Mesh(new THREE.PlaneGeometry(.72,.72),new THREE.MeshStandardMaterial({map:iconTexture('★','#ffffff','#215ea8'),transparent:true,side:THREE.DoubleSide}));sign.position.set(1.02,.72,.2);sign.rotation.y=Math.PI/2;g.add(sign);
     const wheels=[];for(const p of [[-.94,.28,-.88],[.94,.28,-.88],[-.94,.28,.88],[.94,.28,.88]]){const wheel=premiumCylinder(.36,.25,0x10151d,p[0],p[1],p[2],g,14);wheel.rotation.z=Math.PI/2;wheels.push(wheel);}
-    g.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x132238,.22);});const car={id,group:g,route,routeIndex:(routeIndex+1)%route.length,speed:8.1,currentSpeed:0,wheels,red,cyan,npcTarget:'',npcChaseUntil:0,incidentTargetId:'',responseRoute:[],responseIndex:0};worldGroup.add(g);world.policeCars.push(car);return registerServiceVehicle(car,'police',world.policeCars.length-1);
+    g.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x132238,.22);});const car={id,group:g,route,routeIndex:(routeIndex+1)%route.length,speed:8.1,currentSpeed:0,wheels,red,cyan,roadsideDoorPivot,roadsideDoor,roadsideDoorOpen:0,npcTarget:'',npcChaseUntil:0,incidentTargetId:'',responseRoute:[],responseIndex:0};worldGroup.add(g);world.policeCars.push(car);return registerServiceVehicle(car,'police',world.policeCars.length-1);
   }
   function createAmbulance(id='ambulance-1'){
     const g=new THREE.Group(),white=renderMat(0xf6f8fa,{roughness:.4,metalness:.12}),red=renderMat(0xe34848,{roughness:.36,metalness:.2}),glass=materials.cityGlass||renderMat(0x85d9f2,{transparent:true,opacity:.62});
@@ -130,28 +131,51 @@
   function clearPolicePursuit(car){if(!car)return;car.pursuitRoute=[];car.pursuitIndex=0;car.pursuitRefreshAt=0;car.group.userData.roadPath=car.route||[];car.group.userData.trafficCorridor=1.05;}
   function applyTollEvasionFine(alert){const data=typeof ensureOttoviasState==='function'?ensureOttoviasState():(state.ottovias=state.ottovias||{}),fine=Math.max(20,Number(alert.fine||alert.tollCost*4||20)),balance=Math.max(0,Number(state.profile.coins||0)),debited=Math.min(balance,fine);data.fines=Number(data.fines||0)+1;data.finesValue=Number(data.finesValue||0)+fine;data.finesDebited=Number(data.finesDebited||0)+debited;data.lastViolationAt=Date.now();if(debited)addCoins(-debited);saveState(true);return{fine,debited};}
   function openTollEvasionNotice(alert,penalty){openModal('Infração na OTTOVIAS',`<div class="safety-lesson"><span>🚓</span><h3>Abordagem concluída</h3><p>O policial desceu da viatura, realizou a abordagem no local e registrou a passagem sem pagamento em <b>${alert.tollName||'um pedágio OTTOVIAS'}</b>.</p><b>Multa registrada: ${penalty.fine} moedas</b><p>${penalty.debited===penalty.fine?'O valor foi debitado do saldo.':`Foram debitadas ${penalty.debited} moedas disponíveis; a infração continua registrada no histórico.`}</p><small>Seu veículo continua exatamente onde foi abordado. Para evitar nova infração: use PAGAR, depois LEVANTAR e só então atravesse.</small><button class="btn primary xl" data-toll-fine-ok>Seguir viagem</button></div>`,root=>{$('[data-toll-fine-ok]',root).onclick=closeModal;});}
+  function policeRoadsideLocalPoint(car,localX=0,localZ=0){
+    const heading=Number(car?.group?.rotation?.y||0),rightX=Math.cos(heading),rightZ=-Math.sin(heading),forwardX=Math.sin(heading),forwardZ=Math.cos(heading),baseX=Number(car?.group?.position?.x||player.x),baseZ=Number(car?.group?.position?.z||player.z);return{x:baseX+rightX*localX+forwardX*localZ,z:baseZ+rightZ*localX+forwardZ*localZ,heading};
+  }
+  function policeRoadsideEase(value){const t=clamp(Number(value||0),0,1);return t*t*(3-2*t);}
+  function setPoliceRoadsideDoor(car,progress=0){
+    if(!car?.roadsideDoorPivot)return 0;const t=policeRoadsideEase(progress);car.roadsideDoorOpen=t;car.roadsideDoorPivot.rotation.y=-Math.PI*.48*t;return t;
+  }
   function createRoadsidePoliceOfficer(car){
     const officer=new THREE.Group(),uniform=0x183c68,dark=0x152335,skin=0xb87958;officer.name='OTTHI_ROADSIDE_POLICE_OFFICER';worldGroup.add(officer);
-    const heading=Number(car?.group?.rotation?.y||0),rightX=Math.cos(heading),rightZ=-Math.sin(heading),backX=-Math.sin(heading),backZ=-Math.cos(heading);officer.position.set(Number(car?.group?.position?.x||player.x)+rightX*1.45+backX*.55,0,Number(car?.group?.position?.z||player.z)+rightZ*1.45+backZ*.55);officer.position.y=groundHeightAt(officer.position.x,officer.position.z);
+    const inside=policeRoadsideLocalPoint(car,.48,.18),threshold=policeRoadsideLocalPoint(car,1.03,.12),outside=policeRoadsideLocalPoint(car,1.72,.08);officer.position.set(inside.x,groundHeightAt(inside.x,inside.z)+.06,inside.z);officer.rotation.y=inside.heading;officer.visible=false;
     premiumBox(.68,.88,.38,uniform,0,1.28,0,officer);premiumBox(.72,.11,.42,0xf2c84c,0,1.49,.01,officer);premiumCylinder(.31,.46,skin,0,1.96,0,officer,10);premiumBox(.62,.12,.4,dark,0,2.18,0,officer);
-    const leftLeg=premiumBox(.22,.88,.24,dark,-.18,.44,0,officer),rightLeg=premiumBox(.22,.88,.24,dark,.18,.44,0,officer),leftArm=premiumBox(.18,.78,.2,uniform,-.45,1.25,0,officer),rightArm=premiumBox(.18,.78,.2,uniform,.45,1.25,0,officer);officer.scale.setScalar(.92);return{group:officer,leftLeg,rightLeg,leftArm,rightArm};
+    const leftLeg=premiumBox(.22,.88,.24,dark,-.18,.44,0,officer),rightLeg=premiumBox(.22,.88,.24,dark,.18,.44,0,officer),leftArm=premiumBox(.18,.78,.2,uniform,-.45,1.25,0,officer),rightArm=premiumBox(.18,.78,.2,uniform,.45,1.25,0,officer);officer.scale.set(.86,.7,.86);return{group:officer,leftLeg,rightLeg,leftArm,rightArm,inside,threshold,outside};
   }
-  function removeRoadsidePoliceOfficer(alert){if(!alert?.officer)return;worldGroup?.remove(alert.officer.group);alert.officer=null;}
+  function removeRoadsidePoliceOfficer(alert){
+    const car=world.policeCars?.find(item=>item.id===alert?.carId);setPoliceRoadsideDoor(car,0);if(!alert?.officer)return;worldGroup?.remove(alert.officer.group);alert.officer=null;
+  }
   function beginPoliceRoadsideStop(alert,car){
-    if(!alert||alert.phase!=='pursuit')return false;const now=performance.now();alert.phase='officer-exiting';alert.phaseAt=now;alert.officer=createRoadsidePoliceOfficer(car);car.currentSpeed=0;clearPolicePursuit(car);clearMovementInputs();if(player.vehicle){player.car.speed=0;player.vx=0;player.vz=0;}updateSafetyPanel('Viatura posicionada • policial descendo');toast('🚓 Pare no local: o policial vai descer para realizar a abordagem.','warn',2400);return true;
+    if(!alert||alert.phase!=='pursuit')return false;const now=performance.now();alert.phase='officer-exiting';alert.phaseAt=now;alert.officer=createRoadsidePoliceOfficer(car);alert.officerSpeech='';alert.officerSpeechAt=0;setPoliceRoadsideDoor(car,0);car.currentSpeed=0;clearPolicePursuit(car);clearMovementInputs();if(player.vehicle){player.car.speed=0;player.vx=0;player.vz=0;}updateSafetyPanel('Viatura posicionada • porta abrindo');toast('🚓 Pare no local: a viatura encostou e o policial vai descer.','warn',2400);return true;
+  }
+  function animatePoliceOfficerExit(alert,car,now){
+    const officer=alert?.officer;if(!officer?.group)return false;const elapsed=now-Number(alert.phaseAt||now),doorProgress=clamp(elapsed/420,0,1);setPoliceRoadsideDoor(car,doorProgress);if(elapsed<180){officer.group.visible=false;return true;}officer.group.visible=true;
+    const exitProgress=policeRoadsideEase(clamp((elapsed-180)/980,0,1)),firstLeg=clamp(exitProgress/.56,0,1),secondLeg=clamp((exitProgress-.56)/.44,0,1),from=firstLeg<1?officer.inside:officer.threshold,to=firstLeg<1?officer.threshold:officer.outside,t=firstLeg<1?policeRoadsideEase(firstLeg):policeRoadsideEase(secondLeg),x=lerp(from.x,to.x,t),z=lerp(from.z,to.z,t),ground=groundHeightAt(x,z);officer.group.position.set(x,ground+.06+Math.sin(exitProgress*Math.PI)*.08,z);officer.group.rotation.y=lerpAngle(officer.group.rotation.y,officer.outside.heading,Math.min(1,.12+exitProgress*.3));officer.group.scale.set(lerp(.86,.92,exitProgress),lerp(.7,.92,exitProgress),lerp(.86,.92,exitProgress));
+    const step=Math.sin(now*.019)*.42*Math.sin(exitProgress*Math.PI);officer.leftLeg.rotation.x=step;officer.rightLeg.rotation.x=-step;officer.leftArm.rotation.x=-step*.7;officer.rightArm.rotation.x=step*.7;return exitProgress>=.999;
+  }
+  function roadsidePoliceSpeech(alert,text='',type='warn'){
+    if(!alert)return'';const message=text||(alert.reason==='toll-evasion'?`Você passou por ${alert.tollName||'um pedágio'} sem concluir o pagamento. Isso é evasão. Vou registrar a multa; da próxima vez, pague e espere a cancela subir.`:'Você precisa dirigir com mais cuidado. Vou registrar esta orientação e depois liberar sua viagem.');alert.officerSpeech=message;alert.officerSpeechAt=performance.now();updateSafetyPanel(`👮 Policial: ${message}`);toast(`👮 Policial: ${message}`,type,4200);return message;
   }
   function updatePoliceRoadsideStop(alert,car,dt){
     if(!alert||alert.phase==='pursuit')return false;const now=performance.now(),officer=alert.officer;if(car)car.currentSpeed=0;if(player.vehicle){player.car.speed=0;player.vx=0;player.vz=0;}
-    if(!officer?.group){alert.officer=createRoadsidePoliceOfficer(car);alert.phaseAt=now;return true;}
-    if(alert.phase==='officer-exiting'){if(now-alert.phaseAt<520)return true;alert.phase='approaching';alert.phaseAt=now;updateSafetyPanel('Policial se aproximando • aguarde');}
+    if(!officer?.group){alert.officer=createRoadsidePoliceOfficer(car);alert.phase='officer-exiting';alert.phaseAt=now;setPoliceRoadsideDoor(car,0);return true;}
+    if(alert.phase==='officer-exiting'){
+      updateSafetyPanel('Viatura posicionada • policial descendo');if(!animatePoliceOfficerExit(alert,car,now))return true;alert.phase='approaching';alert.phaseAt=now;setPoliceRoadsideDoor(car,1);officer.group.scale.setScalar(.92);officer.leftLeg.rotation.x=officer.rightLeg.rotation.x=officer.leftArm.rotation.x=officer.rightArm.rotation.x=0;updateSafetyPanel('Policial se aproximando • aguarde');return true;
+    }
+    setPoliceRoadsideDoor(car,1-clamp((now-alert.phaseAt)/520,0,1));
     const heading=Number(player.vehicle?player.car.heading:player.facing||0),sideX=Math.cos(heading),sideZ=-Math.sin(heading),backX=-Math.sin(heading),backZ=-Math.cos(heading),targetX=player.x+sideX*1.55+backX*.15,targetZ=player.z+sideZ*1.55+backZ*.15,dx=targetX-officer.group.position.x,dz=targetZ-officer.group.position.z,distance=Math.hypot(dx,dz);
     if(alert.phase==='approaching'){
       const move=Math.min(distance,dt*2.75);if(distance>.02){officer.group.position.x+=dx/distance*move;officer.group.position.z+=dz/distance*move;officer.group.position.y=groundHeightAt(officer.group.position.x,officer.group.position.z);officer.group.rotation.y=lerpAngle(officer.group.rotation.y,Math.atan2(dx,dz),Math.min(1,dt*8));}
       const walk=Math.sin(now*.016)*.52;officer.leftLeg.rotation.x=walk;officer.rightLeg.rotation.x=-walk;officer.leftArm.rotation.x=-walk*.72;officer.rightArm.rotation.x=walk*.72;
-      if(distance<.22){alert.phase='ticket-writing';alert.phaseAt=now;officer.leftLeg.rotation.x=officer.rightLeg.rotation.x=0;updateSafetyPanel(alert.reason==='toll-evasion'?'Policial registrando a multa':'Policial concluindo a orientação');}
+      if(distance<.22){alert.phase='officer-speaking';alert.phaseAt=now;officer.leftLeg.rotation.x=officer.rightLeg.rotation.x=0;officer.leftArm.rotation.x=0;roadsidePoliceSpeech(alert);}
       return true;
     }
-    if(alert.phase==='ticket-writing'){officer.rightArm.rotation.x=-.62+Math.sin(now*.012)*.08;if(now-alert.phaseAt>1250)finishSafetyStop(alert);return true;}return true;
+    if(alert.phase==='officer-speaking'){
+      officer.group.rotation.y=lerpAngle(officer.group.rotation.y,Math.atan2(player.x-officer.group.position.x,player.z-officer.group.position.z),Math.min(1,dt*7));officer.rightArm.rotation.z=-.2+Math.sin(now*.01)*.12;officer.rightArm.rotation.x=-.34;if(now-alert.phaseAt>2600){alert.phase='ticket-writing';alert.phaseAt=now;officer.rightArm.rotation.z=0;updateSafetyPanel(alert.reason==='toll-evasion'?'Policial registrando a multa':'Policial registrando a orientação');}return true;
+    }
+    if(alert.phase==='ticket-writing'){officer.rightArm.rotation.x=-.62+Math.sin(now*.012)*.08;if(now-alert.phaseAt>1450)finishSafetyStop(alert);return true;}return true;
   }
   function finishSafetyStop(alert=world.policeAlert){
     if(!alert||alert.finished)return;alert.finished=true;world.policeAlert=null;state.safety.safeStops=(state.safety.safeStops||0)+1;const car=world.policeCars.find(item=>item.id===alert.carId);clearPolicePursuit(car);removeRoadsidePoliceOfficer(alert);const penalty=alert.reason==='toll-evasion'?applyTollEvasionFine(alert):null;
