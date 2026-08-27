@@ -62,30 +62,48 @@
     lights:Object.freeze([['warm','Clássicas'],['white','Brancas'],['energy','Energia']])
   });
   const OTTHI_WORLD_CIVIL_VEHICLE_PRESETS=Object.freeze({
-    'garage-orange':Object.freeze({body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d'}),
-    'market-blue':Object.freeze({body:'compact',hood:'flat',roof:'open',wheels:'city',rear:'none',lights:'white',primary:'#2787d8',secondary:'#43c6e8',accent:'#e9f7ff'}),
-    'workshop-red':Object.freeze({body:'sport',hood:'intake',roof:'open',wheels:'sport',rear:'spoiler',lights:'white',primary:'#e5484d',secondary:'#f3b33d',accent:'#fff0a8'}),
-    'gym-yellow':Object.freeze({body:'offroad',hood:'intake',roof:'rack',wheels:'offroad',rear:'none',lights:'warm',primary:'#f1c943',secondary:'#ef6c3d',accent:'#fff2a8'}),
-    'royal-purple':Object.freeze({body:'special',hood:'power',roof:'standard',wheels:'sport',rear:'spoiler',lights:'energy',primary:'#7d58c9',secondary:'#f1c94d',accent:'#70e8ff'}),
-    'home-green':Object.freeze({body:'utility',hood:'flat',roof:'standard',wheels:'city',rear:'box',lights:'warm',primary:'#31a76a',secondary:'#8edb65',accent:'#f5d84d'}),
-    'forest-teal':Object.freeze({body:'exploration',hood:'intake',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#138d83',secondary:'#6bc08b',accent:'#dff6a3'}),
-    'city-white':Object.freeze({body:'compact',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'white',primary:'#f0f3f5',secondary:'#3293d2',accent:'#d9f4ff'}),
-    'adventure-black':Object.freeze({body:'offroad',hood:'intake',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#303944',secondary:'#59b88c',accent:'#f0c84b'}),
-    'country-brown':Object.freeze({body:'utility',hood:'flat',roof:'rack',wheels:'offroad',rear:'box',lights:'warm',primary:'#9b642f',secondary:'#e0ad4f',accent:'#fff0ad'})
+    'garage-orange':Object.freeze({theme:'lego',bodyType:'small',kind:'car',body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d'}),
+    'lego-moto':Object.freeze({theme:'lego',bodyType:'moto',kind:'moto',body:'sport',hood:'flat',roof:'open',wheels:'sport',rear:'none',lights:'warm',primary:'#ffd43b',secondary:'#e94b2f',accent:'#fff4a8'}),
+    'lego-utility':Object.freeze({theme:'lego',bodyType:'utility',kind:'utility',body:'utility',hood:'flat',roof:'rack',wheels:'city',rear:'box',lights:'warm',primary:'#f4511e',secondary:'#263238',accent:'#ffd54f'}),
+    'country-brown':Object.freeze({theme:'lego',bodyType:'truck',kind:'truck',body:'utility',hood:'flat',roof:'rack',wheels:'offroad',rear:'box',lights:'warm',primary:'#9b642f',secondary:'#e0ad4f',accent:'#fff0ad'}),
+
+    'home-green':Object.freeze({theme:'minecraft',bodyType:'small',kind:'car',body:'compact',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'white',primary:'#4e8f4f',secondary:'#6b553b',accent:'#d6cf78'}),
+    'minecraft-moto':Object.freeze({theme:'minecraft',bodyType:'moto',kind:'moto',body:'compact',hood:'flat',roof:'open',wheels:'offroad',rear:'none',lights:'white',primary:'#5a7f52',secondary:'#704f32',accent:'#d8cf75'}),
+    'adventure-black':Object.freeze({theme:'minecraft',bodyType:'utility',kind:'utility',body:'offroad',hood:'intake',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#303944',secondary:'#59b88c',accent:'#f0c84b'}),
+    'forest-teal':Object.freeze({theme:'minecraft',bodyType:'truck',kind:'truck',body:'exploration',hood:'intake',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#138d83',secondary:'#6bc08b',accent:'#dff6a3'}),
+
+    'market-blue':Object.freeze({theme:'playmobil',bodyType:'small',kind:'car',body:'compact',hood:'flat',roof:'open',wheels:'city',rear:'none',lights:'white',primary:'#2787d8',secondary:'#43c6e8',accent:'#e9f7ff'}),
+    'playmobil-scooter':Object.freeze({theme:'playmobil',bodyType:'moto',kind:'moto',body:'compact',hood:'flat',roof:'open',wheels:'city',rear:'none',lights:'white',primary:'#39a0ed',secondary:'#f8fbff',accent:'#f8c84b'}),
+    'city-white':Object.freeze({theme:'playmobil',bodyType:'utility',kind:'utility',body:'utility',hood:'flat',roof:'standard',wheels:'city',rear:'box',lights:'white',primary:'#f0f3f5',secondary:'#3293d2',accent:'#d9f4ff'}),
+    'playmobil-truck':Object.freeze({theme:'playmobil',bodyType:'truck',kind:'truck',body:'utility',hood:'flat',roof:'standard',wheels:'city',rear:'box',lights:'warm',primary:'#f1d04b',secondary:'#3d7edb',accent:'#ffffff'}),
+
+    'workshop-red':Object.freeze({theme:'mario-world',bodyType:'small',kind:'car',body:'sport',hood:'intake',roof:'open',wheels:'sport',rear:'spoiler',lights:'white',primary:'#e5484d',secondary:'#236ac7',accent:'#f3d64b'}),
+    'mario-moto':Object.freeze({theme:'mario-world',bodyType:'moto',kind:'moto',body:'sport',hood:'power',roof:'open',wheels:'sport',rear:'none',lights:'energy',primary:'#d93645',secondary:'#236ac7',accent:'#ffd84d'}),
+    'gym-yellow':Object.freeze({theme:'mario-world',bodyType:'utility',kind:'utility',body:'offroad',hood:'intake',roof:'rack',wheels:'offroad',rear:'none',lights:'warm',primary:'#f1c943',secondary:'#ef6c3d',accent:'#fff2a8'}),
+    'royal-purple':Object.freeze({theme:'mario-world',bodyType:'truck',kind:'truck',body:'special',hood:'power',roof:'standard',wheels:'sport',rear:'box',lights:'energy',primary:'#7d58c9',secondary:'#f1c94d',accent:'#70e8ff'})
   });
   const OTTHI_PLAYER_VEHICLE_CATALOG=Object.freeze([
-    Object.freeze({id:'garage-orange',label:'Clássico Laranja',icon:'🚗',price:0,description:'Veículo inicial já registrado em seu nome.'}),
-    Object.freeze({id:'market-blue',label:'Compacto Azul',icon:'🚙',price:180,description:'Compacto leve para circular pela cidade.'}),
-    Object.freeze({id:'city-white',label:'Sedã Urbano Branco',icon:'🚘',price:260,description:'Sedã equilibrado para trajetos urbanos.'}),
-    Object.freeze({id:'workshop-red',label:'Esportivo Vermelho',icon:'🏎️',price:420,description:'Carro esportivo com rodas e aerofólio próprios.'}),
-    Object.freeze({id:'home-green',label:'Utilitário Verde',icon:'🛻',price:340,description:'Utilitário prático para missões e entregas.'}),
-    Object.freeze({id:'gym-yellow',label:'Aventura Amarelo',icon:'🚙',price:480,description:'Todo-terreno preparado para caminhos difíceis.'}),
-    Object.freeze({id:'forest-teal',label:'Explorador Verde-azulado',icon:'🚙',price:520,description:'Explorador com bagageiro e caixa traseira.'}),
-    Object.freeze({id:'adventure-black',label:'Aventura Grafite',icon:'🚙',price:560,description:'4x4 escuro com pneus todo-terreno.'}),
-    Object.freeze({id:'country-brown',label:'Utilitário do Campo',icon:'🛻',price:440,description:'Veículo de carga para tarefas rurais.'}),
-    Object.freeze({id:'royal-purple',label:'Especial Real',icon:'🚘',price:700,description:'Modelo especial com iluminação de energia.'})
+    Object.freeze({id:'garage-orange',label:'LEGO Compacto',icon:'🚗',price:0,description:'Carro pequeno em estilo de blocos, veículo inicial.'}),
+    Object.freeze({id:'lego-moto',label:'LEGO Moto',icon:'🏍️',price:220,description:'Moto pequena em estilo de blocos.'}),
+    Object.freeze({id:'lego-utility',label:'LEGO Utilitário',icon:'🚐',price:390,description:'Utilitário de blocos para trabalho e missões.'}),
+    Object.freeze({id:'country-brown',label:'LEGO Caminhão',icon:'🚛',price:520,description:'Caminhão de blocos para carga e tarefas rurais.'}),
+
+    Object.freeze({id:'home-green',label:'Minecraft Compacto',icon:'🚗',price:260,description:'Carro voxel pequeno, quadrado e robusto.'}),
+    Object.freeze({id:'minecraft-moto',label:'Minecraft Moto',icon:'🏍️',price:250,description:'Moto voxel para deslocamento rápido.'}),
+    Object.freeze({id:'adventure-black',label:'Minecraft Utilitário',icon:'🚙',price:560,description:'Utilitário voxel para exploração.'}),
+    Object.freeze({id:'forest-teal',label:'Minecraft Caminhão',icon:'🚚',price:620,description:'Caminhão voxel de exploração e carga.'}),
+
+    Object.freeze({id:'market-blue',label:'Playmobil Compacto',icon:'🚘',price:180,description:'Carro pequeno com formas arredondadas de brinquedo.'}),
+    Object.freeze({id:'playmobil-scooter',label:'Playmobil Scooter',icon:'🛵',price:210,description:'Scooter leve e arredondada.'}),
+    Object.freeze({id:'city-white',label:'Playmobil Utilitário',icon:'🚐',price:260,description:'Van/utilitário arredondado para equipe e entregas.'}),
+    Object.freeze({id:'playmobil-truck',label:'Playmobil Caminhão',icon:'🚚',price:540,description:'Caminhão de brinquedo com cabine arredondada.'}),
+
+    Object.freeze({id:'workshop-red',label:'Mario World Kart',icon:'🏎️',price:420,description:'Veículo pequeno de aventura com linguagem de kart.'}),
+    Object.freeze({id:'mario-moto',label:'Mario World Moto',icon:'🏍️',price:300,description:'Moto de aventura colorida e compacta.'}),
+    Object.freeze({id:'gym-yellow',label:'Mario World Utilitário',icon:'🚙',price:480,description:'Utilitário colorido para aventuras fora da cidade.'}),
+    Object.freeze({id:'royal-purple',label:'Mario World Caminhão',icon:'🚛',price:700,description:'Caminhão especial com luzes e acabamento de aventura.'})
   ]);
-  function defaultWorldVehicleParts(vehicleId=''){return{body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d',...(OTTHI_WORLD_CIVIL_VEHICLE_PRESETS[vehicleId]||{})};}
+  function defaultWorldVehicleParts(vehicleId=''){return{theme:'lego',bodyType:'small',kind:'car',body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d',...(OTTHI_WORLD_CIVIL_VEHICLE_PRESETS[vehicleId]||{})};}
   function worldVehicleParts(vehicleId){
     ensureOtthiWorldState();
     const current=state.vehicles.modularParts[vehicleId]||{},legacy=defaultWorldVehicleParts(),preset=defaultWorldVehicleParts(vehicleId),fields=Object.keys(legacy),isLegacyDefault=fields.every(key=>current[key]===legacy[key]),usePreset=!Object.keys(current).length||isLegacyDefault;
@@ -121,7 +139,7 @@
   function playerVehicleCatalogEntry(id){return OTTHI_PLAYER_VEHICLE_CATALOG.find(item=>item.id===id)||null;}
   function garageVehicleSlot(id,currentGarage=null){const garage=currentGarage||ensurePlayerGarageState();return Object.keys(garage.slots).find(slot=>garage.slots[slot]===id)||'';}
   function catalogColorNumber(value,fallback){const parsed=parseInt(String(value||'').replace('#',''),16);return Number.isFinite(parsed)?parsed:fallback;}
-  function ensureCatalogVehicle(id,slot=1){let vehicle=vehicleById(id);if(vehicle)return vehicle;const entry=playerVehicleCatalogEntry(id),parts=defaultWorldVehicleParts(id),point=playerGarageSlot(slot);if(!entry)return null;vehicle=createToyCar(point.x,point.z,{id,label:entry.label,primary:catalogColorNumber(parts.primary,0xf28a22),secondary:catalogColorNumber(parts.secondary,0x0aa7b8),heading:point.heading});return vehicle;}
+  function ensureCatalogVehicle(id,slot=1){let vehicle=vehicleById(id);if(vehicle)return vehicle;const entry=playerVehicleCatalogEntry(id),parts=defaultWorldVehicleParts(id),point=playerGarageSlot(slot);if(!entry)return null;vehicle=createToyCar(point.x,point.z,{id,label:entry.label,primary:catalogColorNumber(parts.primary,0xf28a22),secondary:catalogColorNumber(parts.secondary,0x0aa7b8),heading:point.heading,theme:parts.theme,bodyType:parts.bodyType,kind:parts.kind});return vehicle;}
   function setGarageVehicleStored(vehicle,stored){if(!vehicle)return;vehicle.garageStored=!!stored;if(!vehicle.occupied&&vehicle.group)vehicle.group.visible=!stored;}
   function storeOwnedVehicle(id,silent=false){const garage=ensurePlayerGarageState(),vehicle=vehicleById(id);if(!state.vehicles.owned.includes(id))return false;if(player.vehicle&&player.car.id===id){toast('Use SAIR antes de guardar este veículo.','warn',2200);return false;}for(const slot of['1','2','3'])if(garage.slots[slot]===id)garage.slots[slot]='';garage.stored[id]=true;setGarageVehicleStored(vehicle,true);saveState(true);if(!silent)toast(`${playerVehicleCatalogEntry(id)?.label||vehicle?.label||'Veículo'} guardado na garagem.`,'good',1800);return true;}
   function placeOwnedVehicleInGarage(id){const garage=ensurePlayerGarageState();if(!state.vehicles.owned.includes(id))return false;if(player.vehicle&&player.car.id===id){toast('Use SAIR antes de estacionar este veículo.','warn',2200);return false;}let slot=garageVehicleSlot(id,garage)||['1','2','3'].find(key=>!garage.slots[key])||'1',displaced=garage.slots[slot];if(displaced&&displaced!==id)storeOwnedVehicle(displaced,true);for(const key of['1','2','3'])if(garage.slots[key]===id)garage.slots[key]='';garage.slots[slot]=id;garage.stored[id]=false;const vehicle=ensureCatalogVehicle(id,Number(slot));if(!vehicle)return false;const point=playerGarageSlot(slot);vehicle.group.position.set(point.x,groundHeightAt(point.x,point.z),point.z);vehicle.group.rotation.y=point.heading;vehicle.x=point.x;vehicle.z=point.z;vehicle.heading=point.heading;setGarageVehicleStored(vehicle,false);persistParkedVehicle(vehicle);state.vehicles.lastUsedId=id;saveState(true);updateContext(true);toast(`${playerVehicleCatalogEntry(id)?.label||vehicle.label} está na vaga ${slot}.`,'good',1900);return true;}

@@ -1,0 +1,50 @@
+OTTHI WORLD V705.7 R9 — PATCH DE FOCO
+Base obrigatória: OTTHI-World - ATUAL.zip enviado pelo usuário nesta conversa.
+
+ESCOPO EXATO
+1) OTTOVIAS / TÚNEIS
+- removido o campo morto tunnel do runtime OTTOVIAS;
+- nenhum createOttoviasTunnel ou geometria de túnel rodoviário permanece;
+- antigos desafios MINI/ABAIXAR deixaram de ser túneis e viraram plataformas abertas;
+- plataformas posicionadas fora das vias, comprovado por audit_world_v704.py.
+
+2) VEÍCULOS JOGÁVEIS
+Catálogo: 16 veículos = 4 famílias x 4 categorias.
+Famílias: LEGO, Minecraft/Manycraft, Playmobil, Mario World.
+Categorias em cada família: pequeno, moto, utilitário, caminhão.
+Todos usam o mesmo fluxo preservado de garagem: comprar, guardar, retirar, principal, personalizar, entrar, dirigir e sair.
+A frota inicial histórica continua com 10 spawns para preservar o layout e o desempenho.
+Veículos extras são materializados quando comprados/retirados na garagem.
+Veículo ativo troca a geometria de acordo com família e categoria; não é apenas troca de cor/nome.
+
+3) NPCs / SKINS
+- createNPC distribui deterministicamente LEGO, Minecraft, Playmobil e Mario World;
+- geometrias dos NPCs são diferentes por família;
+- veículos usados pelos NPCs acompanham a família visual;
+- Estúdio de Personagem permite selecionar LEGO, Minecraft/Manycraft, Playmobil e Mario World;
+- skin altera geometria e preserva roupas, cores, acessórios e save existentes.
+
+PRESERVADO
+- oficina e bancada;
+- garagem e persistência;
+- pedágios PAGAR -> LEVANTAR -> PASSAR;
+- abordagem policial R8;
+- mapa/GPS/casas;
+- Firebase, contas, multiplayer e saves;
+- esportes, kart, missões, trabalhos, emergência e demais sistemas existentes.
+
+VALIDAÇÃO
+- test_v7057_r9_toy_world.py: 30/30
+- validate_project.py: 223/223
+- test_v705_playable_world.py: 40/40
+- test_v7057_r5_vehicle_actions.py: 27/27
+- test_v7057_r6_gameplay_integrity.py: 30/30
+- test_v7057_r7_player_garage.py: 36/36
+- test_v7057_r7_garage_runtime.js: aprovado
+- test_v7057_r8_police_roadside_runtime.js: aprovado
+- audit_world_v704.py: aprovado, zero problemas geométricos
+- build_project.py idempotente: novo rebuild não altera nenhum bundle/versionamento
+- node --check app.js: aprovado
+
+LIMITES HONESTOS
+Validação visual final em celular/PWA/APK físico não é substituída pelos testes locais.

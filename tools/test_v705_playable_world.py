@@ -37,7 +37,7 @@ ck('Kart mostra melhor volta e classificação','k.best' in sports and "'Você',
 ck('Kart tem grid, boxes, zebras/barreiras','for(let i=0;i<4;i++)' in sports and "'BOXES'" in sports and 'curbA' in sports and 'kartBarrier' in sports)
 ck('Kart penaliza fora da pista','v705TrackDistance' in sports and 'Fora da pista' in sports)
 ck('Karts têm velocidade própria e boost sem remover dano','boosting?29:25.5' in damage and 'vehicleBrokenV704' in damage)
-ck('NPC visual arredondado','THREE.SphereGeometry(.39' in npcbase and 'THREE.CylinderGeometry(shoulder' in npcbase)
+ck('NPCs possuem quatro famílias visuais temáticas',all(token in npcbase for token in ["'lego'","'minecraft'","'playmobil'","'mario-world'",'toyThemeFromSeed','npc.theme']))
 ck('NPC possui traços individuais e memória','traits={cautious:' in npclogic and 'memory:[]' in npclogic and 'v705NpcRemember' in npclogic)
 ck('NPC calcula tempo para colisão','ttc=' in npclogic and 'miss=' in npclogic and 'v705NpcVehicleThreat' in npclogic)
 ck('NPC reage à buzina','player.hornUntil' in npclogic and 'Ouvi a buzina' in npclogic)

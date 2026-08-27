@@ -5,8 +5,8 @@
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70578,
-  "androidVersionName": "7.0.5.7.8",
+  "androidVersionCode": 70579,
+  "androidVersionName": "7.0.5.7.9",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -42,6 +42,11 @@
     }
   },
   "changes": [
+    "R9 remove definitivamente os antigos túneis de habilidade do mundo aberto; MINI, ABAIXAR e GRANDE passam a usar plataformas abertas fora da circulação da OTTOVIAS",
+    "R9 amplia a garagem para 16 veículos temáticos jogáveis em quatro famílias visuais: LEGO, Minecraft/Manycraft, Playmobil e Mario World",
+    "Cada família de veículos oferece carro pequeno, moto, utilitário e caminhão, todos compatíveis com comprar, guardar, retirar, personalizar, entrar, dirigir e sair",
+    "NPCs passam a receber deterministicamente uma das quatro famílias visuais e seus veículos de mobilidade acompanham o mesmo estilo",
+    "O estúdio de personagem passa a oferecer skins LEGO, Minecraft/Manycraft, Playmobil e Mario World com geometria própria, preservando roupas, cores, acessórios e persistência existentes",
     "R7 corrige a entrada da Oficina ao separar a porta da vaga externa de reparo e dar à entrada ação direta e prioridade própria",
     "Jogador recebe garagem residencial persistente com três vagas físicas, armazenamento, retirada, veículo principal, compra e personalização",
     "Frota civil cresce de sete para dez veículos estacionados em posições auditadas fora das vias e estruturas",
@@ -149,10 +154,13 @@
     "performanceStaticApproved": true,
     "worldPrecisionStaticApproved": true,
     "playerGarageStaticApproved": true,
-    "policeRoadsideRuntimeApproved": true
+    "policeRoadsideRuntimeApproved": true,
+    "toyWorldStaticApproved": true
   },
-  "release": "705.7-police-roadside-interaction-r8",
+  "release": "705.7-toy-themes-vehicles-npcs-skins-r9",
   "notes": [
+    "R9 foi aplicado sobre a árvore completa R8 atual, sem remover oficina, garagem, pedágios, polícia, mapa, residências, Firebase, multiplayer ou missões.",
+    "A homologação visual final em celular permanece separada das validações locais de código e runtime.",
     "R8 corrige a abordagem policial no local: a porta da viatura abre, o policial sai fisicamente do interior, fecha a porta, aproxima-se, conversa com o jogador, registra a multa e libera a viagem sem teleporte.",
     "R8 adiciona teste de runtime dedicado à sequência da abordagem policial; a validação não aceita mais apenas a presença textual de nomes de fases.",
     "O smoke test com navegador não é declarado aprovado nesta árvore porque Playwright não integra o ZIP; homologação visual em navegador/celular permanece separada.",
@@ -169,8 +177,8 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70578,
-  "revisionLabel": "R8-roadside-police-door-dialogue-regression-guard",
+  "assetVersion": 70579,
+  "revisionLabel": "R9-toy-world-no-road-tunnels-vehicles-npcs-skins",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

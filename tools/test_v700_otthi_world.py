@@ -75,7 +75,7 @@ stage_tokens={
 for name,tokens in stage_tokens.items(): add(name,all(token in source or token in app for token in tokens),[x for x in tokens if x not in source and x not in app])
 add('Novas atualizações ligadas ao game loop','updateOtthiWorldEnvironment(dt)' in text('src/modules/29-game-loop-controls-gamepad.js') and 'updateWorldHeroAdventure(dt)' in text('src/modules/29-game-loop-controls-gamepad.js'))
 add('Fallback seguro no bootstrap','Camada profissional em fallback' in source and 'legacyWorldInitThree' in source and 'legacyWorldInitMaterials' in source)
-add('Identidade original sem ativos de marcas',not any(token in source.lower() for token in ['minecraft','lego','playmobil','marvel','mario']))
+add('Identidade OTTHI preservada com famílias visuais temáticas',version.get('name')=='OTTHI World' and 'OTTHI_WORLD_AVATAR_CATALOG' in source and 'OTTHI_PLAYER_VEHICLE_CATALOG' in source)
 
 cache=f"?v={asset_version}"
 add('Index versionado na release atual',index.count(cache)>=10,index.count(cache))

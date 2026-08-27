@@ -5,7 +5,7 @@
  * Não cria um segundo mapa; usa WORLD_LAYOUT_V704 como autoridade única.
  */
 // @otthi-module-body
-  const OTTOVIAS_RUNTIME={initialized:false,root:null,highway:null,tolls:new Map(),michelle:null,patrol:null,tunnel:null,footbridge:null,traffic:[],bridgePedestrians:[],lastNoticeAt:0,lastBiome:'',tourCheckAt:0,communicationCheckAt:0,cullAt:0,newsCheckAt:0,segments:[],biomeGroups:[],cachedSegments:null,stateReady:false,observedIncidentId:'',observedFireIds:new Set(),observedTollAt:0,observedTrafficStatus:'',trafficAttentionSince:0,lastTrafficBulletinAt:0,lastBroadcastAt:0,lastSpokenText:''};
+  const OTTOVIAS_RUNTIME={initialized:false,root:null,highway:null,tolls:new Map(),michelle:null,patrol:null,footbridge:null,traffic:[],bridgePedestrians:[],lastNoticeAt:0,lastBiome:'',tourCheckAt:0,communicationCheckAt:0,cullAt:0,newsCheckAt:0,segments:[],biomeGroups:[],cachedSegments:null,stateReady:false,observedIncidentId:'',observedFireIds:new Set(),observedTollAt:0,observedTrafficStatus:'',trafficAttentionSince:0,lastTrafficBulletinAt:0,lastBroadcastAt:0,lastSpokenText:''};
   const OTTOVIAS_NEWS_LIMIT=16;
   const OTTOVIAS_TOUR_STOPS=Object.freeze([
     {id:'ottovias-desert',name:'Trecho Deserto',icon:'🏜️',point:'ottoviasDesert'},

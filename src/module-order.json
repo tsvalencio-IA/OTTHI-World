@@ -56,7 +56,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Fonte central de verdade do layout mundial V704",
-      "sha256Body": "7f4d6efc2b7232d3336135eebc7b1593d87d3339ccdf4427dbd0d4ae7344c36e"
+      "sha256Body": "e0244eb09e4ff8468d58116b62f854b05de0bbf660a175b25e9654b59c987a0a"
     },
     {
       "file": "src/modules/06-missions-profile-hud-inventory-tools.js",
@@ -98,7 +98,7 @@
       "startLine": 2145,
       "endLine": 2512,
       "description": "Texturas, materiais, geometria, personagem e avatar 3D",
-      "sha256Body": "fd64f45cbfb038e111bdc952f5f2eeae332ac7c25708fda9c263767d333aa207"
+      "sha256Body": "8a334a0bf0ef84eb879b519c23bcc52d42af6a7bc9b2fc16ce810c3d3416098d"
     },
     {
       "file": "src/modules/12-world-resources-nature.js",
@@ -112,7 +112,7 @@
       "startLine": 2743,
       "endLine": 2991,
       "description": "Casas, interiores, NPCs, inimigos, cristais, veículos e academia",
-      "sha256Body": "c167e8b0005abbf2cc90abe58c82eee1bbaca5585fb10552cbab046954e1949e"
+      "sha256Body": "9a4beb78ebf2de4e28b10c28e05f65cc505bcabd90cfc96e38ae083f1a4621fb"
     },
     {
       "file": "src/modules/13a-sports-kart-v705.js",
@@ -133,7 +133,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Rodovia OTTOVIAS integrada: circuito, biomas, pedágios, Michelle e ronda guiada",
-      "sha256Body": "bf7344005ae3d1f82c43b98cd54c4fe6a6b64040066dce036b909594001c4cdc"
+      "sha256Body": "f82bf6b452dcb32a263af4a27b26b37a6c0e7b509dd7d5bca83b16c77c392006"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -175,7 +175,7 @@
       "startLine": 3805,
       "endLine": 3948,
       "description": "Construção do mundo, recursos, baús, casas em nuvem e interiores",
-      "sha256Body": "7be97d4a31946dd5a58a4b1a87b7d700f413434a32d020dae58c83aabd8cfcef"
+      "sha256Body": "ccefd09bbe5ed4bfb381d57fb9c1bd1a24b94db774ff453c73afb9454195010c"
     },
     {
       "file": "src/modules/21-interactions-shop-social-races.js",
@@ -266,14 +266,14 @@
       "startLine": 5680,
       "endLine": 5801,
       "description": "Fundação OTTHI World, PBR local, diagnóstico e painel das cinco etapas",
-      "sha256Body": "8de0e1269c1db10efea095c1380ca41ceb93720c0e318f250d2741d221adaef4"
+      "sha256Body": "2ec572ff70b3506da65ad223c1d689d8154117ba1549eeaa4bc976c7453bed0d"
     },
     {
       "file": "src/modules/34-avatar-studio-professional-v3.js",
       "startLine": 5803,
       "endLine": 5897,
       "description": "Avatar modular V3 sobre o rig procedural preservado",
-      "sha256Body": "5a106a18e5ed42cde13541c913eaef14fc5b8ba684289bcbc04db1abfb5d7657"
+      "sha256Body": "baeb90d18e8c7a8fe3b98fa24df4b79cbedddb52a82b0ce8ab4d479de390007b"
     },
     {
       "file": "src/modules/35-world-render-pbr-environment.js",
@@ -287,7 +287,7 @@
       "startLine": 5958,
       "endLine": 6056,
       "description": "Construção modular, oficina e veículos montáveis",
-      "sha256Body": "87ed841dfaf80d9b1c4209af4fd5a4cd0723985c58fbb220fc12439450ac33d0"
+      "sha256Body": "23e6d8363bce6a2226661b92661aa84a865aa0fc4a987789c6db771a78d43cd1"
     },
     {
       "file": "src/modules/36a-vehicle-damage-repair-v704.js",
