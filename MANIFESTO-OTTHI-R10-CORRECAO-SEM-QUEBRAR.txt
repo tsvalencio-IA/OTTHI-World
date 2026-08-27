@@ -1,0 +1,59 @@
+OTTHI WORLD V705.7 R10 — CORREÇÃO FOCADA
+
+BASE DE REFERÊNCIA
+- OTTHI-World - ATUAL.zip enviado pelo usuário.
+- O pacote também foi preparado para sobrescrever a R9 já aplicada no GitHub.
+
+CORREÇÕES SOLICITADAS
+1. OTTOVIAS
+- Causa real dos círculos/túneis do print: discos de CylinderGeometry com raio aproximado da metade da largura da rodovia eram girados 90 graus em cada junção, ficando EM PÉ atravessando a via.
+- Esses discos foram removidos na origem.
+- Não foi criada plataforma, túnel substituto ou novo obstáculo.
+- Pedágios, cancelas, evasão, perseguição, passarela e tráfego foram preservados.
+
+2. SKINS DO USUÁRIO
+- LEGO: cabeça cilíndrica com stud, torso e membros de minifigura.
+- Minecraft/Manycraft: cabeça, corpo e membros voxel/cúbicos.
+- Playmobil: cabeça arredondada, cabelo-capacete arredondado, torso cilíndrico, braços/mãos e pernas proporcionais de brinquedo.
+- Mario World: cabeça arredondada, nariz, bigode, boné, luvas e proporções próprias.
+- O boneco procedural antigo fica oculto quando uma dessas skins é usada, impedindo a sobreposição vista no print.
+
+3. NPCs
+- Civis principais distribuídos explicitamente entre LEGO, Minecraft/Manycraft, Playmobil e Mario World.
+- Michelle OTTOVIAS foi preservada fora da troca automática para não quebrar sua implementação específica.
+
+4. VEÍCULOS
+- 16 veículos na garagem/concessionária.
+- Para CADA família visual: carro pequeno, moto, utilitário e caminhão.
+- O veículo estacionado e o veículo dirigido usam o mesmo construtor visual temático.
+- Comprar, guardar, retirar, principal, personalizar, entrar, dirigir e sair permanecem no fluxo existente.
+- Os 10 veículos civis iniciais do mundo continuam sendo exatamente 10 para preservar a materialização e desempenho já auditados.
+
+PRESERVAÇÃO
+- Oficina e reparo
+- Minha Garagem
+- Polícia, abordagem e multa no local
+- Pedágios OTTOVIAS
+- Mapa/GPS
+- Casas/interiores
+- Firebase e saves
+- Multiplayer
+- Esportes/kart
+- Missões/profissões
+- PWA/Android
+
+VALIDAÇÕES
+- validate_project.py: 223/223 aprovadas, errors=[]
+- R10 visual fidelity: 42/42
+- R7 garagem: 36/36
+- R7 runtime garagem: aprovado
+- R8 runtime policial: aprovado
+- R6 gameplay/polícia/mapa/casas: 30/30
+- R5 ações veiculares/pedágio: 27/27
+- V705 mundo jogável: 40/40
+- V704 materialização: 41 checks, aprovado
+- build_project.py idempotente: app.js/style.css/module-order/release-manifest/index/sw permanecem byte a byte iguais após novo rebuild
+
+OBSERVAÇÃO HONESTA
+- As validações acima comprovam código, runtime testável e integração local.
+- A aparência final no aparelho real continua dependendo da inspeção visual no navegador/celular, e não é declarada homologada sem esse teste.

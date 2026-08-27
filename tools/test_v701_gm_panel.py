@@ -70,7 +70,7 @@ stage_tokens={
  'Etapa 4 — máquinas':['OTTHI_WORLD_VEHICLE_CATALOG','openWorldModularGarage','applyWorldVehicleModulesToGroup','garageRack'],
  'Etapa 5 — aventura':['OTTHI_WORLD_HERO_POWERS','createWorldHeroAdventure','startWorldHeroChallenge','activateWorldHeroPower']}
 for name,tokens in stage_tokens.items(): add(name,all(token in source or token in app for token in tokens),[x for x in tokens if x not in source and x not in app])
-add('Identidade OTTHI preservada com estilos temáticos autorizados',version.get('name')=='OTTHI World' and 'OTTHI_WORLD_AVATAR_CATALOG' in source and 'OTTHI_PLAYER_VEHICLE_CATALOG' in source and 'Powered by thIAguinho Soluções Digitais' in index)
+add('Identidade OTTHI preservada com quatro famílias visuais solicitadas',version.get('name')=='OTTHI World' and all(token in source.lower() for token in ['minecraft','lego','playmobil','mario']) and 'OTTHI_WORLD_AVATAR_CATALOG' in source and 'OTTHI_PLAYER_VEHICLE_CATALOG' in source)
 
 # GM UI and access
 add('Assinatura possui gatilho isolado','id="gmSignature"' in index and 'Powered by thIAguinho Soluções Digitais' in index)

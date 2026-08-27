@@ -61,16 +61,16 @@
     createNpcMobility(nino,'bike',[[4,3],[4,10],[-18,10],[-18,0],[4,0]],3.2);createNpcMobility(luna,'skate',[[-22,8],[-34,8],[-34,0],[-12,0],[-12,8]],2.8);createNpcMobility(teo,'moto',[[22,7],[8,7],[8,-12],[35,-12],[35,7]],4.7);createNpcMobility(bia,'bike',[[-10,-10],[-10,0],[-48,0],[-48,-10]],3.4);createNpcMobility(maya,'car',[[68,42],[68,22],[65,0],[88,0],[88,42]],4.5);
 
     // Veículos estacionados em vagas livres, nunca sobre quadras/pistas/prédios.
-    const homeGarage=P('homeGarage');createToyCar(homeGarage.x+.5,homeGarage.z-2.8,{id:'garage-orange',label:'LEGO Compacto',primary:0xf28a22,secondary:0x0aa7b8,heading:Math.PI/2});
-    createToyCar(-31,-13,{id:'market-blue',label:'Playmobil Compacto',primary:0x2787d8,secondary:0x43c6e8,heading:Math.PI/2});
-    createToyCar(31,-13,{id:'workshop-red',label:'Mario World Kart',primary:0xe5484d,secondary:0xf3b33d,heading:-Math.PI/2});
-    createToyCar(14,35,{id:'home-green',label:'Minecraft Compacto',primary:0x31a76a,secondary:0x8edb65,heading:Math.PI});
-    createToyCar(76,31,{id:'royal-purple',label:'Mario World Caminhão',primary:0x7d58c9,secondary:0xf1c94d});
-    createToyCar(78,68,{id:'gym-yellow',label:'Mario World Utilitário',primary:0xf1c943,secondary:0xef6c3d,heading:Math.PI});
-    createToyCar(-78,-15,{id:'forest-teal',label:'Minecraft Caminhão',primary:0x138d83,secondary:0x6bc08b,heading:Math.PI/2});
-    createToyCar(14,-13,{id:'city-white',label:'Playmobil Utilitário',primary:0xf0f3f5,secondary:0x3293d2,heading:-Math.PI/2});
-    createToyCar(-44,-13,{id:'adventure-black',label:'Minecraft Utilitário',primary:0x303944,secondary:0x59b88c,heading:Math.PI/2});
-    createToyCar(87,14,{id:'country-brown',label:'LEGO Caminhão',primary:0x9b642f,secondary:0xe0ad4f,heading:Math.PI});
+    const homeGarage=P('homeGarage');createToyCar(homeGarage.x+.5,homeGarage.z-2.8,{id:'garage-orange',label:'LEGO • Carro pequeno',primary:0xf28a22,secondary:0x0aa7b8,heading:Math.PI/2,theme:'lego',bodyType:'small',kind:'car'});
+    createToyCar(-31,-13,{id:'market-blue',label:'Minecraft / Manycraft • Carro',primary:0x3b8f52,secondary:0x456b9a,heading:Math.PI/2,theme:'minecraft',bodyType:'small',kind:'car'});
+    createToyCar(31,-13,{id:'workshop-red',label:'Mario World • Kart pequeno',primary:0xd83b35,secondary:0x245fc0,heading:-Math.PI/2,theme:'mario-world',bodyType:'small',kind:'car'});
+    createToyCar(14,35,{id:'home-green',label:'LEGO • Utilitário',primary:0x31a76a,secondary:0xf1c943,heading:Math.PI,theme:'lego',bodyType:'utility',kind:'utility'});
+    createToyCar(76,31,{id:'royal-purple',label:'Mario World • Caminhão',primary:0x7d58c9,secondary:0xd83b35,theme:'mario-world',bodyType:'truck',kind:'truck'});
+    createToyCar(78,68,{id:'gym-yellow',label:'Minecraft / Manycraft • Utilitário',primary:0x6b7f45,secondary:0xad7d3a,heading:Math.PI,theme:'minecraft',bodyType:'utility',kind:'utility'});
+    createToyCar(-78,-15,{id:'forest-teal',label:'Playmobil • Caminhão',primary:0x168f88,secondary:0xf0c94a,heading:Math.PI/2,theme:'playmobil',bodyType:'truck',kind:'truck'});
+    createToyCar(14,-13,{id:'city-white',label:'Playmobil • Carro pequeno',primary:0xf2f4f6,secondary:0x2f7fd8,heading:-Math.PI/2,theme:'playmobil',bodyType:'small',kind:'car'});
+    createToyCar(-44,-13,{id:'adventure-black',label:'Mario World • Utilitário',primary:0x2e3540,secondary:0xe3483f,heading:Math.PI/2,theme:'mario-world',bodyType:'utility',kind:'utility'});
+    createToyCar(87,14,{id:'country-brown',label:'LEGO • Caminhão',primary:0x9b642f,secondary:0xe0ad4f,heading:Math.PI,theme:'lego',bodyType:'truck',kind:'truck'});
     const job=P('jobBoard');registerInteractable({id:'job-board',type:'job',icon:'📦',label:'Central de trabalhos',x:job.x,z:job.z,radius:2.3,action:openJobCenter});world.deliveryPoint={x:86,z:34};
 
     createLifeExpansionWorld();createSportsComplexV704();createKartCircuitV704();createSizeChallenges();createTransitWorld();createPoliceSystem();createFireServiceWorld();decorateCityServices();createWaypointMarker();createCooperativeMissionWorld();

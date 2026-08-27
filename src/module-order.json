@@ -56,7 +56,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Fonte central de verdade do layout mundial V704",
-      "sha256Body": "e0244eb09e4ff8468d58116b62f854b05de0bbf660a175b25e9654b59c987a0a"
+      "sha256Body": "7f4d6efc2b7232d3336135eebc7b1593d87d3339ccdf4427dbd0d4ae7344c36e"
     },
     {
       "file": "src/modules/06-missions-profile-hud-inventory-tools.js",
@@ -98,7 +98,7 @@
       "startLine": 2145,
       "endLine": 2512,
       "description": "Texturas, materiais, geometria, personagem e avatar 3D",
-      "sha256Body": "8a334a0bf0ef84eb879b519c23bcc52d42af6a7bc9b2fc16ce810c3d3416098d"
+      "sha256Body": "d53e970c172953994d022ae6ead2578a42ca629bd2e1a14541f32d74e114fbee"
     },
     {
       "file": "src/modules/12-world-resources-nature.js",
@@ -112,7 +112,7 @@
       "startLine": 2743,
       "endLine": 2991,
       "description": "Casas, interiores, NPCs, inimigos, cristais, veículos e academia",
-      "sha256Body": "9a4beb78ebf2de4e28b10c28e05f65cc505bcabd90cfc96e38ae083f1a4621fb"
+      "sha256Body": "eb9bef5111f0f1b32773548b965f7b234531a310b86128e8d44f6fc3f1634a05"
     },
     {
       "file": "src/modules/13a-sports-kart-v705.js",
@@ -133,7 +133,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Rodovia OTTOVIAS integrada: circuito, biomas, pedágios, Michelle e ronda guiada",
-      "sha256Body": "f82bf6b452dcb32a263af4a27b26b37a6c0e7b509dd7d5bca83b16c77c392006"
+      "sha256Body": "4de7dc469d54794fed4e2b9b996eb0aea0af6f87c2da789add552decc01ab24e"
     },
     {
       "file": "src/modules/15-transit-bus-metro.js",
@@ -175,7 +175,7 @@
       "startLine": 3805,
       "endLine": 3948,
       "description": "Construção do mundo, recursos, baús, casas em nuvem e interiores",
-      "sha256Body": "ccefd09bbe5ed4bfb381d57fb9c1bd1a24b94db774ff453c73afb9454195010c"
+      "sha256Body": "509680939ed0acb4cb2a737e45d9bb81b270b96d238f1b65cca264bdfd3fb4f5"
     },
     {
       "file": "src/modules/21-interactions-shop-social-races.js",
@@ -273,7 +273,7 @@
       "startLine": 5803,
       "endLine": 5897,
       "description": "Avatar modular V3 sobre o rig procedural preservado",
-      "sha256Body": "baeb90d18e8c7a8fe3b98fa24df4b79cbedddb52a82b0ce8ab4d479de390007b"
+      "sha256Body": "381c94a00827c1c3bc73b1e017f786e9a31fea72adb0665b277c8adcd21f0619"
     },
     {
       "file": "src/modules/35-world-render-pbr-environment.js",
@@ -287,7 +287,7 @@
       "startLine": 5958,
       "endLine": 6056,
       "description": "Construção modular, oficina e veículos montáveis",
-      "sha256Body": "23e6d8363bce6a2226661b92661aa84a865aa0fc4a987789c6db771a78d43cd1"
+      "sha256Body": "2b161f44dfcccf0849d076ab964d4d03a85808c52a1addca6cccd836ca99300d"
     },
     {
       "file": "src/modules/36a-vehicle-damage-repair-v704.js",

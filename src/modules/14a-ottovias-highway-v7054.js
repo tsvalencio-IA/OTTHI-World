@@ -5,7 +5,7 @@
  * Não cria um segundo mapa; usa WORLD_LAYOUT_V704 como autoridade única.
  */
 // @otthi-module-body
-  const OTTOVIAS_RUNTIME={initialized:false,root:null,highway:null,tolls:new Map(),michelle:null,patrol:null,footbridge:null,traffic:[],bridgePedestrians:[],lastNoticeAt:0,lastBiome:'',tourCheckAt:0,communicationCheckAt:0,cullAt:0,newsCheckAt:0,segments:[],biomeGroups:[],cachedSegments:null,stateReady:false,observedIncidentId:'',observedFireIds:new Set(),observedTollAt:0,observedTrafficStatus:'',trafficAttentionSince:0,lastTrafficBulletinAt:0,lastBroadcastAt:0,lastSpokenText:''};
+  const OTTOVIAS_RUNTIME={initialized:false,root:null,highway:null,tolls:new Map(),michelle:null,patrol:null,tunnel:null,footbridge:null,traffic:[],bridgePedestrians:[],lastNoticeAt:0,lastBiome:'',tourCheckAt:0,communicationCheckAt:0,cullAt:0,newsCheckAt:0,segments:[],biomeGroups:[],cachedSegments:null,stateReady:false,observedIncidentId:'',observedFireIds:new Set(),observedTollAt:0,observedTrafficStatus:'',trafficAttentionSince:0,lastTrafficBulletinAt:0,lastBroadcastAt:0,lastSpokenText:''};
   const OTTOVIAS_NEWS_LIMIT=16;
   const OTTOVIAS_TOUR_STOPS=Object.freeze([
     {id:'ottovias-desert',name:'Trecho Deserto',icon:'🏜️',point:'ottoviasDesert'},
@@ -58,7 +58,7 @@
     OTTOVIAS_RUNTIME.segments.push({index,highwayId:h.id,usesExistingRoad:!!h.usesExistingRoad,group:g,a,b,cx:(a.x+b.x)/2,cz:(a.z+b.z)/2,radius:len/2+10});return g;
   }
   function createOttoviasHighwayGeometry(){const routes=ottoviasRoutes();if(!routes.length)return null;OTTOVIAS_RUNTIME.segments.length=0;OTTOVIAS_RUNTIME.cachedSegments=null;const root=new THREE.Group();root.name='OTTHI_OTTOVIAS_HIGHWAY_NETWORK';root.userData.ottoviasHighway=true;worldGroup.add(root);OTTOVIAS_RUNTIME.root=root;OTTOVIAS_RUNTIME.highway=ottoviasHighway();
-    for(const h of routes){const points=h.points||[],count=h.closed?points.length:Math.max(0,points.length-1);for(let i=0;i<count;i++)createOttoviasRoadSegment(points[i],points[(i+1)%points.length],i,root,h);if(!h.usesExistingRoad){for(const p of points){const joint=new THREE.Mesh(new THREE.CylinderGeometry(Number(h.width||12.4)/2+.1,Number(h.width||12.4)/2+.1,.105,18),ottoviasMaterial(0x343b43,{roughness:.82}));joint.rotation.x=Math.PI/2;joint.position.set(p.x,.075,p.z);root.add(joint);}}}
+    for(const h of routes){const points=h.points||[],count=h.closed?points.length:Math.max(0,points.length-1);for(let i=0;i<count;i++)createOttoviasRoadSegment(points[i],points[(i+1)%points.length],i,root,h);}
     OTTOVIAS_RUNTIME.cachedSegments=null;return root;
   }
   function clearOttoviasRoadRocks(){const removed=[];for(const resource of world.resources||[]){if(resource?.type!=='stone'||!v704HighwayAt(resource.x,resource.z,1.6,true))continue;resource.mesh?.parent?.remove(resource.mesh);removed.push(resource.id);}if(!removed.length)return 0;world.resources=world.resources.filter(item=>!removed.includes(item.id));for(const interaction of world.interactables||[])if(removed.includes(interaction.id))interaction.disabled=true;return removed.length;}

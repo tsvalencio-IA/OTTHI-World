@@ -1426,7 +1426,7 @@
       sports:{x:42,z:88},sportsEntrance:{x:42,z:66},footballEntrance:{x:50,z:69},volley:{x:82,z:95},volleyEntrance:{x:82,z:84},footvolley:{x:100,z:95},footvolleyEntrance:{x:100,z:84},
       kart:{x:94,z:-91},kartEntrance:{x:94,z:-70},kartBoxes:{x:94,z:-91},
       castle:{x:100,z:55},castleEntrance:{x:100,z:40},mountain:{x:-88,z:97},mountainEntrance:{x:-62,z:84},
-      lava:{x:35,z:-104},giantGate:{x:-32,z:-49},miniTunnel:{x:-44,z:-49},crouchTunnel:{x:-38,z:-49},
+      lava:{x:35,z:-104},giantGate:{x:18,z:-54},miniTunnel:{x:-38,z:34},crouchTunnel:{x:-42,z:24},
       learningMath:{x:22,z:-32},learningPortuguese:{x:22,z:-40},learningEnglish:{x:22,z:-48},learningEntrance:{x:14,z:-40},
       playground:{x:-28,z:-40},fountain:{x:-14,z:-8},portal:{x:82,z:53},
       construction:{x:-33,z:96},constructionEntrance:{x:-33,z:78},
@@ -1518,9 +1518,9 @@
       {id:'mine',kind:'resource',point:'mine',w:18,d:14,margin:1.0},
       {id:'learning',kind:'education',x:22,z:-40,w:8,d:22,margin:1.0},
       {id:'playground',kind:'playground',point:'playground',w:9,d:7,margin:1.0},
-      {id:'giant-skill-pad',kind:'challenge',point:'giantGate',w:4.6,d:4.0,margin:.4},
-      {id:'mini-skill-pad',kind:'challenge',point:'miniTunnel',w:4.6,d:4.0,margin:.4},
-      {id:'crouch-skill-pad',kind:'challenge',point:'crouchTunnel',w:4.6,d:4.0,margin:.4},
+      {id:'giant-gate',kind:'challenge',point:'giantGate',w:10,d:2,margin:1.0},
+      {id:'mini-tunnel',kind:'challenge',point:'miniTunnel',w:8,d:6,margin:1.0},
+      {id:'crouch-tunnel',kind:'challenge',point:'crouchTunnel',w:8,d:5,margin:1.0},
       {id:'construction-zone',kind:'construction',point:'construction',w:36,d:32,margin:0,allowRoadOverlap:false},
       {id:'ottovias-operations',kind:'transport',point:'ottoviasOperations',w:15,d:9,margin:1.0},
       {id:'metro-lake',kind:'transport',point:'metroLake',w:4.6,d:4.6,margin:.4,allowedRoads:['via-floresta-norte']},
@@ -2767,32 +2767,7 @@
     contactShadow=new THREE.Mesh(new THREE.CircleGeometry(.88,24),shadowMat);contactShadow.rotation.x=-Math.PI/2;contactShadow.position.y=.025;scene.add(contactShadow);
 
     vehicleVisual=new THREE.Group();vehicleVisual.visible=false;playerGroup.add(vehicleVisual);
-    function clearActiveToyVehicle(){for(const child of [...vehicleVisual.children]){vehicleVisual.remove(child);disposeDetachedVisual?.(child);}vehicleVisual.userData.wheels=[];vehicleVisual.userData.frontWheels=[];}
-    function renderActiveToyVehicle(theme='lego',bodyType='small',appearance={}){
-      clearActiveToyVehicle();theme=normalizeToyTheme(theme);bodyType=normalizeVehicleBodyType(bodyType);
-      const chassis=mat(Number(appearance.chassis??0x26384e),{roughness:.5,metalness:.16}),primary=mat(Number(appearance.primary??0xf28a22),{roughness:.42,metalness:.14}),primaryDark=mat(Number(appearance.primaryDark??appearance.primary??0xc85b16),{roughness:.5,metalness:.12}),secondary=mat(Number(appearance.secondary??0x0aa7b8),{roughness:.4,metalness:.18}),glass=mat(Number(appearance.glass??0x102338),{roughness:.12,metalness:.32,transparent:true,opacity:.84}),dark=mat(0x151a23,{roughness:.82}),white=mat(0xf4f7ff,{roughness:.32});
-      vehicleVisual.userData.appearanceMaterials={chassis,primary,primaryDark,secondary,glass};
-      const addBox=(w,h,d,material,x=0,y=0,z=0)=>box(w,h,d,material,x,y,z,vehicleVisual);
-      const addSphere=(r,material,x=0,y=0,z=0,sx=1,sy=1,sz=1)=>{const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,14,10),material);mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);mesh.castShadow=true;mesh.receiveShadow=true;vehicleVisual.add(mesh);return mesh;};
-      const addWheel=(x,y,z,r=.34,w=.28,front=false)=>{const holder=new THREE.Group();holder.position.set(x,y,z);vehicleVisual.add(holder);const wheel=new THREE.Mesh(sharedCylinderGeometry(r,w,14),dark);wheel.rotation.z=Math.PI/2;wheel.castShadow=true;holder.add(wheel);const hub=new THREE.Mesh(sharedCylinderGeometry(Math.max(.1,r*.35),w+.03,10),theme==='mario-world'?white:secondary);hub.rotation.z=Math.PI/2;holder.add(hub);vehicleVisual.userData.wheels.push(wheel);if(front)vehicleVisual.userData.frontWheels.push(holder);return holder;};
-      const addHeadlights=(span,z,y=.5)=>{const light=renderMat(0xfff0b0,{emissive:0xffcf55,emissiveIntensity:.82,roughness:.2});addSphere(.12,light,-span,y,z,1.2,.7,.7);addSphere(.12,light,span,y,z,1.2,.7,.7);};
-      if(bodyType==='moto'){
-        addWheel(0,.30,-.92,.37,.13,false);addWheel(0,.30,.92,.37,.13,true);addBox(.18,.16,1.12,primary,0,.56,0);addBox(.44,.13,.48,secondary,0,.75,-.10);addBox(.58,.07,.09,white,0,1.0,.64);addBox(.20,.18,.18,glass,0,.93,.42);addHeadlights(0,.63,.86);
-        if(theme==='lego'){addBox(.28,.11,.34,primaryDark,0,.85,-.44);for(const x of[-.10,.10])addSphere(.055,white,x,.96,-.06,1,1.15,1);}else if(theme==='minecraft'){addBox(.34,.20,.36,primaryDark,0,.83,-.46);addBox(.20,.20,.24,glass,0,.90,.28);}else if(theme==='playmobil'){addSphere(.17,secondary,0,.87,-.36,1.15,.8,1.2);addSphere(.13,white,0,.97,.24,1.2,.7,1);}else{addSphere(.13,primaryDark,0,.85,-.36,1.45,.8,1.2);addSphere(.09,white,0,.90,.36,1.2,.7,1);}
-      }else if(bodyType==='truck'){
-        addBox(2.28,.36,3.72,chassis,0,.28,0);addBox(1.80,.74,1.38,primary,0,.72,1.10);addBox(2.00,.86,1.76,secondary,0,.84,-.82);addBox(1.28,.36,.82,glass,0,1.02,.86);for(const x of[-.98,.98]){addWheel(x,.27,-1.20,.39,.31,false);addWheel(x,.27,.05,.39,.31,false);addWheel(x,.27,1.20,.39,.31,true);}addHeadlights(.62,1.84,.60);
-        if(theme==='lego'){for(const [sx,sz] of[[-.42,-1.40],[.42,-1.40],[-.14,-1.08],[.14,-1.08]])addSphere(.12,primaryDark,sx,1.34,sz,1,1.2,1);}else if(theme==='minecraft'){addBox(2.08,.22,1.88,primaryDark,0,1.28,-.82);addBox(.30,.20,1.72,white,-1.15,.60,0);addBox(.30,.20,1.72,white,1.15,.60,0);}else if(theme==='playmobil'){addSphere(.30,secondary,0,1.24,-1.42,3.4,.65,1.2);}else{addBox(1.34,.18,.22,primaryDark,0,.42,-1.75);addSphere(.13,secondary,0,1.24,-1.58,1.55,.9,1);}
-      }else if(bodyType==='utility'){
-        addBox(2.00,.35,3.00,chassis,0,.28,0);addBox(1.78,.64,1.26,primary,0,.68,.76);addBox(1.80,.70,1.22,secondary,0,.76,-.66);addBox(1.28,.35,.74,glass,0,.98,.50);addWheel(-.91,.25,-.89,.36,.28,false);addWheel(.91,.25,-.89,.36,.28,false);addWheel(-.91,.25,.89,.36,.28,true);addWheel(.91,.25,.89,.36,.28,true);addHeadlights(.54,1.48,.56);
-        if(theme==='lego'){for(const x of[-.36,0,.36])addSphere(.10,primaryDark,x,1.20,-1.06,1,1.2,1);addBox(1.40,.22,.90,secondary,0,.98,-.90);}else if(theme==='minecraft'){addBox(1.90,.18,1.36,primaryDark,0,1.20,-.66);addBox(.20,.44,2.42,white,-1.01,.46,0);addBox(.20,.44,2.42,white,1.01,.46,0);}else if(theme==='playmobil'){addSphere(.23,secondary,0,1.20,-1.08,3.0,.7,1.1);}else{addSphere(.13,secondary,0,1.18,-.98,1.7,.8,1);addBox(1.22,.08,.18,primaryDark,0,.42,-1.42);}
-      }else{
-        addBox(1.86,.36,2.58,chassis,0,.28,0);addBox(1.74,.49,1.36,primary,0,.56,.56);addBox(1.50,.47,.94,secondary,0,.79,-.49);addBox(1.34,.32,.74,glass,0,.94,-.43);addWheel(-.85,.25,-.80,.34,.28,false);addWheel(.85,.25,-.80,.34,.28,false);addWheel(-.85,.25,.80,.34,.28,true);addWheel(.85,.25,.80,.34,.28,true);addHeadlights(.58,1.30,.52);
-        if(theme==='lego'){addBox(1.96,.18,.28,white,0,.32,1.35);for(const [sx,sz] of[[-.36,-.20],[.36,-.20],[-.12,-.54],[.12,-.54]])addSphere(.10,primaryDark,sx,1.17,sz,1,1.2,1);addBox(.74,.42,.60,dark,0,.73,-.12);}else if(theme==='minecraft'){addBox(1.96,.20,.28,white,0,.32,1.35);addBox(1.92,.18,.24,primaryDark,0,.34,-1.33);addBox(.18,.34,2.22,secondary,-.93,.42,0);addBox(.18,.34,2.22,secondary,.93,.42,0);addBox(.82,.42,.78,primaryDark,0,.73,-.08);}else if(theme==='playmobil'){addSphere(.87,primary,0,.57,.18,1.08,.45,1.30);addSphere(.73,secondary,0,.79,-.65,1,.55,1.10);}else{addSphere(.91,primary,0,.49,.12,1.12,.36,1.28);addSphere(.73,secondary,0,.75,-.53,1,.50,1.08);addBox(1.56,.12,.18,primaryDark,0,.34,-1.29);}
-      }
-      vehicleVisual.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.30);});
-      return true;
-    }
-    vehicleVisual.userData.renderToyVehicleVisual=renderActiveToyVehicle;renderActiveToyVehicle('lego','small',{});
+    buildThemedVehicleGeometry(vehicleVisual,{theme:'lego',bodyType:'small',appearance:{chassis:0x26384e,primary:0xf28a22,primaryDark:0xc85b16,secondary:0x0aa7b8,glass:0x17364b}});
     const ownLabel=new THREE.Sprite(new THREE.SpriteMaterial({map:multiplayerNameTexture(playerDisplayName()),transparent:true,depthWrite:false,depthTest:false}));
     ownLabel.position.set(0,3.65,0);ownLabel.scale.set(2.65,.66,1);ownLabel.renderOrder=1000;ownLabel.visible=false;playerGroup.add(ownLabel);playerGroup.userData.nameLabel=ownLabel;playerGroup.userData.displayName=playerDisplayName();
     refreshEquippedToolVisual();
@@ -3251,66 +3226,111 @@
   function activityIcon(type){return ({bed:'🛏',sofa:'🛋',tv:'📺',fridge:'🍎',stove:'🍳',sink:'💧',shower:'🚿',chest:'🎁',shop:'🛒',workshop:'🛠',wardrobe:'👕',school:'🏫',police:'🛡️',firestation:'🚒'})[type]||'✋';}
 
   const OTTHI_TOY_THEMES=Object.freeze(['lego','minecraft','playmobil','mario-world']);
-  function normalizeToyTheme(value){const raw=String(value??'').trim().toLowerCase();if(raw==='lego'||raw==='leggo')return 'lego';if(raw==='minecraft'||raw==='manycraft')return 'minecraft';if(raw==='playmobil')return 'playmobil';if(raw==='mario'||raw==='marioworld'||raw==='mario-world')return 'mario-world';return 'lego';}
-  function toyThemeFromSeed(seed){return OTTHI_TOY_THEMES[Math.abs(Number(seed)||0)%OTTHI_TOY_THEMES.length];}
-  function normalizeVehicleBodyType(value){const raw=String(value??'').trim().toLowerCase();if(['moto','motorcycle','bike'].includes(raw))return 'moto';if(['truck','caminhao','caminhão','lorry'].includes(raw))return 'truck';if(['utility','utilitario','utilitário','van','pickup'].includes(raw))return 'utility';return 'small';}
-  function vehicleKindIcon(kind){return kind==='moto'?'🏍️':kind==='truck'?'🚚':kind==='utility'?'🚐':'🚗';}
+  function normalizeToyTheme(value){const raw=String(value??'').trim().toLowerCase();if(raw==='lego'||raw==='leggo')return'lego';if(raw==='minecraft'||raw==='manycraft')return'minecraft';if(raw==='playmobil')return'playmobil';if(raw==='mario'||raw==='mario-world'||raw==='marioworld')return'mario-world';return'lego';}
+  function normalizeVehicleBodyType(value){const raw=String(value??'').trim().toLowerCase();if(['moto','motorcycle','bike','scooter'].includes(raw))return'moto';if(['truck','caminhao','caminhão','lorry'].includes(raw))return'truck';if(['utility','utilitario','utilitário','van','pickup'].includes(raw))return'utility';return'small';}
+  function vehicleThemeIcon(kind){return kind==='moto'?'🏍️':kind==='truck'?'🚚':kind==='utility'?'🚐':'🚗';}
+  function npcToyTheme(id){
+    const core={nino:'lego',luna:'minecraft',teo:'playmobil',bia:'mario-world',maya:'lego',clara:'minecraft',rafa:'playmobil',davi:'mario-world',leo:'lego'};
+    if(core[id])return core[id];let h=2166136261;for(const ch of String(id)){h^=ch.charCodeAt(0);h=Math.imul(h,16777619)>>>0;}return OTTHI_TOY_THEMES[h%OTTHI_TOY_THEMES.length];
+  }
+  function hideNpcLegacyVisual(npc){
+    const keep=new Set([npc.body,npc.head,npc.limbs?.leftArm,npc.limbs?.rightArm,npc.limbs?.leftLeg,npc.limbs?.rightLeg,npc.badge]);
+    for(const child of npc.group.children)if(child?.isMesh&&!keep.has(child))child.visible=false;
+    for(const mesh of[npc.body,npc.head]){if(!mesh?.material)continue;if(!mesh.userData.otthiThemeHiddenMaterial){mesh.userData.otthiThemeHiddenMaterial=mesh.material;mesh.material=mesh.material.clone();mesh.material.visible=false;}}
+    for(const limb of Object.values(npc.limbs||{}))for(const child of limb?.children||[])if(child?.isMesh)child.visible=false;
+  }
+  function npcThemeMat(value,rough=.62){return typeof value==='number'?renderMat(value,{roughness:rough}):value;}
+  function npcThemeBox(parent,w,h,d,material,x=0,y=0,z=0){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),npcThemeMat(material));mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
+  function npcThemeSphere(parent,r,material,x=0,y=0,z=0,sx=1,sy=1,sz=1){const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),npcThemeMat(material));mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
+  function npcThemeCylinder(parent,r,h,material,x=0,y=0,z=0,sides=18){const mesh=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,sides),npcThemeMat(material));mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
+  function applyNpcToyTheme(npc,theme=npcToyTheme(npc?.id)){
+    if(!npc?.group||npc.id==='michelle-ottovias')return npc;theme=normalizeToyTheme(theme);hideNpcLegacyVisual(npc);npc.theme=theme;npc.group.userData.toyTheme=theme;
+    const color=Number(npc.color||0x2787d8),primary=npcThemeMat(color,.55),dark=npcThemeMat(shadeColor(color,-42),.68),pants=npcThemeMat(theme==='mario-world'?0x245db2:theme==='minecraft'?0x394c78:0x30445f,.74),skin=npcThemeMat(theme==='lego'?0xf3d44e:theme==='playmobil'?0xffd777:0xd8a079,.68),black=npcThemeMat(0x1b2027,.72),white=npcThemeMat(0xf7f7f3,.5);
+    const headRoot=new THREE.Group(),bodyRoot=new THREE.Group();npc.head.add(headRoot);npc.body.add(bodyRoot);npc.userData={...(npc.userData||{}),toyTheme:theme,toyThemeRoots:[headRoot,bodyRoot]};
+    const {leftArm,rightArm,leftLeg,rightLeg}=npc.limbs;
+    if(theme==='lego'){
+      npcThemeCylinder(headRoot,.34,.55,skin,0,0,0,24);npcThemeCylinder(headRoot,.12,.07,skin,0,.31,0,20);npcThemeBox(bodyRoot,.96,.92,.56,primary,0,0,0);npcThemeBox(bodyRoot,.78,.18,.58,dark,0,-.48,0);
+      for(const arm of[leftArm,rightArm]){npcThemeCylinder(arm,.12,.52,primary,0,-.27,0,14);const hand=npcThemeCylinder(arm,.13,.12,skin,0,-.62,.02,18);hand.rotation.z=Math.PI/2;}
+      for(const leg of[leftLeg,rightLeg]){npcThemeBox(leg,.28,.7,.32,pants,0,-.35,0);npcThemeBox(leg,.34,.15,.44,black,0,-.76,.08);}
+      for(const x of[-.13,.13])npcThemeSphere(headRoot,.045,black,x,.05,.34);npcThemeBox(headRoot,.2,.035,.025,black,0,-.14,.35);
+    }else if(theme==='minecraft'){
+      npcThemeBox(headRoot,.72,.72,.72,skin,0,0,0);npcThemeBox(bodyRoot,.96,1.0,.58,primary,0,0,0);
+      for(const arm of[leftArm,rightArm])npcThemeBox(arm,.26,.68,.26,primary,0,-.34,0);for(const leg of[leftLeg,rightLeg]){npcThemeBox(leg,.28,.74,.28,pants,0,-.37,0);npcThemeBox(leg,.32,.14,.42,black,0,-.79,.07);}
+      for(const x of[-.15,.15])npcThemeBox(headRoot,.11,.07,.035,black,x,.07,.37);npcThemeBox(headRoot,.23,.04,.035,0x7b3f44,0,-.16,.37);npcThemeBox(headRoot,.76,.15,.76,dark,0,.43,0);
+    }else if(theme==='playmobil'){
+      npcThemeSphere(headRoot,.42,skin,0,0,0,1,1.08,.98);npcThemeCylinder(bodyRoot,.42,.92,primary,0,0,0,20);npcThemeCylinder(bodyRoot,.31,.16,dark,0,-.49,0,20);
+      for(const arm of[leftArm,rightArm]){npcThemeCylinder(arm,.11,.57,primary,0,-.28,0,14);npcThemeSphere(arm,.13,skin,0,-.61,.02,1,.86,1);}
+      for(const leg of[leftLeg,rightLeg]){npcThemeCylinder(leg,.13,.68,pants,0,-.33,0,14);npcThemeBox(leg,.31,.15,.42,black,0,-.72,.07);}
+      const hair=npcThemeSphere(headRoot,.44,dark,0,.16,-.02,1.02,.58,1.01);for(const x of[-.14,.14])npcThemeSphere(headRoot,.043,black,x,.05,.39);npcThemeBox(headRoot,.18,.035,.025,0xa44f58,0,-.16,.40);
+    }else{
+      npcThemeSphere(headRoot,.43,skin,0,0,0,1.02,1.04,.98);npcThemeCylinder(bodyRoot,.4,.88,primary,0,0,0,18);npcThemeBox(bodyRoot,.7,.58,.55,pants,0,-.10,.03);
+      for(const arm of[leftArm,rightArm]){npcThemeCylinder(arm,.11,.56,primary,0,-.27,0,14);npcThemeSphere(arm,.14,white,0,-.61,.02);}
+      for(const leg of[leftLeg,rightLeg]){npcThemeCylinder(leg,.13,.65,pants,0,-.31,0,14);npcThemeBox(leg,.34,.16,.48,0x5b341e,0,-.7,.1);}
+      npcThemeSphere(headRoot,.1,skin,0,-.01,.41,1.35,1,1);npcThemeBox(headRoot,.18,.04,.025,0x2b1712,-.075,-.13,.405);npcThemeBox(headRoot,.18,.04,.025,0x2b1712,.075,-.13,.405);for(const x of[-.14,.14])npcThemeSphere(headRoot,.042,black,x,.06,.39);npcThemeSphere(headRoot,.48,0xd83b35,0,.35,-.02,1.18,.34,1.18);npcThemeBox(headRoot,.62,.09,.3,0xd83b35,0,.31,.34);
+    }
+    for(const root of[npc.group,headRoot,bodyRoot])root.traverse?.(o=>{if(o.isMesh&&o.visible)addVoxelOutline(o,0x132238,.18);});return npc;
+  }
+  function clearThemedVehicleGeometry(group){if(!group)return;for(const child of[...group.children]){group.remove(child);try{disposeDetachedVisual?.(child);}catch{}}group.userData.wheels=[];group.userData.frontWheels=[];}
+  function buildThemedVehicleGeometry(group,options={}){
+    if(!group)return group;clearThemedVehicleGeometry(group);const theme=normalizeToyTheme(options.theme),bodyType=normalizeVehicleBodyType(options.bodyType||options.kind),appearance=options.appearance||options;
+    const chassis=renderMat(Number(appearance.chassis??0x26384e),{roughness:.52,metalness:.12}),primary=renderMat(Number(appearance.primary??0xf28a22),{roughness:.45,metalness:.10}),primaryDark=renderMat(Number(appearance.primaryDark??appearance.primary??0xc85b16),{roughness:.54}),secondary=renderMat(Number(appearance.secondary??0x0aa7b8),{roughness:.45}),glass=renderMat(Number(appearance.glass??0x17364b),{roughness:.16,metalness:.18,transparent:true,opacity:.82}),black=renderMat(0x15191f,{roughness:.88}),white=renderMat(0xf7f7f2,{roughness:.35}),yellow=renderMat(0xffd84d,{roughness:.42});
+    group.userData.appearanceMaterials={chassis,primary,primaryDark,secondary,glass};group.userData.toyTheme=theme;group.userData.bodyType=bodyType;const wheels=group.userData.wheels,front=group.userData.frontWheels;
+    const B=(w,h,d,m,x=0,y=0,z=0)=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),m);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);return mesh;};
+    const S=(r,m,x=0,y=0,z=0,sx=1,sy=1,sz=1)=>{const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,16,12),m);mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);return mesh;};
+    const W=(x,z,r=.34,width=.28,isFront=false)=>{const holder=new THREE.Group();holder.position.set(x,.25,z);group.add(holder);const wheel=new THREE.Mesh(new THREE.CylinderGeometry(r,r,width,16),black);wheel.rotation.z=Math.PI/2;wheel.castShadow=true;holder.add(wheel);const hub=new THREE.Mesh(new THREE.CylinderGeometry(r*.38,r*.38,width+.035,12),theme==='mario-world'?white:secondary);hub.rotation.z=Math.PI/2;holder.add(hub);wheels.push(wheel);if(isFront)front.push(holder);return holder;};
+    if(bodyType==='moto'){
+      W(0,-.82,.35,.13,false);W(0,.82,.35,.13,true);B(.16,.18,1.18,chassis,0,.48,0);B(.44,.18,.5,primary,0,.68,-.12);B(.54,.07,.08,white,0,.94,.54);B(.18,.28,.22,glass,0,.84,.30);
+      if(theme==='lego'){B(.34,.18,.38,primaryDark,0,.82,-.42);S(.07,yellow,-.1,.95,-.06);S(.07,yellow,.1,.95,-.06);}else if(theme==='minecraft'){B(.38,.26,.38,primaryDark,0,.84,-.43);B(.22,.2,.24,glass,0,.9,.25);}else if(theme==='playmobil'){S(.22,primary,0,.78,-.35,1.25,.72,1.15);S(.14,white,0,.9,.24,1.2,.72,1);}else{S(.18,primaryDark,0,.79,-.35,1.35,.72,1.15);S(.10,white,0,.88,.30,1.2,.72,1);}
+    }else if(bodyType==='truck'){
+      B(2.2,.34,3.65,chassis,0,.27,0);B(1.76,.82,1.30,primary,0,.75,1.08);B(1.96,.92,1.68,secondary,0,.82,-.78);B(1.28,.38,.72,glass,0,1.02,.92);for(const [x,z,f]of[[-.98,-1.18,false],[.98,-1.18,false],[-.98,.05,false],[.98,.05,false],[-.98,1.18,true],[.98,1.18,true]])W(x,z,.39,.31,f);
+      if(theme==='lego'){for(const [x,z]of[[-.42,-1.42],[0,-1.42],[.42,-1.42]])S(.12,primaryDark,x,1.39,z,1,1.15,1);B(1.78,.14,.14,yellow,0,.58,1.82);}else if(theme==='minecraft'){B(2.0,.25,1.7,primaryDark,0,1.35,-.78);B(.22,.32,3.2,white,-1.08,.57,0);B(.22,.32,3.2,white,1.08,.57,0);}else if(theme==='playmobil'){S(.38,secondary,0,1.28,-1.35,2.7,.62,1.05);S(.16,white,-.52,.83,1.72);S(.16,white,.52,.83,1.72);}else{S(.22,secondary,0,1.25,-1.38,1.5,.8,1);B(1.25,.14,.2,primaryDark,0,.44,-1.75);S(.16,white,-.56,.62,1.76);S(.16,white,.56,.62,1.76);}
+    }else if(bodyType==='utility'){
+      B(2.0,.34,3.0,chassis,0,.27,0);B(1.76,.64,1.24,primary,0,.66,.76);B(1.78,.7,1.24,secondary,0,.76,-.62);B(1.25,.34,.7,glass,0,.96,.5);for(const [x,z,f]of[[-.9,-.9,false],[.9,-.9,false],[-.9,.9,true],[.9,.9,true]])W(x,z,.36,.28,f);
+      if(theme==='lego'){for(const x of[-.4,0,.4])S(.1,primaryDark,x,1.2,-.95,1,1.15,1);B(1.38,.22,.75,secondary,0,.96,-.88);}else if(theme==='minecraft'){B(1.86,.2,1.3,primaryDark,0,1.18,-.62);B(.18,.38,2.52,white,-1.0,.48,0);B(.18,.38,2.52,white,1.0,.48,0);}else if(theme==='playmobil'){S(.26,secondary,0,1.18,-1.04,2.6,.66,1.05);S(.14,white,-.48,.78,1.4);S(.14,white,.48,.78,1.4);}else{S(.16,secondary,0,1.15,-.96,1.6,.75,1);B(1.12,.1,.18,primaryDark,0,.43,-1.43);S(.14,white,-.52,.58,1.43);S(.14,white,.52,.58,1.43);}
+    }else{
+      B(1.84,.34,2.56,chassis,0,.27,0);for(const [x,z,f]of[[-.84,-.79,false],[.84,-.79,false],[-.84,.79,true],[.84,.79,true]])W(x,z,.34,.28,f);
+      if(theme==='lego'){B(1.72,.48,1.32,primary,0,.55,.52);B(1.5,.45,.9,secondary,0,.78,-.48);B(1.32,.3,.7,glass,0,.93,-.42);B(1.92,.16,.24,white,0,.31,1.34);for(const[x,z]of[[-.36,-.2],[.36,-.2],[-.12,-.54],[.12,-.54]])S(.1,primaryDark,x,1.15,z,1,1.15,1);}
+      else if(theme==='minecraft'){B(1.72,.52,1.38,primary,0,.57,.5);B(1.52,.5,.96,secondary,0,.82,-.46);B(1.34,.32,.74,glass,0,.96,-.42);B(.18,.38,2.16,primaryDark,-.94,.45,0);B(.18,.38,2.16,primaryDark,.94,.45,0);}
+      else if(theme==='playmobil'){S(.92,primary,0,.49,.18,1.02,.35,1.22);S(.72,secondary,0,.75,-.56,.94,.48,1.05);S(.58,glass,0,.91,-.38,.92,.42,1);S(.15,white,-.54,.54,1.19);S(.15,white,.54,.54,1.19);B(1.52,.12,.18,primaryDark,0,.34,-1.28);}
+      else{S(.93,primary,0,.48,.14,1.05,.34,1.24);S(.7,secondary,0,.74,-.5,.92,.46,1.02);S(.52,glass,0,.9,-.36,.92,.4,1);S(.14,white,-.54,.56,1.20);S(.14,white,.54,.56,1.20);B(1.48,.12,.18,primaryDark,0,.34,-1.28);S(.12,yellow,0,.92,-.98,1.4,.7,1);}
+    }
+    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.22);});return group;
+  }
 
   function createNPC(id,name,x,z,color,pathRadius=3){
     const group=new THREE.Group();group.position.set(x,0,z);worldGroup.add(group);
     const hairPalette=[0x34251c,0x15191f,0x6a4429,0xb36b35,0xd5b36a,0x643e55],skinPalette=[0xffd7b1,0xeab589,0xbd825d,0x8d5b43,0x6f4637];
-    const hash=String(id).split('').reduce((a,c)=>a+c.charCodeAt(0),0),theme=toyThemeFromSeed(hash),hairColor=hairPalette[hash%hairPalette.length],naturalSkin=skinPalette[hash%skinPalette.length],skinColor=theme==='lego'?0xf4d64b:theme==='playmobil'?0xffd77a:naturalSkin;
-    const shirt=renderMat(color,{roughness:.68}),shirtDark=renderMat(shadeColor(color,-32),{roughness:.74}),pants=renderMat(hash%2?0x294b75:0x43365f,{roughness:.78}),shoe=renderMat(hash%3===0?0xf4f5f7:0x202935,{roughness:.6}),skinMat=renderMat(skinColor,{roughness:.72}),hairMat=renderMat(hairColor,{roughness:.78}),white=renderMat(0xffffff,{roughness:.42});
-    const leftArm=new THREE.Group(),rightArm=new THREE.Group(),leftLeg=new THREE.Group(),rightLeg=new THREE.Group();group.add(leftArm,rightArm,leftLeg,rightLeg);
-    const addBox=(parent,w,h,d,material,x=0,y=0,z=0)=>{const m=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;};
-    const addSphere=(parent,r,material,x=0,y=0,z=0,sx=1,sy=1,sz=1)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(r,14,10),material);m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;};
-    const addCylinder=(parent,rt,rb,h,material,x=0,y=0,z=0,radial=12)=>{const m=new THREE.Mesh(new THREE.CylinderGeometry(rt,rb,h,radial),material);m.position.set(x,y,z);m.castShadow=true;m.receiveShadow=true;parent.add(m);return m;};
-    let body,head;
-    if(theme==='lego'){
-      body=addBox(group,.98,1.05,.58,shirt,0,1.28,0);head=addCylinder(group,.36,.36,.64,skinMat,0,2.04,0,20);addCylinder(group,.09,.09,.12,skinMat,0,2.42,0,14);
-      leftArm.position.set(-.58,1.58,0);rightArm.position.set(.58,1.58,0);leftLeg.position.set(-.21,.82,0);rightLeg.position.set(.21,.82,0);
-      addBox(leftArm,.22,.58,.22,shirt,0,-.28,0);addBox(rightArm,.22,.58,.22,shirt,0,-.28,0);addCylinder(leftArm,.10,.10,.18,skinMat,0,-.64,.02,12);addCylinder(rightArm,.10,.10,.18,skinMat,0,-.64,.02,12);addBox(leftLeg,.28,.72,.28,pants,0,-.36,0);addBox(rightLeg,.28,.72,.28,pants,0,-.36,0);addBox(leftLeg,.34,.16,.44,shoe,0,-.82,.07);addBox(rightLeg,.34,.16,.44,shoe,0,-.82,.07);
-      for(const [sx,sz] of [[-.15,-.12],[.15,-.12],[-.15,.12],[.15,.12]])addCylinder(group,.055,.055,.08,hairMat,sx,2.44,sz,10);
-    }else if(theme==='minecraft'){
-      body=addBox(group,.96,1.08,.58,shirt,0,1.28,0);head=addBox(group,.76,.76,.76,skinMat,0,2.08,0);addBox(group,.78,.16,.76,hairMat,0,2.46,0);
-      leftArm.position.set(-.58,1.58,0);rightArm.position.set(.58,1.58,0);leftLeg.position.set(-.21,.82,0);rightLeg.position.set(.21,.82,0);
-      addBox(leftArm,.28,.72,.28,shirt,0,-.34,0);addBox(rightArm,.28,.72,.28,shirt,0,-.34,0);addBox(leftLeg,.30,.76,.30,pants,0,-.38,0);addBox(rightLeg,.30,.76,.30,pants,0,-.38,0);addBox(leftLeg,.34,.16,.46,shoe,0,-.84,.08);addBox(rightLeg,.34,.16,.46,shoe,0,-.84,.08);
-    }else if(theme==='playmobil'){
-      body=addCylinder(group,.34,.50,1.02,shirt,0,1.24,0,18);head=addSphere(group,.42,skinMat,0,2.04,0,.98,1.06,.96);addSphere(group,.43,hairMat,0,2.22,-.02,.98,.58,.96);
-      leftArm.position.set(-.50,1.56,0);rightArm.position.set(.50,1.56,0);leftLeg.position.set(-.18,.82,0);rightLeg.position.set(.18,.82,0);
-      addCylinder(leftArm,.10,.12,.65,shirt,0,-.28,0,10);addCylinder(rightArm,.10,.12,.65,shirt,0,-.28,0,10);addSphere(leftArm,.11,skinMat,0,-.62,.03);addSphere(rightArm,.11,skinMat,0,-.62,.03);addCylinder(leftLeg,.12,.13,.72,pants,0,-.31,0,10);addCylinder(rightLeg,.12,.13,.72,pants,0,-.31,0,10);addBox(leftLeg,.28,.15,.42,shoe,0,-.72,.08);addBox(rightLeg,.28,.15,.42,shoe,0,-.72,.08);
-    }else{
-      body=addCylinder(group,.36,.46,1.0,shirt,0,1.26,0,14);head=addSphere(group,.41,skinMat,0,2.05,0,.98,1.02,.94);
-      leftArm.position.set(-.49,1.56,0);rightArm.position.set(.49,1.56,0);leftLeg.position.set(-.18,.82,0);rightLeg.position.set(.18,.82,0);
-      addCylinder(leftArm,.10,.11,.62,shirt,0,-.26,0,10);addCylinder(rightArm,.10,.11,.62,shirt,0,-.26,0,10);addSphere(leftArm,.12,white,0,-.59,.05);addSphere(rightArm,.12,white,0,-.59,.05);addCylinder(leftLeg,.12,.13,.68,pants,0,-.28,0,10);addCylinder(rightLeg,.12,.13,.68,pants,0,-.28,0,10);addBox(leftLeg,.34,.17,.50,shoe,0,-.70,.11);addBox(rightLeg,.34,.17,.50,shoe,0,-.70,.11);
-      addSphere(group,.09,skinMat,0,1.98,.37,1.4,1,1);const moustache=renderMat(0x2b170f,{roughness:.72});addBox(group,.19,.04,.04,moustache,-.09,1.91,.37);addBox(group,.19,.04,.04,moustache,.09,1.91,.37);const cap=renderMat(hash%2?0xd93645:0x2d67cb,{roughness:.48});addSphere(group,.44,cap,0,2.35,0,1.16,.34,1.16);addBox(group,.58,.09,.26,cap,0,2.32,.36);
-    }
-    const eyeMat=renderMat(0x20232a,{roughness:.4});for(const ex of[-.14,.14])addSphere(group,.04,eyeMat,ex,2.05,.35);if(theme!=='mario-world')addSphere(group,.04,skinMat,0,1.98,.37,.75,1.2,.75);addBox(group,.15,.035,.026,0x9d5052,0,1.90,.37);
-    if(theme!=='lego'&&theme!=='minecraft'&&theme!=='mario-world'&&hash%3===0){const fringe=addSphere(group,.2,hairMat,-.08,2.22,.28,1.55,.42,.5);}
-    const npc={id,name,x,z,baseX:x,baseZ:z,color,group,pathRadius,phase:Math.random()*6.28,friendship:state.friendship[id]||0,theme,body,head,limbs:{leftArm,rightArm,leftLeg,rightLeg},brain:{state:'idle',target:null,nextThink:0,fearUntil:0,lastVehicle:'',lastVehicleAt:0,lastPlayerAt:0,wanderUntil:0,memory:[]}};
+    const hash=String(id).split('').reduce((a,c)=>a+c.charCodeAt(0),0),hairColor=hairPalette[hash%hairPalette.length],skin=skinPalette[hash%skinPalette.length];
+    const height=.92+(hash%5)*.025,shoulder=.39+(hash%3)*.025,shirt=renderMat(color,{roughness:.7}),shirtDark=renderMat(shadeColor(color,-32),{roughness:.74}),pants=renderMat(hash%2?0x294b75:0x43365f,{roughness:.78}),shoe=renderMat(hash%3===0?0xf4f5f7:0x202935,{roughness:.6}),skinMat=renderMat(skin,{roughness:.72}),hairMat=renderMat(hairColor,{roughness:.78});
+    const body=new THREE.Mesh(new THREE.CylinderGeometry(shoulder*.78,shoulder,height,12),shirt);body.position.y=1.28;body.castShadow=true;body.receiveShadow=true;group.add(body);
+    const head=new THREE.Mesh(new THREE.SphereGeometry(.39,16,11),skinMat);head.position.set(0,2.0,0);head.scale.set(.93,1.04,.9);head.castShadow=true;group.add(head);
+    const hairCap=new THREE.Mesh(new THREE.SphereGeometry(.405,14,9,0,Math.PI*2,0,Math.PI*.56),hairMat);hairCap.position.set(0,2.17,-.015);hairCap.scale.set(.97,.68,.94);hairCap.castShadow=true;group.add(hairCap);
+    if(hash%4===0){for(const sx of[-1,1]){const lock=new THREE.Mesh(new THREE.SphereGeometry(.12,9,7),hairMat);lock.scale.set(.7,1.8,.8);lock.position.set(sx*.32,2.03,-.04);group.add(lock);}}
+    else if(hash%4===1){const fringe=new THREE.Mesh(new THREE.SphereGeometry(.2,10,7),hairMat);fringe.scale.set(1.6,.45,.52);fringe.position.set(-.08,2.18,.29);group.add(fringe);}
+    const eyeMat=renderMat(hash%3===0?0x3c5f72:0x20232a,{roughness:.4});for(const ex of[-.14,.14]){const eye=new THREE.Mesh(new THREE.SphereGeometry(.042,8,6),eyeMat);eye.position.set(ex,2.03,.345);group.add(eye);}const nose=new THREE.Mesh(new THREE.SphereGeometry(.04,7,5),skinMat);nose.position.set(0,1.96,.37);nose.scale.set(.75,1.2,.75);group.add(nose);box(.15,.035,.026,0x9d5052,0,1.88,.365,group);
+    const leftArm=new THREE.Group(),rightArm=new THREE.Group(),leftLeg=new THREE.Group(),rightLeg=new THREE.Group();leftArm.position.set(-.48,1.52,0);rightArm.position.set(.48,1.52,0);leftLeg.position.set(-.19,.82,0);rightLeg.position.set(.19,.82,0);group.add(leftArm,rightArm,leftLeg,rightLeg);
+    const makeLimb=(parent,r,h,material,y)=>{const mesh=new THREE.Mesh(new THREE.CylinderGeometry(r*.9,r,h,10),material);mesh.position.y=y;mesh.castShadow=true;parent.add(mesh);return mesh;};
+    makeLimb(leftArm,.12,.66,shirt,-.28);makeLimb(rightArm,.12,.66,shirt,-.28);const lh=new THREE.Mesh(new THREE.SphereGeometry(.12,9,7),skinMat),rh=lh.clone();lh.position.y=-.63;rh.position.y=-.63;leftArm.add(lh);rightArm.add(rh);
+    makeLimb(leftLeg,.14,.72,pants,-.31);makeLimb(rightLeg,.14,.72,pants,-.31);box(.29,.15,.42,shoe,0,-.72,.07,leftLeg);box(.29,.15,.42,shoe,0,-.72,.07,rightLeg);box(.7,.18,.54,shirtDark,0,.82,0,group);
+    if(hash%5===0){const cap=new THREE.Mesh(new THREE.SphereGeometry(.42,12,8,0,Math.PI*2,0,Math.PI*.48),renderMat(0x2f7ed6,{roughness:.62}));cap.position.set(0,2.28,0);cap.scale.y=.55;group.add(cap);box(.28,.04,.3,0x2f7ed6,0,2.27,.39,group);}
+    const npc={id,name,x,z,baseX:x,baseZ:z,color,group,pathRadius,phase:Math.random()*6.28,friendship:state.friendship[id]||0,body,head,limbs:{leftArm,rightArm,leftLeg,rightLeg},brain:{state:'idle',target:null,nextThink:0,fearUntil:0,lastVehicle:'',lastVehicleAt:0,lastPlayerAt:0,wanderUntil:0,memory:[]}};
     const badge=new THREE.Sprite(new THREE.SpriteMaterial({map:iconTexture(name.charAt(0),'#ffffff','#15314b'),transparent:true,depthWrite:false}));badge.position.set(0,2.85,0);badge.scale.set(.5,.5,.5);badge.visible=false;group.add(badge);npc.badge=badge;
-    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x132238,.22);});
-    world.npcs.push(npc);registerInteractable({id:`npc-${id}`,type:'npc',icon:'💬',label:`Conversar com ${name}`,radius:2.7,priority:160,getPos:()=>({x:npc.group.position.x,z:npc.group.position.z}),action:()=>talkToNPC(npc)});return npc;
+    if(id!=='michelle-ottovias')applyNpcToyTheme(npc,npcToyTheme(id));world.npcs.push(npc);registerInteractable({id:`npc-${id}`,type:'npc',icon:'💬',label:`Conversar com ${name}`,radius:2.7,priority:160,getPos:()=>({x:npc.group.position.x,z:npc.group.position.z}),action:()=>talkToNPC(npc)});return npc;
   }
 
   function createNpcMobility(npc,type,route,speed){
-    if(!npc||!Array.isArray(route)||route.length<2)return npc;const ride=new THREE.Group();npc.group.add(ride);const wheels=[],theme=normalizeToyTheme(npc.theme),bodyColor=npc.color,secondary=theme==='lego'?0xf5d84d:theme==='minecraft'?0x5c7448:theme==='playmobil'?0xf4f7ff:0x236ac7;
-    const rideBox=(w,h,d,color,x=0,y=0,z=0)=>premiumBox(w,h,d,color,x,y,z,ride),rideSphere=(r,color,x=0,y=0,z=0,sx=1,sy=1,sz=1)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(r,12,8),renderMat(color,{roughness:.55}));m.position.set(x,y,z);m.scale.set(sx,sy,sz);m.castShadow=true;ride.add(m);return m;};
+    if(!npc||!Array.isArray(route)||route.length<2)return npc;const ride=new THREE.Group();npc.group.add(ride);const wheels=[];
     if(type==='car'){
-      if(theme==='minecraft'){rideBox(1.76,.34,2.46,0x24364d,0,.35,0);rideBox(1.58,.46,1.14,bodyColor,0,.63,.43);rideBox(1.34,.42,.80,secondary,0,.83,-.45);rideBox(.22,.34,2.12,secondary,-.88,.44,0);rideBox(.22,.34,2.12,secondary,.88,.44,0);}
-      else if(theme==='playmobil'){rideBox(1.72,.32,2.36,0x24364d,0,.32,0);rideSphere(.78,bodyColor,0,.58,.18,1.05,.44,1.25);rideSphere(.64,secondary,0,.78,-.55,1,.52,1.08);}
-      else if(theme==='mario-world'){rideBox(1.70,.30,2.30,0x24364d,0,.31,0);rideSphere(.80,bodyColor,0,.54,.16,1.08,.38,1.2);rideSphere(.60,secondary,0,.76,-.50,1,.48,1.05);rideBox(1.28,.10,.18,0xf5d84d,0,.34,-1.12);}
-      else{rideBox(1.72,.34,2.45,0x24364d,0,.35,0);rideBox(1.55,.45,1.12,bodyColor,0,.62,.43);rideBox(1.30,.40,.78,secondary,0,.82,-.45);for(const [sx,sz]of[[-.24,-.2],[.24,-.2],[-.24,-.52],[.24,-.52]])rideSphere(.08,bodyColor,sx,1.06,sz,1,1.2,1);}
+      premiumBox(1.72,.34,2.45,0x24364d,0,.35,0,ride);premiumBox(1.55,.45,1.12,npc.color,0,.62,.43,ride);premiumBox(1.3,.4,.78,0x163049,0,.82,-.45,ride);
       for(const p of [[-.78,.28,-.72],[.78,.28,-.72],[-.78,.28,.72],[.78,.28,.72]]){const wheel=premiumCylinder(.28,.24,0x121821,p[0],p[1],p[2],ride,10);wheel.rotation.z=Math.PI/2;wheels.push(wheel);}
     }else if(type==='moto'){
-      for(const z of[-.72,.72]){const wheel=premiumCylinder(.34,.13,0x111822,0,.36,z,ride,12);wheel.rotation.z=Math.PI/2;wheels.push(wheel);}rideBox(.28,.26,1.15,bodyColor,0,.58,0);rideBox(.56,.15,.42,secondary,0,.76,-.12);rideBox(.70,.06,.08,0xd7e2eb,0,1.05,.53);
-      if(theme==='lego')for(const x of[-.10,.10])rideSphere(.055,0xffffff,x,.93,-.05,1,1.1,1);else if(theme==='minecraft')rideBox(.24,.22,.26,0x34495e,0,.87,.26);else if(theme==='playmobil')rideSphere(.16,secondary,0,.85,-.38,1.1,.8,1.2);else rideSphere(.12,0xffffff,0,.90,.33,1.2,.7,1);
+      for(const z of [-.72,.72]){const wheel=premiumCylinder(.34,.13,0x111822,0,.36,z,ride,12);wheel.rotation.z=Math.PI/2;wheels.push(wheel);}premiumBox(.28,.26,1.15,npc.color,0,.58,0,ride);premiumBox(.56,.15,.42,0x202c3b,0,.76,-.12,ride);premiumBox(.7,.06,.08,0xd7e2eb,0,1.05,.53,ride);
     }else if(type==='bike'){
-      for(const z of[-.72,.72]){const wheel=premiumCylinder(.34,.07,0x17202b,0,.36,z,ride,14);wheel.rotation.z=Math.PI/2;wheels.push(wheel);}rideBox(.08,.65,1.2,bodyColor,0,.62,0);rideBox(.58,.07,.08,0xe8eef3,0,1.05,.62);rideBox(.45,.12,.34,secondary,0,.84,-.2);
+      for(const z of [-.72,.72]){const wheel=premiumCylinder(.34,.07,0x17202b,0,.36,z,ride,14);wheel.rotation.z=Math.PI/2;wheels.push(wheel);}premiumBox(.08,.65,1.2,npc.color,0,.62,0,ride);premiumBox(.58,.07,.08,0xe8eef3,0,1.05,.62,ride);premiumBox(.45,.12,.34,0x25364a,0,.84,-.2,ride);
     }else{
-      rideBox(.62,.10,1.2,bodyColor,0,.12,0);for(const p of [[-.25,.08,-.42],[.25,.08,-.42],[-.25,.08,.42],[.25,.08,.42]]){const wheel=premiumCylinder(.09,.08,0x1c2633,p[0],p[1],p[2],ride,8);wheel.rotation.z=Math.PI/2;wheels.push(wheel);}
+      premiumBox(.62,.1,1.2,npc.color,0,.12,0,ride);for(const p of [[-.25,.08,-.42],[.25,.08,-.42],[-.25,.08,.42],[.25,.08,.42]]){const wheel=premiumCylinder(.09,.08,0x1c2633,p[0],p[1],p[2],ride,8);wheel.rotation.z=Math.PI/2;wheels.push(wheel);}
     }
-    ride.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x132238,.22);});const projected=buildTrafficRoute(route.map(p=>({x:p[0],z:p[1]})),true);npc.group.position.set(projected[0].x,0,projected[0].z);npc.group.userData.roadPath=projected;npc.group.userData.trafficCorridor=type==='car'?1.05:.82;npc.baseX=projected[0].x;npc.baseZ=projected[0].z;npc.mobility={id:`mobility-${npc.id}`,type,theme,route:projected,index:1,speed:speed||({car:4.4,moto:4.8,bike:3.2,skate:2.8})[type]||3,currentSpeed:0,radius:type==='car'?1.45:type==='moto'?.9:.7,group:npc.group,ride,wheels};return npc;
+    ride.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x132238,.22);});const projected=buildTrafficRoute(route.map(p=>({x:p[0],z:p[1]})),true);npc.group.position.set(projected[0].x,0,projected[0].z);npc.group.userData.roadPath=projected;npc.group.userData.trafficCorridor=type==='car'?1.05:.82;npc.baseX=projected[0].x;npc.baseZ=projected[0].z;npc.mobility={id:`mobility-${npc.id}`,type,route:projected,index:1,speed:speed||({car:4.4,moto:4.8,bike:3.2,skate:2.8})[type]||3,currentSpeed:0,radius:type==='car'?1.45:type==='moto'?.9:.7,group:npc.group,ride,wheels};return npc;
   }
   function createEnemy(type,x,z){
     const group=new THREE.Group();group.position.set(x,0,z);worldGroup.add(group);
@@ -3330,8 +3350,7 @@
   function vehicleById(id){return (world.vehicles||[]).find(v=>v.id===id)||null;}
   function currentVehicleRef(){if(activeVehicleRef)return activeVehicleRef;const byId=vehicleById(player.car.id);if(byId)return byId;if(world.activeVehicle)return world.activeVehicle;return player.car.id?null:(world.vehicle||null);}
   function applyVehicleAppearance(vehicle){
-    const a=vehicle?.appearance||{};if(vehicleVisual?.userData?.renderToyVehicleVisual)vehicleVisual.userData.renderToyVehicleVisual(normalizeToyTheme(vehicle?.theme??a.theme),normalizeVehicleBodyType(vehicle?.bodyType??a.bodyType),a);const m=vehicleVisual?.userData?.appearanceMaterials;if(!m)return;
-    m.chassis.color.setHex(Number(a.chassis??0x26384e));m.primary.color.setHex(Number(a.primary??0xf28a22));m.primaryDark.color.setHex(Number(a.primaryDark??a.primary??0xc85b16));m.secondary.color.setHex(Number(a.secondary??0x0aa7b8));m.glass.color.setHex(Number(a.glass??0x102338));
+    const a=vehicle?.appearance||{},theme=normalizeToyTheme(vehicle?.theme||a.theme),bodyType=normalizeVehicleBodyType(vehicle?.bodyType||a.bodyType||vehicle?.kind);if(vehicleVisual)buildThemedVehicleGeometry(vehicleVisual,{theme,bodyType,appearance:a});
     if(typeof applyServiceVehicleVisual==='function')applyServiceVehicleVisual(vehicle);
   }
   function persistParkedVehicle(vehicle){
@@ -3339,41 +3358,9 @@
   }
   function createToyCar(x,z,options={}){
     const id=options.id||`city-car-${world.vehicles.length+1}`,saved=state.vehicles?.parked?.[id]||{},heading=Number(saved.heading??options.heading??0),group=new THREE.Group(),rawX=Number(saved.x??x),rawZ=Number(saved.z??z),spawn=v704ClampWorldPoint(Number.isFinite(rawX)?rawX:x,Number.isFinite(rawZ)?rawZ:z,.9);group.position.set(spawn.x,0,spawn.z);group.rotation.y=heading;group.userData.vehicleId=id;worldGroup.add(group);
-    const preset=typeof defaultWorldVehicleParts==='function'?defaultWorldVehicleParts(id):{},theme=normalizeToyTheme(options.theme??preset.theme??'lego'),bodyType=normalizeVehicleBodyType(options.bodyType??preset.bodyType??options.kind??'small'),kind=String(options.kind??preset.kind??(bodyType==='moto'?'moto':bodyType==='truck'?'truck':bodyType==='utility'?'utility':'car'));
-    const appearance={chassis:options.chassis??0x26384e,primary:options.primary??catalogColorNumber?.(preset.primary,0xf28a22)??0xf28a22,primaryDark:options.primaryDark??options.primary??catalogColorNumber?.(preset.primary,0xc85b16)??0xc85b16,secondary:options.secondary??catalogColorNumber?.(preset.secondary,0x0aa7b8)??0x0aa7b8,glass:options.glass??0x102338,theme,bodyType};
-    const chassis=renderMat(appearance.chassis,{roughness:.5,metalness:.16}),primary=renderMat(appearance.primary,{roughness:.42,metalness:.14}),primaryDark=renderMat(appearance.primaryDark,{roughness:.5,metalness:.12}),secondary=renderMat(appearance.secondary,{roughness:.4,metalness:.18}),glass=renderMat(appearance.glass,{roughness:.12,metalness:.32,transparent:true,opacity:.84}),dark=renderMat(0x151a23,{roughness:.82}),white=renderMat(0xf4f7ff,{roughness:.32});
-    const addBox=(w,h,d,material,x=0,y=0,z=0)=>{const resolved=typeof material==='number'?renderMat(material):material;const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),resolved);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);return mesh;};
-    const addSphere=(r,material,x=0,y=0,z=0,sx=1,sy=1,sz=1)=>{const resolved=typeof material==='number'?renderMat(material):material;const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,14,10),resolved);mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);mesh.castShadow=true;mesh.receiveShadow=true;group.add(mesh);return mesh;};
-    const wheels=[];const addWheel=(x,y,z,r=.34,w=.28)=>{const wheel=new THREE.Mesh(new THREE.CylinderGeometry(r,r,w,14),dark);wheel.position.set(x,y,z);wheel.rotation.z=Math.PI/2;wheel.castShadow=true;group.add(wheel);const hub=new THREE.Mesh(new THREE.CylinderGeometry(Math.max(.1,r*.35),Math.max(.1,r*.35),w+.03,10),theme==='mario-world'?white:secondary);hub.position.copy(wheel.position);hub.rotation.z=Math.PI/2;group.add(hub);wheels.push(wheel);return wheel;};
-    const addHeadlights=(span,z,y=.5)=>{const light=renderMat(0xfff0b0,{emissive:0xffcf55,emissiveIntensity:.82,roughness:.2});addSphere(.12,light,-span,y,z,1.2,.7,.7);addSphere(.12,light,span,y,z,1.2,.7,.7);};
-    if(bodyType==='moto'){
-      addWheel(0,.30,-.92,.37,.13);addWheel(0,.30,.92,.37,.13);addBox(.18,.16,1.12,primary,0,.56,0);addBox(.44,.13,.48,secondary,0,.75,-.10);addBox(.58,.07,.09,white,0,1.0,.64);addBox(.20,.18,.18,glass,0,.93,.42);addHeadlights(.0,.63,.86);
-      if(theme==='lego'){addBox(.28,.11,.34,primaryDark,0,.85,-.44);for(const x of[-.10,.10])addSphere(.055,white,x,.96,-.06,1,1.15,1);}
-      else if(theme==='minecraft'){addBox(.34,.20,.36,primaryDark,0,.83,-.46);addBox(.20,.20,.24,glass,0,.90,.28);}
-      else if(theme==='playmobil'){addSphere(.17,secondary,0,.87,-.36,1.15,.8,1.2);addSphere(.13,white,0,.97,.24,1.2,.7,1);}
-      else{addSphere(.13,primaryDark,0,.85,-.36,1.45,.8,1.2);addSphere(.09,white,0,.90,.36,1.2,.7,1);}
-    }else if(bodyType==='truck'){
-      addBox(2.28,.36,3.72,chassis,0,.28,0);addBox(1.80,.74,1.38,primary,0,.72,1.10);addBox(2.00,.86,1.76,secondary,0,.84,-.82);addBox(1.28,.36,.82,glass,0,1.02,.86);for(const x of[-.98,.98])for(const z of[-1.20,.05,1.20])addWheel(x,.27,z,.39,.31);addHeadlights(.62,1.84,.60);
-      if(theme==='lego'){for(const [sx,sz] of[[-.42,-1.40],[.42,-1.40],[-.14,-1.08],[.14,-1.08]])addSphere(.12,primaryDark,sx,1.34,sz,1,1.2,1);}
-      else if(theme==='minecraft'){addBox(2.08,.22,1.88,primaryDark,0,1.28,-.82);addBox(.30,.20,1.72,white,-1.15,.60,0);addBox(.30,.20,1.72,white,1.15,.60,0);}
-      else if(theme==='playmobil'){addSphere(.30,secondary,0,1.24,-1.42,3.4,.65,1.2);addSphere(.16,white,-.52,.98,1.60,1,.8,1);addSphere(.16,white,.52,.98,1.60,1,.8,1);}
-      else{addBox(1.34,.18,.22,primaryDark,0,.42,-1.75);addSphere(.13,secondary,0,1.24,-1.58,1.55,.9,1);}
-    }else if(bodyType==='utility'){
-      addBox(2.00,.35,3.00,chassis,0,.28,0);addBox(1.78,.64,1.26,primary,0,.68,.76);addBox(1.80,.70,1.22,secondary,0,.76,-.66);addBox(1.28,.35,.74,glass,0,.98,.50);addWheel(-.91,.25,-.89,.36,.28);addWheel(.91,.25,-.89,.36,.28);addWheel(-.91,.25,.89,.36,.28);addWheel(.91,.25,.89,.36,.28);addHeadlights(.54,1.48,.56);
-      if(theme==='lego'){for(const x of[-.36,0,.36])addSphere(.10,primaryDark,x,1.20,-1.06,1,1.2,1);addBox(1.40,.22,.90,secondary,0,.98,-.90);}
-      else if(theme==='minecraft'){addBox(1.90,.18,1.36,primaryDark,0,1.20,-.66);addBox(.20,.44,2.42,white,-1.01,.46,0);addBox(.20,.44,2.42,white,1.01,.46,0);}
-      else if(theme==='playmobil'){addSphere(.23,secondary,0,1.20,-1.08,3.0,.7,1.1);}
-      else{addSphere(.13,secondary,0,1.18,-.98,1.7,.8,1);addBox(1.22,.08,.18,primaryDark,0,.42,-1.42);}
-    }else{
-      addBox(1.86,.36,2.58,chassis,0,.28,0);addBox(1.74,.49,1.36,primary,0,.56,.56);addBox(1.50,.47,.94,secondary,0,.79,-.49);addBox(1.34,.32,.74,glass,0,.94,-.43);addWheel(-.85,.25,-.80,.34,.28);addWheel(.85,.25,-.80,.34,.28);addWheel(-.85,.25,.80,.34,.28);addWheel(.85,.25,.80,.34,.28);addHeadlights(.58,1.30,.52);
-      if(theme==='lego'){addBox(1.96,.18,.28,white,0,.32,1.35);for(const [sx,sz] of[[-.36,-.20],[.36,-.20],[-.12,-.54],[.12,-.54]])addSphere(.10,primaryDark,sx,1.17,sz,1,1.2,1);addBox(.74,.42,.60,dark,0,.73,-.12);}
-      else if(theme==='minecraft'){addBox(1.96,.20,.28,white,0,.32,1.35);addBox(1.92,.18,.24,primaryDark,0,.34,-1.33);addBox(.18,.34,2.22,secondary,-.93,.42,0);addBox(.18,.34,2.22,secondary,.93,.42,0);addBox(.82,.42,.78,primaryDark,0,.73,-.08);}
-      else if(theme==='playmobil'){addSphere(.87,primary,0,.57,.18,1.08,.45,1.30);addSphere(.73,secondary,0,.79,-.65,1,.55,1.10);}
-      else{addSphere(.91,primary,0,.49,.12,1.12,.36,1.28);addSphere(.73,secondary,0,.75,-.53,1,.50,1.08);addBox(1.56,.12,.18,primaryDark,0,.34,-1.29);}
-    }
-    group.traverse(o=>{if(o.isMesh)addVoxelOutline(o,0x14243a,.28);});
-    const garageStored=!!state.vehicles?.garage?.stored?.[id],radius=Number(options.radius||(bodyType==='truck'?2.15:bodyType==='utility'?1.85:bodyType==='moto'?1.15:1.55)),vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:options.label||'Veículo',kind,bodyType,theme,serviceType:options.serviceType||'',appearance,occupied:false,radius,garageStored,wheels};group.visible=!garageStored;world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
-    registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:vehicleKindIcon(kind),label:`Entrar: ${vehicle.label}`,radius:bodyType==='truck'?3.2:bodyType==='moto'?2.2:2.7,priority:155,getPos:()=>({x:vehicle.group.position.x,z:vehicle.group.position.z}),available:()=>!vehicle.occupied&&vehicle.group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
+    const theme=normalizeToyTheme(options.theme||'lego'),bodyType=normalizeVehicleBodyType(options.bodyType||options.kind),kind=String(options.kind||bodyType==='moto'?'moto':bodyType==='truck'?'truck':bodyType==='utility'?'utility':'car'),appearance={chassis:options.chassis??0x26384e,primary:options.primary??0xf28a22,primaryDark:options.primaryDark??options.primary??0xc85b16,secondary:options.secondary??0x0aa7b8,glass:options.glass??0x17364b,theme,bodyType};
+    buildThemedVehicleGeometry(group,{theme,bodyType,appearance});const garageStored=!!state.vehicles?.garage?.stored?.[id],radius=Number(options.radius||(bodyType==='truck'?2.15:bodyType==='utility'?1.8:bodyType==='moto'?1.0:1.55)),vehicle={id,x:group.position.x,z:group.position.z,heading,group,label:options.label||'Veículo',kind,bodyType,theme,serviceType:options.serviceType||'',appearance,occupied:false,radius,garageStored};group.visible=!garageStored;world.vehicles.push(vehicle);if(!world.vehicle)world.vehicle=vehicle;
+    registerInteractable({id:`vehicle-${id}`,type:'vehicle',icon:vehicleThemeIcon(kind),label:`Entrar: ${vehicle.label}`,radius:bodyType==='truck'?3.2:bodyType==='moto'?2.2:2.6,priority:155,getPos:()=>({x:vehicle.group.position.x,z:vehicle.group.position.z}),available:()=>!vehicle.occupied&&vehicle.group.visible,action:()=>enterVehicle(vehicle)});return vehicle;
   }
 
   function createWaypointMarker(){
@@ -3392,18 +3379,16 @@
     return typeof createSportsComplexV704==='function'?createSportsComplexV704():world.gym;
   }
   function createSizeChallenges(){
-    // R9: os antigos túneis de habilidade foram removidos do mundo aberto.
-    // As mesmas habilidades continuam treináveis em três plataformas abertas, fora da OTTOVIAS e sem bloquear vias.
     const mini=worldLayoutPoint('miniTunnel'),crouch=worldLayoutPoint('crouchTunnel'),giant=worldLayoutPoint('giantGate');
-    const pad=(point,color,label,icon,check,flag,xp)=>{
-      const group=new THREE.Group();group.position.set(point.x,0,point.z);worldGroup.add(group);
-      const base=premiumCylinder(2.25,.14,color,0,.07,0,group,24);base.scale.z=.82;
-      const ring=new THREE.Mesh(new THREE.TorusGeometry(1.72,.08,8,28),renderMat(0xffffff,{emissive:color,emissiveIntensity:.42,roughness:.3}));ring.rotation.x=Math.PI/2;ring.position.y=.18;group.add(ring);
-      registerInteractable({id:`skill-pad-${flag}`,type:'challenge',icon,label,x:point.x,z:point.z,radius:2.8,priority:110,action:()=>{if(!check()){toast(label==='Desafio MINI'?'Use o botão MINI para ativar esta plataforma.':label==='Desafio ABAIXAR'?'Use ABAIXAR para ativar esta plataforma.':'Use GRANDE para ativar esta plataforma.','warn',2200);return;}setFlag(flag);addXP(xp);ring.material.emissiveIntensity=1.2;setTimeout(()=>{if(ring?.material)ring.material.emissiveIntensity=.42;},700);toast(`${label} concluído!`,'good',1800);}});
-    };
-    pad(mini,0x38d8ff,'Desafio MINI','◱',()=>player.scaleMode==='mini','miniPassage',25);
-    pad(crouch,0xf4b942,'Desafio ABAIXAR','▼',()=>!!player.crouched,'crouchPassage',25);
-    pad(giant,0xa855f7,'Desafio GRANDE','⬡',()=>player.scaleMode==='giant','giantGate',35);
+    // Passagem mini: laterais sólidas e vão central livre.
+    box(.7,2.5,6,0x64748b,mini.x-3,1.25,mini.z);box(.7,2.5,6,0x64748b,mini.x+3,1.25,mini.z);box(6.7,.65,6,0x64748b,mini.x,2.2,mini.z);registerCollider(mini.x-3,mini.z,.7,6,{challenge:'mini'});registerCollider(mini.x+3,mini.z,.7,6,{challenge:'mini'});
+    registerInteractable({id:'mini-tunnel',type:'challenge',icon:'◱',label:'Passagem pequena',x:mini.x,z:mini.z+4.2,radius:3,priority:110,action:()=>{if(player.scaleMode!=='mini'){toast('Use o botão MINI para passar.','warn',2200);return;}player.x=mini.x;player.z=mini.z-4.2;setFlag('miniPassage');addXP(25);toast('Passagem mini concluída!','good');}});
+    // Túnel baixo: somente o personagem abaixado atravessa o vão.
+    box(.7,1.55,5,0x8b5a2b,crouch.x-3,.78,crouch.z);box(.7,1.55,5,0x8b5a2b,crouch.x+3,.78,crouch.z);box(6.7,.45,5,0x8b5a2b,crouch.x,1.55,crouch.z);registerCollider(crouch.x-3,crouch.z,.7,5,{challenge:'crouch'});registerCollider(crouch.x+3,crouch.z,.7,5,{challenge:'crouch'});
+    registerInteractable({id:'crouch-tunnel',type:'challenge',icon:'▼',label:'Túnel baixo',x:crouch.x,z:crouch.z+3.8,radius:3,priority:110,action:()=>{if(!player.crouched){toast('Use ABAIXAR para entrar.','warn',2200);return;}player.x=crouch.x;player.z=crouch.z-3.8;setFlag('crouchPassage');addXP(25);toast('Túnel baixo concluído!','good');}});
+    // Portão grande abre de verdade e libera a passagem.
+    const gate=new THREE.Group();gate.position.set(giant.x,0,giant.z);worldGroup.add(gate);const slab=box(8,4,.6,0x6b7280,0,2,0,gate);box(1,5,1,0x94a3b8,-4.5,2.5,0,gate);box(1,5,1,0x94a3b8,4.5,2.5,0,gate);const collider=registerCollider(giant.x,giant.z,8,.6,{challenge:'giant'});
+    registerInteractable({id:'giant-gate',type:'challenge',icon:'⬡',label:'Abrir portão pesado',x:giant.x,z:giant.z+3,radius:3.2,priority:110,action:()=>{if(player.scaleMode!=='giant'){toast('Use GRANDE para abrir o portão.','warn',2200);return;}slab.position.y=6;world.colliders=world.colliders.filter(item=>item!==collider);setFlag('giantGate');addXP(35);toast('Portão pesado aberto e passagem liberada!','good');}});
   }
 
   function createSkyDome(){
@@ -3618,7 +3603,7 @@
   const BUS_LANE_OFFSET=1.55;
 
   // ===== MODULE: 14a-ottovias-highway-v7054.js =====
-  const OTTOVIAS_RUNTIME={initialized:false,root:null,highway:null,tolls:new Map(),michelle:null,patrol:null,footbridge:null,traffic:[],bridgePedestrians:[],lastNoticeAt:0,lastBiome:'',tourCheckAt:0,communicationCheckAt:0,cullAt:0,newsCheckAt:0,segments:[],biomeGroups:[],cachedSegments:null,stateReady:false,observedIncidentId:'',observedFireIds:new Set(),observedTollAt:0,observedTrafficStatus:'',trafficAttentionSince:0,lastTrafficBulletinAt:0,lastBroadcastAt:0,lastSpokenText:''};
+  const OTTOVIAS_RUNTIME={initialized:false,root:null,highway:null,tolls:new Map(),michelle:null,patrol:null,tunnel:null,footbridge:null,traffic:[],bridgePedestrians:[],lastNoticeAt:0,lastBiome:'',tourCheckAt:0,communicationCheckAt:0,cullAt:0,newsCheckAt:0,segments:[],biomeGroups:[],cachedSegments:null,stateReady:false,observedIncidentId:'',observedFireIds:new Set(),observedTollAt:0,observedTrafficStatus:'',trafficAttentionSince:0,lastTrafficBulletinAt:0,lastBroadcastAt:0,lastSpokenText:''};
   const OTTOVIAS_NEWS_LIMIT=16;
   const OTTOVIAS_TOUR_STOPS=Object.freeze([
     {id:'ottovias-desert',name:'Trecho Deserto',icon:'🏜️',point:'ottoviasDesert'},
@@ -3671,7 +3656,7 @@
     OTTOVIAS_RUNTIME.segments.push({index,highwayId:h.id,usesExistingRoad:!!h.usesExistingRoad,group:g,a,b,cx:(a.x+b.x)/2,cz:(a.z+b.z)/2,radius:len/2+10});return g;
   }
   function createOttoviasHighwayGeometry(){const routes=ottoviasRoutes();if(!routes.length)return null;OTTOVIAS_RUNTIME.segments.length=0;OTTOVIAS_RUNTIME.cachedSegments=null;const root=new THREE.Group();root.name='OTTHI_OTTOVIAS_HIGHWAY_NETWORK';root.userData.ottoviasHighway=true;worldGroup.add(root);OTTOVIAS_RUNTIME.root=root;OTTOVIAS_RUNTIME.highway=ottoviasHighway();
-    for(const h of routes){const points=h.points||[],count=h.closed?points.length:Math.max(0,points.length-1);for(let i=0;i<count;i++)createOttoviasRoadSegment(points[i],points[(i+1)%points.length],i,root,h);if(!h.usesExistingRoad){for(const p of points){const joint=new THREE.Mesh(new THREE.CylinderGeometry(Number(h.width||12.4)/2+.1,Number(h.width||12.4)/2+.1,.105,18),ottoviasMaterial(0x343b43,{roughness:.82}));joint.rotation.x=Math.PI/2;joint.position.set(p.x,.075,p.z);root.add(joint);}}}
+    for(const h of routes){const points=h.points||[],count=h.closed?points.length:Math.max(0,points.length-1);for(let i=0;i<count;i++)createOttoviasRoadSegment(points[i],points[(i+1)%points.length],i,root,h);}
     OTTOVIAS_RUNTIME.cachedSegments=null;return root;
   }
   function clearOttoviasRoadRocks(){const removed=[];for(const resource of world.resources||[]){if(resource?.type!=='stone'||!v704HighwayAt(resource.x,resource.z,1.6,true))continue;resource.mesh?.parent?.remove(resource.mesh);removed.push(resource.id);}if(!removed.length)return 0;world.resources=world.resources.filter(item=>!removed.includes(item.id));for(const interaction of world.interactables||[])if(removed.includes(interaction.id))interaction.disabled=true;return removed.length;}
@@ -4577,16 +4562,16 @@
     createNpcMobility(nino,'bike',[[4,3],[4,10],[-18,10],[-18,0],[4,0]],3.2);createNpcMobility(luna,'skate',[[-22,8],[-34,8],[-34,0],[-12,0],[-12,8]],2.8);createNpcMobility(teo,'moto',[[22,7],[8,7],[8,-12],[35,-12],[35,7]],4.7);createNpcMobility(bia,'bike',[[-10,-10],[-10,0],[-48,0],[-48,-10]],3.4);createNpcMobility(maya,'car',[[68,42],[68,22],[65,0],[88,0],[88,42]],4.5);
 
     // Veículos estacionados em vagas livres, nunca sobre quadras/pistas/prédios.
-    const homeGarage=P('homeGarage');createToyCar(homeGarage.x+.5,homeGarage.z-2.8,{id:'garage-orange',label:'LEGO Compacto',primary:0xf28a22,secondary:0x0aa7b8,heading:Math.PI/2});
-    createToyCar(-31,-13,{id:'market-blue',label:'Playmobil Compacto',primary:0x2787d8,secondary:0x43c6e8,heading:Math.PI/2});
-    createToyCar(31,-13,{id:'workshop-red',label:'Mario World Kart',primary:0xe5484d,secondary:0xf3b33d,heading:-Math.PI/2});
-    createToyCar(14,35,{id:'home-green',label:'Minecraft Compacto',primary:0x31a76a,secondary:0x8edb65,heading:Math.PI});
-    createToyCar(76,31,{id:'royal-purple',label:'Mario World Caminhão',primary:0x7d58c9,secondary:0xf1c94d});
-    createToyCar(78,68,{id:'gym-yellow',label:'Mario World Utilitário',primary:0xf1c943,secondary:0xef6c3d,heading:Math.PI});
-    createToyCar(-78,-15,{id:'forest-teal',label:'Minecraft Caminhão',primary:0x138d83,secondary:0x6bc08b,heading:Math.PI/2});
-    createToyCar(14,-13,{id:'city-white',label:'Playmobil Utilitário',primary:0xf0f3f5,secondary:0x3293d2,heading:-Math.PI/2});
-    createToyCar(-44,-13,{id:'adventure-black',label:'Minecraft Utilitário',primary:0x303944,secondary:0x59b88c,heading:Math.PI/2});
-    createToyCar(87,14,{id:'country-brown',label:'LEGO Caminhão',primary:0x9b642f,secondary:0xe0ad4f,heading:Math.PI});
+    const homeGarage=P('homeGarage');createToyCar(homeGarage.x+.5,homeGarage.z-2.8,{id:'garage-orange',label:'LEGO • Carro pequeno',primary:0xf28a22,secondary:0x0aa7b8,heading:Math.PI/2,theme:'lego',bodyType:'small',kind:'car'});
+    createToyCar(-31,-13,{id:'market-blue',label:'Minecraft / Manycraft • Carro',primary:0x3b8f52,secondary:0x456b9a,heading:Math.PI/2,theme:'minecraft',bodyType:'small',kind:'car'});
+    createToyCar(31,-13,{id:'workshop-red',label:'Mario World • Kart pequeno',primary:0xd83b35,secondary:0x245fc0,heading:-Math.PI/2,theme:'mario-world',bodyType:'small',kind:'car'});
+    createToyCar(14,35,{id:'home-green',label:'LEGO • Utilitário',primary:0x31a76a,secondary:0xf1c943,heading:Math.PI,theme:'lego',bodyType:'utility',kind:'utility'});
+    createToyCar(76,31,{id:'royal-purple',label:'Mario World • Caminhão',primary:0x7d58c9,secondary:0xd83b35,theme:'mario-world',bodyType:'truck',kind:'truck'});
+    createToyCar(78,68,{id:'gym-yellow',label:'Minecraft / Manycraft • Utilitário',primary:0x6b7f45,secondary:0xad7d3a,heading:Math.PI,theme:'minecraft',bodyType:'utility',kind:'utility'});
+    createToyCar(-78,-15,{id:'forest-teal',label:'Playmobil • Caminhão',primary:0x168f88,secondary:0xf0c94a,heading:Math.PI/2,theme:'playmobil',bodyType:'truck',kind:'truck'});
+    createToyCar(14,-13,{id:'city-white',label:'Playmobil • Carro pequeno',primary:0xf2f4f6,secondary:0x2f7fd8,heading:-Math.PI/2,theme:'playmobil',bodyType:'small',kind:'car'});
+    createToyCar(-44,-13,{id:'adventure-black',label:'Mario World • Utilitário',primary:0x2e3540,secondary:0xe3483f,heading:Math.PI/2,theme:'mario-world',bodyType:'utility',kind:'utility'});
+    createToyCar(87,14,{id:'country-brown',label:'LEGO • Caminhão',primary:0x9b642f,secondary:0xe0ad4f,heading:Math.PI,theme:'lego',bodyType:'truck',kind:'truck'});
     const job=P('jobBoard');registerInteractable({id:'job-board',type:'job',icon:'📦',label:'Central de trabalhos',x:job.x,z:job.z,radius:2.3,action:openJobCenter});world.deliveryPoint={x:86,z:34};
 
     createLifeExpansionWorld();createSportsComplexV704();createKartCircuitV704();createSizeChallenges();createTransitWorld();createPoliceSystem();createFireServiceWorld();decorateCityServices();createWaypointMarker();createCooperativeMissionWorld();
@@ -6774,65 +6759,48 @@
   function avatarV3Box(parent,w,h,d,material,x=0,y=0,z=0){const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);if(state.settings?.worldOutlines!==false)addVoxelOutline(mesh,0x102238,.22);return mesh;}
   function avatarV3Sphere(parent,r,material,x=0,y=0,z=0,sx=1,sy=1,sz=1){const mesh=new THREE.Mesh(new THREE.SphereGeometry(r,12,8),material);mesh.position.set(x,y,z);mesh.scale.set(sx,sy,sz);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
   function avatarPatternColor(){return state.avatar.pattern==='world-star'?0xffd84d:state.avatar.pattern==='world-pixels'?0x5ad7ff:state.avatar.pattern==='world-stripe'?0xffffff:state.avatar.secondaryColor;}
+  function hideLegacyAvatarForToySkin(){
+    const parts=playerModel?.userData?.parts;if(!parts)return;const bodyRoot=parts.body?.parent;
+    for(const child of bodyRoot?.children||[]){if(child?.isMesh){if(child===parts.head){if(!child.userData.otthiHiddenBaseMaterial){child.userData.otthiHiddenBaseMaterial=child.material;child.material=child.material.clone();child.material.visible=false;}for(const nested of child.children||[])if(nested?.userData?.v615Outline)nested.visible=false;}else child.visible=false;}}
+    for(const part of[parts.body,parts.leftArm,parts.rightArm,parts.leftLeg,parts.rightLeg])for(const child of part?.children||[])if(child?.isMesh)child.visible=false;
+    if(avatarLayer)avatarLayer.visible=false;for(const attachment of playerModel?.userData?.avatarAttachments||[])attachment.visible=false;
+  }
+  function toySkinBox(parent,w,h,d,material,x=0,y=0,z=0){return avatarV3Box(parent,w,h,d,material,x,y,z);}
+  function toySkinSphere(parent,r,material,x=0,y=0,z=0,sx=1,sy=1,sz=1){return avatarV3Sphere(parent,r,material,x,y,z,sx,sy,sz);}
+  function toySkinCylinder(parent,r,h,material,x=0,y=0,z=0,sides=20){const mesh=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,sides),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);if(state.settings?.worldOutlines!==false)addVoxelOutline(mesh,0x102238,.18);return mesh;}
+  function toySkinApplyFace(headLayer,theme,skin,eye,mouth){
+    if(theme==='minecraft'){toySkinBox(headLayer,.13,.08,.04,eye,-.18,.08,.53);toySkinBox(headLayer,.13,.08,.04,eye,.18,.08,.53);toySkinBox(headLayer,.26,.05,.04,mouth,0,-.18,.53);return;}
+    if(theme==='lego'){toySkinSphere(headLayer,.052,eye,-.16,.07,.37);toySkinSphere(headLayer,.052,eye,.16,.07,.37);toySkinBox(headLayer,.24,.045,.028,mouth,0,-.14,.38);return;}
+    if(theme==='playmobil'){toySkinSphere(headLayer,.052,eye,-.15,.07,.45);toySkinSphere(headLayer,.052,eye,.15,.07,.45);toySkinBox(headLayer,.23,.042,.026,mouth,0,-.15,.46);return;}
+    toySkinSphere(headLayer,.05,eye,-.16,.07,.48);toySkinSphere(headLayer,.05,eye,.16,.07,.48);toySkinSphere(headLayer,.11,skin,0,-.02,.5,1.35,1,1);toySkinBox(headLayer,.2,.045,.025,worldAvatarMaterial(0x2b1712,{roughness:.7}),-.08,-.13,.49);toySkinBox(headLayer,.2,.045,.025,worldAvatarMaterial(0x2b1712,{roughness:.7}),.08,-.13,.49);
+  }
+  function toySkinApplyLegacyOptions(theme,bodyLayer,headLayer,backLayer,primary,secondary,accent,hairMat){
+    const uniform=typeof effectiveAvatarUniform==='function'?effectiveAvatarUniform():'none';
+    if(state.avatar.hat==='cap'){const cap=worldAvatarLayer(playerModel.userData.parts.head,'THEME_CAP');if(theme==='minecraft'){toySkinBox(cap,1.06,.18,1.06,primary,0,.58,0);toySkinBox(cap,.72,.09,.32,primary,0,.54,.48);}else{toySkinSphere(cap,.62,primary,0,.43,0,1.12,.34,1.12);toySkinBox(cap,.72,.09,.34,primary,0,.37,.43);}}
+    else if(state.avatar.hat==='crown'){const crown=worldAvatarLayer(playerModel.userData.parts.head,'THEME_CROWN');toySkinBox(crown,.82,.18,.82,accent,0,.56,0);for(const x of[-.28,0,.28])toySkinBox(crown,.14,.28,.14,accent,x,.76,0);}
+    else if(state.avatar.hat==='helmet'){const helm=worldAvatarLayer(playerModel.userData.parts.head,'THEME_HELMET');if(theme==='minecraft')toySkinBox(helm,1.1,.42,1.1,secondary,0,.48,0);else toySkinSphere(helm,.64,secondary,0,.25,0,1.08,.68,1.08);}
+    if(state.avatar.accessory==='backpack'){toySkinBox(backLayer,.76,.9,.34,secondary,0,.03,-.55);toySkinBox(backLayer,.48,.24,.12,accent,0,-.22,-.76);}else if(state.avatar.accessory==='cape'){const cape=toySkinBox(backLayer,.9,1.25,.06,primary,0,-.16,-.5);cape.rotation.x=-.08;}else if(state.avatar.accessory==='glasses'){toySkinBox(headLayer,.34,.16,.05,worldAvatarMaterial(0x15191f,{roughness:.35}),-.22,.07,.53);toySkinBox(headLayer,.34,.16,.05,worldAvatarMaterial(0x15191f,{roughness:.35}),.22,.07,.53);toySkinBox(headLayer,.12,.04,.05,worldAvatarMaterial(0x15191f,{roughness:.35}),0,.07,.53);}
+    if(uniform&&uniform!=='none'){const badge=worldAvatarLayer(playerModel.userData.parts.body,'THEME_UNIFORM_BADGE'),label=String(uniform).toUpperCase().slice(0,8);const patch=new THREE.Mesh(new THREE.PlaneGeometry(.72,.2),new THREE.MeshStandardMaterial({map:signTexture(label,'#173b59','#ffffff'),transparent:true,roughness:.55,side:THREE.DoubleSide}));patch.position.set(0,.15,.53);badge.add(patch);}
+  }
   function applyWorldAvatarV3(){
-    if(!playerModel?.userData?.parts)return false;ensureOtthiWorldState();clearWorldAvatarV3();
-    const parts=playerModel.userData.parts,avatar=state.avatar;
-    avatar.bodyStyle=worldAvatarSafeChoice('bodyStyle',avatar.bodyStyle);avatar.face=worldAvatarSafeChoice('face',avatar.face);avatar.hair=worldAvatarSafeChoice('hair',avatar.hair);avatar.torso=worldAvatarSafeChoice('torso',avatar.torso);avatar.legs=worldAvatarSafeChoice('legs',avatar.legs);avatar.shoes=worldAvatarSafeChoice('shoes',avatar.shoes);avatar.back=worldAvatarSafeChoice('back',avatar.back);avatar.pattern=worldAvatarSafeChoice('pattern',avatar.pattern);
-    const primary=worldAvatarMaterial(avatar.primaryColor,{roughness:.42}),secondary=worldAvatarMaterial(avatar.secondaryColor,{roughness:.54}),accent=worldAvatarMaterial(avatarPatternColor(),{roughness:.34}),hairMat=worldAvatarMaterial(avatar.hairColor,{roughness:.7}),skin=worldAvatarMaterial(avatar.bodyStyle==='lego'?0xf4d64b:avatar.bodyStyle==='playmobil'?0xffd77a:0xd9a075,{roughness:.72}),energy=worldAvatarMaterial(0x5fe7ff,{roughness:.18,metalness:.18,emissive:0x129ac8,emissiveIntensity:.86});
-    const headLayer=worldAvatarLayer(parts.head,'HEAD'),bodyLayer=worldAvatarLayer(parts.body,'TORSO'),leftArm=worldAvatarLayer(parts.leftArm,'ARM_LEFT'),rightArm=worldAvatarLayer(parts.rightArm,'ARM_RIGHT'),leftLeg=worldAvatarLayer(parts.leftLeg,'LEG_LEFT'),rightLeg=worldAvatarLayer(parts.rightLeg,'LEG_RIGHT');
-    if(avatar.bodyStyle==='minecraft'){
-      avatarV3Box(headLayer,1.12,1.10,1.12,skin,0,0,0);avatarV3Box(bodyLayer,1.20,1.12,.86,accent,0,.02,0);avatarV3Box(leftArm,.50,.96,.50,primary,0,-.36,0);avatarV3Box(rightArm,.50,.96,.50,primary,0,-.36,0);avatarV3Box(leftLeg,.50,.92,.50,secondary,0,-.36,0);avatarV3Box(rightLeg,.50,.92,.50,secondary,0,-.36,0);
-      avatarV3Box(headLayer,1.14,.18,1.14,hairMat,0,.52,0);
-    }else if(avatar.bodyStyle==='playmobil'){
-      avatarV3Sphere(headLayer,.62,skin,0,0,0,1.02,1.08,.98);avatarV3Box(bodyLayer,1.15,1.10,.84,accent,0,.02,0);avatarV3Sphere(leftArm,.22,skin,0,-1.02,.03);avatarV3Sphere(rightArm,.22,skin,0,-1.02,.03);avatarV3Box(leftArm,.43,.72,.43,primary,0,-.42,0);avatarV3Box(rightArm,.43,.72,.43,primary,0,-.42,0);avatarV3Box(leftLeg,.44,.82,.44,secondary,0,-.38,0);avatarV3Box(rightLeg,.44,.82,.44,secondary,0,-.38,0);avatarV3Sphere(headLayer,.66,hairMat,0,.20,-.03,1.01,.62,.98);
-    }else if(avatar.bodyStyle==='mario-world'){
-      avatarV3Sphere(headLayer,.62,skin,0,0,0,1.03,1.05,.99);avatarV3Box(bodyLayer,1.18,1.10,.86,accent,0,.02,0);avatarV3Sphere(leftArm,.23,worldAvatarMaterial(0xffffff,{roughness:.42}),0,-1.02,.03);avatarV3Sphere(rightArm,.23,worldAvatarMaterial(0xffffff,{roughness:.42}),0,-1.02,.03);avatarV3Box(leftArm,.45,.74,.45,primary,0,-.42,0);avatarV3Box(rightArm,.45,.74,.45,primary,0,-.42,0);avatarV3Box(leftLeg,.46,.80,.48,secondary,0,-.36,0);avatarV3Box(rightLeg,.46,.80,.48,secondary,0,-.36,0);avatarV3Sphere(headLayer,.12,skin,0,-.02,.60,1.45,1,1);const moustache=worldAvatarLayer(parts.head,'MARIO_MOUSTACHE');avatarV3Box(moustache,.26,.06,.05,worldAvatarMaterial(0x2b170f,{roughness:.72}),-.12,-.17,.59);avatarV3Box(moustache,.26,.06,.05,worldAvatarMaterial(0x2b170f,{roughness:.72}),.12,-.17,.59);const cap=worldAvatarLayer(parts.head,'MARIO_CAP');const capMat=worldAvatarMaterial(0xd93645,{roughness:.48});avatarV3Sphere(cap,.70,capMat,0,.46,0,1.16,.34,1.16);avatarV3Box(cap,.76,.10,.36,capMat,0,.40,.44);
+    if(!playerModel?.userData?.parts)return false;ensureOtthiWorldState();clearWorldAvatarV3();hideLegacyAvatarForToySkin();
+    const parts=playerModel.userData.parts,avatar=state.avatar;avatar.bodyStyle=worldAvatarSafeChoice('bodyStyle',avatar.bodyStyle);avatar.face=worldAvatarSafeChoice('face',avatar.face);avatar.hair=worldAvatarSafeChoice('hair',avatar.hair);avatar.torso=worldAvatarSafeChoice('torso',avatar.torso);avatar.legs=worldAvatarSafeChoice('legs',avatar.legs);avatar.shoes=worldAvatarSafeChoice('shoes',avatar.shoes);avatar.back=worldAvatarSafeChoice('back',avatar.back);avatar.pattern=worldAvatarSafeChoice('pattern',avatar.pattern);
+    const theme=avatar.bodyStyle,primary=worldAvatarMaterial(avatar.primaryColor,{roughness:.45}),secondary=worldAvatarMaterial(avatar.secondaryColor,{roughness:.56}),accent=worldAvatarMaterial(avatarPatternColor(),{roughness:.38}),hairMat=worldAvatarMaterial(avatar.hairColor,{roughness:.72}),skin=worldAvatarMaterial(theme==='lego'?0xf3d44e:theme==='playmobil'?0xffd777:0xd9a075,{roughness:.7}),eye=worldAvatarMaterial(0x1b2027,{roughness:.45}),mouth=worldAvatarMaterial(0xa24d5a,{roughness:.5}),white=worldAvatarMaterial(0xf8f8f4,{roughness:.45}),brown=worldAvatarMaterial(0x5b341e,{roughness:.7});
+    const headLayer=worldAvatarLayer(parts.head,'THEME_HEAD'),bodyLayer=worldAvatarLayer(parts.body,'THEME_TORSO'),leftArm=worldAvatarLayer(parts.leftArm,'THEME_ARM_LEFT'),rightArm=worldAvatarLayer(parts.rightArm,'THEME_ARM_RIGHT'),leftLeg=worldAvatarLayer(parts.leftLeg,'THEME_LEG_LEFT'),rightLeg=worldAvatarLayer(parts.rightLeg,'THEME_LEG_RIGHT'),backLayer=worldAvatarLayer(parts.body,'THEME_BACK');
+    if(theme==='lego'){
+      toySkinCylinder(headLayer,.43,.74,skin,0,0,0,28);toySkinCylinder(headLayer,.14,.09,skin,0,.42,0,24);toySkinBox(bodyLayer,1.10,1.02,.74,primary,0,0,0);toySkinBox(bodyLayer,.88,.18,.76,secondary,0,-.52,0);
+      for(const arm of[leftArm,rightArm]){toySkinCylinder(arm,.14,.66,primary,0,-.35,0,16);const hand=toySkinCylinder(arm,.16,.14,skin,0,-.78,.02,20);hand.rotation.z=Math.PI/2;}for(const leg of[leftLeg,rightLeg]){toySkinBox(leg,.34,.82,.38,secondary,0,-.4,0);toySkinBox(leg,.4,.17,.52,brown,0,-.92,.09);}
+      if(avatar.hair!=='hair-none')for(const[x,z]of[[-.22,-.15],[0,-.18],[.22,-.15],[-.12,.12],[.12,.12]])toySkinCylinder(headLayer,.08,.07,hairMat,x,.44,z,14);
+    }else if(theme==='minecraft'){
+      toySkinBox(headLayer,1.02,1.02,1.02,skin,0,0,0);toySkinBox(bodyLayer,1.08,1.04,.78,primary,0,0,0);for(const arm of[leftArm,rightArm])toySkinBox(arm,.34,.9,.34,primary,0,-.44,0);for(const leg of[leftLeg,rightLeg]){toySkinBox(leg,.38,.9,.4,secondary,0,-.43,0);toySkinBox(leg,.4,.18,.5,brown,0,-.98,.08);}if(avatar.hair!=='hair-none'){toySkinBox(headLayer,1.05,.2,1.05,hairMat,0,.56,0);toySkinBox(headLayer,.18,.42,1.05,hairMat,-.45,.34,0);toySkinBox(headLayer,.18,.42,1.05,hairMat,.45,.34,0);}
+    }else if(theme==='playmobil'){
+      toySkinSphere(headLayer,.58,skin,0,0,0,1,1.08,.98);toySkinCylinder(bodyLayer,.48,1.02,primary,0,0,0,24);toySkinCylinder(bodyLayer,.36,.18,secondary,0,-.55,0,22);for(const arm of[leftArm,rightArm]){toySkinCylinder(arm,.13,.68,primary,0,-.34,0,18);toySkinSphere(arm,.16,skin,0,-.76,.02,1,.86,1);}for(const leg of[leftLeg,rightLeg]){toySkinCylinder(leg,.15,.76,secondary,0,-.37,0,18);toySkinBox(leg,.36,.17,.5,brown,0,-.82,.09);}if(avatar.hair!=='hair-none'){toySkinSphere(headLayer,.62,hairMat,0,.22,-.03,1.02,.58,1.02);if(avatar.hair==='hair-curls-01')for(const[x,y,z]of[[-.38,.25,-.1],[-.18,.43,-.12],[.18,.43,-.12],[.38,.25,-.1]])toySkinSphere(headLayer,.18,hairMat,x,y,z);}
     }else{
-      avatarV3Box(headLayer,1.05,.88,1.05,skin,0,0,0);avatarV3Box(bodyLayer,1.18,1.10,.86,accent,0,.02,0);avatarV3Box(leftArm,.44,.76,.44,primary,0,-.42,0);avatarV3Box(rightArm,.44,.76,.44,primary,0,-.42,0);avatarV3Sphere(leftArm,.18,skin,0,-.98,.03);avatarV3Sphere(rightArm,.18,skin,0,-.98,.03);avatarV3Box(leftLeg,.44,.84,.44,secondary,0,-.38,0);avatarV3Box(rightLeg,.44,.84,.44,secondary,0,-.38,0);for(const [x,z]of[[-.20,-.16],[.20,-.16],[-.20,.16],[.20,.16]])avatarV3Sphere(headLayer,.085,hairMat,x,.50,z,1,1.2,1);
+      toySkinSphere(headLayer,.59,skin,0,0,0,1.02,1.04,.98);toySkinCylinder(bodyLayer,.47,.98,primary,0,0,0,22);toySkinBox(bodyLayer,.78,.68,.62,secondary,0,-.12,.02);for(const arm of[leftArm,rightArm]){toySkinCylinder(arm,.13,.66,primary,0,-.32,0,18);toySkinSphere(arm,.17,white,0,-.75,.02);}for(const leg of[leftLeg,rightLeg]){toySkinCylinder(leg,.15,.72,secondary,0,-.34,0,18);toySkinBox(leg,.4,.18,.56,brown,0,-.78,.11);}const cap=worldAvatarLayer(parts.head,'MARIO_CAP');toySkinSphere(cap,.69,worldAvatarMaterial(0xd83b35,{roughness:.5}),0,.45,0,1.17,.34,1.17);toySkinBox(cap,.78,.1,.36,worldAvatarMaterial(0xd83b35,{roughness:.5}),0,.38,.45);
     }
-    if(avatar.torso==='world-jacket-01'){
-      avatarV3Box(bodyLayer,1.12,.96,.08,primary,0,.02,.405);avatarV3Box(bodyLayer,.08,.92,.10,accent,0,.02,.46);avatarV3Box(leftArm,.41,.44,.41,primary,0,-.33,0);avatarV3Box(rightArm,.41,.44,.41,primary,0,-.33,0);
-    }else if(avatar.torso==='world-hoodie-01'){
-      avatarV3Box(bodyLayer,1.13,.98,.09,primary,0,.01,.41);avatarV3Box(bodyLayer,.58,.32,.13,secondary,0,-.28,.47);avatarV3Box(headLayer,1.18,.34,.34,primary,0,.31,-.38);
-    }else if(avatar.torso==='world-explorer-01'){
-      avatarV3Box(bodyLayer,1.14,1.0,.09,primary,0,0,.42);avatarV3Box(bodyLayer,.20,.92,.12,accent,-.28,0,.47);avatarV3Box(bodyLayer,.20,.92,.12,accent,.28,0,.47);avatarV3Box(bodyLayer,.34,.24,.14,secondary,-.29,-.23,.49);avatarV3Box(bodyLayer,.34,.24,.14,secondary,.29,-.23,.49);
-    }else if(avatar.torso==='world-shadow-guardian'){
-      avatarV3Box(bodyLayer,1.16,1.02,.09,worldAvatarMaterial(0x18243b,{roughness:.42}),0,0,.42);avatarV3Box(bodyLayer,.38,.24,.11,accent,0,.12,.49);avatarV3Box(leftArm,.44,.52,.44,worldAvatarMaterial(0x22334f,{roughness:.5}),0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,worldAvatarMaterial(0x22334f,{roughness:.5}),0,-.36,0);const cape=worldAvatarLayer(parts.body,'SHADOW_CAPE');avatarV3Box(cape,1.02,1.48,.06,worldAvatarMaterial(0x101827,{roughness:.58}),0,-.18,-.5).rotation.x=-.09;
-    }else if(avatar.torso==='world-web-runner'){
-      const red=worldAvatarMaterial(0xd93645,{roughness:.42}),blue=worldAvatarMaterial(0x1e5fae,{roughness:.5});avatarV3Box(bodyLayer,1.16,1.02,.09,red,0,0,.42);avatarV3Box(bodyLayer,.48,.82,.11,blue,0,-.05,.48);for(const y of[-.25,0,.25])avatarV3Box(bodyLayer,1.08,.035,.12,accent,0,y,.495);avatarV3Box(leftArm,.44,.52,.44,red,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,red,0,-.36,0);
-    }else if(avatar.torso==='world-mushroom-adventurer'){
-      const overalls=worldAvatarMaterial(0x236ac7,{roughness:.55}),shirt=worldAvatarMaterial(0xd94236,{roughness:.48});avatarV3Box(bodyLayer,1.16,1.02,.09,shirt,0,0,.42);avatarV3Box(bodyLayer,.72,.72,.11,overalls,0,-.15,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,-.28,.02,.49);avatarV3Box(bodyLayer,.16,.86,.12,overalls,.28,.02,.49);avatarV3Box(leftArm,.44,.52,.44,shirt,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,shirt,0,-.36,0);const cap=worldAvatarLayer(parts.head,'ADVENTURE_CAP');avatarV3Sphere(cap,.64,shirt,0,.44,0,1.15,.35,1.15);avatarV3Box(cap,.72,.10,.34,shirt,0,.38,.42);
-    }else if(avatar.torso==='world-toy-rescuer'){
-      avatarV3Box(bodyLayer,1.18,1.04,.10,primary,0,0,.42);avatarV3Box(bodyLayer,.76,.68,.12,secondary,0,-.10,.49);avatarV3Box(bodyLayer,.18,.90,.12,accent,-.32,.02,.49);avatarV3Box(bodyLayer,.18,.90,.12,accent,.32,.02,.49);avatarV3Box(leftArm,.46,.55,.46,primary,0,-.36,0);avatarV3Box(rightArm,.46,.55,.46,primary,0,-.36,0);
-    }else{
-      avatarV3Box(bodyLayer,1.16,1.02,.09,primary,0,0,.42);const emblem=new THREE.Mesh(new THREE.CircleGeometry(.23,12),worldAvatarMaterial(avatarPatternColor(),{roughness:.25,emissive:avatarPatternColor(),emissiveIntensity:.20}));emblem.position.set(0,.12,.49);bodyLayer.add(emblem);avatarV3Box(leftArm,.44,.52,.44,primary,0,-.36,0);avatarV3Box(rightArm,.44,.52,.44,primary,0,-.36,0);
-    }
-    if(avatar.pattern==='world-stripe'){avatarV3Box(bodyLayer,1.13,.15,.11,accent,0,.23,.48);avatarV3Box(bodyLayer,1.13,.15,.11,accent,0,-.04,.48);}
-    if(avatar.pattern==='world-pixels')for(const [x,y]of[[-.3,.26],[0,.04],[.3,.26],[-.3,-.18],[.3,-.18]])avatarV3Box(bodyLayer,.16,.16,.11,accent,x,y,.48);
-    if(avatar.pattern==='world-star'){const star=new THREE.Mesh(new THREE.CircleGeometry(.23,5),accent);star.position.set(0,.1,.49);star.rotation.z=Math.PI/10;bodyLayer.add(star);}
-    if(avatar.legs==='world-shorts-01'){
-      avatarV3Box(leftLeg,.43,.34,.43,primary,0,-.19,0);avatarV3Box(rightLeg,.43,.34,.43,primary,0,-.19,0);avatarV3Box(leftLeg,.37,.32,.38,skin,0,-.51,0);avatarV3Box(rightLeg,.37,.32,.38,skin,0,-.51,0);
-    }else if(avatar.legs==='world-armor-01'){
-      avatarV3Box(leftLeg,.46,.72,.46,secondary,0,-.36,0);avatarV3Box(rightLeg,.46,.72,.46,secondary,0,-.36,0);avatarV3Box(leftLeg,.48,.18,.48,accent,0,-.66,0);avatarV3Box(rightLeg,.48,.18,.48,accent,0,-.66,0);
-    }else{
-      avatarV3Box(leftLeg,.42,.68,.42,secondary,0,-.36,0);avatarV3Box(rightLeg,.42,.68,.42,secondary,0,-.36,0);
-    }
-    const shoeMat=avatar.shoes==='world-energy-01'?energy:avatar.shoes==='world-boots-01'?secondary:primary;
-    avatarV3Box(leftLeg,.48,.25,.59,shoeMat,0,-1.03,.09);avatarV3Box(rightLeg,.48,.25,.59,shoeMat,0,-1.03,.09);
-    if(avatar.shoes==='world-energy-01'){avatarV3Box(leftLeg,.34,.08,.63,energy,0,-1.16,.11);avatarV3Box(rightLeg,.34,.08,.63,energy,0,-1.16,.11);}
-    if(avatar.hair==='hair-short-01'){avatarV3Box(headLayer,1.13,.24,1.13,hairMat,0,.49,0);avatarV3Box(headLayer,.24,.42,1.08,hairMat,-.48,.29,-.02);avatarV3Box(headLayer,.24,.42,1.08,hairMat,.48,.29,-.02);}
-    else if(avatar.hair==='hair-spikes-01'){avatarV3Box(headLayer,1.13,.18,1.10,hairMat,0,.48,0);for(const x of[-.38,-.12,.14,.4]){const spike=new THREE.Mesh(new THREE.ConeGeometry(.16,.48,4),hairMat);spike.position.set(x,.76,-.03);spike.rotation.y=Math.PI/4;headLayer.add(spike);}}
-    else if(avatar.hair==='hair-curls-01'){for(const [x,y,z]of[[-.4,.48,0],[-.14,.57,.04],[.14,.57,.04],[.4,.48,0],[-.48,.28,-.05],[.48,.28,-.05]])avatarV3Sphere(headLayer,.22,hairMat,x,y,z);}
-    const expression=avatar.face;
-    const brow=worldAvatarMaterial(expression==='face-brave-01'?0x6ae6ff:0xffffff,{roughness:.55});
-    const leftBrow=avatarV3Box(headLayer,.28,.05,.04,brow,-.27,.18,.54),rightBrow=avatarV3Box(headLayer,.28,.05,.04,brow,.27,.18,.54);
-    if(expression==='face-brave-01'){leftBrow.rotation.z=-.18;rightBrow.rotation.z=.18;}
-    if(expression==='face-curious-01'){leftBrow.position.y=.25;rightBrow.rotation.z=.14;}
-    const mouth=avatarV3Box(headLayer,expression==='face-focus-01'?.26:.34,.05,.04,worldAvatarMaterial(0xff6f81,{roughness:.45}),0,-.22,.54);if(expression==='face-happy-01')mouth.rotation.z=.02;
-    if(avatar.back==='world-backpack-01'){const pack=worldAvatarLayer(parts.body,'BACKPACK');avatarV3Box(pack,.82,.92,.38,secondary,0,.02,-.54);avatarV3Box(pack,.55,.24,.15,accent,0,-.22,-.76);}
-    else if(avatar.back==='world-cape-01'){const cape=worldAvatarLayer(parts.body,'CAPE');avatarV3Box(cape,.94,1.34,.06,primary,0,-.18,-.49).rotation.x=-.08;avatarV3Box(cape,.52,.14,.08,accent,0,.42,-.5);}
-    else if(avatar.back==='world-jetpack-01'){const jet=worldAvatarLayer(parts.body,'JETPACK');avatarV3Box(jet,.34,.82,.36,secondary,-.28,.02,-.54);avatarV3Box(jet,.34,.82,.36,secondary,.28,.02,-.54);avatarV3Box(jet,.22,.22,.3,energy,-.28,-.48,-.56);avatarV3Box(jet,.22,.22,.3,energy,.28,-.48,-.56);}
-    otthiWorldRuntime.avatarReady=true;return true;
+    toySkinApplyFace(headLayer,theme,skin,eye,mouth);
+    if(avatar.pattern==='world-stripe'){toySkinBox(bodyLayer,1.0,.14,.08,accent,0,.24,.42);toySkinBox(bodyLayer,1.0,.14,.08,accent,0,-.04,.42);}else if(avatar.pattern==='world-pixels')for(const[x,y]of[[-.28,.24],[0,.04],[.28,.24],[-.28,-.18],[.28,-.18]])toySkinBox(bodyLayer,.14,.14,.08,accent,x,y,.43);else if(avatar.pattern==='world-star'){const star=new THREE.Mesh(new THREE.CircleGeometry(.22,5),accent);star.position.set(0,.12,.48);bodyLayer.add(star);}
+    toySkinApplyLegacyOptions(theme,bodyLayer,headLayer,backLayer,primary,secondary,accent,hairMat);playerModel.userData.toyTheme=theme;otthiWorldRuntime.avatarReady=true;return true;
   }
   function worldAvatarOptions(field,title){
     const selected=state.avatar[field];return `<section class="avatar-section world-avatar-section"><h3>${title}</h3><div class="avatar-grid">${OTTHI_WORLD_AVATAR_CATALOG[field].map(([id,name,icon])=>`<button class="avatar-option ${selected===id?'selected':''}" data-world-avatar-field="${field}" data-world-avatar-value="${id}"><b>${icon}</b><span>${name}</span></button>`).join('')}</div></section>`;
@@ -6970,45 +6938,39 @@
   });
   const OTTHI_WORLD_CIVIL_VEHICLE_PRESETS=Object.freeze({
     'garage-orange':Object.freeze({theme:'lego',bodyType:'small',kind:'car',body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d'}),
-    'lego-moto':Object.freeze({theme:'lego',bodyType:'moto',kind:'moto',body:'sport',hood:'flat',roof:'open',wheels:'sport',rear:'none',lights:'warm',primary:'#ffd43b',secondary:'#e94b2f',accent:'#fff4a8'}),
-    'lego-utility':Object.freeze({theme:'lego',bodyType:'utility',kind:'utility',body:'utility',hood:'flat',roof:'rack',wheels:'city',rear:'box',lights:'warm',primary:'#f4511e',secondary:'#263238',accent:'#ffd54f'}),
-    'country-brown':Object.freeze({theme:'lego',bodyType:'truck',kind:'truck',body:'utility',hood:'flat',roof:'rack',wheels:'offroad',rear:'box',lights:'warm',primary:'#9b642f',secondary:'#e0ad4f',accent:'#fff0ad'}),
-
-    'home-green':Object.freeze({theme:'minecraft',bodyType:'small',kind:'car',body:'compact',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'white',primary:'#4e8f4f',secondary:'#6b553b',accent:'#d6cf78'}),
-    'minecraft-moto':Object.freeze({theme:'minecraft',bodyType:'moto',kind:'moto',body:'compact',hood:'flat',roof:'open',wheels:'offroad',rear:'none',lights:'white',primary:'#5a7f52',secondary:'#704f32',accent:'#d8cf75'}),
-    'adventure-black':Object.freeze({theme:'minecraft',bodyType:'utility',kind:'utility',body:'offroad',hood:'intake',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#303944',secondary:'#59b88c',accent:'#f0c84b'}),
-    'forest-teal':Object.freeze({theme:'minecraft',bodyType:'truck',kind:'truck',body:'exploration',hood:'intake',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#138d83',secondary:'#6bc08b',accent:'#dff6a3'}),
-
-    'market-blue':Object.freeze({theme:'playmobil',bodyType:'small',kind:'car',body:'compact',hood:'flat',roof:'open',wheels:'city',rear:'none',lights:'white',primary:'#2787d8',secondary:'#43c6e8',accent:'#e9f7ff'}),
-    'playmobil-scooter':Object.freeze({theme:'playmobil',bodyType:'moto',kind:'moto',body:'compact',hood:'flat',roof:'open',wheels:'city',rear:'none',lights:'white',primary:'#39a0ed',secondary:'#f8fbff',accent:'#f8c84b'}),
-    'city-white':Object.freeze({theme:'playmobil',bodyType:'utility',kind:'utility',body:'utility',hood:'flat',roof:'standard',wheels:'city',rear:'box',lights:'white',primary:'#f0f3f5',secondary:'#3293d2',accent:'#d9f4ff'}),
-    'playmobil-truck':Object.freeze({theme:'playmobil',bodyType:'truck',kind:'truck',body:'utility',hood:'flat',roof:'standard',wheels:'city',rear:'box',lights:'warm',primary:'#f1d04b',secondary:'#3d7edb',accent:'#ffffff'}),
-
-    'workshop-red':Object.freeze({theme:'mario-world',bodyType:'small',kind:'car',body:'sport',hood:'intake',roof:'open',wheels:'sport',rear:'spoiler',lights:'white',primary:'#e5484d',secondary:'#236ac7',accent:'#f3d64b'}),
-    'mario-moto':Object.freeze({theme:'mario-world',bodyType:'moto',kind:'moto',body:'sport',hood:'power',roof:'open',wheels:'sport',rear:'none',lights:'energy',primary:'#d93645',secondary:'#236ac7',accent:'#ffd84d'}),
-    'gym-yellow':Object.freeze({theme:'mario-world',bodyType:'utility',kind:'utility',body:'offroad',hood:'intake',roof:'rack',wheels:'offroad',rear:'none',lights:'warm',primary:'#f1c943',secondary:'#ef6c3d',accent:'#fff2a8'}),
-    'royal-purple':Object.freeze({theme:'mario-world',bodyType:'truck',kind:'truck',body:'special',hood:'power',roof:'standard',wheels:'sport',rear:'box',lights:'energy',primary:'#7d58c9',secondary:'#f1c94d',accent:'#70e8ff'})
+    'market-blue':Object.freeze({theme:'minecraft',bodyType:'small',kind:'car',body:'compact',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'white',primary:'#3b8f52',secondary:'#456b9a',accent:'#c8e6c9'}),
+    'city-white':Object.freeze({theme:'playmobil',bodyType:'small',kind:'car',body:'compact',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'white',primary:'#f2f4f6',secondary:'#2f7fd8',accent:'#f6cf45'}),
+    'workshop-red':Object.freeze({theme:'mario-world',bodyType:'small',kind:'car',body:'sport',hood:'power',roof:'open',wheels:'sport',rear:'spoiler',lights:'energy',primary:'#d83b35',secondary:'#245fc0',accent:'#ffd84d'}),
+    'home-green':Object.freeze({theme:'lego',bodyType:'utility',kind:'utility',body:'utility',hood:'flat',roof:'rack',wheels:'city',rear:'box',lights:'warm',primary:'#31a76a',secondary:'#f1c943',accent:'#ffffff'}),
+    'gym-yellow':Object.freeze({theme:'minecraft',bodyType:'utility',kind:'utility',body:'offroad',hood:'intake',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#6b7f45',secondary:'#ad7d3a',accent:'#dde7b4'}),
+    'forest-teal':Object.freeze({theme:'playmobil',bodyType:'truck',kind:'truck',body:'utility',hood:'flat',roof:'standard',wheels:'offroad',rear:'box',lights:'white',primary:'#168f88',secondary:'#f0c94a',accent:'#ffffff'}),
+    'adventure-black':Object.freeze({theme:'mario-world',bodyType:'utility',kind:'utility',body:'offroad',hood:'power',roof:'rack',wheels:'offroad',rear:'box',lights:'energy',primary:'#2e3540',secondary:'#e3483f',accent:'#f5d84d'}),
+    'country-brown':Object.freeze({theme:'lego',bodyType:'truck',kind:'truck',body:'utility',hood:'flat',roof:'rack',wheels:'offroad',rear:'box',lights:'warm',primary:'#9b642f',secondary:'#e0ad4f',accent:'#ffffff'}),
+    'royal-purple':Object.freeze({theme:'mario-world',bodyType:'truck',kind:'truck',body:'special',hood:'power',roof:'standard',wheels:'sport',rear:'box',lights:'energy',primary:'#7d58c9',secondary:'#d83b35',accent:'#ffd84d'}),
+    'lego-moto':Object.freeze({theme:'lego',bodyType:'moto',kind:'moto',body:'sport',hood:'flat',roof:'open',wheels:'sport',rear:'none',lights:'warm',primary:'#ffca28',secondary:'#e64a19',accent:'#ffffff'}),
+    'minecraft-moto':Object.freeze({theme:'minecraft',bodyType:'moto',kind:'moto',body:'compact',hood:'flat',roof:'open',wheels:'offroad',rear:'none',lights:'white',primary:'#4e7b50',secondary:'#74543d',accent:'#d7e7c9'}),
+    'playmobil-moto':Object.freeze({theme:'playmobil',bodyType:'moto',kind:'moto',body:'compact',hood:'flat',roof:'open',wheels:'city',rear:'none',lights:'white',primary:'#3498db',secondary:'#f4d24b',accent:'#ffffff'}),
+    'mario-moto':Object.freeze({theme:'mario-world',bodyType:'moto',kind:'moto',body:'sport',hood:'power',roof:'open',wheels:'sport',rear:'none',lights:'energy',primary:'#d83b35',secondary:'#245fc0',accent:'#ffd84d'}),
+    'minecraft-truck':Object.freeze({theme:'minecraft',bodyType:'truck',kind:'truck',body:'utility',hood:'flat',roof:'rack',wheels:'offroad',rear:'box',lights:'white',primary:'#7a5b3d',secondary:'#4d6b4d',accent:'#d8cf8a'}),
+    'playmobil-utility':Object.freeze({theme:'playmobil',bodyType:'utility',kind:'utility',body:'utility',hood:'flat',roof:'standard',wheels:'city',rear:'box',lights:'warm',primary:'#f1d04b',secondary:'#3d7edb',accent:'#ffffff'})
   });
   const OTTHI_PLAYER_VEHICLE_CATALOG=Object.freeze([
-    Object.freeze({id:'garage-orange',label:'LEGO Compacto',icon:'🚗',price:0,description:'Carro pequeno em estilo de blocos, veículo inicial.'}),
-    Object.freeze({id:'lego-moto',label:'LEGO Moto',icon:'🏍️',price:220,description:'Moto pequena em estilo de blocos.'}),
-    Object.freeze({id:'lego-utility',label:'LEGO Utilitário',icon:'🚐',price:390,description:'Utilitário de blocos para trabalho e missões.'}),
-    Object.freeze({id:'country-brown',label:'LEGO Caminhão',icon:'🚛',price:520,description:'Caminhão de blocos para carga e tarefas rurais.'}),
-
-    Object.freeze({id:'home-green',label:'Minecraft Compacto',icon:'🚗',price:260,description:'Carro voxel pequeno, quadrado e robusto.'}),
-    Object.freeze({id:'minecraft-moto',label:'Minecraft Moto',icon:'🏍️',price:250,description:'Moto voxel para deslocamento rápido.'}),
-    Object.freeze({id:'adventure-black',label:'Minecraft Utilitário',icon:'🚙',price:560,description:'Utilitário voxel para exploração.'}),
-    Object.freeze({id:'forest-teal',label:'Minecraft Caminhão',icon:'🚚',price:620,description:'Caminhão voxel de exploração e carga.'}),
-
-    Object.freeze({id:'market-blue',label:'Playmobil Compacto',icon:'🚘',price:180,description:'Carro pequeno com formas arredondadas de brinquedo.'}),
-    Object.freeze({id:'playmobil-scooter',label:'Playmobil Scooter',icon:'🛵',price:210,description:'Scooter leve e arredondada.'}),
-    Object.freeze({id:'city-white',label:'Playmobil Utilitário',icon:'🚐',price:260,description:'Van/utilitário arredondado para equipe e entregas.'}),
-    Object.freeze({id:'playmobil-truck',label:'Playmobil Caminhão',icon:'🚚',price:540,description:'Caminhão de brinquedo com cabine arredondada.'}),
-
-    Object.freeze({id:'workshop-red',label:'Mario World Kart',icon:'🏎️',price:420,description:'Veículo pequeno de aventura com linguagem de kart.'}),
-    Object.freeze({id:'mario-moto',label:'Mario World Moto',icon:'🏍️',price:300,description:'Moto de aventura colorida e compacta.'}),
-    Object.freeze({id:'gym-yellow',label:'Mario World Utilitário',icon:'🚙',price:480,description:'Utilitário colorido para aventuras fora da cidade.'}),
-    Object.freeze({id:'royal-purple',label:'Mario World Caminhão',icon:'🚛',price:700,description:'Caminhão especial com luzes e acabamento de aventura.'})
+    Object.freeze({id:'garage-orange',theme:'lego',category:'small',label:'LEGO • Carro pequeno',icon:'🚗',price:0,description:'Carro pequeno com proporções de brinquedo LEGO.'}),
+    Object.freeze({id:'lego-moto',theme:'lego',category:'moto',label:'LEGO • Moto',icon:'🏍️',price:220,description:'Moto compacta de brinquedo LEGO.'}),
+    Object.freeze({id:'home-green',theme:'lego',category:'utility',label:'LEGO • Utilitário',icon:'🚐',price:340,description:'Utilitário LEGO para missões e entregas.'}),
+    Object.freeze({id:'country-brown',theme:'lego',category:'truck',label:'LEGO • Caminhão',icon:'🚚',price:480,description:'Caminhão LEGO de carga.'}),
+    Object.freeze({id:'market-blue',theme:'minecraft',category:'small',label:'Minecraft / Manycraft • Carro',icon:'🚗',price:190,description:'Carro pequeno totalmente em linguagem voxel.'}),
+    Object.freeze({id:'minecraft-moto',theme:'minecraft',category:'moto',label:'Minecraft / Manycraft • Moto',icon:'🏍️',price:230,description:'Moto em blocos e peças voxel.'}),
+    Object.freeze({id:'gym-yellow',theme:'minecraft',category:'utility',label:'Minecraft / Manycraft • Utilitário',icon:'🚙',price:420,description:'Utilitário off-road em blocos.'}),
+    Object.freeze({id:'minecraft-truck',theme:'minecraft',category:'truck',label:'Minecraft / Manycraft • Caminhão',icon:'🚚',price:560,description:'Caminhão de carga voxel.'}),
+    Object.freeze({id:'city-white',theme:'playmobil',category:'small',label:'Playmobil • Carro pequeno',icon:'🚗',price:260,description:'Carro arredondado no estilo de brinquedo Playmobil.'}),
+    Object.freeze({id:'playmobil-moto',theme:'playmobil',category:'moto',label:'Playmobil • Moto',icon:'🏍️',price:240,description:'Moto Playmobil compacta.'}),
+    Object.freeze({id:'playmobil-utility',theme:'playmobil',category:'utility',label:'Playmobil • Utilitário',icon:'🚐',price:390,description:'Van/utilitário Playmobil.'}),
+    Object.freeze({id:'forest-teal',theme:'playmobil',category:'truck',label:'Playmobil • Caminhão',icon:'🚚',price:520,description:'Caminhão Playmobil de trabalho.'}),
+    Object.freeze({id:'workshop-red',theme:'mario-world',category:'small',label:'Mario World • Kart pequeno',icon:'🏎️',price:430,description:'Veículo pequeno arredondado com linguagem Mario World.'}),
+    Object.freeze({id:'mario-moto',theme:'mario-world',category:'moto',label:'Mario World • Moto',icon:'🏍️',price:280,description:'Moto rápida com proporções de Mario World.'}),
+    Object.freeze({id:'adventure-black',theme:'mario-world',category:'utility',label:'Mario World • Utilitário',icon:'🚙',price:520,description:'Utilitário especial para aventura.'}),
+    Object.freeze({id:'royal-purple',theme:'mario-world',category:'truck',label:'Mario World • Caminhão',icon:'🚚',price:700,description:'Caminhão especial da família Mario World.'})
   ]);
   function defaultWorldVehicleParts(vehicleId=''){return{theme:'lego',bodyType:'small',kind:'car',body:'classic',hood:'flat',roof:'standard',wheels:'city',rear:'none',lights:'warm',primary:'#f28a22',secondary:'#0aa7b8',accent:'#f5d84d',...(OTTHI_WORLD_CIVIL_VEHICLE_PRESETS[vehicleId]||{})};}
   function worldVehicleParts(vehicleId){
@@ -7022,6 +6984,15 @@
     if(!group||!vehicleId)return false;removeWorldVehicleModules(group);const parts=worldVehicleParts(vehicleId),durability=Number(state.vehicles.partDurability[vehicleId]||100),modules=new THREE.Group();modules.name=`OTTHI_WORLD_VEHICLE_${vehicleId}`;group.add(modules);group.userData.otthiWorldVehicleModules=modules;
     const primary=worldVehicleModuleMaterial(parts.primary),secondary=worldVehicleModuleMaterial(parts.secondary),accent=worldVehicleModuleMaterial(parts.accent,.28,.34),dark=worldVehicleModuleMaterial(0x17202b,.08,.82),energy=worldVehicleModuleMaterial(0x5de6ff,.22,.18);energy.emissive=new THREE.Color(0x1684a8);energy.emissiveIntensity=.72;
     const part=(w,h,d,material,x,y,z)=>{const mesh=new THREE.Mesh(new THREE.BoxGeometry(w,h,d),material);mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;modules.add(mesh);if(state.settings?.worldOutlines!==false)addVoxelOutline(mesh,0x102238,.20);return mesh;};
+    if(['lego','minecraft','playmobil','mario-world'].includes(String(parts.theme||''))){
+      const type=String(parts.bodyType||'small');
+      if(parts.hood==='intake')part(type==='moto'?.32:.64,.14,type==='moto'?.34:.48,secondary,0,type==='moto'?.86:1.03,type==='moto'?.18:.72);else if(parts.hood==='power'){part(type==='moto'?.30:.62,.12,type==='moto'?.32:.5,energy,0,type==='moto'?.87:1.04,type==='moto'?.2:.72);}
+      if(durability>20&&parts.roof==='rack'&&type!=='moto'){for(const x of[-.52,.52])part(.08,.25,.9,dark,x,type==='truck'?1.55:1.34,-.45);part(1.18,.08,.08,dark,0,type==='truck'?1.68:1.47,-.8);part(1.18,.08,.08,dark,0,type==='truck'?1.68:1.47,-.1);}
+      else if(durability>20&&parts.roof==='beacon'&&type!=='moto'){part(.92,.10,.18,dark,0,type==='truck'?1.58:1.36,-.42);part(.25,.18,.2,energy,-.23,type==='truck'?1.72:1.5,-.42);part(.25,.18,.2,accent,.23,type==='truck'?1.72:1.5,-.42);}
+      if(durability>10&&parts.rear==='spoiler'&&type==='small'){part(1.24,.1,.26,secondary,0,1.02,-1.25);for(const x of[-.42,.42])part(.08,.32,.08,dark,x,.84,-1.18);}else if(durability>10&&parts.rear==='box'&&type!=='moto')part(type==='truck'?1.55:1.18,type==='truck'?.56:.48,type==='truck'?.72:.62,secondary,0,type==='truck'?1.28:1.0,type==='truck'?-1.4:-1.15);
+      const lightMaterial=parts.lights==='energy'?energy:worldVehicleModuleMaterial(parts.lights==='white'?0xffffff:0xffe7a1,.1,.2);lightMaterial.emissive=new THREE.Color(parts.lights==='energy'?0x28c7ef:0xffc95a);lightMaterial.emissiveIntensity=parts.lights==='energy'?1.1:.72;if(type==='moto')part(.18,.12,.06,lightMaterial,0,.73,.6);else for(const x of[-.5,.5])part(.26,.14,.06,lightMaterial,x,.52,type==='truck'?1.82:type==='utility'?1.47:1.3);
+      modules.userData.vehicleId=vehicleId;modules.userData.durability=durability;modules.userData.themed=true;otthiWorldRuntime.stats.vehicleModules++;return true;
+    }
     if(parts.body==='compact'){part(1.64,.22,.32,primary,0,.34,1.31);part(1.66,.18,.30,secondary,0,.36,-1.23);part(1.34,.22,1.02,primary,0,1.12,-.34);}
     else if(parts.body==='sport'){part(2.02,.16,.34,primary,0,.22,1.42);part(2.05,.14,.30,primary,0,.22,-1.42);part(.24,.28,2.45,secondary,-1.0,.38,0);part(.24,.28,2.45,secondary,1.0,.38,0);}
     else if(parts.body==='offroad'){part(2.12,.24,.42,dark,0,.32,1.42);part(2.12,.24,.42,dark,0,.32,-1.42);for(const x of[-1.02,1.02])part(.20,.42,2.42,dark,x,.44,0);}
@@ -7052,7 +7023,7 @@
   function placeOwnedVehicleInGarage(id){const garage=ensurePlayerGarageState();if(!state.vehicles.owned.includes(id))return false;if(player.vehicle&&player.car.id===id){toast('Use SAIR antes de estacionar este veículo.','warn',2200);return false;}let slot=garageVehicleSlot(id,garage)||['1','2','3'].find(key=>!garage.slots[key])||'1',displaced=garage.slots[slot];if(displaced&&displaced!==id)storeOwnedVehicle(displaced,true);for(const key of['1','2','3'])if(garage.slots[key]===id)garage.slots[key]='';garage.slots[slot]=id;garage.stored[id]=false;const vehicle=ensureCatalogVehicle(id,Number(slot));if(!vehicle)return false;const point=playerGarageSlot(slot);vehicle.group.position.set(point.x,groundHeightAt(point.x,point.z),point.z);vehicle.group.rotation.y=point.heading;vehicle.x=point.x;vehicle.z=point.z;vehicle.heading=point.heading;setGarageVehicleStored(vehicle,false);persistParkedVehicle(vehicle);state.vehicles.lastUsedId=id;saveState(true);updateContext(true);toast(`${playerVehicleCatalogEntry(id)?.label||vehicle.label} está na vaga ${slot}.`,'good',1900);return true;}
   async function buyPlayerVehicle(id){const entry=playerVehicleCatalogEntry(id);if(!entry||state.vehicles.owned.includes(id))return false;if(state.profile.coins<entry.price){toast(`Você precisa de ${entry.price} moedas para este veículo.`,'warn',2400);return false;}const ok=await confirmModal('Comprar veículo',`${entry.label} por ${entry.price} moedas?`,'Comprar','Cancelar');if(!ok)return false;addCoins(-entry.price);state.vehicles.owned.push(id);state.vehicles.owned=[...new Set(state.vehicles.owned)];state.vehicles.garage.purchasedAt[id]=Date.now();state.vehicles.garage.stored[id]=true;placeOwnedVehicleInGarage(id);addXP(30);saveState(true);toast(`${entry.label} agora pertence à sua garagem.`,'good',2300);return true;}
   function setPrimaryPlayerVehicle(id){ensurePlayerGarageState();if(!state.vehicles.owned.includes(id))return false;state.vehicles.primaryId=id;state.vehicles.lastUsedId=id;saveState(true);toast(`${playerVehicleCatalogEntry(id)?.label||'Veículo'} definido como principal.`,'good',1700);return true;}
-  function openPlayerGarage(){const garage=ensurePlayerGarageState(),owned=OTTHI_PLAYER_VEHICLE_CATALOG.filter(item=>state.vehicles.owned.includes(item.id)),available=OTTHI_PLAYER_VEHICLE_CATALOG.filter(item=>!state.vehicles.owned.includes(item.id)),ownedCards=owned.map(item=>{const vehicle=vehicleById(item.id),slot=garageVehicleSlot(item.id,garage),stored=!!garage.stored[item.id],primary=state.vehicles.primaryId===item.id,durability=Math.round(Number(state.vehicles.partDurability[item.id]??100)),where=stored?'Guardado':slot?`Vaga ${slot}`:vehicle?'Em circulação':'Disponível';return `<article class="choice garage-owned-card"><b>${item.icon} ${escapeHtml(item.label)} ${primary?'⭐':''}</b><span>${where} • integridade ${durability}%</span><small>${escapeHtml(item.description)}</small><div class="modal-actions"><button class="btn primary compact" data-garage-place="${item.id}">${stored?'Retirar':'Trazer para garagem'}</button>${stored?'':`<button class="btn compact" data-garage-store="${item.id}">Guardar</button>`}<button class="btn compact" data-garage-primary="${item.id}" ${primary?'disabled':''}>Principal</button><button class="btn compact" data-garage-customize="${item.id}">Personalizar</button></div></article>`;}).join(''),shopCards=available.map(item=>`<button class="choice" data-garage-buy="${item.id}"><b>${item.icon} ${escapeHtml(item.label)}</b><span>${item.price} moedas</span><small>${escapeHtml(item.description)}</small></button>`).join('');openModal('Minha Garagem',`<div class="otthi-garage-status"><span>🏠</span><div><b>${owned.length} veículo(s) em sua coleção</b><small>Três vagas físicas; os demais ficam guardados sem consumir renderização.</small></div></div><div class="modal-actions"><button class="btn good" data-garage-gps>📍 Marcar garagem no GPS</button></div><section class="avatar-section"><h3>Meus veículos</h3><div class="choice-grid">${ownedCards}</div></section>${available.length?`<section class="avatar-section"><h3>Concessionária</h3><div class="choice-grid">${shopCards}</div></section>`:''}`,root=>{$$('[data-garage-place]',root).forEach(button=>button.onclick=()=>{if(placeOwnedVehicleInGarage(button.dataset.garagePlace))openPlayerGarage();});$$('[data-garage-store]',root).forEach(button=>button.onclick=()=>{if(storeOwnedVehicle(button.dataset.garageStore))openPlayerGarage();});$$('[data-garage-primary]',root).forEach(button=>button.onclick=()=>{if(setPrimaryPlayerVehicle(button.dataset.garagePrimary))openPlayerGarage();});$$('[data-garage-customize]',root).forEach(button=>button.onclick=()=>openWorldModularGarage(button.dataset.garageCustomize));$$('[data-garage-buy]',root).forEach(button=>button.onclick=async()=>{if(await buyPlayerVehicle(button.dataset.garageBuy))openPlayerGarage();});$('[data-garage-gps]',root).onclick=()=>setWaypoint('my-garage');});}
+  function openPlayerGarage(){const garage=ensurePlayerGarageState(),owned=OTTHI_PLAYER_VEHICLE_CATALOG.filter(item=>state.vehicles.owned.includes(item.id)),available=OTTHI_PLAYER_VEHICLE_CATALOG.filter(item=>!state.vehicles.owned.includes(item.id)),ownedCards=owned.map(item=>{const vehicle=vehicleById(item.id),slot=garageVehicleSlot(item.id,garage),stored=!!garage.stored[item.id],primary=state.vehicles.primaryId===item.id,durability=Math.round(Number(state.vehicles.partDurability[item.id]??100)),where=stored?'Guardado':slot?`Vaga ${slot}`:vehicle?'Em circulação':'Disponível';return `<article class="choice garage-owned-card"><b>${item.icon} ${escapeHtml(item.label)} ${primary?'⭐':''}</b><span>${where} • integridade ${durability}%</span><small>${escapeHtml(item.description)} • ${escapeHtml(item.theme||'')} • ${escapeHtml(item.category||'')}</small><div class="modal-actions"><button class="btn primary compact" data-garage-place="${item.id}">${stored?'Retirar':'Trazer para garagem'}</button>${stored?'':`<button class="btn compact" data-garage-store="${item.id}">Guardar</button>`}<button class="btn compact" data-garage-primary="${item.id}" ${primary?'disabled':''}>Principal</button><button class="btn compact" data-garage-customize="${item.id}">Personalizar</button></div></article>`;}).join(''),shopCards=available.map(item=>`<button class="choice" data-garage-buy="${item.id}"><b>${item.icon} ${escapeHtml(item.label)}</b><span>${item.price} moedas • ${escapeHtml(item.category||'')}</span><small>${escapeHtml(item.description)}</small></button>`).join('');openModal('Minha Garagem',`<div class="otthi-garage-status"><span>🏠</span><div><b>${owned.length} veículo(s) em sua coleção</b><small>Três vagas físicas; os demais ficam guardados sem consumir renderização.</small></div></div><div class="modal-actions"><button class="btn good" data-garage-gps>📍 Marcar garagem no GPS</button></div><section class="avatar-section"><h3>Meus veículos</h3><div class="choice-grid">${ownedCards}</div></section>${available.length?`<section class="avatar-section"><h3>Concessionária</h3><div class="choice-grid">${shopCards}</div></section>`:''}`,root=>{$$('[data-garage-place]',root).forEach(button=>button.onclick=()=>{if(placeOwnedVehicleInGarage(button.dataset.garagePlace))openPlayerGarage();});$$('[data-garage-store]',root).forEach(button=>button.onclick=()=>{if(storeOwnedVehicle(button.dataset.garageStore))openPlayerGarage();});$$('[data-garage-primary]',root).forEach(button=>button.onclick=()=>{if(setPrimaryPlayerVehicle(button.dataset.garagePrimary))openPlayerGarage();});$$('[data-garage-customize]',root).forEach(button=>button.onclick=()=>openWorldModularGarage(button.dataset.garageCustomize));$$('[data-garage-buy]',root).forEach(button=>button.onclick=async()=>{if(await buyPlayerVehicle(button.dataset.garageBuy))openPlayerGarage();});$('[data-garage-gps]',root).onclick=()=>setWaypoint('my-garage');});}
   function createPlayerGarageWorld(){if(world?.playerGarage)return world.playerGarage;ensurePlayerGarageState();const p=worldLayoutPoint('homeGarage',{x:-31,z:46}),g=new THREE.Group();g.name='OTTHI_PLAYER_HOME_GARAGE';worldGroup.add(g);premiumBox(9.6,.18,9.2,materials.concrete,p.x,.09,p.z,g);premiumBox(.38,2.9,9.2,materials.stone,p.x-4.65,1.45,p.z,g);premiumBox(9.3,2.9,.38,materials.stone,p.x,1.45,p.z-4.45,g);premiumBox(9.3,2.9,.38,materials.stone,p.x,1.45,p.z+4.45,g);for(const z of[p.z-2.8,p.z,p.z+2.8])premiumBox(7.8,.045,.08,0xf6d44a,p.x+.55,.22,z,g);for(const z of[p.z-4.15,p.z+4.15])premiumBox(9.6,.22,.35,materials.emergencyMetal,p.x,3.05,z,g);for(const x of[p.x-4.45,p.x+3.8])for(const z of[p.z-4.15,p.z+4.15])premiumBox(.28,3.05,.28,materials.emergencyMetal,x,1.53,z,g);premiumBox(14.7,.12,4.25,materials.road,p.x+12.25,.04,p.z,g);premiumBox(4.8,.72,.22,0x173b59,p.x+4.72,2.62,p.z,g);const sign=new THREE.Mesh(new THREE.PlaneGeometry(3.7,.55),new THREE.MeshStandardMaterial({map:signTexture('MINHA GARAGEM','#173b59','#ffffff'),side:THREE.DoubleSide,roughness:.62}));sign.position.set(p.x+4.86,2.62,p.z);sign.rotation.y=Math.PI/2;g.add(sign);registerCollider(p.x-4.65,p.z,.38,9.2,{garage:'home'});registerCollider(p.x,p.z-4.45,9.3,.38,{garage:'home'});registerCollider(p.x,p.z+4.45,9.3,.38,{garage:'home'});registerInteractable({id:'player-home-garage',type:'garage',icon:'🏠',label:'Abrir Minha Garagem',x:p.x+5.4,z:p.z,radius:3.8,priority:350,action:openPlayerGarage});world.playerGarage={group:g,x:p.x,z:p.z};return world.playerGarage;}
   function updateParkedVehicleVisibility(){if(!world?.vehicles)return;const range=qualityTier()==='low'?48:qualityTier()==='high'?92:68;for(const vehicle of world.vehicles){if(!vehicle?.group||vehicle.occupied||player.vehicle&&player.car.id===vehicle.id)continue;if(vehicle.garageStored||state.vehicles?.garage?.stored?.[vehicle.id]){vehicle.group.visible=false;continue;}vehicle.group.visible=Math.hypot(player.x-vehicle.group.position.x,player.z-vehicle.group.position.z)<=range;}}
   function worldVehicleMapLocations(){

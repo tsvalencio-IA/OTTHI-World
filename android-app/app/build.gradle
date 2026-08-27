@@ -10,8 +10,8 @@ android {
         applicationId 'br.com.thiaguinhosolucoes.otthos'
         minSdk 24
         targetSdk 35
-        versionCode 70579
-        versionName "7.0.5.7.9"
+        versionCode 70580
+        versionName "7.0.5.7.10"
     }
 
     buildTypes {
