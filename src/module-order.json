@@ -28,7 +28,7 @@
       "startLine": 490,
       "endLine": 756,
       "description": "Estado, save local, IndexedDB, nuvem e conta",
-      "sha256Body": "f1669f8826b355db21b3989fb06b6a67d8b859139d250321ace2a1bc2b75bed7"
+      "sha256Body": "4764e4e831cb0412e932206d4ebb92922dbe298e2e38a3c2d83dd23a96b42557"
     },
     {
       "file": "src/modules/03-ui-modal-install-pwa.js",
@@ -175,7 +175,7 @@
       "startLine": 3805,
       "endLine": 3948,
       "description": "Construção do mundo, recursos, baús, casas em nuvem e interiores",
-      "sha256Body": "509680939ed0acb4cb2a737e45d9bb81b270b96d238f1b65cca264bdfd3fb4f5"
+      "sha256Body": "468a4cbca679c2cdc53ef1a5623cfeead2c9cb0ee4361e80fbf0a57c623a5404"
     },
     {
       "file": "src/modules/21-interactions-shop-social-races.js",

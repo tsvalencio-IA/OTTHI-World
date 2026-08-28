@@ -1,0 +1,38 @@
+OTTHI WORLD V705.7 — R11.2
+Correção focada após auditoria real do navegador
+
+ALTERAÇÕES DO JOGO
+1. Corrige o objetivo neighbors.lockedHouse:
+   - a flag lockedHouse é registrada somente quando uma casa própria é efetivamente trancada com sucesso.
+   - destrancar a casa não remove a conquista.
+2. Adiciona trava DEV de não persistência, inerte no jogo normal:
+   - window.__OTTHI_DEV_NO_SAVE__ só tem efeito quando definido manualmente pelo auditor no Console.
+   - quando ativa, impede commit/save local, syncCloudProgress e syncGameAccount durante a auditoria.
+   - em uso normal a flag não existe e o fluxo de save permanece exatamente igual.
+
+ARQUIVOS DO PATCH
+- app.js
+- index.html
+- sw.js
+- release-manifest.json
+- src/module-order.json
+- src/modules/02-state-save-cloud-account.js
+- src/modules/20-world-build-cloud-houses.js
+
+VALIDAÇÃO LOCAL
+- tools/validate_project.py: 225/225, errors=[]
+- tools/test_v705_playable_world.py: 40/40
+- tools/test_v7057_r7_player_garage.py: 36/36
+- tools/test_v7057_r11_focus.py: 30/30
+- node --check app.js: OK
+
+NÃO ALTERADO
+- Firebase Rules
+- GM/moderação
+- skins
+- veículos
+- OTTOVIAS
+- polícia/pedágio
+- oficina/garagem
+- esportes
+- multiplayer

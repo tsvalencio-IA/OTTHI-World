@@ -122,6 +122,7 @@
   let saveTimer = 0;
   let lastSavePromise = Promise.resolve(true);
   function commitState() {
+    if(window.__OTTHI_DEV_NO_SAVE__===true)return Promise.resolve(true);
     state.version = APP_VERSION;
     state.lastSaved = Date.now();
     state.buildTombstones=normalizeBuildTombstones(state.buildTombstones);
@@ -139,6 +140,7 @@
     return lastSavePromise;
   }
   function saveState(immediate = false) {
+    if(window.__OTTHI_DEV_NO_SAVE__===true){clearTimeout(saveTimer);return Promise.resolve(true);}
     state.lastSaved = Date.now();
     clearTimeout(saveTimer);
     if (immediate) return commitState();
@@ -156,6 +158,7 @@
     };
   }
   function syncCloudProgress(force=false){
+    if(window.__OTTHI_DEV_NO_SAVE__===true)return false;
     if(!hasValidPlayerName())return false;
     return window.OTTHOS_RTDB?.syncProgress?.(cloudProgressPayload(),force)||false;
   }
@@ -201,6 +204,7 @@
     return ok?{ok:true,backend}:{ok:false,error:'Sem conexão. O progresso local continua protegido neste aparelho.'};
   }
   function syncGameAccount(force=false){
+    if(window.__OTTHI_DEV_NO_SAVE__===true){clearTimeout(accountSaveTimer);return false;}
     clearTimeout(accountSaveTimer);
     if(!accountLinked()||accountSyncing)return false;
     const run=async()=>{

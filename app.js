@@ -605,6 +605,7 @@
   let saveTimer = 0;
   let lastSavePromise = Promise.resolve(true);
   function commitState() {
+    if(window.__OTTHI_DEV_NO_SAVE__===true)return Promise.resolve(true);
     state.version = APP_VERSION;
     state.lastSaved = Date.now();
     state.buildTombstones=normalizeBuildTombstones(state.buildTombstones);
@@ -622,6 +623,7 @@
     return lastSavePromise;
   }
   function saveState(immediate = false) {
+    if(window.__OTTHI_DEV_NO_SAVE__===true){clearTimeout(saveTimer);return Promise.resolve(true);}
     state.lastSaved = Date.now();
     clearTimeout(saveTimer);
     if (immediate) return commitState();
@@ -639,6 +641,7 @@
     };
   }
   function syncCloudProgress(force=false){
+    if(window.__OTTHI_DEV_NO_SAVE__===true)return false;
     if(!hasValidPlayerName())return false;
     return window.OTTHOS_RTDB?.syncProgress?.(cloudProgressPayload(),force)||false;
   }
@@ -684,6 +687,7 @@
     return ok?{ok:true,backend}:{ok:false,error:'Sem conexão. O progresso local continua protegido neste aparelho.'};
   }
   function syncGameAccount(force=false){
+    if(window.__OTTHI_DEV_NO_SAVE__===true){clearTimeout(accountSaveTimer);return false;}
     clearTimeout(accountSaveTimer);
     if(!accountLinked()||accountSyncing)return false;
     const run=async()=>{
@@ -4641,7 +4645,7 @@
       });return;
     }
     const owned=mine||local.owned;if(owned){const locked=cloud?!!cloud.locked:!!local.locked;openModal(house.name,`<p>Esta casa pertence a <b>${state.profile.name}</b>.</p><div class="modal-actions"><button class="btn primary" data-enter>Entrar</button><button class="btn" data-lock>${locked?'Destrancar':'Trancar'}</button><button class="btn" data-cancel>Cancelar</button></div>`,root=>{
-      $('[data-enter]',root).onclick=()=>{closeModal();enterHouse(house);};$('[data-lock]',root).onclick=async()=>{const next=!locked,ok=await window.OTTHOS_RTDB?.setHouseLock?.(house.id,next);if(ok){state.houses[house.id]={...(state.houses[house.id]||{}),owned:true,locked:next};saveState(true);closeModal();toast(next?'Casa trancada.':'Casa destrancada.','good');}else toast('Não foi possível alterar a fechadura.','warn');};$('[data-cancel]',root).onclick=closeModal;
+      $('[data-enter]',root).onclick=()=>{closeModal();enterHouse(house);};$('[data-lock]',root).onclick=async()=>{const next=!locked,ok=await window.OTTHOS_RTDB?.setHouseLock?.(house.id,next);if(ok){state.houses[house.id]={...(state.houses[house.id]||{}),owned:true,locked:next};if(next)setFlag('lockedHouse');saveState(true);closeModal();toast(next?'Casa trancada.':'Casa destrancada.','good');}else toast('Não foi possível alterar a fechadura.','warn');};$('[data-cancel]',root).onclick=closeModal;
     });return;}
     toast('Sincronizando propriedade da casa...','warn');
   }
