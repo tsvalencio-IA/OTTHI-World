@@ -112,14 +112,14 @@
       "startLine": 2743,
       "endLine": 2991,
       "description": "Casas, interiores, NPCs, inimigos, cristais, veículos e academia",
-      "sha256Body": "eb9bef5111f0f1b32773548b965f7b234531a310b86128e8d44f6fc3f1634a05"
+      "sha256Body": "cdbc415f130389afc35999b21ea656e756852db2ce29b7030955391e05ebc7ec"
     },
     {
       "file": "src/modules/13a-sports-kart-v705.js",
       "startLine": 0,
       "endLine": 0,
       "description": "Esportes jogáveis 3v3/2v2 e kartódromo de circuito técnico V705",
-      "sha256Body": "0d0f398a390dd05a1a9966e2caa0aa0b5fc54675d8ea59a067ed61a16290ce0d"
+      "sha256Body": "cd83b86127a16e1caa8dbdac8aa0559725b2d8c3b528a1e41c75bd9bfe5a88d6"
     },
     {
       "file": "src/modules/14-world-district-decoration.js",
@@ -182,7 +182,7 @@
       "startLine": 3950,
       "endLine": 4126,
       "description": "Atividades, mercado, oficina, amizades, NPCs e corridas",
-      "sha256Body": "61563ce54f1eb9a93b3d03ea062102f053db628c567410fa4f9287ac9cbd6154"
+      "sha256Body": "04a364ed17957de4c0947d9eec54a2dbca04f8d85e586d10d5393e4b1842b261"
     },
     {
       "file": "src/modules/22-careers-jobs-uniforms.js",
@@ -273,7 +273,7 @@
       "startLine": 5803,
       "endLine": 5897,
       "description": "Avatar modular V3 sobre o rig procedural preservado",
-      "sha256Body": "381c94a00827c1c3bc73b1e017f786e9a31fea72adb0665b277c8adcd21f0619"
+      "sha256Body": "1fd036b85f405036bcd5101fdd559d056de2e8583a859562c0e58b7eccf064f4"
     },
     {
       "file": "src/modules/35-world-render-pbr-environment.js",
@@ -315,7 +315,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Painel GM oculto, concessões positivas, usuários e aplicação idempotente",
-      "sha256Body": "3e2f85c595bc2f1f9fe13db95573e4d35b17c88728fecf74d3d53f9700cf7a7b"
+      "sha256Body": "8a35871ef0e58740860fd0bff6cd3c7bc5ab19705748cd05a5c573d31c43910d"
     },
     {
       "file": "src/modules/40-world-evolution-v702.js",
@@ -450,7 +450,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Interface responsiva e isolada do painel administrativo GM",
-      "sha256Body": "13fa79fd8d6feac9813c3f7451aca87712927bf1ac978f3f043f63b416a88f68"
+      "sha256Body": "1f9c9385a2d1a058454b98d4f459259acb0377081dc7fc43b08e48e75630025f"
     },
     {
       "file": "src/styles/18-world-evolution-v702.css",
@@ -464,7 +464,7 @@
       "startLine": 1,
       "endLine": 36,
       "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
-      "sha256Body": "759626204a2d386f4cb88e5a7eaee35e9ec48ce3ef2cf9762a8bb09057936bc5"
+      "sha256Body": "c7ebb4eca4e23e355effedea981a5626554c7ccb4b61d9cdad9697dac35a44a9"
     }
   ]
 }

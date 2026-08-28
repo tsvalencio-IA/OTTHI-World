@@ -5,8 +5,8 @@
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70580,
-  "androidVersionName": "7.0.5.7.10",
+  "androidVersionCode": 70581,
+  "androidVersionName": "7.0.5.7.11",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -42,6 +42,10 @@
     }
   },
   "changes": [
+    "R11 torna o rosto da skin Playmobil visível sobre a superfície da cabeça, sem alterar as demais skins.",
+    "R11 melhora a família Mario World com variantes Mario e Luigi reconhecíveis, incluindo boné, emblema, bigode, luvas e jardineira.",
+    "R11 amplia o painel secreto GM *177 com bloquear, desbloquear e excluir dados de usuários no Realtime Database, preservando auditoria administrativa e impedindo automoderação de contas GM.",
+    "R11 adiciona saída explícita de futebol, vôlei, futevôlei, atletismo e kart sem registrar derrota ou prêmio e sem desmontar os demais sistemas.",
     "R10 remove na origem os discos cilíndricos verticais gigantes das junções da OTTOVIAS que apareciam como círculos/túneis atravessando a rodovia, sem criar substitutos.",
     "R10 reconstrói as skins do usuário em quatro geometrias completas e independentes: LEGO, Minecraft/Manycraft, Playmobil e Mario World, ocultando o boneco-base para evitar sobreposição visual.",
     "R10 distribui NPCs civis entre LEGO, Minecraft/Manycraft, Playmobil e Mario World, preservando a Michelle OTTOVIAS e seus fluxos específicos.",
@@ -155,10 +159,13 @@
     "playerGarageStaticApproved": true,
     "policeRoadsideRuntimeApproved": true,
     "visualThemeStaticApproved": true,
-    "ottoviasJointDiscRemovalApproved": true
+    "ottoviasJointDiscRemovalApproved": true,
+    "gmModerationStaticApproved": true,
+    "sportExitStaticApproved": true
   },
-  "release": "705.7-visual-fidelity-r10",
+  "release": "705.7-player-faces-gm-moderation-sport-exit-r11",
   "notes": [
+    "R11 é uma correção focal sobre a R10: rosto Playmobil, Mario/Luigi, moderação GM e saída voluntária de esportes. O restante permanece preservado.",
     "R10 corrige exclusivamente os pedidos visuais confirmados por screenshot: discos verticais da OTTOVIAS, skins temáticas completas, NPCs temáticos e frota jogável por família/categoria.",
     "A correção R10 não substitui pedágio, oficina, garagem, polícia, casas, mapa, Firebase, multiplayer, missões ou demais sistemas preservados.",
     "R8 corrige a abordagem policial no local: a porta da viatura abre, o policial sai fisicamente do interior, fecha a porta, aproxima-se, conversa com o jogador, registra a multa e libera a viagem sem teleporte.",
@@ -177,8 +184,8 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70580,
-  "revisionLabel": "R10-ottovias-joint-disc-removal-themed-vehicles-npcs-skins",
+  "assetVersion": 70581,
+  "revisionLabel": "R11-playmobil-face-mario-luigi-gm-moderation-sport-exit",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

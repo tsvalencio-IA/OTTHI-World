@@ -48,7 +48,7 @@ for (const [branchName, recordKey] of [
 }
 
 const presenceRecord = room.presence['$uid'];
-check('presence: somente o próprio UID escreve', presenceRecord['.write'] === 'auth != null && auth.uid === $uid');
+check('presence: próprio UID ou GM escreve', presenceRecord['.write'].includes('auth.uid === $uid') && presenceRecord['.write'].includes('admins'));
 check('presence: sem validação bloqueadora de campos compatíveis', !hasValidation(presenceRecord));
 
 for (const [branchName, recordKey] of [
@@ -78,7 +78,10 @@ check('Gameplay sem permissao restritiva interna', [
   ['coopMissions', '$missionId']
 ].every(([branchName, recordKey]) => !hasNestedWrite(room[branchName][recordKey])));
 
-check('Conta permanece privada', rules.gameAccounts['$uid']['.write'] === 'auth != null && auth.uid === $uid');
+check('Moderação: somente GM pode alterar usuário comum', rules.userModeration['$uid']['.write'].includes('admins') && rules.userModeration['$uid']['.write'].includes('auth.uid !== $uid') && rules.userModeration['$uid']['.write'].includes("admins').child($uid).val() !== true"));
+check('Moderação: usuário lê somente o próprio estado', rules.userModeration['$uid']['.read'].includes('auth.uid === $uid') && rules.userModeration['$uid']['.read'].includes('admins'));
+check('Auditoria de moderação: somente GM e append-only', rules.gmModerationAudit['$eventId']['.write'].includes('admins') && rules.gmModerationAudit['$eventId']['.write'].includes('!data.exists()'));
+check('Conta permanece privada e permite exclusão pelo GM', rules.gameAccounts['$uid']['.write'].includes('auth.uid === $uid') && rules.gameAccounts['$uid']['.write'].includes('admins'));
 check('Progresso permanece privado', users.progress['.write'] === 'auth != null && auth.uid === $uid');
 check('Limite de tempo exige conta e autenticação recente', users.guardianSettings['.write'].includes('auth.token.email') && users.guardianSettings['.write'].includes('auth_time'));
 check('Slots não escrevem o nó pai', !room.slots['.write']);

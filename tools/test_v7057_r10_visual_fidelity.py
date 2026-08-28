@@ -24,7 +24,7 @@ check('Skin substitui visual-base em vez de sobrepor','hideLegacyAvatarForToySki
 check('LEGO usa cabeça cilíndrica e stud','toySkinCylinder(headLayer,.43,.74' in avatar and 'toySkinCylinder(headLayer,.14,.09' in avatar)
 check('Minecraft usa cabeça e corpo cúbicos','toySkinBox(headLayer,1.02,1.02,1.02' in avatar and "theme==='minecraft'" in avatar)
 check('Playmobil usa cabeça arredondada e torso cilíndrico','toySkinSphere(headLayer,.58' in avatar and 'toySkinCylinder(bodyLayer,.48,1.02' in avatar)
-check('Mario World usa rosto, boné e bigode dedicados','MARIO_CAP' in avatar and '0x2b1712' in avatar and 'toySkinSphere(headLayer,.11,skin' in avatar)
+check('Mario World usa rosto, boné e bigode dedicados','MARIO_CAP' in avatar and '0x2b1712' in avatar and ('toySkinSphere(headLayer,.11,skin' in avatar or 'toySkinSphere(headLayer,.115,skin' in avatar))
 check('NPCs principais distribuem os quatro estilos',all(token in npc for token in ["nino:'lego'","luna:'minecraft'","teo:'playmobil'","bia:'mario-world'"]))
 check('Michelle permanece fora da troca automática',"npc.id==='michelle-ottovias'" in npc or "id!=='michelle-ottovias'" in npc)
 check('Veículo ativo e estacionado usam o mesmo construtor temático','buildThemedVehicleGeometry(vehicleVisual' in render and 'buildThemedVehicleGeometry(group' in npc and 'applyVehicleAppearance' in npc)

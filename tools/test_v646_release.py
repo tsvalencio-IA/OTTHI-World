@@ -98,7 +98,8 @@ class ReleaseV646Tests(unittest.TestCase):
         self.assertEqual(users['interactions']['$eventId']['.write'], 'auth != null')
         self.assertEqual(users['socialRequests']['$requestId']['.write'], 'auth != null')
         self.assertEqual(room['chat']['$messageId']['.write'], 'auth != null')
-        self.assertEqual(rules['gameAccounts']['$uid']['.write'], 'auth != null && auth.uid === $uid')
+        self.assertIn('auth.uid === $uid', rules['gameAccounts']['$uid']['.write'])
+        self.assertIn('admins', rules['gameAccounts']['$uid']['.write'])
         self.assertIn('auth.token.auth_time', users['guardianSettings']['.write'])
         self.assertNotIn("extra:event.extra", text('assets/js/multiplayer-rtdb.js'))
         self.assertIn("const sender='Outro jogador'", text('src/modules/28-multiplayer-social-online.js'))
@@ -152,7 +153,8 @@ class ReleaseV646Tests(unittest.TestCase):
         room = rules['rooms']['$roomId']
         self.assertEqual(room['slots']['$slotId']['.write'], 'auth != null')
         self.assertNotIn('.write', room['slots'])
-        self.assertEqual(room['presence']['$uid']['.write'], 'auth != null && auth.uid === $uid')
+        self.assertIn('auth.uid === $uid', room['presence']['$uid']['.write'])
+        self.assertIn('admins', room['presence']['$uid']['.write'])
         self.assertEqual(room['gameSessions']['$sessionId']['.write'], 'auth != null')
         self.assertLess(
             backend.index('runTransaction(refs.slot'),

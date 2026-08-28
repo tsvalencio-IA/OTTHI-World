@@ -121,7 +121,8 @@
               "createdAtClient",
               "category"
             ]
-          }
+          },
+          ".write": "auth != null && root.child('otthosWorld').child('admins').child(auth.uid).val() === true"
         },
         ".read": "auth != null && root.child('otthosWorld').child('admins').child(auth.uid).val() === true"
       },
@@ -219,7 +220,7 @@
       "gameAccounts": {
         "$uid": {
           ".read": "auth != null && auth.uid === $uid",
-          ".write": "auth != null && auth.uid === $uid",
+          ".write": "auth != null && (auth.uid === $uid || root.child('otthosWorld').child('admins').child(auth.uid).val() === true)",
           ".validate": "!newData.exists() || (newData.hasChildren(['schema','ownerUid','accountId','username','iv','ciphertext','updatedAt','updatedAtClient']) && newData.child('schema').val() === 2 && newData.child('ownerUid').val() === $uid && newData.child('accountId').isString() && newData.child('accountId').val().matches(/^[a-f0-9]{64}$/) && newData.child('username').isString() && newData.child('username').val().length >= 3 && newData.child('username').val().length <= 20 && newData.child('iv').isString() && newData.child('iv').val().length >= 16 && newData.child('iv').val().length <= 64 && newData.child('ciphertext').isString() && newData.child('ciphertext').val().length >= 32 && newData.child('ciphertext').val().length <= 450000 && newData.child('updatedAt').isNumber() && newData.child('updatedAtClient').isNumber())"
         }
       },
@@ -270,7 +271,7 @@
               "emoteType": {},
               "emoteSeq": {},
               "$other": {},
-              ".write": "auth != null && auth.uid === $uid"
+              ".write": "auth != null && (auth.uid === $uid || root.child('otthosWorld').child('admins').child(auth.uid).val() === true)"
             },
             ".indexOn": [
               "updatedAt",
@@ -443,6 +444,48 @@
               "$other": {},
               ".write": "auth != null"
             }
+          }
+        }
+      },
+      "userModeration": {
+        ".read": "auth != null && root.child('otthosWorld').child('admins').child(auth.uid).val() === true",
+        "$uid": {
+          ".read": "auth != null && (auth.uid === $uid || root.child('otthosWorld').child('admins').child(auth.uid).val() === true)",
+          ".write": "auth != null && root.child('otthosWorld').child('admins').child(auth.uid).val() === true && auth.uid !== $uid && root.child('otthosWorld').child('admins').child($uid).val() !== true",
+          ".validate": "!newData.exists() || (newData.hasChildren(['state','reason','updatedBy','updatedByName','updatedAt','updatedAtClient']) && (newData.child('state').val() === 'blocked' || newData.child('state').val() === 'deleted') && newData.child('reason').isString() && newData.child('reason').val().length <= 160 && newData.child('updatedBy').val() === auth.uid && newData.child('updatedByName').isString() && newData.child('updatedByName').val().length >= 1 && newData.child('updatedByName').val().length <= 24 && newData.child('updatedAt').isNumber() && newData.child('updatedAt').val() <= now && newData.child('updatedAt').val() >= now - 10000 && newData.child('updatedAtClient').isNumber() && newData.child('updatedAtClient').val() <= now + 300000 && newData.child('updatedAtClient').val() >= now - 300000)",
+          "state": {},
+          "reason": {},
+          "updatedBy": {},
+          "updatedByName": {},
+          "updatedAt": {},
+          "updatedAtClient": {},
+          "$other": {
+            ".validate": false
+          }
+        }
+      },
+      "gmModerationAudit": {
+        ".read": "auth != null && root.child('otthosWorld').child('admins').child(auth.uid).val() === true",
+        ".indexOn": [
+          "createdAtClient",
+          "targetUid",
+          "createdBy",
+          "action"
+        ],
+        "$eventId": {
+          ".write": "auth != null && root.child('otthosWorld').child('admins').child(auth.uid).val() === true && !data.exists()",
+          ".validate": "newData.hasChildren(['schema','id','action','targetUid','reason','createdBy','createdByName','createdAt','createdAtClient']) && newData.child('schema').val() === 1 && newData.child('id').val() === $eventId && (newData.child('action').val() === 'block' || newData.child('action').val() === 'unblock' || newData.child('action').val() === 'delete-data') && newData.child('targetUid').isString() && newData.child('targetUid').val().matches(/^[A-Za-z0-9_-]{6,128}$/) && newData.child('reason').isString() && newData.child('reason').val().length <= 160 && newData.child('createdBy').val() === auth.uid && newData.child('createdByName').isString() && newData.child('createdByName').val().length >= 1 && newData.child('createdByName').val().length <= 24 && newData.child('createdAt').isNumber() && newData.child('createdAt').val() <= now && newData.child('createdAt').val() >= now - 10000 && newData.child('createdAtClient').isNumber() && newData.child('createdAtClient').val() <= now + 300000 && newData.child('createdAtClient').val() >= now - 300000",
+          "schema": {},
+          "id": {},
+          "action": {},
+          "targetUid": {},
+          "reason": {},
+          "createdBy": {},
+          "createdByName": {},
+          "createdAt": {},
+          "createdAtClient": {},
+          "$other": {
+            ".validate": false
           }
         }
       }

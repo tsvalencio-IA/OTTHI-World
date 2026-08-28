@@ -77,3 +77,10 @@ body.ui-landscape.otthi-v705-world .vehicle-context-action{right:0;bottom:calc((
 @media(max-width:620px) and (orientation:portrait){.map-layout.v626 .map-zoom-controls{right:6px;bottom:6px;grid-template-columns:32px 52px 32px;padding:4px;gap:4px}.map-layout.v626 .map-zoom-controls button{height:31px!important;min-height:31px!important}.map-layout.v626 .map-zoom-controls .map-home-control{font-size:8px!important}}
 @media(orientation:landscape) and (max-height:460px){.map-layout.v626 .map-zoom-controls{right:5px;bottom:5px;grid-template-columns:30px 48px 30px;padding:3px;gap:3px}.map-layout.v626 .map-zoom-controls button{height:28px!important;min-height:28px!important;padding:0 4px!important}.map-layout.v626 .map-zoom-controls .map-home-control{display:none!important}}
 
+
+/* R11 — saída explícita de qualquer partida sem interferir nos controles normais. */
+.race-badge.has-sport-exit{pointer-events:auto!important;padding-right:58px!important}
+.race-badge .sport-exit-btn{position:absolute;right:5px;top:50%;transform:translateY(-50%);min-width:46px;height:28px;padding:0 7px;border:1px solid rgba(255,255,255,.55);border-radius:9px;background:rgba(150,22,36,.94);color:#fff;font:800 10px/1 system-ui,sans-serif;box-shadow:0 3px 10px rgba(0,0,0,.28);cursor:pointer;pointer-events:auto;touch-action:manipulation}
+.race-badge .sport-exit-btn:active{transform:translateY(-50%) scale(.96)}
+.race-badge .sport-exit-btn[hidden]{display:none!important}
+@media (max-width:700px){.race-badge.has-sport-exit{padding-right:50px!important}.race-badge .sport-exit-btn{min-width:40px;height:25px;padding:0 5px;font-size:9px}}

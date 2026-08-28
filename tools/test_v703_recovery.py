@@ -60,7 +60,7 @@ ck('Presença envia avatar e assinatura',"avatar,avatarSig" in source and 'paylo
 ck('Fantasma remoto reconstrói aparência','buildRemoteAvatarVisual' in source and 'applyRemoteAvatarIfChanged' in source and "style==='toy'" in source and "style==='hero'" in source and "style==='adventure'" in source and 'avatarIdIncludes' in source and 'avatarSkinHex' in source)
 ck('RTDB sanitiza aparência','sanitizePresenceAvatar' in rtdb and 'PRESENCE_AVATAR_FIELDS' in rtdb and 'avatarSig' in rtdb)
 presence=rules['rules']['otthosWorld']['rooms']['$roomId']['presence']['$uid']
-ck('Presença protegida pelo próprio UID',presence.get('.write')=='auth != null && auth.uid === $uid')
+ck('Presença protegida pelo próprio UID ou GM', 'auth.uid === $uid' in presence.get('.write','') and 'admins' in presence.get('.write',''))
 ck('Regra aceita campos de avatar',presence.get('$other')=={})
 
 for token in ['rememberSafePlayerPosition','resetPlayerModesForRecovery','recoverPlayerToLastSafe','recoverPlayerIfInvalid','belowWorld','deepFall','penetrated']:

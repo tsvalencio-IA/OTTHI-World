@@ -1,0 +1,31 @@
+OTTHI WORLD V705.7 R11.1 — CORREÇÃO DAS REGRAS GM
+
+Base: R11.
+Objetivo: corrigir exclusivamente a permissão de presença necessária para bloquear/excluir outro usuário pelo GM sem reabrir a escrita para qualquer usuário autenticado.
+
+Arquivos alterados:
+- firebase-database.rules.json
+- tools/test_v6466_permissions_buttons.js
+- tools/test_v703_recovery.py
+- tools/test_v646_release.py
+
+Mudanças reais nas regras, comparadas ao conteúdo atual fornecido pelo usuário:
+1. users/$uid: GM pode remover cadastro/progresso do usuário selecionado.
+2. gameAccounts/$uid: proprietário continua escrevendo; GM pode excluir o registro do usuário selecionado.
+3. rooms/$roomId/presence/$uid: somente o próprio UID OU um GM pode escrever/remover a presença.
+4. userModeration: novo nó de bloqueio/exclusão, escrita somente GM; o próprio GM e outras contas GM são protegidos também pela regra.
+5. gmModerationAudit: auditoria append-only e leitura/escrita exclusiva do GM.
+
+Preservado:
+- todas as demais regras existentes.
+- Firebase Auth não é apagado pelo navegador; exclusão refere-se aos dados do Realtime Database.
+
+Validação:
+- JSON válido.
+- alteração semântica limitada aos 5 pontos acima.
+- test_v6466_permissions_buttons.js: aprovado.
+- test_v646_release.py: 15/15 aprovado.
+- test_v703_recovery.py: aprovado.
+- test_v7057_r11_focus.py: 30/30 aprovado.
+- validate_project.py: 225/225 aprovado, errors: [].
+- rebuild modular idempotente; app.js/style.css/index/sw/order/release-manifest não mudaram.

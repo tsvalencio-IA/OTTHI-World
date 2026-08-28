@@ -132,7 +132,7 @@
   function npcThemeCylinder(parent,r,h,material,x=0,y=0,z=0,sides=18){const mesh=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,sides),npcThemeMat(material));mesh.position.set(x,y,z);mesh.castShadow=true;mesh.receiveShadow=true;parent.add(mesh);return mesh;}
   function applyNpcToyTheme(npc,theme=npcToyTheme(npc?.id)){
     if(!npc?.group||npc.id==='michelle-ottovias')return npc;theme=normalizeToyTheme(theme);hideNpcLegacyVisual(npc);npc.theme=theme;npc.group.userData.toyTheme=theme;
-    const color=Number(npc.color||0x2787d8),primary=npcThemeMat(color,.55),dark=npcThemeMat(shadeColor(color,-42),.68),pants=npcThemeMat(theme==='mario-world'?0x245db2:theme==='minecraft'?0x394c78:0x30445f,.74),skin=npcThemeMat(theme==='lego'?0xf3d44e:theme==='playmobil'?0xffd777:0xd8a079,.68),black=npcThemeMat(0x1b2027,.72),white=npcThemeMat(0xf7f7f3,.5);
+    const marioLuigi=(String(npc.id||'').split('').reduce((sum,ch)=>sum+ch.charCodeAt(0),0)%2)===0,color=Number(npc.color||0x2787d8),primary=npcThemeMat(theme==='mario-world'?(marioLuigi?0x2e9d4d:0xd83b35):color,.55),dark=npcThemeMat(shadeColor(color,-42),.68),pants=npcThemeMat(theme==='mario-world'?0x245db2:theme==='minecraft'?0x394c78:0x30445f,.74),skin=npcThemeMat(theme==='lego'?0xf3d44e:theme==='playmobil'?0xffd777:0xd8a079,.68),black=npcThemeMat(0x1b2027,.72),white=npcThemeMat(0xf7f7f3,.5);
     const headRoot=new THREE.Group(),bodyRoot=new THREE.Group();npc.head.add(headRoot);npc.body.add(bodyRoot);npc.userData={...(npc.userData||{}),toyTheme:theme,toyThemeRoots:[headRoot,bodyRoot]};
     const {leftArm,rightArm,leftLeg,rightLeg}=npc.limbs;
     if(theme==='lego'){
@@ -148,12 +148,12 @@
       npcThemeSphere(headRoot,.42,skin,0,0,0,1,1.08,.98);npcThemeCylinder(bodyRoot,.42,.92,primary,0,0,0,20);npcThemeCylinder(bodyRoot,.31,.16,dark,0,-.49,0,20);
       for(const arm of[leftArm,rightArm]){npcThemeCylinder(arm,.11,.57,primary,0,-.28,0,14);npcThemeSphere(arm,.13,skin,0,-.61,.02,1,.86,1);}
       for(const leg of[leftLeg,rightLeg]){npcThemeCylinder(leg,.13,.68,pants,0,-.33,0,14);npcThemeBox(leg,.31,.15,.42,black,0,-.72,.07);}
-      const hair=npcThemeSphere(headRoot,.44,dark,0,.16,-.02,1.02,.58,1.01);for(const x of[-.14,.14])npcThemeSphere(headRoot,.043,black,x,.05,.39);npcThemeBox(headRoot,.18,.035,.025,0xa44f58,0,-.16,.40);
+      const hair=npcThemeSphere(headRoot,.44,dark,0,.16,-.08,1.02,.56,.98);for(const x of[-.14,.14])npcThemeSphere(headRoot,.048,black,x,.06,.425,1,1.05,.72);npcThemeBox(headRoot,.19,.038,.024,0xa44f58,0,-.16,.432);npcThemeSphere(headRoot,.036,skin,0,-.035,.43,1.1,.9,.55);
     }else{
       npcThemeSphere(headRoot,.43,skin,0,0,0,1.02,1.04,.98);npcThemeCylinder(bodyRoot,.4,.88,primary,0,0,0,18);npcThemeBox(bodyRoot,.7,.58,.55,pants,0,-.10,.03);
       for(const arm of[leftArm,rightArm]){npcThemeCylinder(arm,.11,.56,primary,0,-.27,0,14);npcThemeSphere(arm,.14,white,0,-.61,.02);}
       for(const leg of[leftLeg,rightLeg]){npcThemeCylinder(leg,.13,.65,pants,0,-.31,0,14);npcThemeBox(leg,.34,.16,.48,0x5b341e,0,-.7,.1);}
-      npcThemeSphere(headRoot,.1,skin,0,-.01,.41,1.35,1,1);npcThemeBox(headRoot,.18,.04,.025,0x2b1712,-.075,-.13,.405);npcThemeBox(headRoot,.18,.04,.025,0x2b1712,.075,-.13,.405);for(const x of[-.14,.14])npcThemeSphere(headRoot,.042,black,x,.06,.39);npcThemeSphere(headRoot,.48,0xd83b35,0,.35,-.02,1.18,.34,1.18);npcThemeBox(headRoot,.62,.09,.3,0xd83b35,0,.31,.34);
+      npcThemeSphere(headRoot,.105,skin,0,-.01,.455,1.35,1,1);npcThemeBox(headRoot,.19,.045,.024,0x2b1712,-.08,-.14,.448);npcThemeBox(headRoot,.19,.045,.024,0x2b1712,.08,-.14,.448);for(const x of[-.14,.14])npcThemeSphere(headRoot,.046,black,x,.07,.445,1,1.05,.72);npcThemeSphere(headRoot,.48,primary,0,.35,-.02,1.18,.34,1.18);npcThemeBox(headRoot,.62,.09,.3,primary,0,.31,.34);const emblem=npcThemeSphere(headRoot,.105,white,0,.39,.405,1,.9,.35);const letter=new THREE.Mesh(new THREE.PlaneGeometry(.11,.11),new THREE.MeshStandardMaterial({map:signTexture(marioLuigi?'L':'M','#ffffff',marioLuigi?'#2e9d4d':'#d83b35'),transparent:true,side:THREE.DoubleSide,roughness:.5}));letter.position.set(0,.39,.444);headRoot.add(letter);
     }
     for(const root of[npc.group,headRoot,bodyRoot])root.traverse?.(o=>{if(o.isMesh&&o.visible)addVoxelOutline(o,0x132238,.18);});return npc;
   }

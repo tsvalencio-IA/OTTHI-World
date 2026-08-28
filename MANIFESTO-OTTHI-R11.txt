@@ -1,0 +1,31 @@
+OTTHI WORLD V705.7 R11 — CORREÇÃO FOCADA SOBRE A R10
+
+Escopo autorizado e implementado:
+1. Playmobil: rosto reposicionado para a superfície da cabeça e visível no personagem e NPC.
+2. Mario World: variante Mario e variante Luigi, com boné/emblema M/L, bigode, luvas e jardineira azul.
+3. GM *177: bloquear, desbloquear e excluir dados de usuário no Realtime Database.
+   - Bloquear não apaga cadastro/progresso.
+   - Excluir apaga cadastro/progresso/gameAccount e referências de mundo, mantendo somente tombstone administrativo e auditoria.
+   - Conta GM atual e outras contas GM são protegidas contra moderação pelo painel.
+   - O Firebase Authentication de outro usuário NÃO pode ser apagado pelo navegador; isso exige Admin SDK/backend.
+4. Esportes: botão "✕ Sair" em futebol, vôlei, futevôlei, atletismo e kart.
+   - Sair não registra vitória, derrota ou prêmio.
+   - No kart, o veículo é preservado e apenas a corrida é encerrada.
+
+Preservado sem alteração de lógica funcional:
+- OTTOVIAS/pedágios R10
+- oficina e garagem
+- polícia e abordagem/multa R8
+- casas, mapa, missões, Firebase base, multiplayer, esportes e restante do mundo
+
+Validação local final:
+- validate_project.py: 225/225 aprovado, errors=[]
+- R11 específico: 30/30 aprovado
+- V705 mundo jogável: 40/40 aprovado
+- GM V701: 57/57 aprovado
+- permissões/botões V646.6: 60/60 aprovado
+- build modular idempotente: aprovado
+
+IMPORTANTE PARA O GM:
+O arquivo firebase-database.rules.json foi alterado. Para bloquear/excluir via GM funcionar no Firebase remoto,
+essas regras precisam ser publicadas no Realtime Database. O GitHub Pages por si só não publica regras Firebase.
