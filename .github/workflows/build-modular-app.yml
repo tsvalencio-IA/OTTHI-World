@@ -51,6 +51,7 @@ jobs:
           node tools/test_v7057_r7_garage_runtime.js
           node tools/test_v7057_r8_police_roadside_runtime.js
           python tools/test_v7057_r10_visual_fidelity.py
+          python tools/test_v7057_r11_focus.py
           python tools/validate_project.py
       - name: Validar JavaScript
         run: node --check app.js
