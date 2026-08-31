@@ -1,0 +1,11 @@
+OTTHI WORLD R11.3.1 — CORREÇÃO FOCADA
+
+Base obrigatória: R11.3 já publicada.
+
+Correções:
+- AÇÃO no veículo reservado não entra mais em deadlock nas missões SOLO de Bombeiros/Paramédico/Polícia.
+- O interactable da missão deixa o interactable real do veículo assumir a AÇÃO na etapa inicial; existe fallback direto para entrada.
+- Texto inicial informa que o uniforme já foi vestido automaticamente.
+- Token web/cache passa para 70582 para forçar arquivos novos sem exigir apagar dados de navegação.
+
+Preservado: Firebase Rules, GM *177, OTTOVIAS, pedágios, polícia fora das missões, oficina, garagem, skins, esportes, multiplayer e estrutura de save.

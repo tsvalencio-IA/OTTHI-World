@@ -165,6 +165,7 @@
   },
   "release": "705.7-player-faces-gm-moderation-sport-exit-r11",
   "notes": [
+    "R11.3.1 corrige o bloqueio da AÇÃO ao entrar no veículo reservado em missões solo de serviços e renova o token web para evitar cache antigo sem apagar dados do usuário.",
     "R11 é uma correção focal sobre a R10: rosto Playmobil, Mario/Luigi, moderação GM e saída voluntária de esportes. O restante permanece preservado.",
     "R10 corrige exclusivamente os pedidos visuais confirmados por screenshot: discos verticais da OTTOVIAS, skins temáticas completas, NPCs temáticos e frota jogável por família/categoria.",
     "A correção R10 não substitui pedágio, oficina, garagem, polícia, casas, mapa, Firebase, multiplayer, missões ou demais sistemas preservados.",
@@ -184,8 +185,8 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70581,
-  "revisionLabel": "R11-playmobil-face-mario-luigi-gm-moderation-sport-exit",
+  "assetVersion": 70582,
+  "revisionLabel": "R11.3.1-solo-service-action-cache-refresh",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",

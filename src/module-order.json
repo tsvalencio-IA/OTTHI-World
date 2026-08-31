@@ -210,7 +210,7 @@
       "startLine": 5453,
       "endLine": 5678,
       "description": "Missões cooperativas infantis, equipes online/solo, pesca, escola e corridas",
-      "sha256Body": "c12a1d8a3f7564546ae02a421b65226083f14a81001144c7b9a7b672234d364b"
+      "sha256Body": "20b9b3663c31c4d12b143bca30e55dc64d7e866ead06f8b72aece68cee470c75"
     },
     {
       "file": "src/modules/25-render-init-resize-position-collision.js",

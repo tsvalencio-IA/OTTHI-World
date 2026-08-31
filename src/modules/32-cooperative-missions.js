@@ -93,6 +93,7 @@
   function coopCurrentInstruction(active=activeCoopMission(),record=activeCoopRecord()){
     if(!active||!record)return'Sem missão cooperativa ativa.';const template=coopMissionTemplate(record.type),p=coopProgress(record),role=coopRoleLabel(coopOwnParticipant(record)?.role||active.role),step=template?.steps[Math.min(p.phase,(template.steps?.length||1)-1)]||template?.description;
     if(record.status==='lobby')return`Aguarde a equipe. Sua função: ${role}.`;
+    if(coopServiceKind(record.type)&&p.phase<1)return`Uniforme vestido. Entre no ${record.type==='police'?'veículo da polícia':record.type==='firefighter'?'caminhão dos bombeiros':'veículo de resgate'} reservado usando AÇÃO.`;
     if(record.type==='firefighter'&&p.phase===3)return`Fogo controlado: ${p.counter}/4. A pessoa da mangueira deve aplicar água até zerar o risco.`;
     if(record.type==='firefighter'&&p.phase>=4)return'A pessoa de apoio deve isolar e liberar a área.';
     if(record.type==='paramedic'&&p.phase===4)return'Leve a maca até a ambulância e use AÇÃO para acomodar o paciente.';
@@ -166,7 +167,14 @@
   async function performCoopMissionAction(){
     const active=activeCoopMission(),record=activeCoopRecord();if(!active||!record||record.status!=='active')return false;const type=record.type,p=coopProgress(record),role=coopOwnParticipant(record)?.role||active.role,target=coopCurrentTarget(active,record);if(target&&Math.hypot(player.x-(target.navX??target.x),player.z-(target.navZ??target.z))>6){toast('Chegue ao ponto marcado no GPS.','warn');return false;}
     if(coopServiceKind(type)){
-      if(p.phase<1){toast(role==='driver'?'Entre no veículo reservado usando AÇÃO.':'Aguarde o motorista e entre como passageiro pelo menu do jogador online.','warn',2800);return false;}
+      if(p.phase<1){
+        if(role!=='driver'&&record.mode!=='solo'){toast('Aguarde o motorista e entre como passageiro pelo menu do jogador online.','warn',2800);return false;}
+        let vehicle=serviceMissionVehicle(active.serviceJob);
+        if(!vehicle)vehicle=reserveMissionServiceVehicle(active.serviceJob,{waypoint:true});
+        if(!vehicle){toast('O veículo reservado ainda não está disponível.','warn',2400);return false;}
+        if(Math.hypot(player.x-vehicle.group.position.x,player.z-vehicle.group.position.z)>4.2){toast('Chegue ao veículo reservado marcado no GPS.','warn',2200);return false;}
+        return enterServiceVehicle(vehicle);
+      }
       if(p.phase===1){toast('O motorista precisa estacionar no ponto marcado.','warn');return false;}
       if(type==='paramedic'&&p.phase>=5){toast('O motorista deve levar a ambulância até o ponto médico marcado.','warn');return false;}
       if(player.vehicle){toast('Estacione e saia do veículo para executar a tarefa.','warn');return false;}
@@ -255,7 +263,7 @@
   }
 
   function createCooperativeMissionWorld(){
-    ensureCooperativeState();createCoopOvalTrackWorld();const entrance=worldLayoutPoint('sportsEntrance'),gym=world.gym||{centerX:worldLayoutPoint('sports').x,centerZ:worldLayoutPoint('sports').z};registerInteractable({id:'coop-mission-board',type:'coopMission',icon:'🤝',label:'Missões cooperativas',x:entrance.x,z:entrance.z,radius:3,priority:246,action:openCoopMissionCenter});coopActionInteractable=registerInteractable({id:'coop-dynamic-action',type:'coopAction',icon:'🤝',label:'Executar etapa da equipe',radius:4.8,priority:260,getPos:()=>{const target=coopCurrentTarget();return{x:Number(target?.x||9999),z:Number(target?.z||9999)}},available:()=>!!activeCoopMission()&&activeCoopRecord()?.status==='active'&&!player.vehicle,action:performCoopMissionAction});
+    ensureCooperativeState();createCoopOvalTrackWorld();const entrance=worldLayoutPoint('sportsEntrance'),gym=world.gym||{centerX:worldLayoutPoint('sports').x,centerZ:worldLayoutPoint('sports').z};registerInteractable({id:'coop-mission-board',type:'coopMission',icon:'🤝',label:'Missões cooperativas',x:entrance.x,z:entrance.z,radius:3,priority:246,action:openCoopMissionCenter});coopActionInteractable=registerInteractable({id:'coop-dynamic-action',type:'coopAction',icon:'🤝',label:'Executar etapa da equipe',radius:4.8,priority:260,getPos:()=>{const target=coopCurrentTarget();return{x:Number(target?.x||9999),z:Number(target?.z||9999)}},available:()=>{const active=activeCoopMission(),record=activeCoopRecord();if(!active||record?.status!=='active'||player.vehicle)return false;const p=coopProgress(record);return!(coopServiceKind(record.type)&&p.phase<1);},action:performCoopMissionAction});
     for(let i=0;i<5;i++){const bot=createNPC(`track-bot-${i}`,`Atleta ${i+1}`,gym.centerX-4+i*2,gym.centerZ+5,0x55a8ff,0);bot.coopRaceBot=true;bot.coopRaceMode='';bot.group.visible=false;const interaction=(world.interactables||[]).find(item=>item.id===`npc-track-bot-${i}`);if(interaction)interaction.available=()=>bot.group.visible;coopRaceBots.push(bot);}
     addEventListener('otthi:coop-missions',event=>{coopRemoteMissions={...(event.detail?.missions||{})};const active=activeCoopMission();if(active?.remote&&coopRemoteMissions[active.id]){active.record=coopRemoteMissions[active.id];if(active.record.status==='active'&&!active.runtimePrepared){active.runtimePrepared=true;prepareCoopMissionRuntime();}if(active.record.status==='completed')completeCoopMissionLocal(active.record);updateMissionHUD();}else if(!active){const waiting=Object.values(coopRemoteMissions).filter(m=>m.status==='lobby').length;if(waiting&&Date.now()-Number(state.cooperative.lastLobbyNotice||0)>30000){state.cooperative.lastLobbyNotice=Date.now();toast(`${waiting} equipe(s) cooperativa(s) aguardando neste bairro.`,'good',2600);}}});
   }
