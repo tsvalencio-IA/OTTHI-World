@@ -20,6 +20,11 @@ ck('Rodovia possui culling por distância','function updateOttoviasVisibility' i
 ck('Biomas podem ser ocultados por distância','OTTOVIAS_RUNTIME.biomeGroups' in ott and 'item.group.visible=Math.hypot' in ott)
 ck('Patches de bioma não são superfícies críticas globais','function ottoviasFlatPatch' in ott and 'stableBox(w,.045,d' not in ott)
 ck('Contador de uso não recria objeto por frame','const usage=state.usage||(state.usage=' in loop and 'state.usage={totalSeconds:0,sessionSeconds:0,sessionStartedAt:0,lastPlayedAt:0,sessionLockedAt:0,...(state.usage||{})};\n    state.usage.totalSeconds' not in loop)
+perf_src=text('src/modules/09-responsive-ar-quality-diagnostics.js')
+ck('Superfícies críticas usam culling por distância','function updateCriticalSurfaceDistanceVisibility' in perf_src and 'perf.criticalHidden=hidden' in perf_src)
+ck('NPCs/recursos distantes são ocultados sem remover conteúdo','function updateDynamicEntityVisibility' in perf_src and 'world.npcs||[]' in perf_src and 'world.resources||[]' in perf_src)
+ck('DPR móvel foi reduzido no modo automático','if(tier===\'low\') return mobile?.62:.95;' in perf_src and 'return mobile?.72:1.08;' in perf_src)
+ck('Proteção de FPS móvel reage antes do travamento severo','lowRecommendationFps=perf.mobile?34:28' in perf_src and 'lowProtectionFps=perf.mobile?31:26' in perf_src)
 # Michelle/central access
 m=re.search(r"ottoviasOperations:\{x:([\-\d.]+),z:([\-\d.]+)\},ottoviasOperationsAccess:\{x:([\-\d.]+),z:([\-\d.]+)\},ottoviasMichelle:\{x:([\-\d.]+),z:([\-\d.]+)\}",layout)
 ck('Pontos da Central/Michelle encontrados',bool(m))

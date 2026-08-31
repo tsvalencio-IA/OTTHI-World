@@ -128,8 +128,9 @@
   const perf = {
     tier:initialAutoTier, sessionTier:initialAutoTier, fps:60, frameAcc:0, frameCount:0, sampleMs:0, lastNow:performance.now(),
     lowSamples:0, highSamples:0, recommendationSamples:0, aiAcc:0, trafficAcc:0, cloudAcc:0, lodAcc:0, uiAcc:0, panelAcc:0, modeAuditAcc:0, renderAcc:0, renderedFrames:0, aiTicks:0, trafficTicks:0, mobile:matchMedia('(pointer:coarse)').matches,
-    appliedTier:'',appliedDpr:0,recommendation:initialAutoTier,lastRecommendationSaved:0,lastRenderW:0,lastRenderH:0,resizeTimer:0,cullingEnabled:0,cullingBypassed:0
+    appliedTier:'',appliedDpr:0,recommendation:initialAutoTier,lastRecommendationSaved:0,lastRenderW:0,lastRenderH:0,resizeTimer:0,cullingEnabled:0,cullingBypassed:0,criticalVisible:0,criticalHidden:0,dynamicVisible:0,dynamicHidden:0
   };
+  const distanceCullPosition=new THREE.Vector3(),distanceCullScale=new THREE.Vector3();
   const PLAYER_MODES=Object.freeze({
     WALKING:'walking',RUNNING:'running',INTERIOR:'interior',BUILDING:'building',FISHING:'fishing',
     CAR_DRIVER:'car-driver',CAR_PASSENGER:'car-passenger',BUS_PASSENGER:'bus-passenger',METRO_PASSENGER:'metro-passenger',
@@ -197,8 +198,9 @@
   function targetDpr(){
     const tier=qualityTier(), mobile=perf.mobile;
     if(tier==='high') return mobile?1.0:1.35;
-    if(tier==='low') return mobile?.68:.95;
-    return mobile?.78:1.08;
+    // R11.3: reduz fill-rate no celular sem remover conteúdo do mundo.
+    if(tier==='low') return mobile?.62:.95;
+    return mobile?.72:1.08;
   }
   function applyAdaptiveRenderSettings(force=false){
     if(!renderer)return;
@@ -215,9 +217,10 @@
     if(perf.sampleMs<(perf.mobile?2:3))return;
     perf.fps=perf.frameCount/Math.max(.001,perf.frameAcc);perf.frameAcc=0;perf.frameCount=0;perf.sampleMs=0;
     if(requestedQuality()!=='auto')return;
-    const recommendation=perf.fps<28?'low':perf.fps>55&&!perf.mobile?'high':'balanced';
+    const lowRecommendationFps=perf.mobile?34:28,lowProtectionFps=perf.mobile?31:26;
+    const recommendation=perf.fps<lowRecommendationFps?'low':perf.fps>55&&!perf.mobile?'high':'balanced';
     if(recommendation===perf.recommendation)perf.recommendationSamples++;else{perf.recommendation=recommendation;perf.recommendationSamples=1;}
-    perf.lowSamples=perf.fps<26?perf.lowSamples+1:Math.max(0,perf.lowSamples-1);
+    perf.lowSamples=perf.fps<lowProtectionFps?perf.lowSamples+1:Math.max(0,perf.lowSamples-1);
     perf.highSamples=perf.fps>54?perf.highSamples+1:Math.max(0,perf.highSamples-1);
     // V641: a qualidade automática reage durante a partida sem reiniciar o jogo.
     if(perf.lowSamples>=(perf.mobile?1:2)&&perf.sessionTier!=='low'){
@@ -230,8 +233,40 @@
       perf.lastRecommendationSaved=performance.now();state.settings.autoTier=recommendation;saveState();
     }
   }
+  function performanceDistanceRanges(){
+    const tier=qualityTier(),mobile=perf.mobile;
+    if(mobile){
+      if(tier==='low')return{critical:52,npc:42,resource:54,enemy:50,crystal:58,animal:48};
+      if(tier==='high')return{critical:104,npc:82,resource:98,enemy:92,crystal:104,animal:86};
+      return{critical:74,npc:62,resource:76,enemy:70,crystal:82,animal:66};
+    }
+    if(tier==='low')return{critical:88,npc:68,resource:84,enemy:80,crystal:90,animal:74};
+    if(tier==='high')return{critical:175,npc:130,resource:155,enemy:145,crystal:165,animal:135};
+    return{critical:122,npc:96,resource:112,enemy:106,crystal:120,animal:100};
+  }
+  function updateCriticalSurfaceDistanceVisibility(){
+    const range=performanceDistanceRanges().critical;let visible=0,hidden=0;
+    for(const mesh of world.criticalSurfaces||[]){
+      if(!mesh?.parent)continue;
+      if(mesh.userData?.alwaysVisible===true||Number(mesh.renderOrder||0)>=900){mesh.visible=true;visible++;continue;}
+      let radius=0;
+      try{if(mesh.geometry&&!mesh.geometry.boundingSphere)mesh.geometry.computeBoundingSphere();radius=Number(mesh.geometry?.boundingSphere?.radius||0);mesh.getWorldPosition(distanceCullPosition);mesh.getWorldScale(distanceCullScale);radius*=Math.max(Math.abs(distanceCullScale.x)||1,Math.abs(distanceCullScale.y)||1,Math.abs(distanceCullScale.z)||1);}catch{mesh.visible=true;visible++;continue;}
+      const d=Math.hypot(player.x-distanceCullPosition.x,player.z-distanceCullPosition.z),show=!Number.isFinite(d)||!Number.isFinite(radius)||d<=range+Math.max(1,radius);
+      mesh.visible=show;mesh.frustumCulled=false;mesh.userData.otthiDistanceCulled=!show;if(show)visible++;else hidden++;
+    }
+    perf.criticalVisible=visible;perf.criticalHidden=hidden;return{visible,hidden,range};
+  }
+  function updateDynamicEntityVisibility(){
+    const ranges=performanceDistanceRanges(),distance=(x,z)=>Math.hypot(player.x-Number(x||0),player.z-Number(z||0));let visible=0,hidden=0;
+    for(const npc of world.npcs||[]){if(!npc?.group)continue;if(npc.coopRaceBot&&!npc.coopRaceMode){npc.group.visible=false;hidden++;continue;}const keep=!!npc.passengerMode||!!npc.following||!!npc.coopRaceMode,show=keep||distance(npc.group.position.x,npc.group.position.z)<=ranges.npc;npc.group.visible=show;if(show)visible++;else hidden++;}
+    for(const resource of world.resources||[]){const object=resource?.mesh;if(!object)continue;const show=!resource.collected&&distance(resource.x,resource.z)<=ranges.resource;object.visible=show;if(show)visible++;else hidden++;}
+    for(const enemy of world.enemies||[]){if(!enemy?.group)continue;const show=!enemy.dead&&distance(enemy.group.position.x,enemy.group.position.z)<=ranges.enemy;enemy.group.visible=show;if(show)visible++;else hidden++;}
+    for(const crystal of world.crystals||[]){const object=crystal?.mesh;if(!object)continue;const show=!crystal.got&&distance(crystal.x,crystal.z)<=ranges.crystal;object.visible=show;if(show)visible++;else hidden++;}
+    for(const animal of world.animals||[]){const object=animal?.group||animal?.mesh;if(!object)continue;const x=animal.x??object.position?.x,z=animal.z??object.position?.z,show=animal.available!==false&&distance(x,z)<=ranges.animal;object.visible=show;if(show)visible++;else hidden++;}
+    perf.dynamicVisible=visible;perf.dynamicHidden=hidden;return{visible,hidden,ranges};
+  }
   function lockStableSceneVisibility(){
-    for(const mesh of world.criticalSurfaces){if(!mesh)continue;mesh.visible=true;mesh.frustumCulled=false;}
+    updateCriticalSurfaceDistanceVisibility();updateDynamicEntityVisibility();
     updateManagedOutlineVisibility();
     const glowVisible=visualQualityProfile(qualityTier()).glows;for(const light of world.glows){if(light?.parent)light.visible=glowVisible;}
     if(world.clouds){const max=qualityTier()==='high'?8:qualityTier()==='balanced'?6:4;world.clouds.forEach((cloud,i)=>cloud.group.visible=i<max);}
@@ -256,6 +291,8 @@
   function updateVisualLOD(){
     updateManagedVisualLODs(camera);
     updateManagedOutlineVisibility();
+    updateCriticalSurfaceDistanceVisibility();
+    updateDynamicEntityVisibility();
     if(typeof updateParkedVehicleVisibility==='function')updateParkedVehicleVisibility();
     const signRange=qualityTier()==='low'?30:qualityTier()==='high'?58:42;
     for(const sign of world.navigationSigns||[]){
@@ -263,7 +300,6 @@
       const range=sign.kind==='highway'?signRange+28:signRange;
       sign.group.visible=Math.hypot(player.x-sign.x,player.z-sign.z)<=range;
     }
-    for(const mesh of world.criticalSurfaces){if(mesh&&!mesh.visible)mesh.visible=true;}
   }
 
   let technicalPanel=null,technicalPanelVisible=false,technicalPanelTapCount=0,technicalPanelTapTimer=0;
@@ -271,12 +307,12 @@
   function activeVehicleCount(){return world.vehicles.filter(v=>v?.group?.visible!==false).length+world.buses.filter(v=>v?.group?.visible!==false).length+world.policeCars.filter(v=>v?.group?.visible!==false).length+world.fireTrucks.filter(v=>v?.group?.visible!==false).length+world.ambulances.filter(v=>v?.group?.visible!==false).length;}
   function runtimeDiagnostics(){
     const mode=auditPlayerMode('diagnostics'),render=renderer?.info?.render||{},memory=renderer?.info?.memory||{};
-    return{version:APP_VERSION,running,paused,mode:mode.state,modeValid:mode.valid,modeConflicts:mode.conflicts,fps:+perf.fps.toFixed(1),frameMs:+(1000/Math.max(1,perf.fps)).toFixed(1),drawCalls:Number(render.calls||0),triangles:Number(render.triangles||0),geometries:Number(memory.geometries||0),textures:Number(memory.textures||0),npcs:world.npcs.length,vehicles:activeVehicleCount(),aiTicks:perf.aiTicks,trafficTicks:perf.trafficTicks,culling:{enabled:perf.cullingEnabled,bypassed:perf.cullingBypassed,total:world.staticRenderObjects||0},visual:visualFoundationDiagnostics(),avatar:avatarFoundationDiagnostics(),pwaInstalled:pwaInstalled(),online:navigator.onLine,browser:navigator.userAgent,save:{version:state.version,lastSaved:Number(state.lastSaved||0),database:window.OTTHOS_DB?.name||'',schema:window.OTTHOS_DB?.schema||0},multiplayer:window.OTTHOS_RTDB?.status?.()||{configured:false,connected:false}};
+    return{version:APP_VERSION,running,paused,mode:mode.state,modeValid:mode.valid,modeConflicts:mode.conflicts,fps:+perf.fps.toFixed(1),frameMs:+(1000/Math.max(1,perf.fps)).toFixed(1),drawCalls:Number(render.calls||0),triangles:Number(render.triangles||0),geometries:Number(memory.geometries||0),textures:Number(memory.textures||0),npcs:world.npcs.length,vehicles:activeVehicleCount(),aiTicks:perf.aiTicks,trafficTicks:perf.trafficTicks,culling:{enabled:perf.cullingEnabled,bypassed:perf.cullingBypassed,total:world.staticRenderObjects||0,criticalVisible:perf.criticalVisible,criticalHidden:perf.criticalHidden,dynamicVisible:perf.dynamicVisible,dynamicHidden:perf.dynamicHidden},visual:visualFoundationDiagnostics(),avatar:avatarFoundationDiagnostics(),pwaInstalled:pwaInstalled(),online:navigator.onLine,browser:navigator.userAgent,save:{version:state.version,lastSaved:Number(state.lastSaved||0),database:window.OTTHOS_DB?.name||'',schema:window.OTTHOS_DB?.schema||0},multiplayer:window.OTTHOS_RTDB?.status?.()||{configured:false,connected:false}};
   }
   function ensureTechnicalPanel(){
     if(technicalPanel)return technicalPanel;const style=document.createElement('style');style.id='otthosTechnicalPanelStyle';style.textContent='.otthos-tech-panel{position:fixed;z-index:100000;right:max(8px,env(safe-area-inset-right));top:max(8px,env(safe-area-inset-top));width:min(330px,calc(100vw - 16px));max-height:calc(100vh - 16px);overflow:auto;padding:12px;border:1px solid rgba(116,220,255,.65);border-radius:14px;background:rgba(4,13,25,.94);color:#eaf8ff;font:700 12px/1.45 ui-monospace,SFMono-Regular,Consolas,monospace;box-shadow:0 16px 45px rgba(0,0,0,.45);backdrop-filter:blur(10px)}.otthos-tech-panel[hidden]{display:none!important}.otthos-tech-panel header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}.otthos-tech-panel h2{font:900 14px/1.2 system-ui,sans-serif;margin:0}.otthos-tech-panel button{border:0;border-radius:8px;background:#dff7ff;color:#082032;padding:5px 9px;font-weight:900}.otthos-tech-panel pre{white-space:pre-wrap;word-break:break-word;margin:0;color:#c9edff}';document.head.appendChild(style);technicalPanel=document.createElement('aside');technicalPanel.className='otthos-tech-panel';technicalPanel.hidden=true;technicalPanel.setAttribute('aria-label','Painel técnico OTTHOS');technicalPanel.innerHTML='<header><h2>OTTHI • diagnóstico V702</h2><button type="button" data-tech-close>Fechar</button></header><pre data-tech-data></pre>';document.body.appendChild(technicalPanel);technicalPanel.querySelector('[data-tech-close]').onclick=()=>toggleTechnicalPanel(false);return technicalPanel;
   }
-  function refreshTechnicalPanel(){if(!technicalPanelVisible)return;const panel=ensureTechnicalPanel(),d=runtimeDiagnostics();panel.querySelector('[data-tech-data]').textContent=[`FPS: ${d.fps} • frame: ${d.frameMs} ms`,`Draw calls: ${d.drawCalls} • triângulos: ${d.triangles}`,`Geometrias: ${d.geometries} • texturas: ${d.textures}`,`Materiais cache: ${d.visual.materials.immutable} • acertos: ${d.visual.materials.hits}`,`LOD: ${d.visual.lod.registered} • perto: ${d.visual.lod.near} • longe: ${d.visual.lod.far}`,`Contornos: ${d.visual.outlines.visible} visíveis • ${d.visual.outlines.hidden} distantes`,`NPCs: ${d.npcs} • veículos ativos: ${d.vehicles}`,`IA: ${d.aiTicks} ticks • trânsito: ${d.trafficTicks} ticks`,`Culling: ${d.culling.enabled} ativo • ${d.culling.bypassed} protegido`,`Avatar: schema V${d.avatar.stateVersion} • fallback ${d.avatar.fallbackActive?'ativo':'inativo'}`,`Modo: ${d.mode}${d.modeValid?'':' • CONFLITO '+d.modeConflicts.join(', ')}`,`Qualidade: ${qualityTier()} • DPR: ${renderer?.getPixelRatio?.().toFixed?.(2)||0}`,`PWA instalada: ${d.pwaInstalled?'sim':'não'} • online: ${d.online?'sim':'não'}`,`Save: schema ${d.save.schema||'n/d'} • V${d.save.version}`,`Multiplayer: ${d.multiplayer.connected?'conectado':d.multiplayer.configured?'configurado/offline':'não configurado'}`,`Navegador: ${navigator.userAgent}`].join('\n');}
+  function refreshTechnicalPanel(){if(!technicalPanelVisible)return;const panel=ensureTechnicalPanel(),d=runtimeDiagnostics();panel.querySelector('[data-tech-data]').textContent=[`FPS: ${d.fps} • frame: ${d.frameMs} ms`,`Draw calls: ${d.drawCalls} • triângulos: ${d.triangles}`,`Geometrias: ${d.geometries} • texturas: ${d.textures}`,`Materiais cache: ${d.visual.materials.immutable} • acertos: ${d.visual.materials.hits}`,`LOD: ${d.visual.lod.registered} • perto: ${d.visual.lod.near} • longe: ${d.visual.lod.far}`,`Contornos: ${d.visual.outlines.visible} visíveis • ${d.visual.outlines.hidden} distantes`,`NPCs: ${d.npcs} • veículos ativos: ${d.vehicles}`,`IA: ${d.aiTicks} ticks • trânsito: ${d.trafficTicks} ticks`,`Culling: ${d.culling.enabled} ativo • ${d.culling.bypassed} protegido • superfícies ${d.culling.criticalVisible}/${d.culling.criticalHidden} • dinâmicos ${d.culling.dynamicVisible}/${d.culling.dynamicHidden}`,`Avatar: schema V${d.avatar.stateVersion} • fallback ${d.avatar.fallbackActive?'ativo':'inativo'}`,`Modo: ${d.mode}${d.modeValid?'':' • CONFLITO '+d.modeConflicts.join(', ')}`,`Qualidade: ${qualityTier()} • DPR: ${renderer?.getPixelRatio?.().toFixed?.(2)||0}`,`PWA instalada: ${d.pwaInstalled?'sim':'não'} • online: ${d.online?'sim':'não'}`,`Save: schema ${d.save.schema||'n/d'} • V${d.save.version}`,`Multiplayer: ${d.multiplayer.connected?'conectado':d.multiplayer.configured?'configurado/offline':'não configurado'}`,`Navegador: ${navigator.userAgent}`].join('\n');}
   function toggleTechnicalPanel(force){technicalPanelVisible=typeof force==='boolean'?force:!technicalPanelVisible;const panel=ensureTechnicalPanel();panel.hidden=!technicalPanelVisible;if(technicalPanelVisible)refreshTechnicalPanel();}
   function initTechnicalPanel(){
     window.addEventListener('keydown',event=>{if(event.code==='F3'){event.preventDefault();toggleTechnicalPanel();}});

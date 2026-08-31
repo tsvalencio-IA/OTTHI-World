@@ -84,7 +84,7 @@
       "startLine": 1808,
       "endLine": 2074,
       "description": "Responsividade, AR, modos, qualidade, LOD e diagnóstico",
-      "sha256Body": "079c82e0287161aac15879edd4f1186efe9d1f6177942a5ddfbb216ec33a6c08"
+      "sha256Body": "6b175bacae93ecbe7d2cf9f9a7ed417b2e1aaa460a856aad1ee9c166a91f9a79"
     },
     {
       "file": "src/modules/10-player-skills.js",
@@ -210,7 +210,7 @@
       "startLine": 5453,
       "endLine": 5678,
       "description": "Missões cooperativas infantis, equipes online/solo, pesca, escola e corridas",
-      "sha256Body": "553db2c227c7d80fa7e950dce0f9735431888a3ac245a39a9ba6938f56c3abcf"
+      "sha256Body": "c12a1d8a3f7564546ae02a421b65226083f14a81001144c7b9a7b672234d364b"
     },
     {
       "file": "src/modules/25-render-init-resize-position-collision.js",
@@ -252,7 +252,7 @@
       "startLine": 5240,
       "endLine": 5422,
       "description": "Pausa, testes de veículo, API pública de auditoria e bootstrap final",
-      "sha256Body": "4f69db20c13ffb136b3c4ece039e16ca4c1db561bb8e99ef82968a363d2a237b"
+      "sha256Body": "d980b7af179e7a01ccc7da8f30fad1fe436b7ffbc2a5ff986a53847a0891c88e"
     },
     {
       "file": "src/modules/31-neighborhood-world-controller.js",

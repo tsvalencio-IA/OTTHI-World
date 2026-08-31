@@ -18,6 +18,8 @@ class CoopResponsiveTests(unittest.TestCase):
         self.assertIn('solo adaptado', source)
         self.assertNotIn('arma de fogo', source.lower())
         self.assertNotIn('atirar', source.lower())
+        self.assertIn("if(!remote&&record.mode==='solo')return await startActiveCoopMission(true);", source)
+        self.assertIn("startSolo:type=>createCooperativeMission(type,'solo')", source)
 
     def test_roles_and_shared_progress_are_online(self):
         backend = text('assets/js/multiplayer-rtdb.js')

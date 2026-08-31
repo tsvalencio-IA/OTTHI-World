@@ -1,0 +1,53 @@
+OTTHI WORLD — PATCH R11.3
+
+BASE EXATA
+- OTTHI-World-main(6).zip enviado pelo usuário
+- SHA-256: b695e04f5f601beeccc3c7e6650500dc7856f41a5d1ef2c2dff750284ef26ea9
+- Base interna preservada: V705 / release R11 + correção incremental R11.2
+
+ESCOPO DESTA CORREÇÃO
+1. MISSÃO COOPERATIVA EM MODO SOLO
+- O botão "Jogar solo" agora inicia imediatamente a missão local adaptada.
+- Foi removida a etapa indireta em que o botão apenas criava um lobby local e exigia um segundo clique em "Iniciar versão solo".
+- O fluxo online/cooperativo existente não foi removido nem simplificado.
+- O modo solo reutiliza o runtime, objetivos, GPS, veículos, ações, recompensas e regras já existentes da missão.
+
+2. DESEMPENHO / LAG
+- Culling por distância para superfícies críticas distantes, sem excluir objetos do mundo.
+- Culling por distância para NPCs, recursos, inimigos, cristais e animais distantes, respeitando estados de coletado/morto/indisponível e participantes de missão.
+- DPR móvel reduzido somente nos níveis Balanced/Low para diminuir fill-rate.
+- Qualidade automática em celular reage antes da queda severa de FPS.
+- Diagnóstico passa a mostrar quantos objetos críticos/dinâmicos estão visíveis ou ocultos pelo orçamento de desempenho.
+
+ARQUIVOS DO PROJETO ALTERADOS (10)
+- app.js
+- release-manifest.json
+- index.html
+- sw.js
+- src/module-order.json
+- tools/test_v7055_performance_recovery.py
+- tools/test_v6463_coop_responsive.py
+- src/modules/32-cooperative-missions.js
+- src/modules/09-responsive-ar-quality-diagnostics.js
+- src/modules/30-pause-tests-public-api-bootstrap.js
+
+PRESERVADO
+- Firebase Rules: sem alteração.
+- GM *177: sem alteração.
+- OTTOVIAS/pedágios/polícia/oficina/garagem: sem alteração de lógica.
+- Esportes e botão Sair: sem alteração de lógica.
+- Skins, veículos, casas, save e multiplayer online: preservados.
+
+VALIDAÇÕES EXECUTADAS
+- node --check app.js: OK
+- tools/test_v6463_coop_responsive.py: 6/6 OK
+- tools/test_v7055_performance_recovery.py: 20/20 OK
+- tools/test_v7057_r11_focus.py: 30/30 OK
+- tools/test_v7057_r10_visual_fidelity.py: 42/42 OK
+- tools/test_v646_release.py: 15/15 OK
+- tools/test_v705_playable_world.py: 40/40 OK
+- tools/test_v7057_professional_stability.py: 23/23 OK
+- tools/test_v7057_r7_player_garage.py: 36/36 OK
+
+OBSERVAÇÃO
+A melhoria de FPS/lag foi tratada em gargalos concretos do render/runtime, mas ganho final precisa ser confirmado no aparelho que apresentava lag. Não há alegação de homologação física do celular nesta validação estática/local.
