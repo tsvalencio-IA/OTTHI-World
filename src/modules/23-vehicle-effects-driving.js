@@ -12,12 +12,14 @@
     const layer=vehicleVisual?.userData?.serviceLayer;if(layer){vehicleVisual.remove(layer);disposeDetachedVisual(layer);}
     if(vehicleVisual){vehicleVisual.userData.serviceLayer=null;vehicleVisual.userData.serviceLights=[];vehicleVisual.scale.set(1,1,1);}
   }
-  function serviceVehicleIcon(kind='car'){return({police:'🚓',firefighter:'🚒',paramedic:'🚑',ambulance:'🚑',fire:'🚒'})[kind]||'🚗';}
+  function serviceVehicleIcon(kind='car'){return({police:'🚓',firefighter:'🚒',paramedic:'🚑',ambulance:'🚑',fire:'🚒',kart:'🏎️'})[kind]||'🚗';}
   function applyServiceVehicleVisual(vehicle={}){
-    if(!vehicleVisual)return;clearServiceVehicleVisual();const kind=String(vehicle.serviceType||vehicle.kind||'car');if(!['police','firefighter','fire','paramedic','ambulance'].includes(kind))return;
+    if(!vehicleVisual)return;clearServiceVehicleVisual();const kind=String(vehicle.serviceType||vehicle.kind||'car');if(!['police','firefighter','fire','paramedic','ambulance','kart'].includes(kind))return;
     const layer=new THREE.Group();layer.name=`OTTHI_SERVICE_${kind.toUpperCase()}`;vehicleVisual.add(layer);vehicleVisual.userData.serviceLayer=layer;vehicleVisual.userData.serviceLights=[];
     const addLight=(x,color,emissive)=>{const mesh=box(.46,.16,.3,mat(color,{emissive,emissiveIntensity:.95,roughness:.2}),x,1.39,-.1,layer);vehicleVisual.userData.serviceLights.push(mesh);return mesh;};
-    if(kind==='police'){
+    if(kind==='kart'){
+      vehicleVisual.scale.set(.9,.74,.82);box(1.9,.16,2.55,0x171f2b,0,.25,0,layer);box(1.58,.3,1.05,Number(vehicle.appearance?.primary||0xe5484d),0,.42,.42,layer);box(1.95,.15,.28,Number(vehicle.appearance?.primary||0xe5484d),0,.3,1.25,layer);box(.74,.42,.72,0x27364a,0,.62,-.28,layer);const helmet=new THREE.Mesh(new THREE.SphereGeometry(.3,12,9),renderMat(0xf2c55b,{roughness:.55}));helmet.position.set(0,1.16,-.32);layer.add(helmet);const visor=box(.42,.12,.08,0x162536,0,1.17,-.58,layer);visor.rotation.x=-.08;const steering=cylinder(.2,.06,0x202833,0,.89,.12,layer,12);steering.rotation.x=Math.PI/2;
+    }else if(kind==='police'){
       vehicleVisual.scale.set(1.04,1.04,1.08);box(1.86,.3,1.25,0xf3f6fa,0,.7,.15,layer);box(1.9,.22,.3,0x193f72,0,.62,.86,layer);box(.12,.36,2.25,0x193f72,-.94,.58,0,layer);box(.12,.36,2.25,0x193f72,.94,.58,0,layer);addLight(-.27,0xe53945,0xa50018);addLight(.27,0x42bfff,0x087db4);const patch=new THREE.Mesh(new THREE.PlaneGeometry(.78,.22),new THREE.MeshStandardMaterial({map:signTexture('POLÍCIA','#173d70','#ffffff'),transparent:true,side:THREE.DoubleSide}));patch.position.set(0,.77,1.31);layer.add(patch);
     }else if(kind==='paramedic'||kind==='ambulance'){
       vehicleVisual.scale.set(1.08,1.12,1.22);box(1.78,.9,1.45,0xf5f7f8,0,1.02,-.55,layer);box(1.82,.14,1.5,0xe34848,0,1.12,-.54,layer);box(.15,.58,.06,0xe34848,0,1.03,1.31,layer);box(.58,.15,.06,0xe34848,0,1.03,1.315,layer);addLight(-.27,0xe53945,0xa50018);addLight(.27,0x42bfff,0x087db4);const patch=new THREE.Mesh(new THREE.PlaneGeometry(.82,.23),new THREE.MeshStandardMaterial({map:signTexture('RESGATE','#ffffff','#d83e42'),transparent:true,side:THREE.DoubleSide}));patch.position.set(0,1.43,-1.3);patch.rotation.y=Math.PI;layer.add(patch);

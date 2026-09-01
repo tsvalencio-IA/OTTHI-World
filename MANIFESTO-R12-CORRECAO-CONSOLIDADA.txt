@@ -1,0 +1,35 @@
+OTTHI WORLD — R12 CORREÇÃO CONSOLIDADA
+Base: OTTHI-World-main(8).zip
+Release: 705.7-r12-gameplay-integrity-r11-lineage
+Asset/cache: 70590
+Android: 7.0.5.7.12 / versionCode 70590
+
+CORREÇÕES PRINCIPAIS
+- missão cooperativa SOLO inicia diretamente e mantém fluxo completo;
+- bombeiro: canhão de água visual/funcional integrado ao progresso da missão;
+- paramédico: paciente/maca físicos e entrega integrada;
+- pescaria cooperativa: provisão/restauração segura de itens no solo;
+- escola cooperativa ignora NPCs incompatíveis/dirigindo;
+- casa principal personalizada por identidade do jogador, com spawn/garagem coerentes;
+- futebol/vôlei/futevôlei: câmera contextual e quadras/rede coerentes;
+- kart: visual próprio, colisão CPU/jogador, IA sem volta fantasma e batching;
+- atletismo/kart: redução de draw calls por batching/instancing;
+- controles parentais reais para multiplayer/comunicação/chat;
+- Firebase Rules endurecidas para autoria/propriedade/participantes;
+- Android: remoção da permissão de microfone não usada e backup desativado;
+- PWA/cache/release sincronizados em 70590.
+
+VALIDAÇÃO LOCAL FINAL
+- tools/validate_project.py: PASS, 0 errors
+- test_v7057_r12_gameplay_integrity.py: 42/42
+- test_v6466_permissions_buttons.js: 63/63
+- test_v704_world_materialization.js: 41/41
+- test_v705_playable_world.py: 40/40
+- 36 suítes locais não-browser executadas: PASS
+- node --check app.js: PASS
+
+IMPORTANTE
+O teste Playwright de navegador não foi executável neste ambiente porque o Chromium local bloqueia navegação por política e o módulo Node 'playwright' não está instalado. Isso NÃO foi marcado como homologação física. Android real, Firebase remoto, multiplayer entre dois aparelhos, PWA instalada e APK assinado ainda exigem teste no dispositivo.
+
+FIREBASE
+Após subir os arquivos do GitHub, substitua as regras do Realtime Database pelo arquivo firebase-database.rules.json deste pacote e clique em Publicar.

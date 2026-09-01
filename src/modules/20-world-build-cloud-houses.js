@@ -27,19 +27,19 @@
     // Vegetação apenas em áreas livres: não nasce sobre ruas, pistas, quadras, fazenda ou kartódromo.
     for(let i=0,created=0;i<180&&created<48;i++){
       const x=-94+(Math.random()-.5)*58,z=-54+(Math.random()-.5)*80;
-      if(v704ReservedAt(x,z,2.4)||Math.abs(x+68)<11&&Math.abs(z+18)<11||Math.abs(x+92)<14&&Math.abs(z+92)<13)continue;
+      if(v704ReservedAt(x,z,2.4)||v704PersonalHomeLotAt(x,z,2.4)||Math.abs(x+68)<11&&Math.abs(z+18)<11||Math.abs(x+92)<14&&Math.abs(z+92)<13)continue;
       createTree(x,z,.75+Math.random()*.55,true);created++;
     }
     for(let i=0,created=0;i<90&&created<18;i++){
-      const x=-44+(Math.random()-.5)*60,z=-95+(Math.random()-.5)*42;if(v704ReservedAt(x,z,1.8))continue;createRock(x,z,.7+Math.random()*.6,true);created++;
+      const x=-44+(Math.random()-.5)*60,z=-95+(Math.random()-.5)*42;if(v704ReservedAt(x,z,1.8)||v704PersonalHomeLotAt(x,z,1.8))continue;createRock(x,z,.7+Math.random()*.6,true);created++;
     }
     for(let i=0,created=0;i<320&&created<80;i++){
-      const x=(Math.random()-.5)*218,z=(Math.random()-.5)*218;if(v704ReservedAt(x,z,1.2))continue;createFlower(x,z,Math.random()>.5?0xff74c9:0xffdf55);created++;
+      const x=(Math.random()-.5)*218,z=(Math.random()-.5)*218;if(v704ReservedAt(x,z,1.2)||v704PersonalHomeLotAt(x,z,1.2))continue;createFlower(x,z,Math.random()>.5?0xff74c9:0xffdf55);created++;
     }
 
     // Casas e serviços usam os mesmos pontos usados pelo mapa, GPS e missões.
     const hp=P('home'),bp=P('blue'),pp=P('pink'),cp=P('cabin'),sp=P('shop'),wp=P('workshop'),sc=P('school'),se=P('schoolEast'),ps=P('police'),pw=P('policeWest'),fs=P('fireStation');
-    const home=createHouse({id:'home',name:`Casa de ${playerDisplayName()}`,x:hp.x,z:hp.z,color:0xc4843e,roofColor:0xd93a38});addHouseInterior(home,'home');
+    const homeLot=otthiPersonalHomeLot(),homePalette=[0xc4843e,0x4f8fc7,0x6f9f56,0xc96f73,0x8c6ac4,0xd29b48,0x4d9f93,0x9b7354,0x4c78a7,0xb36a92],roofPalette=[0x704b25,0x294e70,0x3d6131,0x784042,0x503c76,0x77572a,0x2c6159,0x5c4434,0x2c4667,0x693d55],homeColor=homePalette[homeLot.index%homePalette.length];const home=createHouse({id:'home',name:`Casa de ${playerDisplayName()}`,x:hp.x,z:hp.z,color:homeColor,roofColor:roofPalette[homeLot.index%roofPalette.length]});home.userData={personalLot:homeLot.index,ownerIdentity:otthiHomeIdentity()};addHouseInterior(home,'home');
     const blue=createHouse({id:'blue',name:'Casa Azul',x:bp.x,z:bp.z,color:0x4f9fd7,roofColor:0x225fa5,price:250});addHouseInterior(blue,'neighbor');
     const pink=createHouse({id:'pink',name:'Casa Rosa',x:pp.x,z:pp.z,color:0xe58aae,roofColor:0xb63871,price:420});addHouseInterior(pink,'neighbor');
     const cabin=createHouse({id:'cabin',name:'Cabana da Floresta',x:cp.x,z:cp.z,color:0x7e4a28,roofColor:0x4d2b1c,price:180});addHouseInterior(cabin,'neighbor');

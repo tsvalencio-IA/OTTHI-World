@@ -95,9 +95,9 @@ class ReleaseV646Tests(unittest.TestCase):
             self.assertIn(token, json.dumps(rules))
         users = rules['users']['$uid']
         room = rules['rooms']['$roomId']
-        self.assertEqual(users['interactions']['$eventId']['.write'], 'auth != null')
-        self.assertEqual(users['socialRequests']['$requestId']['.write'], 'auth != null')
-        self.assertEqual(room['chat']['$messageId']['.write'], 'auth != null')
+        self.assertIn("senderUid').val() === auth.uid", users['interactions']['$eventId']['.write'])
+        self.assertIn("fromUid').val() === auth.uid", users['socialRequests']['$requestId']['.write'])
+        self.assertIn("senderUid').val() === auth.uid", room['chat']['$messageId']['.write'])
         self.assertIn('auth.uid === $uid', rules['gameAccounts']['$uid']['.write'])
         self.assertIn('admins', rules['gameAccounts']['$uid']['.write'])
         self.assertIn('auth.token.auth_time', users['guardianSettings']['.write'])
@@ -108,22 +108,22 @@ class ReleaseV646Tests(unittest.TestCase):
         self.assertIn('Gesto simbólico, sem transferir saldo', text('src/modules/28-multiplayer-social-online.js'))
         self.assertIn('safeHouseName', text('assets/js/multiplayer/room-manager.js'))
 
-    def test_online_interactions_are_open_and_parent_audit_exists(self):
+    def test_online_interactions_honor_parent_controls_and_audit_exists(self):
         backend = text('assets/js/multiplayer-rtdb.js')
         parent = text('src/modules/08-map-parent-settings.js')
         rules = text('firebase-database.rules.json')
-        self.assertIn("function multiplayerAllowed(){return true}", backend)
-        self.assertIn("function chatAllowed(){return true}", backend)
-        self.assertIn("multiplayerEnabled:true,communicationEnabled:true,chatEnabled:true", backend)
+        self.assertIn("function multiplayerAllowed(){return parentalControls.multiplayerEnabled!==false}", backend)
+        self.assertIn("function chatAllowed(){return communicationAllowed()&&parentalControls.chatEnabled!==false}", backend)
+        self.assertIn("normalizeParentalControls", backend)
         self.assertIn("getActivityAudit", backend)
         self.assertIn("recordActivity", backend)
         self.assertIn("Histórico online", parent)
-        self.assertIn("Salvar limite de tempo", parent)
-        self.assertNotIn("data-guardian-toggle", parent)
+        self.assertIn("Salvar controles", parent)
+        self.assertIn("data-guardian-toggle", parent)
         self.assertNotIn("root.child('otthosWorld').child('users').child(auth.uid).child('guardianSettings')", rules)
         self.assertIn('"activityAudit"', rules)
-        self.assertNotIn("newData.child('multiplayerEnabled').val() === true", rules)
-        self.assertNotIn("newData.child('communicationEnabled').val() === true", rules)
+        self.assertIn("newData.child('multiplayerEnabled').isBoolean()", rules)
+        self.assertIn("newData.child('communicationEnabled').isBoolean()", rules)
         self.assertIn("newData.child('sessionLimitMinutes').val() === 60", rules)
         self.assertIn("const saved=result?.settings||result", parent)
 
@@ -151,11 +151,12 @@ class ReleaseV646Tests(unittest.TestCase):
         resize = text('src/modules/25-render-init-resize-position-collision.js')
         loop = text('src/modules/29-game-loop-controls-gamepad.js')
         room = rules['rooms']['$roomId']
-        self.assertEqual(room['slots']['$slotId']['.write'], 'auth != null')
+        self.assertIn("newData.child('uid').val() === auth.uid", room['slots']['$slotId']['.write'])
         self.assertNotIn('.write', room['slots'])
         self.assertIn('auth.uid === $uid', room['presence']['$uid']['.write'])
         self.assertIn('admins', room['presence']['$uid']['.write'])
-        self.assertEqual(room['gameSessions']['$sessionId']['.write'], 'auth != null')
+        self.assertIn('fromUid', room['gameSessions']['$sessionId']['.write'])
+        self.assertIn('toUid', room['gameSessions']['$sessionId']['.write'])
         self.assertLess(
             backend.index('runTransaction(refs.slot'),
             backend.index('api.update(refs.presence'),

@@ -36,14 +36,14 @@ function hasNestedWrite(node) {
 const users = rules.users['$uid'];
 const room = rules.rooms['$roomId'];
 
-for (const [branchName, recordKey] of [
-  ['inbox', '$giftId'],
-  ['interactions', '$eventId'],
-  ['challenges', '$challengeId'],
-  ['socialRequests', '$requestId']
+for (const [branchName, recordKey, identityToken] of [
+  ['inbox', '$giftId', 'senderUid'],
+  ['interactions', '$eventId', 'senderUid'],
+  ['challenges', '$challengeId', 'fromUid'],
+  ['socialRequests', '$requestId', 'fromUid']
 ]) {
   const record = users[branchName][recordKey];
-  check(`${branchName}: ação autenticada`, record['.write'] === 'auth != null');
+  check(`${branchName}: escrita autenticada e vinculada à identidade`, typeof record['.write'] === 'string' && record['.write'].includes('auth.uid') && record['.write'].includes(identityToken));
   check(`${branchName}: sem validação bloqueadora`, !hasValidation(record));
 }
 
@@ -51,32 +51,22 @@ const presenceRecord = room.presence['$uid'];
 check('presence: próprio UID ou GM escreve', presenceRecord['.write'].includes('auth.uid === $uid') && presenceRecord['.write'].includes('admins'));
 check('presence: sem validação bloqueadora de campos compatíveis', !hasValidation(presenceRecord));
 
-for (const [branchName, recordKey] of [
-  ['chat', '$messageId'],
-  ['houses', '$houseId'],
-  ['gameSessions', '$sessionId'],
-  ['boats', '$boatId'],
-  ['campfires', '$ownerUid'],
-  ['houseExtensions', '$ownerUid'],
-  ['slots', '$slotId'],
-  ['coopMissions', '$missionId']
+for (const [branchName, recordKey, identityToken] of [
+  ['chat', '$messageId', 'senderUid'],
+  ['houses', '$houseId', 'ownerUid'],
+  ['gameSessions', '$sessionId', 'fromUid'],
+  ['boats', '$boatId', 'driverUid'],
+  ['campfires', '$ownerUid', '$ownerUid'],
+  ['houseExtensions', '$ownerUid', '$ownerUid'],
+  ['slots', '$slotId', 'uid'],
+  ['coopMissions', '$missionId', 'hostUid']
 ]) {
   const record = room[branchName][recordKey];
-  check(`${branchName}: gameplay autenticado`, record['.write'] === 'auth != null');
+  check(`${branchName}: gameplay autenticado com vínculo de identidade`, typeof record['.write'] === 'string' && record['.write'].includes('auth') && record['.write'].includes(identityToken));
   check(`${branchName}: sem validação bloqueadora`, !hasValidation(record));
 }
 
-check('Gameplay sem permissao restritiva interna', [
-  ['presence', '$uid'],
-  ['chat', '$messageId'],
-  ['houses', '$houseId'],
-  ['gameSessions', '$sessionId'],
-  ['boats', '$boatId'],
-  ['campfires', '$ownerUid'],
-  ['houseExtensions', '$ownerUid'],
-  ['slots', '$slotId'],
-  ['coopMissions', '$missionId']
-].every(([branchName, recordKey]) => !hasNestedWrite(room[branchName][recordKey])));
+check('Gameplay usa regras internas somente para identidade/progresso', room.coopMissions['$missionId'].participants['$participantUid']['.write'].includes('auth.uid === $participantUid') && room.coopMissions['$missionId'].progress['.write'].includes('participants'));
 
 check('Moderação: somente GM pode alterar usuário comum', rules.userModeration['$uid']['.write'].includes('admins') && rules.userModeration['$uid']['.write'].includes('auth.uid !== $uid') && rules.userModeration['$uid']['.write'].includes("admins').child($uid).val() !== true"));
 check('Moderação: usuário lê somente o próprio estado', rules.userModeration['$uid']['.read'].includes('auth.uid === $uid') && rules.userModeration['$uid']['.read'].includes('admins'));

@@ -33,8 +33,9 @@ class CoopResponsiveTests(unittest.TestCase):
         for token in ['streetRace','ovalRace','stretcher','teacher','runner']:
             self.assertIn(token, text('src/modules/32-cooperative-missions.js'))
         self.assertIn('coopMissions', rules)
-        self.assertIn('".write": "auth != null"', rules)
-        self.assertNotIn("child('communicationEnabled').val() === true", rules)
+        self.assertIn('hostUid', rules)
+        self.assertIn('participants', rules)
+        self.assertIn('auth.uid', rules)
 
     def test_map_is_clustered_and_responsive_in_both_orientations(self):
         source = text('src/modules/08-map-parent-settings.js')

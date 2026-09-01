@@ -98,7 +98,8 @@
 
   function updateCamera(dt){
     let desiredPos,look;
-    if(player.transit.mode==='bus'){
+    const sportFrame=window.OTTHI_SPORTS_V705?.cameraFrame?.();if(sportFrame){desiredPos=sportFrame.position;look=sportFrame.look;camera.fov=Number(sportFrame.fov||56);}
+    if(!desiredPos&&player.transit.mode==='bus'){
       const bus=world.buses.find(item=>item.id===player.transit.busId);
       if(bus){
         bus.group.updateMatrixWorld(true);

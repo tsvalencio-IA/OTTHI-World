@@ -32,7 +32,7 @@
       friendship,
       flags,
       settings: { ...fresh.settings, ...(saved.settings || {}), quality: Number(saved.version||0)<615 && (saved.settings?.quality||'high')==='high' ? 'auto' : ((saved.settings?.quality)||fresh.settings.quality) },
-      guardian: { ...fresh.guardian, ...(saved.guardian || {}), multiplayerEnabled:true, communicationEnabled:true, chatEnabled:true },
+      guardian: { ...fresh.guardian, ...(saved.guardian || {}), multiplayerEnabled:(saved.guardian?.multiplayerEnabled??fresh.guardian.multiplayerEnabled)!==false, communicationEnabled:(saved.guardian?.communicationEnabled??fresh.guardian.communicationEnabled)!==false, chatEnabled:(saved.guardian?.chatEnabled??fresh.guardian.chatEnabled)!==false },
       usage: { ...fresh.usage, ...(saved.usage || {}) },
       stats: { ...fresh.stats, ...(saved.stats || {}) },
       daily: { ...fresh.daily, ...(saved.daily || {}), quests:Array.isArray(saved.daily?.quests)?saved.daily.quests:[] },

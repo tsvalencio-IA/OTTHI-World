@@ -119,10 +119,6 @@ public class MainActivity extends Activity {
                     && checkSelfPermission(Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
                 missing.add(Manifest.permission.CAMERA);
             }
-            if (PermissionRequest.RESOURCE_AUDIO_CAPTURE.equals(resource)
-                    && checkSelfPermission(Manifest.permission.RECORD_AUDIO) != PackageManager.PERMISSION_GRANTED) {
-                missing.add(Manifest.permission.RECORD_AUDIO);
-            }
         }
 
         if (missing.isEmpty()) {

@@ -201,7 +201,15 @@
       {id:'ottovias-footbridge',kind:'transport',x:0,z:46,w:28,d:10,margin:.2,allowedRoads:['avenida-central-ns'],allowedHighways:['ottovias-urban']}
     ])
   });
-  function worldLayoutPoint(id,fallback={x:0,z:0}){const p=WORLD_LAYOUT_V704.points[id];return p?{x:Number(p.x),z:Number(p.z)}:{x:Number(fallback.x||0),z:Number(fallback.z||0)};}
+  const OTTHI_PERSONAL_HOME_LOTS=Object.freeze([
+    Object.freeze({x:-45,z:32}),Object.freeze({x:-30,z:32}),Object.freeze({x:-18,z:32}),Object.freeze({x:18,z:32}),Object.freeze({x:33,z:32}),
+    Object.freeze({x:45,z:32}),Object.freeze({x:-45,z:44}),Object.freeze({x:-18,z:44}),Object.freeze({x:18,z:44}),Object.freeze({x:45,z:44})
+  ]);
+  function otthiHomeIdentity(){const cloudUid=typeof window!=='undefined'?window.OTTHOS_RTDB?.uid:'';const localState=typeof state!=='undefined'?state:null;return String(cloudUid||localState?.profile?.playerId||localState?.profile?.name||'local-home');}
+  function otthiHomeLotIndex(){let hash=2166136261;for(const char of otthiHomeIdentity()){hash^=char.charCodeAt(0);hash=Math.imul(hash,16777619);}return(hash>>>0)%OTTHI_PERSONAL_HOME_LOTS.length;}
+  function otthiPersonalHomeLot(){const base=OTTHI_PERSONAL_HOME_LOTS[otthiHomeLotIndex()]||OTTHI_PERSONAL_HOME_LOTS[0],north=base.z<38;return{index:otthiHomeLotIndex(),home:{x:base.x,z:base.z},spawn:{x:base.x,z:base.z+5.2},garage:{x:base.x,z:base.z+(north?13:-13)}};}
+  function v704PersonalHomeLotAt(x,z,margin=0){return OTTHI_PERSONAL_HOME_LOTS.some(lot=>Math.abs(Number(x)-lot.x)<=5.2+margin&&Math.abs(Number(z)-lot.z)<=4.3+margin);}
+  function worldLayoutPoint(id,fallback={x:0,z:0}){const personal=otthiPersonalHomeLot();if(id==='home')return{...personal.home};if(id==='spawn')return{...personal.spawn};if(id==='homeGarage')return{...personal.garage};const p=WORLD_LAYOUT_V704.points[id];return p?{x:Number(p.x),z:Number(p.z)}:{x:Number(fallback.x||0),z:Number(fallback.z||0)};}
   function worldLayoutRect(id){const zone=WORLD_LAYOUT_V704.zones[id];return zone?{...zone}:null;}
   function worldLayoutStructure(id){const item=WORLD_LAYOUT_V704.structures.find(entry=>entry.id===id);if(!item)return null;const p=item.point?worldLayoutPoint(item.point):item;return{...item,x:Number(item.x??p.x),z:Number(item.z??p.z)};}
   function v704RectOverlap(a,b,margin=0){return Math.abs(Number(a.x)-Number(b.x))<(Number(a.w)+Number(b.w))/2+margin&&Math.abs(Number(a.z)-Number(b.z))<(Number(a.d)+Number(b.d))/2+margin;}

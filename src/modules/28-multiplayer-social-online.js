@@ -9,8 +9,9 @@
  */
 // @otthi-module-body
   function multiplayerGameLabel(type){return type==='portuguese'?'Português Kids':type==='english'?'English Kids':'Matemática Kids';}
-  function guardianMultiplayerAllowed(){return true;}
-  function guardianCommunicationAllowed(){return true;}
+  function guardianMultiplayerAllowed(){return state.guardian?.multiplayerEnabled!==false;}
+  function guardianCommunicationAllowed(){return guardianMultiplayerAllowed()&&state.guardian?.communicationEnabled!==false;}
+  function guardianChatAllowed(){return guardianCommunicationAllowed()&&state.guardian?.chatEnabled!==false;}
   function publicPlayerName(){
     const source=window.OTTHOS_RTDB?.uid||state.profile.playerId||'0000',suffix=String(source).replace(/[^a-z0-9]/gi,'').slice(-4).toUpperCase().padStart(4,'0');
     return`Jogador ${suffix}`;
@@ -92,7 +93,7 @@
     const phraseButtons=approvedChatPhrases().map(text=>`<button class="btn compact" data-approved-chat="${escapeHtml(text)}">${escapeHtml(text)}</button>`).join('');
     openModal('Mundo Online',`<div class="online-status-card"><b id="onlineStatusText">${multiplayerStatusText()}</b><span>Você vê apenas jogadores do bairro atual. A entrada respeita o limite de 10 vagas.</span></div><div class="social-tabs"><b>Solicitações sociais</b><small>${socialRequestPending().length} pendente(s)</small></div><div id="socialRequestInbox">${socialRequestInboxHtml()}</div><div class="social-tabs"><b>Convites de jogos</b><small>${pendingChallenges().length} pendente(s)</small></div><div id="challengeInbox">${challengeInboxHtml()}</div><div id="activeGameSessions">${activeSessionsHtml()}</div><div class="social-tabs"><b>Histórico de duelos</b><small>vencedores registrados</small></div><div id="duelHistory">${duelHistoryHtml()}</div><div class="social-tabs"><b>Jogadores</b><small id="onlineCount">${players.length} além de você</small></div><div id="onlinePlayerList" class="online-player-list">${onlinePlayerListHtml(players)}</div><div class="social-tabs chat-title-row"><b>Chat seguro</b><small>somente frases aprovadas</small></div><div id="worldChatList" class="world-chat-list">${messages.map(m=>chatMessageHtml(m)).join('')||'<p>Escolha uma frase aprovada.</p>'}</div><div class="choice-grid">${phraseButtons}</div><div class="chat-history-actions"><button data-clear-local-chat>Ocultar conversa neste aparelho</button></div>`,root=>{
       bindOnlinePlayerCards(root);bindChallengeCards(root);
-      $$('[data-approved-chat]',root).forEach(btn=>btn.onclick=async()=>{btn.disabled=true;const result=await window.OTTHOS_RTDB?.sendChat?.(btn.dataset.approvedChat);btn.disabled=false;if(result===false||result?.ok===false)toast(result?.error||'A frase não pôde ser enviada.','warn');});
+      $$('[data-approved-chat]',root).forEach(btn=>btn.onclick=async()=>{if(!guardianChatAllowed()){toast('O chat foi desativado por um responsável.','warn',2200);return;}btn.disabled=true;const result=await window.OTTHOS_RTDB?.sendChat?.(btn.dataset.approvedChat);btn.disabled=false;if(result===false||result?.ok===false)toast(result?.error||'A frase não pôde ser enviada.','warn');});
       $('[data-clear-local-chat]',root).onclick=()=>{state.social.chatHiddenBefore=Date.now();cloudChat.length=0;saveState(true);refreshOpenSocialHub();toast('Histórico ocultado neste aparelho.','good');};
     });
   }
@@ -150,7 +151,7 @@
   window.addEventListener('otthos:campfires-cloud',e=>{pendingCloudCampfires=e.detail||{};applyCloudWorldObjects();});
   window.addEventListener('otthos:extensions-cloud',e=>{pendingCloudExtensions=e.detail||{};applyCloudWorldObjects();});
   window.addEventListener('otthos:houses',e=>{cloudHouses.clear();for(const [id,data] of Object.entries(e.detail||{}))cloudHouses.set(id,data);reconcileCloudHouses();});
-  window.addEventListener('otthos:chat',e=>{const incoming=e.detail;if(!guardianCommunicationAllowed()||!incoming||window.OTTHOS_RTDB?.isPlayerBlocked?.(incoming.senderUid)||Number(incoming.createdAt||0)<=Number(state.social.chatHiddenBefore||0))return;const m={...incoming,name:remotePlayerName(incoming.name,incoming.senderUid)};const existing=cloudChat.findIndex(x=>x.id===m.id);if(existing>=0)cloudChat[existing]=m;else cloudChat.push(m);cloudChat.sort((a,b)=>Number(a.createdAt||0)-Number(b.createdAt||0));while(cloudChat.length>60)cloudChat.shift();refreshOpenSocialHub();if(m.senderUid!==window.OTTHOS_RTDB?.uid)toast(`${m.name}: ${m.text}`,'good',2200);});
+  window.addEventListener('otthos:chat',e=>{const incoming=e.detail;if(!guardianChatAllowed()||!incoming||window.OTTHOS_RTDB?.isPlayerBlocked?.(incoming.senderUid)||Number(incoming.createdAt||0)<=Number(state.social.chatHiddenBefore||0))return;const m={...incoming,name:remotePlayerName(incoming.name,incoming.senderUid)};const existing=cloudChat.findIndex(x=>x.id===m.id);if(existing>=0)cloudChat[existing]=m;else cloudChat.push(m);cloudChat.sort((a,b)=>Number(a.createdAt||0)-Number(b.createdAt||0));while(cloudChat.length>60)cloudChat.shift();refreshOpenSocialHub();if(m.senderUid!==window.OTTHOS_RTDB?.uid)toast(`${m.name}: ${m.text}`,'good',2200);});
   window.addEventListener('otthos:chat-removed',e=>{const id=e.detail?.id,index=cloudChat.findIndex(m=>m.id===id);if(index>=0)cloudChat.splice(index,1);refreshOpenSocialHub();});
   window.addEventListener('otthos:gift',e=>{const gift=e.detail;if(!guardianCommunicationAllowed()||!gift)return;if(!((gift.type==='coins'&&Number(gift.amount)===10)||(gift.type==='crystal'&&Number(gift.amount)===1)))return;toast('🎁 Você recebeu um presente simbólico!','good',2600);});
   window.addEventListener('otthos:interaction',e=>{const it=e.detail;if(!guardianCommunicationAllowed()||!it)return;const sender='Outro jogador';

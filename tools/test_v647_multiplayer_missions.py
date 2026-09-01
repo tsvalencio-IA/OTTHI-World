@@ -39,12 +39,12 @@ check("Participante fica registrado ao desconectar", "armCoopParticipantDisconne
       "update({ready:false" in multiplayer)
 check("Evento cooperativo idempotente", "if(existing&&(patch.reserveEvent||existing.uid===user.uid))return current" in multiplayer)
 check("Cancelamento pelo remetente", "cancelSocialRequest" in multiplayer)
-check("Modo competitivo sincronizado", "options.mode==='competitive'" in multiplayer and
-      room_rules["coopMissions"]["$missionId"][".write"] == "auth != null")
-check("Regras aceitam transação individual", '"slots": {' in rules_text and
-      room_rules["slots"]["$slotId"][".write"] == "auth != null" and ".write" not in room_rules["slots"])
-check("Convites autenticados sem bloqueio adicional",
-      user_rules["socialRequests"]["$requestId"][".write"] == "auth != null")
+coop_write = room_rules["coopMissions"]["$missionId"][".write"]
+slot_write = room_rules["slots"]["$slotId"][".write"]
+social_write = user_rules["socialRequests"]["$requestId"][".write"]
+check("Modo competitivo sincronizado com autoridade do host", "options.mode==='competitive'" in multiplayer and "data.child('hostUid').val() === auth.uid" in coop_write)
+check("Regras aceitam transação individual segura", '"slots": {' in rules_text and "newData.child('uid').val() === auth.uid" in slot_write and ".write" not in room_rules["slots"])
+check("Convites autenticados preservam remetente e destinatário", "newData.child('fromUid').val() === auth.uid" in social_write and "newData.child('toUid').val() === $uid" in social_write and "auth.uid === $uid" in social_write)
 
 for token in (
     "Controlar o fogo progressivamente",

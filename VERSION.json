@@ -5,8 +5,8 @@
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70581,
-  "androidVersionName": "7.0.5.7.11",
+  "androidVersionCode": 70590,
+  "androidVersionName": "7.0.5.7.12",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -42,6 +42,11 @@
     }
   },
   "changes": [
+    "R12 integra missões cooperativas solo ao gameplay real: veículos de serviço, água do bombeiro, paciente/maca, pesca e seleção segura de NPCs.",
+    "R12 personaliza a residência principal e a garagem por usuário com lote determinístico, preservando propriedade, interiores e saves existentes.",
+    "R12 reconstrói pontos críticos de futebol, vôlei, futevôlei e kart com câmera contextual, quadras próprias, kart visual/IA/colisão e batching para reduzir draw calls.",
+    "R12 faz controles parentais realmente governarem multiplayer, interações e chat, remove permissão Android de microfone não utilizada e desativa backup Android.",
+    "R12 renova o token PWA/cache para 70590 para impedir mistura entre bundles antigos e a revisão atual sem exigir apagar dados do navegador.",
     "R11 torna o rosto da skin Playmobil visível sobre a superfície da cabeça, sem alterar as demais skins.",
     "R11 melhora a família Mario World com variantes Mario e Luigi reconhecíveis, incluindo boné, emblema, bigode, luvas e jardineira.",
     "R11 amplia o painel secreto GM *177 com bloquear, desbloquear e excluir dados de usuários no Realtime Database, preservando auditoria administrativa e impedindo automoderação de contas GM.",
@@ -163,7 +168,7 @@
     "gmModerationStaticApproved": true,
     "sportExitStaticApproved": true
   },
-  "release": "705.7-player-faces-gm-moderation-sport-exit-r11",
+  "release": "705.7-r12-gameplay-integrity-r11-lineage",
   "notes": [
     "R11.3.1 corrige o bloqueio da AÇÃO ao entrar no veículo reservado em missões solo de serviços e renova o token web para evitar cache antigo sem apagar dados do usuário.",
     "R11 é uma correção focal sobre a R10: rosto Playmobil, Mario/Luigi, moderação GM e saída voluntária de esportes. O restante permanece preservado.",
@@ -185,8 +190,8 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70582,
-  "revisionLabel": "R11.3.1-solo-service-action-cache-refresh",
+  "assetVersion": 70590,
+  "revisionLabel": "R12-gameplay-integrity",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",
