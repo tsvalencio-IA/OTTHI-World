@@ -170,6 +170,7 @@
     if(state.ui.quickOpen){state.ui.quickOpen=false;syncMobilePanels();}
     if(player.vehicle){exitVehicle();updateContext(true);return;}if(player.boating){exitBoat();updateContext(true);return;}
     if(typeof handleActiveSportActionV704==='function'&&handleActiveSportActionV704()){updateContext(true);return;}
+    if(typeof performPoliceCheckpointAction==='function'&&performPoliceCheckpointAction()){updateContext(true);return;}
     let target=currentContext;
     if(target&&target.radius!==999){const pos=worldPos(target);if(!isInteractionAvailable(target)||Math.hypot(player.x-pos.x,player.z-pos.z)>(target.radius||2)+.2)target=null;}
     if(!target)target=nearestInteractable();

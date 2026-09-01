@@ -119,7 +119,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Esportes jogáveis 3v3/2v2 e kartódromo de circuito técnico V705",
-      "sha256Body": "514fb01e216482fcd3e34237780df3fd52e0f097f78c667c2795f7c66b8ed3d0"
+      "sha256Body": "d4c8964bd924c45ce29aa9fec175cc8f683a99b828c2a828dfc73c57c3c3a4fc"
     },
     {
       "file": "src/modules/14-world-district-decoration.js",
@@ -182,14 +182,14 @@
       "startLine": 3950,
       "endLine": 4126,
       "description": "Atividades, mercado, oficina, amizades, NPCs e corridas",
-      "sha256Body": "04a364ed17957de4c0947d9eec54a2dbca04f8d85e586d10d5393e4b1842b261"
+      "sha256Body": "e3a8f62dbb3984c755a838070d35c8154210ba7facdf322d0ae03778724e31cf"
     },
     {
       "file": "src/modules/22-careers-jobs-uniforms.js",
       "startLine": 4128,
       "endLine": 4243,
       "description": "Carreiras, estados de missão, uniformes, professor, bombeiro e entrega",
-      "sha256Body": "5b8ccea7fe11dfd5bb6c050c6706dbecea3e5f8bf36ec666cf4baa6a7bf0e169"
+      "sha256Body": "e5e68b3147df7d02829f8dec18b5f2297c407c46838840d213c099f1a0111602"
     },
     {
       "file": "src/modules/23-vehicle-effects-driving.js",
@@ -231,7 +231,7 @@
       "startLine": 4767,
       "endLine": 4928,
       "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
-      "sha256Body": "bd6fa1daa2ba3dd8b690f027c46e812e8013fe467303295aff1b12241b2230bd"
+      "sha256Body": "1c10c9df358dc347baca4d35014858765141c9be5680c7cf684eb6269e8cc3a2"
     },
     {
       "file": "src/modules/28-multiplayer-social-online.js",
@@ -294,7 +294,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Dano, quebra, reboque e reparo real de veículos V704",
-      "sha256Body": "f22ebea147a29ee3958a4ee914132f1506f2eaddd6b1fd326a128991ad848c68"
+      "sha256Body": "80a440c082623384023705b4a910d51146e0be7aad9ebd09f3ca4ae30d85494f"
     },
     {
       "file": "src/modules/37-hero-platform-gameplay.js",
@@ -464,7 +464,7 @@
       "startLine": 1,
       "endLine": 36,
       "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
-      "sha256Body": "c7ebb4eca4e23e355effedea981a5626554c7ccb4b61d9cdad9697dac35a44a9"
+      "sha256Body": "731a9a0c570dc21d7a04cf5a9e9c8405dca841b9e488fab805e75d0fde6363ba"
     }
   ]
 }
