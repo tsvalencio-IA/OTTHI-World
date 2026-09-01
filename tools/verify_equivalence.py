@@ -20,6 +20,8 @@ APPROVED_MUTABLE_ASSETS={
 APPROVED_MUTABLE_ASSET_HASHES={
     'android-app/app/src/main/AndroidManifest.xml': {
         '325c878dda188d14b23572b4aa605cbd7ec204312cd3e4640fd95ce937a92ef4',
+        # R12: remoção de RECORD_AUDIO não utilizado + allowBackup=false; fullSensor preservado.
+        '9e7984ba30f3e538f5b25d352f4d868015a98a087b62980190b47cd9bc93eb34',
     },
 }
 
