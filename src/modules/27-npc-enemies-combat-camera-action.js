@@ -160,6 +160,7 @@
   }
   function updateContext(force=false){
     const now=performance.now(),moved=Math.hypot(player.x-lastContextScanX,player.z-lastContextScanZ);if(!force&&now-lastContextScanAt<85&&moved<.18)return;lastContextScanAt=now;lastContextScanX=player.x;lastContextScanZ=player.z;
+    if(typeof syncSportControlsV705==='function'&&syncSportControlsV705()){currentContext=null;currentVehicleContext=null;lastContextId=`sport:${document.body.dataset.sportControls||''}`;els.actionBtn.classList.remove('pulse');els.contextPrompt.hidden=true;if(els.vehicleActionBtn){els.vehicleActionBtn.hidden=true;els.vehicleActionBtn.classList.remove('is-available','pulse');}return;}
     if(player.vehicle){const vehicleTarget=updateVehicleContextButton(),vehicleLabel=vehicleTarget?(typeof vehicleTarget.getLabel==='function'?vehicleTarget.getLabel():vehicleTarget.label):'',vehicleAction=vehicleTarget?(typeof vehicleTarget.getActionLabel==='function'?vehicleTarget.getActionLabel():(vehicleTarget.actionLabel||'Ação')):'';currentContext={id:'exit-vehicle',type:'vehicle',icon:'🚗',label:'Sair do carro',actionLabel:'Sair',radius:999,action:exitVehicle};lastContextId=`exit-vehicle:${vehicleTarget?.id||''}:${vehicleAction}`;els.actionBtn.classList.remove('pulse');const span=$('span',els.actionBtn),icon=$('b',els.actionBtn);if(span)span.textContent='Sair';if(icon)icon.textContent='🚗';els.contextPrompt.hidden=!vehicleTarget;els.contextIcon.textContent=vehicleTarget?.icon||'🚗';els.contextLabel.textContent=vehicleLabel||'Ação veicular';els.contextHint.textContent=vehicleTarget?`Use o botão extra: ${String(vehicleAction).toUpperCase()}`:'O botão SAIR permanece disponível';return;}
     if(els.vehicleActionBtn){els.vehicleActionBtn.hidden=true;els.vehicleActionBtn.classList.remove('is-available','pulse');currentVehicleContext=null;}
     const next=nearestInteractable(),label=next?(typeof next.getLabel==='function'?next.getLabel():next.label):'Atacar',actionLabel=next?(typeof next.getActionLabel==='function'?next.getActionLabel():(next.actionLabel||'Ação')):'Espada',id=`${next?.id||''}:${label}:${actionLabel}`;if(!force&&id===lastContextId)return;lastContextId=id;currentContext=next;els.contextPrompt.hidden=!next;els.actionBtn.classList.toggle('pulse',!!next);els.contextIcon.textContent=next?.icon||'⚔';els.contextLabel.textContent=label;els.contextHint.textContent=next?`Toque em ${String(actionLabel).toUpperCase()}`:'Ataque próximo';const span=$('span',els.actionBtn);const icon=$('b',els.actionBtn);if(span)span.textContent=actionLabel;if(icon)icon.textContent=next?.icon||'⚔';
@@ -168,8 +169,8 @@
     if(paused||!els.modal.hidden||performance.now()<actionLockedUntil)return;
     actionLockedUntil=performance.now()+90;state.stats.actions++;
     if(state.ui.quickOpen){state.ui.quickOpen=false;syncMobilePanels();}
-    if(player.vehicle){exitVehicle();updateContext(true);return;}if(player.boating){exitBoat();updateContext(true);return;}
     if(typeof handleActiveSportActionV704==='function'&&handleActiveSportActionV704()){updateContext(true);return;}
+    if(player.vehicle){exitVehicle();updateContext(true);return;}if(player.boating){exitBoat();updateContext(true);return;}
     if(typeof performPoliceCheckpointAction==='function'&&performPoliceCheckpointAction()){updateContext(true);return;}
     let target=currentContext;
     if(target&&target.radius!==999){const pos=worldPos(target);if(!isInteractionAvailable(target)||Math.hypot(player.x-pos.x,player.z-pos.z)>(target.radius||2)+.2)target=null;}

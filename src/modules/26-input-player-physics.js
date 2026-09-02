@@ -27,7 +27,7 @@
   }
   function sprintRequested(){return !!(input.touchSprint||input.gamepadSprint||input.keys.has('ShiftLeft')||input.keys.has('ShiftRight'));}
   function updateRunUI(){
-    if(!els.runBtn)return;if(typeof mobilityDriverActive==='function'&&mobilityDriverActive()){updateMobilityControlLabels();return;}const active=sprintRequested();els.runBtn.classList.toggle('active',active);const icon=$('b',els.runBtn),label=$('span',els.runBtn);if(icon)icon.textContent='🏃';if(label)label.textContent='Correr';
+    if(!els.runBtn)return;if(typeof syncSportControlsV705==='function'&&syncSportControlsV705())return;if(typeof mobilityDriverActive==='function'&&mobilityDriverActive()){updateMobilityControlLabels();return;}const active=sprintRequested();els.runBtn.classList.toggle('active',active);const icon=$('b',els.runBtn),label=$('span',els.runBtn);if(icon)icon.textContent='🏃';if(label)label.textContent='Correr';
   }
   function clearMovementInputs(){
     input.keys.clear();input.joyId=null;input.joyX=0;input.joyZ=0;
@@ -40,7 +40,7 @@
   function canGroundJump(){return !player.vehicle&&!player.boating&&!player.transit.mode&&(player.swimming||player.grounded||performance.now()-player.lastGrounded<125);}
   function canAirJump(){return !player.vehicle&&!player.boating&&!player.transit.mode&&!player.swimming&&!player.grounded&&player.airJumpAvailable!==false&&performance.now()-player.lastGrounded>=90;}
   function canJump(){return canGroundJump()||canAirJump();}
-  function requestJump(){if(!els.modal.hidden||paused||player.vehicle||player.boating||player.transit.mode)return;player.jumpBuffer=performance.now()+170;if(canGroundJump())doJump(false);else if(canAirJump())doJump(true);}
+  function requestJump(){if(typeof handleActiveSportJumpControlV705==='function'&&handleActiveSportJumpControlV705(true))return;if(!els.modal.hidden||paused||player.vehicle||player.boating||player.transit.mode)return;player.jumpBuffer=performance.now()+170;if(canGroundJump())doJump(false);else if(canAirJump())doJump(true);}
   function doJump(aerial=false){if(aerial?!canAirJump():!canGroundJump())return;state.stats.jumps++;trackDaily('jump',1);player.lastJumpWasAir=!!aerial;if(aerial){player.airJumpAvailable=false;player.vy=Math.max(1.4,player.vy*.18)+8.7;beep(720,65,'sine');vibrate([12,18,12]);}else{player.vy=player.swimming?3.1:10.2;beep(player.swimming?420:540);vibrate(18);}player.grounded=false;player.jumpBuffer=0;}
   function updatePlayer(dt){
     // Entrada é atualizada em todos os estados. O veículo tem prioridade absoluta:
