@@ -119,7 +119,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Esportes jogáveis 3v3/2v2 e kartódromo de circuito técnico V705",
-      "sha256Body": "d4c8964bd924c45ce29aa9fec175cc8f683a99b828c2a828dfc73c57c3c3a4fc"
+      "sha256Body": "dc01a1ba907651c99b1e7f6fe496b36cede54e28f0ba69db2882457c5d126199"
     },
     {
       "file": "src/modules/14-world-district-decoration.js",
@@ -196,7 +196,7 @@
       "startLine": 4245,
       "endLine": 4381,
       "description": "Poeira, som, efeitos, controles, direção, passageiros e ponte",
-      "sha256Body": "417a3a2d443091d403869cd9c72e935c5edb7b54076e501763d7cce9abcaef01"
+      "sha256Body": "635c627701df7d96878ea2250e6d90038bfd21d983fb32db8e27ccb15fa1c938"
     },
     {
       "file": "src/modules/24-construction-system.js",
@@ -224,14 +224,14 @@
       "startLine": 4637,
       "endLine": 4765,
       "description": "Entrada, corrida, pulo, física do jogador/veículo e animação",
-      "sha256Body": "175acd62c694012de4afc319c704000482642fc4f3f8ccf141c58faadded9b90"
+      "sha256Body": "bfcf394610da2c328fc85860589401a6a7b08a1258279f6d5ce93639864af444"
     },
     {
       "file": "src/modules/27-npc-enemies-combat-camera-action.js",
       "startLine": 4767,
       "endLine": 4928,
       "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
-      "sha256Body": "1c10c9df358dc347baca4d35014858765141c9be5680c7cf684eb6269e8cc3a2"
+      "sha256Body": "450860baa7f7666e99fcc264ed11dba0406660812718dab9ebf1de9ac21c7753"
     },
     {
       "file": "src/modules/28-multiplayer-social-online.js",
@@ -245,7 +245,7 @@
       "startLine": 5124,
       "endLine": 5238,
       "description": "Loop principal, controles, gamepad e início do jogo",
-      "sha256Body": "af4644b1da1e442f37b54e46e5e3020bd592c90a57602efb169ef6c535cd50d6"
+      "sha256Body": "0fcddbd32815b1a4b8de67ce55dc2cad0b66fca064f90c7a27d2227c3bd02996"
     },
     {
       "file": "src/modules/30-pause-tests-public-api-bootstrap.js",
@@ -464,7 +464,7 @@
       "startLine": 1,
       "endLine": 36,
       "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
-      "sha256Body": "731a9a0c570dc21d7a04cf5a9e9c8405dca841b9e488fab805e75d0fde6363ba"
+      "sha256Body": "8228aae9763241b72dfe44b025418aa9688b0081fae21184bb25e6c177d4994d"
     }
   ]
 }
