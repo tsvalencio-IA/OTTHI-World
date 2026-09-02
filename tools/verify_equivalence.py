@@ -22,6 +22,8 @@ APPROVED_MUTABLE_ASSET_HASHES={
         '325c878dda188d14b23572b4aa605cbd7ec204312cd3e4640fd95ce937a92ef4',
         # R12: remoção de RECORD_AUDIO não utilizado + allowBackup=false; fullSensor preservado.
         '9e7984ba30f3e538f5b25d352f4d868015a98a087b62980190b47cd9bc93eb34',
+        # R14: ACCESS_NETWORK_STATE para detectar retorno da internet e consultar atualização do APK.
+        '6b6f54bcd3504dfa9ec3449933056092323e0bce209db92ae002ddd50ada2e56',
     },
 }
 

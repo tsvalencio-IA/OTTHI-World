@@ -1,12 +1,12 @@
 {
   "version": 705,
-  "build": "705.0-playable-sports-realistic-npcs-kart",
+  "build": "705.14-responsive-global-sports-actions-apk-update",
   "name": "OTTHI World",
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70590,
-  "androidVersionName": "7.0.5.7.12",
+  "androidVersionCode": 70591,
+  "androidVersionName": "704.14.0",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -42,6 +42,11 @@
     }
   },
   "changes": [
+    "R14 audita a responsividade global sobre a R13.1: modais, cards, menus, HUD, mapa e controles recebem piso real de legibilidade, contraste e enquadramento sem remover sistemas existentes.",
+    "R14 corrige o futebol na cadeia completa toque→ação→animação→bola: chute, passe e carrinho passam a produzir resposta física e visual, sem painel esportivo sobreposto.",
+    "R14 corrige os acessos de lobby Trilha adaptativa e Bairros online que estavam presentes sem ligação direta de clique.",
+    "R14 estabelece versionamento Android incremental 70591 e identificação V704 • R14, preservando a versão web V705.",
+    "R14 adiciona verificação nativa da GitHub Release assinada quando o aparelho volta a ficar online; o aviso só aparece depois que o APK novo realmente foi publicado.",
     "R12 integra missões cooperativas solo ao gameplay real: veículos de serviço, água do bombeiro, paciente/maca, pesca e seleção segura de NPCs.",
     "R12 personaliza a residência principal e a garagem por usuário com lote determinístico, preservando propriedade, interiores e saves existentes.",
     "R12 reconstrói pontos críticos de futebol, vôlei, futevôlei e kart com câmera contextual, quadras próprias, kart visual/IA/colisão e batching para reduzir draw calls.",
@@ -166,9 +171,12 @@
     "visualThemeStaticApproved": true,
     "ottoviasJointDiscRemovalApproved": true,
     "gmModerationStaticApproved": true,
-    "sportExitStaticApproved": true
+    "sportExitStaticApproved": true,
+    "responsiveGlobalStaticApproved": true,
+    "apkUpdaterStaticApproved": true,
+    "sportActionStaticApproved": true
   },
-  "release": "705.7-r12-gameplay-integrity-r11-lineage",
+  "release": "705.7-r14-responsive-global-sports-actions-apk-update-r11-lineage",
   "notes": [
     "R11.3.1 corrige o bloqueio da AÇÃO ao entrar no veículo reservado em missões solo de serviços e renova o token web para evitar cache antigo sem apagar dados do usuário.",
     "R11 é uma correção focal sobre a R10: rosto Playmobil, Mario/Luigi, moderação GM e saída voluntária de esportes. O restante permanece preservado.",
@@ -190,12 +198,13 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70590,
-  "revisionLabel": "R12-gameplay-integrity",
+  "assetVersion": 70591,
+  "revisionLabel": "R14-responsive-global-apk-update",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",
     "previousBuild": "703.1-startup-fix",
     "method": "reconstrução consolidada em uma única árvore completa, sem aplicação sequencial de hotfixes"
-  }
+  },
+  "apkDisplayVersion": "V704 • R14"
 }

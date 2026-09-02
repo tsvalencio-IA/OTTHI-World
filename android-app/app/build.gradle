@@ -2,6 +2,12 @@ plugins {
     id 'com.android.application'
 }
 
+def otthiStoreFile = System.getenv('OTTHI_STORE_FILE')
+def otthiStorePassword = System.getenv('OTTHI_STORE_PASSWORD')
+def otthiKeyAlias = System.getenv('OTTHI_KEY_ALIAS')
+def otthiKeyPassword = System.getenv('OTTHI_KEY_PASSWORD')
+def otthiSigningReady = otthiStoreFile && otthiStorePassword && otthiKeyAlias && otthiKeyPassword
+
 android {
     namespace 'br.com.thiaguinhosolucoes.otthos'
     compileSdk 35
@@ -10,14 +16,28 @@ android {
         applicationId 'br.com.thiaguinhosolucoes.otthos'
         minSdk 24
         targetSdk 35
-        versionCode 70590
-        versionName "7.0.5.7.12"
+        versionCode 70591
+        versionName "704.14.0"
+    }
+
+    signingConfigs {
+        release {
+            if (otthiSigningReady) {
+                storeFile file(otthiStoreFile)
+                storePassword otthiStorePassword
+                keyAlias otthiKeyAlias
+                keyPassword otthiKeyPassword
+            }
+        }
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            if (otthiSigningReady) {
+                signingConfig signingConfigs.release
+            }
         }
     }
 

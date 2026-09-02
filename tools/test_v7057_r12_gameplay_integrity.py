@@ -23,9 +23,9 @@ rules=json.loads(text('firebase-database.rules.json'))['rules']['otthosWorld']
 manifest=text('android-app/app/src/main/AndroidManifest.xml')
 main=text('android-app/app/src/main/java/br/com/thiaguinhosolucoes/otthos/MainActivity.java')
 
-ck('Release R12 identificada',int(v.get('assetVersion',0))>=70590 and 'r12' in str(v.get('release','')).lower())
-ck('Cache PWA usa token R12',text('index.html').count('?v=70590')>=10 and 'otthi-v70590-' in text('sw.js') and '?v=70590' in text('manifest.webmanifest'))
-ck('Android sincronizado com R12',v.get('androidVersionCode')==70590 and v.get('androidVersionName')=='7.0.5.7.12' and 'versionCode 70590' in text('android-app/app/build.gradle'))
+ck('Linhagem R12+ preservada',int(v.get('assetVersion',0))>=70590 and str(v.get('release','')).lower().startswith('705.'))
+asset=str(v.get('assetVersion')); ck('Cache PWA usa token atual',text('index.html').count(f'?v={asset}')>=10 and f'otthi-v{asset}-' in text('sw.js') and f'?v={asset}' in text('manifest.webmanifest'))
+ck('Android sincronizado',f"versionCode {v.get('androidVersionCode')}" in text('android-app/app/build.gradle') and f"versionName \"{v.get('androidVersionName')}\"" in text('android-app/app/build.gradle'))
 
 ck('Casa principal possui identidade própria por usuário','OTTHI_PERSONAL_HOME_LOTS' in layout and 'otthiHomeIdentity' in layout and 'otthiPersonalHomeLot' in layout)
 ck('Pontos home/spawn/garagem são personalizados',"const personal=otthiPersonalHomeLot()" in layout and "if(id==='home')" in layout and "if(id==='spawn')" in layout and "if(id==='homeGarage')" in layout)

@@ -11,7 +11,7 @@
   })();
   window.OTTHI_CONFIG = {
     version: 705,
-    build: '705.0-playable-sports-realistic-npcs-kart',
+    build: '705.14-responsive-global-sports-actions-apk-update',
     repository: repo,
     baseUrl,
     firebaseRoot: 'otthosWorld',

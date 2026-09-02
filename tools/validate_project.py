@@ -68,7 +68,7 @@ def main():
     manifest_js=[Path(x['file']).name for x in order.get('javascript',[])]
     add('Manifesto JS corresponde exatamente aos arquivos',len(manifest_js)==len(set(manifest_js)) and set(manifest_js)=={p.name for p in active_js_modules})
     add('Ordem CSS corresponde aos arquivos',[Path(x['file']).name for x in order.get('styles',[])]==[p.name for p in css_modules])
-    add('Versão central V705',version.get('version')==705 and version.get('build')=='705.0-playable-sports-realistic-npcs-kart' and order.get('version')==705 and order.get('build')==version.get('build'))
+    add('Versão central V705',version.get('version')==705 and str(version.get('build','')).startswith('705.') and order.get('version')==705 and order.get('build')==version.get('build'))
 
     run([NODE,'--check','app.js'],'Sintaxe app.js'); run([NODE,'--check','sw.js'],'Sintaxe sw.js')
     for path in js_modules: run([NODE,'--check',str(path.relative_to(ROOT))],f'Sintaxe {path.relative_to(ROOT)}')
@@ -101,6 +101,8 @@ def main():
       ([NODE,'tools/test_v7057_r7_garage_runtime.js'],'Runtime da garagem própria V705.7 R7'),
       ([NODE,'tools/test_v7057_r8_police_roadside_runtime.js'],'Runtime da abordagem policial V705.7 R8'),
       ([PYTHON,'tools/test_v7057_r10_visual_fidelity.py'],'Fidelidade visual solicitada V705.7 R10'),
+      ([PYTHON,'tools/test_r14_global_ui_apk_update.py'],'R14: responsividade global, esportes e atualização APK'),
+      ([NODE,'tools/test_r14_sports_controls_runtime.js'],'R14: ações esportivas físicas em runtime'),
       ([PYTHON,'tools/test_v7057_r11_focus.py'],'Foco R11: skins, GM e saída dos esportes'),
       ([NODE,'tools/test_v704_world_materialization.js'],'Materialização real do mundo V704'),
       ([NODE,'tools/test_v704_vehicle_runtime.js'],'Dano, quebra, reboque e reparo V704'),
@@ -115,7 +117,7 @@ def main():
     add('Cache-busting V705',index.count(cache_token)>=10,index.count(cache_token))
     add('Three.js local',f'./assets/vendor/three-r128.min.js{cache_token}' in index and 'cdnjs.cloudflare.com/ajax/libs/three.js' not in index)
     add('Manifesto PWA V705',webmanifest.get('name')=='OTTHI World' and f'v={asset_version}' in webmanifest.get('start_url',''))
-    add('Service Worker V705',f"const CACHE = `otthi-v{asset_version}-${{REVISION}}`" in sw and "const BUILD = '705.0-playable-sports-realistic-npcs-kart'" in sw and "const VERSION = '705'" in sw)
+    add('Service Worker V705',f"const CACHE = `otthi-v{asset_version}-${{REVISION}}`" in sw and f"const BUILD = '{version.get('build')}'" in sw and "const VERSION = '705'" in sw)
 
     expected_app,expected_style=expected_bundles(order)
     add('app.js sincronizado com fontes',app==expected_app); add('style.css sincronizado com fontes',style==expected_style)

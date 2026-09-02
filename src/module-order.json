@@ -1,13 +1,13 @@
 {
   "version": 705,
-  "build": "705.0-playable-sports-realistic-npcs-kart",
+  "build": "705.14-responsive-global-sports-actions-apk-update",
   "javascript": [
     {
       "file": "src/modules/00-runtime-foundation.js",
       "startLine": 4,
       "endLine": 49,
       "description": "Runtime, utilitários, versão, storage e chaves de migração",
-      "sha256Body": "27f1a5ea5a0f3ee8060a1ac49b264035ebb1815a9a079d1496a4efc65a986751"
+      "sha256Body": "a771a2ec3dcc8c5ed9fdab50e8206030c89079323752f5058f3d9328b0fefd5b"
     },
     {
       "file": "src/modules/00a-visual-foundation-avatar-v2.js",
@@ -77,7 +77,7 @@
       "startLine": 1606,
       "endLine": 1806,
       "description": "Mapa, marcadores, waypoint, reset, ferramentas parentais e configurações",
-      "sha256Body": "48efc50c247bf7e1f4ab4214db40e8bd76775e949608fb7e9c6b6848a53c9f0c"
+      "sha256Body": "13d0d5ab3feae3a16d8061d4364ee90850ea7b489e37451b6ca1987e3052de5b"
     },
     {
       "file": "src/modules/09-responsive-ar-quality-diagnostics.js",
@@ -119,7 +119,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Esportes jogáveis 3v3/2v2 e kartódromo de circuito técnico V705",
-      "sha256Body": "dc01a1ba907651c99b1e7f6fe496b36cede54e28f0ba69db2882457c5d126199"
+      "sha256Body": "77cb28b42040af4eb7219d9bf68ac534dc1e15fc21d91ce7459db9d10aef26fb"
     },
     {
       "file": "src/modules/14-world-district-decoration.js",
@@ -224,7 +224,7 @@
       "startLine": 4637,
       "endLine": 4765,
       "description": "Entrada, corrida, pulo, física do jogador/veículo e animação",
-      "sha256Body": "bfcf394610da2c328fc85860589401a6a7b08a1258279f6d5ce93639864af444"
+      "sha256Body": "1df9ab8c5a1b973149f2e46f84b9031177d4404f2df238f3976dbcfbef49ec30"
     },
     {
       "file": "src/modules/27-npc-enemies-combat-camera-action.js",
@@ -465,6 +465,20 @@
       "endLine": 36,
       "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
       "sha256Body": "8228aae9763241b72dfe44b025418aa9688b0081fae21184bb25e6c177d4994d"
+    },
+    {
+      "file": "src/styles/19z-global-microtype-floor-r14.css",
+      "startLine": 0,
+      "endLine": 0,
+      "description": "R14 piso automático de legibilidade: elimina microtipografia abaixo de 11 px nos mesmos contextos originais",
+      "sha256Body": "f518ef47175aeb1cda157beb9d8d533cb7ce83e04f1b1fd416d47e340bb301f7"
+    },
+    {
+      "file": "src/styles/20-global-readability-responsive-r14.css",
+      "startLine": 0,
+      "endLine": 0,
+      "description": "Autoridade final R14: legibilidade, contraste, escala e responsividade global",
+      "sha256Body": "8febc408e9bfda3ec65ace2b15a0d08ab0f2a7576a32366a03c42751026edb31"
     }
   ]
 }

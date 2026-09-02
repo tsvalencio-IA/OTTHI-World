@@ -208,8 +208,8 @@ async function testFailedInstallKeepsPreviousRevision() {
   const revision = source.match(/const REVISION = '([a-f0-9]+)'/)?.[1];
   assert.ok(revision, 'a revisão imutável deve ser gerada antes do teste');
   const manifest = {
-    version: 705,
-    build: '705.0-playable-sports-realistic-npcs-kart',
+    version: VERSION_INFO.version,
+    build: VERSION_INFO.build,
     revision,
     algorithm: 'SHA-256',
     files: { 'app.js': '0'.repeat(64) },

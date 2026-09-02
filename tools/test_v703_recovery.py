@@ -17,7 +17,7 @@ rtdb=text('assets/js/multiplayer-rtdb.js'); recovery=text('src/modules/25-render
 pause=text('src/modules/30-pause-tests-public-api-bootstrap.js'); physics=text('src/modules/26-input-player-physics.js')
 coop=text('src/modules/32-cooperative-missions.js'); rules=json.loads(text('firebase-database.rules.json'))
 
-ck('Versão atual preserva recuperação V703',version.get('version',0)>=704 and version.get('build')=='705.0-playable-sports-realistic-npcs-kart')
+ck('Versão atual preserva recuperação V703',version.get('version',0)>=704 and str(version.get('build','')).startswith('705.'))
 ck('Ordem modular atual',order.get('version')==version.get('version') and order.get('build')==version.get('build'))
 ck('Release atual',release.get('version')==version.get('version') and release.get('build')==version.get('build'))
 asset_version=str(version.get('assetVersion',version.get('version',0)*10))

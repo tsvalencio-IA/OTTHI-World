@@ -11,7 +11,7 @@ ck('Release V705.2 ou posterior',v.get('version')==705 and v.get('assetVersion',
 legacy=text('src/modules/13a-sports-kart-v704.js') if (ROOT/'src/modules/13a-sports-kart-v704.js').exists() else ''
 ck('Uma única fonte esportiva','src/modules/13a-sports-kart-v705.js' in [x['file'] for x in order['javascript']] and 'src/modules/13a-sports-kart-v704.js' not in [x['file'] for x in order['javascript']] and 'retired' in legacy)
 ck('Futebol 4x4 com papéis reais',all(token in sports for token in ['Ala azul','Meia azul','Goleiro azul','Marcador vermelho','Ala vermelho','Atacante vermelho','Goleiro vermelho']))
-ck('Futebol possui condução, chute, passe e desarme',all(token in sports for token in ['f.possession=0','footballKickV704','v705FootballPass','Desarme!']))
+ck('Futebol possui condução, chute, passe e desarme',all(token in sports for token in ['f.possession=0','footballKickV704','v705FootballPass','v705FootballTackle']))
 ck('Futebol possui goleiros e IA de cobertura','function v705Keeper' in sports and 'homeChaser' in sports and 'awayChaser' in sports)
 ck('Vôlei/futevôlei 2x2','c.team=[v705Athlete' in sports and 'c.opponents=[v705Athlete' in sports)
 ck('Vôlei/futevôlei têm janela de contato móvel','v705CourtContactWindow' in sports and 'AÇÃO AGORA' in sports)

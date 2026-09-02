@@ -27,7 +27,8 @@ ck('Bundle cooperativo antes do render', 0<=coop_marker<render_marker, f'{coop_m
 ck('Bundle cooperativo antes do bootstrap', 0<=coop_marker<bootstrap_marker, f'{coop_marker} < {bootstrap_marker}')
 ck('Declaração inicializada antes de initThree', 0<=decl<init, f'{decl} < {init}')
 ck('Chamada cooperativa preservada', 'createCooperativeMissionWorld();' in app)
-ck('Build atual coerente', order.get('build')=='705.0-playable-sports-realistic-npcs-kart' and '705.0-playable-sports-realistic-npcs-kart' in index and "705.0-playable-sports-realistic-npcs-kart" in sw)
+current_build=order.get('build','')
+ck('Build atual coerente', bool(current_build) and current_build in index and current_build in sw)
 ck('Cache atual coerente', index.count(f'?v={asset_version}')>=10 and f'otthi-v{asset_version}-${{REVISION}}' in sw)
 failed=[name for name,ok,_ in checks if not ok]
 print(f'RESULTADO: {len(checks)-len(failed)}/{len(checks)}')

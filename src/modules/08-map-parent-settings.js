@@ -198,6 +198,8 @@
 
 
   els.quizBtn.onclick = () => openEducationHub('math');
+  const learningPathBtn=$('#learningPathBtn');if(learningPathBtn)learningPathBtn.onclick=()=>{if(window.OTTHI_LEARNING?.open)window.OTTHI_LEARNING.open();else openEducationHub(String(state.learning?.lastLesson||'math').split('-')[0]);};
+  const neighborhoodBtn=$('#neighborhoodBtn');if(neighborhoodBtn)neighborhoodBtn.onclick=openMultiplayerConfig;
   els.challengePromptAccept.onclick=()=>{if(promptSocialRequestId)acceptIncomingSocialRequest(promptSocialRequestId);else if(promptChallengeId)acceptIncomingChallenge(promptChallengeId);else if(promptSessionId){const s=gameSessions.get(promptSessionId);if(s)launchSessionWithCountdown(s);}};
   els.challengePromptDecline.onclick=()=>{if(promptSocialRequestId)declineIncomingSocialRequest(promptSocialRequestId);else if(promptChallengeId)declineIncomingChallenge(promptChallengeId);else closeChallengePrompt();};
   els.collectionBtn.onclick = openCollection;

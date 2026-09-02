@@ -92,7 +92,9 @@ class CoopResponsiveTests(unittest.TestCase):
         self.assertLess(css_files.index('src/styles/16-otthi-world-professional-v700.css'), css_files.index('src/styles/17-gm-admin-panel-v701.css'))
         self.assertLess(css_files.index('src/styles/17-gm-admin-panel-v701.css'), css_files.index('src/styles/18-world-evolution-v702.css'))
         self.assertLess(css_files.index('src/styles/18-world-evolution-v702.css'), css_files.index('src/styles/19-mobile-landscape-authority-v7051.css'))
-        self.assertEqual(css_files[-1], 'src/styles/19-mobile-landscape-authority-v7051.css')
+        self.assertLess(css_files.index('src/styles/19-mobile-landscape-authority-v7051.css'), css_files.index('src/styles/19z-global-microtype-floor-r14.css'))
+        self.assertLess(css_files.index('src/styles/19z-global-microtype-floor-r14.css'), css_files.index('src/styles/20-global-readability-responsive-r14.css'))
+        self.assertEqual(css_files[-1], 'src/styles/20-global-readability-responsive-r14.css')
         app = text('app.js')
         style = text('style.css')
         for token in ['COOP_MISSION_TEMPLATES','createCooperativeMissionWorld','mapClusterLookup']:
