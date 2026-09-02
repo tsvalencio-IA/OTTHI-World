@@ -16,8 +16,8 @@ android {
         applicationId 'br.com.thiaguinhosolucoes.otthos'
         minSdk 24
         targetSdk 35
-        versionCode 70591
-        versionName "704.14.0"
+        versionCode 70592
+        versionName "704.15.0"
     }
 
     signingConfigs {

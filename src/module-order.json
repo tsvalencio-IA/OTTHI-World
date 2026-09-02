@@ -182,21 +182,21 @@
       "startLine": 3950,
       "endLine": 4126,
       "description": "Atividades, mercado, oficina, amizades, NPCs e corridas",
-      "sha256Body": "323e14201c77bd112bc2374b950aa86cd7661543591f92c8db0060af84e78f31"
+      "sha256Body": "83e1a8c76da77d7fa008b6e10aab1bf3619085e0a5e89bafe26bd26b253a27a6"
     },
     {
       "file": "src/modules/22-careers-jobs-uniforms.js",
       "startLine": 4128,
       "endLine": 4243,
       "description": "Carreiras, estados de missão, uniformes, professor, bombeiro e entrega",
-      "sha256Body": "5b8ccea7fe11dfd5bb6c050c6706dbecea3e5f8bf36ec666cf4baa6a7bf0e169"
+      "sha256Body": "e5e68b3147df7d02829f8dec18b5f2297c407c46838840d213c099f1a0111602"
     },
     {
       "file": "src/modules/23-vehicle-effects-driving.js",
       "startLine": 4245,
       "endLine": 4381,
       "description": "Poeira, som, efeitos, controles, direção, passageiros e ponte",
-      "sha256Body": "417a3a2d443091d403869cd9c72e935c5edb7b54076e501763d7cce9abcaef01"
+      "sha256Body": "635c627701df7d96878ea2250e6d90038bfd21d983fb32db8e27ccb15fa1c938"
     },
     {
       "file": "src/modules/24-construction-system.js",
@@ -231,7 +231,7 @@
       "startLine": 4767,
       "endLine": 4928,
       "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
-      "sha256Body": "bd6fa1daa2ba3dd8b690f027c46e812e8013fe467303295aff1b12241b2230bd"
+      "sha256Body": "450860baa7f7666e99fcc264ed11dba0406660812718dab9ebf1de9ac21c7753"
     },
     {
       "file": "src/modules/28-multiplayer-social-online.js",
@@ -245,7 +245,7 @@
       "startLine": 5124,
       "endLine": 5238,
       "description": "Loop principal, controles, gamepad e início do jogo",
-      "sha256Body": "af4644b1da1e442f37b54e46e5e3020bd592c90a57602efb169ef6c535cd50d6"
+      "sha256Body": "0fcddbd32815b1a4b8de67ce55dc2cad0b66fca064f90c7a27d2227c3bd02996"
     },
     {
       "file": "src/modules/30-pause-tests-public-api-bootstrap.js",
@@ -294,7 +294,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Dano, quebra, reboque e reparo real de veículos V704",
-      "sha256Body": "f22ebea147a29ee3958a4ee914132f1506f2eaddd6b1fd326a128991ad848c68"
+      "sha256Body": "80a440c082623384023705b4a910d51146e0be7aad9ebd09f3ca4ae30d85494f"
     },
     {
       "file": "src/modules/37-hero-platform-gameplay.js",
@@ -464,7 +464,7 @@
       "startLine": 1,
       "endLine": 36,
       "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
-      "sha256Body": "c7ebb4eca4e23e355effedea981a5626554c7ccb4b61d9cdad9697dac35a44a9"
+      "sha256Body": "8228aae9763241b72dfe44b025418aa9688b0081fae21184bb25e6c177d4994d"
     },
     {
       "file": "src/styles/19z-global-microtype-floor-r14.css",

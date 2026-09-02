@@ -1,4 +1,4 @@
-const REVISION = 'd808fad42691a52c';
+const REVISION = '9a53cc5933481c21';
 const CACHE = `otthi-v70592-${REVISION}`;
 const CACHE_PREFIXES = ['otthi-','otthi-game-web-','otthos-life-world-main-'];
 const BUILD = '705.15-tia-thamis-otton-connect-school';
