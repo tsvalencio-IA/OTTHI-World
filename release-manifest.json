@@ -1,11 +1,11 @@
 {
   "version": 705,
   "build": "705.16-otton-connect-progression-r16",
-  "revision": "286052b8b07ac350",
+  "revision": "3f374f5aae9936e3",
   "algorithm": "SHA-256",
   "files": {
-    "index.html": "c90909ce92a6db102139a23a5f20e92eb6720a4ce704de927be16caf30c57688",
-    "style.css": "5a09d247d582f8349b14b7e14f5b535647574ef2ce96733098e39b258f4e8ce9",
+    "index.html": "33fdde5097066fdd859b5b8f409069ac6084f62d535738d1c93597df4a719aa3",
+    "style.css": "4c4085d1a08e956fd2c0b35705b2a1b9fd9e28399ec76416d0c89820e97328f4",
     "assets/vendor/three-r128.min.js": "9274bbcec8d96168626c732b5d31c775aa8cfb7eaa0599bec0c175908a2c1ce2",
     "assets/js/core/runtime-config.js": "61f74f5035ad780f166f2ab42a7f1cb3dffce7eb0b92e6dc86b426a9d48f99b8",
     "assets/js/core/safe-pointer.js": "4f11579e213b1d6704e9b03f3a15dcb4b0738900cc8eadb46a415224045aedb4",
@@ -14,7 +14,7 @@
     "firebase-config.js": "72d2fc80efc82b6df856c5b43fd9cc37990cf3fe6ea27c4d90060b4c960e56fd",
     "assets/js/game-account.js": "1a67a8c4d209e2bec1f91512d655d05698d369ab14ed602385b51f6ae8db9be5",
     "assets/js/multiplayer-rtdb.js": "8f48b2e339ff13460cb45e57a0a6935477c7020c0a8ab5134ca87e1a356f5832",
-    "app.js": "ad9401ede331b58e00b341278398f73a3043112c37701dc336bffe4647eec81c",
+    "app.js": "2c4483ac2f189984d0dbca69aebb97ebbdcd3f57b45b2b68717bd2b0f1515cb7",
     "assets/js/ui/shared-modal.js": "39b82cae4ae7346b0540ca990e71c874e8d1b8e09d42ab1be6d3fa15031b2b5a",
     "assets/js/core/performance-guardian.js": "68ec11c953fa49cb4d7022316b9399ac53e9b02472cd9c898ddc3a0a83ffc412",
     "assets/js/multiplayer/room-manager.js": "ac0b2081c295dd5bde91d81f64aaf810814a4eaa99b2db04d6e0bec7fc1013b4",
@@ -23,6 +23,6 @@
     "manifest.webmanifest": "db1caba9f6b07dcef97b1be073d06f7a44cd8f913cc23a70f6542f5dcfd3e532",
     "404.html": "fa1b7eeb67a2364a67a2c0ea7d2e4ebb58a2a50d8d8f1c05de48931498b36ae8",
     "VERSION.json": "4a1b31df4010d410687dd0db518e68e720316728fd2eb5ea10e145933efaa212",
-    "sw.js": "a37f6e027d97c922f11727e9c244c86c611614b4050a5b82a748c0ab35e5c71c"
+    "sw.js": "302ea426a044eb944925fbf1cf5aaa9c61342bccfcc53e5b86d7a0c67db1a450"
   }
 }
