@@ -1411,32 +1411,6 @@ body.ui-landscape.otthi-v705-world .vehicle-context-action{right:0;bottom:calc((
 .race-badge .sport-exit-btn[hidden]{display:none!important}
 @media (max-width:700px){.race-badge.has-sport-exit{padding-right:50px!important}.race-badge .sport-exit-btn{min-width:40px;height:25px;padding:0 5px;font-size:9px}}
 
-/* R13.1 UX: esportes usam os 4 controles nativos; nenhum painel sobreposto */
-.sports-hub-grid button{
-  border:1px solid rgba(139,224,255,.34)!important;
-  background:linear-gradient(145deg,#173d54,#0d283a)!important;
-  color:#fff!important;
-  box-shadow:0 7px 18px rgba(0,0,0,.22)!important;
-  opacity:1!important;
-  text-align:left!important;
-}
-.sports-hub-grid button.primary{background:linear-gradient(145deg,#126b88,#0c4967)!important;border-color:#77e3f5!important}
-.sports-hub-grid button:active{transform:translateY(1px);background:#1c5874!important}
-.sports-hub-grid button>b{font-size:16px!important;line-height:1.1!important;color:#fff!important}
-.sports-hub-grid button>span{font-size:12px!important;line-height:1.3!important;color:#dceef5!important;opacity:1!important}
-
-/* nunca voltar a 6–9 px nos controles essenciais do modo paisagem */
-body.ui-landscape.otthi-v705-world .hud-player-name{font-size:11px!important}
-.ui-landscape.otthi-v705-world .mini-nav-copy b{font-size:11px!important}
-.ui-landscape.otthi-v705-world .quick-toggle span{font-size:10px!important}
-.ui-landscape.otthi-v705-world .quick-bar button span{font-size:10px!important;line-height:1.05!important}
-body.ui-landscape.otthi-v705-world .primary-actions .round span{font-size:10px!important;line-height:1!important}
-.ui-landscape.otthi-v705-world .skills-toggle span{font-size:10px!important}
-.ui-landscape.otthi-v705-world .race-badge span{font-size:10px!important}
-body.mode-vehicle #runBtn span{font-size:10px!important}
-body.ui-landscape.otthi-v705-world .vehicle-context-action span{font-size:10px!important}
-
-
 /* ===== MODULE: 19z-global-microtype-floor-r14.css ===== */
 /* Toda declaração px abaixo de 11px recebe piso de 11px no MESMO contexto original. */
 .profile-strip small{font-size:11px!important} /* era 9px */
@@ -1902,3 +1876,22 @@ body.ui-landscape.otthi-v705-world .vehicle-context-action span{font-size:11px!i
 .thamis-progress-bar{height:10px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;margin:8px 0}
 .thamis-progress-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--thamis,#65dff2),#ffffff)}
 @media(max-width:640px){.thamis-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.thamis-card-grid,.thamis-progress-grid,.thamis-pillar-grid{grid-template-columns:1fr}}
+
+/* ---------- R16 • Otton Connect: estágios, tarefas e Tia Thamis ---------- */
+.thamis-tabs-five{grid-template-columns:repeat(5,minmax(0,1fr))!important}
+.edu-stage-code{display:inline-flex!important;align-items:center;justify-content:center;width:max-content;min-width:38px;padding:3px 7px;margin-bottom:4px;border-radius:999px;background:rgba(0,0,0,.24);border:1px solid rgba(255,255,255,.28);font-style:normal!important;font-size:11px!important;font-weight:950!important;letter-spacing:.5px;color:#fff!important}
+.edu-node.review{border-color:#ffd16b!important;box-shadow:0 7px 0 rgba(150,92,12,.78)!important}
+.edu-stage-meta{display:grid;gap:3px;margin:0 0 10px;padding:10px 12px;border-radius:14px;background:#0b2237!important;border:1px solid rgba(125,223,242,.28)!important;color:#eef9ff!important}
+.edu-stage-meta>b{font-size:14px!important}.edu-stage-meta>span{font-size:12px!important;line-height:1.38!important}.edu-stage-meta>small{font-size:11px!important;color:#b9d7e9!important}
+.edu-visual{font-size:clamp(20px,5vw,34px)!important;line-height:1.35!important;letter-spacing:normal!important;white-space:normal!important;overflow-wrap:anywhere!important}
+.thamis-stage-columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;align-items:start}
+.thamis-stage-column{display:grid;gap:7px;padding:9px;border-radius:16px;background:rgba(7,24,39,.82);border:1px solid color-mix(in srgb,var(--thamis,#65dff2) 35%,transparent)}
+.thamis-stage-column>header{display:flex;align-items:center;gap:8px;padding:6px 4px 8px}.thamis-stage-column>header span{font-size:24px}.thamis-stage-column>header b{font-size:13px!important}
+.thamis-stage-row{display:grid!important;grid-template-columns:44px minmax(0,1fr)!important;align-items:center!important;gap:8px!important;min-height:58px!important;padding:8px 9px!important;border-radius:12px!important;background:#112e46!important;border:1px solid rgba(255,255,255,.16)!important;text-align:left!important;color:#eef9ff!important}
+.thamis-stage-row>strong{display:grid;place-items:center;min-height:34px;border-radius:10px;background:color-mix(in srgb,var(--thamis,#65dff2) 28%,#061421);font-size:12px!important;color:#fff!important}
+.thamis-stage-row>span{display:flex;min-width:0;flex-direction:column;gap:2px}.thamis-stage-row b{font-size:12px!important;line-height:1.25!important}.thamis-stage-row small{font-size:11px!important;color:#bad5e6!important;line-height:1.25!important}
+.thamis-stage-row.done{border-color:#67e8a1!important;background:#123c32!important}.thamis-stage-row.review{border-color:#ffd16b!important;background:#4a3515!important}.thamis-stage-row:disabled{opacity:.46!important;filter:grayscale(.65)}
+.thamis-result-note{display:grid;gap:4px;text-align:left;padding:11px 12px;border-radius:14px;background:#102d46;border:1px solid rgba(255,181,221,.34)}.thamis-result-note b{font-size:13px!important}.thamis-result-note span{font-size:12px!important;line-height:1.4!important}.thamis-result-note small{font-size:11px!important;color:#bfd9e8!important;line-height:1.35!important}
+@media(max-width:900px){.thamis-tabs-five{grid-template-columns:repeat(3,minmax(0,1fr))!important}.thamis-stage-columns{grid-template-columns:1fr}}
+@media(max-width:520px){.thamis-tabs-five{grid-template-columns:repeat(2,minmax(0,1fr))!important}.thamis-tabs-five button:last-child{grid-column:1/-1}.edu-node{width:100%!important;transform:none!important}.edu-stage-meta{padding:9px 10px}.thamis-stage-row{min-height:56px!important}}
+@media(max-height:430px) and (orientation:landscape){.thamis-stage-columns{grid-template-columns:repeat(3,minmax(230px,1fr));overflow-x:auto;align-items:start;padding-bottom:6px}.thamis-stage-column{max-height:62vh;overflow-y:auto}.thamis-tabs-five{grid-template-columns:repeat(5,minmax(105px,1fr))!important;overflow-x:auto}.edu-stage-meta{margin-bottom:7px;padding:7px 9px}.edu-question{padding:9px!important;margin-bottom:8px!important}.edu-visual{min-height:46px!important;margin:5px 0!important;padding:7px!important}}

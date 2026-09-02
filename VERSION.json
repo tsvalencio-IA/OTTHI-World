@@ -1,12 +1,12 @@
 {
   "version": 705,
-  "build": "705.15-tia-thamis-otton-connect-school",
+  "build": "705.16-otton-connect-progression-r16",
   "name": "OTTHI World",
   "sourceArchitecture": "modular-source-with-generated-runtime-bundle",
   "runtimeBundle": "app.js",
   "styleBundle": "style.css",
-  "androidVersionCode": 70592,
-  "androidVersionName": "704.15.0",
+  "androidVersionCode": 70593,
+  "androidVersionName": "704.16.0",
   "stages": {
     "1": {
       "name": "Fundação profissional",
@@ -42,6 +42,10 @@
     }
   },
   "changes": [
+    "R16 expande o Otton Connect para 13 estágios originais em cada disciplina (M0–M12, P0–P12 e I0–I12), com dificuldade progressiva e tarefas específicas por habilidade.",
+    "R16 adiciona domínio por etapa: mínimo de 80% de acerto, tempo de referência de fluência, estrelas, revisão automática e histórico de desempenho sem apagar o progresso existente.",
+    "R16 amplia a Tia Thamis com plano individual, estágios, recomendações de revisão, falas contextuais e feedback pedagógico durante e após as tarefas.",
+    "R16 preserva os módulos de jogabilidade existentes e mantém o arquivo protegido adaptive-learning.js inalterado.",
     "R15 cria a Tia Thamis na escola como gerente e professora da trilha educacional, com atendimento próprio, recomendação automática e acesso direto aos estudos.",
     "R15 introduz a identidade pedagógica Otton Connect / Método Otton em todo o eixo escolar, substituindo a apresentação genérica da Academia Kids sem remover os desafios existentes.",
     "R15 conecta matemática, português e inglês à orientação da Tia Thamis, com plano do dia, progresso por disciplina e recomendação do próximo nível.",
@@ -181,6 +185,7 @@
   },
   "release": "705.7-r14-responsive-global-sports-actions-apk-update-r11-lineage",
   "notes": [
+    "Os exercícios R16 são originais do Otton Connect e usam princípios gerais de progressão, revisão, autonomia e fluência; não reproduzem folhas, textos, nomenclaturas de estágio ou interface proprietária de terceiros.",
     "A Tia Thamis é uma personagem original da escola; o Método Otton e o Otton Connect são identidades fictícias inspiradas em rotina progressiva de estudo, sem uso de marca externa.",
     "R11.3.1 corrige o bloqueio da AÇÃO ao entrar no veículo reservado em missões solo de serviços e renova o token web para evitar cache antigo sem apagar dados do usuário.",
     "R11 é uma correção focal sobre a R10: rosto Playmobil, Mario/Luigi, moderação GM e saída voluntária de esportes. O restante permanece preservado.",
@@ -202,13 +207,13 @@
     "Firebase, regras, contas e multiplayer permanecem preservados."
   ],
   "hotfix": "705.7",
-  "assetVersion": 70592,
-  "revisionLabel": "R15-tia-thamis-otton-connect-school",
+  "assetVersion": 70593,
+  "revisionLabel": "R16-otton-connect-progressao-pedagogica",
   "consolidationBase": {
     "repository": "tsvalencio-IA/OTTHI-World",
     "branch": "main",
     "previousBuild": "703.1-startup-fix",
     "method": "reconstrução consolidada em uma única árvore completa, sem aplicação sequencial de hotfixes"
   },
-  "apkDisplayVersion": "V704 • R15"
+  "apkDisplayVersion": "V704 • R16"
 }

@@ -11,7 +11,7 @@
   })();
   window.OTTHI_CONFIG = {
     version: 705,
-    build: '705.15-tia-thamis-otton-connect-school',
+    build: '705.16-otton-connect-progression-r16',
     repository: repo,
     baseUrl,
     firebaseRoot: 'otthosWorld',
