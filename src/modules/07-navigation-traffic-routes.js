@@ -189,17 +189,17 @@
     { id:'mini', name:'Passagem Mini', icon:'◱', ...mapPointV704('miniTunnel'), group:'Habilidades' },
     { id:'crouch', name:'Túnel Baixo', icon:'▼', ...mapPointV704('crouchTunnel'), group:'Habilidades' },
     { id:'giant', name:'Portão Grande', icon:'⬡', ...mapPointV704('giantGate'), group:'Habilidades' },
-    { id:'edu-math', name:'Matemática Kids', icon:'🔢', ...mapPointV704('learningMath'), group:'Academia' },
-    { id:'edu-portuguese', name:'Português Kids', icon:'📚', ...mapPointV704('learningPortuguese'), group:'Academia' },
-    { id:'edu-english', name:'English Kids', icon:'🌎', ...mapPointV704('learningEnglish'), group:'Academia' }
+    { id:'edu-math', name:'Otton Matemática', icon:'🔢', ...mapPointV704('learningMath'), group:'Academia' },
+    { id:'edu-portuguese', name:'Otton Português', icon:'📚', ...mapPointV704('learningPortuguese'), group:'Academia' },
+    { id:'edu-english', name:'Otton English', icon:'🌎', ...mapPointV704('learningEnglish'), group:'Academia' }
   ];
   const MAP_LOCATION_DETAILS={
     home:['Sua casa principal, com cozinha, quarto, sala, banho e baú de conquistas.',['Dormir','Cozinhar','Decorar']],
     village:['Coração da cidade, perto do transporte, moradores e eventos.',['Encontrar amigos','Iniciar rotas']],
     shop:['Mercadinho com compras, entregas e missões de reposição.',['Comprar','Trabalhar']],
     workshop:['Oficina para ferramentas, construção e fundição de ouro.',['Criar ferramentas','Fundir ouro']],
-    school:['Escola Vila do Sol, com aulas, biblioteca e missões de professor.',['Estudar','Ensinar']],
-    'school-east':['Escola Horizonte, com salas modernas e ônibus escolar.',['Estudar','Ensinar']],
+    school:['Escola Vila do Sol, com Tia Thamis, trilha Otton Connect e missões de professor.',['Estudar','Ensinar']],
+    'school-east':['Escola Horizonte, com salas modernas, apoio da Tia Thamis e ônibus escolar.',['Estudar','Ensinar']],
     police:['Delegacia Central e início das patrulhas educativas.',['Missões policiais','Segurança']],
     'police-west':['Posto policial do bairro para apoio e orientação de trânsito.',['Patrulhar','Pedir ajuda']],
     'fire-station':['Quartel dos bombeiros, caminhões, treinamento e emergências controladas.',['Missões de bombeiro','Ver caminhões']],

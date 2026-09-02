@@ -31,7 +31,7 @@
     else if(type==='shop')openShop();
     else if(type==='workshop')openWorkshop();
     else if(type==='wardrobe')openAvatarStudio();
-    else if(type==='school'){if(state.career.activeJob?.id==='teacher')openTeacherJobLesson(house);else openEducationHub(String(state.learning.lastLesson||'math').split('-')[0]);}
+    else if(type==='school'){if(state.career.activeJob?.id==='teacher')openTeacherJobLesson(house);else if(window.OTTHI_TIA_THAMIS?.open)window.OTTHI_TIA_THAMIS.open('welcome');else openEducationHub(String(state.learning.lastLesson||'math').split('-')[0]);}
     else if(type==='police'){if(state.career.activeJob?.id==='police')toast('Patrulha ativa: siga os pontos marcados no GPS.','good',2200);else openSafetyLesson('station');}
     else if(type==='firestation')openFireStationDesk();
     updateHUD();
@@ -81,6 +81,7 @@
   }
   function talkToNPC(npc){
     if(npc.id==='maya'&&state.flags.deliveryActive&&player.vehicle&&distance2D(player,npc)<3.5){state.flags.deliveryActive=false;state.inventory.package=0;setFlag('deliveryDone');if(state.career.activeJob?.id==='delivery')completeActiveJob();else{addCoins(120);addReputation(30);}toast('Entrega concluída para Maya!','good',2400);}
+    if(npc.id==='tia-thamis'){window.OTTHI_TIA_THAMIS?.open?.('welcome');return;}
     const value=state.friendship[npc.id]||0;
     const greetings={clara:'Sou Clara, professora. Na escola aprendemos brincando e respeitando todos.',rafa:'Sou Rafa, da patrulha educativa. Segurança vem sempre em primeiro lugar.',davi:'Sou Davi, bombeiro. Nossas missões são treinamentos controlados e seguros.',leo:'Sou Leo, entregador. Conhecer as melhores rotas deixa a cidade mais rápida.',nino:'Sou Nino. A vila tem casas, corridas e desafios esperando por você.',luna:'Quero ver sua casa cheia de estilo! Vamos decorar?',teo:'Trabalho e criatividade transformam materiais em conquistas.',bia:'Há cristais e caminhos secretos esperando por você.',maya:'Na garagem sempre existe um trabalho para quem quer crescer.'};
     openModal(npc.name,`<div class="dialogue-box">${greetings[npc.id]||'Olá, vizinho!'}</div><div class="friend-meter"><span>Amizade — ${friendshipTier(value)}</span><b>${value}/100</b><i style="width:${value}%"></i></div><div class="choice-grid social-actions">
@@ -193,11 +194,11 @@
 
   const JOBS = [
     {id:'delivery',title:'Entregador da Vila',icon:'📦',reward:120,rep:30,description:'Pegue o carrinho e entregue o pacote para Maya.'},
-    {id:'police',title:'Patrulha e Abordagem',icon:'👮',reward:160,rep:38,description:'Patrulhe três pontos, desembarque, faça a abordagem e conduza a ocorrência com segurança.'},
+    {id:'police',title:'Patrulha Educativa',icon:'👮',reward:160,rep:38,description:'Visite três pontos da cidade e oriente o trânsito com segurança.'},
     {id:'firefighter',title:'Bombeiro Kids',icon:'🚒',reward:180,rep:42,description:'Vista o uniforme, dirija o caminhão dos bombeiros e atenda uma emergência controlada.'},
     {id:'paramedic',title:'Socorrista da Vila',icon:'🚑',reward:175,rep:40,description:'Vista o uniforme, dirija a ambulância e responda a um acidente com segurança.'},
     {id:'teacher',title:'Professor por um Dia',icon:'🧑‍🏫',reward:150,rep:34,description:'Vá a uma escola e conduza uma atividade educativa.'},
-    {id:'gather',title:'Mecânico da Oficina',icon:'🔧',reward:120,rep:24,description:'Vá à oficina, diagnostique o carro de treinamento e faça o reparo real na bancada.',target:{repairs:1}},
+    {id:'gather',title:'Ajudante da Oficina',icon:'🪵',reward:90,rep:18,description:'Colete 3 madeiras e 2 pedras.',target:{wood:3,stone:2}},
     {id:'crystals',title:'Explorador de Cristais',icon:'💎',reward:140,rep:24,description:'Colete 3 novos cristais.',target:{crystals:3}},
     {id:'builder',title:'Decorador do Bairro',icon:'🧱',reward:110,rep:20,description:'Construa 2 objetos perto de uma casa.',target:{builds:2}}
   ];

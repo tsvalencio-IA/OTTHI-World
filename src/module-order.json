@@ -1,13 +1,13 @@
 {
   "version": 705,
-  "build": "705.14-responsive-global-sports-actions-apk-update",
+  "build": "705.15-tia-thamis-otton-connect-school",
   "javascript": [
     {
       "file": "src/modules/00-runtime-foundation.js",
       "startLine": 4,
       "endLine": 49,
       "description": "Runtime, utilitários, versão, storage e chaves de migração",
-      "sha256Body": "a771a2ec3dcc8c5ed9fdab50e8206030c89079323752f5058f3d9328b0fefd5b"
+      "sha256Body": "23ec4cb559c79afca2f6f20d66de41ceb73747af8507648bec420e9d5e587555"
     },
     {
       "file": "src/modules/00a-visual-foundation-avatar-v2.js",
@@ -42,7 +42,7 @@
       "startLine": 1043,
       "endLine": 1171,
       "description": "Desafios diários, educação, quiz e coleção",
-      "sha256Body": "28bfae12189a8bfd6118d93fdeb881fff8c23a4fc4bccd32bfa8dd9cebd2baba"
+      "sha256Body": "6568456327e756bedba02239db69aab9a94b29232d611b3ca6e39c0aae7ce703"
     },
     {
       "file": "src/modules/05-avatar-life-customization.js",
@@ -70,7 +70,7 @@
       "startLine": 1456,
       "endLine": 1604,
       "description": "Rotas, trânsito, grafo, GPS e minimapa",
-      "sha256Body": "fcc675d8dd62aadb921f967300044d3fb05afbea4d51ac37fffbd245b3687e7c"
+      "sha256Body": "0ad525439d6a3ac296870f6a25e9776d5bbfed7ad081a26741a3700bb2611d7f"
     },
     {
       "file": "src/modules/08-map-parent-settings.js",
@@ -154,7 +154,7 @@
       "startLine": 3497,
       "endLine": 3557,
       "description": "Castelo, aventuras, desafios e praça educacional",
-      "sha256Body": "ed109312f584cc409313032922e0dc4fe4fe8e21b42fd6c6628409c30a5f5ab5"
+      "sha256Body": "a3c615624a9ef87a5e494157ef42c39cc4b910083379d8ba8dbef0e05bcd0e52"
     },
     {
       "file": "src/modules/18-water-fishing-boats.js",
@@ -182,21 +182,21 @@
       "startLine": 3950,
       "endLine": 4126,
       "description": "Atividades, mercado, oficina, amizades, NPCs e corridas",
-      "sha256Body": "e3a8f62dbb3984c755a838070d35c8154210ba7facdf322d0ae03778724e31cf"
+      "sha256Body": "323e14201c77bd112bc2374b950aa86cd7661543591f92c8db0060af84e78f31"
     },
     {
       "file": "src/modules/22-careers-jobs-uniforms.js",
       "startLine": 4128,
       "endLine": 4243,
       "description": "Carreiras, estados de missão, uniformes, professor, bombeiro e entrega",
-      "sha256Body": "e5e68b3147df7d02829f8dec18b5f2297c407c46838840d213c099f1a0111602"
+      "sha256Body": "5b8ccea7fe11dfd5bb6c050c6706dbecea3e5f8bf36ec666cf4baa6a7bf0e169"
     },
     {
       "file": "src/modules/23-vehicle-effects-driving.js",
       "startLine": 4245,
       "endLine": 4381,
       "description": "Poeira, som, efeitos, controles, direção, passageiros e ponte",
-      "sha256Body": "635c627701df7d96878ea2250e6d90038bfd21d983fb32db8e27ccb15fa1c938"
+      "sha256Body": "417a3a2d443091d403869cd9c72e935c5edb7b54076e501763d7cce9abcaef01"
     },
     {
       "file": "src/modules/24-construction-system.js",
@@ -231,7 +231,7 @@
       "startLine": 4767,
       "endLine": 4928,
       "description": "Sociedade NPC, inimigos, combate, câmera, contexto, ação e necessidades",
-      "sha256Body": "450860baa7f7666e99fcc264ed11dba0406660812718dab9ebf1de9ac21c7753"
+      "sha256Body": "bd6fa1daa2ba3dd8b690f027c46e812e8013fe467303295aff1b12241b2230bd"
     },
     {
       "file": "src/modules/28-multiplayer-social-online.js",
@@ -245,7 +245,7 @@
       "startLine": 5124,
       "endLine": 5238,
       "description": "Loop principal, controles, gamepad e início do jogo",
-      "sha256Body": "0fcddbd32815b1a4b8de67ce55dc2cad0b66fca064f90c7a27d2227c3bd02996"
+      "sha256Body": "af4644b1da1e442f37b54e46e5e3020bd592c90a57602efb169ef6c535cd50d6"
     },
     {
       "file": "src/modules/30-pause-tests-public-api-bootstrap.js",
@@ -294,7 +294,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Dano, quebra, reboque e reparo real de veículos V704",
-      "sha256Body": "80a440c082623384023705b4a910d51146e0be7aad9ebd09f3ca4ae30d85494f"
+      "sha256Body": "f22ebea147a29ee3958a4ee914132f1506f2eaddd6b1fd326a128991ad848c68"
     },
     {
       "file": "src/modules/37-hero-platform-gameplay.js",
@@ -464,7 +464,7 @@
       "startLine": 1,
       "endLine": 36,
       "description": "Autoridade final de HUD mobile em paisagem e UX da central de esportes",
-      "sha256Body": "8228aae9763241b72dfe44b025418aa9688b0081fae21184bb25e6c177d4994d"
+      "sha256Body": "c7ebb4eca4e23e355effedea981a5626554c7ccb4b61d9cdad9697dac35a44a9"
     },
     {
       "file": "src/styles/19z-global-microtype-floor-r14.css",
@@ -478,7 +478,7 @@
       "startLine": 0,
       "endLine": 0,
       "description": "Autoridade final R14: legibilidade, contraste, escala e responsividade global",
-      "sha256Body": "8febc408e9bfda3ec65ace2b15a0d08ab0f2a7576a32366a03c42751026edb31"
+      "sha256Body": "f61b27ab1a979c733cf76a8db6420a56f22f8d1d2e0768eecbcf534cfe97efce"
     }
   ]
 }

@@ -11,7 +11,7 @@
   })();
   window.OTTHI_CONFIG = {
     version: 705,
-    build: '705.14-responsive-global-sports-actions-apk-update',
+    build: '705.15-tia-thamis-otton-connect-school',
     repository: repo,
     baseUrl,
     firebaseRoot: 'otthosWorld',

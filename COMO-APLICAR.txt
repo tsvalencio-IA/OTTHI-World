@@ -1,0 +1,18 @@
+OTTHI World — R15 Tia Thamis / Otton Connect
+
+1) Substitua estes arquivos por cima da sua árvore atual R14.
+2) Faça o deploy/publicação normalmente.
+3) Como esta revisão sobe o assetVersion para 70592, o cache novo deve entrar após publicar.
+4) Valide no jogo:
+   - Bairro da escola / praça educacional
+   - NPC Tia Thamis
+   - escola abrindo o painel da Tia Thamis
+   - Matemática, Português e English Otton
+   - Otton Connect / Método Otton
+
+Resumo do que entrou:
+- NPC Tia Thamis na escola
+- painel próprio com atendimento, plano, progresso e método
+- recomendação automática do próximo estudo
+- renomeação pedagógica para Otton Connect / Método Otton
+- cache/versionamento atualizado para R15 / asset 70592

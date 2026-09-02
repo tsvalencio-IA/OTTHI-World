@@ -64,10 +64,10 @@
   }
   function hubHtml() {
     const s = summary();
-    return `<section class="learning-hub"><div class="learning-summary"><div><small>DOMÍNIO MÉDIO</small><b>${s.average}%</b></div><div><small>SEQUÊNCIA</small><b>${s.streak} 🔥</b></div><div><small>RESPOSTAS</small><b>${s.totalAnswered}</b></div></div><p>Os desafios ficam mais difíceis conforme a criança aprende. As recompensas continuam ligadas ao mundo aberto.</p><div class="learning-subjects">${Object.entries(s.subjects).map(([id,item])=>`<button type="button" data-subject="${id}"><span>${item.icon}</span><b>${item.name}</b><small>${Math.round(item.mastery)}% dominado</small><i><em style="width:${Math.round(item.mastery)}%"></em></i></button>`).join('')}</div></section>`;
+    return `<section class="learning-hub"><div class="learning-summary"><div><small>DOMÍNIO MÉDIO</small><b>${s.average}%</b></div><div><small>SEQUÊNCIA</small><b>${s.streak} 🔥</b></div><div><small>RESPOSTAS</small><b>${s.totalAnswered}</b></div></div><p>A trilha Otton Connect fica mais desafiadora conforme a criança aprende. As recompensas continuam ligadas ao mundo aberto.</p><div class="learning-subjects">${Object.entries(s.subjects).map(([id,item])=>`<button type="button" data-subject="${id}"><span>${item.icon}</span><b>${item.name}</b><small>${Math.round(item.mastery)}% dominado</small><i><em style="width:${Math.round(item.mastery)}%"></em></i></button>`).join('')}</div></section>`;
   }
   function openHub() {
-    window.OTTHI_MODAL?.open('Trilha de Aprendizado', hubHtml(), root => {
+    window.OTTHI_MODAL?.open('Otton Connect • Trilha de Aprendizado', hubHtml(), root => {
       root.querySelectorAll('[data-subject]').forEach(button => button.addEventListener('click', () => start(button.dataset.subject)));
     });
   }
@@ -96,7 +96,7 @@
   function finish() {
     const result = { score:session.score, total:session.total, subjectId:session.subjectId };
     session = null;
-    window.OTTHI_MODAL?.open('Desafio concluído', `<section class="learning-result"><div>${result.score>=4?'🏆':'🌟'}</div><h3>${result.score}/${result.total}</h3><p>O progresso foi salvo. Continue explorando o mundo para transformar aprendizado em recompensas.</p><button type="button" class="btn primary" data-learning-back>Voltar à trilha</button></section>`, root => root.querySelector('[data-learning-back]')?.addEventListener('click', openHub));
+    window.OTTHI_MODAL?.open('Otton Connect • Desafio concluído', `<section class="learning-result"><div>${result.score>=4?'🏆':'🌟'}</div><h3>${result.score}/${result.total}</h3><p>O progresso foi salvo. Continue explorando o mundo para transformar aprendizado em recompensas.</p><button type="button" class="btn primary" data-learning-back>Voltar à trilha</button></section>`, root => root.querySelector('[data-learning-back]')?.addEventListener('click', openHub));
     window.dispatchEvent(new CustomEvent('otthi:learning-session-finished',{detail:result}));
   }
   async function cloudMerge() {

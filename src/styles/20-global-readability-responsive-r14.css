@@ -213,3 +213,20 @@
   .modal-card{height:calc(100dvh - 4px)!important;max-height:calc(100dvh - 4px)!important}
   .modal-body .choice,.modal-body .btn{min-height:38px!important}
 }
+
+
+/* ---------- Tia Thamis / Otton Connect ---------- */
+.thamis-console{display:grid;gap:12px}
+.thamis-banner{background:linear-gradient(135deg,rgba(232,95,167,.18),rgba(103,76,255,.12))!important;border:1px solid rgba(255,182,219,.28)!important;border-radius:16px!important;padding:12px!important}
+.thamis-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.thamis-tabs button{min-height:44px!important;border-radius:12px!important;border:1px solid rgba(125,223,242,.26)!important;background:rgba(8,26,43,.75)!important;color:#eaf6ff!important;font-size:12px!important;font-weight:800!important}
+.thamis-tabs button.active{background:linear-gradient(145deg,#7a2f74,#173f68)!important;border-color:#ffb5dd!important}
+.thamis-content,.thamis-pane,.thamis-card-grid,.thamis-progress-grid,.thamis-pillar-grid{display:grid;gap:10px}
+.thamis-card-grid,.thamis-progress-grid,.thamis-pillar-grid{grid-template-columns:repeat(auto-fit,minmax(210px,1fr))}
+.thamis-card,.thamis-highlight{background:rgba(9,31,48,.82);border:1px solid rgba(125,223,242,.2);border-radius:16px;padding:12px}
+.thamis-card p,.thamis-highlight p{margin:6px 0 0 0!important}
+.thamis-card b,.thamis-highlight b{display:block;margin:2px 0 4px 0}
+.thamis-progress-card{box-shadow:inset 0 0 0 1px color-mix(in srgb, var(--thamis,#65dff2) 28%, transparent)}
+.thamis-progress-bar{height:10px;border-radius:999px;background:rgba(255,255,255,.09);overflow:hidden;margin:8px 0}
+.thamis-progress-bar i{display:block;height:100%;border-radius:999px;background:linear-gradient(90deg,var(--thamis,#65dff2),#ffffff)}
+@media(max-width:640px){.thamis-tabs{grid-template-columns:repeat(2,minmax(0,1fr))}.thamis-card-grid,.thamis-progress-grid,.thamis-pillar-grid{grid-template-columns:1fr}}
