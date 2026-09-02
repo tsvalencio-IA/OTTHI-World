@@ -53,6 +53,8 @@ jobs:
           python tools/test_v7057_r10_visual_fidelity.py
           python tools/test_v7057_r11_focus.py
           python tools/test_r13_gameplay_ux_regression.py
+          python tools/test_r14_global_ui_apk_update.py
+          node tools/test_r14_sports_controls_runtime.js
           python tools/validate_project.py
       - name: Validar JavaScript
         run: node --check app.js
